@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<block>
+  <name>Cell ID daemon</name>
+  <key>lte_cell_id_daemon</key>
+  <category>lte</category>
+  <import>import lte</import>
+  <make>lte.cell_id_daemon(self.$(eq()).eq, self.$(demux()), self.$(descr()))</make>
+  <callback>set_cell_id()</callback>
+  <!-- Make one 'param' node for every Parameter you want settable from the GUI.
+       Sub-nodes:
+       * name
+       * key (makes the value accessible as $keyname, e.g. in the make node)
+       * type -->
+  <param>
+    <name>equalizer</name>
+    <key>eq</key>
+    <type>string</type>
+  </param>
+  
+  <param>
+    <name>demultiplexer</name>
+    <key>demux</key>
+    <type>string</type>
+  </param>
+  
+  <param>
+    <name>descrambler</name>
+    <key>descr</key>
+    <type>string</type>
+  </param>
+
+  <!-- Make one 'sink' node per input. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+<!--
+  <sink>
+    <name>in</name>
+    <type>NO TYPE</type>
+  </sink>
+-->
+
+  <!-- Make one 'source' node per output. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+<!--
+  <source>
+    <name>out</name>
+    <type>NO TYPE</type>
+  </source>
+-->
+</block>

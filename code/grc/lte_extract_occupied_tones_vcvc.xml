@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<block>
+  <name>Extract occupied tones</name>
+  <key>lte_extract_occupied_tones_vcvc</key>
+  <category>lte</category>
+  <import>import lte</import>
+  <make>lte.extract_occupied_tones_vcvc($N_rb_dl,$fftl)</make>
+  <!-- Make one 'param' node for every Parameter you want settable from the GUI.
+       Sub-nodes:
+       * name
+       * key (makes the value accessible as $keyname, e.g. in the make node)
+       * type -->
+  <param>
+    <name>resource blocks</name>
+    <key>N_rb_dl</key>
+    <type>int</type>
+  </param>
+  
+  <param>
+    <name>FFT length</name>
+    <key>fftl</key>
+    <type>int</type>
+  </param>
+
+  <!-- Make one 'sink' node per input. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+  <sink>
+    <name>in</name>
+    <type>complex</type>
+    <vlen>$fftl</vlen>
+  </sink>
+
+  <!-- Make one 'source' node per output. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+  <source>
+    <name>out</name>
+    <type>complex</type>
+    <vlen>12*$N_rb_dl</vlen>
+  </source>
+</block>
