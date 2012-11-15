@@ -30,7 +30,7 @@ endif()
 ########################################################################
 GR_PYTHON_INSTALL(
     FILES
-    __init__.py viterbi_vfvb.py hier_freq_estimate_cc.py hier_sss_sync_cc.py pss_sync_hier_cc.py linear_OFDM_equalizer_hier_vcvc.py DESTINATION ${GR_PYTHON_DIR}/lte
+    __init__.py viterbi_vfvb.py hier_freq_estimate_cc.py hier_sss_sync_cc.py hier_pss_sync_cc.py linear_OFDM_estimator_hier_vcvc.py DESTINATION ${GR_PYTHON_DIR}/lte
 )
 
 ########################################################################
@@ -52,7 +52,7 @@ GR_ADD_TEST(qa_qpsk_soft_demod_vcvf ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_
 GR_ADD_TEST(qa_layer_demapper_vcvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_layer_demapper_vcvc.py)
 GR_ADD_TEST(qa_pre_decoder_vcvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_pre_decoder_vcvc.py)
 GR_ADD_TEST(qa_pbch_demux_vcvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_pbch_demux_vcvc.py)
-GR_ADD_TEST(qa_linear_OFDM_equalizer_vcvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_linear_OFDM_equalizer_vcvc.py)
+GR_ADD_TEST(qa_linear_OFDM_estimator_vcvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_linear_OFDM_estimator_vcvc.py)
 GR_ADD_TEST(qa_extract_occupied_tones_vcvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_extract_occupied_tones_vcvc.py)
 GR_ADD_TEST(qa_remove_cp_cvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_remove_cp_cvc.py)
 GR_ADD_TEST(qa_tag_symbol_cc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_tag_symbol_cc.py)
@@ -60,13 +60,13 @@ GR_ADD_TEST(qa_hier_freq_estimate_cc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE
 GR_ADD_TEST(qa_freq_estimate_c ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_freq_estimate_c.py)
 GR_ADD_TEST(qa_hier_sss_sync_cc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_hier_sss_sync_cc.py)
 GR_ADD_TEST(qa_sss_selector_cvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_sss_selector_cvc.py)
-GR_ADD_TEST(qa_sss_calc_vci ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_sss_calc_vci.py)
+GR_ADD_TEST(qa_sss_calc_vc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_sss_calc_vc.py)
 GR_ADD_TEST(qa_sss_tagging_cc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_sss_tagging_cc.py)
 GR_ADD_TEST(qa_pss_selector_cvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_pss_selector_cvc.py)
 GR_ADD_TEST(qa_pss_calc_vc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_pss_calc_vc.py)
 GR_ADD_TEST(qa_pss_tagging_cc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_pss_tagging_cc.py)
-GR_ADD_TEST(qa_pss_sync_hier_cc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_pss_sync_hier_cc.py)
+GR_ADD_TEST(qa_hier_pss_sync_cc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_hier_pss_sync_cc.py)
 GR_ADD_TEST(qa_cp_time_freq_sync_cc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_cp_time_freq_sync_cc.py)
 GR_ADD_TEST(qa_cell_id_daemon ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_cell_id_daemon.py)
-GR_ADD_TEST(qa_linear_OFDM_equalizer_hier_vcvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_linear_OFDM_equalizer_hier_vcvc.py)
+GR_ADD_TEST(qa_linear_OFDM_estimator_hier_vcvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_linear_OFDM_estimator_hier_vcvc.py)
 GR_ADD_TEST(qa_zadoff_chu_seq_generator_vc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_zadoff_chu_seq_generator_vc.py)

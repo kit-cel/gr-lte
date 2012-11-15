@@ -28,7 +28,7 @@ install(FILES
     lte_layer_demapper_vcvc.xml
     lte_pre_decoder_vcvc.xml
     lte_pbch_demux_vcvc.xml
-    lte_linear_OFDM_equalizer_vcvc.xml
+    lte_linear_OFDM_estimator_vcvc.xml
     lte_extract_occupied_tones_vcvc.xml
     lte_remove_cp_cvc.xml
     lte_tag_symbol_cc.xml
@@ -36,14 +36,14 @@ install(FILES
     lte_freq_estimate_c.xml
     lte_hier_sss_sync_cc.xml
     lte_sss_selector_cvc.xml
-    lte_sss_calc_vci.xml
+    lte_sss_calc_vc.xml
     lte_sss_tagging_cc.xml
     lte_pss_selector_cvc.xml
     lte_pss_calc_vc.xml
     lte_pss_tagging_cc.xml
-    lte_pss_sync_hier_cc.xml
+    lte_hier_pss_sync_cc.xml
     lte_cp_time_freq_sync_cc.xml
     lte_cell_id_daemon.xml
-    lte_linear_OFDM_equalizer_hier_vcvc.xml
+    lte_linear_OFDM_estimator_hier_vcvc.xml
     lte_zadoff_chu_seq_generator_vc.xml DESTINATION share/gnuradio/grc/blocks
 )

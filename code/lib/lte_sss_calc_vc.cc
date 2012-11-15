@@ -1,6 +1,6 @@
 /* -*- c++ -*- */
 /* 
- * Copyright 2012 <+YOU OR YOUR COMPANY+>.
+ * Copyright 2012 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
  * 
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,19 +23,19 @@
 #endif
 
 #include <gr_io_signature.h>
-#include <lte_sss_calc_vci.h>
+#include <lte_sss_calc_vc.h>
 #include <cstdio>
 
 
-lte_sss_calc_vci_sptr
-lte_make_sss_calc_vci (tag_sptr &tag, daemon_sptr &daemon, int fftl)
+lte_sss_calc_vc_sptr
+lte_make_sss_calc_vc (tag_sptr &tag, daemon_sptr &daemon, int fftl)
 {
-	return lte_sss_calc_vci_sptr (new lte_sss_calc_vci (tag, daemon, fftl));
+	return lte_sss_calc_vc_sptr (new lte_sss_calc_vc (tag, daemon, fftl));
 }
 
 
-lte_sss_calc_vci::lte_sss_calc_vci (tag_sptr &tag, daemon_sptr &daemon, int fftl)
-	: gr_sync_block ("sss_calc_vci",
+lte_sss_calc_vc::lte_sss_calc_vc (tag_sptr &tag, daemon_sptr &daemon, int fftl)
+	: gr_sync_block ("sss_calc_vc",
 		gr_make_io_signature (1,1, sizeof (gr_complex)*72),
 		gr_make_io_signature (0,0,0)),
 		d_fftl(fftl),
@@ -106,13 +106,13 @@ lte_sss_calc_vci::lte_sss_calc_vci (tag_sptr &tag, daemon_sptr &daemon, int fftl
 }
 
 
-lte_sss_calc_vci::~lte_sss_calc_vci ()
+lte_sss_calc_vc::~lte_sss_calc_vc ()
 {
 }
 
 
 int
-lte_sss_calc_vci::work (int noutput_items,
+lte_sss_calc_vc::work (int noutput_items,
 			gr_vector_const_void_star &input_items,
 			gr_vector_void_star &output_items)
 {
@@ -248,7 +248,7 @@ lte_sss_calc_vci::work (int noutput_items,
 
 
 int
-lte_sss_calc_vci::calc_m(gr_complex *s0m0)
+lte_sss_calc_vc::calc_m(gr_complex *s0m0)
 {
     int mX = -1;
     int N = 62;
@@ -296,7 +296,7 @@ lte_sss_calc_vci::calc_m(gr_complex *s0m0)
 
 // simple correlation between 2 arrays. returns complex value.
 gr_complex
-lte_sss_calc_vci::corr(gr_complex *x,gr_complex *y, int len)
+lte_sss_calc_vc::corr(gr_complex *x,gr_complex *y, int len)
 {
     gr_complex val = 0;
     for(int i = 0 ; i < len ; i++){
@@ -308,7 +308,7 @@ lte_sss_calc_vci::corr(gr_complex *x,gr_complex *y, int len)
 
 // be careful! input arrays must have the same size!
 void
-lte_sss_calc_vci::xcorr(std::vector<gr_complex> &v, gr_complex *x,gr_complex *y, int len)
+lte_sss_calc_vc::xcorr(std::vector<gr_complex> &v, gr_complex *x,gr_complex *y, int len)
 {
     int N = len;
     

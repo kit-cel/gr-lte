@@ -20,39 +20,39 @@
 #
 
 from gnuradio import gr, gr_unittest
-import lte
+import lte_swig
+import numpy
 import scipy.io
-import os
+from pylab import *
 
-class qa_pss_sync_hier_cc (gr_unittest.TestCase):
+class qa_sss_calc_vc (gr_unittest.TestCase):
 
     def setUp (self):
         self.tb = gr.top_block ()
         
-        offset = 584  #sample15 = 21839 #sample20 = 43223
-        fftl = 512
-        cpl = 144*fftl/2048
-        cpl0 = 160*fftl/2048
-        slotl = 7*fftl+6*cpl+cpl0
-        cell_id = 124
-        N_rb_dl = 6
-        
-        
-        mod=scipy.io.loadmat('/home/demel/exchange/matlab_test_first_freq.mat') 
-        mat_u1=tuple(mod['test'].flatten())
+        mod=scipy.io.loadmat('/home/demel/exchange/matlab_sss.mat') 
+        mat_u1=tuple(mod['sss'].flatten())
         mat_d=range(len(mat_u1))
         for idx, val in enumerate(mat_u1):
             mat_d[idx]=val
-        intu=tuple(mat_d[0:offset + 100*slotl])
+        intu=tuple(mat_d)
         
+        fftl = 512
         
-        self.src = gr.vector_source_c(intu,False,1)
-        self.tag = lte.tag_symbol_cc(offset,fftl)
-        self.pss = lte.pss_sync_hier_cc(fftl)
+        self.daemon = lte_swig.cell_id_daemon()
         
-        self.snk = gr.vector_sink_c(1)
+        # This is not yet a complete test! It's just for the purpose of testing the decoding and correlating.
+        # Tag handling is not tested.
+        self.src  = gr.vector_source_c(intu,False,72)
         
-        self.tb.connect(self.src, self.tag, self.pss, self.snk)
+        self.tag = lte_swig.sss_tagging_cc(fftl)
+        # calc sink block, which sets some attributes of other blocks.
+        self.calc = lte_swig.sss_calc_vc(self.tag, fftl)
+        
+
+        
+        self.tb.connect(self.src,self.calc)
+        
 
     def tearDown (self):
         self.tb = None
@@ -61,6 +61,11 @@ class qa_pss_sync_hier_cc (gr_unittest.TestCase):
         # set up fg
         self.tb.run ()
         # check data
+        
+        corr_vec = self.calc.get_corr_vec()
+        
+        #plot(corr_vec)
+        #show()
 
 
 if __name__ == '__main__':

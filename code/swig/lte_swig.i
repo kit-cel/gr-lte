@@ -19,13 +19,13 @@
 #include "lte_layer_demapper_vcvc.h"
 #include "lte_pre_decoder_vcvc.h"
 #include "lte_pbch_demux_vcvc.h"
-#include "lte_linear_OFDM_equalizer_vcvc.h"
+#include "lte_linear_OFDM_estimator_vcvc.h"
 #include "lte_extract_occupied_tones_vcvc.h"
 #include "lte_remove_cp_cvc.h"
 #include "lte_tag_symbol_cc.h"
 #include "lte_freq_estimate_c.h"
 #include "lte_sss_selector_cvc.h"
-#include "lte_sss_calc_vci.h"
+#include "lte_sss_calc_vc.h"
 #include "lte_sss_tagging_cc.h"
 #include "lte_pss_selector_cvc.h"
 #include "lte_pss_calc_vc.h"
@@ -66,8 +66,8 @@ GR_SWIG_BLOCK_MAGIC(lte,pre_decoder_vcvc);
 GR_SWIG_BLOCK_MAGIC(lte,pbch_demux_vcvc);
 %include "lte_pbch_demux_vcvc.h"
 
-GR_SWIG_BLOCK_MAGIC(lte,linear_OFDM_equalizer_vcvc);
-%include "lte_linear_OFDM_equalizer_vcvc.h"
+GR_SWIG_BLOCK_MAGIC(lte,linear_OFDM_estimator_vcvc);
+%include "lte_linear_OFDM_estimator_vcvc.h"
 
 GR_SWIG_BLOCK_MAGIC(lte,extract_occupied_tones_vcvc);
 %include "lte_extract_occupied_tones_vcvc.h"
@@ -84,8 +84,8 @@ GR_SWIG_BLOCK_MAGIC(lte,freq_estimate_c);
 GR_SWIG_BLOCK_MAGIC(lte,sss_selector_cvc);
 %include "lte_sss_selector_cvc.h"
 
-GR_SWIG_BLOCK_MAGIC(lte,sss_calc_vci);
-%include "lte_sss_calc_vci.h"
+GR_SWIG_BLOCK_MAGIC(lte,sss_calc_vc);
+%include "lte_sss_calc_vc.h"
 
 GR_SWIG_BLOCK_MAGIC(lte,sss_tagging_cc);
 %include "lte_sss_tagging_cc.h"

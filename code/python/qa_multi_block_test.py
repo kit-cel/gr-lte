@@ -67,7 +67,7 @@ class qa_multi_block_test (gr_unittest.TestCase):
         self.head1 = gr.head(gr.sizeof_gr_complex, samps)
         #self.tag  = lte_swig.tag_symbol_cc(offset,fftl)
         self.sync = lte_swig.cp_time_freq_sync_cc(fftl)
-        self.pss = lte.pss_sync_hier_cc(fftl)
+        self.pss = lte.hier_pss_sync_cc(fftl)
         self.est = lte.hier_freq_estimate_cc(fftl)
         # This is the actual place to initialize self.sss
         # Nevertheless it it the last block to be initialized because it needs pointers to some others.
@@ -78,7 +78,7 @@ class qa_multi_block_test (gr_unittest.TestCase):
         self.fft  = gr.fft_vcc(fftl,True,window.rectangular(fftl),False,1)
         self.ext  = lte_swig.extract_occupied_tones_vcvc(N_rb_dl,fftl)
         
-        self.eq   = lte.linear_OFDM_equalizer_hier_vcvc(N_rb_dl)#cell_id,
+        self.eq   = lte.linear_OFDM_estimator_hier_vcvc(N_rb_dl)#cell_id,
         #self.eq.set_cell_id(cell_id)
         #self.sh1  = gr.skiphead(gr.sizeof_gr_complex*12*N_rb_dl,7)
         #self.sh2  = gr.skiphead(gr.sizeof_gr_complex*12*N_rb_dl,7)

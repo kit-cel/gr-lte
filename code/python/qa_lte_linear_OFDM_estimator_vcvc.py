@@ -25,7 +25,7 @@ import numpy
 import scipy.io
 import os
 
-class qa_linear_OFDM_equalizer_vcvc (gr_unittest.TestCase):
+class qa_linear_OFDM_estimator_vcvc (gr_unittest.TestCase):
 
     def setUp (self):
         print os.getpid()
@@ -33,7 +33,7 @@ class qa_linear_OFDM_equalizer_vcvc (gr_unittest.TestCase):
     
         self.tb = gr.top_block ()
         
-        print "\nqa_lte_linear_OFDM_equalizer_vcvc START"
+        print "\nqa_lte_linear_OFDM_estimator_vcvc START"
         
         
         # Input 1, PBCH frame
@@ -52,7 +52,7 @@ class qa_linear_OFDM_equalizer_vcvc (gr_unittest.TestCase):
         
         cell_id = 124
         N_rb_dl = 6
-        self.eq = lte_swig.linear_OFDM_equalizer_vcvc(N_rb_dl) #cell_id,
+        self.eq = lte_swig.linear_OFDM_estimator_vcvc(N_rb_dl) #cell_id,
         self.eq.set_cell_id(cell_id)
         
         self.sh1 = gr.skiphead(gr.sizeof_gr_complex*12*N_rb_dl,7)

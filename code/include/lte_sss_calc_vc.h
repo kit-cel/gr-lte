@@ -1,6 +1,6 @@
 /* -*- c++ -*- */
 /* 
- * Copyright 2012 <+YOU OR YOUR COMPANY+>.
+ * Copyright 2012 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
  * 
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,33 +18,33 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef INCLUDED_LTE_SSS_CALC_VCI_H
-#define INCLUDED_LTE_SSS_CALC_VCI_H
+#ifndef INCLUDED_LTE_SSS_CALC_VC_H
+#define INCLUDED_LTE_SSS_CALC_VC_H
 
 #include <lte_api.h>
 #include <gr_sync_block.h>
 #include <lte_sss_tagging_cc.h>
 #include <lte_cell_id_daemon.h>
 
-class lte_sss_calc_vci;
-typedef boost::shared_ptr<lte_sss_calc_vci> lte_sss_calc_vci_sptr;
+class lte_sss_calc_vc;
+typedef boost::shared_ptr<lte_sss_calc_vc> lte_sss_calc_vc_sptr;
 typedef boost::shared_ptr<lte_cell_id_daemon> daemon_sptr;
 typedef boost::shared_ptr<lte_sss_tagging_cc> tag_sptr;
 
-LTE_API lte_sss_calc_vci_sptr lte_make_sss_calc_vci (tag_sptr &tag, daemon_sptr &daemon, int fftl);
+LTE_API lte_sss_calc_vc_sptr lte_make_sss_calc_vc (tag_sptr &tag, daemon_sptr &daemon, int fftl);
 
 /*!
  * \brief <+description+>
  *
  */
-class LTE_API lte_sss_calc_vci : public gr_sync_block
+class LTE_API lte_sss_calc_vc : public gr_sync_block
 {
-	friend LTE_API lte_sss_calc_vci_sptr lte_make_sss_calc_vci (tag_sptr &tag, daemon_sptr &daemon, int fftl);
+	friend LTE_API lte_sss_calc_vc_sptr lte_make_sss_calc_vc (tag_sptr &tag, daemon_sptr &daemon, int fftl);
 
-	lte_sss_calc_vci (tag_sptr &tag, daemon_sptr &daemon, int fftl);
+	lte_sss_calc_vc (tag_sptr &tag, daemon_sptr &daemon, int fftl);
 
  public:
-	~lte_sss_calc_vci ();
+	~lte_sss_calc_vc ();
 
 
 	int work (int noutput_items,
@@ -82,5 +82,5 @@ class LTE_API lte_sss_calc_vci : public gr_sync_block
     std::vector<float> corr_vec;
 };
 
-#endif /* INCLUDED_LTE_SSS_CALC_VCI_H */
+#endif /* INCLUDED_LTE_SSS_CALC_VC_H */
 

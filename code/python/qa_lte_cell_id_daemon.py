@@ -29,7 +29,7 @@ class qa_cell_id_daemon (gr_unittest.TestCase):
         
         N_rb_dl = 6
         
-        self.eq   = lte_swig.linear_OFDM_equalizer_vcvc(N_rb_dl)
+        self.eq   = lte_swig.linear_OFDM_estimator_vcvc(N_rb_dl)
         self.demux= lte_swig.pbch_demux_vcvc(N_rb_dl)
         self.ld   = lte_swig.descrambling_vfvf()
         self.daemon = lte_swig.cell_id_daemon(self.eq,self.demux,self.ld)

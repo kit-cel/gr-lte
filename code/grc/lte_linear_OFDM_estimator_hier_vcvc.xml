@@ -1,19 +1,20 @@
 <?xml version="1.0"?>
 <block>
-  <name>linear_OFDM_equalizer_vcvc</name>
-  <key>lte_linear_OFDM_equalizer_vcvc</key>
+  <name>OFDM linear Estimator</name>
+  <key>lte_linear_OFDM_estimator_hier_vcvc</key>
   <category>lte</category>
   <import>import lte</import>
-  <make>lte.linear_OFDM_equalizer_vcvc(cell_id, N_rb_dl)</make>
+  <make>lte.linear_OFDM_estimator_hier_vcvc($N_rb_dl)</make>
+  <callback>set_cell_id()</callback>
   <!-- Make one 'param' node for every Parameter you want settable from the GUI.
        Sub-nodes:
        * name
        * key (makes the value accessible as $keyname, e.g. in the make node)
        * type -->
   <param>
-    <name>...</name>
-    <key>...</key>
-    <type>...</type>
+    <name>resource blocks</name>
+    <key>N_rb_dl</key>
+    <type>int</type>
   </param>
 
   <!-- Make one 'sink' node per input. Sub-nodes:
@@ -23,7 +24,8 @@
        * optional (set to 1 for optional inputs) -->
   <sink>
     <name>in</name>
-    <type><!-- e.g. int, real, complex, byte, short, xxx_vector, ...--></type>
+    <type>complex</type>
+    <vlen>12*$N_rb_dl</vlen>
   </sink>
 
   <!-- Make one 'source' node per output. Sub-nodes:
@@ -32,7 +34,22 @@
        * vlen
        * optional (set to 1 for optional inputs) -->
   <source>
-    <name>out</name>
-    <type><!-- e.g. int, real, complex, byte, short, xxx_vector, ...--></type>
+    <name>out0</name>
+    <type>complex</type>
+    <vlen>12*$N_rb_dl</vlen>
   </source>
+  
+  <source>
+    <name>out1</name>
+    <type>complex</type>
+    <vlen>12*$N_rb_dl</vlen>
+  </source>
+  
+  <source>
+    <name>out2</name>
+    <type>complex</type>
+    <vlen>12*$N_rb_dl</vlen>
+  </source>
+  
+
 </block>

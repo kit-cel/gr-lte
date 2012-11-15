@@ -1,6 +1,6 @@
 /* -*- c++ -*- */
 /* 
- * Copyright 2012 Johannes Demel
+ * Copyright 2012 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
  * 
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,31 +18,31 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef INCLUDED_LTE_LINEAR_OFDM_EQUALIZER_VCVC_H
-#define INCLUDED_LTE_LINEAR_OFDM_EQUALIZER_VCVC_H
+#ifndef INCLUDED_LTE_LINEAR_OFDM_ESTIMATOR_VCVC_H
+#define INCLUDED_LTE_LINEAR_OFDM_ESTIMATOR_VCVC_H
 
 #include <lte_api.h>
 #include <gr_sync_block.h>
 #include <fftw3.h>
 #include <volk/volk.h>
 
-class lte_linear_OFDM_equalizer_vcvc;
-typedef boost::shared_ptr<lte_linear_OFDM_equalizer_vcvc> lte_linear_OFDM_equalizer_vcvc_sptr;
+class lte_linear_OFDM_estimator_vcvc;
+typedef boost::shared_ptr<lte_linear_OFDM_estimator_vcvc> lte_linear_OFDM_estimator_vcvc_sptr;
 
-LTE_API lte_linear_OFDM_equalizer_vcvc_sptr lte_make_linear_OFDM_equalizer_vcvc (int N_rb_dl); //int cell_id,
+LTE_API lte_linear_OFDM_estimator_vcvc_sptr lte_make_linear_OFDM_estimator_vcvc (int N_rb_dl); //int cell_id,
 
 /*!
  * \brief <+description+>
  *
  */
-class LTE_API lte_linear_OFDM_equalizer_vcvc : public gr_sync_block
+class LTE_API lte_linear_OFDM_estimator_vcvc : public gr_sync_block
 {
-	friend LTE_API lte_linear_OFDM_equalizer_vcvc_sptr lte_make_linear_OFDM_equalizer_vcvc (int N_rb_dl);//int cell_id,
+	friend LTE_API lte_linear_OFDM_estimator_vcvc_sptr lte_make_linear_OFDM_estimator_vcvc (int N_rb_dl);//int cell_id,
 
-	lte_linear_OFDM_equalizer_vcvc (int N_rb_dl);//int cell_id, 
+	lte_linear_OFDM_estimator_vcvc (int N_rb_dl);//int cell_id, 
 
  public:
-	~lte_linear_OFDM_equalizer_vcvc ();
+	~lte_linear_OFDM_estimator_vcvc ();
 
     typedef gr_complex* rs_mat[2][40];
     typedef gr_complex* ce_vec[7];
@@ -87,5 +87,5 @@ class LTE_API lte_linear_OFDM_equalizer_vcvc : public gr_sync_block
     gr_complex* rs_mapper(int N_rb_dl,int ns,int l,int cell_id,int Ncp,int p);
 };
 
-#endif /* INCLUDED_LTE_LINEAR_OFDM_EQUALIZER_VCVC_H */
+#endif /* INCLUDED_LTE_LINEAR_OFDM_ESTIMATOR_VCVC_H */
 

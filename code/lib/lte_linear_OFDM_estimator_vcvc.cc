@@ -1,6 +1,6 @@
 /* -*- c++ -*- */
 /* 
- * Copyright 2012 Johannes Demel
+ * Copyright 2012 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
  * 
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,20 +23,20 @@
 #endif
 
 #include <gr_io_signature.h>
-#include <lte_linear_OFDM_equalizer_vcvc.h>
+#include <lte_linear_OFDM_estimator_vcvc.h>
 #include <cstdio>
 #include <cmath>
 
 
-lte_linear_OFDM_equalizer_vcvc_sptr
-lte_make_linear_OFDM_equalizer_vcvc (int N_rb_dl)
+lte_linear_OFDM_estimator_vcvc_sptr
+lte_make_linear_OFDM_estimator_vcvc (int N_rb_dl)
 {
-	return lte_linear_OFDM_equalizer_vcvc_sptr (new lte_linear_OFDM_equalizer_vcvc (N_rb_dl));
+	return lte_linear_OFDM_estimator_vcvc_sptr (new lte_linear_OFDM_estimator_vcvc (N_rb_dl));
 }
 
 
-lte_linear_OFDM_equalizer_vcvc::lte_linear_OFDM_equalizer_vcvc (int N_rb_dl)
-	: gr_sync_block ("linear_OFDM_equalizer_vcvc",
+lte_linear_OFDM_estimator_vcvc::lte_linear_OFDM_estimator_vcvc (int N_rb_dl)
+	: gr_sync_block ("linear_OFDM_estimator_vcvc",
 		gr_make_io_signature (1,1, sizeof (gr_complex)*12*N_rb_dl ),
 		gr_make_io_signature (3,3, sizeof (gr_complex)*12*N_rb_dl )),
 		d_cell_id(-1),
@@ -81,7 +81,7 @@ lte_linear_OFDM_equalizer_vcvc::lte_linear_OFDM_equalizer_vcvc (int N_rb_dl)
 }
 
 
-lte_linear_OFDM_equalizer_vcvc::~lte_linear_OFDM_equalizer_vcvc ()
+lte_linear_OFDM_estimator_vcvc::~lte_linear_OFDM_estimator_vcvc ()
 {
     fftwf_free(d_ce_vec1);
     fftwf_free(d_ce_vec2);
@@ -106,11 +106,11 @@ lte_linear_OFDM_equalizer_vcvc::~lte_linear_OFDM_equalizer_vcvc ()
 }
 
 const gr_complex
-lte_linear_OFDM_equalizer_vcvc::d_C_I = gr_complex(0,1);
+lte_linear_OFDM_estimator_vcvc::d_C_I = gr_complex(0,1);
 
 
 int
-lte_linear_OFDM_equalizer_vcvc::work (int noutput_items,
+lte_linear_OFDM_estimator_vcvc::work (int noutput_items,
 			gr_vector_const_void_star &input_items,
 			gr_vector_void_star &output_items)
 {
@@ -282,7 +282,7 @@ lte_linear_OFDM_equalizer_vcvc::work (int noutput_items,
 
 
 void
-lte_linear_OFDM_equalizer_vcvc::calc_eq_freq_domain(gr_complex* ce, gr_complex* svec, gr_complex* rvec)
+lte_linear_OFDM_estimator_vcvc::calc_eq_freq_domain(gr_complex* ce, gr_complex* svec, gr_complex* rvec)
 {
 
     int N_rb_dl = d_N_rb_dl;
@@ -350,7 +350,7 @@ lte_linear_OFDM_equalizer_vcvc::calc_eq_freq_domain(gr_complex* ce, gr_complex* 
 
 
 void
-lte_linear_OFDM_equalizer_vcvc::pn_seq_generator(char* c, int len, int cinit)
+lte_linear_OFDM_estimator_vcvc::pn_seq_generator(char* c, int len, int cinit)
 {
 
 	
@@ -383,7 +383,7 @@ lte_linear_OFDM_equalizer_vcvc::pn_seq_generator(char* c, int len, int cinit)
 
 // Be careful! This method returns a complex array with 220 elements. There is no way to specify it or do other stuff.
 void //gr_complex*
-lte_linear_OFDM_equalizer_vcvc::rs_generator(gr_complex* r, int ns,int l,int cell_id,int Ncp)
+lte_linear_OFDM_estimator_vcvc::rs_generator(gr_complex* r, int ns,int l,int cell_id,int Ncp)
 {
     
     const float SQRT2 = sqrt(2.0);
@@ -403,7 +403,7 @@ lte_linear_OFDM_equalizer_vcvc::rs_generator(gr_complex* r, int ns,int l,int cel
 }
 
 gr_complex* 
-lte_linear_OFDM_equalizer_vcvc::rs_mapper(int N_rb_dl, int ns,int l,int cell_id,int Ncp,int p)
+lte_linear_OFDM_estimator_vcvc::rs_mapper(int N_rb_dl, int ns,int l,int cell_id,int Ncp,int p)
 {
     const int Nrbdlmax = 110;
     
@@ -434,7 +434,7 @@ lte_linear_OFDM_equalizer_vcvc::rs_mapper(int N_rb_dl, int ns,int l,int cell_id,
 }
 
 void
-lte_linear_OFDM_equalizer_vcvc::set_cell_id(int id)
+lte_linear_OFDM_estimator_vcvc::set_cell_id(int id)
 {
     printf("%s\tset_cell_id = %i\n", name().c_str(), id);
     d_cell_id = id;

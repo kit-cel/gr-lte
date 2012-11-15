@@ -52,7 +52,7 @@ class hier_sss_sync_cc(gr.hier_block2):
         
         self.tag = lte_swig.sss_tagging_cc(fftl)
         # calc sink block, which sets some attributes of other blocks.
-        self.calc = lte_swig.sss_calc_vci(self.tag, daemon, fftl)
+        self.calc = lte_swig.sss_calc_vc(self.tag, daemon, fftl)
         
         # Connect blocks
         self.connect(self, self.tag, self)

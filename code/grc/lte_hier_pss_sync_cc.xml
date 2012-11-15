@@ -1,32 +1,21 @@
 <?xml version="1.0"?>
 <block>
-  <name>SSS Calculator</name>
-  <key>lte_sss_calc_vci</key>
+  <name>PSS Synchronization</name>
+  <key>lte_hier_pss_sync_cc</key>
   <category>lte</category>
   <import>import lte</import>
-  <make>lte.sss_calc_vci($(tag()), $(daemon()), $fftl)</make>
+  <make>lte.hier_pss_sync_cc($fftl)</make>
   <!-- Make one 'param' node for every Parameter you want settable from the GUI.
        Sub-nodes:
        * name
        * key (makes the value accessible as $keyname, e.g. in the make node)
        * type -->
   <param>
-    <name>FFT Length</name>
+    <name>FFT length</name>
     <key>fftl</key>
     <type>int</type>
   </param>
 
-  <param>
-    <name>tag</name>
-    <key>tag</key>
-    <type>string</type>
-  </param>
-  
-  <param>
-    <name>daemon</name>
-    <key>daemon</key>
-    <type>string</type>
-  </param>
   <!-- Make one 'sink' node per input. Sub-nodes:
        * name (an identifier for the GUI)
        * type
@@ -35,7 +24,15 @@
   <sink>
     <name>in</name>
     <type>complex</type>
-    <vlen>72</vlen>
   </sink>
 
+  <!-- Make one 'source' node per output. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+  <source>
+    <name>out</name>
+    <type>complex</type>
+  </source>
 </block>

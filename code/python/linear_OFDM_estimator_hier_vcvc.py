@@ -20,18 +20,18 @@
 from gnuradio import gr
 import lte
 
-class linear_OFDM_equalizer_hier_vcvc(gr.hier_block2):
+class linear_OFDM_estimator_hier_vcvc(gr.hier_block2):
     def __init__(self, N_rb_dl):
         """
         docstring
 	    """
-        gr.hier_block2.__init__(self, "linear_OFDM_equalizer_hier_vcvc",
+        gr.hier_block2.__init__(self, "linear_OFDM_estimator_hier_vcvc",
 				gr.io_signature(1,1, gr.sizeof_gr_complex*12*N_rb_dl),  # Input signature
 				gr.io_signature(3,3, gr.sizeof_gr_complex*12*N_rb_dl)) # Output signature
 
         # Define blocks
         
-        self.eq   = lte.linear_OFDM_equalizer_vcvc(N_rb_dl)
+        self.eq   = lte.linear_OFDM_estimator_vcvc(N_rb_dl)
         #self.eq.set_cell_id(cell_id)
         self.sh1  = gr.skiphead(gr.sizeof_gr_complex*12*N_rb_dl,7)
         self.sh2  = gr.skiphead(gr.sizeof_gr_complex*12*N_rb_dl,7)

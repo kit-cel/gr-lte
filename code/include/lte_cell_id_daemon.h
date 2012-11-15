@@ -1,6 +1,6 @@
 /* -*- c++ -*- */
 /* 
- * Copyright 2012 Johannes Demel
+ * Copyright 2012 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
  * 
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,14 +23,14 @@
 
 #include <lte_api.h>
 #include <gr_sync_block.h>
-#include <lte_linear_OFDM_equalizer_vcvc.h>
+#include <lte_linear_OFDM_estimator_vcvc.h>
 #include <lte_pbch_demux_vcvc.h>
 #include <lte_descrambling_vfvf.h>
 
 class lte_cell_id_daemon;
 typedef boost::shared_ptr<lte_cell_id_daemon> lte_cell_id_daemon_sptr;
 
-typedef boost::shared_ptr<lte_linear_OFDM_equalizer_vcvc> eq_sptr;
+typedef boost::shared_ptr<lte_linear_OFDM_estimator_vcvc> eq_sptr;
 typedef boost::shared_ptr<lte_pbch_demux_vcvc> demux_sptr;
 typedef boost::shared_ptr<lte_descrambling_vfvf> descr_sptr;
 

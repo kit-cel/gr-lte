@@ -20,7 +20,7 @@
 from gnuradio import gr, window
 import lte
 
-class pss_sync_hier_cc(gr.hier_block2):
+class hier_pss_sync_cc(gr.hier_block2):
     def __init__(self, fftl):
         """
         This hierarchical block has a complex input and complex output stream. The actual data remains unchanged.
@@ -31,7 +31,7 @@ class pss_sync_hier_cc(gr.hier_block2):
         The input data must be tagged with information for symbols. (key = symbol)
         the tag propagation policy is set to TPP_DONT.
 	    """
-        gr.hier_block2.__init__(self, "pss_sync_hier_cc",
+        gr.hier_block2.__init__(self, "hier_pss_sync_cc",
 				gr.io_signature(1,1, gr.sizeof_gr_complex),  # Input signature
 				gr.io_signature(1,1, gr.sizeof_gr_complex)) # Output signature
 
