@@ -57,14 +57,15 @@ lte_qpsk_soft_demod_vcvf::work (int noutput_items,
 	const gr_complex *in = (const gr_complex *) input_items[0];
 	float *out = (float *) output_items[0];
 	
-	//float realval = (*in).real();
-	//float imagval = (*in).imag();
-	
-	for (int i = 0 ; i < 240 ; i++ ) {
-	    *(out+2*i  ) = (*(in+i)).real();
-	    *(out+2*i+1) = (*(in+i)).imag();
-	    //printf("real = %f\timag = %f\n", (*(in+i)).real(), (*(in+i)).imag() );
+	for (int c = 0; c < noutput_items ; c++){
+		for (int i = 0 ; i < 240 ; i++ ) {
+	        *(out+2*i  ) = (*(in+i)).real();
+	        *(out+2*i+1) = (*(in+i)).imag();
+	    }
+	    out += 480;
+	    in  += 240;
 	}
+
 
 	// Tell runtime system how many output items we produced.
 	return 1;

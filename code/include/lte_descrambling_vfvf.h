@@ -27,17 +27,17 @@
 class lte_descrambling_vfvf;
 typedef boost::shared_ptr<lte_descrambling_vfvf> lte_descrambling_vfvf_sptr;
 
-LTE_API lte_descrambling_vfvf_sptr lte_make_descrambling_vfvf ();// int cell_id
+LTE_API lte_descrambling_vfvf_sptr lte_make_descrambling_vfvf ();
 
 /*!
- * \brief <+description+>
+ * \brief Block performs descrambling with the given Cell ID
  *
  */
 class LTE_API lte_descrambling_vfvf : public gr_sync_interpolator
 {
-	friend LTE_API lte_descrambling_vfvf_sptr lte_make_descrambling_vfvf ();//int cell_id
+	friend LTE_API lte_descrambling_vfvf_sptr lte_make_descrambling_vfvf ();
 
-	lte_descrambling_vfvf (); //int cell_id
+	lte_descrambling_vfvf ();
 
  public:
 	~lte_descrambling_vfvf ();

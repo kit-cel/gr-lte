@@ -28,15 +28,12 @@
 #include <cmath>
 #include <fftw3.h>
 #include <volk/volk.h>
-//#define NDEBUG
-
 
 lte_pss_calc_vc_sptr
 lte_make_pss_calc_vc (boost::shared_ptr<lte_pss_tagging_cc> &tag, boost::shared_ptr<lte_pss_selector_cvc> &sel, int fftl)
 {
 	return lte_pss_calc_vc_sptr (new lte_pss_calc_vc (tag, sel, fftl));
 }
-
 
 lte_pss_calc_vc::lte_pss_calc_vc (boost::shared_ptr<lte_pss_tagging_cc> &tag, boost::shared_ptr<lte_pss_selector_cvc> &sel, int fftl)
 	: gr_sync_block ("pss_calc_vc",
@@ -56,125 +53,39 @@ lte_pss_calc_vc::lte_pss_calc_vc (boost::shared_ptr<lte_pss_tagging_cc> &tag, bo
 {
     zc(d_chu0,0);
     zc(d_chu1,1);
-    zc(d_chu2,2);
-    
-    const int alignment_multiple = volk_get_alignment() / sizeof(gr_complex);
-    
-    printf("%s\tal_mult = %i\tget_al = %i\tsizeof = %ld\n", name().c_str(), alignment_multiple, volk_get_alignment(), sizeof(gr_complex) );
-    //set_alignment(std::max(1,alignment_multiple));
-//    d_uchu0.resize(62);
-//    d_uchu1.resize(62);
-//    d_uchu2.resize(62);
-    
-//    for (int i = 0 ; i < 62 ; i++){
-//        d_uchu0[i] = d_chu0[i];
-//        d_uchu1[i] = d_chu1[i];
-//        d_uchu2[i] = d_chu2[i];
-//    }
-    
+    zc(d_chu2,2); 
 }
-
-
-
 
 lte_pss_calc_vc::~lte_pss_calc_vc ()
 {
 }
 
+// Define imaginary constant
 const gr_complex
 lte_pss_calc_vc::d_C_I = gr_complex(0,1);
 
+// Define PI for use in this block
 const float
-lte_pss_calc_vc::d_PI = float(3.14159265358979323846);
+lte_pss_calc_vc::d_PI = float(M_PI);
 
 void
 lte_pss_calc_vc::zc(gr_complex *zc, int cell_id)
 {
     int Nzc=62;
     float u=0;
-    if (cell_id==0){u=25.0;}
-    if (cell_id==1){u=29.0;}
-    if (cell_id==2){u=34.0;}
-
-    //printf("complex = %+8.6f %+8.6fj\tPI = %f\n",d_C_I.real(),d_C_I.imag(),d_PI);
-    for(int n = 0; n < 31; n++){
-        zc[n]=exp(d_C_I* gr_complex(d_PI*u* float(-1*n    *(n+1))/63.0 ) );
-        //printf("%+8.6f %+8.6f\texp(j*%f)\n",zc[n].real(),zc[n].imag(),d_PI*u* float(-1*n    *(n+1))/63.0);
-    }
-    for(int n = 31; n < 62 ; n++){
-        zc[n]=exp(d_C_I* gr_complex(d_PI*u* float(-1*(n+1)*(n+2))/63.0 ) );
-    }
-    /*for(int n = 0 ; n < 62 ; n++){
-        zc[n] = zc[n]/gr_complex(sqrt(62.0));
-    }*/
-}
-
-/*
-// be careful! input arrays must have the same size!
-void
-lte_pss_calc_vc::xcorr(std::vector<gr_complex> &v, gr_complex *x,gr_complex *y, int len)
-{
-    int N = len;
-    int sizeof_gr_complex = sizeof(gr_complex);
-    gr_complex *ax  = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*len);
-    gr_complex *ay  = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*len);
-    gr_complex *axc = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*len);
-    gr_complex *ayc = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*len);
-    gr_complex *val = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*1);
-    memcpy(axc,x,sizeof(gr_complex)*len);
-    memcpy(ayc,y,sizeof(gr_complex)*len);
-    //volk_32fc_conjugate_32fc_a(ay,ay,len);
-/*    
-    for (int i = 0 ; i < 2 * N - 1 ; i++){
-        if(i < N){
-            memcpy(ax, x+(N-1-i), sizeof_gr_complex*(i+1) );
-            volk_32fc_x2_dot_prod_32fc_a(val, ax, ayc, i+1 );
-
-            //volk_32fc_x2_dot_prod_32fc_a(val, ax+(N-1-i), ay, i+1 );
-            v.push_back(*val);
-        }
-        else{
-            memcpy(ay, y+(i-N), 2*N-1-i);
-            volk_32fc_x2_dot_prod_32fc_a(val, axc, ay, 2*N-1-i );
-            //v.push_back( corr(ax,ay+(i-N),2*N-1-i) );
-            //volk_32fc_x2_dot_prod_32fc_a(val, ax, ay+(i-N), 2*N-1-i );
-            v.push_back(*val);
-        }
+    switch (cell_id){
+        case 0: u=25.0; break;
+        case 1: u=29.0; break;
+        case 2: u=34.0; break;
     }
 
-    gr_complex gen_val = 0;
-    for (int i = 0 ; i < 2 * N - 1 ; i++){
-        if(i < N){
-            gen_val = corr(x+(N-1-i), y, i+1);
-            v.push_back( gen_val );
-            //d_corr_vec.push_back(abs(gen_val));
-        }
-        else{
-            gen_val = corr(x, y+(i-N), 2*N-1-i);
-            v.push_back( gen_val );
-            //d_corr_vec.push_back(abs(gen_val));
-        }
+    // generate zadoff-chu sequences according to original algorithm
+    gr_complex zcs[63];
+    for(int n = 0; n < 63; n++){
+        zcs[n]=exp(d_C_I* gr_complex(d_PI*u* float(-1*n    *(n+1))/63.0 ) );
     }
-  
-    fftwf_free(ax);
-    fftwf_free(ay);
-    fftwf_free(axc);
-    fftwf_free(ayc);
-    fftwf_free(val);
-}
-*/
-
-// classic corr
-gr_complex
-lte_pss_calc_vc::corr(gr_complex *x, gr_complex *y, int len)
-{
-    gr_complex val = 0;
-
-    for(int i = 0; i < len; i++){
-        val += ( x[i]*conj(y[i]) );
-    }
-    
-    return val;
+    //remove DC carrier (maybe changed in the future)
+    memcpy(zc, zcs, sizeof(gr_complex)*63);
 }
 
 // simple correlation between 2 arrays. returns complex value.
@@ -200,17 +111,18 @@ void
 lte_pss_calc_vc::cxcorr(std::vector<gr_complex> &v, gr_complex *x,gr_complex *y, int len)
 {
     int N = len;
+    // calculate array lengths as multiple of volk_get_alignment.
     int alen = len + (volk_get_alignment() - (len)%volk_get_alignment() );
     
     gr_complex shift = 0;
     gr_complex val = 0;
-    gr_complex c_val = 0;
     gr_complex *ax   = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*alen);
     gr_complex *ay   = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*alen);
     gr_complex *res  = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*alen);
     memcpy(ax,x,sizeof(gr_complex)*len);
     memcpy(ay,y,sizeof(gr_complex)*len);
     
+    // conjugate 1 vector (only once performed)
     volk_32fc_conjugate_32fc_a(ay,ay,len);
     
     for (int i = 0 ; i < 2*N-1 ; i++){
@@ -218,20 +130,13 @@ lte_pss_calc_vc::cxcorr(std::vector<gr_complex> &v, gr_complex *x,gr_complex *y,
         shift = ay[0];
         memmove(ay, &ay[1] ,sizeof(gr_complex)*(len-1));
         ay[len-1]=shift;
-
         val = corr(res,ax,ay,alen);
-
         v.push_back( val );
-        //d_corr_vec.push_back(abs(val));
     }
-    /*
-    for(int i = 0; i < 500 ; i++){
-        d_corr_vec.push_back(0);
-    }
-    */
     
     fftwf_free(ax);
     fftwf_free(ay);
+    //fftwf_free(res);
 }
 
 void
@@ -239,13 +144,8 @@ lte_pss_calc_vc::max_pos(float &max, int &pos, gr_complex *x,gr_complex *y, int 
 {
     std::vector<gr_complex> v;
     cxcorr(v, x, y, len);
-    //float *res_mag  = (gr_complex*)fftwf_malloc(sizeof(float)*(2*len-1));
-    //volk_32fc_magnitude_32f_a(res_mag, res, len);
-    //unsigned int *max_p;
-    //volk_32fc_index_max_16u_a(max_p, res, 2*len-1);
-    //gr_complex* max_cp = (gr_complex*) max_p;
-    //max = abs( *max_cp );
-    //pos = (max_cp-res)/sizeof(gr_complex);
+    
+    // Standard way to find pos and max
     max = 0.0;
     pos = -1;
     for(int i = 0; i < v.size() ; i++){
@@ -253,25 +153,23 @@ lte_pss_calc_vc::max_pos(float &max, int &pos, gr_complex *x,gr_complex *y, int 
             max = abs(v[i]);
             pos = i;
         }
-    }
-    
-    
+    }  
 }
 
 
 bool
 lte_pss_calc_vc::find_pss_symbol(gr_complex *chuX)
 {
-    int len = 62;
-    
+    int len = 63;
+        
     float max0 = 0.0;
     int pos0 = 0;
     max_pos(max0, pos0, d_chu0, chuX, len);
-
+    
     float max1 = 0.0;
     int pos1 = 0;
     max_pos(max1, pos1, d_chu1, chuX, len);
-
+    
     float max2 = 0.0;
     int pos2 = 0;
     max_pos(max2, pos2, d_chu2, chuX, len);
@@ -290,20 +188,13 @@ lte_pss_calc_vc::find_pss_symbol(gr_complex *chuX)
         }
     }
     
+    //Calculate return value
     bool has_changed = false;
     if(d_corr_val < maxc){
         has_changed = true;
-        //if(d_N_id_2 != N_id_2){
-        //    has_changed = true;
-        //}
         d_N_id_2 = N_id_2;
         d_corr_val = maxc;
-        //printf("max0 = %+10.6f\tmax1 = %+10.6f max2 = %+10.6f\t\tN_id_2 = %i\td_N_id_2 = %i\td_corr_val = %f\n",max0, max1, max2, N_id_2, d_N_id_2, d_corr_val);
-        
     }
-    
-    
-    
     return has_changed;
 }
 
@@ -312,15 +203,19 @@ lte_pss_calc_vc::work (int noutput_items,
 			gr_vector_const_void_star &input_items,
 			gr_vector_void_star &output_items)
 {
+	// This is a sink block. It does not compute any output.
 	const gr_complex *in = (const gr_complex *) input_items[0];
 
+    // block maybe locked --> if so, do not do signal processing
     if(d_is_locked){return noutput_items;}
     
     
     bool changed = false;
     for(int i = 0 ; i < noutput_items ; i++){
-        gr_complex chuX[62] = {0};
-        memcpy(chuX,in+5,sizeof(gr_complex)*62);
+        gr_complex chuX[63] = {0};
+        memcpy(chuX,in+5,sizeof(gr_complex)*31);
+        memcpy(chuX+32,in+5+31,sizeof(gr_complex)*31);
+        
         in += 72;
     
         changed = find_pss_symbol(chuX);
@@ -350,6 +245,7 @@ lte_pss_calc_vc::work (int noutput_items,
         }
         else{d_lock_count++;}
     }
+    
     // After a certain amount of unchanged N_id_2 calculations. calculation is stopped and block has no further function.
     if(d_lock_count > 300 && d_N_id_2 >=0 ){
         std::vector <gr_tag_t> v_off;
@@ -361,10 +257,8 @@ lte_pss_calc_vc::work (int noutput_items,
             (*d_tag).lock();
             (*d_sel).lock();
         }
-        
     }
     
-
 	// Tell runtime system how many output items we produced.
 	return noutput_items;
 }

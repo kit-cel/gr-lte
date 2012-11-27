@@ -31,8 +31,12 @@ typedef boost::shared_ptr<lte_mib_unpack_vb> lte_mib_unpack_vb_sptr;
 LTE_API lte_mib_unpack_vb_sptr lte_make_mib_unpack_vb ();
 
 /*!
- * \brief <+description+>
- *
+ * MIB unpack decodes all MIB parameters and makes them available. 
+ * This block takes 2 inputs. 
+ * A vector with the 24 Bits of the MIB.
+ * An input with the decoded N_ant.
+ * 
+ * This block has public members to get access to the decoded MIB parameters.
  */
 class LTE_API lte_mib_unpack_vb : public gr_sync_block
 {
@@ -69,7 +73,6 @@ class LTE_API lte_mib_unpack_vb : public gr_sync_block
     std::vector<int> d_SFN_vec;
     
     int d_work_calls;
-    time_t d_timestamp;
 };
 
 #endif /* INCLUDED_LTE_MIB_UNPACK_VB_H */

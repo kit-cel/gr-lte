@@ -30,7 +30,9 @@ typedef boost::shared_ptr<lte_qpsk_soft_demod_vcvf> lte_qpsk_soft_demod_vcvf_spt
 LTE_API lte_qpsk_soft_demod_vcvf_sptr lte_make_qpsk_soft_demod_vcvf ();
 
 /*!
- * \brief <+description+>
+ * \brief This block does a qpsk soft demodulation
+ * 1. bit == real part
+ * 2. bit == imaginary part
  *
  */
 class LTE_API lte_qpsk_soft_demod_vcvf : public gr_sync_block

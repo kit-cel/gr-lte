@@ -27,15 +27,15 @@
 class lte_rate_unmatch_vff;
 typedef boost::shared_ptr<lte_rate_unmatch_vff> lte_rate_unmatch_vff_sptr;
 
-LTE_API lte_rate_unmatch_vff_sptr lte_make_rate_unmatch_vff ();//int cell_id
+LTE_API lte_rate_unmatch_vff_sptr lte_make_rate_unmatch_vff ();
 
 /*!
- * \brief <+description+>
+ * \brief Block Rate unmatching
  *
  */
 class LTE_API lte_rate_unmatch_vff : public gr_sync_block
 {
-	friend LTE_API lte_rate_unmatch_vff_sptr lte_make_rate_unmatch_vff ();//int cell_id
+	friend LTE_API lte_rate_unmatch_vff_sptr lte_make_rate_unmatch_vff ();
 
 	lte_rate_unmatch_vff ();//int cell_id
 
@@ -47,7 +47,6 @@ class LTE_API lte_rate_unmatch_vff : public gr_sync_block
 		gr_vector_void_star &output_items);
 
  private:
-	//int d_cell_id;
 	float *d_matrix;
 	static const int d_ic_perm[]; 
 	
@@ -55,7 +54,7 @@ class LTE_API lte_rate_unmatch_vff : public gr_sync_block
 	int d_interl_pos_len;
 	
 	int d_work_calls;
-	int d_tag_v_size;
+	//int d_tag_v_size;
 
 	void subblock_interleaver_prototype(int len);
 };

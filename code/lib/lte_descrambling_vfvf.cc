@@ -29,31 +29,22 @@
 #include <fstream>
 
 lte_descrambling_vfvf_sptr
-lte_make_descrambling_vfvf ()//int cell_id
+lte_make_descrambling_vfvf ()
 {
-	return lte_descrambling_vfvf_sptr (new lte_descrambling_vfvf ());//cell_id
+	return lte_descrambling_vfvf_sptr (new lte_descrambling_vfvf ());
 }
 
 
-lte_descrambling_vfvf::lte_descrambling_vfvf ()//int cell_id
+lte_descrambling_vfvf::lte_descrambling_vfvf ()
 	: gr_sync_interpolator ("descrambling_vfvf",
 		gr_make_io_signature (1, 1, sizeof (float)*480),
 		gr_make_io_signature (1, 1, sizeof (float)*120), 32),
 		d_cell_id(-1),
 		d_work_call(0)
 {
-	
-	//printf("lte_descrambling_vfvf: Constructor BEGIN\n");
-	
+    // set PMT blob info	
 	d_key=pmt::pmt_string_to_symbol("descr_part");
-	d_tag_id=pmt::pmt_string_to_symbol(name() );
-	
-	//set_cell_id(cell_id);
-	
-	
-	
-	//printf("lte_descrambling_vfvf: Constructor END\n");
-	
+	d_tag_id=pmt::pmt_string_to_symbol(name() );	
 }
 
 
@@ -62,7 +53,7 @@ lte_descrambling_vfvf::~lte_descrambling_vfvf ()
     delete[]d_pn_seq;
 }
 
-// WORK function. 1 input vector generates 16 output vectors.
+// WORK function. 1 input vector generates 32 output vectors.
 int
 lte_descrambling_vfvf::work (int noutput_items,
 			gr_vector_const_void_star &input_items,
@@ -71,12 +62,12 @@ lte_descrambling_vfvf::work (int noutput_items,
 	const float *in = (const float *) input_items[0];
 	float *out = (float *) output_items[0];
 	
+	// If Cell ID is not set, do not process anything!
 	if(d_cell_id < 0){
 	    return 0;
 	}
 	
 	d_work_call++;
-	//printf("lte_descrambling_vfvf: BEGIN\tnoutput_items = %i\n", noutput_items);
 
 	// Read in vector and make copies for a 1920-element vector.
 	float scr[d_pn_seq_len];
@@ -110,14 +101,10 @@ lte_descrambling_vfvf::work (int noutput_items,
 		memcpy(out+120*i+480*3,scr+480*3,sizeof(float) *120);
 	}
 	
-	
-	
-	
 	for (int i = 0 ; i < 32 ; i++){
 		add_item_tag(0,nitems_written(0)+i,d_key, pmt::pmt_from_long(i),d_tag_id);
 	}
-		
-	
+    	
 	// Tell runtime system how many output items we produced.
 	return 32; // noutput_items;
 }
@@ -125,9 +112,7 @@ lte_descrambling_vfvf::work (int noutput_items,
 
 char*
 lte_descrambling_vfvf::pn_seq_generator(int len, int cell_id)
-{
-	//printf("lte_descrambling::pn_seq_generator START %i\n", cell_id);
-	
+{	
 	const int Nc=1600; //Constant is defined in standard
 	int cinit=cell_id;
 	
