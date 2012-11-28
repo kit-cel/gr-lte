@@ -76,6 +76,7 @@ class LTE_API lte_pss_calc_vc : public gr_sync_block
 	void zc(gr_complex *zc, int cell_id); // used to generate Zadoff-Chu sequences
 	bool find_pss_symbol(gr_complex *chuX); // prepares the calculation stuff etc.
 	void max_pos(float &max, int &pos, gr_complex *x,gr_complex *y, int len); //finds maximum of one correlation
+	
 	// Functions to calculate correlations
 	gr_complex corr(gr_complex *res, gr_complex *x, gr_complex *y, int len); // Calculate 1 correlation
 	void cxcorr(std::vector<gr_complex> &v, gr_complex *x,gr_complex *y, int len); // Calculate cross-correlation	
