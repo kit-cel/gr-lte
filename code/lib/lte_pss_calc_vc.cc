@@ -139,7 +139,7 @@ lte_pss_calc_vc::cxcorr(std::vector<gr_complex> &v, gr_complex *x,gr_complex *y,
     
     fftwf_free(ax);
     fftwf_free(ay);
-    //fftwf_free(res);
+    fftwf_free(res);
 }
 
 void
@@ -152,44 +152,12 @@ lte_pss_calc_vc::max_pos(float &max, int &pos, gr_complex *x,gr_complex *y, int 
     // Standard way to find pos and max
     max = 0.0;
     pos = -1;
-    for(int i = 0; i < v.size() ; i++){
+    for(int i = 0; i < vsize ; i++){
         if(max < abs(v[i]) ){
             max = abs(v[i]);
             pos = i;
         }
     }
-    
-    gr_complex *vec = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*vsize);
-    float *absvec = (float*)fftwf_malloc(sizeof(float)*vsize);
-    volk_32fc_magnitude_32f_a(absvec, vec, vsize);
-    float vmax = 0.0;
-    int vpos = 0;
-    for (int i = 0 ; i < vsize; i++){
-        if(vmax < absvec[i]){
-            vmax = absvec[i];
-            vpos = i;
-        }
-    }
-    fftwf_free(vec);
-    fftwf_free(absvec);
-
-/*
-    //float *my_p   = (float*)fftwf_malloc(sizeof(float)*32);
-    unsigned int *xpos = (unsigned int*)fftwf_malloc(sizeof(unsigned int));
-    gr_complex *xvec = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*v.size());
-    memcpy(xvec,&v[0],sizeof(gr_complex)*v.size() );
-    volk_32fc_index_max_16u_a(xpos, &v[0], sizeof(gr_complex)*v.size() );
-    float xmax = abs(xvec[*xpos]);
-*/
-    if(pos != vpos){
-        printf("max_pos\tpos = %i, vpos = %i\tmax = %4.8f\tvmax = %4.8f\n",pos, vpos, max, vmax);
-    }
-    else{
-        printf("max_pos: CORRECT! max = %4.8f\tvmax = %4.8f\n", max, vmax);
-    }
-    
-    //fftwf_free(xpos);
-    //fftwf_free(xvec);
 }
 
 
