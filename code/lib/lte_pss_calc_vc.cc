@@ -53,11 +53,19 @@ lte_pss_calc_vc::lte_pss_calc_vc (boost::shared_ptr<lte_pss_tagging_cc> &tag, bo
 {
     zc(d_chu0,0);
     zc(d_chu1,1);
-    zc(d_chu2,2); 
+    zc(d_chu2,2);
+    
+    d_corr_in1   = (gr_complex*) fftwf_malloc(sizeof(gr_complex)*63 );
+    d_corr_in2   = (gr_complex*) fftwf_malloc(sizeof(gr_complex)*63 );
+    d_corr_out   = (gr_complex*) fftwf_malloc(sizeof(gr_complex)*63 );
+    d_correlator = new lte_correlation(d_corr_in1, d_corr_in2, d_corr_out, 63);
 }
 
 lte_pss_calc_vc::~lte_pss_calc_vc ()
 {
+    fftwf_free(d_corr_in1);
+    fftwf_free(d_corr_in2);
+    fftwf_free(d_corr_out);
 }
 
 // Define imaginary constant
@@ -88,76 +96,14 @@ lte_pss_calc_vc::zc(gr_complex *zc, int cell_id)
     memcpy(zc, zcs, sizeof(gr_complex)*63);
 }
 
-// simple correlation between 2 arrays. returns complex value.
-// input arrays must be aligned for volk!
-// input arrays must be a multiple volk_get_alignment value.
-gr_complex
-lte_pss_calc_vc::corr(gr_complex *res, gr_complex *x, gr_complex *y, int len)
-{
-    gr_complex val = 0;
-
-    volk_32fc_x2_multiply_32fc_a(res,x,y,len);
-    for(int i = len/2; i > 3 ; i=i/2 ){
-        volk_32f_x2_add_32f_a((float*)res, (float*)res, (float*)(res+i), i*2);
-    }
-    for(int i = 0; i < 4; i++){
-        val += *(res+i);
-    }
-    return val;
-}
-
-
-void
-lte_pss_calc_vc::cxcorr(std::vector<gr_complex> &v, gr_complex *x,gr_complex *y, int len)
-{
-    int N = len;
-    // calculate array lengths as multiple of volk_get_alignment.
-    int alen = len + (volk_get_alignment() - (len)%volk_get_alignment() );
-    
-    gr_complex shift = 0;
-    gr_complex val = 0;
-    gr_complex *ax   = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*alen);
-    gr_complex *ay   = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*alen);
-    gr_complex *res  = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*alen);
-    memset(ax , 0, sizeof(gr_complex)*alen);
-    memset(ay , 0, sizeof(gr_complex)*alen);
-    memset(res, 0, sizeof(gr_complex)*alen);
-    memcpy(ax,x,sizeof(gr_complex)*len);
-    memcpy(ay,y,sizeof(gr_complex)*len);
-    
-    // conjugate 1 vector (only once performed)
-    volk_32fc_conjugate_32fc_a(ay,ay,len);
-    
-    for (int i = 0 ; i < 2*N-1 ; i++){
-        //Shift
-        shift = ay[0];
-        memmove(ay, &ay[1] ,sizeof(gr_complex)*(len-1));
-        ay[len-1]=shift;
-        val = corr(res,ax,ay,alen);
-        v.push_back( val );
-    }
-    
-    fftwf_free(ax);
-    fftwf_free(ay);
-    fftwf_free(res);
-}
-
 void
 lte_pss_calc_vc::max_pos(float &max, int &pos, gr_complex *x,gr_complex *y, int len)
-{
-    std::vector<gr_complex> v;
-    cxcorr(v, x, y, len);
-    int vsize = v.size();
-    
-    // Standard way to find pos and max
-    max = 0.0;
-    pos = -1;
-    for(int i = 0; i < vsize ; i++){
-        if(max < abs(v[i]) ){
-            max = abs(v[i]);
-            pos = i;
-        }
-    }
+{    
+    //This is the new correlation class with use of fftw
+    memcpy(d_corr_in1, x, sizeof(gr_complex)*len );
+    memcpy(d_corr_in2, y, sizeof(gr_complex)*len );
+    d_correlator->execute();
+    d_correlator->get_maximum(pos, max);
 }
 
 

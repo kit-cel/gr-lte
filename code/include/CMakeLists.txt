@@ -22,6 +22,7 @@
 ########################################################################
 install(FILES
     lte_api.h
+    lte_correlation.h
     lte_rate_unmatch_vff.h
     lte_descrambling_vfvf.h
     lte_vector_resize_vbvb.h
