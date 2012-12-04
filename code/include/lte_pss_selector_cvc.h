@@ -55,13 +55,14 @@ class LTE_API lte_pss_selector_cvc : public gr_block
 		    gr_vector_void_star &output_items);
 		    
  private:
+    //variables needed as parameters
     int d_fftl;
     int d_cpl;
     int d_cpl0;
     int d_slotl;
     int d_syml;
     int d_syml0;
-    int d_sym_count;
+
     long d_offset;
     long d_sym_pos;
     long d_ass_half_frame_start;
@@ -72,7 +73,7 @@ class LTE_API lte_pss_selector_cvc : public gr_block
 	pmt::pmt_t d_tag_id;
 	bool d_is_locked;
 	
-	void set_sym_pos(int offset, long nread);
+	void produce_output(gr_complex *&out, const gr_complex *in, long abs_pos, int &nout);
     
 };
 

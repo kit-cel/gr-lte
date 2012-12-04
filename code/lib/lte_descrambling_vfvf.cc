@@ -50,7 +50,7 @@ lte_descrambling_vfvf::lte_descrambling_vfvf ()
 
 lte_descrambling_vfvf::~lte_descrambling_vfvf ()
 {
-    delete[]d_pn_seq;
+    //delete[] d_pn_seq;
 }
 
 // WORK function. 1 input vector generates 32 output vectors.
@@ -152,7 +152,7 @@ lte_descrambling_vfvf::set_cell_id(int id)
     int len=1920;
 	d_pn_seq_len=len;
 	char *pn_seq0 = pn_seq_generator(len,d_cell_id);
-	d_pn_seq = new char[len];
+	//d_pn_seq = new char[len];
 	//NRZ coding of pn sequence
 	for (int i = 0 ; i<len; i++){
 		d_pn_seq[i]=1-2*pn_seq0[i];

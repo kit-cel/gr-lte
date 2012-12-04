@@ -25,12 +25,7 @@ lte_correlation::lte_correlation(gr_complex* in1, gr_complex* in2, gr_complex *o
         d_in2(in2),
         d_out_p(out),
         d_len(len)
-{
-    //input and output buffers
-    //d_in1   = (gr_complex*) fftwf_malloc(sizeof(gr_complex)*d_len);
-    //d_in2   = (gr_complex*) fftwf_malloc(sizeof(gr_complex)*d_len);
-    //d_out_p = (gr_complex*) fftwf_malloc(sizeof(gr_complex)*d_len);
-    
+{    
     //internal inputs and outputs
     d_in  = (gr_complex*) fftwf_malloc(sizeof(gr_complex)*d_len);
     d_out = (gr_complex*) fftwf_malloc(sizeof(gr_complex)*d_len);
@@ -54,9 +49,6 @@ lte_correlation::~lte_correlation()
     fftwf_destroy_plan(d_plan_f);
     fftwf_destroy_plan(d_plan_r);
     
-    //fftwf_free(d_in1);
-    //fftwf_free(d_in2);
-    //fftwf_free(d_out_p);
     fftwf_free(d_in);
     fftwf_free(d_out);
     fftwf_free(d_f1);

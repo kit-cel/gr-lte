@@ -116,8 +116,8 @@ lte_sss_calc_vc::work (int noutput_items,
 			gr_vector_const_void_star &input_items,
 			gr_vector_void_star &output_items)
 {
+	// This is a sink block! It does not produce any thus it doesn't have an output port!
 	const gr_complex *in = (const gr_complex *) input_items[0];
-	//int *out = (int *) output_items[0];
 	
     if(d_is_locked){
         return noutput_items;

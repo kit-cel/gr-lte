@@ -50,7 +50,7 @@ class LTE_API lte_descrambling_vfvf : public gr_sync_interpolator
 		gr_vector_void_star &output_items);
 private:
 	int d_cell_id;
-	char* d_pn_seq;
+	char d_pn_seq[1920];
 	int d_pn_seq_len;
 	
 	pmt::pmt_t d_key;
