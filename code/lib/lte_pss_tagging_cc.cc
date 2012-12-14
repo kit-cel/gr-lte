@@ -1,17 +1,17 @@
 /* -*- c++ -*- */
-/* 
+/*
  * Copyright 2012 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
- * 
+ *
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 3, or (at your option)
  * any later version.
- * 
+ *
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this software; see the file COPYING.  If not, write to
  * the Free Software Foundation, Inc., 51 Franklin Street,
@@ -66,24 +66,15 @@ lte_pss_tagging_cc::work (int noutput_items,
 {
 	const gr_complex *in = (const gr_complex *) input_items[0];
 	gr_complex *out = (gr_complex *) output_items[0];
-	
+
 	memcpy(out,in,sizeof(gr_complex)*noutput_items);
-	
+
 	long nin = nitems_read(0);
-	
 	int half_framel = 10*d_slotl;
 	int offset = d_half_frame_start%d_slotl;
-	
-	// as long as no data about offset and N_id_2 are available just copy from input to output!
-	//if(d_N_id_2 < 0) {
-	    //printf("%s dump data! half_frame_start and N_id_2 not yet set\n", name().c_str() );
-	//    return noutput_items;
-	//}
 
-	
 	for (int i = 0 ; i < noutput_items; i++){
-        
-        
+
         if( (nin+i)%d_slotl == offset){ // removed abs
             if((nin+i)%half_framel == d_half_frame_start){ // removed abs
                 //printf("found half_frame_start\t num = %li\t0 < %li\n", nitems_read(0)+i,(nitems_read(0)+i-d_half_frame_start) );
@@ -93,13 +84,11 @@ lte_pss_tagging_cc::work (int noutput_items,
                     d_slot_num=0;
                 }
             }
-        
-        
-          
-            //printf("%s\tslot_num = %i\tabs_pos = %ld\n",name().c_str(),d_slot_num,nitems_read(0)+i );  
-            add_item_tag(0,nin+i,d_key, pmt::pmt_from_long(d_slot_num),d_tag_id);            
+
+            //printf("%s\tslot_num = %i\tabs_pos = %ld\n",name().c_str(),d_slot_num,nitems_read(0)+i );
+            add_item_tag(0,nin+i,d_key, pmt::pmt_from_long(d_slot_num),d_tag_id);
             d_slot_num = (d_slot_num+1)%10;
-            
+
             if(i+d_slotl < noutput_items){
 	            i += (d_slotl-1);
 	        }
@@ -107,11 +96,8 @@ lte_pss_tagging_cc::work (int noutput_items,
 	            i+=(noutput_items-i-1);
 	        }
         }
-        
     }
-	
 
-	
 	// Tell runtime system how many output items we produced.
 	return noutput_items;
 }

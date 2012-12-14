@@ -46,5 +46,6 @@ install(FILES
     lte_pss_tagging_cc.h
     lte_cp_time_freq_sync_cc.h
     lte_cell_id_daemon.h
-    lte_zadoff_chu_seq_generator_vc.h DESTINATION include/lte
+    lte_zadoff_chu_seq_generator_vc.h
+    lte_remove_cp2_cvc.h DESTINATION include/lte
 )

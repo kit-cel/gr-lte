@@ -70,3 +70,4 @@ GR_ADD_TEST(qa_cp_time_freq_sync_cc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_
 GR_ADD_TEST(qa_cell_id_daemon ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_cell_id_daemon.py)
 GR_ADD_TEST(qa_linear_OFDM_estimator_hier_vcvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_linear_OFDM_estimator_hier_vcvc.py)
 GR_ADD_TEST(qa_zadoff_chu_seq_generator_vc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_zadoff_chu_seq_generator_vc.py)
+GR_ADD_TEST(qa_remove_cp2_cvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_remove_cp2_cvc.py)

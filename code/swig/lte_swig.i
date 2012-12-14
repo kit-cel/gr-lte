@@ -33,6 +33,7 @@
 #include "lte_cp_time_freq_sync_cc.h"
 #include "lte_cell_id_daemon.h"
 #include "lte_zadoff_chu_seq_generator_vc.h"
+#include "lte_remove_cp2_cvc.h"
 %}
 
 
@@ -107,3 +108,6 @@ GR_SWIG_BLOCK_MAGIC(lte,cell_id_daemon);
 
 GR_SWIG_BLOCK_MAGIC(lte,zadoff_chu_seq_generator_vc);
 %include "lte_zadoff_chu_seq_generator_vc.h"
+
+GR_SWIG_BLOCK_MAGIC(lte,remove_cp2_cvc);
+%include "lte_remove_cp2_cvc.h"
