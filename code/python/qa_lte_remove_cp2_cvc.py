@@ -20,41 +20,74 @@
 #
 
 from gnuradio import gr, gr_unittest
-import lte_swig
+#import lte_swig
+import lte
 
 class qa_remove_cp2_cvc (gr_unittest.TestCase):
 
     def setUp (self):
-        print "qa_remove_cp2_cvc Start!"
-        fftl = 2048
+        print "qa_remove_cp2_cvc SetUp!"
+        self.fftl = fftl = 2048
         cpl = 144*fftl/2048
         cpl0 = 160*fftl/2048
-        slotl = 7*fftl+6*cpl+cpl0
-        hf_start = 5*slotl+4711
-        print "start = " + str(hf_start)
-    
+        self.slotl = slotl = 7*fftl+6*cpl+cpl0
+
         self.tb = gr.top_block ()
         
+        #provide test data
         self.src = gr.noise_source_c(gr.GR_GAUSSIAN,1)
-        self.head = gr.head( gr.sizeof_gr_complex, 30*slotl )
-        self.tag = lte_swig.pss_tagging_cc(fftl)
-        self.tag.set_half_frame_start(hf_start)
+        self.head = gr.head( gr.sizeof_gr_complex, 10*slotl )
+        self.tag = lte.pss_tagging_cc(fftl)
+        # set up tagging block
+        self.tag.set_half_frame_start(0)
         self.tag.set_N_id_2(1)
         self.tag.lock()
-        self.rcp = lte_swig.remove_cp2_cvc(fftl)
-        self.snk = gr.vector_sink_c(fftl)
         
+        # UUT
+        self.rcp = lte.remove_cp2_cvc(fftl)
+        
+        # sinks
+        self.snk = gr.vector_sink_c(fftl)
+        self.tagsnc = gr.tag_debug(gr.sizeof_gr_complex*fftl, "remove_cp2_cvc")
+        
+        # connect blocks
         self.tb.connect(self.src, self.head, self.tag, self.rcp, self.snk )
+        #self.tb.connect(self.rcp,self.tagsnc)
         
 
     def tearDown (self):
         self.tb = None
 
     def test_001_t (self):
+        print "qa_remove_cp2_cvc TEST 001 Start!"
+        #setup
+        self.tag.set_half_frame_start(0)
+        self.head.set_length(20*self.slotl)
+        
         # set up fg
         self.tb.run ()
+        
         # check data
-        print "qa_remove_cp2_cvc End!"
+        # test results
+        data = self.snk.data()
+        print len(data)/self.fftl
+        print "qa_remove_cp2_cvc TEST 001 End!\n"
+        
+    def test_002_data(self):
+        print "qa_remove_cp2_cvc TEST 002 Start!"
+        #setup
+        hf_start = 1*self.slotl+815
+        print "start = " + str(hf_start)
+        self.tag.set_half_frame_start(hf_start)
+        self.head.set_length(20*self.slotl+495)
+        
+        
+        # execute
+        self.tb.run()
+
+        # test results
+        print "qa_remove_cp2_cvc TEST 002 End!"
+        
 
 if __name__ == '__main__':
     gr_unittest.main ()

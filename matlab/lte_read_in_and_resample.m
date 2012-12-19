@@ -84,29 +84,6 @@ samp_rate=1000;
 fftl=512;
 
 ldr=lte_resample(path_filename,fftl,samp_rate);
-% dec = 4;
 
-% ld=read_complex_binary(path_filename);
-% disp(['binary samples = ' num2str(length(ld))]);
-% ld=ld(1:ceil(length(ld)/dec));
-% 
-% disp(['resample rate: ' num2str(res_rate)]);
-% 
-% if res_rate==3
-%     ldr=resample(ld,3072,1000); % FFT size: 2048
-% elseif res_rate==1.5
-%     ldr=resample(ld,1536,1000); % FFT size: 1024
-% elseif res_rate==0.7
-%     ldr=resample(ld,768,1000);  % FFT size: 512
-% elseif res_rate==0.4
-%     ldr=resample(ld,384,1000);  % FFT size: 256
-%   elseif res_rate==0.2
-%     ldr=resample(ld,192,1000);  % FFT size: 128 
-% else
-%     disp('ERROR unknown resample rate');
-%     ldr=-1;
-% end
-% 
-% disp(['resampled = ' num2str(length(ldr)*dec)]);
 
 end

@@ -50,8 +50,19 @@ pos=symb(1);  % 9933;
 disp(['N_id_2: ' num2str(N_id_2_rx) ' ni: ' num2str(ni) ' pss_pos: ' num2str(pss_pos) ]);
 
 
-
-
+m_pss_pos = pss_pos(1)-slot_symbs;
+testdata = test(m_pss_pos:end);
+m_pos = 0;
+e_vec = 0;
+for i=1:40
+    slot_syms = fft(testdata(cpl0:syml0),fftl);
+    testdata = testdata(syml0+1:end);
+    for i=1:6
+        slot_syms = [slot_syms;fft(testdata(cpl:syml))];
+        testdata=testdata(syml+1:end);
+    end
+    e_vec = [e_vec;slot_syms];
+end
 
 disp('lte_sss_sync');
 

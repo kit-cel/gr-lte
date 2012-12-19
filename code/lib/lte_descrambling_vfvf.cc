@@ -1,17 +1,17 @@
 /* -*- c++ -*- */
-/* 
+/*
  * Copyright 2012 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
- * 
+ *
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 3, or (at your option)
  * any later version.
- * 
+ *
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this software; see the file COPYING.  If not, write to
  * the Free Software Foundation, Inc., 51 Franklin Street,
@@ -42,9 +42,9 @@ lte_descrambling_vfvf::lte_descrambling_vfvf ()
 		d_cell_id(-1),
 		d_work_call(0)
 {
-    // set PMT blob info	
+    // set PMT blob info
 	d_key=pmt::pmt_string_to_symbol("descr_part");
-	d_tag_id=pmt::pmt_string_to_symbol(name() );	
+	d_tag_id=pmt::pmt_string_to_symbol(name() );
 }
 
 
@@ -61,12 +61,12 @@ lte_descrambling_vfvf::work (int noutput_items,
 {
 	const float *in = (const float *) input_items[0];
 	float *out = (float *) output_items[0];
-	
+
 	// If Cell ID is not set, do not process anything!
 	if(d_cell_id < 0){
 	    return 0;
 	}
-	
+
 	d_work_call++;
 
 	// Read in vector and make copies for a 1920-element vector.
@@ -92,7 +92,7 @@ lte_descrambling_vfvf::work (int noutput_items,
 		scr[i+480*2]=(scr[i+480*2]+scr[i+120+480*2]+scr[i+240+480*2]+scr[i+360+480*2])/4;
 		scr[i+480*3]=(scr[i+480*3]+scr[i+120+480*3]+scr[i+240+480*3]+scr[i+360+480*3])/4;
 	}
-	
+
 	// Write to out.
 	for (int i = 0 ; i < 4 ; i++ ){
 		memcpy(out+120*i      ,scr+0    ,sizeof(float) *120);
@@ -100,11 +100,11 @@ lte_descrambling_vfvf::work (int noutput_items,
 		memcpy(out+120*i+480*2,scr+480*2,sizeof(float) *120);
 		memcpy(out+120*i+480*3,scr+480*3,sizeof(float) *120);
 	}
-	
+
 	for (int i = 0 ; i < 32 ; i++){
 		add_item_tag(0,nitems_written(0)+i,d_key, pmt::pmt_from_long(i),d_tag_id);
 	}
-    	
+
 	// Tell runtime system how many output items we produced.
 	return 32; // noutput_items;
 }
@@ -112,15 +112,15 @@ lte_descrambling_vfvf::work (int noutput_items,
 
 char*
 lte_descrambling_vfvf::pn_seq_generator(int len, int cell_id)
-{	
+{
 	const int Nc=1600; //Constant is defined in standard
 	int cinit=cell_id;
-	
+
 	char x2[3*len+Nc];
 	for (int i = 0; i<31; i++){
 	    	char val = cinit%2;
     		cinit = floor(cinit/2);
-    		x2[i] = val;	
+    		x2[i] = val;
 	}
 
 	char *c=new char[len];
@@ -147,16 +147,17 @@ lte_descrambling_vfvf::pn_seq_generator(int len, int cell_id)
 void
 lte_descrambling_vfvf::set_cell_id(int id)
 {
-    d_cell_id = id;
-    printf("%s\tset_cell_id = %i\n", name().c_str(), d_cell_id);
+
+    printf("%s\t\tset_cell_id = %i\n", name().c_str(), id);
     int len=1920;
 	d_pn_seq_len=len;
-	char *pn_seq0 = pn_seq_generator(len,d_cell_id);
+	char *pn_seq0 = pn_seq_generator(len, id);
 	//d_pn_seq = new char[len];
 	//NRZ coding of pn sequence
 	for (int i = 0 ; i<len; i++){
 		d_pn_seq[i]=1-2*pn_seq0[i];
 	}
+    d_cell_id = id;
 }
 
 

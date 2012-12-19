@@ -1,34 +1,29 @@
-close all;
+fftl = 2048;
+cpl = 144*fftl/2048;
+cpl0 = 160*fftl/2048;
+slotl = 7*fftl+6*cpl+cpl0;
 
-z0=zadoff_chu_lte(0);
-z1=zadoff_chu_lte(1);
-z2=zadoff_chu_lte(2);
+frame_start = 0;
+slot_start = mod(frame_start,slotl);
+symbol_start = mod(slot_start+fftl+cpl0,fftl+cpl);
 
-zx=zadoff_chu_lte(1);
-zx1=zx;
+last_symb = 0;
 
-xc=zeros(125,1);
-for i = 0 : length(xc)-1
-    zx=circshift(zx,1);
-    xc(i+1) = corr(z1,zx);
+next_symb = 0;
+
+for i=0:5*slotl
+    if frame_start == mod(i,10*slotl)
+        disp(['frame_start' num2str(i) ' last ' num2str(last_symb)]);
+        last_symb = i;
+        next_symb = i+fftl+cpl0;
+    elseif slot_start == mod(i,slotl)
+        disp(['slot_start' num2str(i) ' last ' num2str(last_symb)]);
+        last_symb = i;
+        next_symb = i+fftl+cpl0;
+    elseif next_symb == i
+        disp(['symb_start ' num2str(i) ' lastdiff ' num2str(i-last_symb)]);
+        last_symb = i;
+        next_symb = i+fftl+cpl;
+    end
 end
-
-plot(abs(xc),'cx-');
-hold on;
-
-zx1=circshift(zx1,-1);
-fzx=fft(zx1);
-fz1=fft(z1);
-fres=conj(fz1).*fzx;
-
-tres=ifft(fres);
-res=[tres;tres(1:end-1)];
-
-
-plot(abs(res)/63,'b*-');
-hold on;
-
-
-
-
 

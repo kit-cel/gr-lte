@@ -46,5 +46,8 @@ install(FILES
     lte_cell_id_daemon.xml
     lte_linear_OFDM_estimator_hier_vcvc.xml
     lte_zadoff_chu_seq_generator_vc.xml
-    lte_remove_cp2_cvc.xml DESTINATION share/gnuradio/grc/blocks
+    lte_remove_cp2_cvc.xml
+    lte_sss_calc2_vc.xml
+    lte_sss_tagging2_vcvc.xml
+    lte_hier_sss_sync2_vcvc.xml DESTINATION share/gnuradio/grc/blocks
 )

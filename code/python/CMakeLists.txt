@@ -30,7 +30,7 @@ endif()
 ########################################################################
 GR_PYTHON_INSTALL(
     FILES
-    __init__.py viterbi_vfvb.py hier_freq_estimate_cc.py hier_sss_sync_cc.py hier_pss_sync_cc.py linear_OFDM_estimator_hier_vcvc.py DESTINATION ${GR_PYTHON_DIR}/lte
+    __init__.py viterbi_vfvb.py hier_freq_estimate_cc.py hier_sss_sync_cc.py hier_pss_sync_cc.py linear_OFDM_estimator_hier_vcvc.py hier_sss_sync2_vcvc.py DESTINATION ${GR_PYTHON_DIR}/lte
 )
 
 ########################################################################
@@ -71,3 +71,6 @@ GR_ADD_TEST(qa_cell_id_daemon ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/q
 GR_ADD_TEST(qa_linear_OFDM_estimator_hier_vcvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_linear_OFDM_estimator_hier_vcvc.py)
 GR_ADD_TEST(qa_zadoff_chu_seq_generator_vc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_zadoff_chu_seq_generator_vc.py)
 GR_ADD_TEST(qa_remove_cp2_cvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_remove_cp2_cvc.py)
+GR_ADD_TEST(qa_sss_calc2_vc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_sss_calc2_vc.py)
+GR_ADD_TEST(qa_sss_tagging2_vcvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_sss_tagging2_vcvc.py)
+GR_ADD_TEST(qa_hier_sss_sync2_vcvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_hier_sss_sync2_vcvc.py)

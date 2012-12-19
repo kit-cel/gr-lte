@@ -59,10 +59,22 @@ class LTE_API lte_remove_cp2_cvc : public gr_block
     int d_symb_num;
     int d_slot_num;
     pmt::pmt_t d_key;
+    pmt::pmt_t d_id_key;
 	pmt::pmt_t d_tag_id;
 	long d_half_frame_start;
+	long d_next_symbol;
 
+	int d_N_id_2; // needed be following blocks. propagation must be implemented.
+
+
+    int d_no_out_count;
 	int d_work_call;
+	int d_ofdm_symbol_count;
+	int d_next_symb_pos;
+
+    // convenience methods!
+	inline void produce_output(gr_complex *&out, const gr_complex *in, int symb_pos, int &nout);
+    inline bool is_symbol_start(long mod_pos, long slot_start);
 };
 
 #endif /* INCLUDED_LTE_REMOVE_CP2_CVC_H */

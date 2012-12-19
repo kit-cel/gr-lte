@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<block>
+  <name>SSS Sync Calc 2</name>
+  <key>lte_sss_calc2_vc</key>
+  <category>lte</category>
+  <import>import lte</import>
+  <make>lte.sss_calc2_vc(self.$(tag()), self.$(daemon()), $fftl)</make>
+  <!-- Make one 'param' node for every Parameter you want settable from the GUI.
+       Sub-nodes:
+       * name
+       * key (makes the value accessible as $keyname, e.g. in the make node)
+       * type -->
+  <param>
+    <name>FFT Length</name>
+    <key>fftl</key>
+    <type>int</type>
+  </param>
+
+  <param>
+    <name>tag</name>
+    <key>tag</key>
+    <type>string</type>
+  </param>
+  
+  <param>
+    <name>daemon</name>
+    <key>daemon</key>
+    <type>string</type>
+  </param>
+  
+  <!-- Make one 'sink' node per input. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+  <sink>
+    <name>in</name>
+    <type>complex</type>
+    <vlen>72</vlen>
+  </sink>
+</block>

@@ -19,7 +19,7 @@
 # Setup library
 ########################################################################
 include(GrPlatform) #define LIB_SUFFIX
-add_library(gnuradio-lte SHARED lte_rate_unmatch_vff.cc lte_descrambling_vfvf.cc lte_vector_resize_vbvb.cc lte_block_tests.cc lte_crc_calculator_vbvb.cc lte_mib_unpack_vb.cc lte_qpsk_soft_demod_vcvf.cc lte_layer_demapper_vcvc.cc lte_pre_decoder_vcvc.cc lte_pbch_demux_vcvc.cc lte_linear_OFDM_estimator_vcvc.cc lte_extract_occupied_tones_vcvc.cc lte_remove_cp_cvc.cc lte_tag_symbol_cc.cc lte_freq_estimate_c.cc lte_sss_selector_cvc.cc lte_sss_calc_vc.cc lte_sss_tagging_cc.cc lte_pss_selector_cvc.cc lte_pss_calc_vc.cc lte_pss_tagging_cc.cc lte_cp_time_freq_sync_cc.cc lte_cell_id_daemon.cc lte_zadoff_chu_seq_generator_vc.cc lte_correlation.cc lte_remove_cp2_cvc.cc )
+add_library(gnuradio-lte SHARED lte_rate_unmatch_vff.cc lte_descrambling_vfvf.cc lte_vector_resize_vbvb.cc lte_block_tests.cc lte_crc_calculator_vbvb.cc lte_mib_unpack_vb.cc lte_qpsk_soft_demod_vcvf.cc lte_layer_demapper_vcvc.cc lte_pre_decoder_vcvc.cc lte_pbch_demux_vcvc.cc lte_linear_OFDM_estimator_vcvc.cc lte_extract_occupied_tones_vcvc.cc lte_remove_cp_cvc.cc lte_tag_symbol_cc.cc lte_freq_estimate_c.cc lte_sss_selector_cvc.cc lte_sss_calc_vc.cc lte_sss_tagging_cc.cc lte_pss_selector_cvc.cc lte_pss_calc_vc.cc lte_pss_tagging_cc.cc lte_cp_time_freq_sync_cc.cc lte_cell_id_daemon.cc lte_zadoff_chu_seq_generator_vc.cc lte_correlation.cc lte_remove_cp2_cvc.cc lte_sss_calc2_vc.cc lte_sss_tagging2_vcvc.cc )
 target_link_libraries(gnuradio-lte ${Boost_LIBRARIES} ${GRUEL_LIBRARIES} ${GNURADIO_CORE_LIBRARIES})
 set_target_properties(gnuradio-lte PROPERTIES DEFINE_SYMBOL "gnuradio_lte_EXPORTS")
 

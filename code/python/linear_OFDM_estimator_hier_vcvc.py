@@ -1,5 +1,5 @@
 # 
-# Copyright 2012 Johannes Demel
+# Copyright 2012 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
 # 
 # This is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,9 +21,12 @@ from gnuradio import gr
 import lte
 
 class linear_OFDM_estimator_hier_vcvc(gr.hier_block2):
+    """
+    This is documentation
+    """
     def __init__(self, N_rb_dl):
         """
-        docstring
+        This is the documentation for the LTE OFDM linear Estimator block!
 	    """
         gr.hier_block2.__init__(self, "linear_OFDM_estimator_hier_vcvc",
 				gr.io_signature(1,1, gr.sizeof_gr_complex*12*N_rb_dl),  # Input signature

@@ -14,8 +14,8 @@ q = floor(( N_id_1 + (q_prime*(q_prime+1)/2) )/30 );
 m_prime = N_id_1 + q*(q+1)/2;
 m0 = mod(m_prime,31);
 m1 = mod( (m0 + floor(m_prime/31) +1),31);
-%disp(['m0: ' num2str(m0)]);
-%disp(['m1: ' num2str(m1)]);  
+disp(['m0: ' num2str(m0)]);
+disp(['m1: ' num2str(m1)]);  
 
 % Generate sX (or s_tilda)
 x_s = zeros(31,1);
@@ -29,6 +29,7 @@ x_s(5) = 1;
 for i=1:26
     x_s(i+5) = mod((x_s(i+2) + x_s(i) ) , 2);
 end
+disp(length(x_s))
 sX = zeros(31,1);
 for i=1:31
     sX(i) = 1-2* x_s(i);

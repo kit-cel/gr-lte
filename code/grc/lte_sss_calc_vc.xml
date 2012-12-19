@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <block>
-  <name>SSS Calculator</name>
+  <name>SSS Sync Calc Old</name>
   <key>lte_sss_calc_vc</key>
   <category>lte</category>
   <import>import lte</import>
-  <make>lte.sss_calc_vc($(tag()), $(daemon()), $fftl)</make>
+  <make>lte.sss_calc_vc(self.$(tag()), self.$(daemon()), $fftl)</make>
   <!-- Make one 'param' node for every Parameter you want settable from the GUI.
        Sub-nodes:
        * name

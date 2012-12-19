@@ -1,19 +1,19 @@
 <?xml version="1.0"?>
 <block>
-  <name>remove_cp2_cvc</name>
+  <name>Remove CP 2</name>
   <key>lte_remove_cp2_cvc</key>
   <category>lte</category>
   <import>import lte</import>
-  <make>lte.remove_cp2_cvc(fftl)</make>
+  <make>lte.remove_cp2_cvc($fftl)</make>
   <!-- Make one 'param' node for every Parameter you want settable from the GUI.
        Sub-nodes:
        * name
        * key (makes the value accessible as $keyname, e.g. in the make node)
        * type -->
   <param>
-    <name>...</name>
-    <key>...</key>
-    <type>...</type>
+    <name>FFT length</name>
+    <key>fftl</key>
+    <type>int</type>
   </param>
 
   <!-- Make one 'sink' node per input. Sub-nodes:
@@ -23,16 +23,12 @@
        * optional (set to 1 for optional inputs) -->
   <sink>
     <name>in</name>
-    <type><!-- e.g. int, real, complex, byte, short, xxx_vector, ...--></type>
+    <type>complex</type>
   </sink>
 
-  <!-- Make one 'source' node per output. Sub-nodes:
-       * name (an identifier for the GUI)
-       * type
-       * vlen
-       * optional (set to 1 for optional inputs) -->
   <source>
     <name>out</name>
-    <type><!-- e.g. int, real, complex, byte, short, xxx_vector, ...--></type>
+    <type>complex</type>
+    <vlen>$fftl</vlen>
   </source>
 </block>

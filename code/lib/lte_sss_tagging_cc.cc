@@ -1,17 +1,17 @@
 /* -*- c++ -*- */
-/* 
+/*
  * Copyright 2012 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
- * 
+ *
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 3, or (at your option)
  * any later version.
- * 
+ *
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this software; see the file COPYING.  If not, write to
  * the Free Software Foundation, Inc., 51 Franklin Street,
@@ -46,7 +46,7 @@ lte_sss_tagging_cc::lte_sss_tagging_cc (int fftl)
 		d_offset_0(0),
 		d_frame_start(0),
 		d_slot_num(41)
-		
+
 {
     set_tag_propagation_policy(TPP_DONT);
     d_key=pmt::pmt_string_to_symbol("slot");
@@ -71,7 +71,7 @@ lte_sss_tagging_cc::work (int noutput_items,
 
     //This block does not change data. It just adds new itemtags!
     memcpy(out,in,sizeof(gr_complex)*noutput_items);
-    
+
     long nin = nitems_read(0);
 
 
@@ -83,22 +83,22 @@ lte_sss_tagging_cc::work (int noutput_items,
         if(offset_mod != d_offset_0){
             d_offset_0 = offset_mod;
             //printf("%s\toffset = %ld changed\tabs_pos = %ld\n", name().c_str(), d_offset_0, v[0].offset);
-            
+
         }
 	}
-	
+
 	// as long as frame start is unknown add dummy tags, so freq estimate can work!
 	if(d_frame_start == 0){
 		for (int i = 0 ; i < noutput_items ; i++){
 	        if( (nin+i)%d_slotl == d_offset_0 ){ //removed abs
 	            //printf("%s\tslot_num = %i\tabs_pos = %ld\tframe_start = %ld\n", name().c_str() ,d_slot_num, nitems_read(0)+i ,d_frame_start);
-	            add_item_tag(0,nin+i,d_key, pmt::pmt_from_long( d_slot_num ),d_tag_id);	        
+	            add_item_tag(0,nin+i,d_key, pmt::pmt_from_long( d_slot_num ),d_tag_id);
 	        }
 	    }
         return noutput_items;
     } //wait till first value found!
-	
-	
+
+
 	//This loop adds new tags to the stream.
 	for (int i = 0 ; i < noutput_items ; i++){
 	    if( (nin+i)%d_slotl == d_offset_0 ){ //removed abs
@@ -115,10 +115,10 @@ lte_sss_tagging_cc::work (int noutput_items,
 	        else{
 	            i+=(noutput_items-i-1);
 	        }
-	        
+
 	        // prepare values for next iteration.
 	        d_slot_num++;
-	        	        
+
 	    }
 	}
 
@@ -130,7 +130,6 @@ void
 lte_sss_tagging_cc::set_frame_start(long frame_start)
 {
     d_frame_start = frame_start;
-    
 }
 
 
