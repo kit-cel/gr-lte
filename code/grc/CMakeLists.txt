@@ -49,5 +49,6 @@ install(FILES
     lte_remove_cp2_cvc.xml
     lte_sss_calc2_vc.xml
     lte_sss_tagging2_vcvc.xml
-    lte_hier_sss_sync2_vcvc.xml DESTINATION share/gnuradio/grc/blocks
+    lte_hier_sss_sync2_vcvc.xml
+    lte_channel_estimator.xml DESTINATION share/gnuradio/grc/blocks
 )

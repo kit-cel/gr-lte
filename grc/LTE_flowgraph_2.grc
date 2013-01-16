@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='ASCII'?>
 <flow_graph>
-  <timestamp>Tue Jan 15 16:37:09 2013</timestamp>
+  <timestamp>Tue Jan 29 13:51:57 2013</timestamp>
   <block>
     <key>options</key>
     <param>
@@ -395,33 +395,6 @@
     </param>
   </block>
   <block>
-    <key>lte_extract_occupied_tones_vcvc</key>
-    <param>
-      <key>id</key>
-      <value>lte_extract_occupied_tones_vcvc_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>N_rb_dl</key>
-      <value>N_rb_dl</value>
-    </param>
-    <param>
-      <key>fftl</key>
-      <value>fftlen</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(58, 341)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>180</value>
-    </param>
-  </block>
-  <block>
     <key>lte_pre_decoder_vcvc</key>
     <param>
       <key>id</key>
@@ -675,52 +648,6 @@
     </param>
   </block>
   <block>
-    <key>lte_pbch_demux_vcvc</key>
-    <param>
-      <key>id</key>
-      <value>demux</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>N_rb_dl</key>
-      <value>N_rb_dl</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(288, 475)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>lte_linear_OFDM_estimator_hier_vcvc</key>
-    <param>
-      <key>id</key>
-      <value>eq</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>N_rb_dl</key>
-      <value>N_rb_dl</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(68, 475)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
     <key>fft_vxx</key>
     <param>
       <key>id</key>
@@ -764,37 +691,6 @@
     </param>
   </block>
   <block>
-    <key>gr_throttle</key>
-    <param>
-      <key>id</key>
-      <value>gr_throttle_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>complex</value>
-    </param>
-    <param>
-      <key>samples_per_second</key>
-      <value>samp_rate</value>
-    </param>
-    <param>
-      <key>vlen</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(704, 195)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
     <key>gr_file_source</key>
     <param>
       <key>id</key>
@@ -822,7 +718,73 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(9, 172)</value>
+      <value>(267, 102)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>gr_file_source</key>
+    <param>
+      <key>id</key>
+      <value>gr_file_source_0_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>file</key>
+      <value>/home/demel/gr-lte/data/Messung_Resampled_3072MSps.dat</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>complex</value>
+    </param>
+    <param>
+      <key>repeat</key>
+      <value>False</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(450, 181)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>gr_throttle</key>
+    <param>
+      <key>id</key>
+      <value>gr_throttle_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>complex</value>
+    </param>
+    <param>
+      <key>samples_per_second</key>
+      <value>samp_rate</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(701, 189)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -861,7 +823,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(228, 156)</value>
+      <value>(486, 86)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -869,34 +831,176 @@
     </param>
   </block>
   <block>
-    <key>gr_file_source</key>
+    <key>lte_extract_occupied_tones_vcvc</key>
     <param>
       <key>id</key>
-      <value>gr_file_source_0_0</value>
+      <value>lte_extract_occupied_tones_vcvc_0</value>
     </param>
     <param>
       <key>_enabled</key>
       <value>True</value>
     </param>
     <param>
-      <key>file</key>
-      <value>/home/demel/gr-lte/data/Messung_Resampled_3072MSps.dat</value>
+      <key>N_rb_dl</key>
+      <value>N_rb_dl</value>
+    </param>
+    <param>
+      <key>fftl</key>
+      <value>fftlen</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(58, 341)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>180</value>
+    </param>
+  </block>
+  <block>
+    <key>lte_channel_estimator</key>
+    <param>
+      <key>id</key>
+      <value>channel_est</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>N_rb_dl</key>
+      <value>6</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(59, 471)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>lte_pbch_demux_vcvc</key>
+    <param>
+      <key>id</key>
+      <value>demux</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>N_rb_dl</key>
+      <value>N_rb_dl</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(288, 475)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>gr_null_sink</key>
+    <param>
+      <key>id</key>
+      <value>gr_null_sink_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
     </param>
     <param>
       <key>type</key>
       <value>complex</value>
     </param>
     <param>
-      <key>repeat</key>
-      <value>False</value>
-    </param>
-    <param>
       <key>vlen</key>
-      <value>1</value>
+      <value>12*N_rb_dl</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(425, 132)</value>
+      <value>(326, 776)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>gr_null_sink</key>
+    <param>
+      <key>id</key>
+      <value>gr_null_sink_0_1</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>complex</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>12*N_rb_dl</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(326, 822)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>lte_linear_OFDM_estimator_hier_vcvc</key>
+    <param>
+      <key>id</key>
+      <value>eq</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>N_rb_dl</key>
+      <value>N_rb_dl</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(54, 777)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>gr_null_sink</key>
+    <param>
+      <key>id</key>
+      <value>gr_null_sink_0_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>complex</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>12*N_rb_dl</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(326, 864)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -912,18 +1016,6 @@
   <connection>
     <source_block_id>lte_hier_pss_sync_cc_0</source_block_id>
     <sink_block_id>lte_hier_freq_estimate_cc_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>gr_throttle_0</source_block_id>
-    <sink_block_id>lte_cp_time_freq_sync_cc_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>gr_file_source_0_0</source_block_id>
-    <sink_block_id>gr_throttle_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
@@ -1054,22 +1146,10 @@
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>eq</source_block_id>
-    <sink_block_id>demux</sink_block_id>
+    <source_block_id>blks2_rational_resampler_xxx_0</source_block_id>
+    <sink_block_id>gr_throttle_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>eq</source_block_id>
-    <sink_block_id>demux</sink_block_id>
-    <source_key>1</source_key>
-    <sink_key>1</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>eq</source_block_id>
-    <sink_block_id>demux</sink_block_id>
-    <source_key>2</source_key>
-    <sink_key>2</sink_key>
   </connection>
   <connection>
     <source_block_id>gr_file_source_0</source_block_id>
@@ -1078,9 +1158,57 @@
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>blks2_rational_resampler_xxx_0</source_block_id>
+    <source_block_id>gr_throttle_0</source_block_id>
+    <sink_block_id>lte_cp_time_freq_sync_cc_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>gr_file_source_0_0</source_block_id>
     <sink_block_id>gr_throttle_0</sink_block_id>
     <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_extract_occupied_tones_vcvc_0</source_block_id>
+    <sink_block_id>channel_est</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>channel_est</source_block_id>
+    <sink_block_id>demux</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>channel_est</source_block_id>
+    <sink_block_id>demux</sink_block_id>
+    <source_key>1</source_key>
+    <sink_key>1</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>channel_est</source_block_id>
+    <sink_block_id>demux</sink_block_id>
+    <source_key>2</source_key>
+    <sink_key>2</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>eq</source_block_id>
+    <sink_block_id>gr_null_sink_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>eq</source_block_id>
+    <sink_block_id>gr_null_sink_0_1</sink_block_id>
+    <source_key>1</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>eq</source_block_id>
+    <sink_block_id>gr_null_sink_0_0</sink_block_id>
+    <source_key>2</source_key>
     <sink_key>0</sink_key>
   </connection>
 </flow_graph>

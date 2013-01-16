@@ -49,5 +49,6 @@ install(FILES
     lte_zadoff_chu_seq_generator_vc.h
     lte_remove_cp2_cvc.h
     lte_sss_calc2_vc.h
-    lte_sss_tagging2_vcvc.h DESTINATION include/lte
+    lte_sss_tagging2_vcvc.h
+    lte_channel_estimator.h DESTINATION include/lte
 )

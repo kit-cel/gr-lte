@@ -74,3 +74,4 @@ GR_ADD_TEST(qa_remove_cp2_cvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/q
 GR_ADD_TEST(qa_sss_calc2_vc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_sss_calc2_vc.py)
 GR_ADD_TEST(qa_sss_tagging2_vcvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_sss_tagging2_vcvc.py)
 GR_ADD_TEST(qa_hier_sss_sync2_vcvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_hier_sss_sync2_vcvc.py)
+GR_ADD_TEST(qa_channel_estimator ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_channel_estimator.py)

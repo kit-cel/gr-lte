@@ -3,27 +3,41 @@ cpl = 144*fftl/2048;
 cpl0 = 160*fftl/2048;
 slotl = 7*fftl+6*cpl+cpl0;
 
-frame_start = 0;
-slot_start = mod(frame_start,slotl);
-symbol_start = mod(slot_start+fftl+cpl0,fftl+cpl);
 
-last_symb = 0;
+bits=mod(randi(10,2*fftl,1),2);
+symbol=zeros(fftl, 1);
+for i=1:fftl-1
+    symbol(i)=lte_qpsk_modulator(bits(2*i),bits(2*i+1) );
+end
 
-next_symb = 0;
+f_symbol=fft(symbol,fftl);
 
-for i=0:5*slotl
-    if frame_start == mod(i,10*slotl)
-        disp(['frame_start' num2str(i) ' last ' num2str(last_symb)]);
-        last_symb = i;
-        next_symb = i+fftl+cpl0;
-    elseif slot_start == mod(i,slotl)
-        disp(['slot_start' num2str(i) ' last ' num2str(last_symb)]);
-        last_symb = i;
-        next_symb = i+fftl+cpl0;
-    elseif next_symb == i
-        disp(['symb_start ' num2str(i) ' lastdiff ' num2str(i-last_symb)]);
-        last_symb = i;
-        next_symb = i+fftl+cpl;
+fmean = mean(f_symbol);
+
+max_clip = 80*abs(fmean);
+papr = max(abs(f_symbol))/abs(fmean)
+
+for i=1:length(f_symbol)
+    if abs(f_symbol(i)) > max_clip
+        %disp(phase(f_symbol(i)));
+        f_symbol(i) = f_symbol(i)*(max_clip / abs(f_symbol(i)));
     end
 end
+
+plot(f_symbol,'bx')
+
+plot(ifft(f_symbol),'rx')
+
+
+
+
+
+
+
+
+
+
+
+
+
 

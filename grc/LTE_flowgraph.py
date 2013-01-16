@@ -3,7 +3,7 @@
 # Gnuradio Python Flow Graph
 # Title: LTE flowgraph
 # Author: Johannes Demel
-# Generated: Wed Jan 16 15:32:51 2013
+# Generated: Wed Jan 30 20:12:15 2013
 ##################################################
 
 from gnuradio import eng_notation
@@ -40,7 +40,7 @@ class LTE_flowgraph(gr.top_block):
 		self.demux = lte.pbch_demux_vcvc(N_rb_dl)
 		self.daemon = lte.cell_id_daemon(self.eq.eq, self.demux, self.descr)
 		self.lte_viterbi_vfvb_0 = lte.viterbi_vfvb()
-		self.lte_remove_cp2_cvc_0 = lte.remove_cp2_cvc(fftlen)
+		self.lte_remove_cp_cvc_1 = lte.remove_cp_cvc(fftlen)
 		self.lte_rate_unmatch_vff_0 = lte.rate_unmatch_vff()
 		self.lte_qpsk_soft_demod_vcvf_0 = lte.qpsk_soft_demod_vcvf()
 		self.lte_pre_decoder_vcvc_0_0 = lte.pre_decoder_vcvc(2, style)
@@ -48,16 +48,20 @@ class LTE_flowgraph(gr.top_block):
 		self.lte_mib_unpack_vb_0 = lte.mib_unpack_vb()
 		self.lte_layer_demapper_vcvc_0_0 = lte.layer_demapper_vcvc(2, style)
 		self.lte_layer_demapper_vcvc_0 = lte.layer_demapper_vcvc(1, style)
-		self.lte_hier_sss_sync2_vcvc_0 = lte.hier_sss_sync2_vcvc(self.daemon, fftlen)
+		self.lte_hier_sss_sync_cc_0 = lte.hier_sss_sync_cc(self.daemon, fftlen)
 		self.lte_hier_pss_sync_cc_0 = lte.hier_pss_sync_cc(fftlen)
 		self.lte_hier_freq_estimate_cc_0 = lte.hier_freq_estimate_cc(fftlen)
 		self.lte_extract_occupied_tones_vcvc_0 = lte.extract_occupied_tones_vcvc(N_rb_dl,fftlen)
 		self.lte_crc_calculator_vbvb_0 = lte.crc_calculator_vbvb()
 		self.lte_cp_time_freq_sync_cc_0 = lte.cp_time_freq_sync_cc(fftlen)
-		self.gr_throttle_0 = gr.throttle(gr.sizeof_gr_complex*1, samp_rate)
+		self.gr_throttle_0 = gr.throttle(gr.sizeof_gr_complex*1, samp_rate/4)
+		self.gr_null_sink_0_1 = gr.null_sink(gr.sizeof_gr_complex*12*N_rb_dl)
+		self.gr_null_sink_0_0 = gr.null_sink(gr.sizeof_gr_complex*12*N_rb_dl)
+		self.gr_null_sink_0 = gr.null_sink(gr.sizeof_gr_complex*12*N_rb_dl)
 		self.gr_interleave_0 = gr.interleave(gr.sizeof_gr_complex*240)
 		self.gr_file_source_0_0 = gr.file_source(gr.sizeof_gr_complex*1, "/home/demel/gr-lte/data/Messung_Resampled_3072MSps.dat", False)
-		self.fft_vxx_0_0 = fft.fft_vcc(fftlen, True, (window.rectangular(fftlen)), False, 1)
+		self.fft_vxx_0 = fft.fft_vcc(fftlen, True, (window.rectangular(fftlen)), False, 1)
+		self.channel_est = lte.channel_estimator(6)
 
 		##################################################
 		# Connections
@@ -66,11 +70,10 @@ class LTE_flowgraph(gr.top_block):
 		self.connect((self.lte_hier_pss_sync_cc_0, 0), (self.lte_hier_freq_estimate_cc_0, 0))
 		self.connect((self.gr_throttle_0, 0), (self.lte_cp_time_freq_sync_cc_0, 0))
 		self.connect((self.gr_file_source_0_0, 0), (self.gr_throttle_0, 0))
-		self.connect((self.lte_hier_freq_estimate_cc_0, 0), (self.lte_remove_cp2_cvc_0, 0))
-		self.connect((self.lte_remove_cp2_cvc_0, 0), (self.fft_vxx_0_0, 0))
-		self.connect((self.fft_vxx_0_0, 0), (self.lte_hier_sss_sync2_vcvc_0, 0))
-		self.connect((self.lte_hier_sss_sync2_vcvc_0, 0), (self.lte_extract_occupied_tones_vcvc_0, 0))
-		self.connect((self.lte_extract_occupied_tones_vcvc_0, 0), (self.eq, 0))
+		self.connect((self.fft_vxx_0, 0), (self.lte_extract_occupied_tones_vcvc_0, 0))
+		self.connect((self.lte_hier_freq_estimate_cc_0, 0), (self.lte_hier_sss_sync_cc_0, 0))
+		self.connect((self.lte_remove_cp_cvc_1, 0), (self.fft_vxx_0, 0))
+		self.connect((self.lte_hier_sss_sync_cc_0, 0), (self.lte_remove_cp_cvc_1, 0))
 		self.connect((self.lte_pre_decoder_vcvc_0, 0), (self.lte_layer_demapper_vcvc_0, 0))
 		self.connect((self.lte_pre_decoder_vcvc_0_0, 0), (self.lte_layer_demapper_vcvc_0_0, 0))
 		self.connect((self.lte_layer_demapper_vcvc_0_0, 0), (self.gr_interleave_0, 1))
@@ -87,9 +90,14 @@ class LTE_flowgraph(gr.top_block):
 		self.connect((self.lte_crc_calculator_vbvb_0, 0), (self.lte_mib_unpack_vb_0, 0))
 		self.connect((self.lte_viterbi_vfvb_0, 0), (self.lte_crc_calculator_vbvb_0, 0))
 		self.connect((self.lte_rate_unmatch_vff_0, 0), (self.lte_viterbi_vfvb_0, 0))
-		self.connect((self.eq, 0), (self.demux, 0))
-		self.connect((self.eq, 1), (self.demux, 1))
-		self.connect((self.eq, 2), (self.demux, 2))
+		self.connect((self.lte_extract_occupied_tones_vcvc_0, 0), (self.channel_est, 0))
+		self.connect((self.channel_est, 0), (self.demux, 0))
+		self.connect((self.channel_est, 1), (self.demux, 1))
+		self.connect((self.channel_est, 2), (self.demux, 2))
+		self.connect((self.lte_extract_occupied_tones_vcvc_0, 0), (self.eq, 0))
+		self.connect((self.eq, 0), (self.gr_null_sink_0, 0))
+		self.connect((self.eq, 1), (self.gr_null_sink_0_1, 0))
+		self.connect((self.eq, 2), (self.gr_null_sink_0_0, 0))
 
 	def get_fftlen(self):
 		return self.fftlen

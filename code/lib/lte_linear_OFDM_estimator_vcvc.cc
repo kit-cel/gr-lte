@@ -50,6 +50,9 @@ lte_linear_OFDM_estimator_vcvc::lte_linear_OFDM_estimator_vcvc (int N_rb_dl)
 	d_tag_id=pmt::pmt_string_to_symbol(name() );
 
     set_history(8);
+    set_output_multiple(7);
+    set_min_output_buffer(8* sizeof(gr_complex)*12*N_rb_dl );
+    //set_min_output_buffer(8* sizeof(gr_complex)*12*N_rb_dl );
 
     d_ce_vec1 = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*12*N_rb_dl);
     d_ce_vec2 = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*12*N_rb_dl);
@@ -121,10 +124,12 @@ lte_linear_OFDM_estimator_vcvc::work (int noutput_items,
 
     d_work_call++;
     //Some initial variables
-    int cell_id = d_cell_id;
+    //int cell_id = d_cell_id;
     int N_rb_dl = d_N_rb_dl;
     int sym_num = d_sym_num;
     int ns = sym_num/7;
+
+    //printf("%s\twork_call = %i\tnoutput_items = %i\n", name().c_str(), d_work_call, noutput_items);
 
 	// Prevent block from calculating nonsense
     if(d_cell_id < 0){
@@ -139,16 +144,17 @@ lte_linear_OFDM_estimator_vcvc::work (int noutput_items,
 	    head_sym_num = abs( (int(pmt::pmt_to_long(v_b[0].value) +140-7 )%140) );//abs((my_sym_num-7)%140)
 	}
 
-	if(d_first_call && sym_num != 0 ){
+    //printf("%s\twork_call = %i\tnoutput_items = %i\n", name().c_str(), d_work_call, noutput_items);
+/*	if(d_first_call && sym_num != 0 ){
 	    int drop_items = 140-head_sym_num;
-	    printf("%s\twork_call = %i\tdrop_items = %i\n", name().c_str(), d_work_call, drop_items);
+	    //printf("%s\twork_call = %i\tdrop_items = %i\tnoutput_items = %i\n", name().c_str(), d_work_call, drop_items, noutput_items);
         d_sym_num = (head_sym_num+1)%140;
         return 1;
 	}
 	else{
         d_first_call = false;
 	}
-
+*/
 
     //functional part of the block starts below
 
@@ -161,26 +167,8 @@ lte_linear_OFDM_estimator_vcvc::work (int noutput_items,
 	    sym_num = abs( (int(pmt::pmt_to_long(v[0].value) +140-7 )%140) );//abs((my_sym_num-7)%140)
 	    //printf("%s\tsym_num = %i\n", name().c_str(), sym_num);
 	}
-/*
-    // First we need to have some samples input. (vectors for 1 slot)
-    if(d_first_call){
-        d_first_call = false;
-        printf("%s\tSETUP\twork_call = %i\tsym_num = %i\n", name().c_str(), d_work_call, sym_num);
-        memset(out1,0,7*12*N_rb_dl*sizeof(gr_complex) );
-        memset(out2,0,7*12*N_rb_dl*sizeof(gr_complex) );
-        memset(out3,0,7*12*N_rb_dl*sizeof(gr_complex) );
-        gr_complex vec1[12*N_rb_dl]; //= new gr_complex[12*N_rb_dl];
-        memcpy(vec1,in+7*12*N_rb_dl,12*N_rb_dl*sizeof(gr_complex) );
-        calc_eq_freq_domain(d_ce_vec1, vec1, d_rs_matrix[0][0]);
-        calc_eq_freq_domain(d_ce_vec2, vec1, d_rs_matrix[1][0]);
-        return 7;
-    }
-*/
 	// Be careful! The following if-statement causes the equalizer to only calculate OFDM symbols which carry the MIB!
-	if(sym_num > 7){
-	    //printf("%s.work SKIP sym_num = %i\n", name().c_str(), sym_num);
-	    return 7;
-	}
+	//if(sym_num > 7){return 7;}
 
     //printf("%s\tOUT\tnoutput_items = %i\tnitems_read = %ld\n", name().c_str(), noutput_items, nitems_read(0) );
 
@@ -199,37 +187,6 @@ lte_linear_OFDM_estimator_vcvc::work (int noutput_items,
     memcpy(d_erg2[0],d_ce12,sizeof(gr_complex)*12*d_N_rb_dl);
     memcpy(d_erg1[4],d_ce41,sizeof(gr_complex)*12*d_N_rb_dl);
     memcpy(d_erg2[4],d_ce42,sizeof(gr_complex)*12*d_N_rb_dl);
-
-/*
-    // Calculate vectors for first half!
-    volk_32f_x2_subtract_32f_a((float*)d_diff1, (float*)d_erg1[4], (float*)d_erg1[0], 2*sizeof(gr_complex)*12*d_N_rb_dl);
-    volk_32f_x2_subtract_32f_a((float*)d_diff2, (float*)d_erg2[4], (float*)d_erg2[0], 2*sizeof(gr_complex)*12*d_N_rb_dl);
-    volk_32fc_x2_multiply_32fc_a(d_diff1,d_diff1,d_divider1_4,sizeof(gr_complex)*12*d_N_rb_dl);
-    volk_32fc_x2_multiply_32fc_a(d_diff2,d_diff2,d_divider1_4,sizeof(gr_complex)*12*d_N_rb_dl);
-    for(int i = 1 ; i < 4 ; i++){
-        memcpy(d_erg1[i],d_erg1[0], sizeof(gr_complex)*12*d_N_rb_dl);
-        memcpy(d_erg2[i],d_erg2[0], sizeof(gr_complex)*12*d_N_rb_dl);
-        for(int n = 1; n <=i ; n++){
-            volk_32f_x2_add_32f_a((float*)d_erg1[i],(float*)d_erg1[i],(float*)d_diff1,2*sizeof(gr_complex)*12*d_N_rb_dl);
-            volk_32f_x2_add_32f_a((float*)d_erg2[i],(float*)d_erg2[i],(float*)d_diff2,2*sizeof(gr_complex)*12*d_N_rb_dl);
-        }
-    }
-
-    // Calculate vectors for second half!
-    volk_32f_x2_subtract_32f_a((float*)d_diff1, (float*)d_ce71, (float*)d_erg1[4], 2*sizeof(gr_complex)*12*d_N_rb_dl);
-    volk_32f_x2_subtract_32f_a((float*)d_diff2, (float*)d_ce72, (float*)d_erg2[4], 2*sizeof(gr_complex)*12*d_N_rb_dl);
-    volk_32fc_x2_multiply_32fc_a(d_diff1,d_diff1,d_divider1_3,sizeof(gr_complex)*12*d_N_rb_dl);
-    volk_32fc_x2_multiply_32fc_a(d_diff2,d_diff2,d_divider1_3,sizeof(gr_complex)*12*d_N_rb_dl);
-    for(int i = 1 ; i < 3 ; i++){
-        memcpy(d_erg1[i+4],d_erg1[4], sizeof(gr_complex)*12*d_N_rb_dl);
-        memcpy(d_erg2[i+4],d_erg2[4], sizeof(gr_complex)*12*d_N_rb_dl);
-        for(int n = 1; n <=i ; n++){
-            volk_32f_x2_add_32f_a((float*)d_erg1[i],(float*)d_erg1[i],(float*)d_diff1,2*sizeof(gr_complex)*12*d_N_rb_dl);
-            volk_32f_x2_add_32f_a((float*)d_erg2[i],(float*)d_erg2[i],(float*)d_diff2,2*sizeof(gr_complex)*12*d_N_rb_dl);
-        }
-    }
-*/
-
 
     float ma[2][2];
     float pa[2][2];
@@ -291,12 +248,8 @@ lte_linear_OFDM_estimator_vcvc::work (int noutput_items,
     else {sym_num = 0;}
     d_sym_num = sym_num;
 
-    // required delete calls to prevent method from sucking up all memory
-
-
 	// Tell runtime system how many output items we produced.
 	return 7;
-
 }
 
 
