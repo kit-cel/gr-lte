@@ -1,6 +1,6 @@
 /* -*- c++ -*- */
 /*
- * Copyright 2013 <+YOU OR YOUR COMPANY+>.
+ * Copyright 2013 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
  *
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -41,12 +41,15 @@ lte_channel_estimator::lte_channel_estimator (int N_rb_dl)
 		d_cell_id(-1),
 		d_work_call(0)
 {
+    message_port_register_in(pmt::mp("cell_id"));
+    set_msg_handler(pmt::mp("cell_id"), boost::bind(&lte_channel_estimator::set_cell_id_msg, this, _1));
+
     d_key=pmt::pmt_string_to_symbol("symbol"); // specify key of tag.
 
     d_no_output = 0;
 
     //only during debug!
-    set_cell_id(124);
+    //set_cell_id(124);
 
     //Initial block setup
     set_min_output_buffer(8* sizeof(gr_complex)*12*N_rb_dl );
@@ -432,6 +435,16 @@ lte_channel_estimator::rs_mapper(int N_rb_dl, int ns,int l,int cell_id,int Ncp,i
     }
 
     return vec;
+}
+
+void
+lte_channel_estimator::set_cell_id_msg(pmt::pmt_t msg)
+{
+    int cell_id = int(pmt::pmt_to_long(msg));
+    //printf("********%s INPUT MESSAGE***************\n", name().c_str() );
+    //printf("\t%i\n", cell_id);
+    //printf("********%s INPUT MESSAGE***************\n", name().c_str() );
+    set_cell_id(cell_id);
 }
 
 void

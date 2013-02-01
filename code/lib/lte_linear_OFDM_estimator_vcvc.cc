@@ -46,6 +46,9 @@ lte_linear_OFDM_estimator_vcvc::lte_linear_OFDM_estimator_vcvc (int N_rb_dl)
 		d_work_call(0)
 
 {
+    message_port_register_in(pmt::mp("cell_id"));
+    set_msg_handler(pmt::mp("cell_id"), boost::bind(&lte_linear_OFDM_estimator_vcvc::set_cell_id_msg, this, _1));
+
     d_key=pmt::pmt_string_to_symbol("symbol");
 	d_tag_id=pmt::pmt_string_to_symbol(name() );
 
@@ -403,6 +406,16 @@ lte_linear_OFDM_estimator_vcvc::rs_mapper(int N_rb_dl, int ns,int l,int cell_id,
     }
 
     return vec;
+}
+
+void
+lte_linear_OFDM_estimator_vcvc::set_cell_id_msg(pmt::pmt_t msg)
+{
+    int cell_id = int(pmt::pmt_to_long(msg));
+    //printf("********%s INPUT MESSAGE***************\n", name().c_str() );
+    //printf("\t%i\n", cell_id);
+    //printf("********%s INPUT MESSAGE***************\n", name().c_str() );
+    set_cell_id(cell_id);
 }
 
 void

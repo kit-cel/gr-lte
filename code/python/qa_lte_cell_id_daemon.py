@@ -26,24 +26,26 @@ class qa_cell_id_daemon (gr_unittest.TestCase):
 
     def setUp (self):
         self.tb = gr.top_block ()
-        
         N_rb_dl = 6
         
         self.eq   = lte_swig.linear_OFDM_estimator_vcvc(N_rb_dl)
         self.demux= lte_swig.pbch_demux_vcvc(N_rb_dl)
         self.ld   = lte_swig.descrambling_vfvf()
         self.daemon = lte_swig.cell_id_daemon(self.eq,self.demux,self.ld)
+        self.dbg = gr.message_debug()
         
-        self.daemon.set_cell_id(124)
-        
-        
+        self.tb.msg_connect(self.daemon, "cell_id", self.dbg, "print" )
+
 
     def tearDown (self):
         self.tb = None
 
     def test_001_t (self):
         # set up fg
-        self.tb.run ()
+        print "test"
+        #self.tb.run ()
+        
+        self.daemon.set_cell_id(124)
         # check data
 
 

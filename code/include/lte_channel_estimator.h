@@ -1,6 +1,6 @@
 /* -*- c++ -*- */
 /*
- * Copyright 2013 <+YOU OR YOUR COMPANY+>.
+ * Copyright 2012 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
  *
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -51,6 +51,7 @@ class LTE_API lte_channel_estimator : public gr_sync_block
 	~lte_channel_estimator ();
 
     void set_cell_id(int cell_id);
+    void set_cell_id_msg(pmt::pmt_t msg);
 
 	int work (int noutput_items,
 		gr_vector_const_void_star &input_items,

@@ -5,18 +5,19 @@
   <category>lte</category>
   <import>import lte</import>
 
-  <make>lte.hier_sss_sync_cc(self.$(daemon()), $fftl)</make>
+  <make>lte.hier_sss_sync_cc($fftl)</make>
   <!-- Make one 'param' node for every Parameter you want settable from the GUI.
        Sub-nodes:
        * name
        * key (makes the value accessible as $keyname, e.g. in the make node)
        * type -->
+<!--
   <param>
     <name>Daemon</name>
     <key>daemon</key>
     <type>string</type>
   </param>
-  
+-->  
   <param>
     <name>FFT length</name>
     <key>fftl</key>
@@ -42,4 +43,12 @@
     <name>out</name>
     <type>complex</type>
   </source>
+  
+  <source>
+    <name>cell_id</name>
+    <type>message</type>
+    <optional>1</optional>
+  </source>
+  
+  
 </block>

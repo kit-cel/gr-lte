@@ -1,17 +1,17 @@
 /* -*- c++ -*- */
-/* 
+/*
  * Copyright 2012 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
- * 
+ *
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 3, or (at your option)
  * any later version.
- * 
+ *
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this software; see the file COPYING.  If not, write to
  * the Free Software Foundation, Inc., 51 Franklin Street,
@@ -41,8 +41,9 @@ class LTE_API lte_descrambling_vfvf : public gr_sync_interpolator
 
  public:
 	~lte_descrambling_vfvf ();
-	
+
 	void set_cell_id(int id);
+	void set_cell_id_msg(pmt::pmt_t msg);
 
 	static char* pn_seq_generator(int len, int cell_id);
 	int work (int noutput_items,
@@ -52,7 +53,7 @@ private:
 	int d_cell_id;
 	char d_pn_seq[1920];
 	int d_pn_seq_len;
-	
+
 	pmt::pmt_t d_key;
 	pmt::pmt_t d_tag_id;
 	int d_work_call;

@@ -42,7 +42,10 @@ lte_pbch_demux_vcvc::lte_pbch_demux_vcvc (int N_rb_dl) //int cell_id,
 		d_N_rb_dl(N_rb_dl),
 		d_sym_num(0)
 {
-    //set_cell_id(d_cell_id);
+    message_port_register_in(pmt::mp("cell_id"));
+    set_msg_handler(pmt::mp("cell_id"), boost::bind(&lte_pbch_demux_vcvc::set_cell_id_msg, this, _1));
+
+
     int pbch_symb_size = 4*12*N_rb_dl;
     d_pbch_symbs = new gr_complex[pbch_symb_size];
 	d_pbch_ce1_symbs = new gr_complex[pbch_symb_size];
@@ -184,12 +187,21 @@ lte_pbch_demux_vcvc::general_work (int noutput_items,
     return noutput_items;
 }
 
+void
+lte_pbch_demux_vcvc::set_cell_id_msg(pmt::pmt_t msg)
+{
+    int cell_id = int(pmt::pmt_to_long(msg));
+    //printf("********%s INPUT MESSAGE***************\n", name().c_str() );
+    //printf("\t%i\n", cell_id);
+    //printf("********%s INPUT MESSAGE***************\n", name().c_str() );
+    set_cell_id(cell_id);
+}
 
 void
 lte_pbch_demux_vcvc::set_cell_id(int id)
 {
     d_cell_id = id;
-    printf("%s\t\t\tset_cell_id = %i\n", name().c_str(), d_cell_id );
+    printf("%s\t\tset_cell_id = %i\n", name().c_str(), d_cell_id );
 }
 
 

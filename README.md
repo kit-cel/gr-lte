@@ -10,14 +10,19 @@ Requirements
 ------------
 
 - GNU Radio 3.6.2 (other versions might work as well but they are untested)
+- Change to new GR 3.6.3 functionality soon
 - MATLAB (R2011b tested) for .m-files
 
 
 Build/Install instructions for Linux
 ------------------------------------
 
-1. Get, build and install GNU Radio
+1. Get, build and install GNU Radio from <http://www.gnuradio.org>
 
-2. Get, build and install *gr-lte*
+2. Get *gr-lte* from github
 
-3. Test it! Use it! Extend it!
+3. Configure it using CMake
+
+4. run *sudo make install* 
+
+3. Have fun

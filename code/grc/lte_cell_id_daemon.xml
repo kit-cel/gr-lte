@@ -46,10 +46,10 @@
        * type
        * vlen
        * optional (set to 1 for optional inputs) -->
-<!--
+
   <source>
-    <name>out</name>
-    <type>NO TYPE</type>
+    <name>cell_id</name>
+    <type>message</type>
+    <optional>1</optional>
   </source>
--->
 </block>

@@ -21,7 +21,8 @@ from gnuradio import gr, window
 import lte_swig
 
 class hier_sss_sync_cc(gr.hier_block2):
-    def __init__(self, daemon, fftl):
+    #def __init__(self, daemon, fftl):
+    def __init__(self, fftl):
         """
         docstring
         """
@@ -29,6 +30,7 @@ class hier_sss_sync_cc(gr.hier_block2):
 				gr.io_signature(1,1, gr.sizeof_gr_complex), # Input signature
 				gr.io_signature(1,1, gr.sizeof_gr_complex)) # Output signature
 
+        self.message_port_register_hier_in("cell_id")
         # input goes into 2 blocks: selector and tagging
         # 2 parallel streams: main (all data) right into tagging, sss symbol -> fft -> extract -> calc sss
         # required blocks:
@@ -52,11 +54,14 @@ class hier_sss_sync_cc(gr.hier_block2):
         
         self.tag = lte_swig.sss_tagging_cc(fftl)
         # calc sink block, which sets some attributes of other blocks.
-        self.calc = lte_swig.sss_calc_vc(self.tag, daemon, fftl)
+        #self.calc = lte_swig.sss_calc_vc(self.tag, daemon, fftl)
+        self.calc = lte_swig.sss_calc_vc(self.tag, fftl)
         
         # Connect blocks
         self.connect(self, self.tag, self)
         self.connect(self, self.sel, self.fft, self.ext, self.calc )
+        
+        self.msg_connect(self.calc, "cell_id", self, "cell_id")
 
                
         

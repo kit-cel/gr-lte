@@ -42,6 +42,9 @@ lte_descrambling_vfvf::lte_descrambling_vfvf ()
 		d_cell_id(-1),
 		d_work_call(0)
 {
+    message_port_register_in(pmt::mp("cell_id"));
+    set_msg_handler(pmt::mp("cell_id"), boost::bind(&lte_descrambling_vfvf::set_cell_id_msg, this, _1));
+
     // set PMT blob info
 	d_key=pmt::pmt_string_to_symbol("descr_part");
 	d_tag_id=pmt::pmt_string_to_symbol(name() );
@@ -145,10 +148,20 @@ lte_descrambling_vfvf::pn_seq_generator(int len, int cell_id)
 
 
 void
+lte_descrambling_vfvf::set_cell_id_msg(pmt::pmt_t msg)
+{
+    int cell_id = int(pmt::pmt_to_long(msg));
+    //printf("********%s INPUT MESSAGE***************\n", name().c_str() );
+    //printf("\t%i\n", cell_id);
+    //printf("********%s INPUT MESSAGE***************\n", name().c_str() );
+    set_cell_id(cell_id);
+}
+
+void
 lte_descrambling_vfvf::set_cell_id(int id)
 {
 
-    printf("%s\t\tset_cell_id = %i\n", name().c_str(), id);
+    printf("%s\tset_cell_id = %i\n", name().c_str(), id);
     int len=1920;
 	d_pn_seq_len=len;
 	char *pn_seq0 = pn_seq_generator(len, id);

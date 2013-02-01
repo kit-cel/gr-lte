@@ -30,6 +30,7 @@ class hier_sss_sync2_vcvc(gr.hier_block2):
 				gr.io_signature(1, 1, (gr.sizeof_gr_complex)*fftl),  # Input signature
 				gr.io_signature(1, 1, (gr.sizeof_gr_complex)*fftl)) # Output signature
 
+        #self.message_port_register_hier_in("cell_id")
         # Define blocks
         N_rb_dl = 6
         self.tag = lte.sss_tagging2_vcvc(fftl)

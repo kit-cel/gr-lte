@@ -1,17 +1,17 @@
 /* -*- c++ -*- */
-/* 
+/*
  * Copyright 2012 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
- * 
+ *
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 3, or (at your option)
  * any later version.
- * 
+ *
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this software; see the file COPYING.  If not, write to
  * the Free Software Foundation, Inc., 51 Franklin Street,
@@ -28,13 +28,13 @@
 
 
 lte_sss_calc_vc_sptr
-lte_make_sss_calc_vc (tag_sptr &tag, daemon_sptr &daemon, int fftl)
+lte_make_sss_calc_vc (tag_sptr &tag, int fftl)
 {
-	return lte_sss_calc_vc_sptr (new lte_sss_calc_vc (tag, daemon, fftl));
+	return lte_sss_calc_vc_sptr (new lte_sss_calc_vc (tag, fftl));
 }
 
 
-lte_sss_calc_vc::lte_sss_calc_vc (tag_sptr &tag, daemon_sptr &daemon, int fftl)
+lte_sss_calc_vc::lte_sss_calc_vc (tag_sptr &tag, int fftl)
 	: gr_sync_block ("sss_calc_vc",
 		gr_make_io_signature (1,1, sizeof (gr_complex)*72),
 		gr_make_io_signature (0,0,0)),
@@ -46,11 +46,14 @@ lte_sss_calc_vc::lte_sss_calc_vc (tag_sptr &tag, daemon_sptr &daemon, int fftl)
 		d_N_id_2(-1),
 		d_sss_pos(0),
 		d_tag(tag),
-		d_daemon(daemon),
+		//d_daemon(daemon),
 		d_frame_start(0),
 		d_is_locked(false),
 		d_unchanged_id(0)
-{    
+{
+    d_port_id = pmt::pmt_string_to_symbol("cell_id");
+    message_port_register_out(d_port_id);
+
     //initialize d_cX
     char cX_x[31] = {0};
     cX_x[4] = 1;
@@ -61,7 +64,7 @@ lte_sss_calc_vc::lte_sss_calc_vc (tag_sptr &tag, daemon_sptr &daemon, int fftl)
     for(int i = 0 ; i < 31 ; i++){
         d_cX[i] = 1-2*cX_x[i];
     }
-    
+
     //initialize d_sref
     int m0_ref=0;
     char sX_x[31]={0};
@@ -78,7 +81,7 @@ lte_sss_calc_vc::lte_sss_calc_vc (tag_sptr &tag, daemon_sptr &daemon, int fftl)
         d_sref[i   ]=sX[ (i+m0)%31 ];
         d_sref[i+31]=sX[ (i+m0)%31 ];
     }
-    
+
     //initialize d_zX
     char zX_x[31] = {0};
     zX_x[4] = 1;
@@ -88,7 +91,7 @@ lte_sss_calc_vc::lte_sss_calc_vc (tag_sptr &tag, daemon_sptr &daemon, int fftl)
     for (int i = 0; i < 31 ; i++){
         d_zX[i] = 1 - (2*zX_x[i]);
     }
-    
+
     //initialize m0/m1 pair lookup table
     for(int i = 0 ; i < 168 ; i++){
         int N = i;
@@ -100,9 +103,9 @@ lte_sss_calc_vc::lte_sss_calc_vc (tag_sptr &tag, daemon_sptr &daemon, int fftl)
         d_v_m0[i] = m0g;
         d_v_m1[i] = m1g;
     }
-    
 
-    
+
+
 }
 
 
@@ -118,7 +121,7 @@ lte_sss_calc_vc::work (int noutput_items,
 {
 	// This is a sink block! It does not produce any thus it doesn't have an output port!
 	const gr_complex *in = (const gr_complex *) input_items[0];
-	
+
     if(d_is_locked){
         return noutput_items;
     }
@@ -132,8 +135,8 @@ lte_sss_calc_vc::work (int noutput_items,
     }
     int N_id_2 = d_N_id_2;
     if(d_N_id_2 < 0){return 1;}
-    
-    
+
+
     long offset = 0;
     pmt::pmt_t offset_key=pmt::pmt_string_to_symbol("offset_marker");
     std::vector <gr_tag_t> v_off;
@@ -141,14 +144,14 @@ lte_sss_calc_vc::work (int noutput_items,
     if (v_off.size() > 0){
         offset = pmt::pmt_to_long(v_off[0].value);
 	}
-    
-    
+
+
     //printf("%s.work()\t",name().c_str() );
 	//printf("%f\t%f\n",d_max_val_new, d_max_val_old);
-	
+
 	gr_complex sss[62] = {0};
 	memcpy(sss,in+5,sizeof(gr_complex)*62);
-	
+
 	// extract the 2 half sss symbols which are interleaved differently bby their position within a frame.
 	gr_complex d_even[31]={0};
     gr_complex d_odd [31]={0};
@@ -156,7 +159,7 @@ lte_sss_calc_vc::work (int noutput_items,
 	    d_even[i]=sss[2*i+0];
 	    d_odd[i] =sss[2*i+1];
 	}
-	
+
 	// next 2 sequences depend on N_id_2
 	gr_complex c0[31] = {0};
     gr_complex c1[31] = {0};
@@ -164,15 +167,15 @@ lte_sss_calc_vc::work (int noutput_items,
         c0[i] = d_cX[ (i+N_id_2  )%31 ];
         c1[i] = d_cX[ (i+N_id_2+3)%31 ];
     }
-    
+
     gr_complex s0m0[31]={0};
     for (int i = 0 ; i < 31 ; i++){
         s0m0[i]=d_even[i]/gr_complex(c0[i]);
     }
     int m0 = calc_m(s0m0);
-    
+
     //printf("m0 = %i\n",m0);
-    
+
     char z1m0[31] = {0};
     for (int i = 0 ; i < 31 ; i++) {
         z1m0[i] = d_zX[ ( i+(m0%8) )%31 ];
@@ -181,10 +184,10 @@ lte_sss_calc_vc::work (int noutput_items,
     for (int i = 0 ; i < 31 ; i++){
         s1m1[i] = d_odd[i] / (c1[i] * gr_complex(z1m0[i]) );
     }
-    
+
     int m1 = calc_m(s1m1);
     //printf("m1 = %i\n",m1);
-    
+
     int sss_pos = 0;
     if (m0 > m1){
         int mx = m0;
@@ -193,7 +196,7 @@ lte_sss_calc_vc::work (int noutput_items,
         sss_pos = 5;
     }
     //printf("sss_pos = %i\n",sss_pos);
-    
+
     int N_id_1 = -1;
     for(int i = 0 ; i < 168 ; i++ ){
         if(d_v_m0[i] == m0 && d_v_m1[i] == m1){
@@ -201,20 +204,20 @@ lte_sss_calc_vc::work (int noutput_items,
             break;
         }
     }
-    
+
     //printf("N_id_1 = %i\n",N_id_1);
     if(N_id_1 >=0 && N_id_2 >=0 && d_max_val_new > d_max_val_old*0.8){
         long frame_start = offset%(20*d_slotl);
         if(sss_pos == 5){frame_start += (10*d_slotl);}
         int cell_id = 3*N_id_1 + N_id_2;
-        
+
         d_cell_id = cell_id;
         //printf("NEW DATA!!! cell_id = %i\tN_id_1 = %i\tN_id_1 = %i\tm0 = %i m1 = %i\tframe_start = %ld\toffset = %ld\t", d_cell_id, N_id_1, N_id_2, m0, m1, frame_start, offset);
         //printf("%f\t%f\n",d_max_val_new, d_max_val_old);
         d_sss_pos = sss_pos;
         if(d_frame_start != frame_start){
             d_frame_start = frame_start;
-            
+
         }
         if(cell_id == d_cell_id){
             d_unchanged_id++;
@@ -222,15 +225,17 @@ lte_sss_calc_vc::work (int noutput_items,
                 d_frame_start = d_frame_start%(20*d_slotl);
                 printf("\n%s is locked! frame_start = %ld\tabs_pos = %ld\tcell_id = %i\n\n", name().c_str(), d_frame_start, offset, d_cell_id );
                 (*d_tag).set_frame_start( d_frame_start );
-                (*d_daemon).set_cell_id(d_cell_id);
+                //(*d_daemon).set_cell_id(d_cell_id);
+                set_cell_id(d_cell_id);
+
                 d_is_locked = true;
             }
         }
         else{
             d_unchanged_id = 0;
         }
-        
-        
+
+
     }
     else{
         //printf("FAILED!!!!! cell_id = %i\tN_id_1 = %i\tN_id_2 = %i\tsss_pos = %i\toffset = %ld\told_val = %f\tnew_val = %f\n",d_cell_id,N_id_1,N_id_2,sss_pos,offset, d_max_val_old, d_max_val_new);
@@ -238,14 +243,21 @@ lte_sss_calc_vc::work (int noutput_items,
         if(d_sss_pos == 0){d_sss_pos = 5;}
         else{d_sss_pos = 0;}
     }
-    
-    
+
+
     //*out = d_sss_pos;
     d_max_val_old = d_max_val_new;
 	// Tell runtime system how many output items we produced.
 	return 1;
 }
 
+void
+lte_sss_calc_vc::set_cell_id(int cell_id)
+{
+    printf("%s\t\tset_cell_id NOW!\n", name().c_str() );
+    pmt::pmt_t msg = pmt::pmt_from_long((long)cell_id) ;
+	message_port_pub( d_port_id, msg );
+}
 
 int
 lte_sss_calc_vc::calc_m(gr_complex *s0m0)
@@ -256,15 +268,15 @@ lte_sss_calc_vc::calc_m(gr_complex *s0m0)
     // length d_sref = 62
     // length s0m0 = 31
     std::vector<gr_complex> x_vec;
-    
-    
+
+
     gr_complex s0[62]={0};
     memcpy(s0,s0m0,sizeof(gr_complex)*31);
     gr_complex sr[62]={0};
     memcpy(sr,d_sref,sizeof(gr_complex)*62);
-    
+
     xcorr(x_vec,s0,sr,N);
-    
+
     corr_vec.clear();
     float max = 0;
     int pos = -1;
@@ -277,19 +289,19 @@ lte_sss_calc_vc::calc_m(gr_complex *s0m0)
             pos = i;
         }
     }
-    
+
 /*    if(!std::isfinite(max)){
         //printf("max of xcorr is infinite!\n");
         max = 100.0;
     }*/
-    
+
     mX = abs(pos-31-31);
-      
+
     d_max_val_new = (d_max_val_new + max)/2;
-    
+
     //printf("m = %i\tval = %f\td_max_val = %f\n",mX, max,d_max_val_new);
-    
-    
+
+
     return mX;
 }
 
@@ -301,7 +313,7 @@ lte_sss_calc_vc::corr(gr_complex *x,gr_complex *y, int len)
     gr_complex val = 0;
     for(int i = 0 ; i < len ; i++){
         val = val + (x[i]*conj(y[i]) );
-    }    
+    }
     return val;
 }
 
@@ -311,7 +323,7 @@ void
 lte_sss_calc_vc::xcorr(std::vector<gr_complex> &v, gr_complex *x,gr_complex *y, int len)
 {
     int N = len;
-    
+
     for (int i = 0 ; i < 2 * N - 1 ; i++){
         if(i < N){
             v.push_back( corr(x+(N-1-i),y,i+1) );
