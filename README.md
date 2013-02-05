@@ -9,8 +9,7 @@ This project was initiated as a Bachelor thesis at the *Communication Engineerin
 Requirements
 ------------
 
-- GNU Radio 3.6.2 (other versions might work as well but they are untested)
-- Change to new GR 3.6.3 functionality soon
+- GR 3.6.3 for message passing functionality
 - MATLAB (R2011b tested) for .m-files
 
 
