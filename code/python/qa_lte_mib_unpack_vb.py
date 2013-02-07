@@ -20,52 +20,55 @@
 #
 
 from gnuradio import gr, gr_unittest
-import lte_swig
-import numpy
-import scipy.io
+import lte as lte_swig
+#import numpy
+#import scipy.io
+import lte_test
 
 class qa_mib_unpack_vb (gr_unittest.TestCase):
 
     def setUp (self):
         self.tb = gr.top_block ()
-        
-        # Read in binary Matlab data from viterbi decoder output.
-        vit=scipy.io.loadmat('/home/demel/exchange/matlab_vit.mat')
-        mat_u=range(40)
-        mat_u=tuple(vit['vit'].flatten())
-        mat_vit=range(40)
-        for i in mat_vit:
-            mat_vit[i]=int(mat_u[i])
-        mat_vit=tuple(mat_vit)
-        self.in_data=mat_vit
-        intu=mat_vit[0:24]
-        print intu
-        self.src1 = gr.vector_source_b(intu, False, 24)
+        # setup some dummy data before block instatiation
+        N_rb_dl = 50
+        phich_dur = 0
+        phich_res = 1.0
+        sfn =412
+        mib = lte_test.pack_mib(N_rb_dl, phich_dur, phich_res, sfn)
         N_ant = range(1)
         N_ant[0] = 2
+        self.src1 = gr.vector_source_b(mib, False, 24)
         self.src2 = gr.vector_source_b(N_ant,False,1)
 
         self.mib = lte_swig.mib_unpack_vb()
         
-        #self.snk = gr.null_sink(1)
-        
         self.tb.connect(self.src1,(self.mib,0))
         self.tb.connect(self.src2,(self.mib,1))
-        #self.tb.connect(self.mib,self.snk)
+
         
     def tearDown (self):
         self.tb = None
 
     def test_001_t (self):
+        test_len = 1030
+        N_ant = 2
+        N_rb_dl = 50
+        phich_dur = 0
+        phich_res = 1.0
+        input_data = []
+        input_ant_data = []
+        for sfn in range(test_len):
+            input_data.extend(lte_test.pack_mib(N_rb_dl, phich_dur, phich_res, sfn))
+            input_ant_data.append(N_ant)
+        
+        self.src1.set_data(input_data)
+        self.src2.set_data(input_ant_data)
         # set up fg
         self.tb.run ()
         # check data
-        print "SFN       = " + str(self.mib.get_SFN())
-        print "cell_id   = " + str(self.mib.get_cell_id())
-        print "N_ant     = " + str(self.mib.get_N_ant())
-        print "N_rb_dl   = " + str(self.mib.get_N_rb_dl())
-        print "phich_dur = " + str(self.mib.get_phich_dur())
-        print "phich_res = " + str(self.mib.get_phich_res())
+        print self.mib.get_decoding_rate()
+
+        
 
 if __name__ == '__main__':
     gr_unittest.main ()

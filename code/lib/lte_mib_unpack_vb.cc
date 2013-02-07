@@ -1,17 +1,17 @@
 /* -*- c++ -*- */
-/* 
+/*
  * Copyright 2012 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
- * 
+ *
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 3, or (at your option)
  * any later version.
- * 
+ *
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this software; see the file COPYING.  If not, write to
  * the Free Software Foundation, Inc., 51 Franklin Street,
@@ -24,7 +24,6 @@
 
 #include <gr_io_signature.h>
 #include <lte_mib_unpack_vb.h>
-#include <cstdio>
 
 
 lte_mib_unpack_vb_sptr
@@ -39,19 +38,22 @@ lte_mib_unpack_vb::lte_mib_unpack_vb ()
 		gr_make_io_signature2 (2,2, sizeof (char)*24 , sizeof(char)*1 ),
 		gr_make_io_signature (0,0,0)),
 		d_SFN(-1),
-        d_cell_id(-1),
-        d_N_ant(-1),
-        d_N_rb_dl(-1),
-        d_phich_dur(-1),
-        d_phich_res(-1.0),
-        d_mib_count(0),
+		d_unchanged_decodings(0),
         d_work_calls(0)
-{   
+{
+    d_port_id = pmt::pmt_string_to_symbol("MIB");
+    message_port_register_out(d_port_id);
+
+    d_state_info.N_ant = 0;
+    d_state_info.N_rb_dl = 0;
+    d_state_info.phich_duration = -1;
+    d_state_info.phich_resources = -1.0f;
 }
 
 
 lte_mib_unpack_vb::~lte_mib_unpack_vb ()
 {
+    printf("%s\tdecoding_rate = %1.3f\n",name().c_str(), get_decoding_rate() );
 }
 
 
@@ -62,79 +64,164 @@ lte_mib_unpack_vb::work (int noutput_items,
 {
 	const char *in1 = (const char *) input_items[0];
 	const char *in2 = (const char *) input_items[1];
-	
-	d_work_calls++;	
 
-    // get number of antenna ports
     char N_ant = *in2;
-    if (N_ant == 0){
-        return 1; // if N_ant = 0 CRC check failed --> MIB is unusable --> dismiss it.
+    switch (N_ant){
+        case 0: return 1; break;
+        default: d_state_info.N_ant = N_ant;
+    }
+
+    char mib[24];
+    memcpy(mib,in1,24);
+    decode_mib(mib);
+
+	return 1;
+}
+
+inline void
+lte_mib_unpack_vb::decode_mib(char* mib)
+{
+    bool unchanged = decode_state_mib(mib);
+    if(!unchanged && d_SFN > -1){
+        return;
+    }
+
+    int sfn = decode_sfn(mib+6);
+    int diff = ((sfn+1024)-d_SFN)%1024;
+    d_SFN = sfn;
+
+    if(diff > 0){
+        printf("SFN = %i\tdiff = %i\t", d_SFN, diff );
+        d_state_info.print_values();
+    }
+}
+
+inline bool
+lte_mib_unpack_vb::decode_state_mib(char* mib)
+{
+    bool unchanged = true;
+    int N_rb_dl = decode_N_rb_dl(mib);
+    int phich_dur = mib[3];
+    float phich_res = decode_phich_resources(mib+4);
+
+    if(N_rb_dl != d_state_info.N_rb_dl){
+        printf("MIB state changed!\t N_rb_dl = %i\n", N_rb_dl);
+        unchanged = false;
+    }
+    if(phich_dur != d_state_info.phich_duration){
+        printf("MIB state changed!\t phich_duration = %i\n", phich_dur);
+        unchanged = false;
+    }
+    if(phich_res != d_state_info.phich_resources){
+        printf("MIB state changed!\t phich_resources = %1.2f\n", phich_res);
+        unchanged = false;
+    }
+
+    if(!unchanged && d_unchanged_decodings < 10){
+        d_state_info.N_rb_dl = N_rb_dl;
+        d_state_info.phich_duration = phich_dur;
+        d_state_info.phich_resources = phich_res;
+        d_unchanged_decodings = 0;
     }
     else{
-        d_N_ant = N_ant;
-        //d_mib_count++;
+        d_unchanged_decodings++;
     }
-    // This part of work is only executed when N_ant != 0. Otherwise CRC check failed --> MIB data invalid anyways
-    
-    // get stream tags
+    return unchanged;
+}
+
+inline int
+lte_mib_unpack_vb::decode_N_rb_dl(char* mib)
+{
+    int irb = 4*mib[0]+2*mib[1]+1*mib[2];
+    int N_rb_dl = 0;
+    switch (irb){
+        case 0: N_rb_dl = 6   ; break;
+        case 1: N_rb_dl = 15  ; break;
+        case 2: N_rb_dl = 25  ; break;
+        case 3: N_rb_dl = 50  ; break;
+        case 4: N_rb_dl = 75  ; break;
+        case 5: N_rb_dl = 100 ; break;
+        default: N_rb_dl = 0;
+    }
+    return N_rb_dl;
+}
+
+inline float
+lte_mib_unpack_vb::decode_phich_resources(char* mib)
+{
+    int ipr = 2*mib[0]+1*mib[1];
+    float phich_res = 0.0f;
+    switch (ipr){
+        case 0: phich_res = 1.0f/6.0f; break;
+        case 1: phich_res = 1.0f/2.0f; break;
+        case 2: phich_res = 1.0f;     break;
+        case 3: phich_res = 2.0f;     break;
+        default : phich_res = -1.0f;
+    }
+    return phich_res;
+}
+
+inline int
+lte_mib_unpack_vb::decode_sfn(char* mib)
+{
+    int sfn_lsb = extract_sfn_lsb_from_tag();
+    int sfn_msb = 0;
+    for (int i = 0 ; i < 8 ; i++ ){
+        sfn_msb = sfn_msb + mib[i]*std::pow(2,(9-i));
+    }
+    int sfn = sfn_msb + sfn_lsb;
+
+    if(d_SFN < 0){d_SFN = sfn;}
+    if(d_SFN != sfn){
+        int diff = ((sfn+1024)-d_SFN)%1024;
+        for(int i = 1; i < diff ; i++ ){
+            d_SFN_vec.push_back(-1);
+        }
+        d_SFN_vec.push_back(sfn);
+    }
+
+    return sfn;
+}
+
+inline int
+lte_mib_unpack_vb::extract_sfn_lsb_from_tag()
+{
     int sfn_lsb = 0;
     std::vector <gr_tag_t> v;
     get_tags_in_range(v,0,nitems_read(0),nitems_read(0)+1);
     if (v.size() > 0){
-        //printf("lte_mib_unpack READ TAGS!!!\n");
-        uint64_t offset = v[0].offset;
-        std::string key = pmt::pmt_symbol_to_string(v[0].key);
         long value = pmt::pmt_to_long(v[0].value);
-        std::string srcid = pmt::pmt_symbol_to_string(v[0].srcid);
         sfn_lsb = (value%16)/4; // 32 consecutive vectors (16 with soft-combining, then 16 without)
 	}
-   
-    // Get bytes representing MIB and get information about it.
-    char mib[24];
-    memcpy(mib,in1,24);
-    
-    //Decode system bandwidth (number of resource blocks)
-    int irb = 4*mib[0]+2*mib[1]+1*mib[2];
-    switch (irb){
-        case 0: d_N_rb_dl = 6   ; break;
-        case 1: d_N_rb_dl = 15  ; break;
-        case 2: d_N_rb_dl = 25  ; break;
-        case 3: d_N_rb_dl = 50  ; break;
-        case 4: d_N_rb_dl = 75  ; break;
-        case 5: d_N_rb_dl = 100 ; break;
-    }
-    
-    //Decode PHICH duration
-    d_phich_dur = mib[3];
-    
-    //Decode PHICH resources
-    int ipr = 2*mib[4]+1*mib[5];
-    switch (ipr){
-        case 0: d_phich_res = 1.0/6.0; break;
-        case 1: d_phich_res = 1.0/2.0; break;
-        case 2: d_phich_res = 1.0;     break;
-        case 3: d_phich_res = 2.0;     break;
-    }
-
-    //Decode SFN MSBs    
-    int sfn_msb = 0;
-    for (int i = 0 ; i < 8 ; i++ ){
-        sfn_msb = sfn_msb + mib[i+6]*std::pow(2,(9-i));
-    }
-    //Calculate SFN with MSB and LSB part
-    int sfn = sfn_msb+sfn_lsb;
-    
-    //Output if new SFN is decoded
-    if(d_SFN != sfn){
-        printf("SFN = %i\tdiff = %i\t",sfn, sfn-d_SFN);
-        printf("(N_ant=%i N_rb_dl=%i PHICH: dur=%i res=%1.2f)\n",d_N_ant,d_N_rb_dl,d_phich_dur,d_phich_res);
-        d_SFN_vec.push_back(sfn);
-        d_mib_count++;
-    }
-    //Now set attribute SFN
-    d_SFN =sfn;
-    
-	// Tell runtime system how many output items we produced.
-	return 1;
+	return sfn_lsb;
 }
 
+float
+lte_mib_unpack_vb::get_decoding_rate()
+{
+    int count_success = 0;
+    for(int i = 0; i < d_SFN_vec.size(); i++){
+        if(d_SFN_vec[i] > -1){
+            count_success++;
+        }
+    }
+    float success_rate = float(count_success) / float(d_SFN_vec.size() );
+    return success_rate;
+}
+
+/*
+void
+lte_mib_unpack_vb::send_mib()
+{
+    pmt::pmt_t name = pmt::pmt_string_to_symbol("MIB");
+    pmt::pmt_t p_sfn = pmt::pmt_from_long(long(d_SFN));
+    pmt::pmt_t p_ant = pmt::pmt_from_long(long(d_state_info.N_ant));
+    pmt::pmt_t p_nrb = pmt::pmt_from_long(long(d_state_info.N_rb_dl));
+    pmt::pmt_t p_dur = pmt::pmt_from_long(long(d_state_info.phich_duration));
+    pmt::pmt_t p_res = pmt::pmt_from_long(long(d_state_info.phich_resources));
+
+    pmt::pmt_t msg = pmt::pmt_cons(name, p_sfn, p_ant, p_nrb, p_dur, p_res);
+
+	message_port_pub( d_port_id, msg );
+}
+*/

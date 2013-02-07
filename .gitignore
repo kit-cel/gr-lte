@@ -8,3 +8,4 @@ code/build-cb/
 sed_script.sh
 tests/
 sources/
+*.pyc
