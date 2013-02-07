@@ -4,7 +4,6 @@
   <key>lte_hier_sss_sync_cc</key>
   <category>lte</category>
   <import>import lte</import>
-
   <make>lte.hier_sss_sync_cc($fftl)</make>
   <!-- Make one 'param' node for every Parameter you want settable from the GUI.
        Sub-nodes:
@@ -40,15 +39,17 @@
        * vlen
        * optional (set to 1 for optional inputs) -->
   <source>
-    <name>out</name>
-    <type>complex</type>
-  </source>
-  
-  <source>
     <name>cell_id</name>
     <type>message</type>
     <optional>1</optional>
   </source>
-  
-  
+         
+  <source>
+    <name>out</name>
+    <type>complex</type>
+  </source>       
+       
+
+
+
 </block>

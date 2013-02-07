@@ -30,7 +30,8 @@ endif()
 ########################################################################
 GR_PYTHON_INSTALL(
     FILES
-    __init__.py viterbi_vfvb.py hier_freq_estimate_cc.py hier_sss_sync_cc.py hier_pss_sync_cc.py linear_OFDM_estimator_hier_vcvc.py hier_sss_sync2_vcvc.py DESTINATION ${GR_PYTHON_DIR}/lte
+    __init__.py viterbi_vfvb.py hier_freq_estimate_cc.py hier_sss_sync_cc.py hier_pss_sync_cc.py linear_OFDM_estimator_hier_vcvc.py hier_sss_sync2_vcvc.py decode_bch_vfvb.py
+    decode_pbch_vcvf.py DESTINATION ${GR_PYTHON_DIR}/lte
 )
 
 ########################################################################
@@ -42,10 +43,8 @@ set(GR_TEST_TARGET_DEPS gnuradio-lte)
 set(GR_TEST_PYTHON_DIRS ${CMAKE_BINARY_DIR}/swig)
 GR_ADD_TEST(qa_rate_unmatch_vff ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_rate_unmatch_vff.py)
 GR_ADD_TEST(qa_descrambling_vfvf ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_descrambling_vfvf.py)
-GR_ADD_TEST(qa_multi_block_test ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_multi_block_test.py)
 GR_ADD_TEST(qa_viterbi_vfvb ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_viterbi_vfvb.py)
 GR_ADD_TEST(qa_vector_resize_vbvb ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_vector_resize_vbvb.py)
-GR_ADD_TEST(qa_block_tests ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_block_tests.py)
 GR_ADD_TEST(qa_crc_calculator_vbvb ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_crc_calculator_vbvb.py)
 GR_ADD_TEST(qa_mib_unpack_vb ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_mib_unpack_vb.py)
 GR_ADD_TEST(qa_qpsk_soft_demod_vcvf ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_qpsk_soft_demod_vcvf.py)
@@ -75,3 +74,5 @@ GR_ADD_TEST(qa_sss_calc2_vc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_
 GR_ADD_TEST(qa_sss_tagging2_vcvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_sss_tagging2_vcvc.py)
 GR_ADD_TEST(qa_hier_sss_sync2_vcvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_hier_sss_sync2_vcvc.py)
 GR_ADD_TEST(qa_channel_estimator ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_channel_estimator.py)
+GR_ADD_TEST(qa_decode_bch_vfvb ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_decode_bch_vfvb.py)
+GR_ADD_TEST(qa_decode_pbch_vcvf ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_decode_pbch_vcvf.py)

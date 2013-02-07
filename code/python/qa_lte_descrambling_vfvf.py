@@ -20,62 +20,54 @@
 #
 
 from gnuradio import gr, gr_unittest
-import lte_swig
+import lte as lte_swig
+import lte_test
 
 class qa_descrambling_vfvf (gr_unittest.TestCase):
 
     def setUp (self):
         self.tb = gr.top_block ()
         
-        print "qa_descrambling_vfvf START"
-        
-        cell_id = 124
-        
-        inf=open('/home/demel/exchange/matlab_pbch_demod_p.txt')
-        intu=range(480)
-    	for i in range(480):
-    		intu[i]=float(inf.readline())
-        
-        self.src  = gr.vector_source_f( intu, True, 480)
-       	self.ld   = lte_swig.descrambling_vfvf()
-       	self.ld.set_cell_id(cell_id)
-       	
+        self.src = gr.vector_source_f([0.0]*480, False, 480)
+        self.descr = lte_swig.descrambling_vfvf()
 
-        self.sink = gr.vector_sink_f(120)
-        self.head = gr.head(480*4,10)
-
-        self.tb.connect(self.src,self.head,self.ld,self.sink)
+        self.snk = gr.vector_sink_f(120)   
+        
+        self.tb.connect(self.src, self.descr, self.snk)
         
 
     def tearDown (self):
         self.tb = None
 
     def test_001_t (self):
+        cell_id = 124
+        N_ant = 2    
+        mib = lte_test.pack_mib(50,0,1.0, 511)
+        bch = tuple(lte_test.encode_bch(mib, N_ant))
+        p_scrambled = lte_test.pbch_scrambling(bch, cell_id)
+        p_scrambled = lte_test.nrz_encoding(p_scrambled)
+        n_bch = tuple(lte_test.nrz_encoding(bch))
+
+                
+        self.src.set_data(p_scrambled[0:480])
+        self.descr.set_cell_id(cell_id)
+        
         # set up fg
         self.tb.run ()
-        
-        # check data
-        res_all=self.sink.data()
-        print len(res_all)
-        res=res_all[0:1920]
-        # Read in descrambled sequence from Matlab simulation.
-        outf=open('/home/demel/exchange/matlab_pbch_descr_p.txt')
-        outtu=range(1920)
-    	for i in range(len(outtu)):
-    		outtu[i]=float(outf.readline())
-    		    	       
-        print "assertTestFailure: " + str(self.assertFloatTuplesAlmostEqual(outtu,res,5))
-        
-        counter=0
-        for i in range(len(res)):
-        	if res[i]-outtu[i] > 1e-6:
-        		# print str(i) + " unequal: " + str(res[i]-outtu[i])
-        		counter=counter+1
-        
-        print "failed tests: " + str(counter)
-        # print "self.sink.data() - LENGTH: " + str(len(self.sink.data()) )
-                
-        print "qa_descrambling_vfvf END"
+        res = self.snk.data()
+
+        count = 0
+        for i in range(len(res)/len(n_bch)):
+            part = res[len(n_bch)*i:(i+1)*len(n_bch)]
+            try:
+                self.assertEqual(part, n_bch,3)
+                print str(i) + "\tSUCCESS"
+            except:
+                print str(i)
+                count = count +1
+        print "\nresult"
+        print count
+        print len(res)/len(n_bch)
 
 if __name__ == '__main__':
     gr_unittest.main ()

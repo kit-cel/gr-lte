@@ -66,7 +66,6 @@ class LTE_API lte_channel_estimator : public gr_sync_block
     pmt::pmt_t d_key;
 	pmt::pmt_t d_tag;
 	rs_matrix d_rs_matrix; // Hold arrays with RS symbols for each OFDM symbol
-	int d_no_output; // To assure that there will be no endless loop between scheduler call and return 0;
 
     // hold already calculated values for next slot
 	float* d_est_mag[2];

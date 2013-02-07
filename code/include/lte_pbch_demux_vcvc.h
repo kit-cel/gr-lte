@@ -30,7 +30,7 @@ typedef boost::shared_ptr<lte_pbch_demux_vcvc> lte_pbch_demux_vcvc_sptr;
 LTE_API lte_pbch_demux_vcvc_sptr lte_make_pbch_demux_vcvc (int N_rb_dl); //int cell_id,
 
 /*!
- * \brief <+description+>
+ * \brief Demultiplex PBCH data from resource grid
  *
  */
 class LTE_API lte_pbch_demux_vcvc : public gr_block
@@ -58,6 +58,11 @@ class LTE_API lte_pbch_demux_vcvc : public gr_block
     gr_complex* d_pbch_symbs;
 	gr_complex* d_pbch_ce1_symbs;
 	gr_complex* d_pbch_ce2_symbs;
+
+	inline int calculate_n_process_items(gr_vector_int ninput_items, int noutput_items);
+	void extract_pbch_values(const gr_complex* in1, const gr_complex* in2, const gr_complex* in3,
+                    gr_complex* out1, gr_complex* out2, gr_complex* out3);
+    inline int get_sym_num(std::vector<gr_tag_t> v);
 
 };
 

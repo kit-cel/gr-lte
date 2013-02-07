@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # 
-# Copyright 2012 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
+# Copyright 2013 <+YOU OR YOUR COMPANY+>.
 # 
 # This is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,40 +20,41 @@
 #
 
 from gnuradio import gr, gr_unittest
-import lte as lte_swig
+import lte
 import lte_test
 
-class qa_qpsk_soft_demod_vcvf (gr_unittest.TestCase):
+class qa_decode_bch_vfvb (gr_unittest.TestCase):
 
     def setUp (self):
         self.tb = gr.top_block ()
+      
+        self.src = gr.vector_source_f([0]*120, False, 120)
+        self.bch = lte.decode_bch_vfvb()
+        self.snk0 = gr.vector_sink_b(24)
+        self.snk1 = gr.vector_sink_b(1)
         
-        self.src = gr.vector_source_c([0]*240,False, 240)
-        self.demod = lte_swig.qpsk_soft_demod_vcvf()
-        self.snk = gr.vector_sink_f(480)
-        
-        self.tb.connect(self.src, self.demod, self.snk)
+        self.tb.connect(self.src, self.bch)
+        self.tb.connect((self.bch, 0), self.snk0)
+        self.tb.connect((self.bch, 1), self.snk1)
+                
 
     def tearDown (self):
         self.tb = None
 
     def test_001_t (self):
-        print "demodulation test"
-        mib = lte_test.pack_mib(50,0,1.0, 511)   
-        bch = lte_test.encode_bch(mib, 2)
-        p_scrambled = lte_test.pbch_scrambling(bch, 124)
-        input_data = p_scrambled#[0:480]
-        qpsk_mod = lte_test.qpsk_modulation(input_data)
-        input_data = lte_test.nrz_encoding(input_data)
-        
-        self.src.set_data(qpsk_mod)
+        N_ant = 4    
+        mib = lte_test.pack_mib(50,0,1.0, 511)
+        bch = lte_test.encode_bch(mib, N_ant)
+        bch = lte_test.nrz_encoding(bch)
+        self.src.set_data(bch)
         # set up fg
         self.tb.run ()
         # check data
-        res = self.snk.data()
-        exp_res = tuple(input_data)#tuple([input_data[i]/math.sqrt(2) for i in range(len(input_data))])
-        print self.assertFloatTuplesAlmostEqual(res, exp_res, 5)
-
+        res0 = self.snk0.data()
+        res1 = self.snk1.data()
+        print self.assertEqual(res0, tuple(mib))
+        print self.assertEqual(res1, tuple([N_ant]))
+        
 
 
 if __name__ == '__main__':

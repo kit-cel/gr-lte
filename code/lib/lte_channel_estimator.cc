@@ -46,11 +46,6 @@ lte_channel_estimator::lte_channel_estimator (int N_rb_dl)
 
     d_key=pmt::pmt_string_to_symbol("symbol"); // specify key of tag.
 
-    d_no_output = 0;
-
-    //only during debug!
-    //set_cell_id(124);
-
     //Initial block setup
     set_min_output_buffer(8* sizeof(gr_complex)*12*N_rb_dl );
     set_output_multiple(7);

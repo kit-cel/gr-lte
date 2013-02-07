@@ -46,6 +46,8 @@ class LTE_API lte_descrambling_vfvf : public gr_sync_interpolator
 	void set_cell_id_msg(pmt::pmt_t msg);
 
 	static char* pn_seq_generator(int len, int cell_id);
+	std::vector<int> get_pn_sequence();
+
 	int work (int noutput_items,
 		gr_vector_const_void_star &input_items,
 		gr_vector_void_star &output_items);

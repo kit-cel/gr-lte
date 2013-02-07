@@ -1,17 +1,17 @@
 /* -*- c++ -*- */
-/* 
+/*
  * Copyright 2012 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
- * 
+ *
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 3, or (at your option)
  * any later version.
- * 
+ *
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this software; see the file COPYING.  If not, write to
  * the Free Software Foundation, Inc., 51 Franklin Street,
@@ -48,7 +48,7 @@ lte_cp_time_freq_sync_cc::lte_cp_time_freq_sync_cc (int fftl)
 {
     d_key=pmt::pmt_string_to_symbol("symbol");
 	d_tag_id=pmt::pmt_string_to_symbol(name() );
-	
+
 	d_cp0 = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*d_cpl0);
 	d_cp1 = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*d_cpl0);
 	d_res = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*d_cpl0);
@@ -76,38 +76,18 @@ lte_cp_time_freq_sync_cc::corr(gr_complex *x,gr_complex *y, int len)
 gr_complex
 lte_cp_time_freq_sync_cc::corr(gr_complex *res, gr_complex *x, gr_complex *y, int len)
 {
-    gr_complex val = 0;
     volk_32fc_conjugate_32fc_a(y, y, len);
     volk_32fc_x2_multiply_32fc_a(res, x, y, len);
-    //printf("%s\tlen = %i\n", name().c_str(), len);
-/*
-    for(int i = 0; i < len; i++){
-        val += *(res+i);
-    }
-*/
-    int al_mult = volk_get_alignment() / sizeof(gr_complex) ;
-    if(len%volk_get_alignment() != 0){
-        int rest = len%volk_get_alignment();
-        len -= len%volk_get_alignment();
-        for(int i = len/2; i > al_mult ; i=i/2 ){
-            volk_32f_x2_add_32f_a((float*)res, (float*)res, (float*)(res+i), i*2);
-        }
-        for(int i = 0; i < al_mult; i++){
-            val += *(res+i);
-        }
-        for(int i = 0; i < rest; i++){
-            val += *(res+len+i);
-        }
-    }
-    else{
-        for(int i = len/2; i > 3 ; i=i/2 ){
-            volk_32f_x2_add_32f_a((float*)res, (float*)res, (float*)(res+i), i*2);
-        }
-        for(int i = 0; i < 4; i++){
-            val += *(res+i);
-        }
-    }
-    return val;
+
+    float* i_vector = (float*)fftwf_malloc(sizeof(float)*len);
+    float* q_vector = (float*)fftwf_malloc(sizeof(float)*len);
+    volk_32fc_deinterleave_32f_x2_a(i_vector, q_vector, res, len);
+    float i_result = 0.0f;
+    float q_result = 0.0f;
+    volk_32f_accumulator_s32f_a(&i_result, i_vector, len);
+    volk_32f_accumulator_s32f_a(&q_result, q_vector, len);
+
+    return gr_complex(i_result, q_result);
 }
 
 int
@@ -117,23 +97,23 @@ lte_cp_time_freq_sync_cc::work (int noutput_items,
 {
 	const gr_complex *in = (const gr_complex *) input_items[0];
 	gr_complex *out = (gr_complex *) output_items[0];
-	
+
 	//printf("%s.work\tnoutput_items = %i\tnitems_read = %ld\n", name().c_str(), noutput_items, nitems_read(0) );
-	
+
 	if(nitems_read(0) > 100000){
 	    add_item_tag(0,nitems_read(0)+5,d_key, pmt::pmt_from_long(d_sym_pos),d_tag_id);
         d_work_call++;
         memcpy(out,in,sizeof(gr_complex)*noutput_items );
         return noutput_items;
 	}
-		
-	int stp = d_cpl0/4;	
+
+	int stp = d_cpl0/4;
 	int nout = 0;
-	
+
 	//if(noutput_items < d_fftl+d_cpl){
     //    printf("%s\tnoutput_items = %i\tnitems_read = %ld\tnot enough items!\n",name().c_str(), noutput_items, nitems_read(0) );
     //}
-	
+
 	int coarse_pos = 0;
 	gr_complex it_val = 0;
 	for(int i = 0; i < noutput_items - (d_fftl+d_cpl+stp); i+=stp){
@@ -155,7 +135,7 @@ lte_cp_time_freq_sync_cc::work (int noutput_items,
 	    //}
 	    nout = i;
 	}
-	
+
 	if(nout > 0){
 	    if(coarse_pos < stp){
 	        coarse_pos = stp;
@@ -165,7 +145,7 @@ lte_cp_time_freq_sync_cc::work (int noutput_items,
 	        memcpy(d_cp0,in+i       ,sizeof(gr_complex)*d_cpl );
 	        memcpy(d_cp1,in+i+d_fftl,sizeof(gr_complex)*d_cpl );
 	        gr_complex val = corr(d_res,d_cp0,d_cp1,d_cpl);
-	        
+
 	        if(abs(it_val) < abs(val) ){
 	            fine_pos = i;
 	            if(d_corr_val < abs(val) ){
@@ -180,11 +160,11 @@ lte_cp_time_freq_sync_cc::work (int noutput_items,
 	}
 
     //The next if-statement exists for the sole purpose to avoid an infinity loop caused by the scheduler and not enough input items.
-    if(nout == 0){       
+    if(nout == 0){
         //printf("%s\tnout = %i\tnoutput_items = %i\tnitems_read = %ld\titems dumped!\n",name().c_str(), nout, noutput_items, nitems_read(0) );
         nout = noutput_items;
     }
-    
+
     // actually the next block doesn't care about the exact tag position. Only the value and key are important.
     memcpy(out, in, sizeof(gr_complex)*nout );
     add_item_tag(0,nitems_read(0)+5,d_key, pmt::pmt_from_long(d_sym_pos),d_tag_id);

@@ -20,100 +20,89 @@
 #
 
 from gnuradio import gr, gr_unittest
-import lte_swig
-import numpy
-import scipy.io
+import lte as lte_swig
+import lte_test
 
 class qa_layer_demapper_vcvc (gr_unittest.TestCase):
 
     def setUp (self):
+        print "setUp"
         self.tb = gr.top_block ()
-        
-        # Case 1 antenna port assumed
-        mod=scipy.io.loadmat('/home/demel/exchange/matlab_pbch_layer_demap1.mat')
-        mat_u1=range(240)
-        mat_u1=tuple(mod['pbch_layer_demap1'].flatten())
-        
-        # Case 2 antenna ports assumed
-        mod=scipy.io.loadmat('/home/demel/exchange/matlab_pbch_layer_demap2.mat')
-        mat_u2=range(240)
-        mat_u2=tuple(mod['pbch_layer_demap1'].flatten())
-        
-        # pack input into one tuple
-        mat_d=range(480)
-        for idx, val in enumerate(mat_u1):
-            mat_d[idx]=(mat_u1[idx])
-            mat_d[idx+240]=mat_u2[idx]
-        intu=tuple(mat_d)
-        #print len(intu)
-        #print type(intu)
-        #print type(intu[8])
-        #print intu[0:3]
-
-        self.src = gr.vector_source_c(intu,False,240)
-        self.ldm = lte_swig.layer_demapper_vcvc(1,'tx_diversity')
+        self.src = gr.vector_source_c([0]*240,False,240)
+        self.demapper = lte_swig.layer_demapper_vcvc(0, "tx_diversity")
         self.snk = gr.vector_sink_c(240)
-        
-        self.tb.connect(self.src,self.ldm,self.snk)
+        self.tb.connect(self.src, self.demapper, self.snk)
 
     def tearDown (self):
         self.tb = None
 
-    def test_001_t (self):
-        # set up fg
-        self.tb.run ()
-        # check data
-        mod=scipy.io.loadmat('/home/demel/exchange/matlab_pbch_frame_demap1.mat')
-        mat_u=range(240)
-        mat_u=tuple(mod['pbch_frame_demap'].flatten())
-        mat_d=range(240)
-        for i in mat_d:
-            mat_d[i]=(mat_u[i])
-        outtu=tuple(mat_d)
+    def test_001_setup_N_ant(self):
+        print "\ntest_001_setup_N_ant"
+        N_ant = [0,1,2,4]
 
-        res = self.snk.data()
-        res = res[0:240]
-        #print res[0:5]
-        
-        #for idx, val in enumerate(res):
-        #    print str(val) + "\t" + str(outtu[idx]) + "    \t" + str(val-outtu[idx])
-        
-        # Test output 1
-        try:
-            self.assertComplexTuplesAlmostEqual(outtu,res,5)
-            print "first  run: Tuples MATCH!!!"
-        except AssertionError:
-            print "first  run: Tuples are unequal"
-        #print self.assertComplexTuplesAlmostEqual(outtu,res,5)
-        
-        # rerun test with different antenna config.
-        self.ldm.set_N_ant(2)
-        self.tb.run()
-        res2 = self.snk.data()
-        res2 = res2[240:480]
-        #print res2[0:5]
-        
-        mod=scipy.io.loadmat('/home/demel/exchange/matlab_pbch_frame_demap2.mat')
-        mat_u=range(240)
-        mat_u=tuple(mod['pbch_frame_demap'].flatten())
-        mat_d=range(240)
-        for i in mat_d:
-            mat_d[i]=(mat_u[i])
-        outtu2=tuple(mat_d)
-        
-        for i in range(5):
-            print str(res2[i]) + "\t" + str(outtu2[i])
+        for n in range(len(N_ant)):
+            self.demapper.set_N_ant(N_ant[n])
+            self.assertEqual(N_ant[n], self.demapper.get_N_ant())
 
-        # Test output 2
-        try:
-            self.assertComplexTuplesAlmostEqual(outtu2,res2,5)
-            print "second run: Tuples MATCH!!!"
-        except AssertionError:
-            print "second run: Tuples are unequal"
-        #self.assertComplexTuplesAlmostEqual(outtu2,res2,5)
-
+    def test_002_setup_decoding_style(self):
+        print "\ntest_002_setup_decoding_style"
+        style = {0:"tx_diversity", 1:"spatial_multiplexing", 2:"nonsense"}
         
+        for s in range(len(style)):
+            self.demapper.set_decoding_style(style[s])
+            try:
+                self.assertEqual(style[0], self.demapper.get_decoding_style() )
+            except:
+                if(self.demapper.get_decoding_style() != style[0]):
+                    print style[s]
+                else:
+                    self.assertEqual(style[1], self.demapper.get_decoding_style() )
         
 
+    def test_003_demapping (self):
+        print "\ntest_003_demapping"
+        N_ant = [1,2,4]
+        cell_id = 124
+        mib = lte_test.pack_mib(50,0,1.0, 511)
+        bch = tuple(lte_test.encode_bch(mib, N_ant[0]))
+        data = lte_test.pbch_scrambling(bch, cell_id)
+        style = "tx_diversity"
+        self.demapper.set_decoding_style(style)
+        
+        mapped = [[],[],[]]
+        mapped[0] = lte_test.layer_mapping(data, 1 , style)
+        m2 = lte_test.layer_mapping(data, 2 , style)
+        m2a = []
+        for i in range(len(m2[0])/120):
+            m2a.extend(m2[0][120*i:(i+1)*120])
+            m2a.extend(m2[1][120*i:(i+1)*120])
+        mapped[1] = m2a
+        
+        m4 = lte_test.layer_mapping(data, 4, style)
+        m4a = []
+        for i in range(len(m4[0])/60):
+            m4a.extend(m4[0][i*60:(i+1)*60])
+            m4a.extend(m4[1][i*60:(i+1)*60])
+            m4a.extend(m4[2][i*60:(i+1)*60])
+            m4a.extend(m4[3][i*60:(i+1)*60])
+        mapped[2] = m4a
+               
+        exp_res = [complex(data[i]) for i in range(len(data))]
+
+        for i in range(3):
+            self.demapper.set_N_ant(N_ant[i])
+            print "N_ant = " +str(self.demapper.get_N_ant())
+            self.src.set_data(mapped[i])
+            self.snk.reset()
+            self.tb.run()
+            res = self.snk.data()
+            try:
+                self.assertComplexTuplesAlmostEqual(res, tuple(exp_res) )
+            except:
+                print "FAILED N_ant = " +str(self.demapper.get_N_ant())
+                self.assertComplexTuplesAlmostEqual(res, tuple(exp_res) )
+
+
+            
 if __name__ == '__main__':
     gr_unittest.main ()

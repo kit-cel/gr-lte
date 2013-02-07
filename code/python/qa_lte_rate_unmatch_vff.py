@@ -20,67 +20,45 @@
 #
 
 from gnuradio import gr, gr_unittest
-import lte_swig
+import lte as lte_swig
+import lte_test
 
 class qa_rate_unmatch_vff (gr_unittest.TestCase):
 
     def setUp (self):
-        print "qa_lte_rate_unmatch_vff START"   
-    	inf=open('/home/demel/exchange/matlab_pbch_descr.txt')
-    	intu=range(120)
-    	for i in range(120):
-    		intu[i]=float(inf.readline())
-    		#print line
-    		#intu[i]=float(line)
-    	invec=intu	# invec is a sample vector interleaved from Matlab
-   	
         self.tb   = gr.top_block ()
-        self.src  = gr.vector_source_f( invec, True, 40)
-        self.vtos = gr.vector_to_stream(1*gr.sizeof_float,40)        
-        self.stov = gr.stream_to_vector(1*gr.sizeof_float,1*120)
-        self.head = gr.head(120*4,1)
-        self.lru  = lte_swig.rate_unmatch_vff() # 124
-        self.sink = gr.vector_sink_f(120)
-        
-
-        self.tb.connect(self.src, self.vtos, self.stov, self.head, self.lru, self.sink)
+        self.src  = gr.vector_source_f( [0]*120 , False, 120)
+        self.lru  = lte_swig.rate_unmatch_vff()
+        self.snk = gr.vector_sink_f(120)
+        self.tb.connect(self.src, self.lru, self.snk)
 
     def tearDown (self):
         self.tb = None
 
     def test_001_t (self):
+        print "lte_rate_unmatch TEST"
+        mib = lte_test.pack_mib(50,0,1.0, 511)
+        mib_crc = lte_test.crc_checksum(mib, 2)
+        c_enc_sorted = lte_test.convolutional_encoder_sorted(mib_crc)
+        
+        
+        in_data = c_enc_sorted
+        input_data = lte_test.rate_match(in_data)
+        my_data = []
+        for i in range(40):
+            my_data.append(in_data[i+0])
+            my_data.append(in_data[i+40])
+            my_data.append(in_data[i+80])    
+        in_data = my_data
+        exp_res = tuple([float(in_data[i]) for i in range(len(in_data))])
+        
+        self.src.set_data(input_data)
         self.tb.run ()
-        res=self.sink.data()
+        res=self.snk.data()
+        
+        self.assertEqual(res, exp_res)
 
-    
-        # set up fg
-        outtu=range(120)
-        outf=open('/home/demel/exchange/matlab_d.txt')
-    	for i in range(120):
-    		outtu[i]=float(outf.readline())
- 
-        
-        
-        
-#        for i in range(120):
-#        	if self.assertFloatTuplesAlmostEqual(res,outtu,1):
-#        		print "is equal"
-#        	else:
-#        		print "unequal! " + str(res[i]) + "\t" + str(outtu[i])
-        #for i in range(len(res)):
-        #	print '{0:.2f}'.format(res[i])
-        print "rate_unmatch assertTEST: " + str(self.assertFloatTuplesAlmostEqual(res,outtu,5))
-        #print res[5]
-	# print self.sink.data()
-	#print "Test if input is almost equal to output"
-	#for i in range(120):
-	#	if res[i]-outtu[i] > 1e-7:
-	#		print str(i) + str(res[i]-outtu[i]) + "\tis greater than 0.000001"
-#		else:
-#			print str(i) + "\talmost equal"
-	
-	print "qa_lte_rate_unmatch_vff END"
-        # check data
+
 
 
 if __name__ == '__main__':

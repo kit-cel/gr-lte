@@ -1,17 +1,17 @@
 /* -*- c++ -*- */
-/* 
+/*
  * Copyright 2012 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
- * 
+ *
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 3, or (at your option)
  * any later version.
- * 
+ *
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this software; see the file COPYING.  If not, write to
  * the Free Software Foundation, Inc., 51 Franklin Street,
@@ -46,10 +46,41 @@ class LTE_API lte_pre_decoder_vcvc : public gr_sync_block
 	int work (int noutput_items,
 		gr_vector_const_void_star &input_items,
 		gr_vector_void_star &output_items);
-		
+
+    void set_N_ant(int N_ant);
+	int get_N_ant(){return d_N_ant;}
+	void set_decoding_style(std::string style);
+	std::string get_decoding_style(){return d_style;}
+
  private:
     int d_N_ant;
     std::string d_style;
+
+//    inline void decode_2_ant(gr_complex* out, gr_complex* frame, gr_complex* ce1, gr_complex* ce2);
+
+    inline void decode_1_ant(gr_complex* out, gr_complex* rx, gr_complex* h, int len);
+
+    inline void prepare_2_ant_vectors(gr_complex* h0,
+                                      gr_complex* h1,
+                                      gr_complex* r0,
+                                      gr_complex* r1,
+                                      gr_complex* rx,
+                                      gr_complex* ce1,
+                                      gr_complex* ce2,
+                                      int len);
+
+    inline void decode_2_ant(gr_complex* out0,
+                             gr_complex* out1,
+                             gr_complex* h0,
+                             gr_complex* h1,
+                             gr_complex* r0,
+                             gr_complex* r1,
+                             int len);
+
+    inline void combine_output(gr_complex* out,
+                               gr_complex* out0,
+                               gr_complex* out1,
+                               int len);
 };
 
 #endif /* INCLUDED_LTE_PRE_DECODER_VCVC_H */

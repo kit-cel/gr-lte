@@ -20,51 +20,26 @@
 #
 
 from gnuradio import gr, gr_unittest
-import lte_swig
-import numpy
-import scipy.io
+from gruel import pmt
+import lte as lte_swig
+import numpy as np
+from lte_test import *
 
 class qa_pbch_demux_vcvc (gr_unittest.TestCase):
 
     def setUp (self):
         self.tb = gr.top_block ()
         
-        print "qa_pbch_demux_vcvc START"
+        self.N_rb_dl = N_rb_dl = 100
+        n_carriers = 12*N_rb_dl
+        intu = np.zeros(n_carriers,dtype=np.complex)
         
-        # Input 1, PBCH frame
-        mod=scipy.io.loadmat('/home/demel/exchange/matlab_frame.mat') 
-        mat_u1=tuple(mod['frame_mat'].flatten())
-        mat_d=range(len(mat_u1))
-        for idx, val in enumerate(mat_u1):
-            mat_d[idx]=val
-        intu1=tuple(mat_d)
+        self.src1 = gr.vector_source_c( intu, False, n_carriers)
+        self.src2 = gr.vector_source_c( intu, False, n_carriers)
+        self.src3 = gr.vector_source_c( intu, False, n_carriers)
         
-        # Input 2, CE values for antenna port 1
-        mod=scipy.io.loadmat('/home/demel/exchange/matlab_ce_frame_mat1.mat')
-        mat_u2=tuple(mod['ce_frame_mat1'].flatten())
-        mat_d=range(len(mat_u2))
-        for idx, val in enumerate(mat_u2):
-            mat_d[idx]=val
-        intu2=tuple(mat_d)
-
-        # Input 2, CE values for antenna port 1
-        mod=scipy.io.loadmat('/home/demel/exchange/matlab_ce_frame_mat2.mat')
-        mat_u2=tuple(mod['ce_frame_mat2'].flatten())
-        mat_d=range(len(mat_u2))
-        for idx, val in enumerate(mat_u2):
-            mat_d[idx]=val
-        intu3=tuple(mat_d)
-
-        
-        self.src1 = gr.vector_source_c( intu1, False, 72)
-        self.src2 = gr.vector_source_c( intu2, False, 72)
-        self.src3 = gr.vector_source_c( intu3, False, 72)
-        
-        cell_id = 124
-        N_rb_dl = 6
         self.demux = lte_swig.pbch_demux_vcvc(N_rb_dl) # cell_id,
-        self.demux.set_cell_id(cell_id)
-        
+                
         self.snk1 = gr.vector_sink_c(240)
         self.snk2 = gr.vector_sink_c(240)
         self.snk3 = gr.vector_sink_c(240)
@@ -82,6 +57,43 @@ class qa_pbch_demux_vcvc (gr_unittest.TestCase):
         self.tb = None
 
     def test_001_t (self):
+        cell_id = 220
+        N_ant = 2
+        style= "tx_diversity"
+        N_rb_dl = self.N_rb_dl
+        
+        self.demux.set_cell_id(cell_id)
+        
+        mib = pack_mib(50,0,1.0, 511)
+        bch = encode_bch(mib, N_ant)
+        pbch = encode_pbch(bch, cell_id, N_ant, style)
+        
+        stream = []
+        for i in range(4):
+            frame = generate_frame(pbch, N_rb_dl, cell_id, i+20, N_ant)
+            stream.extend(frame[0].flatten())
+            
+        print len(stream)
+        
+        
+        tag_name = "symbol"
+        tag_list = []
+        for i in range(len(stream)/(12*N_rb_dl)):
+            if i%7 == 0:
+                tag = gr.gr_tag_t()
+                tag.key = pmt.pmt_string_to_symbol(tag_name)
+                tag.value = pmt.pmt_from_long(i%140)
+                tag.offset = i*12*N_rb_dl           
+                tag_list.append(tag)
+            
+            
+        print len (tag_list)
+                
+        
+        self.src1.set_data(stream, tuple(tag_list))
+        self.src2.set_data(np.ones(len(stream), dtype=np.complex))
+        self.src3.set_data(np.ones(len(stream), dtype=np.complex))
+
         # set up fg
         self.tb.run ()
         # check data
@@ -89,55 +101,26 @@ class qa_pbch_demux_vcvc (gr_unittest.TestCase):
         res2 = self.snk2.data()
         res3 = self.snk3.data()
         
-        # Input 1, PBCH frame
-        mod=scipy.io.loadmat('/home/demel/exchange/matlab_pbch_frame.mat') 
-        mat_u1=tuple(mod['pbch_frame1'].flatten())
-        mat_d=range(240)
-        for idx, val in enumerate(mat_u1):
-            mat_d[idx]=val
-        outtu1=tuple(mat_d)
+        print len(res1)
+        compare = res1[0:len(pbch[0])]
         
-        # Input 2, CE values for antenna port 1
-        mod=scipy.io.loadmat('/home/demel/exchange/matlab_pbch_ce1.mat')
-        mat_u2=tuple(mod['pbch_ce1'].flatten())
-        mat_d=range(240)
-        for idx, val in enumerate(mat_u2):
-            mat_d[idx]=val
-        outtu2=tuple(mat_d)
+        '''
+        partl = 10
+        for i in range(len(res1)/partl):
+            partres = compare[partl*i:partl*(i+1)]
+            partcom = pbch[0][partl*i:partl*(i+1)]
+            try:
+                self.assertComplexTuplesAlmostEqual(partcom,partres)
+                print str(i*partl) + "\tsuccess"
+            except:
+                #print "\n\n\n\n\n\n"
+                print str(i*partl) + "\t" + str(partres)
+        '''
 
-        # Input 2, CE values for antenna port 1
-        mod=scipy.io.loadmat('/home/demel/exchange/matlab_pbch_ce2.mat')
-        mat_u2=tuple(mod['pbch_ce1'].flatten())
-        mat_d=range(240)
-        for idx, val in enumerate(mat_u2):
-            mat_d[idx]=val
-        outtu3=tuple(mat_d)
+        self.assertComplexTuplesAlmostEqual(compare,tuple(pbch[0]))
         
-        #for i in range(240):
-        #    print str(i) + "\t" + str(res3[i]) + "\t" + str(outtu3[i])
-            
-            
-        try:
-            self.assertComplexTuplesAlmostEqual(res1,outtu1,5)
-            print "res1 SUCCESSFUL!!!"
-        except AssertionError:
-            print "res1 FAILED!!!"
-
-        try:
-            self.assertComplexTuplesAlmostEqual(res2,outtu2,5)
-            print "res2 SUCCESSFUL!!!"
-        except AssertionError:
-            print "res2 FAILED!!!"
-        
-        try:
-            self.assertComplexTuplesAlmostEqual(res3,outtu3,5)
-            print "res3 SUCCESSFUL!!!"
-        except AssertionError:
-            print "res3 FAILED!!!"
-
-        print "len(res1) = " + str(len(res1)) + "\nlen(res2) = " + str(len(res2)) + "\nlen(res3) = " + str(len(res3))
-        
-
+        self.assertComplexTuplesAlmostEqual(res2,tuple(np.ones(len(res2), dtype=np.complex)))
+        self.assertComplexTuplesAlmostEqual(res3,tuple(np.ones(len(res3), dtype=np.complex)))
 
 
 if __name__ == '__main__':

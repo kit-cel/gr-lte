@@ -42,20 +42,9 @@ class viterbi_vfvb(gr.hier_block2):
 	
         # Correct FSM instantiation: k=num_input_bits, n=num_output_bits, Tuple[dim(k*n)] (decimal notation)
         self.fsm  = trellis.fsm(1,3,[91,121,117])
-        # print "\nFSM attributes"
-        # print "FSM.I()       = " + str(self.fsm.I())  # input states
-        # print "FSM.S()       = " + str(self.fsm.S())  # FSM states
-        # print "FSM.O()       = " + str(self.fsm.O())  # output states
-        # print "FSM.NS()      = " + str(self.fsm.NS()) # next states of the FSM itself
-        # print "FSM.OS()      = " + str(self.fsm.OS()) # output states
-        # print "FSM.PS()  = " + str(self.fsm.PS()) # previous states (not available in this example?)
-        # print "FSM.PI()  = " + str(self.fsm.PI()) # previous input states (not available in this example?)
-        # print "FSM.TMi() = " + str(self.fsm.TMi())
-        # print "FSM.TMI() = " + str(self.fsm.TMl())
-
 
         # Values for viterbi decoder        
-        K = 40  # steps for one coding block
+        K = 80  # steps for one coding block
         SO = 0  # initial state
         SK = -1 # final state (in this case unknown, therefore -1)
         D = 3   # dimensionality
@@ -77,14 +66,6 @@ class viterbi_vfvb(gr.hier_block2):
 	    # D      = dimensionality
 	    # TABLE  = constellation of the input symbols
         self.vit  = trellis.viterbi_combined_fb(self.fsm,K,SO,SK,D,constellation,200)	
-        # print "\nViterbi_combined_fb attributes"
-        # print "K     = " + str(self.vit.K())
-        # print "SO    = " + str(self.vit.SO()) # initial state
-        # print "SK    = " + str(self.vit.SK()) # final state
-        # print "D     = " + str(self.vit.D())
-        # print "TYPE  = " + str(self.vit.TYPE())
-        # for i in range(len(self.vit.TABLE())/D):
-        #     print "TABLE =\t" + str(self.vit.TABLE()[i*D]) + "\t" + str(self.vit.TABLE()[i*D+1]) + "\t" + str(self.vit.TABLE()[i*D+2])
 
         # stream output of viterbi decoder to vector
         self.stov2 = gr.stream_to_vector(1*gr.sizeof_char,80)

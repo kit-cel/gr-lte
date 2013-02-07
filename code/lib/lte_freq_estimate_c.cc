@@ -165,41 +165,18 @@ lte_freq_estimate_c::calc_f_off_av(){
 gr_complex
 lte_freq_estimate_c::corr(gr_complex *res, gr_complex *x, gr_complex *y, int len)
 {
-    gr_complex val = 0;
     volk_32fc_conjugate_32fc_a(y, y, len);
     volk_32fc_x2_multiply_32fc_a(res, x, y, len);
-    //printf("%s\tlen = %i\n", name().c_str(), len);
-/*
-    for(int i = 0; i < len; i++){
-        val += *(res+i);
-    }
-*/
-    int al_mult = volk_get_alignment() / sizeof(gr_complex) ;
-    if(len%volk_get_alignment() != 0){
-        int rest = len%volk_get_alignment();
-        len -= len%volk_get_alignment();
 
-        for(int i = len/2; i > al_mult ; i=i/2 ){
-            volk_32f_x2_add_32f_a((float*)res, (float*)res, (float*)(res+i), i*2);
-        }
-        for(int i = 0; i < al_mult; i++){
-            val += *(res+i);
-        }
-        for(int i = 0; i < rest; i++){
-            val += *(res+len+i);
-        }
-    }
-    else{
-        for(int i = len/2; i > 3 ; i=i/2 ){
-            volk_32f_x2_add_32f_a((float*)res, (float*)res, (float*)(res+i), i*2);
-        }
-        for(int i = 0; i < 4; i++){
-            val += *(res+i);
-        }
-    }
+    float* i_vector = (float*)fftwf_malloc(sizeof(float)*len);
+    float* q_vector = (float*)fftwf_malloc(sizeof(float)*len);
+    volk_32fc_deinterleave_32f_x2_a(i_vector, q_vector, res, len);
+    float i_result = 0.0f;
+    float q_result = 0.0f;
+    volk_32f_accumulator_s32f_a(&i_result, i_vector, len);
+    volk_32f_accumulator_s32f_a(&q_result, q_vector, len);
 
-
-    return val;
+    return gr_complex(i_result, q_result);
 }
 
 
