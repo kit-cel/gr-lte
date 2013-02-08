@@ -78,7 +78,11 @@ class LTE_API lte_mib_unpack_vb : public gr_sync_block
     int d_SFN;
     int d_unchanged_decodings;
 
-    pmt::pmt_t d_port_id;
+    pmt::pmt_t d_port_N_ant;
+    pmt::pmt_t d_port_N_rb_dl;
+    pmt::pmt_t d_port_phich_duration;
+    pmt::pmt_t d_port_phich_resources;
+    pmt::pmt_t d_port_SFN;
 
     std::vector<int> d_SFN_vec;
     int d_work_calls;
@@ -92,6 +96,8 @@ class LTE_API lte_mib_unpack_vb : public gr_sync_block
     inline int extract_sfn_lsb_from_tag();
 
     void send_mib();
+    void send_state_mib();
+    inline void send_sfn();
 };
 
 #endif /* INCLUDED_LTE_MIB_UNPACK_VB_H */

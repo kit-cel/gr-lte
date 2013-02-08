@@ -41,8 +41,17 @@ lte_mib_unpack_vb::lte_mib_unpack_vb ()
 		d_unchanged_decodings(0),
         d_work_calls(0)
 {
-    d_port_id = pmt::pmt_string_to_symbol("MIB");
-    message_port_register_out(d_port_id);
+    d_port_N_ant = pmt::pmt_string_to_symbol("N_ant");
+    d_port_N_rb_dl = pmt::pmt_string_to_symbol("N_rb_dl");
+    d_port_phich_duration = pmt::pmt_string_to_symbol("phich_duration");
+    d_port_phich_resources = pmt::pmt_string_to_symbol("phich_resources");
+    d_port_SFN = pmt::pmt_string_to_symbol("SFN");
+
+    message_port_register_out(d_port_N_ant);
+    message_port_register_out(d_port_N_rb_dl);
+    message_port_register_out(d_port_phich_duration);
+    message_port_register_out(d_port_phich_resources);
+    message_port_register_out(d_port_SFN);
 
     d_state_info.N_ant = 0;
     d_state_info.N_rb_dl = 0;
@@ -93,6 +102,7 @@ lte_mib_unpack_vb::decode_mib(char* mib)
     if(diff > 0){
         printf("SFN = %i\tdiff = %i\t", d_SFN, diff );
         d_state_info.print_values();
+        send_sfn();
     }
 }
 
@@ -122,6 +132,7 @@ lte_mib_unpack_vb::decode_state_mib(char* mib)
         d_state_info.phich_duration = phich_dur;
         d_state_info.phich_resources = phich_res;
         d_unchanged_decodings = 0;
+        send_state_mib();
     }
     else{
         d_unchanged_decodings++;
@@ -209,19 +220,32 @@ lte_mib_unpack_vb::get_decoding_rate()
     return success_rate;
 }
 
-/*
+
 void
-lte_mib_unpack_vb::send_mib()
+lte_mib_unpack_vb::send_state_mib()
 {
-    pmt::pmt_t name = pmt::pmt_string_to_symbol("MIB");
-    pmt::pmt_t p_sfn = pmt::pmt_from_long(long(d_SFN));
-    pmt::pmt_t p_ant = pmt::pmt_from_long(long(d_state_info.N_ant));
-    pmt::pmt_t p_nrb = pmt::pmt_from_long(long(d_state_info.N_rb_dl));
-    pmt::pmt_t p_dur = pmt::pmt_from_long(long(d_state_info.phich_duration));
-    pmt::pmt_t p_res = pmt::pmt_from_long(long(d_state_info.phich_resources));
+    pmt::pmt_t msg_ant = pmt::pmt_cons(d_port_N_ant, pmt::pmt_from_long(long(d_state_info.N_ant) ) );
+    pmt::pmt_t msg_rb = pmt::pmt_cons(d_port_N_rb_dl, pmt::pmt_from_long(long(d_state_info.N_rb_dl) ) );
+    pmt::pmt_t msg_dur = pmt::pmt_cons(d_port_phich_duration, pmt::pmt_from_long(long(d_state_info.phich_duration) ) );
+    pmt::pmt_t msg_res = pmt::pmt_cons(d_port_phich_resources, pmt::pmt_from_long(long(d_state_info.phich_resources) ) );
 
-    pmt::pmt_t msg = pmt::pmt_cons(name, p_sfn, p_ant, p_nrb, p_dur, p_res);
-
-	message_port_pub( d_port_id, msg );
+    message_port_pub( d_port_N_ant, msg_ant );
+    message_port_pub( d_port_N_rb_dl, msg_rb );
+    message_port_pub( d_port_phich_duration, msg_dur );
+    message_port_pub( d_port_phich_resources, msg_res );
 }
-*/
+
+inline void
+lte_mib_unpack_vb::send_sfn()
+{
+    pmt::pmt_t msg = pmt::pmt_cons(d_port_SFN, pmt::pmt_from_long(long(d_SFN) ) );
+    message_port_pub( d_port_SFN, msg );
+}
+
+
+
+
+
+
+
+

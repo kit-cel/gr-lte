@@ -44,6 +44,14 @@ class qa_mib_unpack_vb (gr_unittest.TestCase):
         
         self.tb.connect(self.src1,(self.mib,0))
         self.tb.connect(self.src2,(self.mib,1))
+        
+        # These few lines keep the qa from terminating without reason! --> DISABLED
+        #self.msg = gr.message_debug()
+        #self.tb.msg_connect(self.mib, "N_ant", self.msg, "print")
+        #self.tb.msg_connect(self.mib, "N_rb_dl", self.msg, "print")
+        #self.tb.msg_connect(self.mib, "phich_duration", self.msg, "print")
+        #self.tb.msg_connect(self.mib, "phich_resources", self.msg, "print")
+        #self.tb.msg_connect(self.mib, "SFN", self.msg, "print")
 
         
     def tearDown (self):

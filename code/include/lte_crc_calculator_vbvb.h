@@ -1,17 +1,17 @@
 /* -*- c++ -*- */
-/* 
+/*
  * Copyright 2012 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
- * 
+ *
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 3, or (at your option)
  * any later version.
- * 
+ *
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this software; see the file COPYING.  If not, write to
  * the Free Software Foundation, Inc., 51 Franklin Street,
@@ -47,10 +47,9 @@ class LTE_API lte_crc_calculator_vbvb : public gr_sync_block
 	int work (int noutput_items,
 		gr_vector_const_void_star &input_items,
 		gr_vector_void_star &output_items);
-		
-		
+
+
  private:
-        
         int d_expo[32];
         static const int D_BLOCK_LEN = 24;
         static const int D_BITS = 16;
@@ -62,7 +61,8 @@ class LTE_API lte_crc_calculator_vbvb : public gr_sync_block
 	    static const bool D_REFLECT_IN  = false;
 	    static const bool D_REFLECT_REM = false;
 
-        
+        inline int calculate_int_representation(char* bytes, int len);
+        inline int calculate_crc_N_ant(int block_dec, int rx_checksum);
 };
 
 #endif /* INCLUDED_LTE_CRC_CALCULATOR_VBVB_H */
