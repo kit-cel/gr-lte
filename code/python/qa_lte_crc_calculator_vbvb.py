@@ -68,6 +68,7 @@ class qa_crc_calculator_vbvb (gr_unittest.TestCase):
         self.tb.run ()
         # check data
         res0 = self.snk.data()
+        res0 = tuple([int(i) for i in res0]) # just to ensure data types
         res1 = self.snk2.data()
         for i in range(4):
             try:

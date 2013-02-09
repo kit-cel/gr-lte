@@ -44,7 +44,7 @@ class viterbi_vfvb(gr.hier_block2):
         self.fsm  = trellis.fsm(1,3,[91,121,117])
 
         # Values for viterbi decoder        
-        K = 40  # steps for one coding block
+        K = 80  # steps for one coding block
         SO = 0  # initial state
         SK = -1 # final state (in this case unknown, therefore -1)
         D = 3   # dimensionality
