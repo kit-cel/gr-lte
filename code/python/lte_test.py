@@ -78,35 +78,76 @@ def convolutional_encoder(input_data):
         reg[0] = data[i]
         
     return c_encoded[18:]
-    
+
+def convolutional_encoder_sorted(input_data):
+    c_encoded = convolutional_encoder(input_data)
+    c_encoded_sorted = range(120)
+    for i in range(40):
+        c_encoded_sorted[i] = c_encoded[i*3+0]
+        c_encoded_sorted[i+40] = c_encoded[i*3+1]
+        c_encoded_sorted[i+80] = c_encoded[i*3+2]
+
+    return c_encoded_sorted    
+
 def nrz_encoding(data):
     out_data = range(len(data))
     for i in range(len(data)):
         out_data[i] = float( (-2.0*data[i]) +1 )
     return out_data
+
+def rate_match(data):
+    output = []
+    output.extend(interleave(data[0:40]))
+    output.extend(interleave(data[40:80]))
+    output.extend(interleave(data[80:120]))
+    return output
+    
+def interleave(data):
+    interleave_vector = tuple([1,17,9,25,5,21,13,29,3,19,11,27,7,23,15,31,0,16,8,24,4,20,12,28,2,18,10,26,6,22,14,30])
+    n_col = 32
+    n_row = int(math.ceil(40.0/(float(n_col))))
+    n_null = n_col*n_row - 40
+    y = [0]*n_null
+    y.extend([i+1 for i in range(40)])
+    matrix = [y[0:32], y[32:64]]
+    int_matrix = [[0]*32, [0]*32]
+    for i in range(n_col):
+        int_matrix[0][i] = matrix[0][interleave_vector[i]]
+        int_matrix[1][i] = matrix[1][interleave_vector[i]]
+
+    int_vector = []    
+    for i in range(32):
+        int_vector.append(int_matrix[0][i])
+        int_vector.append(int_matrix[1][i])
+    
+    output = range(len(data))
+    idx = 0
+    for i in range(len(int_vector)):
+        if int_vector[i] != 0:
+            output[idx] = data[int_vector[i]-1]
+            idx = idx+1
+
+    return output
     
 if __name__ == "__main__":
     #import sys
     mib = pack_mib(50,0,1.0, 511)
     mib_crc = crc_checksum(mib, 2)
     c_encoded = convolutional_encoder(mib_crc)
-    print c_encoded
-    print len(c_encoded)
-    '''    
-    #print mib
-    N_ant = 1
-    mib_crc = crc_checksum(mib, N_ant)
-    print mib_crc[20:]
-    mib_crc = crc_checksum(mib, 2)
-    print mib_crc[20:]
-    mib_crc = crc_checksum(mib, 4)
-    print mib_crc[20:]
-    #for i in range (100):        
-    #    mib = pack_mib(50,0,1.0, i)
-    #    print mib[0:14]
-    '''
+    c_enc_sorted = convolutional_encoder_sorted(mib_crc)
+    c_matched = rate_match(c_enc_sorted)
+    
+    for i in range(120/20):
+        print "part"
+        print c_enc_sorted[i*20:(i+1)*20]
+        print c_matched[i*20:(i+1)*20]
+
     
     
+
+
+
+
     
     
     
