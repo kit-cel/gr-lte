@@ -146,6 +146,16 @@ lte_descrambling_vfvf::pn_seq_generator(int len, int cell_id)
 	return c;
 }
 
+std::vector<int>
+lte_descrambling_vfvf::get_pn_sequence()
+{
+    std::vector<int> pn_seq;
+    for(int i = 0 ; i < d_pn_seq_len; i++){
+        pn_seq.push_back(int(d_pn_seq[i]) );
+    }
+    return pn_seq;
+}
+
 
 void
 lte_descrambling_vfvf::set_cell_id_msg(pmt::pmt_t msg)

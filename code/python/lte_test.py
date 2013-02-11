@@ -128,6 +128,46 @@ def interleave(data):
             idx = idx+1
 
     return output
+
+def encode_bch(mib, N_ant):
+    mib_crc = crc_checksum(mib, N_ant)
+    c_enc_sorted = convolutional_encoder_sorted(mib_crc)
+    return rate_match(c_enc_sorted)
+
+def pbch_scrambling(data, cell_id):
+    if len(data) != 120:
+        print "wrong length"
+        return data
+    
+    output = []
+    for i in range(1920/len(data)):
+        output.extend(data)
+    scrambled = scrambling(output, cell_id)
+    return scrambled
+    
+def scrambling(data, cell_id):
+    pn_sequence = pn_generator(len(data), cell_id)
+    return [(data[i]+pn_sequence[i])%2 for i in range(len(data))]
+
+def pn_generator(vector_len, cinit):
+    NC=1600
+    x2 = [0]*(3*vector_len+NC)
+    
+    for i in range(31):
+        x2[i] = cinit%2
+        cinit = int(math.floor(cinit/2))
+        
+    x1 = [0]*(3*vector_len+NC)
+    x1[0] = 1
+    for n in range(2*vector_len+NC-3):
+        x1[n+31]=(x1[n+3]+x1[n])%2
+        x2[n+31]=(x2[n+3]+x2[n+2]+x2[n+1]+x2[n])%2
+        
+    output = [0] * vector_len
+    for n in range(vector_len):
+        output[n]=(x1[n+NC]+x2[n+NC])%2
+        
+    return output
     
 if __name__ == "__main__":
     #import sys
@@ -137,19 +177,29 @@ if __name__ == "__main__":
     c_enc_sorted = convolutional_encoder_sorted(mib_crc)
     c_matched = rate_match(c_enc_sorted)
     
-    for i in range(120/20):
-        print "part"
-        print c_enc_sorted[i*20:(i+1)*20]
-        print c_matched[i*20:(i+1)*20]
-
+    bch = encode_bch(mib, 2)
     
+    scrambled = scrambling(bch, 124)
+    p_scrambled = pbch_scrambling(c_matched, 124)
+    print len(p_scrambled)
     
-
 
 
 
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
