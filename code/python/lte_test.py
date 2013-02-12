@@ -169,6 +169,15 @@ def pn_generator(vector_len, cinit):
         
     return output
     
+def qpsk_modulation(data):
+    output = []
+    nrz_data = nrz_encoding(data)
+    for i in range(len(nrz_data)/2):
+        mod = complex(nrz_data[i*2+0]/math.sqrt(2),nrz_data[i*2+1]/math.sqrt(2))
+        output.extend([mod])
+    return output
+
+    
 if __name__ == "__main__":
     #import sys
     mib = pack_mib(50,0,1.0, 511)
@@ -181,7 +190,7 @@ if __name__ == "__main__":
     
     scrambled = scrambling(bch, 124)
     p_scrambled = pbch_scrambling(c_matched, 124)
-    print len(p_scrambled)
+    print qpsk_modulation(p_scrambled)
     
 
 

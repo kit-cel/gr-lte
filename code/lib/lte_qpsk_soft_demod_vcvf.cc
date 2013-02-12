@@ -1,17 +1,17 @@
 /* -*- c++ -*- */
-/* 
+/*
  * Copyright 2012 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
- * 
+ *
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 3, or (at your option)
  * any later version.
- * 
+ *
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this software; see the file COPYING.  If not, write to
  * the Free Software Foundation, Inc., 51 Franklin Street,
@@ -56,18 +56,17 @@ lte_qpsk_soft_demod_vcvf::work (int noutput_items,
 {
 	const gr_complex *in = (const gr_complex *) input_items[0];
 	float *out = (float *) output_items[0];
-	
-	for (int c = 0; c < noutput_items ; c++){
-		for (int i = 0 ; i < 240 ; i++ ) {
-	        *(out+2*i  ) = (*(in+i)).real();
-	        *(out+2*i+1) = (*(in+i)).imag();
-	    }
-	    out += 480;
-	    in  += 240;
-	}
 
+	float* demodulated = (float*)fftwf_malloc(sizeof(float)*480*noutput_items);
+    for (int i = 0 ; i < 240*noutput_items ; i++ ) {
+	    *(demodulated+2*i  ) = (*(in+i)).real();
+	    *(demodulated+2*i+1) = (*(in+i)).imag();
+	}
+	const float SQRT2 = std::sqrt(2);
+    volk_32f_s32f_multiply_32f_u(demodulated, demodulated, SQRT2, 480*noutput_items);
+    memcpy(out, demodulated, sizeof(float)*480*noutput_items);
 
 	// Tell runtime system how many output items we produced.
-	return 1;
+	return noutput_items;
 }
 
