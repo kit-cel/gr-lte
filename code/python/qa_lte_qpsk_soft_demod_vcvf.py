@@ -22,9 +22,6 @@
 from gnuradio import gr, gr_unittest
 import lte as lte_swig
 import lte_test
-import math
-import numpy
-import scipy.io
 
 class qa_qpsk_soft_demod_vcvf (gr_unittest.TestCase):
 

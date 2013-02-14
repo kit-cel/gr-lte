@@ -20,7 +20,7 @@
 #
 
 from gnuradio import gr, gr_unittest
-import lte_swig
+import lte as lte_swig
 import numpy
 import scipy.io
 
@@ -28,6 +28,10 @@ class qa_layer_demapper_vcvc (gr_unittest.TestCase):
 
     def setUp (self):
         self.tb = gr.top_block ()
+        self.src = gr.vector_source_c([0]*240,False,240)
+        self.snk = gr.vector_sink_c(240)
+        
+        '''
         
         # Case 1 antenna port assumed
         mod=scipy.io.loadmat('/home/demel/exchange/matlab_pbch_layer_demap1.mat')
@@ -55,11 +59,37 @@ class qa_layer_demapper_vcvc (gr_unittest.TestCase):
         self.snk = gr.vector_sink_c(240)
         
         self.tb.connect(self.src,self.ldm,self.snk)
+        '''
 
     def tearDown (self):
         self.tb = None
 
-    def test_001_t (self):
+    def test_001_setup_N_ant(self):
+        print "test_001_setup_N_ant"
+        N_ant = [0,1,2,4]
+
+        for n in range(len(N_ant)):
+            layer_demapper = lte_swig.layer_demapper_vcvc(N_ant[n], "tx_diversity")
+            self.assertEqual(N_ant[n], layer_demapper.get_N_ant())
+
+    def test_002_setup_decoding_style(self):
+        print "test_002_setup_decoding_style"
+        style = {0:"tx_diversity", 1:"spatial_multiplexing", 2:"nonsense"}
+        
+        for s in range(len(style)):
+            layer_demapper = lte_swig.layer_demapper_vcvc(2, style[s])
+            try:
+                self.assertEqual(style[0], layer_demapper.get_decoding_style() )
+            except:
+                if(layer_demapper.get_decoding_style() != style[0]):
+                    print style[s]
+                else:
+                    self.assertEqual(style[1], layer_demapper.get_decoding_style() )
+        
+
+    def test_003_t (self):
+        print "NONE"
+        '''
         # set up fg
         self.tb.run ()
         # check data
@@ -111,6 +141,7 @@ class qa_layer_demapper_vcvc (gr_unittest.TestCase):
         except AssertionError:
             print "second run: Tuples are unequal"
         #self.assertComplexTuplesAlmostEqual(outtu2,res2,5)
+        '''
 
         
         

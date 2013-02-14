@@ -176,8 +176,46 @@ def qpsk_modulation(data):
         mod = complex(nrz_data[i*2+0]/math.sqrt(2),nrz_data[i*2+1]/math.sqrt(2))
         output.extend([mod])
     return output
-
     
+def layer_mapping(data, N_ant, style):
+    #Do layer Mapping according to ETSI 136.211 Sec 6.3.3.3
+    print N_ant
+    print style
+    
+    M_symb = len(data)
+    
+    if(style != "tx_diversity"):
+        print style + "\tnot supported!"
+        return data
+    
+    output = []
+    if(N_ant == 1):
+        output = data
+    elif(N_ant == 2):
+        M_layer_symb=M_symb/2
+        x=[[],[]]
+        for i in range(M_layer_symb):
+            x[0].append(data[2*i+0])
+            x[1].append(data[2*i+1])
+        output = x
+    elif(N_ant == 4):
+        M_layer_symb = 0
+        if(M_symb%4 ==0):
+            M_layer_symb=M_symb/4
+        else:
+            M_layer_symb=(M_symb+2)/4;
+            data.extend([0]*2)
+
+        x=[[],[],[],[]]
+        for i in range(M_layer_symb):
+            x[0].append(data[4*i+0])
+            x[1].append(data[4*i+1])
+            x[2].append(data[4*i+2])
+            x[3].append(data[4*i+3])
+        output = x
+
+    return output
+       
 if __name__ == "__main__":
     #import sys
     mib = pack_mib(50,0,1.0, 511)
@@ -187,10 +225,13 @@ if __name__ == "__main__":
     c_matched = rate_match(c_enc_sorted)
     
     bch = encode_bch(mib, 2)
-    
     scrambled = scrambling(bch, 124)
     p_scrambled = pbch_scrambling(c_matched, 124)
-    print qpsk_modulation(p_scrambled)
+    qpsk_modulated = qpsk_modulation(p_scrambled)
+    layer_mapped = layer_mapping(qpsk_modulated, 4, "tx_diversity")
+    print len(layer_mapped)
+    
+
     
 
 

@@ -1,17 +1,17 @@
 /* -*- c++ -*- */
-/* 
+/*
  * Copyright 2012 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
- * 
+ *
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 3, or (at your option)
  * any later version.
- * 
+ *
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this software; see the file COPYING.  If not, write to
  * the Free Software Foundation, Inc., 51 Franklin Street,
@@ -38,21 +38,11 @@ lte_layer_demapper_vcvc::lte_layer_demapper_vcvc (int N_ant, std::string style)
 	: gr_sync_block ("layer_demapper_vcvc",
 		gr_make_io_signature (1,1, sizeof (gr_complex)*240 ),
 		gr_make_io_signature (1,1, sizeof (gr_complex)*240 )),
-		d_N_ant(N_ant),
-		d_style(style)
+		d_N_ant(0),
+		d_style("null")
 {
-    if(d_N_ant != 1 && d_N_ant != 2 && d_N_ant != 4){
-        printf("%i antenna ports are not supported/invalid\n", d_N_ant);
-    }
-    if(style != "tx_diversity"){
-        if (style == "spatial_multiplexing"){
-            printf("%s decoding style is valid but not supported\n", style.c_str() );
-        }
-        else{
-            printf("%s decoding style is invalid\n", style.c_str() );
-        }
-    }
-    printf("%i antenna ports are used\t%s decoding style is used\n",d_N_ant, style.c_str() );
+    set_N_ant(N_ant);
+    set_decoding_style(style);
 }
 
 
@@ -71,7 +61,7 @@ lte_layer_demapper_vcvc::work (int noutput_items,
 
     gr_complex pbch[240] = {0};
     memcpy(pbch,in,240*sizeof(gr_complex) );
-    
+
     if(d_N_ant == 1){
         memcpy(out,pbch,240*sizeof(gr_complex) );
     }
@@ -97,12 +87,28 @@ void
 lte_layer_demapper_vcvc::set_N_ant(int N_ant)
 {
     if(N_ant != 1 && N_ant != 2 && N_ant != 4){
-        printf("%i antenna ports are not supported/invalid\nN_ant remains unchanged\n", N_ant);
+        printf("%s\t N_ant = %i is INVALID!\n", name().c_str(), N_ant);
     }
     else{
+        printf("%s\tset N_ant to %i\n",name().c_str(), N_ant);
         d_N_ant = N_ant;
-        printf("changed to %i antenna ports\n", N_ant);
     }
 }
 
+void
+lte_layer_demapper_vcvc::set_decoding_style(std::string style)
+{
+    if(style != "tx_diversity"){
+        if (style == "spatial_multiplexing"){
+            printf("%s decoding style is valid but not supported\n", style.c_str() );
+        }
+        else{
+            printf("%s decoding style is invalid\n", style.c_str() );
+        }
+    }
+    else{
+        printf("%s\tset decoding style to \"%s\"\n", name().c_str(), style.c_str() );
+        d_style = style;
+    }
 
+}
