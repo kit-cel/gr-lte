@@ -178,10 +178,7 @@ def qpsk_modulation(data):
     return output
     
 def layer_mapping(data, N_ant, style):
-    #Do layer Mapping according to ETSI 136.211 Sec 6.3.3.3
-    print N_ant
-    print style
-    
+    #Do layer Mapping according to ETSI 136.211 Sec 6.3.3.3    
     M_symb = len(data)
     
     if(style != "tx_diversity"):
@@ -217,7 +214,6 @@ def layer_mapping(data, N_ant, style):
     return output
        
 if __name__ == "__main__":
-    #import sys
     mib = pack_mib(50,0,1.0, 511)
     mib_crc = crc_checksum(mib, 2)
     c_encoded = convolutional_encoder(mib_crc)
@@ -228,8 +224,10 @@ if __name__ == "__main__":
     scrambled = scrambling(bch, 124)
     p_scrambled = pbch_scrambling(c_matched, 124)
     qpsk_modulated = qpsk_modulation(p_scrambled)
+    print len(qpsk_modulated)
     layer_mapped = layer_mapping(qpsk_modulated, 4, "tx_diversity")
     print len(layer_mapped)
+    print len(layer_mapped[1])
     
 
     
