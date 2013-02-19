@@ -20,9 +20,10 @@
 #
 
 from gnuradio import gr, gr_unittest
-import lte_swig
-import numpy
+import lte as lte_swig
+import lte_test
 import scipy.io
+import math
 
 class qa_pre_decoder_vcvc (gr_unittest.TestCase):
 
@@ -59,15 +60,15 @@ class qa_pre_decoder_vcvc (gr_unittest.TestCase):
         
         self.src1 = gr.vector_source_c( intu1, False, 240)
         self.src2 = gr.vector_source_c( intu2, False, 240)
-        #self.src3 = gr.vector_source_c( intu3, False, 240)
+        self.src3 = gr.vector_source_c( intu3, False, 240)
         
-        self.pd = lte_swig.pre_decoder_vcvc(1,'tx_diversity')
+        self.pd = lte_swig.pre_decoder_vcvc(2,'tx_diversity')
         
         self.snk = gr.vector_sink_c(240)
         
         self.tb.connect(self.src1,(self.pd,0) )
         self.tb.connect(self.src2,(self.pd,1) )
-        #self.tb.connect(self.src3,(self.pd,2) )
+        self.tb.connect(self.src3,(self.pd,2) )
         self.tb.connect(self.pd,self.snk)
 
     def tearDown (self):
@@ -114,7 +115,58 @@ class qa_pre_decoder_vcvc (gr_unittest.TestCase):
         except AssertionError:
             print "try 2 antenna case FAILED!!!"
         #self.assertComplexTuplesAlmostEqual(outtu2,res,5)
-
+        
+    def test_002_generated(self):
+        print "test_002_generated"
+        N_ant = 2
+        style= "tx_diversity"
+        mib = lte_test.pack_mib(50,0,1.0, 511)
+        
+        bch = lte_test.encode_bch(mib, N_ant)
+        
+        scrambled = lte_test.pbch_scrambling(bch, 124)
+        qpsk_modulated = lte_test.qpsk_modulation(scrambled)
+    
+        layer_mapped = lte_test.layer_mapping(qpsk_modulated, N_ant, style)
+        pre_coded = lte_test.pre_coding(layer_mapped, N_ant, style)
+        h0 = [1]*len(pre_coded[0])
+        h1 = [1]*len(pre_coded[1])
+        
+        stream = [pre_coded[0][i]+pre_coded[1][i] for i in range(len(pre_coded[0]))]
+        self.src1.set_data(stream)
+        self.src2.set_data(h0)
+        self.src3.set_data(h1)
+        
+        self.tb.run()
+        
+        res = self.snk.data()
+        
+        exp_res = []
+        for i in range(len(layer_mapped[0])/120):
+            exp_res.extend(layer_mapped[0][120*i:(i+1)*120])
+            exp_res.extend(layer_mapped[1][120*i:(i+1)*120])
+        
+        
+        print len(res)
+        print len(exp_res)
+        
+        print type(res[0].real)
+        ires = []
+        iexp = []
+        for i in range(len(res)):
+            ires.append(math.copysign(1, res[i].real) )
+            ires.append(math.copysign(1, res[i].imag) )
+            iexp.append(math.copysign(1, exp_res[i].real) )
+            iexp.append(math.copysign(1, exp_res[i].imag) )
+        
+        print ires[0:10]
+        print res[0:10]
+        print "ex"
+        print iexp[0:10]
+        
+        
+        print "test_002"
+    
 
 if __name__ == '__main__':
     gr_unittest.main ()

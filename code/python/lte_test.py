@@ -210,25 +210,50 @@ def layer_mapping(data, N_ant, style):
             x[2].append(data[4*i+2])
             x[3].append(data[4*i+3])
         output = x
+    return output
+    
+def pre_coding(data, N_ant, style):
+    if(style != "tx_diversity"):
+        print style + "\tnot supported!"
+        return data
+    
+    output = []
+    if N_ant == 1:
+        output = data
+        
+    elif N_ant == 2:
+        y = [[],[]]
+        for i in range(len(data[0])):
+            y[0].append(data[0][i])
+            y[1].append(-1.0*(data[1][i].conjugate()))
+            y[0].append(data[1][i])
+            y[1].append((data[0][i].conjugate()))
+        for i in range(len(y[0])):
+            y[0][i] = y[0][i]/math.sqrt(2)
+            y[1][i] = y[1][i]/math.sqrt(2)
+        output = y
+
+    else:
+        print str(N_ant) + "\tantenna port not supported!"
+        return data
 
     return output
        
 if __name__ == "__main__":
+    N_ant = 2
+    style= "tx_diversity"
     mib = pack_mib(50,0,1.0, 511)
-    mib_crc = crc_checksum(mib, 2)
-    c_encoded = convolutional_encoder(mib_crc)
-    c_enc_sorted = convolutional_encoder_sorted(mib_crc)
-    c_matched = rate_match(c_enc_sorted)
     
-    bch = encode_bch(mib, 2)
-    scrambled = scrambling(bch, 124)
-    p_scrambled = pbch_scrambling(c_matched, 124)
-    qpsk_modulated = qpsk_modulation(p_scrambled)
-    print len(qpsk_modulated)
-    layer_mapped = layer_mapping(qpsk_modulated, 4, "tx_diversity")
-    print len(layer_mapped)
-    print len(layer_mapped[1])
+    bch = encode_bch(mib, N_ant)
+
+    scrambled = pbch_scrambling(bch, 124)
+    qpsk_modulated = qpsk_modulation(scrambled)
     
+    layer_mapped = layer_mapping(qpsk_modulated, N_ant, style)
+    pre_coded = pre_coding(layer_mapped, N_ant, style)
+    
+    print len(pre_coded)
+    print len(pre_coded[0])
 
     
 

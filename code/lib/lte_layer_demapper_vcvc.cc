@@ -60,27 +60,50 @@ lte_layer_demapper_vcvc::work (int noutput_items,
 	gr_complex *out = (gr_complex *) output_items[0];
 
     gr_complex pbch[240] = {0};
-    memcpy(pbch,in,240*sizeof(gr_complex) );
 
-    if(d_N_ant == 1){
-        memcpy(out,pbch,240*sizeof(gr_complex) );
-    }
-    else if(d_N_ant == 2){
-        for(int i = 0 ; i < 120 ; i++ ){
-            *(out+2*i+0) = pbch[i    ];
-            *(out+2*i+1) = pbch[i+120];
+    for(int i = 0 ; i < noutput_items; i++){
+        memcpy(pbch, in, 240*sizeof(gr_complex) );
+
+        if(d_N_ant == 1){
+            demap_1_ant(out, pbch);
         }
-    }
-    else if(d_N_ant == 4){
-        for(int i = 0 ; i < 60 ; i++ ){
-            *(out+4*i+0) = pbch[i    ];
-            *(out+4*i+1) = pbch[i+60 ];
-            *(out+4*i+2) = pbch[i+120];
-            *(out+4*i+3) = pbch[i+180];
+        else if(d_N_ant == 2){
+            demap_2_ant(out, pbch);
         }
+        else if(d_N_ant == 4){
+            demap_4_ant(out, pbch);
+        }
+        in+=240;
+        out+=240;
     }
-	// Tell runtime system how many output items we produced.
-	return 1;
+
+	return noutput_items;
+}
+
+inline void
+lte_layer_demapper_vcvc::demap_1_ant(gr_complex* out, gr_complex * in)
+{
+    memcpy(out, in, 240*sizeof(gr_complex) );
+}
+
+inline void
+lte_layer_demapper_vcvc::demap_2_ant(gr_complex* out, gr_complex * in)
+{
+    for(int i = 0 ; i < 120 ; i++ ){
+        *(out+2*i+0) = in[i    ];
+        *(out+2*i+1) = in[i+120];
+    }
+}
+
+inline void
+lte_layer_demapper_vcvc::demap_4_ant(gr_complex* out, gr_complex * in)
+{
+    for(int i = 0 ; i < 60 ; i++ ){
+        *(out+4*i+0) = in[i    ];
+        *(out+4*i+1) = in[i+60 ];
+        *(out+4*i+2) = in[i+120];
+        *(out+4*i+3) = in[i+180];
+    }
 }
 
 void
@@ -100,10 +123,10 @@ lte_layer_demapper_vcvc::set_decoding_style(std::string style)
 {
     if(style != "tx_diversity"){
         if (style == "spatial_multiplexing"){
-            printf("%s decoding style is valid but not supported\n", style.c_str() );
+            printf("\"%s\" decoding style is valid but not supported\n", style.c_str() );
         }
         else{
-            printf("%s decoding style is invalid\n", style.c_str() );
+            printf("\"%s\" decoding style is invalid\n", style.c_str() );
         }
     }
     else{

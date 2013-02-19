@@ -56,35 +56,41 @@ class qa_layer_demapper_vcvc (gr_unittest.TestCase):
                 if(self.demapper.get_decoding_style() != style[0]):
                     print style[s]
                 else:
-                    self.assertEqual(style[1], layer_demapper.get_decoding_style() )
+                    self.assertEqual(style[1], self.demapper.get_decoding_style() )
         
 
     def test_003_demapping (self):
         print "\ntest_003_demapping"
-        N_ant = 1
+        N_ant = [1,2,4]
         cell_id = 124
         mib = lte_test.pack_mib(50,0,1.0, 511)
-        bch = tuple(lte_test.encode_bch(mib, N_ant))
+        bch = tuple(lte_test.encode_bch(mib, N_ant[0]))
         data = lte_test.pbch_scrambling(bch, cell_id)
         style = "tx_diversity"
         self.demapper.set_decoding_style(style)
         
-        mapped = [[],[]]
+        mapped = [[],[],[]]
         mapped[0] = lte_test.layer_mapping(data, 1 , style)
         m2 = lte_test.layer_mapping(data, 2 , style)
-        mapped_interleaved = []
-        for i in range(len(m2[0])):
-            mapped_interleaved.extend([m2[0][i], m2[1][i]])
-        mapped[1] = mapped_interleaved
+        m2a = []
+        for i in range(len(m2[0])/120):
+            m2a.extend(m2[0][120*i:(i+1)*120])
+            m2a.extend(m2[1][120*i:(i+1)*120])
+        mapped[1] = m2a
         
+        m4 = lte_test.layer_mapping(data, 4, style)
+        m4a = []
+        for i in range(len(m4[0])/60):
+            m4a.extend(m4[0][i*60:(i+1)*60])
+            m4a.extend(m4[1][i*60:(i+1)*60])
+            m4a.extend(m4[2][i*60:(i+1)*60])
+            m4a.extend(m4[3][i*60:(i+1)*60])
+        mapped[2] = m4a
+               
         exp_res = [complex(data[i]) for i in range(len(data))]
-        print len(exp_res)
-        print type(exp_res)
-        print type(exp_res[0])
-        
-        print "run"
-        for i in range(2):
-            self.demapper.set_N_ant(i+1)
+
+        for i in range(3):
+            self.demapper.set_N_ant(N_ant[i])
             print "N_ant = " +str(self.demapper.get_N_ant())
             self.src.set_data(mapped[i])
             self.snk.reset()
