@@ -2,11 +2,7 @@
 #This file contains Python functions to generate testdata!
 import math
 import numpy
-
-def test_print():
-    print "Hello World"
-    
-    
+  
 #This function packs the mib with given values!
 N_rb_dl_code = { 6:[0,0,0], 15:[0,0,1], 25:[0,1,0],50:[0,1,1],75:[1,0,0],100:[1,0,1]}
 phich_res_code = {1.0/6.0:[0,0], 1.0/2.0:[0,1], 1.0:[1,0], 2.0:[1,1]}
@@ -222,15 +218,24 @@ def pre_coding(data, N_ant, style):
         output = data
         
     elif N_ant == 2:
-        y = [[],[]]
-        for i in range(len(data[0])):
+        y = [[0]*len(data[0])*2,[0]*len(data[0])*2]
+        x = data
+        for n in range(len(data[0])):
+            '''
             y[0].append(data[0][i])
             y[1].append(-1.0*(data[1][i].conjugate()))
             y[0].append(data[1][i])
             y[1].append((data[0][i].conjugate()))
+            '''
+            y[0][2*n]   = complex( 1*x[0][n].real,  1*x[0][n].imag)/math.sqrt(2)
+            y[1][2*n]   = complex(-1*x[1][n].real,  1*x[1][n].imag)/math.sqrt(2)
+            y[0][2*n+1] = complex( 1*x[1][n].real,  1*x[1][n].imag)/math.sqrt(2)
+            y[1][2*n+1] = complex( 1*x[0][n].real, -1*x[0][n].imag)/math.sqrt(2)
+        '''    
         for i in range(len(y[0])):
             y[0][i] = y[0][i]/math.sqrt(2)
             y[1][i] = y[1][i]/math.sqrt(2)
+        '''
         output = y
 
     else:
@@ -238,7 +243,11 @@ def pre_coding(data, N_ant, style):
         return data
 
     return output
-       
+    
+def cmpl_str(val):
+    #return '%+03f%+03fj' %(val.real, val.imag)
+    return '{0.real:+.4f} {0.imag:+.4f}j'.format(val)
+    
 if __name__ == "__main__":
     N_ant = 2
     style= "tx_diversity"
@@ -250,10 +259,21 @@ if __name__ == "__main__":
     qpsk_modulated = qpsk_modulation(scrambled)
     
     layer_mapped = layer_mapping(qpsk_modulated, N_ant, style)
+    layer_mapped = [[complex(1,0)]*120, [complex(1,0)]*120]
     pre_coded = pre_coding(layer_mapped, N_ant, style)
     
+    for n in range(10):
+        print cmpl_str(layer_mapped[0][n]) + "\t" + cmpl_str(layer_mapped[0][n])
+    
+    for i in range(10):
+        print cmpl_str(pre_coded[0][i]) + "\t" + cmpl_str(pre_coded[1][i]) 
     print len(pre_coded)
     print len(pre_coded[0])
+    
+
+    
+    
+
 
     
 

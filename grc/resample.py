@@ -3,7 +3,7 @@
 # Gnuradio Python Flow Graph
 # Title: Resample measured data
 # Author: Johannes Demel
-# Generated: Mon Jan 14 19:18:11 2013
+# Generated: Wed Feb 20 00:31:23 2013
 ##################################################
 
 from gnuradio import blks2
@@ -26,8 +26,8 @@ class resample(gr.top_block):
 		##################################################
 		# Blocks
 		##################################################
-		self.gr_file_source_0 = gr.file_source(gr.sizeof_gr_complex*1, "/home/demel/Dokumente/Messungen/Messung_LTE_2012-05-23_12:47:32.dat", False)
-		self.gr_file_sink_0 = gr.file_sink(gr.sizeof_gr_complex*1, "/home/demel/gr-lte/data/Messung_Resampled_3072MSps.dat")
+		self.gr_file_source_0 = gr.file_source(gr.sizeof_gr_complex*1, "/home/johannes/gr-lte/data/Messung_LTE_2012-05-23_12:47:32.dat", False)
+		self.gr_file_sink_0 = gr.file_sink(gr.sizeof_gr_complex*1, "/home/johannes/gr-lte/data/Resampled_LTE_2012_47:32.dat")
 		self.gr_file_sink_0.set_unbuffered(False)
 		self.blks2_rational_resampler_xxx_0 = blks2.rational_resampler_ccc(
 			interpolation=3072,
@@ -41,6 +41,7 @@ class resample(gr.top_block):
 		##################################################
 		self.connect((self.blks2_rational_resampler_xxx_0, 0), (self.gr_file_sink_0, 0))
 		self.connect((self.gr_file_source_0, 0), (self.blks2_rational_resampler_xxx_0, 0))
+
 
 	def get_samp_rate(self):
 		return self.samp_rate

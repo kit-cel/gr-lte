@@ -3,7 +3,7 @@
 # Gnuradio Python Flow Graph
 # Title: LTE flowgraph
 # Author: Johannes Demel
-# Generated: Tue Feb 19 18:41:47 2013
+# Generated: Wed Feb 20 00:33:19 2013
 ##################################################
 
 from gnuradio import eng_notation
@@ -51,7 +51,7 @@ class LTE_flowgraph(gr.top_block):
 		self.lte_channel_estimator_0 = lte.channel_estimator(N_rb_dl)
 		self.gr_throttle_0 = gr.throttle(gr.sizeof_gr_complex*1, samp_rate/4)
 		self.gr_interleave_0 = gr.interleave(gr.sizeof_gr_complex*240)
-		self.gr_file_source_0_0 = gr.file_source(gr.sizeof_gr_complex*1, "/home/demel/gr-lte/data/Messung_Resampled_3072MSps.dat", False)
+		self.gr_file_source_0_0 = gr.file_source(gr.sizeof_gr_complex*1, "/home/johannes/gr-lte/data/Resampled_LTE_2012_47:32.dat", False)
 		self.fft_vxx_0 = fft.fft_vcc(fftlen, True, (window.rectangular(fftlen)), False, 1)
 		self.descr = lte.descrambling_vfvf()
 		self.demux = lte.pbch_demux_vcvc(N_rb_dl)

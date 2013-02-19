@@ -30,6 +30,11 @@ class qa_pre_decoder_vcvc (gr_unittest.TestCase):
     def setUp (self):
         self.tb = gr.top_block ()
         
+        intu1 = [0]*240
+        intu2 = [0]*240
+        intu3 = [0]*240
+        
+        '''
         # Input 1, PBCH frame
         mod=scipy.io.loadmat('/home/demel/exchange/matlab_pbch_frame.mat') 
         #mat_u1=range(240)
@@ -57,6 +62,7 @@ class qa_pre_decoder_vcvc (gr_unittest.TestCase):
             mat_d[idx]=val
         intu3=tuple(mat_d)
         print str(intu1[0]) + "\t" + str(intu2[0]) + "\t" + str(intu3[0])
+        '''        
         
         self.src1 = gr.vector_source_c( intu1, False, 240)
         self.src2 = gr.vector_source_c( intu2, False, 240)
@@ -80,6 +86,7 @@ class qa_pre_decoder_vcvc (gr_unittest.TestCase):
         # check data
         res = self.snk.data()
         
+        '''
         # Case 1 antenna port assumed
         mod=scipy.io.loadmat('/home/demel/exchange/matlab_pbch_layer_demap1.mat')
         mat_u1=range(240)
@@ -115,9 +122,10 @@ class qa_pre_decoder_vcvc (gr_unittest.TestCase):
         except AssertionError:
             print "try 2 antenna case FAILED!!!"
         #self.assertComplexTuplesAlmostEqual(outtu2,res,5)
+        '''
         
     def test_002_generated(self):
-        print "test_002_generated"
+        print "\ntest_002_generated"
         N_ant = 2
         style= "tx_diversity"
         mib = lte_test.pack_mib(50,0,1.0, 511)
@@ -128,9 +136,10 @@ class qa_pre_decoder_vcvc (gr_unittest.TestCase):
         qpsk_modulated = lte_test.qpsk_modulation(scrambled)
     
         layer_mapped = lte_test.layer_mapping(qpsk_modulated, N_ant, style)
+        #layer_mapped = [[complex(1,1)]*120, [complex(1,-1)]*120]
         pre_coded = lte_test.pre_coding(layer_mapped, N_ant, style)
-        h0 = [1]*len(pre_coded[0])
-        h1 = [1]*len(pre_coded[1])
+        h0 = [complex(1,0)]*len(pre_coded[0])
+        h1 = [complex(1,0)]*len(pre_coded[1])
         
         stream = [pre_coded[0][i]+pre_coded[1][i] for i in range(len(pre_coded[0]))]
         self.src1.set_data(stream)
@@ -146,11 +155,7 @@ class qa_pre_decoder_vcvc (gr_unittest.TestCase):
             exp_res.extend(layer_mapped[0][120*i:(i+1)*120])
             exp_res.extend(layer_mapped[1][120*i:(i+1)*120])
         
-        
-        print len(res)
-        print len(exp_res)
-        
-        print type(res[0].real)
+
         ires = []
         iexp = []
         for i in range(len(res)):
@@ -159,10 +164,12 @@ class qa_pre_decoder_vcvc (gr_unittest.TestCase):
             iexp.append(math.copysign(1, exp_res[i].real) )
             iexp.append(math.copysign(1, exp_res[i].imag) )
         
-        print ires[0:10]
-        print res[0:10]
-        print "ex"
-        print iexp[0:10]
+        for n in range(10):
+            print str(n) + "\t" + str(ires[n]) + "\t" + str(iexp[n])
+            
+        for n in range(10):
+            print lte_test.cmpl_str(res[n]) + "\t" + lte_test.cmpl_str(exp_res[n]) + "\t" + lte_test.cmpl_str(stream[n])
+        
         
         
         print "test_002"
