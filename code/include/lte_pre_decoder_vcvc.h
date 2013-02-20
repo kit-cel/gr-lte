@@ -1,17 +1,17 @@
 /* -*- c++ -*- */
-/* 
+/*
  * Copyright 2012 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
- * 
+ *
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 3, or (at your option)
  * any later version.
- * 
+ *
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this software; see the file COPYING.  If not, write to
  * the Free Software Foundation, Inc., 51 Franklin Street,
@@ -46,10 +46,12 @@ class LTE_API lte_pre_decoder_vcvc : public gr_sync_block
 	int work (int noutput_items,
 		gr_vector_const_void_star &input_items,
 		gr_vector_void_star &output_items);
-		
+
  private:
     int d_N_ant;
     std::string d_style;
+
+    inline void decode_2_ant(gr_complex* out, gr_complex* frame, gr_complex* ce1, gr_complex* ce2);
 };
 
 #endif /* INCLUDED_LTE_PRE_DECODER_VCVC_H */

@@ -134,46 +134,25 @@ class qa_pre_decoder_vcvc (gr_unittest.TestCase):
         
         scrambled = lte_test.pbch_scrambling(bch, 124)
         qpsk_modulated = lte_test.qpsk_modulation(scrambled)
-    
         layer_mapped = lte_test.layer_mapping(qpsk_modulated, N_ant, style)
-        #layer_mapped = [[complex(1,1)]*120, [complex(1,-1)]*120]
         pre_coded = lte_test.pre_coding(layer_mapped, N_ant, style)
         h0 = [complex(1,0)]*len(pre_coded[0])
         h1 = [complex(1,0)]*len(pre_coded[1])
-        
         stream = [pre_coded[0][i]+pre_coded[1][i] for i in range(len(pre_coded[0]))]
+        
         self.src1.set_data(stream)
         self.src2.set_data(h0)
         self.src3.set_data(h1)
-        
-        self.tb.run()
-        
+        self.tb.run()        
         res = self.snk.data()
         
         exp_res = []
-        for i in range(len(layer_mapped[0])/120):
-            exp_res.extend(layer_mapped[0][120*i:(i+1)*120])
-            exp_res.extend(layer_mapped[1][120*i:(i+1)*120])
-        
+        for i in range(len(layer_mapped[0])):
+            exp_res.append(layer_mapped[0][i])
+            exp_res.append(layer_mapped[1][i])
+        self.assertComplexTuplesAlmostEqual(res, exp_res)
 
-        ires = []
-        iexp = []
-        for i in range(len(res)):
-            ires.append(math.copysign(1, res[i].real) )
-            ires.append(math.copysign(1, res[i].imag) )
-            iexp.append(math.copysign(1, exp_res[i].real) )
-            iexp.append(math.copysign(1, exp_res[i].imag) )
         
-        for n in range(10):
-            print str(n) + "\t" + str(ires[n]) + "\t" + str(iexp[n])
-            
-        for n in range(10):
-            print lte_test.cmpl_str(res[n]) + "\t" + lte_test.cmpl_str(exp_res[n]) + "\t" + lte_test.cmpl_str(stream[n])
-        
-        
-        
-        print "test_002"
-    
 
 if __name__ == '__main__':
     gr_unittest.main ()

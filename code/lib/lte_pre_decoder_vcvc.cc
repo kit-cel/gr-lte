@@ -1,17 +1,17 @@
 /* -*- c++ -*- */
-/* 
+/*
  * Copyright 2012 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
- * 
+ *
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 3, or (at your option)
  * any later version.
- * 
+ *
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this software; see the file COPYING.  If not, write to
  * the Free Software Foundation, Inc., 51 Franklin Street,
@@ -25,6 +25,7 @@
 #include <gr_io_signature.h>
 #include <lte_pre_decoder_vcvc.h>
 #include <cstdio>
+#include <cmath>
 
 lte_pre_decoder_vcvc_sptr
 lte_make_pre_decoder_vcvc (int N_ant,std::string style)
@@ -68,7 +69,7 @@ lte_pre_decoder_vcvc::work (int noutput_items,
 	const gr_complex *in1 = (const gr_complex *) input_items[0];
     const gr_complex *in2 = (const gr_complex *) input_items[1];
 	gr_complex *out = (gr_complex *) output_items[0];
-	
+
 	//get local copy of number of antenna ports
 	int N_ant = d_N_ant;
 	//get local copy of input 1 (received values)
@@ -78,30 +79,49 @@ lte_pre_decoder_vcvc::work (int noutput_items,
 	gr_complex ce1[240];
     memcpy(ce1,in2,240*sizeof(gr_complex) );
     // since antenna port 2 is an optional input, it is not yet copied.
-	
-	
-	if (N_ant == 1){
 
+
+	if (N_ant == 1){
 	    for(int i = 0 ; i < 240 ; i++ ){
 	        *(out+i) = frame[i]/ce1[i];
 	    }
+
 	}
 	else if(N_ant == 2){
 	    const gr_complex *in3 = (const gr_complex *) input_items[2];
 	    gr_complex ce2[240];
         memcpy(ce2,in3,240*sizeof(gr_complex) );
-        for (int i = 0 ; i < 120 ; i++ ){
-            //printf();
-            float ce_n = pow(ce1[2*i].real(),2) + pow(ce1[2*i].imag(),2) + pow(ce2[2*i].real(),2) + pow(ce2[2*i].imag(),2);
-            *(out+2*i  ) = ( std::conj(ce1[2*i]) * frame[2*i] + ce2[2*i+1] * std::conj(frame[2*i+1]) ) / ce_n;
-            *(out+2*i+1) = std::conj( gr_complex(-1) * std::conj(ce2[2*i]) * frame[2*i] + ce1[2*i] * std::conj(frame[2*i+1]) ) / ce_n;
-        }
-	    
+        decode_2_ant(out, frame, ce1, ce2);
 	}
-
-	// Do <+signal processing+>
 
 	// Tell runtime system how many output items we produced.
 	return 1;
 }
 
+inline void
+lte_pre_decoder_vcvc::decode_2_ant(gr_complex* out, gr_complex* frame, gr_complex* ce1, gr_complex* ce2)
+{
+    gr_complex out0[120];
+    gr_complex out1[120];
+    for(int n = 0; n < 120 ; n++){
+        gr_complex h0 = ce1[2*n];
+        gr_complex h1 = ce2[2*n];
+        gr_complex r0 = frame[2*n];
+        gr_complex r1 = frame[2*n+1];
+        out0[n] = std::conj(h0)*r0 + h1*std::conj(r1);
+        out1[n] = std::conj(h0)*r1 - h1*std::conj(r0);
+    }
+    gr_complex divsqrt2 = gr_complex(1.0/std::sqrt(2),0);
+    for(int n = 0; n < 120 ; n++){
+        *(out+2*n  ) = out0[n]*divsqrt2;
+        *(out+2*n+1) = out1[n]*divsqrt2;
+    }
+
+
+    /*
+    for (int i = 0 ; i < 120 ; i++ ){
+        float ce_n = pow(ce1[2*i].real(),2) + pow(ce1[2*i].imag(),2) + pow(ce2[2*i].real(),2) + pow(ce2[2*i].imag(),2);
+        *(out+2*i  ) = ( std::conj(ce1[2*i]) * frame[2*i] + ce2[2*i+1] * std::conj(frame[2*i+1]) ) / ce_n;
+        *(out+2*i+1) = std::conj( gr_complex(-1) * std::conj(ce2[2*i]) * frame[2*i] + ce1[2*i] * std::conj(frame[2*i+1]) ) / ce_n;
+    }*/
+}

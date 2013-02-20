@@ -221,21 +221,10 @@ def pre_coding(data, N_ant, style):
         y = [[0]*len(data[0])*2,[0]*len(data[0])*2]
         x = data
         for n in range(len(data[0])):
-            '''
-            y[0].append(data[0][i])
-            y[1].append(-1.0*(data[1][i].conjugate()))
-            y[0].append(data[1][i])
-            y[1].append((data[0][i].conjugate()))
-            '''
             y[0][2*n]   = complex( 1*x[0][n].real,  1*x[0][n].imag)/math.sqrt(2)
             y[1][2*n]   = complex(-1*x[1][n].real,  1*x[1][n].imag)/math.sqrt(2)
             y[0][2*n+1] = complex( 1*x[1][n].real,  1*x[1][n].imag)/math.sqrt(2)
             y[1][2*n+1] = complex( 1*x[0][n].real, -1*x[0][n].imag)/math.sqrt(2)
-        '''    
-        for i in range(len(y[0])):
-            y[0][i] = y[0][i]/math.sqrt(2)
-            y[1][i] = y[1][i]/math.sqrt(2)
-        '''
         output = y
 
     else:
@@ -243,7 +232,39 @@ def pre_coding(data, N_ant, style):
         return data
 
     return output
+   
+def pre_decoding(data, h, N_ant, style):
+    '''
+    alamouti Coding
+        time0   time1
+    ant0  x0    x1
+    ant1 -x1*   x0*
     
+    RX
+    r0 = h0 x0 - x1* h1
+    r1 = h0 x1 + h1 x0*
+    
+    estimate
+    e_x0 = h0* r0 + h1 r1*
+    e_x1 = h0* r1 - h1 r0*
+    '''
+    print "pre_decoding\t" + style
+    print len(data)
+    output = [[],[]]
+    for n in range(len(data)/2):
+        h0 = h[0][2*n]
+        h1 = h[1][2*n]
+        r0 = data[2*n]
+        r1 = data[2*n+1]
+        output[0].append(h0.conjugate()*r0 + h1*r1.conjugate())
+        output[1].append(h0.conjugate()*r1-h1*r0.conjugate())
+        
+    for n in range(len(output[0])):
+        output[0][n] = output[0][n]/math.sqrt(2)
+        output[1][n] = output[1][n]/math.sqrt(2)
+                
+    return output
+
 def cmpl_str(val):
     #return '%+03f%+03fj' %(val.real, val.imag)
     return '{0.real:+.4f} {0.imag:+.4f}j'.format(val)
@@ -259,17 +280,23 @@ if __name__ == "__main__":
     qpsk_modulated = qpsk_modulation(scrambled)
     
     layer_mapped = layer_mapping(qpsk_modulated, N_ant, style)
-    layer_mapped = [[complex(1,0)]*120, [complex(1,0)]*120]
+    
+    #layer_mapped = [[complex(1,0)]*120, [complex(1,0)]*120]
+    
     pre_coded = pre_coding(layer_mapped, N_ant, style)
+    rx = [pre_coded[0][n]+pre_coded[1][n] for n in range(len(pre_coded[0]))]
+    h = [[complex(1,0)]*len(pre_coded[0]),[complex(1,0)]*len(pre_coded[0])]
+    pre_decoded = pre_decoding(rx, h, N_ant, style)
     
     for n in range(10):
-        print cmpl_str(layer_mapped[0][n]) + "\t" + cmpl_str(layer_mapped[0][n])
-    
-    for i in range(10):
-        print cmpl_str(pre_coded[0][i]) + "\t" + cmpl_str(pre_coded[1][i]) 
-    print len(pre_coded)
-    print len(pre_coded[0])
-    
+        print cmpl_str(layer_mapped[0][n]) + "\t" + cmpl_str(pre_decoded[0][n]) + "\t" + cmpl_str(pre_decoded[0][n]-layer_mapped[0][n])
+
+    for n in range(len(pre_decoded[0])):
+        if abs(pre_decoded[0][n]-layer_mapped[0][n]) > 0.0001:
+            print "ant1 fail"
+        elif abs(pre_decoded[1][n]-layer_mapped[1][n]) > 0.0001:
+            print "ant2 fail"
+
 
     
     
