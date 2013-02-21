@@ -264,30 +264,53 @@ def pre_decoding(data, h, N_ant, style):
         output[1][n] = output[1][n]/math.sqrt(2)
                 
     return output
+    
+def encode_pbch(bch, cell_id, N_ant, style):
+    scrambled = pbch_scrambling(bch, cell_id)
+    qpsk_modulated = qpsk_modulation(scrambled)
+    layer_mapped = layer_mapping(qpsk_modulated, N_ant, style)
+    pre_coded = pre_coding(layer_mapped, N_ant, style)
+    
+    return pre_coded
+    
 
 def cmpl_str(val):
     #return '%+03f%+03fj' %(val.real, val.imag)
     return '{0.real:+.4f} {0.imag:+.4f}j'.format(val)
     
 if __name__ == "__main__":
+    cell_id = 124    
     N_ant = 2
     style= "tx_diversity"
     mib = pack_mib(50,0,1.0, 511)
     
     bch = encode_bch(mib, N_ant)
 
-    scrambled = pbch_scrambling(bch, 124)
+    scrambled = pbch_scrambling(bch, cell_id)
     qpsk_modulated = qpsk_modulation(scrambled)
-    
     layer_mapped = layer_mapping(qpsk_modulated, N_ant, style)
-    
-    #layer_mapped = [[complex(1,0)]*120, [complex(1,0)]*120]
-    
     pre_coded = pre_coding(layer_mapped, N_ant, style)
+
+    pbch = encode_pbch(bch, cell_id, N_ant, style)
+    
+    print len(pre_coded)
+    print len(pbch)
+    print len(pre_coded[0])
+    print len(pbch[0])
+    
+    for n in range(len(pbch[0])):
+        if pbch[0][n] != pre_coded[0][n]:
+            print "ant0 failed!"
+        elif pbch[1][n] != pre_coded[1][n]:
+            print "ant1 failed!"
+    
+    
     rx = [pre_coded[0][n]+pre_coded[1][n] for n in range(len(pre_coded[0]))]
     h = [[complex(1,0)]*len(pre_coded[0]),[complex(1,0)]*len(pre_coded[0])]
     pre_decoded = pre_decoding(rx, h, N_ant, style)
     
+    
+    '''    
     for n in range(10):
         print cmpl_str(layer_mapped[0][n]) + "\t" + cmpl_str(pre_decoded[0][n]) + "\t" + cmpl_str(pre_decoded[0][n]-layer_mapped[0][n])
 
@@ -296,7 +319,7 @@ if __name__ == "__main__":
             print "ant1 fail"
         elif abs(pre_decoded[1][n]-layer_mapped[1][n]) > 0.0001:
             print "ant2 fail"
-
+    '''
 
     
     

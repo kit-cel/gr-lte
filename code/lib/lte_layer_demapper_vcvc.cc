@@ -133,5 +133,4 @@ lte_layer_demapper_vcvc::set_decoding_style(std::string style)
         printf("%s\tset decoding style to \"%s\"\n", name().c_str(), style.c_str() );
         d_style = style;
     }
-
 }
