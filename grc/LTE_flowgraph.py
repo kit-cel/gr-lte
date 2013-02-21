@@ -3,7 +3,7 @@
 # Gnuradio Python Flow Graph
 # Title: LTE flowgraph
 # Author: Johannes Demel
-# Generated: Wed Feb 20 19:02:28 2013
+# Generated: Thu Feb 21 09:29:17 2013
 ##################################################
 
 from gnuradio import eng_notation
@@ -51,7 +51,7 @@ class LTE_flowgraph(gr.top_block):
 		self.lte_channel_estimator_0 = lte.channel_estimator(N_rb_dl)
 		self.gr_throttle_0 = gr.throttle(gr.sizeof_gr_complex*1, samp_rate/4)
 		self.gr_interleave_0 = gr.interleave(gr.sizeof_gr_complex*240)
-		self.gr_file_source_0_0 = gr.file_source(gr.sizeof_gr_complex*1, "/home/demel/gr-lte/data/Messung_Resampled_3072MSps.dat", False)
+		self.gr_file_source_0_0_0 = gr.file_source(gr.sizeof_gr_complex*1, "/home/johannes/gr-lte/data/Resampled_LTE_2012_47:32.dat", False)
 		self.fft_vxx_0 = fft.fft_vcc(fftlen, True, (window.rectangular(fftlen)), False, 1)
 		self.descr = lte.descrambling_vfvf()
 		self.demux = lte.pbch_demux_vcvc(N_rb_dl)
@@ -62,7 +62,6 @@ class LTE_flowgraph(gr.top_block):
 		self.connect((self.lte_cp_time_freq_sync_cc_0, 0), (self.lte_hier_pss_sync_cc_0, 0))
 		self.connect((self.lte_hier_pss_sync_cc_0, 0), (self.lte_hier_freq_estimate_cc_0, 0))
 		self.connect((self.gr_throttle_0, 0), (self.lte_cp_time_freq_sync_cc_0, 0))
-		self.connect((self.gr_file_source_0_0, 0), (self.gr_throttle_0, 0))
 		self.connect((self.fft_vxx_0, 0), (self.lte_extract_occupied_tones_vcvc_0, 0))
 		self.connect((self.lte_remove_cp_cvc_1, 0), (self.fft_vxx_0, 0))
 		self.connect((self.demux, 2), (self.lte_pre_decoder_vcvc_0_0, 2))
@@ -85,6 +84,7 @@ class LTE_flowgraph(gr.top_block):
 		self.connect((self.descr, 0), (self.lte_decode_bch_vfvb_0, 0))
 		self.connect((self.lte_decode_bch_vfvb_0, 1), (self.lte_mib_unpack_vb_0, 1))
 		self.connect((self.lte_decode_bch_vfvb_0, 0), (self.lte_mib_unpack_vb_0, 0))
+		self.connect((self.gr_file_source_0_0_0, 0), (self.gr_throttle_0, 0))
 
 		##################################################
 		# Asynch Message Connections
