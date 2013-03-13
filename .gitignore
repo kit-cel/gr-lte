@@ -3,6 +3,7 @@ valgrind/
 read_complex_binary.m
 *~
 .~*
+.*
 code/build/
 code/build-cb/
 sed_script.sh

@@ -46,7 +46,6 @@ GR_ADD_TEST(qa_descrambling_vfvf ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR
 GR_ADD_TEST(qa_multi_block_test ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_multi_block_test.py)
 GR_ADD_TEST(qa_viterbi_vfvb ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_viterbi_vfvb.py)
 GR_ADD_TEST(qa_vector_resize_vbvb ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_vector_resize_vbvb.py)
-GR_ADD_TEST(qa_block_tests ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_block_tests.py)
 GR_ADD_TEST(qa_crc_calculator_vbvb ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_crc_calculator_vbvb.py)
 GR_ADD_TEST(qa_mib_unpack_vb ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_mib_unpack_vb.py)
 GR_ADD_TEST(qa_qpsk_soft_demod_vcvf ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_qpsk_soft_demod_vcvf.py)

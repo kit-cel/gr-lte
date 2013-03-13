@@ -20,7 +20,7 @@
 
 from gnuradio import gr, gr_unittest
 import lte
-import lte_test
+from lte_test import *
 
 class qa_decode_pbch_vcvf (gr_unittest.TestCase):
 
@@ -28,6 +28,16 @@ class qa_decode_pbch_vcvf (gr_unittest.TestCase):
         self.tb = gr.top_block ()
         
         self.pbch = lte.decode_pbch_vcvf()
+        '''
+        This hierarchical block consists of the following blocks
+        lte.pre_decoder_vcvc(1, style)
+        lte.pre_decoder_vcvc(2, style)
+        lte.layer_demapper_vcvc(1, style)
+        lte.layer_demapper_vcvc(2, style)
+        gr.interleave(240*gr.sizeof_gr_complex)
+        lte.qpsk_soft_demod_vcvf()
+        lte.descrambling_vfvf()
+        '''
         
         self.src0 = gr.vector_source_c([0]*240, False, 240)
         self.src1 = gr.vector_source_c([0]*240, False, 240)
@@ -48,13 +58,13 @@ class qa_decode_pbch_vcvf (gr_unittest.TestCase):
         cell_id = 124    
         N_ant = 2
         style= "tx_diversity"
-        mib = lte_test.pack_mib(50,0,1.0, 511)
-        bch = lte_test.encode_bch(mib, N_ant)
-        pbch = lte_test.encode_pbch(bch, cell_id, N_ant, style)
+        mib = pack_mib(50,0,1.0, 511)
+        bch = encode_bch(mib, N_ant)
+        pbch = encode_pbch(bch, cell_id, N_ant, style)
         
         stream = [pbch[0][i]+pbch[1][i] for i in range(len(pbch[0]))]
-        h0 = [complex(1,0)]*len(pbch[0])
-        h1 = [complex(1,0)]*len(pbch[1])
+        h0 = [complex(1,0)]*len(stream)
+        h1 = [complex(1,0)]*len(stream)
         
         self.pbch.descr.set_cell_id(cell_id)
         self.src0.set_data(stream)
@@ -65,8 +75,25 @@ class qa_decode_pbch_vcvf (gr_unittest.TestCase):
         
         # check data        
         res = self.snk.data()
-        
         assert(len(res) > 0 )
+        
+
+        # Following QA part currently not useful (always some data false??!)        
+        res_h = nrz_hard_decode(res)
+        bch = tuple(bch)
+        
+        success = 0
+        failed = 0
+        for i in range(len(res)/len(bch)):
+            part = tuple(res_h[i*len(bch):(i+1)*len(bch)])
+            try:
+                self.assertTupleEqual(part,bch)
+                success = success +1
+            except:
+                failed = failed +1
+        
+        print "successful decodings: " + str(success)
+        print "failed decodings: " + str(failed)
 
 
 
