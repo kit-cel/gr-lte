@@ -21,7 +21,7 @@
 
 from gnuradio import gr, gr_unittest
 import lte as lte_swig
-import lte_test
+from lte_test import *
 import scipy.io
 import math
 
@@ -55,14 +55,14 @@ class qa_pre_decoder_vcvc (gr_unittest.TestCase):
         cell_id = 124        
         N_ant = 2
         style= "tx_diversity"
-        mib = lte_test.pack_mib(50,0,1.0, 511)
+        mib = pack_mib(50,0,1.0, 511)
         
-        bch = lte_test.encode_bch(mib, N_ant)
+        bch = encode_bch(mib, N_ant)
         
-        scrambled = lte_test.pbch_scrambling(bch, cell_id)
-        qpsk_modulated = lte_test.qpsk_modulation(scrambled)
-        layer_mapped = lte_test.layer_mapping(qpsk_modulated, N_ant, style)
-        pre_coded = lte_test.pre_coding(layer_mapped, N_ant, style)
+        scrambled = pbch_scrambling(bch, cell_id)
+        qpsk_modulated = qpsk_modulation(scrambled)
+        layer_mapped = layer_mapping(qpsk_modulated, N_ant, style)
+        pre_coded = pre_coding(layer_mapped, N_ant, style)
 
         h0 = [complex(1,0)]*len(pre_coded[0])
         h1 = [complex(1,0)]*len(pre_coded[1])
@@ -79,6 +79,7 @@ class qa_pre_decoder_vcvc (gr_unittest.TestCase):
             exp_res.append(layer_mapped[0][i])
             exp_res.append(layer_mapped[1][i])
         print self.assertComplexTuplesAlmostEqual(res, exp_res)
+        
 
         
 

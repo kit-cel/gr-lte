@@ -61,7 +61,9 @@ class qa_descrambling_vfvf (gr_unittest.TestCase):
             part = res[len(n_bch)*i:(i+1)*len(n_bch)]
             try:
                 self.assertEqual(part, n_bch,3)
+                print str(i) + "\tSUCCESS"
             except:
+                print str(i)
                 count = count +1
         print "\nresult"
         print count
