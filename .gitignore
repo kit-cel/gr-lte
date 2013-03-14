@@ -9,3 +9,7 @@ sed_script.sh
 tests/
 sources/
 *.pyc
+paper/
+
+
+
