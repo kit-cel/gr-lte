@@ -21,6 +21,7 @@
        * type
        * vlen
        * optional (set to 1 for optional inputs) -->
+  
   <sink>
     <name>in0</name>
     <type>complex</type>
@@ -44,6 +45,7 @@
     <type>message</type>
     <optional>1</optional>
   </sink>
+
 
   <!-- Make one 'source' node per output. Sub-nodes:
        * name (an identifier for the GUI)
