@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='ASCII'?>
 <flow_graph>
-  <timestamp>Mon Mar 18 16:28:06 2013</timestamp>
+  <timestamp>Wed Mar 20 15:20:10 2013</timestamp>
   <block>
     <key>options</key>
     <param>
@@ -236,80 +236,30 @@
     </param>
   </block>
   <block>
-    <key>lte_pre_decoder_vcvc</key>
+    <key>gr_message_sink</key>
     <param>
       <key>id</key>
-      <value>lte_pre_decoder_vcvc_0</value>
+      <value>gr_message_sink_0</value>
     </param>
     <param>
       <key>_enabled</key>
       <value>True</value>
     </param>
     <param>
-      <key>N_ant</key>
+      <key>type</key>
+      <value>complex</value>
+    </param>
+    <param>
+      <key>dont_block</key>
+      <value>False</value>
+    </param>
+    <param>
+      <key>vlen</key>
       <value>1</value>
     </param>
     <param>
-      <key>style</key>
-      <value>style</value>
-    </param>
-    <param>
       <key>_coordinate</key>
-      <value>(329, 521)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>lte_layer_demapper_vcvc</key>
-    <param>
-      <key>id</key>
-      <value>lte_layer_demapper_vcvc_0_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>N_ant</key>
-      <value>2</value>
-    </param>
-    <param>
-      <key>style</key>
-      <value>style</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(518, 622)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>lte_pre_decoder_vcvc</key>
-    <param>
-      <key>id</key>
-      <value>lte_pre_decoder_vcvc_0_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>N_ant</key>
-      <value>2</value>
-    </param>
-    <param>
-      <key>style</key>
-      <value>style</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(328, 600)</value>
+      <value>(870, 863)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -332,7 +282,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(81, 560)</value>
+      <value>(41, 541)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -340,26 +290,37 @@
     </param>
   </block>
   <block>
-    <key>lte_layer_demapper_vcvc</key>
+    <key>lte_descrambling_vfvf</key>
     <param>
       <key>id</key>
-      <value>lte_layer_demapper_vcvc_0</value>
+      <value>descr</value>
     </param>
     <param>
       <key>_enabled</key>
       <value>True</value>
     </param>
     <param>
-      <key>N_ant</key>
-      <value>1</value>
+      <key>_coordinate</key>
+      <value>(1051, 615)</value>
     </param>
     <param>
-      <key>style</key>
-      <value>style</value>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>lte_qpsk_soft_demod_vcvf</key>
+    <param>
+      <key>id</key>
+      <value>lte_qpsk_soft_demod_vcvf_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(519, 526)</value>
+      <value>(852, 615)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -390,7 +351,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(726, 600)</value>
+      <value>(686, 598)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -398,18 +359,107 @@
     </param>
   </block>
   <block>
-    <key>lte_qpsk_soft_demod_vcvf</key>
+    <key>lte_layer_demapper_vcvc</key>
     <param>
       <key>id</key>
-      <value>lte_qpsk_soft_demod_vcvf_0</value>
+      <value>lte_layer_demapper_vcvc_0</value>
     </param>
     <param>
       <key>_enabled</key>
       <value>True</value>
     </param>
     <param>
+      <key>N_ant</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>style</key>
+      <value>style</value>
+    </param>
+    <param>
       <key>_coordinate</key>
-      <value>(892, 617)</value>
+      <value>(479, 524)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>lte_pre_decoder_vcvc</key>
+    <param>
+      <key>id</key>
+      <value>lte_pre_decoder_vcvc_0_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>N_ant</key>
+      <value>2</value>
+    </param>
+    <param>
+      <key>style</key>
+      <value>style</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(288, 598)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>lte_layer_demapper_vcvc</key>
+    <param>
+      <key>id</key>
+      <value>lte_layer_demapper_vcvc_0_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>N_ant</key>
+      <value>2</value>
+    </param>
+    <param>
+      <key>style</key>
+      <value>style</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(478, 620)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>lte_pre_decoder_vcvc</key>
+    <param>
+      <key>id</key>
+      <value>lte_pre_decoder_vcvc_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>N_ant</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>style</key>
+      <value>style</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(289, 519)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -444,57 +494,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(773, 789)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>180</value>
-    </param>
-  </block>
-  <block>
-    <key>lte_descrambling_vfvf</key>
-    <param>
-      <key>id</key>
-      <value>descr</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(1091, 617)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>gr_message_sink</key>
-    <param>
-      <key>id</key>
-      <value>gr_message_sink_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>complex</value>
-    </param>
-    <param>
-      <key>dont_block</key>
-      <value>False</value>
-    </param>
-    <param>
-      <key>vlen</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(870, 863)</value>
+      <value>(1213, 620)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -518,30 +518,6 @@
     <sink_block_id>demux</sink_block_id>
     <source_key>0</source_key>
     <sink_key>2</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_pre_decoder_vcvc_0</source_block_id>
-    <sink_block_id>lte_layer_demapper_vcvc_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_pre_decoder_vcvc_0_0</source_block_id>
-    <sink_block_id>lte_layer_demapper_vcvc_0_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_layer_demapper_vcvc_0</source_block_id>
-    <sink_block_id>gr_interleave_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_layer_demapper_vcvc_0_0</source_block_id>
-    <sink_block_id>gr_interleave_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>1</sink_key>
   </connection>
   <connection>
     <source_block_id>demux</source_block_id>
@@ -580,10 +556,10 @@
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>lte_qpsk_soft_demod_vcvf_0</source_block_id>
+    <source_block_id>gr_message_sink_0</source_block_id>
     <sink_block_id>descr</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
+    <source_key>msg</source_key>
+    <sink_key>1</sink_key>
   </connection>
   <connection>
     <source_block_id>gr_interleave_0</source_block_id>
@@ -592,9 +568,33 @@
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>gr_message_sink_0</source_block_id>
+    <source_block_id>lte_qpsk_soft_demod_vcvf_0</source_block_id>
     <sink_block_id>descr</sink_block_id>
-    <source_key>msg</source_key>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_layer_demapper_vcvc_0_0</source_block_id>
+    <sink_block_id>gr_interleave_0</sink_block_id>
+    <source_key>0</source_key>
     <sink_key>1</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_layer_demapper_vcvc_0</source_block_id>
+    <sink_block_id>gr_interleave_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_pre_decoder_vcvc_0_0</source_block_id>
+    <sink_block_id>lte_layer_demapper_vcvc_0_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_pre_decoder_vcvc_0</source_block_id>
+    <sink_block_id>lte_layer_demapper_vcvc_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
   </connection>
 </flow_graph>

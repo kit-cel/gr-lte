@@ -21,6 +21,11 @@
        * type
        * vlen
        * optional (set to 1 for optional inputs) -->
+  <sink>
+    <name>cell_id</name>
+    <type>message</type>
+    <optional>1</optional>
+  </sink>
   
   <sink>
     <name>in0</name>
@@ -39,13 +44,6 @@
     <type>complex</type>
     <vlen>12*$N_rb_dl</vlen>
   </sink>
-  
-  <sink>
-    <name>cell_id</name>
-    <type>message</type>
-    <optional>1</optional>
-  </sink>
-
 
   <!-- Make one 'source' node per output. Sub-nodes:
        * name (an identifier for the GUI)

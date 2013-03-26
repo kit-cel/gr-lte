@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='ASCII'?>
 <flow_graph>
-  <timestamp>Mon Mar 18 17:02:32 2013</timestamp>
+  <timestamp>Tue Mar 26 16:50:35 2013</timestamp>
   <block>
     <key>options</key>
     <param>
@@ -389,6 +389,209 @@
     </param>
   </block>
   <block>
+    <key>lte_cp_time_freq_sync_cc</key>
+    <param>
+      <key>id</key>
+      <value>lte_cp_time_freq_sync_cc_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>fftl</key>
+      <value>fftlen</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(161, 329)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>gr_throttle</key>
+    <param>
+      <key>id</key>
+      <value>gr_throttle_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>complex</value>
+    </param>
+    <param>
+      <key>samples_per_second</key>
+      <value>samp_rate</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(41, 226)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>180</value>
+    </param>
+  </block>
+  <block>
+    <key>lte_hier_freq_estimate_cc</key>
+    <param>
+      <key>id</key>
+      <value>lte_hier_freq_estimate_cc_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>fftl</key>
+      <value>fftlen</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(590, 329)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>lte_hier_pss_sync_cc</key>
+    <param>
+      <key>id</key>
+      <value>lte_hier_pss_sync_cc_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>fftl</key>
+      <value>fftlen</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(387, 329)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>lte_hier_sss_sync_cc</key>
+    <param>
+      <key>id</key>
+      <value>lte_hier_sss_sync_cc_1</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>fftl</key>
+      <value>fftlen</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(717, 453)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>180</value>
+    </param>
+  </block>
+  <block>
+    <key>lte_channel_estimator</key>
+    <param>
+      <key>id</key>
+      <value>lte_channel_estimator_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>N_rb_dl</key>
+      <value>N_rb_dl</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(102, 602)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>lte_decode_pbch_vcvf</key>
+    <param>
+      <key>id</key>
+      <value>lte_decode_pbch_vcvf_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(514, 551)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>lte_mib_unpack_vb</key>
+    <param>
+      <key>id</key>
+      <value>lte_mib_unpack_vb_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(847, 534)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>lte_decode_bch_vfvb</key>
+    <param>
+      <key>id</key>
+      <value>lte_decode_bch_vfvb_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(672, 585)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
     <key>fft_vxx</key>
     <param>
       <key>id</key>
@@ -424,57 +627,11 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(271, 369)</value>
+      <value>(273, 385)</value>
     </param>
     <param>
       <key>_rotation</key>
       <value>180</value>
-    </param>
-  </block>
-  <block>
-    <key>lte_cp_time_freq_sync_cc</key>
-    <param>
-      <key>id</key>
-      <value>lte_cp_time_freq_sync_cc_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>fftl</key>
-      <value>fftlen</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(57, 320)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>lte_hier_pss_sync_cc</key>
-    <param>
-      <key>id</key>
-      <value>lte_hier_pss_sync_cc_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>fftl</key>
-      <value>fftlen</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(287, 320)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
     </param>
   </block>
   <block>
@@ -497,53 +654,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(56, 393)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>180</value>
-    </param>
-  </block>
-  <block>
-    <key>lte_hier_freq_estimate_cc</key>
-    <param>
-      <key>id</key>
-      <value>lte_hier_freq_estimate_cc_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>fftl</key>
-      <value>fftlen</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(490, 321)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>lte_hier_sss_sync_cc</key>
-    <param>
-      <key>id</key>
-      <value>lte_hier_sss_sync_cc_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>fftl</key>
-      <value>fftlen</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(697, 371)</value>
+      <value>(58, 409)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -566,7 +677,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(503, 401)</value>
+      <value>(505, 417)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -577,7 +688,7 @@
     <key>lte_pbch_demux_vcvc</key>
     <param>
       <key>id</key>
-      <value>lte_pbch_demux_vcvc_0</value>
+      <value>lte_pbch_demux_vcvc_1</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -589,130 +700,13 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(307, 482)</value>
+      <value>(312, 568)</value>
     </param>
     <param>
       <key>_rotation</key>
       <value>0</value>
     </param>
   </block>
-  <block>
-    <key>lte_mib_unpack_vb</key>
-    <param>
-      <key>id</key>
-      <value>lte_mib_unpack_vb_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(847, 482)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>lte_decode_bch_vfvb</key>
-    <param>
-      <key>id</key>
-      <value>lte_decode_bch_vfvb_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(672, 533)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>lte_channel_estimator</key>
-    <param>
-      <key>id</key>
-      <value>lte_channel_estimator_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>N_rb_dl</key>
-      <value>N_rb_dl</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(94, 482)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>lte_decode_pbch_vcvf</key>
-    <param>
-      <key>id</key>
-      <value>lte_decode_pbch_vcvf_1</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(512, 499)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>gr_throttle</key>
-    <param>
-      <key>id</key>
-      <value>gr_throttle_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>complex</value>
-    </param>
-    <param>
-      <key>samples_per_second</key>
-      <value>samp_rate</value>
-    </param>
-    <param>
-      <key>vlen</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(744, 183)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <connection>
-    <source_block_id>gr_throttle_0</source_block_id>
-    <sink_block_id>lte_cp_time_freq_sync_cc_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
   <connection>
     <source_block_id>gr_file_source_0_0</source_block_id>
     <sink_block_id>gr_throttle_0</sink_block_id>
@@ -738,8 +732,14 @@
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>fft_vxx_0</source_block_id>
-    <sink_block_id>lte_extract_occupied_tones_vcvc_0</sink_block_id>
+    <source_block_id>lte_cp_time_freq_sync_cc_0</source_block_id>
+    <sink_block_id>lte_hier_pss_sync_cc_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>gr_throttle_0</source_block_id>
+    <sink_block_id>lte_cp_time_freq_sync_cc_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
@@ -750,20 +750,80 @@
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>lte_cp_time_freq_sync_cc_0</source_block_id>
-    <sink_block_id>lte_hier_pss_sync_cc_0</sink_block_id>
+    <source_block_id>lte_hier_sss_sync_cc_1</source_block_id>
+    <sink_block_id>lte_channel_estimator_0</sink_block_id>
+    <source_key>cell_id</source_key>
+    <sink_key>cell_id</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_extract_occupied_tones_vcvc_0</source_block_id>
+    <sink_block_id>lte_channel_estimator_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>lte_hier_sss_sync_cc_0</source_block_id>
-    <sink_block_id>lte_remove_cp_cvc_1</sink_block_id>
+    <source_block_id>lte_hier_sss_sync_cc_1</source_block_id>
+    <sink_block_id>lte_pbch_demux_vcvc_1</sink_block_id>
+    <source_key>cell_id</source_key>
+    <sink_key>cell_id</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_hier_sss_sync_cc_1</source_block_id>
+    <sink_block_id>lte_decode_pbch_vcvf_0</sink_block_id>
+    <source_key>cell_id</source_key>
+    <sink_key>cell_id</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_decode_bch_vfvb_0</source_block_id>
+    <sink_block_id>lte_mib_unpack_vb_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>lte_hier_freq_estimate_cc_0</source_block_id>
-    <sink_block_id>lte_hier_sss_sync_cc_0</sink_block_id>
+    <source_block_id>lte_decode_bch_vfvb_0</source_block_id>
+    <sink_block_id>lte_mib_unpack_vb_0</sink_block_id>
+    <source_key>1</source_key>
+    <sink_key>1</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_decode_pbch_vcvf_0</source_block_id>
+    <sink_block_id>lte_decode_bch_vfvb_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_pbch_demux_vcvc_1</source_block_id>
+    <sink_block_id>lte_decode_pbch_vcvf_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_pbch_demux_vcvc_1</source_block_id>
+    <sink_block_id>lte_decode_pbch_vcvf_0</sink_block_id>
+    <source_key>1</source_key>
+    <sink_key>1</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_pbch_demux_vcvc_1</source_block_id>
+    <sink_block_id>lte_decode_pbch_vcvf_0</sink_block_id>
+    <source_key>2</source_key>
+    <sink_key>2</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_channel_estimator_0</source_block_id>
+    <sink_block_id>lte_pbch_demux_vcvc_1</sink_block_id>
+    <source_key>2</source_key>
+    <sink_key>2</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_channel_estimator_0</source_block_id>
+    <sink_block_id>lte_pbch_demux_vcvc_1</sink_block_id>
+    <source_key>1</source_key>
+    <sink_key>1</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_channel_estimator_0</source_block_id>
+    <sink_block_id>lte_pbch_demux_vcvc_1</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
@@ -774,80 +834,20 @@
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>lte_decode_bch_vfvb_0</source_block_id>
-    <sink_block_id>lte_mib_unpack_vb_0</sink_block_id>
-    <source_key>1</source_key>
-    <sink_key>1</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_decode_bch_vfvb_0</source_block_id>
-    <sink_block_id>lte_mib_unpack_vb_0</sink_block_id>
+    <source_block_id>fft_vxx_0</source_block_id>
+    <sink_block_id>lte_extract_occupied_tones_vcvc_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>lte_decode_pbch_vcvf_1</source_block_id>
-    <sink_block_id>lte_decode_bch_vfvb_0</sink_block_id>
+    <source_block_id>lte_hier_sss_sync_cc_1</source_block_id>
+    <sink_block_id>lte_remove_cp_cvc_1</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>lte_pbch_demux_vcvc_0</source_block_id>
-    <sink_block_id>lte_decode_pbch_vcvf_1</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_pbch_demux_vcvc_0</source_block_id>
-    <sink_block_id>lte_decode_pbch_vcvf_1</sink_block_id>
-    <source_key>1</source_key>
-    <sink_key>1</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_pbch_demux_vcvc_0</source_block_id>
-    <sink_block_id>lte_decode_pbch_vcvf_1</sink_block_id>
-    <source_key>2</source_key>
-    <sink_key>2</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_channel_estimator_0</source_block_id>
-    <sink_block_id>lte_pbch_demux_vcvc_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_channel_estimator_0</source_block_id>
-    <sink_block_id>lte_pbch_demux_vcvc_0</sink_block_id>
-    <source_key>1</source_key>
-    <sink_key>1</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_channel_estimator_0</source_block_id>
-    <sink_block_id>lte_pbch_demux_vcvc_0</sink_block_id>
-    <source_key>2</source_key>
-    <sink_key>2</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_hier_sss_sync_cc_0</source_block_id>
-    <sink_block_id>lte_decode_pbch_vcvf_1</sink_block_id>
-    <source_key>1</source_key>
-    <sink_key>3</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_hier_sss_sync_cc_0</source_block_id>
-    <sink_block_id>lte_pbch_demux_vcvc_0</sink_block_id>
-    <source_key>1</source_key>
-    <sink_key>3</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_hier_sss_sync_cc_0</source_block_id>
-    <sink_block_id>lte_channel_estimator_0</sink_block_id>
-    <source_key>1</source_key>
-    <sink_key>1</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_extract_occupied_tones_vcvc_0</source_block_id>
-    <sink_block_id>lte_channel_estimator_0</sink_block_id>
+    <source_block_id>lte_hier_freq_estimate_cc_0</source_block_id>
+    <sink_block_id>lte_hier_sss_sync_cc_1</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
