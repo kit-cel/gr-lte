@@ -18,6 +18,7 @@
 # Boston, MA 02110-1301, USA.
 # 
 
+import numpy as np
 import math
 from mib import *
 from encode_bch import *
@@ -38,38 +39,72 @@ def nrz_hard_decode(data):
             res.append(1)
     return res
     
+def generate_frame(pbch, N_rb_dl, cell_id, sfn, N_ant):
+    n_carriers = 12*N_rb_dl
+    frame = np.zeros((N_ant,140,n_carriers),dtype=np.complex)
+    
+    for n in range(N_ant):
+        frame = map_pbch_to_frame(frame, pbch, cell_id, sfn, n)
+    
+    
+    return frame
+    
+def map_pbch_to_frame(frame, pbch, cell_id, sfn, ant):    
+    sfn_mod4 = sfn%4
+    cell_id_mod3 = cell_id%3
+    pbch = pbch[ant]
+    pbch_part = pbch[240*sfn_mod4:240*(sfn_mod4+1)]
+    n_carriers = np.shape(frame)[2]
+    #print n_carriers
+    pbch_pos = (n_carriers/2)-(72/2)
+    #print pbch_pos
+    pbch_element = 0
+    for i in range(72):
+        if i%3 != cell_id_mod3:
+            #print "hello" + str(i+pbch_pos)
+            frame[ant][7][i+pbch_pos]=pbch_part[pbch_element]
+            frame[ant][8][i+pbch_pos]=pbch_part[pbch_element+48]
+            pbch_element = pbch_element+1
+        frame[ant][9][i+pbch_pos]=pbch_part[i+2*48]
+        frame[ant][10][i+pbch_pos]=pbch_part[i+2*48+72]
+
+    return frame
+    
     
 if __name__ == "__main__":
     cell_id = 124    
     N_ant = 2
     style= "tx_diversity"
-    mib = pack_mib(50,0,1.0, 511)
+    N_rb_dl = 6
+    sfn = 0
     
+    mib = pack_mib(50,0,1.0, 511)
     bch = encode_bch(mib, N_ant)
-
+    pbch = encode_pbch(bch, cell_id, N_ant, style)
+    
+    frame = generate_frame(pbch, N_rb_dl, cell_id, sfn, N_ant)
+    print frame[0][10]
+    #print np.ndim(frame)
+    print np.shape(frame)
+    
+    '''
     scrambled = pbch_scrambling(bch, cell_id)
     qpsk_modulated = qpsk_modulation(scrambled)
     layer_mapped = layer_mapping(qpsk_modulated, N_ant, style)
     pre_coded = pre_coding(layer_mapped, N_ant, style)
-
-    pbch = encode_pbch(bch, cell_id, N_ant, style)
-    
     print len(pre_coded)
     print len(pbch)
     print len(pre_coded[0])
     print len(pbch[0])
-    
     for n in range(len(pbch[0])):
         if pbch[0][n] != pre_coded[0][n]:
             print "ant0 failed!"
         elif pbch[1][n] != pre_coded[1][n]:
             print "ant1 failed!"
-    
-    
     rx = [pre_coded[0][n]+pre_coded[1][n] for n in range(len(pre_coded[0]))]
     h = [[complex(1,0)]*len(pre_coded[0]),[complex(1,0)]*len(pre_coded[0])]
     pre_decoded = pre_decoding(rx, h, N_ant, style)
-    
+    '''
     
 
     
