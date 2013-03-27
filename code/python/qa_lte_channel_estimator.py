@@ -104,7 +104,8 @@ class qa_channel_estimator (gr_unittest.TestCase):
                 #    print '{0.real:.2f} + {0.imag:.2f}j\t{1.real:.2f} + {1.imag:.2f}j'.format(vec0[cnt],vec1[cnt])
                     
                 for cnt in range(len(vec0)):
-                    print "diff = " + str(abs(vec0[cnt]-vec1[cnt]))
+                    #print "diff = " + str(abs(vec0[cnt]-vec1[cnt]))
+                    m=0
                 #print '({0.real:.2f} + {0.imag:.2f}j)'.format(vec0)
                 #print vec0[0:3]
                 #print vec1[0:3]

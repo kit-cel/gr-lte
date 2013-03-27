@@ -44,20 +44,11 @@ lte_pbch_demux_vcvc::lte_pbch_demux_vcvc (int N_rb_dl) //int cell_id,
 {
     message_port_register_in(pmt::mp("cell_id"));
     set_msg_handler(pmt::mp("cell_id"), boost::bind(&lte_pbch_demux_vcvc::set_cell_id_msg, this, _1));
-
-
-    int pbch_symb_size = 4*12*N_rb_dl;
-    d_pbch_symbs = new gr_complex[pbch_symb_size];
-	d_pbch_ce1_symbs = new gr_complex[pbch_symb_size];
-	d_pbch_ce2_symbs = new gr_complex[pbch_symb_size];
 }
 
 
 lte_pbch_demux_vcvc::~lte_pbch_demux_vcvc ()
 {
-    delete[] d_pbch_symbs;
-    delete[] d_pbch_ce1_symbs;
-    delete[] d_pbch_ce2_symbs;
 }
 
 
@@ -67,122 +58,60 @@ lte_pbch_demux_vcvc::general_work (int noutput_items,
 			       gr_vector_const_void_star &input_items,
 			       gr_vector_void_star &output_items)
 {
-    const gr_complex *in1 = (const gr_complex *) input_items[0];
-    const gr_complex *in2 = (const gr_complex *) input_items[1];
-    const gr_complex *in3 = (const gr_complex *) input_items[2];
-    gr_complex *out1 = (gr_complex *) output_items[0];
-    gr_complex *out2 = (gr_complex *) output_items[1];
-    gr_complex *out3 = (gr_complex *) output_items[2];
-
-
+    const gr_complex *in0 = (const gr_complex *) input_items[0];
+    const gr_complex *in1 = (const gr_complex *) input_items[1];
+    const gr_complex *in2 = (const gr_complex *) input_items[2];
+    gr_complex *out0 = (gr_complex *) output_items[0];
+    gr_complex *out1 = (gr_complex *) output_items[1];
+    gr_complex *out2 = (gr_complex *) output_items[2];
 
 	// get smallest number of input items
-    int ninitems=ninput_items[0];
-    for(int i = 1 ; i < 3 ; i++){
-        if(ninitems > ninput_items[i]){
-            ninitems = ninput_items[i];
-        }
-    }
-    if (ninitems > noutput_items){
-        //printf("ninitems = %i\t>\t%i = noutput_items\n",ninitems,noutput_items);
-        ninitems = noutput_items;
-    }
+    int ninitems = calculate_n_process_items(ninput_items, noutput_items);
+
     // No data is processed as long as the cell_id is not available
     if(d_cell_id < 0){
         consume_each(ninitems);
-        return noutput_items;
+        return 0;
     }
-
-
 
   	// set noutput_items to zero. if output is produced, noutput_items is incremented.
 	noutput_items = 0;
 
-    // get function copy of class attributes
     int cell_id_mod3 = d_cell_id%3;
-    int N_rb_dl = d_N_rb_dl;
-    int sym_num = d_sym_num; // specifies symbol number within a frame.
-  	int pbch_symb_size = 4*12*N_rb_dl;
+    int n_carriers = 12*d_N_rb_dl;
 
-    //Read vector
-    std::vector <gr_tag_t> v;
+    //Read tags for updated sym_num
+    std::vector<gr_tag_t> v;
     get_tags_in_range(v,0,nitems_read(0),nitems_read(0)+ninitems);
-    if(v.size() > 0){
-	    sym_num = int(pmt::pmt_to_long(v[0].value) );
-	}
-
-/*
-    //printf("%s is supposed to read stream tags here!! v.size() = %i\n",name().c_str(), int(v.size()) );
-    for(int i = 0 ; i < v.size() ; i++ ){
-        uint64_t offset = v[i].offset;
-        std::string key = pmt::pmt_symbol_to_string(v[i].key);
-        long value = pmt::pmt_to_long(v[i].value);
-        std::string srcid = pmt::pmt_symbol_to_string(v[i].srcid);
-
-        //printf("%s\t",name().c_str() );
-		//printf("v.size() = %i,\tnitems_read(0) = %i\tkey = %s\tvalue = %ld\n",int(v.size()), int(nitems_read(0)), key.c_str(), value);
-	}
-*/
+    int sym_num = get_sym_num(v);
 
     //This loop searches for the REs with the PBCH and copies them to the output stream.
     for (int i = 0 ; i < ninitems ; i++ ) {
-        //printf("%i\tinput buffers\t1: %i\t2: %i\t3: %i\tnoutput_items = %i\tsym_num = %i\n",i,ninput_items[0],ninput_items[1],ninput_items[2],noutput_items,sym_num);
-
         if(sym_num==7){
             if (ninitems-i < 4){
-                //printf("%s call to work not enough input items left\n", name().c_str() );
                 ninitems=ninitems-(i+1);
                 break;
             }
+            extract_pbch_values(in0, in1, in2, out0, out1, out2);
 
-            int idx = 0;
-            for (int c = 0 ; c < 12*N_rb_dl ; c++ ) {
-                if ( cell_id_mod3 != c%3 ){
-                    out1[idx]    = in1[c];
-                    out1[idx+48] = in1[c+72];
-                    out2[idx]    = in2[c];
-                    out2[idx+48] = in2[c+72];
-                    out3[idx]    = in3[c];
-                    out3[idx+48] = in3[c+72];
-                    idx++;
-                }
-            }
-            memcpy(out1+96, in1+144, 144*sizeof(gr_complex) );
-            memcpy(out2+96, in2+144, 144*sizeof(gr_complex) );
-            memcpy(out3+96, in3+144, 144*sizeof(gr_complex) );
-
-            //printf("%s has produced output!\n", name().c_str() );
             noutput_items++;
+            out0+=240;
             out1+=240;
             out2+=240;
-            out3+=240;
         }
-
-
 
         // update work values for next symbol
-        if (sym_num < 139){
-            sym_num++;
-        }
-        else{
-            sym_num = 0;
-        }
-        in1+=12*N_rb_dl;
-        in2+=12*N_rb_dl;
-        in3+=12*N_rb_dl;
+        sym_num = (sym_num+1)%140;
+        in0+=n_carriers;
+        in1+=n_carriers;
+        in2+=n_carriers;
     }
 
-
-
-
-
+    // update d_sym_num
+    d_sym_num = sym_num;
     // Tell runtime system how many input items we consumed on
     // each input stream.
     consume_each (ninitems);
-
-    // set d_sym_num to new value
-    d_sym_num = sym_num;
-
     // Tell runtime system how many output items we produced.
     return noutput_items;
 }
@@ -204,7 +133,61 @@ lte_pbch_demux_vcvc::set_cell_id(int id)
     printf("%s\t\tset_cell_id = %i\n", name().c_str(), d_cell_id );
 }
 
+inline int
+lte_pbch_demux_vcvc::calculate_n_process_items(gr_vector_int ninput_items, int noutput_items)
+{
+    // get smallest number of input items
+    int n_inputs = ninput_items.size();
+    int ninitems = ninput_items[0];
+    for(int i = 1 ; i < n_inputs ; i++){
+        if(ninitems > ninput_items[i]){
+            ninitems = ninput_items[i];
+        }
+    }
+    if (ninitems > noutput_items){
+        ninitems = noutput_items;
+    }
+    return ninitems;
+}
 
+void
+lte_pbch_demux_vcvc::extract_pbch_values(const gr_complex* in0, const gr_complex* in1, const gr_complex* in2,
+                                            gr_complex* out0, gr_complex* out1, gr_complex* out2)
+{
+    int cell_id_mod3 = d_cell_id%3;
+    int n_carriers = 12*d_N_rb_dl;
+    int pbch_pos = (n_carriers/2)-(72/2);
+    int idx = 0;
+    for (int c = 0 ; c < 72 ; c++ ) {
+        if ( cell_id_mod3 != c%3 ){
+            out0[idx]    = in0[pbch_pos+c];
+            out0[idx+48] = in0[pbch_pos+c+n_carriers];
+            out1[idx]    = in1[pbch_pos+c];
+            out1[idx+48] = in1[pbch_pos+c+n_carriers];
+            out2[idx]    = in2[pbch_pos+c];
+            out2[idx+48] = in2[pbch_pos+c+n_carriers];
+            idx++;
+        }
+    }
+    memcpy(out0+96, in0+2*n_carriers+pbch_pos, 2*72*sizeof(gr_complex) );
+    memcpy(out1+96, in1+2*n_carriers+pbch_pos, 2*72*sizeof(gr_complex) );
+    memcpy(out2+96, in2+2*n_carriers+pbch_pos, 2*72*sizeof(gr_complex) );
+}
+
+inline int
+lte_pbch_demux_vcvc::get_sym_num(std::vector<gr_tag_t> v)
+{
+    int sym_num = 0;
+    if(v.size() > 0){
+        int value = int(pmt::pmt_to_long(v[0].value) );
+        int rel_offset = v[0].offset - nitems_read(0);
+	    sym_num = (value+140-rel_offset)%140;
+	}
+	else{
+        sym_num = d_sym_num;
+	}
+	return sym_num;
+}
 
 
 

@@ -3,7 +3,7 @@
 # Gnuradio Python Flow Graph
 # Title: LTE flowgraph
 # Author: Johannes Demel
-# Generated: Wed Mar 27 09:55:49 2013
+# Generated: Wed Mar 27 19:56:51 2013
 ##################################################
 
 from gnuradio import eng_notation
@@ -47,13 +47,13 @@ class LTE_flowgraph(gr.top_block):
 		self.lte_cp_time_freq_sync_cc_0 = lte.cp_time_freq_sync_cc(fftlen)
 		self.lte_channel_estimator_0 = lte.channel_estimator(N_rb_dl)
 		self.gr_throttle_0 = gr.throttle(gr.sizeof_gr_complex*1, samp_rate)
-		self.gr_file_source_0_0_0 = gr.file_source(gr.sizeof_gr_complex*1, "/home/johannes/gr-lte/data/Resampled_LTE_2012_47:32.dat", False)
+		self.gr_file_source_0_0 = gr.file_source(gr.sizeof_gr_complex*1, "/home/demel/gr-lte/data/Messung_Resampled_3072MSps.dat", False)
 		self.fft_vxx_0 = fft.fft_vcc(fftlen, True, (window.rectangular(fftlen)), False, 1)
 
 		##################################################
 		# Connections
 		##################################################
-		self.connect((self.gr_file_source_0_0_0, 0), (self.gr_throttle_0, 0))
+		self.connect((self.gr_file_source_0_0, 0), (self.gr_throttle_0, 0))
 		self.connect((self.lte_cp_time_freq_sync_cc_0, 0), (self.lte_hier_pss_sync_cc_0, 0))
 		self.connect((self.gr_throttle_0, 0), (self.lte_cp_time_freq_sync_cc_0, 0))
 		self.connect((self.lte_hier_pss_sync_cc_0, 0), (self.lte_hier_freq_estimate_cc_0, 0))
@@ -115,6 +115,7 @@ class LTE_flowgraph(gr.top_block):
 	def set_samp_rate(self, samp_rate):
 		self.samp_rate = samp_rate
 		self.set_interp_val(int(self.samp_rate/1e4))
+		self.gr_throttle_0.set_sample_rate(self.samp_rate)
 
 	def get_style(self):
 		return self.style
