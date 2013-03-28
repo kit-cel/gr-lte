@@ -75,7 +75,7 @@ if __name__ == "__main__":
     cell_id = 124    
     N_ant = 2
     style= "tx_diversity"
-    N_rb_dl = 6
+    N_rb_dl = 15
     sfn = 0
     
     mib = pack_mib(50,0,1.0, 511)
@@ -83,28 +83,12 @@ if __name__ == "__main__":
     pbch = encode_pbch(bch, cell_id, N_ant, style)
     
     frame = generate_frame(pbch, N_rb_dl, cell_id, sfn, N_ant)
-    print frame[0][10]
+    #print frame[0][10]
+    for i in range(len(frame[0][10])):
+        print str(i) + "\t" + str(frame[0][10][i])
+    
     #print np.ndim(frame)
     print np.shape(frame)
-    
-    '''
-    scrambled = pbch_scrambling(bch, cell_id)
-    qpsk_modulated = qpsk_modulation(scrambled)
-    layer_mapped = layer_mapping(qpsk_modulated, N_ant, style)
-    pre_coded = pre_coding(layer_mapped, N_ant, style)
-    print len(pre_coded)
-    print len(pbch)
-    print len(pre_coded[0])
-    print len(pbch[0])
-    for n in range(len(pbch[0])):
-        if pbch[0][n] != pre_coded[0][n]:
-            print "ant0 failed!"
-        elif pbch[1][n] != pre_coded[1][n]:
-            print "ant1 failed!"
-    rx = [pre_coded[0][n]+pre_coded[1][n] for n in range(len(pre_coded[0]))]
-    h = [[complex(1,0)]*len(pre_coded[0]),[complex(1,0)]*len(pre_coded[0])]
-    pre_decoded = pre_decoding(rx, h, N_ant, style)
-    '''
     
 
     

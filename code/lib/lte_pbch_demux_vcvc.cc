@@ -89,7 +89,7 @@ lte_pbch_demux_vcvc::general_work (int noutput_items,
     for (int i = 0 ; i < ninitems ; i++ ) {
         if(sym_num==7){
             if (ninitems-i < 4){
-                ninitems=ninitems-(i+1);
+                ninitems = i;
                 break;
             }
             extract_pbch_values(in0, in1, in2, out0, out1, out2);
@@ -169,9 +169,14 @@ lte_pbch_demux_vcvc::extract_pbch_values(const gr_complex* in0, const gr_complex
             idx++;
         }
     }
-    memcpy(out0+96, in0+2*n_carriers+pbch_pos, 2*72*sizeof(gr_complex) );
-    memcpy(out1+96, in1+2*n_carriers+pbch_pos, 2*72*sizeof(gr_complex) );
-    memcpy(out2+96, in2+2*n_carriers+pbch_pos, 2*72*sizeof(gr_complex) );
+    //Copy PBCH values on symbol 9
+    memcpy(out0+96, in0+2*n_carriers+pbch_pos, 72*sizeof(gr_complex) );
+    memcpy(out1+96, in1+2*n_carriers+pbch_pos, 72*sizeof(gr_complex) );
+    memcpy(out2+96, in2+2*n_carriers+pbch_pos, 72*sizeof(gr_complex) );
+    //Copy PBCH values on symbol 10
+    memcpy(out0+96+72, in0+3*n_carriers+pbch_pos, 72*sizeof(gr_complex) );
+    memcpy(out1+96+72, in1+3*n_carriers+pbch_pos, 72*sizeof(gr_complex) );
+    memcpy(out2+96+72, in2+3*n_carriers+pbch_pos, 72*sizeof(gr_complex) );
 }
 
 inline int

@@ -30,7 +30,7 @@ class qa_pbch_demux_vcvc (gr_unittest.TestCase):
     def setUp (self):
         self.tb = gr.top_block ()
         
-        self.N_rb_dl = N_rb_dl = 6
+        self.N_rb_dl = N_rb_dl = 100
         n_carriers = 12*N_rb_dl
         intu = np.zeros(n_carriers,dtype=np.complex)
         
@@ -103,6 +103,20 @@ class qa_pbch_demux_vcvc (gr_unittest.TestCase):
         
         print len(res1)
         compare = res1[0:len(pbch[0])]
+        
+        '''
+        partl = 10
+        for i in range(len(res1)/partl):
+            partres = compare[partl*i:partl*(i+1)]
+            partcom = pbch[0][partl*i:partl*(i+1)]
+            try:
+                self.assertComplexTuplesAlmostEqual(partcom,partres)
+                print str(i*partl) + "\tsuccess"
+            except:
+                #print "\n\n\n\n\n\n"
+                print str(i*partl) + "\t" + str(partres)
+        '''
+
         self.assertComplexTuplesAlmostEqual(compare,tuple(pbch[0]))
         
         self.assertComplexTuplesAlmostEqual(res2,tuple(np.ones(len(res2), dtype=np.complex)))
