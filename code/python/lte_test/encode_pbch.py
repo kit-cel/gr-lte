@@ -7,6 +7,7 @@ Created on Wed Mar 13 18:15:38 2013
 
 from mib import *
 from encode_bch import *
+from lte_test import *
 
 def nrz_encoding(data):
     out_data = range(len(data))
@@ -30,26 +31,6 @@ def scrambling(data, cell_id):
     pn_sequence = pn_generator(len(data), cell_id)
     return [(data[i]+pn_sequence[i])%2 for i in range(len(data))]
 
-def pn_generator(vector_len, cinit):
-    NC=1600
-    x2 = [0]*(3*vector_len+NC)
-    
-    for i in range(31):
-        x2[i] = cinit%2
-        cinit = int(math.floor(cinit/2))
-        
-    x1 = [0]*(3*vector_len+NC)
-    x1[0] = 1
-    for n in range(2*vector_len+NC-3):
-        x1[n+31]=(x1[n+3]+x1[n])%2
-        x2[n+31]=(x2[n+3]+x2[n+2]+x2[n+1]+x2[n])%2
-        
-    output = [0] * vector_len
-    for n in range(vector_len):
-        output[n]=(x1[n+NC]+x2[n+NC])%2
-        
-    return output
-    
 def qpsk_modulation(data):
     output = []
     nrz_data = nrz_encoding(data)
