@@ -69,7 +69,7 @@ def nrz_hard_decode(data):
 def generate_frame(pbch, N_rb_dl, cell_id, sfn, N_ant):
     n_carriers = 12*N_rb_dl
     frame = np.zeros((N_ant,140,n_carriers),dtype=np.complex)
-
+    Ncp = 1
     for p in range(N_ant):
         frame = map_pbch_to_frame(frame, pbch, cell_id, sfn, p)
         for ns in range(20):
@@ -79,7 +79,7 @@ def generate_frame(pbch, N_rb_dl, cell_id, sfn, N_ant):
     return frame
 
 def rs_symbol_mapper(ofdm_symbol, N_rb_dl, ns, l, cell_id, Ncp, p):
-    print "rs_symbol_mapper\t" + str(p) + "\t" + str(ns) + "\t" + str(l)
+    #print "rs_symbol_mapper\t" + str(p) + "\t" + str(ns) + "\t" + str(l)
     rs_seq = rs_generator(ns, l, cell_id, Ncp)
     N_RB_MAX = 110
     offset = calc_offset(ns, l, cell_id, p)

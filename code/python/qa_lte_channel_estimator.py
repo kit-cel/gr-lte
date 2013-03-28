@@ -22,13 +22,15 @@
 from gnuradio import gr, gr_unittest
 import lte as lte_swig
 import random, math, cmath
+from lte_test import *
+import numpy as np
 
 class qa_channel_estimator (gr_unittest.TestCase):
 
     def setUp (self):
         self.tb = gr.top_block ()
         
-        N_rb_dl = 6
+        self.N_rb_dl = N_rb_dl = 6
         
         # For now, generate a pseudo-random sequence and do QPSK modulation.
         values = range(140*12*N_rb_dl)
@@ -110,10 +112,56 @@ class qa_channel_estimator (gr_unittest.TestCase):
                 #print vec0[0:3]
                 #print vec1[0:3]
                 value = value+1
+                
+    def test_002_t(self):
+        self.cest0.set_cell_id(124)
+        self.cest1.set_cell_id(124)
         
-        #self.assertComplexTuplesAlmostEqual(data0, data1, 4)
+        cell_id = 124
+        N_ant = 2
+        style= "tx_diversity"
+        N_rb_dl = self.N_rb_dl
+        sfn = 0
+
+        mib = pack_mib(50,0,1.0, 511)
+        bch = encode_bch(mib, N_ant)
+        pbch = encode_pbch(bch, cell_id, N_ant, style)
+        frame = generate_frame(pbch, N_rb_dl, cell_id, sfn, N_ant)
+        stream = frame[0].flatten()
+        stream = stream + frame[1].flatten()
         
-        print "DONE"
+        self.src.set_data(stream)
+        self.tb.run()
+        
+        # get result and assert if rx samples are unchanged        
+        res0 = self.snk0.data()
+        self.assertComplexTuplesAlmostEqual(stream,res0)
+        
+        print "now interesstinr"
+        res1 = self.snk1.data()
+        res2 = self.snk2.data()
+        
+        print "prepare"
+        exp_res12 = np.ones( (len(res1),) ,dtype=np.complex )
+        print len(exp_res12)
+        print type(exp_res12)
+        
+        partl = 10
+        failed = 0
+        for i in range(len(res1)/partl):
+            partres = res1[partl*i:partl*(i+1)]
+            partcom = exp_res12[partl*i:partl*(i+1)]
+            try:
+                self.assertComplexTuplesAlmostEqual(partcom, partres)
+                print i*partl
+            except:
+                failed = failed +1 
+                        
+        print failed
+        
+        self.assertComplexTuplesAlmostEqual(exp_res12, res1)
+
+        
 
 
 if __name__ == '__main__':
