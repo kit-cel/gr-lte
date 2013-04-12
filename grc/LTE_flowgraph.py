@@ -3,9 +3,10 @@
 # Gnuradio Python Flow Graph
 # Title: LTE flowgraph
 # Author: Johannes Demel
-# Generated: Thu Apr 11 14:52:11 2013
+# Generated: Thu Apr 11 18:30:22 2013
 ##################################################
 
+from gnuradio import blks2
 from gnuradio import eng_notation
 from gnuradio import fft
 from gnuradio import gr
@@ -47,13 +48,19 @@ class LTE_flowgraph(gr.top_block):
 		self.lte_cp_time_freq_sync_cc_0 = lte.cp_time_freq_sync_cc(fftlen)
 		self.lte_channel_estimator_0 = lte.channel_estimator(N_rb_dl)
 		self.gr_throttle_0 = gr.throttle(gr.sizeof_gr_complex*1, samp_rate)
-		self.gr_file_source_0_0 = gr.file_source(gr.sizeof_gr_complex*1, "/home/demel/gr-lte/data/Messung_Resampled_3072MSps.dat", False)
+		self.gr_file_source_0 = gr.file_source(gr.sizeof_gr_complex*1, "/home/demel/Dokumente/Messungen/Messung_LTE_2012-05-23_12:47:32.dat", False)
 		self.fft_vxx_0 = fft.fft_vcc(fftlen, True, (window.rectangular(fftlen)), False, 1)
+		self.blks2_rational_resampler_xxx_0 = blks2.rational_resampler_ccc(
+			interpolation=interp_val,
+			decimation=1000,
+			taps=None,
+			fractional_bw=None,
+		)
 
 		##################################################
 		# Connections
 		##################################################
-		self.connect((self.gr_file_source_0_0, 0), (self.gr_throttle_0, 0))
+		self.connect((self.gr_file_source_0, 0), (self.blks2_rational_resampler_xxx_0, 0))
 		self.connect((self.lte_cp_time_freq_sync_cc_0, 0), (self.lte_hier_pss_sync_cc_0, 0))
 		self.connect((self.gr_throttle_0, 0), (self.lte_cp_time_freq_sync_cc_0, 0))
 		self.connect((self.lte_hier_pss_sync_cc_0, 0), (self.lte_hier_freq_estimate_cc_0, 0))
@@ -71,6 +78,7 @@ class LTE_flowgraph(gr.top_block):
 		self.connect((self.lte_hier_sss_sync_cc_1, 0), (self.lte_remove_cp_cvc_1, 0))
 		self.connect((self.lte_hier_freq_estimate_cc_0, 0), (self.lte_hier_sss_sync_cc_1, 0))
 		self.connect((self.lte_channel_estimator_0, 2), (self.lte_pbch_demux_vcvc_1, 2))
+		self.connect((self.blks2_rational_resampler_xxx_0, 0), (self.gr_throttle_0, 0))
 
 		##################################################
 		# Asynch Message Connections

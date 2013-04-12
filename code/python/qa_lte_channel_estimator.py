@@ -137,7 +137,7 @@ class qa_channel_estimator (gr_unittest.TestCase):
         res0 = self.snk0.data()
         self.assertComplexTuplesAlmostEqual(stream,res0)
         
-        print "now interesstinr"
+        print "now interesting"
         res1 = self.snk1.data()
         res2 = self.snk2.data()
         
