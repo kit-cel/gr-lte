@@ -50,5 +50,6 @@ install(FILES
     lte_remove_cp2_cvc.h
     lte_sss_calc2_vc.h
     lte_sss_tagging2_vcvc.h
-    lte_channel_estimator.h DESTINATION include/lte
+    lte_channel_estimator.h
+    lte_channel_estimator_vcvc.h DESTINATION include/lte
 )

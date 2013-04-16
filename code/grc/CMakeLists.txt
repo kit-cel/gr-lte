@@ -52,5 +52,6 @@ install(FILES
     lte_hier_sss_sync2_vcvc.xml
     lte_channel_estimator.xml
     lte_decode_bch_vfvb.xml
-    lte_decode_pbch_vcvf.xml DESTINATION share/gnuradio/grc/blocks
+    lte_decode_pbch_vcvf.xml
+    lte_channel_estimator_vcvc.xml DESTINATION share/gnuradio/grc/blocks
 )

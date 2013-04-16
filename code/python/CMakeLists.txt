@@ -76,3 +76,4 @@ GR_ADD_TEST(qa_hier_sss_sync2_vcvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_D
 GR_ADD_TEST(qa_channel_estimator ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_channel_estimator.py)
 GR_ADD_TEST(qa_decode_bch_vfvb ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_decode_bch_vfvb.py)
 GR_ADD_TEST(qa_decode_pbch_vcvf ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_decode_pbch_vcvf.py)
+GR_ADD_TEST(qa_channel_estimator_vcvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_channel_estimator_vcvc.py)

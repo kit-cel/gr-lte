@@ -37,6 +37,7 @@
 #include "lte_sss_calc2_vc.h"
 #include "lte_sss_tagging2_vcvc.h"
 #include "lte_channel_estimator.h"
+#include "lte_channel_estimator_vcvc.h"
 %}
 
 
@@ -123,3 +124,5 @@ GR_SWIG_BLOCK_MAGIC(lte,sss_tagging2_vcvc);
 
 GR_SWIG_BLOCK_MAGIC(lte,channel_estimator);
 %include "lte_channel_estimator.h"
+GR_SWIG_BLOCK_MAGIC(lte, channel_estimator_vcvc);
+%include "lte_channel_estimator_vcvc.h"
