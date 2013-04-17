@@ -161,8 +161,11 @@ class qa_channel_estimator (gr_unittest.TestCase):
         
         print res1[60:80]
         
-        self.assertComplexTuplesAlmostEqual(exp_res12, res1)
-
+        #self.assertComplexTuplesAlmostEqual(exp_res12, res1)
+        Ncp = 1
+        [rs_pos, rs_vec] = frame_pilot_value_and_position(N_rb_dl, cell_id, Ncp, 0)
+        self.cest0.test_rs_symbol_validity(rs_vec)
+        print np.shape(rs_vec)
         
 
 

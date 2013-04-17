@@ -22,6 +22,7 @@ from gnuradio import gr, gr_unittest
 from gruel import pmt
 #import lte_swig as lte
 import lte
+from lte_test import *
 
 class qa_channel_estimator_vcvc (gr_unittest.TestCase):
 
@@ -57,6 +58,8 @@ class qa_channel_estimator_vcvc (gr_unittest.TestCase):
         N_ofdm_symbols = self.N_ofdm_symbols
         tag_key = self.tag_key
         msg_buf_name = self.msg_buf_name
+        cell_id = 124
+        Ncp = 1
         
         data_len = N_ofdm_symbols
         
@@ -74,24 +77,16 @@ class qa_channel_estimator_vcvc (gr_unittest.TestCase):
         data = [1] * data_len * subcarriers
         self.src.set_data(data, tag_list)
         
-#        rs_symbols = []        
-#        for n_sym in range(N_ofdm_symbols):
-#            if n_sym%7 == 0 or (n_sym+4)%7 == 0:
-#                value = complex(1, 1)
-#                n_carrier = 3
-#                pilot = lte.ofdm_pilot()
-#                pilot.sym_num = n_sym
-#                pilot.carrier_num = 3
-#                pilot.value = complex(1,1)
-#
-#                rs_symbols.append(pilot)
-#                
-#        self.estimator.set_pilot_map(rs_symbols)
+        [rs_pos_frame, rs_val_frame] = frame_pilot_value_and_position(N_rb_dl, cell_id, Ncp, 0)
+        self.estimator.set_pilot_map(rs_pos_frame, rs_val_frame)
+        
+        
                 
         print "run fg"
         self.tb.run ()
         # check data
         print pmt.pmt_symbol_to_string(tag_list[0].key)
+        
 
 if __name__ == '__main__':
     gr_unittest.run(qa_channel_estimator_vcvc, "qa_channel_estimator_vcvc.xml")

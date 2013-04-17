@@ -375,11 +375,11 @@ lte_channel_estimator::pn_seq_generator(char* c, //Result will be written into t
 	}
 	x1[0]=1;
 	for (int n=0; n <2*len+Nc-3;n++){
-		x1[n+31]=(x1[n+3]+x1[n])%2;
-		x2[n+31]=(x2[n+3]+x2[n+2]+x2[n+1]+x2[n])%2;
+		x1[n+31]=( x1[n+3] + x1[n] )%2;
+		x2[n+31]=( x2[n+3] + x2[n+2] + x2[n+1] + x2[n] )%2;
 	}
 	for (int n=0;n<len;n++){
-		c[n]=(x1[n+Nc]+x2[n+Nc])%2;
+		c[n]=( x1[n+Nc] + x2[n+Nc] )%2;
 	}
 }
 
@@ -397,7 +397,7 @@ lte_channel_estimator::rs_generator(gr_complex* r, //This array must be 220 item
     char c[4*N_RB_MAX]; //array for PN sequence values
     pn_seq_generator(c, 4*N_RB_MAX,cinit);
     for (int m = 0 ; m < 2*N_RB_MAX ; m++ ){
-        r[m]=gr_complex( (1-2*c[2*m])/SQRT2 , (1-2*c[2*m+1])/SQRT2 );
+        r[m]=gr_complex( float(1-2*c[2*m]) / SQRT2 , float(1-2*c[2*m+1]) / SQRT2 );
     }
 }
 
@@ -469,5 +469,20 @@ lte_channel_estimator::set_cell_id(int cell_id)
         }
     }
     d_cell_id = cell_id; // Set cell ID AFTER this method to avoid scheduling problems
+}
+
+void
+lte_channel_estimator::test_rs_symbol_validity(const std::vector<std::vector<gr_complex> > &pilot_symbols)
+{
+    int rs_num = 0;
+    for( int i = 0; i < pilot_symbols.size(); i++){
+        for(int c = 0; c < pilot_symbols[i].size(); c++){
+            gr_complex comp_val = pilot_symbols[i][c] - d_rs_matrix[0][rs_num][c];
+            printf("symbol = %i\tpos = %i\tvalue = %+1.2f %+1.2fj\tmag = %1.2f\n", i, c, comp_val.real(), comp_val.imag(), abs(d_rs_matrix[0][rs_num][c]) );
+
+        }
+        rs_num++;
+    }
+
 }
 

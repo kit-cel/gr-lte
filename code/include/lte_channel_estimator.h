@@ -53,6 +53,8 @@ class LTE_API lte_channel_estimator : public gr_sync_block
     void set_cell_id(int cell_id);
     void set_cell_id_msg(pmt::pmt_t msg);
 
+    void test_rs_symbol_validity(const std::vector<std::vector<gr_complex> > &pilot_symbols);
+
 	int work (int noutput_items,
 		gr_vector_const_void_star &input_items,
 		gr_vector_void_star &output_items);
@@ -106,6 +108,8 @@ class LTE_API lte_channel_estimator : public gr_sync_block
     void pn_seq_generator(char* c, int len, int cinit);
     void rs_generator(gr_complex* r, int ns,int l,int cell_id,int Ncp);
     gr_complex* rs_mapper(int N_rb_dl,int ns,int l,int cell_id,int Ncp,int p);
+
+
 
 };
 

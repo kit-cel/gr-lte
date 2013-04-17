@@ -69,7 +69,9 @@ lte_channel_estimator_vcvc::lte_channel_estimator_vcvc (int subcarriers,
  */
 lte_channel_estimator_vcvc::~lte_channel_estimator_vcvc()
 {
-	// Put in <+destructor stuff+> here
+	for(int i = 0; i < d_pilot_symbols.size(); i++){
+        fftwf_free(d_pilot_symbols[i]);
+	}
 }
 
 
@@ -99,9 +101,17 @@ void
 lte_channel_estimator_vcvc::set_pilot_map(const std::vector<std::vector<int> > &pilot_carriers,
                                         const std::vector<std::vector<gr_complex> > &pilot_symbols)
 {
+    d_pilot_carriers = pilot_carriers;
+    d_pilot_symbols.clear();
     for( int i = 0; i < pilot_symbols.size(); i++){
+        // aligned arrays for each symbol.
+        d_pilot_symbols.push_back( (gr_complex*)fftwf_malloc(sizeof(gr_complex) * pilot_symbols[i].size()) );
+        memcpy(d_pilot_symbols[i], &pilot_symbols[i][0], sizeof(gr_complex) * pilot_symbols[i].size() );
+
+        //Test output, just to see something on the console
         for(int c = 0; c < pilot_symbols[i].size(); c++){
-            printf("value = %+1.2f %+1.2f\n", pilot_symbols[i][c].real(), pilot_symbols[i][c].imag());
+            printf("symbol = %i\tpos = %i\tvalue = %+1.2f %+1.2fj\n", i, d_pilot_carriers[i][c], d_pilot_symbols[i][c].real(), d_pilot_symbols[i][c].imag());
+
         }
     }
 }

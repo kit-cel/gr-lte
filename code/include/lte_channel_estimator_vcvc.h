@@ -31,14 +31,6 @@
 #include <cstdio>
 #include <string>
 
-//class LTE_API ofdm_pilot
-//{
-//    public:
-//        int sym_num;
-//        int carrier_num;
-//        gr_complex value;
-//};
-
 class lte_channel_estimator_vcvc;
 
 typedef boost::shared_ptr<lte_channel_estimator_vcvc> lte_channel_estimator_vcvc_sptr;
@@ -78,6 +70,9 @@ class LTE_API lte_channel_estimator_vcvc : public gr_sync_block
     int d_sym_num;
     int d_work_call;
     pmt::pmt_t d_key;
+
+    std::vector<std::vector<int> > d_pilot_carriers;
+    std::vector<gr_complex* > d_pilot_symbols;
 
 
 

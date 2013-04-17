@@ -71,11 +71,8 @@ def generate_frame(pbch, N_rb_dl, cell_id, sfn, N_ant):
     frame = np.zeros((N_ant,140,n_carriers),dtype=np.complex)
     Ncp = 1
     for p in range(N_ant):
-        frame = map_pbch_to_frame(frame, pbch, cell_id, sfn, p)
-        for ns in range(20):
-            frame[p][ns*7] = rs_symbol_mapper(frame[p][ns*7], N_rb_dl, ns, 0, cell_id, Ncp, p)
-            frame[p][ns*7+4] = rs_symbol_mapper(frame[p][ns*7+4], N_rb_dl, ns, 4, cell_id, Ncp, p)
-
+        frame[p] = map_pbch_to_frame(frame[p], pbch, cell_id, sfn, p)
+        frame[p] = frame_map_rs_symbols(frame[p], N_rb_dl, cell_id, Ncp, p)       
     return frame
 
 def rs_symbol_mapper(ofdm_symbol, N_rb_dl, ns, l, cell_id, Ncp, p):
@@ -89,7 +86,33 @@ def rs_symbol_mapper(ofdm_symbol, N_rb_dl, ns, l, cell_id, Ncp, p):
         ofdm_symbol[k] = rs_seq[mx]
 
     return ofdm_symbol
-
+    
+def frame_map_rs_symbols(frame, N_rb_dl, cell_id, Ncp, p):
+    [rs_pos_frame, rs_val_frame] = frame_pilot_value_and_position(N_rb_dl, cell_id, Ncp, p)
+    for i in range(len(frame)):
+        if len(rs_pos_frame[i]) > 0:
+            for sym in range(len(rs_pos_frame[i])):
+                frame[i][rs_pos_frame[i][sym]] = rs_val_frame[i][sym]
+    return frame
+    
+def frame_pilot_value_and_position(N_rb_dl, cell_id, Ncp, p):
+    rs_pos_frame = []
+    rs_val_frame = []
+    for ns in range(20):
+        sym0 = symbol_pilot_value_and_position(N_rb_dl, ns, 0, cell_id, Ncp, p)
+        sym4 = symbol_pilot_value_and_position(N_rb_dl, ns, 4, cell_id, Ncp, p)
+        rs_pos_frame.extend([sym0[0], [], [], [], sym4[0], [], [] ])
+        rs_val_frame.extend([sym0[1], [], [], [], sym4[1], [], [] ])
+    return [rs_pos_frame, rs_val_frame]
+         
+def symbol_pilot_value_and_position(N_rb_dl, ns, l, cell_id, Ncp, p):
+    N_RB_MAX = 110
+    rs_seq = rs_generator(ns, l, cell_id, Ncp)
+    offset = calc_offset(ns, l, cell_id, p)
+    rs_sym_pos = range(offset, 12*N_rb_dl, 6)
+    rs_sym_val = rs_seq[N_RB_MAX-N_rb_dl:N_RB_MAX+N_rb_dl]
+    return [rs_sym_pos, rs_sym_val]
+    
 def calc_offset(ns, l, cell_id, p):
     v = calc_v(ns, l,  p)
     return ( v + (cell_id%6) )%6
@@ -115,7 +138,7 @@ def map_pbch_to_frame(frame, pbch, cell_id, sfn, ant):
     cell_id_mod3 = cell_id%3
     pbch = pbch[ant]
     pbch_part = pbch[240*sfn_mod4:240*(sfn_mod4+1)]
-    n_carriers = np.shape(frame)[2]
+    n_carriers = np.shape(frame)[1]
     #print n_carriers
     pbch_pos = (n_carriers/2)-(72/2)
     #print pbch_pos
@@ -123,11 +146,11 @@ def map_pbch_to_frame(frame, pbch, cell_id, sfn, ant):
     for i in range(72):
         if i%3 != cell_id_mod3:
             #print "hello" + str(i+pbch_pos)
-            frame[ant][7][i+pbch_pos]=pbch_part[pbch_element]
-            frame[ant][8][i+pbch_pos]=pbch_part[pbch_element+48]
+            frame[7][i+pbch_pos]=pbch_part[pbch_element]
+            frame[8][i+pbch_pos]=pbch_part[pbch_element+48]
             pbch_element = pbch_element+1
-        frame[ant][9][i+pbch_pos]=pbch_part[i+2*48]
-        frame[ant][10][i+pbch_pos]=pbch_part[i+2*48+72]
+        frame[9][i+pbch_pos]=pbch_part[i+2*48]
+        frame[10][i+pbch_pos]=pbch_part[i+2*48+72]
 
     return frame
 
@@ -136,7 +159,7 @@ if __name__ == "__main__":
     cell_id = 124
     N_ant = 2
     style= "tx_diversity"
-    N_rb_dl = 15
+    N_rb_dl = 6
     sfn = 0
     Ncp = 1
 
@@ -146,18 +169,11 @@ if __name__ == "__main__":
 
     pn_seq = pn_generator(220, cell_id)
     rs_seq = rs_generator(3, 4, cell_id,Ncp)
-    print len(rs_seq)
 
     frame = generate_frame(pbch, N_rb_dl, cell_id, sfn, N_ant)
-    #print frame[0][10]
 
-
-    #print np.ndim(frame)
-    print np.shape(frame)
-
-
-
-
+    print rs_seq
+    
 
 
 
