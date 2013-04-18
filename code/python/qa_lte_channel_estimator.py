@@ -41,7 +41,7 @@ class qa_channel_estimator (gr_unittest.TestCase):
             values[i] = complex(randlist[2*i]/math.sqrt(2), randlist[2*i+1]/math.sqrt(2))
             #print values[i]
             
-        print "len(input) = " + str(len(values))
+        #print "len(input) = " + str(len(values))
         self.src = gr.vector_source_c(values,False,12*N_rb_dl)
         
         self.snk0 = gr.vector_sink_c(12*N_rb_dl)
@@ -68,11 +68,55 @@ class qa_channel_estimator (gr_unittest.TestCase):
         
     def tearDown (self):
         self.tb = None
+        
+    def test_001_pn_sequence(self):
+        pn_len = 220
+        l = 4
+        Ncp = 1
+        for cell_id in range(0, 504, 10):
+            for ns in range(0, 20, 3):
+                cinit = 1024*(7*(ns+1)+l+1)*(2*cell_id+1)+2*cell_id+Ncp
+                cpp_pn_seq = self.cest0.get_pn_sequence(pn_len, cinit)
+                py_pn_seq = pn_generator(pn_len, cinit)
+                self.assertListEqual(list(cpp_pn_seq), py_pn_seq)
+                
+    def test_002_rs_sequence(self):        
+        Ncp = 1
+        for ns in range(0,20, 4):
+            for l in range(0,5,4):
+                for cell_id in range(0,504,35):
+                    cpp_rs_seq = self.cest0.get_rs_sequence(ns, l, cell_id, Ncp)
+                    py_rs_seq = rs_generator(ns, l, cell_id, Ncp)
+                    self.assertComplexTuplesAlmostEqual(cpp_rs_seq, tuple(py_rs_seq))
+                
+    def test_003_rs_frame(self):
+        N_rb_dl = self.N_rb_dl
+        cell_id = 124
+        Ncp = 1
+        p = 0
+        self.cest0.set_cell_id(cell_id)
+        
+        cpp_matrix = self.cest0.get_frame_rs_symbols()
+        for i in range(len(cpp_matrix)):
+            mat = cpp_matrix[i]
+            mat = np.abs(mat)
+            comp = np.ones( (len(mat),), dtype=type(mat[0]) )
+            self.assertFloatTuplesAlmostEqual(mat, comp)
+            
+        py_matrix = []
+        for ns in range(20):
+            sym0 = symbol_pilot_value_and_position(N_rb_dl, ns, 0, cell_id, Ncp, p)
+            sym4 = symbol_pilot_value_and_position(N_rb_dl, ns, 4, cell_id, Ncp, p)
+            py_matrix.extend([sym0[1], sym4[1] ])
+                  
+        for i in range(len(py_matrix)):
+            pym = py_matrix[i]
+            cppm = cpp_matrix[i]
+            self.assertComplexTuplesAlmostEqual(cppm, pym)
 
-    def test_001_t (self):
+    def test_004_t (self):
         # set up fg
         self.cest0.set_cell_id(124)
-        #self.cest1.eq.set_cell_id(124)
         self.cest1.set_cell_id(124)
         
         # run flowgraph
@@ -82,38 +126,16 @@ class qa_channel_estimator (gr_unittest.TestCase):
         data10 = self.snko0.data()
         data01 = self.snk1.data()
         data11 = self.snko1.data()
-        print "\n\nlen data0 = " +str(len(data00)) + "\tlen data1 = " + str(len(data10))
-        print "vec0's = " + str(len(data00)/(12*6)) + "\tvec1's = " + str(len(data10)/(12*6))
-        
+       
         value = 0
         for i in range((len(data00)/(12*6))-7):
             vec0 = data00[(i*12*6):((i+1)*12*6)]
             vec1 = data10[((i+7)*12*6):((i+7+1)*12*6)]
             vec01 = data01[(i*12*6):((i+1)*12*6)]
             vec11 = data11[((i+7)*12*6):((i+7+1)*12*6)]
-            try:
-                self.assertComplexTuplesAlmostEqual(vec0, vec1, 4)
-                print "CORRECT"
-                for cnt in range(len(vec0)):
-                    print '{0:.4f}'.format(cmath.phase(vec01[cnt])-cmath.phase(vec11[cnt]))
-                    #print str(cmath.phase(vec01[cnt])-cmath.phase(vec11[cnt]))
-                    #print str(abs(vec01[cnt])) + "\t" + str(abs(vec11[cnt]))
-                    #print "diff = " + str(abs(vec01[cnt]-vec11[cnt]))
+            self.assertComplexTuplesAlmostEqual(vec0, vec1, 4)
                 
-            except:
-                print "vec0\t\tvec1\tFAIL " + str(i)
-                #for cnt in range(5):
-                #    print '{0.real:.2f} + {0.imag:.2f}j\t{1.real:.2f} + {1.imag:.2f}j'.format(vec0[cnt],vec1[cnt])
-                    
-                for cnt in range(len(vec0)):
-                    #print "diff = " + str(abs(vec0[cnt]-vec1[cnt]))
-                    m=0
-                #print '({0.real:.2f} + {0.imag:.2f}j)'.format(vec0)
-                #print vec0[0:3]
-                #print vec1[0:3]
-                value = value+1
-                
-    def test_002_t(self):
+    def test_005_t(self):
         self.cest0.set_cell_id(124)
         self.cest1.set_cell_id(124)
         
@@ -160,13 +182,10 @@ class qa_channel_estimator (gr_unittest.TestCase):
         print failed
         
         print res1[60:80]
+
         
-        #self.assertComplexTuplesAlmostEqual(exp_res12, res1)
-        Ncp = 1
-        [rs_pos, rs_vec] = frame_pilot_value_and_position(N_rb_dl, cell_id, Ncp, 0)
-        self.cest0.test_rs_symbol_validity(rs_vec)
-        print np.shape(rs_vec)
-        
+
+            
 
 
 if __name__ == '__main__':

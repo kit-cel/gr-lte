@@ -383,6 +383,18 @@ lte_channel_estimator::pn_seq_generator(char* c, //Result will be written into t
 	}
 }
 
+std::vector<int>
+lte_channel_estimator::get_pn_sequence(int len, int cinit)
+{
+    char c[len];
+    pn_seq_generator(c, len, cinit);
+    std::vector<int> vec;
+    for(int i = 0; i < len; i++){
+        vec.push_back(int(c[i]));
+    }
+    return vec;
+}
+
 // This method returns the specified reference symbols for one symbol
 void //gr_complex*
 lte_channel_estimator::rs_generator(gr_complex* r, //This array must be 220 items long
@@ -399,6 +411,18 @@ lte_channel_estimator::rs_generator(gr_complex* r, //This array must be 220 item
     for (int m = 0 ; m < 2*N_RB_MAX ; m++ ){
         r[m]=gr_complex( float(1-2*c[2*m]) / SQRT2 , float(1-2*c[2*m+1]) / SQRT2 );
     }
+}
+std::vector<gr_complex>
+lte_channel_estimator::get_rs_sequence(int ns,int l,int cell_id,int Ncp)
+{
+    const int Nrbdlmax = 110;
+    gr_complex r[2*Nrbdlmax];
+    rs_generator(r, ns, l, cell_id, Ncp);
+    std::vector<gr_complex> vec;
+    for(int i = 0; i < 2*Nrbdlmax; i++){
+        vec.push_back(r[i]);
+    }
+    return vec;
 }
 
 gr_complex*
@@ -447,6 +471,13 @@ lte_channel_estimator::set_cell_id(int cell_id)
 {
     printf("%s\tset_cell_id = %i\n", name().c_str(), cell_id);
     int Ncp = 1; //This Ncp == 1 if normal CP is used, else Ncp == 0
+    generate_rs_frame(d_rs_matrix, cell_id, Ncp);
+    d_cell_id = cell_id; // Set cell ID AFTER this method to avoid scheduling problems
+}
+
+void
+lte_channel_estimator::generate_rs_frame(rs_matrix &mat, int cell_id, int Ncp)
+{
     const int N_RB_MAX = 110;
     for(int p = 0 ; p < 2; p++){
         for(int ns = 0 ; ns < 20 ; ns++){
@@ -464,25 +495,25 @@ lte_channel_estimator::set_cell_id(int cell_id)
                 rs0[m]=r0[mX];
                 rs4[m]=r4[mX];
             }
-            d_rs_matrix[p][2*ns  ] = rs0;
-            d_rs_matrix[p][2*ns+1] = rs4;
+            mat[p][2*ns  ] = rs0;
+            mat[p][2*ns+1] = rs4;
         }
     }
-    d_cell_id = cell_id; // Set cell ID AFTER this method to avoid scheduling problems
 }
 
-void
-lte_channel_estimator::test_rs_symbol_validity(const std::vector<std::vector<gr_complex> > &pilot_symbols)
+std::vector<std::vector<gr_complex> >
+lte_channel_estimator::get_frame_rs_symbols()
 {
-    int rs_num = 0;
-    for( int i = 0; i < pilot_symbols.size(); i++){
-        for(int c = 0; c < pilot_symbols[i].size(); c++){
-            gr_complex comp_val = pilot_symbols[i][c] - d_rs_matrix[0][rs_num][c];
-            printf("symbol = %i\tpos = %i\tvalue = %+1.2f %+1.2fj\tmag = %1.2f\n", i, c, comp_val.real(), comp_val.imag(), abs(d_rs_matrix[0][rs_num][c]) );
+    std::vector<std::vector<gr_complex> > matrix;
 
-        }
-        rs_num++;
+    for(int sym = 0; sym < 40 ; sym++){
+        std::vector<gr_complex> my_vec;
+        my_vec.insert(my_vec.begin(), &d_rs_matrix[0][sym][0], &d_rs_matrix[0][sym][2*d_N_rb_dl]);
+        matrix.push_back(my_vec);
     }
 
+    return matrix;
 }
+
+
 
