@@ -56,6 +56,7 @@ class LTE_API lte_channel_estimator : public gr_sync_block
     std::vector<int> get_pn_sequence(int len, int cinit);
     std::vector<gr_complex> get_rs_sequence(int ns,int l,int cell_id,int Ncp);
     std::vector<std::vector<gr_complex> > get_frame_rs_symbols();
+    std::vector<std::vector<int> > get_frame_rs_positions(int p);
 
 	int work (int noutput_items,
 		gr_vector_const_void_star &input_items,

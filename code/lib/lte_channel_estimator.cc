@@ -515,5 +515,30 @@ lte_channel_estimator::get_frame_rs_symbols()
     return matrix;
 }
 
+std::vector<std::vector<int> >
+lte_channel_estimator::get_frame_rs_positions(int p)
+{
+    const int N_RB_MAX = 110; // Constant defined by LTE standard
+
+    std::vector<std::vector<int> > mat;
+    for(int ns = 0 ; ns < 20; ns++){
+        std::vector<int> osym;
+        int offset = calc_offset(p, 0, ns);
+        int k = 0;
+        for (int m = 0 ; m < 2*d_N_rb_dl ; m++ ){
+            k  = 6*m + offset;
+            osym.push_back(k);
+        }
+        mat.push_back(osym);
+        std::vector<int> osym2;
+        offset = calc_offset(p, 4, ns);
+        for (int m = 0 ; m < 2*d_N_rb_dl ; m++ ){
+            k  = 6*m + offset;
+            osym2.push_back(k);
+        }
+        mat.push_back(osym2);
+    }
+    return mat;
+}
 
 

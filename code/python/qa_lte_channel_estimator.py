@@ -104,14 +104,22 @@ class qa_channel_estimator (gr_unittest.TestCase):
             self.assertFloatTuplesAlmostEqual(mat, comp)
             
         py_matrix = []
+        py_mat_pos = []
         for ns in range(20):
             sym0 = symbol_pilot_value_and_position(N_rb_dl, ns, 0, cell_id, Ncp, p)
             sym4 = symbol_pilot_value_and_position(N_rb_dl, ns, 4, cell_id, Ncp, p)
+            py_mat_pos.extend([sym0[0], sym4[0] ])
             py_matrix.extend([sym0[1], sym4[1] ])
                   
         for i in range(len(py_matrix)):
             pym = py_matrix[i]
             cppm = cpp_matrix[i]
+            self.assertComplexTuplesAlmostEqual(cppm, pym)
+        
+        cpp_rs_pos = self.cest0.get_frame_rs_positions(0)
+        for i in range(len(py_matrix)):
+            pym = py_mat_pos[i]
+            cppm = cpp_rs_pos[i]
             self.assertComplexTuplesAlmostEqual(cppm, pym)
 
     def test_004_t (self):
@@ -134,6 +142,7 @@ class qa_channel_estimator (gr_unittest.TestCase):
             vec01 = data01[(i*12*6):((i+1)*12*6)]
             vec11 = data11[((i+7)*12*6):((i+7+1)*12*6)]
             self.assertComplexTuplesAlmostEqual(vec0, vec1, 4)
+            
                 
     def test_005_t(self):
         self.cest0.set_cell_id(124)
@@ -154,34 +163,25 @@ class qa_channel_estimator (gr_unittest.TestCase):
         
         self.src.set_data(stream)
         self.tb.run()
-        
         # get result and assert if rx samples are unchanged        
         res0 = self.snk0.data()
         self.assertComplexTuplesAlmostEqual(stream,res0)
         
-        print "now interesting"
         res1 = self.snk1.data()
+        res1=np.reshape(res1,(-1,12*N_rb_dl))
         res2 = self.snk2.data()
+        res2=np.reshape(res2,(-1,12*N_rb_dl))
+
+        exp1=np.ones( (len(res1), len(res1[0])) ,dtype=np.complex )
         
-        print "prepare"
-        exp_res12 = np.ones( (len(res1),) ,dtype=np.complex )
-        print len(exp_res12)
-        print type(exp_res12)
+        print res1[0]
         
-        partl = 10
-        failed = 0
-        for i in range(len(res1)/partl):
-            partres = res1[partl*i:partl*(i+1)]
-            partcom = exp_res12[partl*i:partl*(i+1)]
-            try:
-                self.assertComplexTuplesAlmostEqual(partcom, partres)
-                print i*partl
-            except:
-                failed = failed +1 
-                        
-        print failed
-        
-        print res1[60:80]
+        print res2[4]
+
+#        for i in range(len(res1)):
+#            print i
+#            self.assertComplexTuplesAlmostEqual(res1[i], exp1[i])
+
 
         
 
