@@ -60,10 +60,12 @@ class qa_channel_estimator_vcvc (gr_unittest.TestCase):
         msg_buf_name = self.msg_buf_name
         cell_id = 124
         Ncp = 1
+        N_ant = 2
+        style= "tx_diversity"
+        sfn = 0
         
         data_len = N_ofdm_symbols
         
-        print "tag gen"
         tag_list = []
         for i in range(data_len):
                 tag = gr.gr_tag_t()
@@ -73,20 +75,26 @@ class qa_channel_estimator_vcvc (gr_unittest.TestCase):
                 tag.offset = i
                 tag_list.append(tag)
                 
+        
 
-        data = [1] * data_len * subcarriers
-        self.src.set_data(data, tag_list)
+        mib = pack_mib(50,0,1.0, 511)
+        bch = encode_bch(mib, N_ant)
+        pbch = encode_pbch(bch, cell_id, N_ant, style)
+        frame = generate_frame(pbch, N_rb_dl, cell_id, sfn, N_ant)
+        stream = frame[0].flatten()
+        stream = stream + frame[1].flatten()
+
+        self.src.set_data(stream[0:subcarriers], tag_list)
         
         [rs_pos_frame, rs_val_frame] = frame_pilot_value_and_position(N_rb_dl, cell_id, Ncp, 0)
         self.estimator.set_pilot_map(rs_pos_frame, rs_val_frame)
         
-        
-                
-        print "run fg"
+
         self.tb.run ()
         # check data
-        print pmt.pmt_symbol_to_string(tag_list[0].key)
+        #print pmt.pmt_symbol_to_string(tag_list[0].key)
         
 
 if __name__ == '__main__':
-    gr_unittest.run(qa_channel_estimator_vcvc, "qa_channel_estimator_vcvc.xml")
+    gr_unittest.main()
+    #gr_unittest.run(qa_channel_estimator_vcvc, "qa_channel_estimator_vcvc.xml")
