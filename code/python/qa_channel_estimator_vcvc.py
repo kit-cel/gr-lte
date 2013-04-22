@@ -84,7 +84,7 @@ class qa_channel_estimator_vcvc (gr_unittest.TestCase):
         stream = frame[0].flatten()
         stream = stream + frame[1].flatten()
 
-        self.src.set_data(stream[0:subcarriers], tag_list)
+        self.src.set_data(stream, tag_list)#[0:subcarriers]
         
         [rs_pos_frame, rs_val_frame] = frame_pilot_value_and_position(N_rb_dl, cell_id, Ncp, 0)
         self.estimator.set_pilot_map(rs_pos_frame, rs_val_frame)
@@ -93,6 +93,11 @@ class qa_channel_estimator_vcvc (gr_unittest.TestCase):
         self.tb.run ()
         # check data
         #print pmt.pmt_symbol_to_string(tag_list[0].key)
+        
+        res = self.snk.data()
+        for i in range(len(res)/subcarriers):
+            print np.abs(res[i*subcarriers:(i+1)*subcarriers])
+            print "\n\n"
         
 
 if __name__ == '__main__':
