@@ -329,7 +329,7 @@ lte_channel_estimator::interpolate_vector(float** interp_vals,
     volk_32f_x2_subtract_32f_a(d_diff_vector, last_val, first_val, 12*d_N_rb_dl);
     // The following VOLK OP does have serious problems if called _a. DEBUG!
     volk_32f_s32f_multiply_32f_u(d_div_vector, d_diff_vector, mult_value, 12*d_N_rb_dl); // alignment problems?
-    for(int i = 1; i < 4; i++){
+    for(int i = 1; i < steps; i++){
         volk_32f_x2_add_32f_a(interp_vals[i], interp_vals[i-1], d_div_vector, 12*d_N_rb_dl);
     }
 }

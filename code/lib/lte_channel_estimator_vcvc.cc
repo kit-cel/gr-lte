@@ -50,7 +50,8 @@ lte_channel_estimator_vcvc::lte_channel_estimator_vcvc (int subcarriers,
 		   gr_make_io_signature(1, 1, sizeof(gr_complex) * subcarriers ),
 		   gr_make_io_signature(1, 1, sizeof(gr_complex) * subcarriers )),
 		   d_subcarriers(subcarriers),
-		   d_N_ofdm_symbols(N_ofdm_symbols)
+		   d_N_ofdm_symbols(N_ofdm_symbols),
+		   d_work_call(0)
 {
     d_key=pmt::pmt_string_to_symbol(tag_key); // specify key of tag.
 
@@ -59,7 +60,7 @@ lte_channel_estimator_vcvc::lte_channel_estimator_vcvc (int subcarriers,
 
     set_pilot_map(pilot_carriers, pilot_symbols);
 
-    initialize_volk_vectors();
+    //initialize_volk_vectors();
 
 }
 
@@ -84,58 +85,90 @@ lte_channel_estimator_vcvc::work(int noutput_items,
 	const gr_complex *in = (const gr_complex *) input_items[0];
 	gr_complex *out = (gr_complex *) output_items[0];
 
-    int slot_number = 5;
-    int sym_num = 0;
+	d_work_call++;
+
     std::vector <gr_tag_t> v_b;
     get_tags_in_range(v_b, 0, nitems_read(0), nitems_read(0)+noutput_items, d_key);
+    int sym_num = get_sym_num_from_tags(v_b);
+
+    //printf("work_call %i\tnoutput_items = %i\tsym_num = %i\n", d_work_call, noutput_items, sym_num);
+    int processed_items = calculate_channel_estimates(in, sym_num, noutput_items);
+    //printf("END estimates %i\t%i\n", d_work_call, processed_items);
+
+    copy_estimates_to_out_buf(out, sym_num, processed_items);
+	// Tell runtime system how many output items we produced.
+	return processed_items;
+}
+
+inline int
+lte_channel_estimator_vcvc::get_sym_num_from_tags(std::vector <gr_tag_t> v_b)
+{
+    int sym_num = 0;
     for(int i = 0; i < v_b.size() ; i++){
         long tag_offset     = v_b[i].offset;
         int value           = int(pmt::pmt_to_long(v_b[i].value) );
         sym_num = (value - ( tag_offset - nitems_read(0) ) + get_nsyms_in_frame() )%get_nsyms_in_frame();
-        //printf("%s\t%i\t%ld\n", name().c_str(), value, tag_offset);
     }
-
-/*
-    printf("work call\tnoutput_items = %i\n", noutput_items);
-    float* mag_est_vec = (float*)fftwf_malloc( sizeof(float)*d_subcarriers );
-    float* phase_est_vec = (float*)fftwf_malloc( sizeof(float)*d_subcarriers );
-    gr_complex* rx_vec = (gr_complex*)fftwf_malloc( sizeof(gr_complex) * d_subcarriers);
-    memcpy(rx_vec,in, sizeof(gr_complex) * d_subcarriers);
-    estimate_ofdm_symbol(mag_est_vec, phase_est_vec, rx_vec, d_pilot_carriers[0], d_pilot_symbols[0]);
-
-    gr_complex* est_vec = (gr_complex*)fftwf_malloc( sizeof(gr_complex) * d_subcarriers);
-    vector_mag_phase_to_complex(est_vec, mag_est_vec, phase_est_vec, d_subcarriers);
-*/
-    std::vector<gr_complex* > estimates = calculate_channel_estimates(in, sym_num, noutput_items);
-
-    /*
-    for(int i = 0; i < d_subcarriers; i++){
-        printf("value = %+1.2f %+1.2fj\tmag = %+1.2f\t\tphase = %+1.2f\n", rx_vec[i].real(), rx_vec[i].imag(), mag_est_vec[i], phase_est_vec[i]);
-    }
-    */
-    for(int i = 0; i < estimates.size(); i++){
-        memcpy(out, &estimates[i], sizeof(gr_complex) * d_subcarriers);
-        out += d_subcarriers;
-    }
-
-	// Tell runtime system how many output items we produced.
-	return noutput_items;
+    return sym_num;
 }
 
-std::vector<gr_complex* >
+inline void
+lte_channel_estimator_vcvc::copy_estimates_to_out_buf(gr_complex* out, int sym_num, int processed_items)
+{
+    for(int i = sym_num; i < sym_num+processed_items; i++){
+        memcpy(out, &d_estimates[i], sizeof(gr_complex) * d_subcarriers);
+        out += d_subcarriers;
+    }
+}
+
+int
 lte_channel_estimator_vcvc::calculate_channel_estimates(const gr_complex* in_rx, int sym_num, int nitems)
 {
+    int processable_items = 0;
+    for(int i = sym_num; i-sym_num < nitems ; i++){
+        if(d_pilot_carriers[i].size() > 0){
+            processable_items = i-sym_num;
+        }
+    }
+    if(processable_items == 0){
+        processable_items = int(d_pilot_carriers.size()-sym_num);
+    }
+    printf("processable_items = %i\n", processable_items);
+
     gr_complex* rx_vec = (gr_complex*)fftwf_malloc( sizeof(gr_complex) * d_subcarriers);
-    float* mag_est_vec = (float*)fftwf_malloc( sizeof(float)*d_subcarriers );
-    float* phase_est_vec = (float*)fftwf_malloc( sizeof(float)*d_subcarriers );
 
+    int previous_sym = sym_num;
+    for(int i = sym_num; i-sym_num < processable_items; i++){
+        if(d_pilot_carriers[i].size() > 0){
+            memcpy(rx_vec, in_rx+(i-sym_num)*d_subcarriers, sizeof(gr_complex)*d_subcarriers );
+            estimate_ofdm_symbol(d_mag_estimates[i], d_phase_estimates[i], rx_vec, d_pilot_carriers[i], d_pilot_symbols[i]);
+            vector_mag_phase_to_complex(d_estimates[i], d_mag_estimates[i], d_phase_estimates[i], d_subcarriers);
+            interpolate_between_vectors(d_mag_estimates, previous_sym, i);
+            interpolate_between_vectors(d_phase_estimates, previous_sym, i);
+            for(int n = 0; n < d_subcarriers; n++){
+                printf("%i\t%+1.2f %+1.2fj\t", n, rx_vec[n].real(), rx_vec[n].imag() );
+                printf("mag = %+1.2f\tphase = %+1.2f\t", d_mag_estimates[i][n], d_phase_estimates[i][n] );
+                printf("%+1.2f %+1.2fj\n", d_estimates[i][n].real(), d_estimates[i][n].imag() );
+            }
 
-    estimate_ofdm_symbol(mag_est_vec, phase_est_vec, rx_vec, d_pilot_carriers[0], d_pilot_symbols[0]);
+        }
+    }
 
-    gr_complex* est_vec = (gr_complex*)fftwf_malloc( sizeof(gr_complex) * d_subcarriers);
-    vector_mag_phase_to_complex(est_vec, mag_est_vec, phase_est_vec, d_subcarriers);
-    std::vector<gr_complex* > my_vec;
-    return my_vec;
+    return processable_items;
+}
+
+void inline
+lte_channel_estimator_vcvc::interpolate_between_vectors(std::vector<float*> &estimates, int previous_sym, int current_sym)
+{
+    int steps = current_sym-previous_sym;
+    float mult_value = 1.0f/float(steps);
+    //printf("%s\tinterpolate_vector\tmult_value = %2.4f\n", name().c_str(), mult_value);
+    volk_32f_x2_subtract_32f_a(d_diff_vector, estimates[current_sym], estimates[previous_sym], d_subcarriers);
+    // The following VOLK OP does have serious problems if called _a. DEBUG!
+    volk_32f_s32f_multiply_32f_u(d_div_vector, d_diff_vector, mult_value, d_subcarriers); // alignment problems?
+    for(int i = 1; i < steps; i++){
+        //volk_32f_x2_add_32f_a(interp_vals[i], interp_vals[i-1], d_div_vector, 12*d_N_rb_dl);
+    }
 }
 
 // Estimate channel for 1 OFDM symbol with RS symbols
@@ -268,6 +301,14 @@ lte_channel_estimator_vcvc::initialize_volk_vectors()
     d_diff_mag = (float*)fftwf_malloc(sizeof(float) * max_pilots);
     d_diff_phase = (float*)fftwf_malloc(sizeof(float) * max_pilots);
 
+    d_diff_vector = (float*)fftwf_malloc(sizeof(float) * d_subcarriers);
+    d_div_vector = (float*)fftwf_malloc(sizeof(float) * d_subcarriers);
+
+    for(int i = 0; i < d_pilot_carriers.size(); i++){
+        d_estimates.push_back( (gr_complex*)fftwf_malloc(sizeof(gr_complex) * d_subcarriers) );
+        d_mag_estimates.push_back( (float*)fftwf_malloc(sizeof(float) * d_subcarriers) );
+        d_phase_estimates.push_back( (float*)fftwf_malloc(sizeof(float) * d_subcarriers) );
+    }
 }
 
 inline int

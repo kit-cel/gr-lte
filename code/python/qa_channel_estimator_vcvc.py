@@ -95,9 +95,9 @@ class qa_channel_estimator_vcvc (gr_unittest.TestCase):
         #print pmt.pmt_symbol_to_string(tag_list[0].key)
         
         res = self.snk.data()
-        for i in range(len(res)/subcarriers):
-            print np.abs(res[i*subcarriers:(i+1)*subcarriers])
-            print "\n\n"
+#        for i in range(len(res)/subcarriers):
+#            print np.abs(res[i*subcarriers:(i+1)*subcarriers])
+#            print "\n\n"
         
 
 if __name__ == '__main__':
