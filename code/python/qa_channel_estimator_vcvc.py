@@ -64,16 +64,7 @@ class qa_channel_estimator_vcvc (gr_unittest.TestCase):
         style= "tx_diversity"
         sfn = 0
         
-        data_len = N_ofdm_symbols
-        
-        tag_list = []
-        for i in range(data_len):
-                tag = gr.gr_tag_t()
-                tag.key = pmt.pmt_string_to_symbol(tag_key)
-                tag.srcid = pmt.pmt_string_to_symbol("test_src")
-                tag.value = pmt.pmt_from_long(i%N_ofdm_symbols)
-                tag.offset = i
-                tag_list.append(tag)
+
                 
         
 
@@ -83,8 +74,22 @@ class qa_channel_estimator_vcvc (gr_unittest.TestCase):
         frame = generate_frame(pbch, N_rb_dl, cell_id, sfn, N_ant)
         stream = frame[0].flatten()
         stream = stream + frame[1].flatten()
+        symbol = stream[0:subcarriers*5]
+        stream = np.append(stream, symbol)
+        
+        data_len = len(stream)/subcarriers
+        print data_len
+        tag_list = []
+        for i in range(data_len):
+                tag = gr.gr_tag_t()
+                tag.key = pmt.pmt_string_to_symbol(tag_key)
+                tag.srcid = pmt.pmt_string_to_symbol("test_src")
+                tag.value = pmt.pmt_from_long(i%N_ofdm_symbols)
+                tag.offset = i
+                tag_list.append(tag)
+        
 
-        self.src.set_data(stream, tag_list)#[0:subcarriers]
+        self.src.set_data(stream, tag_list)
         
         [rs_pos_frame, rs_val_frame] = frame_pilot_value_and_position(N_rb_dl, cell_id, Ncp, 0)
         self.estimator.set_pilot_map(rs_pos_frame, rs_val_frame)
@@ -93,12 +98,22 @@ class qa_channel_estimator_vcvc (gr_unittest.TestCase):
         self.tb.run ()
         # check data
         #print pmt.pmt_symbol_to_string(tag_list[0].key)
-        
+        expected = np.ones((subcarriers,), dtype=np.complex)
         res = self.snk.data()
-#        for i in range(len(res)/subcarriers):
-#            print np.abs(res[i*subcarriers:(i+1)*subcarriers])
-#            print "\n\n"
-        
+
+        for i in range(len(res)/subcarriers):
+            #print i
+            vec = res[i*subcarriers:(i+1)*subcarriers]
+            try:
+                self.assertComplexTuplesAlmostEqual(vec, expected, 6)
+                #print "success"
+            except:
+                print str(i) +  "\tfail"
+                #print vec
+                m= 0
+
+
+
 
 if __name__ == '__main__':
     gr_unittest.main()
