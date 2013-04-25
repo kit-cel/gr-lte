@@ -78,7 +78,7 @@ class qa_channel_estimator_vcvc (gr_unittest.TestCase):
         stream = np.append(stream, symbol)
         
         data_len = len(stream)/subcarriers
-        print data_len
+        #print data_len
         tag_list = []
         for i in range(data_len):
                 tag = gr.gr_tag_t()

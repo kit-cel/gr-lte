@@ -65,8 +65,9 @@ private:
 
      static const gr_complex d_C_I;
      int d_subcarriers;
+     int d_n_frame_syms;
      int d_N_ofdm_symbols;
-     int d_sym_num;
+     int d_last_calced_sym;
      int d_work_call;
 
      pmt::pmt_t d_key;
@@ -79,7 +80,7 @@ private:
      inline int get_next_sym_with_pilots(int sym_num);
      inline int get_sym_num_from_tags(std::vector <gr_tag_t> v_b);
 
-     inline void copy_estimates_to_out_buf(gr_complex* out, int sym_num, int last_sym);
+     inline void copy_estimates_to_out_buf(gr_complex* out, int sym_num, int processed_items);
 
      std::vector<gr_complex* > d_estimates;
      std::vector<float* > d_mag_estimates;
@@ -87,7 +88,10 @@ private:
 
      // This method does all the estimation work
      int calculate_channel_estimates(const gr_complex* in_rx, int sym_num, int nitems);
+     inline void calculate_ofdm_symbols_with_pilots(const gr_complex* in_rx, int first_sym, int processable_items);
      gr_complex* d_rx_vec;
+     inline void calculate_interpolated_ofdm_symbols(int first_sym, int processable_items);
+     inline void processed_items_to_complex(int first_sym, int processed_items);
      inline int get_processable_items(int sym_num, int nitems);
      inline int get_last_processable_sym(int first_sym, int nitems);
 

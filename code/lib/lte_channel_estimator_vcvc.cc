@@ -51,6 +51,7 @@ lte_channel_estimator_vcvc::lte_channel_estimator_vcvc (int subcarriers,
                       gr_make_io_signature(1, 1, sizeof(gr_complex) * subcarriers )),
      d_subcarriers(subcarriers),
      d_N_ofdm_symbols(N_ofdm_symbols),
+     d_last_calced_sym(0),
      d_work_call(0)
 {
      d_key=pmt::pmt_string_to_symbol(tag_key); // specify key of tag.
@@ -86,26 +87,26 @@ lte_channel_estimator_vcvc::work(int noutput_items,
      gr_complex *out = (gr_complex *) output_items[0];
 
      d_work_call++;
+     printf("chanest work_call = %i\n", d_work_call);
 
      std::vector <gr_tag_t> v_b;
      get_tags_in_range(v_b, 0, nitems_read(0), nitems_read(0)+noutput_items, d_key);
      int first_sym = get_sym_num_from_tags(v_b);
 
      //printf("work_call %i\tnoutput_items = %i\tsym_num = %i\n", d_work_call, noutput_items, sym_num);
-     int last_sym = calculate_channel_estimates(in, first_sym, noutput_items);
+     int processed_items = calculate_channel_estimates(in, first_sym, noutput_items);
      //printf("END estimates %i\t%i\n", d_work_call, processed_items);
 
-
-
-     copy_estimates_to_out_buf(out, first_sym, last_sym);
+     copy_estimates_to_out_buf(out, first_sym, processed_items);
      // Tell runtime system how many output items we produced.
-     int processed_items = (last_sym+d_pilot_carriers.size()-first_sym )%d_pilot_carriers.size();
      if(processed_items == 0) {
-          memcpy(out, d_estimates[last_sym], sizeof(gr_complex) * d_subcarriers);
+          //memcpy(out, d_estimates[last_sym], sizeof(gr_complex) * d_subcarriers);
+          printf("dummy output!\n");
           processed_items = 1;
      }
+
      printf("processed_items = %i\n", processed_items);
-     return noutput_items;
+     return processed_items;
 }
 
 inline int
@@ -121,10 +122,10 @@ lte_channel_estimator_vcvc::get_sym_num_from_tags(std::vector <gr_tag_t> v_b)
 }
 
 inline void
-lte_channel_estimator_vcvc::copy_estimates_to_out_buf(gr_complex* out, int sym_num, int last_sym)
+lte_channel_estimator_vcvc::copy_estimates_to_out_buf(gr_complex* out, int sym_num, int processed_items)
 {
-     for(int i = sym_num; i < last_sym; i++) {
-          memcpy(out, d_estimates[i], sizeof(gr_complex) * d_subcarriers);
+     for(int i = sym_num; i-sym_num < processed_items; i++) {
+          memcpy(out, d_estimates[i%d_n_frame_syms], sizeof(gr_complex) * d_subcarriers);
           out += d_subcarriers;
 //        printf("\nsym_num = %i\n", i);
 //        for(int n = 0; n < d_subcarriers; n++){
@@ -141,45 +142,61 @@ int
 lte_channel_estimator_vcvc::calculate_channel_estimates(const gr_complex* in_rx, int first_sym, int nitems)
 {
      int last_sym = get_last_processable_sym(first_sym, nitems);
+     int processable_items = get_processable_items(first_sym, nitems);
+     int last_calced_sym = d_last_calced_sym;
+     //printf("first_sym = %i\tlast_sym = %i\tprocessable_items = %i\tlast_calced = %i\n", first_sym, last_sym, processable_items, last_calced_sym);
+     calculate_ofdm_symbols_with_pilots(in_rx, first_sym, processable_items);
+     calculate_interpolated_ofdm_symbols(last_calced_sym, processable_items);
+     processed_items_to_complex(first_sym, processable_items);
 
-     //int processable_items = get_processable_items(first_sym, nitems);
-     printf("first_sym = %i\tlast_sym = %i\n", first_sym, last_sym);
+     return processable_items;
+}
 
-     int n_frame_syms = d_pilot_carriers.size();
-
-     for(int i = first_sym; i%n_frame_syms != last_sym; i++) {
-          int sym = i%n_frame_syms;
+inline void
+lte_channel_estimator_vcvc::calculate_ofdm_symbols_with_pilots(const gr_complex* in_rx, int first_sym, int processable_items)
+{
+     int sym = first_sym;
+     for(int i = first_sym; i-first_sym <= processable_items; i++) {
+          sym = i%d_n_frame_syms;
           if(d_pilot_carriers[sym].size() > 0) {
-               printf("i = %i\n", i);
+               //printf("calc_ofdm_sym = %i\n", sym);
                memcpy(d_rx_vec, in_rx+(i-first_sym)*d_subcarriers, sizeof(gr_complex)*d_subcarriers );
                estimate_ofdm_symbol(d_mag_estimates[sym], d_phase_estimates[sym], d_rx_vec, d_pilot_carriers[sym], d_pilot_symbols[sym]);
+               d_last_calced_sym = sym;
           }
      }
+}
 
-     for(int i = first_sym; i < last_sym; i++) {
-          if(d_pilot_carriers[i].size() > 0) {
-               for(int n = i+1 ; n <= last_sym; n++ ) {
-                    if(d_pilot_carriers[n].size() > 0) {
-                         interpolate_between_vectors(d_mag_estimates, i, n);
-                         interpolate_between_vectors(d_phase_estimates, i, n);
+inline void
+lte_channel_estimator_vcvc::calculate_interpolated_ofdm_symbols(int first_sym, int processable_items)
+{
+     int current_sym = first_sym;
+     int next_sym = first_sym;
+     for(int i = first_sym; i-first_sym < processable_items; i++) {
+          current_sym = i%d_n_frame_syms;
+          if(d_pilot_carriers[current_sym].size() > 0) {
+               for(int n = i+1 ; n-first_sym <= processable_items; n++ ) {
+                    next_sym = n%d_n_frame_syms;
+                    if(d_pilot_carriers[next_sym].size() > 0) {
+                         interpolate_between_vectors(d_mag_estimates, current_sym, next_sym);
+                         interpolate_between_vectors(d_phase_estimates, current_sym, next_sym);
+                         //printf("interpolate between %i -- %i\n", current_sym, next_sym);
+                         break;
                     }
                }
           }
      }
+}
 
-     for(int i = first_sym; i <=  last_sym; i++) {
-          vector_mag_phase_to_complex(d_estimates[i], d_mag_estimates[i], d_phase_estimates[i], d_subcarriers);
+inline void
+lte_channel_estimator_vcvc::processed_items_to_complex(int first_sym, int processed_items)
+{
+     int sym = first_sym;
+     for(int i = first_sym; i-first_sym <=  processed_items; i++) {
+          sym = i%d_n_frame_syms;
+          //printf("mag_phase_to_complex\tsym = %i\n", sym);
+          vector_mag_phase_to_complex(d_estimates[sym], d_mag_estimates[sym], d_phase_estimates[sym], d_subcarriers);
      }
-
-     if(last_sym == first_sym) {
-          last_sym = d_pilot_carriers.size()-1;
-          for(int i = first_sym+1; i <= last_sym; i++) {
-               printf("i = %i\n", i);
-               memcpy(d_estimates[i], d_estimates[first_sym], sizeof(gr_complex) * d_subcarriers);
-          }
-     }
-
-     return last_sym;
 }
 
 inline int
@@ -187,13 +204,10 @@ lte_channel_estimator_vcvc::get_processable_items(int sym_num, int nitems)
 {
      int processable_items = 0;
      for(int i = sym_num; i-sym_num < nitems ; i++) {
-          if(d_pilot_carriers[i].size() > 0) {
+          if(d_pilot_carriers[i%d_n_frame_syms].size() > 0) {
                //printf("get_proc_items\tsym_num = %i\n", i);
-               processable_items = i-sym_num;
+               processable_items = i-sym_num+1;
           }
-     }
-     if(processable_items == 0) {
-          processable_items = int(d_pilot_carriers.size()-sym_num);
      }
      return processable_items;
 }
@@ -216,14 +230,18 @@ void inline
 lte_channel_estimator_vcvc::interpolate_between_vectors(std::vector<float*> &estimates, int previous_sym, int current_sym)
 {
      //printf("interpolate between %i\t%i\n", previous_sym, current_sym);
-     int steps = current_sym-previous_sym;
+     int steps = (current_sym+d_n_frame_syms-previous_sym)%d_n_frame_syms;
      float mult_value = 1.0f/float(steps);
-     //printf("%s\tinterpolate_vector\tmult_value = %2.4f\n", name().c_str(), mult_value);
      volk_32f_x2_subtract_32f_a(d_diff_vector, estimates[current_sym], estimates[previous_sym], d_subcarriers);
      // The following VOLK OP does have serious problems if called _a. DEBUG!
      volk_32f_s32f_multiply_32f_u(d_div_vector, d_diff_vector, mult_value, d_subcarriers); // alignment problems?
+     int sym = previous_sym;
+     int prev_sym = previous_sym;
      for(int i = previous_sym+1; i < previous_sym+steps; i++) {
-          volk_32f_x2_add_32f_a(estimates[i], estimates[i-1], d_div_vector, d_subcarriers);
+          sym = i%d_n_frame_syms;
+          //printf("interpolate symbol = %i\n", i);
+          volk_32f_x2_add_32f_a(estimates[sym], estimates[prev_sym], d_div_vector, d_subcarriers);
+          prev_sym = sym;
      }
 }
 
@@ -353,6 +371,7 @@ lte_channel_estimator_vcvc::set_pilot_map(const std::vector<std::vector<int> > &
           d_pilot_symbols.push_back( (gr_complex*)fftwf_malloc(sizeof(gr_complex) * pilot_symbols[i].size()) );
           memcpy(d_pilot_symbols[i], &pilot_symbols[i][0], sizeof(gr_complex) * pilot_symbols[i].size() );
      }
+     d_n_frame_syms = get_nsyms_in_frame();
      initialize_volk_vectors();
 }
 
