@@ -112,7 +112,39 @@ class qa_channel_estimator_vcvc (gr_unittest.TestCase):
                 #print vec
                 m= 0
 
+    def test_002_ieee80211a(self):
+        print "ieee80211a"
+        
+        data_len = 42
+        subcarriers = 52
+        tag_key = "symbol"
+        msg_buf_name = "cell_id"
+        N_frame_syms = 42
+        
+        
+        pilot_pos = [-21,-7,7,21]
+        pilot_pos = [pilot_pos[i]+52/2 for i in range(len(pilot_pos))]
+        print pilot_pos
+        
+        pilot_carriers = [pilot_pos,]*N_frame_syms
+        print np.shape(pilot_carriers)
+        
 
+        tag_list = []
+        for i in range(data_len):
+                tag = gr.gr_tag_t()
+                tag.key = pmt.pmt_string_to_symbol(tag_key)
+                tag.srcid = pmt.pmt_string_to_symbol("test_src")
+                tag.value = pmt.pmt_from_long(i%N_frame_syms)
+                tag.offset = i
+                tag_list.append(tag)
+                
+        in_data = [0]*subcarriers
+        
+        src = gr.vector_source_c(in_data, tag_list, subcarriers)
+        est = lte.channel_estimator_vcvc(subcarriers, N_frame_syms, tag_key, msg_buf_name,
+                                         pilot_carriers)
+        
 
 
 if __name__ == '__main__':
