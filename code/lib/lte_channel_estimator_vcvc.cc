@@ -27,13 +27,12 @@
 
 lte_channel_estimator_vcvc_sptr
 lte_make_channel_estimator_vcvc (int subcarriers,
-                                 int N_ofdm_symbols,
                                  std::string tag_key,
                                  std::string msg_buf_name,
                                  const std::vector<std::vector<int> > &pilot_carriers,
                                  const std::vector<std::vector<gr_complex> > &pilot_symbols)
 {
-     return gnuradio::get_initial_sptr (new lte_channel_estimator_vcvc(subcarriers, N_ofdm_symbols, tag_key, msg_buf_name, pilot_carriers, pilot_symbols));
+     return gnuradio::get_initial_sptr (new lte_channel_estimator_vcvc(subcarriers, tag_key, msg_buf_name, pilot_carriers, pilot_symbols));
 }
 
 
@@ -41,7 +40,6 @@ lte_make_channel_estimator_vcvc (int subcarriers,
  * The private constructor
  */
 lte_channel_estimator_vcvc::lte_channel_estimator_vcvc (int subcarriers,
-          int N_ofdm_symbols,
           std::string tag_key,
           std::string msg_buf_name,
           const std::vector<std::vector<int> > &pilot_carriers,
@@ -50,7 +48,6 @@ lte_channel_estimator_vcvc::lte_channel_estimator_vcvc (int subcarriers,
                       gr_make_io_signature(1, 1, sizeof(gr_complex) * subcarriers ),
                       gr_make_io_signature(1, 1, sizeof(gr_complex) * subcarriers )),
      d_subcarriers(subcarriers),
-     d_N_ofdm_symbols(N_ofdm_symbols),
      d_last_calced_sym(0),
      d_work_call(0)
 {
@@ -60,9 +57,6 @@ lte_channel_estimator_vcvc::lte_channel_estimator_vcvc (int subcarriers,
      //set_msg_handler(pmt::mp(tag_key), boost::bind(&lte_channel_estimator::set_cell_id_msg, this, _1));
 
      set_pilot_map(pilot_carriers, pilot_symbols);
-
-     //initialize_volk_vectors();
-
 }
 
 
@@ -71,10 +65,13 @@ lte_channel_estimator_vcvc::lte_channel_estimator_vcvc (int subcarriers,
  */
 lte_channel_estimator_vcvc::~lte_channel_estimator_vcvc()
 {
+     fftwf_free(d_rx_rs);
+/*
      for(int i = 0; i < d_pilot_symbols.size(); i++) {
+          printf("free pilot_syms %i\n", i);
           fftwf_free(d_pilot_symbols[i]);
      }
-     fftwf_free(d_rx_rs);
+*/
 }
 
 
@@ -87,7 +84,7 @@ lte_channel_estimator_vcvc::work(int noutput_items,
      gr_complex *out = (gr_complex *) output_items[0];
 
      d_work_call++;
-     printf("chanest work_call = %i\n", d_work_call);
+     //printf("chanest work_call = %i\n", d_work_call);
 
      std::vector <gr_tag_t> v_b;
      get_tags_in_range(v_b, 0, nitems_read(0), nitems_read(0)+noutput_items, d_key);
@@ -105,7 +102,7 @@ lte_channel_estimator_vcvc::work(int noutput_items,
           processed_items = 1;
      }
 
-     printf("processed_items = %i\n", processed_items);
+     //printf("processed_items = %i\n", processed_items);
      return processed_items;
 }
 
@@ -364,15 +361,22 @@ void
 lte_channel_estimator_vcvc::set_pilot_map(const std::vector<std::vector<int> > &pilot_carriers,
           const std::vector<std::vector<gr_complex> > &pilot_symbols)
 {
-     d_pilot_carriers = pilot_carriers;
-     d_pilot_symbols.clear();
+     printf("set_pilot_map\n");
+     //d_pilot_symbols.clear();
      for( int i = 0; i < pilot_symbols.size(); i++) {
           // aligned arrays for each symbol.
-          d_pilot_symbols.push_back( (gr_complex*)fftwf_malloc(sizeof(gr_complex) * pilot_symbols[i].size()) );
-          memcpy(d_pilot_symbols[i], &pilot_symbols[i][0], sizeof(gr_complex) * pilot_symbols[i].size() );
+          printf("set_pilot_sym %i\n", i);
+          if(d_pilot_symbols.size() <= i) {
+               d_pilot_symbols.push_back( (gr_complex*)fftwf_malloc(sizeof(gr_complex) * pilot_symbols[i].size()) );
+               memcpy(d_pilot_symbols[i], &pilot_symbols[i][0], sizeof(gr_complex) * pilot_symbols[i].size() );
+          } else {
+               memcpy(d_pilot_symbols[i], &pilot_symbols[i][0], sizeof(gr_complex) * pilot_symbols[i].size() );
+          }
      }
+     d_pilot_carriers = pilot_carriers;
      d_n_frame_syms = get_nsyms_in_frame();
      initialize_volk_vectors();
+     printf("set_pilot_map END\n");
 }
 
 void
@@ -422,6 +426,9 @@ lte_channel_estimator_vcvc::get_next_sym_with_pilots(int sym_num)
      }
      return get_nsyms_in_frame();
 }
+
+
+
 
 
 

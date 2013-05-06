@@ -1,55 +1,38 @@
 <?xml version="1.0"?>
 <block>
-  <name>Channel Estimator generic</name>
-  <key>lte_channel_estimator_vcvc</key>
+  <name>estimator_parameterizer_msg</name>
+  <key>lte_estimator_parameterizer_msg</key>
   <category>lte</category>
   <import>import lte</import>
-  <make>lte.channel_estimator_vcvc($subcarriers, $tag_key, $msg_buf_name, $pilot_carriers, $pilot_symbols)</make>
+  <make>lte.estimator_parameterizer_msg($msg_buf_name, $N_rb_dl)</make>
   <!-- Make one 'param' node for every Parameter you want settable from the GUI.
        Sub-nodes:
        * name
        * key (makes the value accessible as $keyname, e.g. in the make node)
        * type -->
   <param>
-    <name>subcarriers</name>
-    <key>subcarriers</key>
-    <type>int</type>
-  </param>
-  
-  <param>
-    <name>tag key value</name>
-    <key>tag_key</key>
-    <type>string</type>
-  </param>
-  
-  <param>
-    <name>message buffer name</name>
+    <name>msg_buf_name</name>
     <key>msg_buf_name</key>
     <type>string</type>
   </param>
-  
-  <param>
-    <name>pilot carrier map</name>
-    <key>pilot_carriers</key>
-    <type>raw</type>
-  </param>
-  
-  <param>
-    <name>pilot symbol values</name>
-    <key>pilot_symbols</key>
-    <type>raw</type>
-  </param>
 
+  <param>
+    <name>resource blocks</name>
+    <key>N_rb_dl</key>
+    <type>int</type>
+  </param>
+  
   <!-- Make one 'sink' node per input. Sub-nodes:
        * name (an identifier for the GUI)
        * type
        * vlen
        * optional (set to 1 for optional inputs) -->
+<!--
   <sink>
     <name>in</name>
-    <type>complex</type>
-    <vlen>$subcarriers</vlen>
+    <type>float</type>
   </sink>
+-->
 
   <!-- Make one 'source' node per output. Sub-nodes:
        * name (an identifier for the GUI)
@@ -58,7 +41,6 @@
        * optional (set to 1 for optional inputs) -->
   <source>
     <name>out</name>
-    <type>complex</type>
-    <vlen>$subcarriers</vlen>
+    <type>float</type>
   </source>
 </block>

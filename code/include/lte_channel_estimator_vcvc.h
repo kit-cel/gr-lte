@@ -36,7 +36,6 @@ class lte_channel_estimator_vcvc;
 typedef boost::shared_ptr<lte_channel_estimator_vcvc> lte_channel_estimator_vcvc_sptr;
 
 LTE_API lte_channel_estimator_vcvc_sptr lte_make_channel_estimator_vcvc (int subcarriers,
-          int N_ofdm_symbols,
           std::string tag_key,
           std::string msg_buf_name,
           const std::vector<std::vector<int> > &pilot_carriers,
@@ -45,19 +44,25 @@ LTE_API lte_channel_estimator_vcvc_sptr lte_make_channel_estimator_vcvc (int sub
 /*!
  * \brief Channel Estimator for OFDM
  * \ingroup lte
+ * \param subcarriers A value to determine the vector size and number of used subcarriers
+ * \param tag_key A string value to set the name of the OFDM symbol number tag
+ * \param msg_buf_name Name of the in message port to reset pilot carriers and pilot symbol values
+ * \param pilot_carriers A vector of vectors of indices.
+ *                      first vector has length max OFDM symbols per frame.
+ *                      second vector contains indices of pilot carriers
+ * \param pilot_symbols A vector of vectors with pilot symbol values
+ *                      same as pilot_carriers but complex values.
  *
  */
 class LTE_API lte_channel_estimator_vcvc : public gr_sync_block {
 private:
      friend LTE_API lte_channel_estimator_vcvc_sptr lte_make_channel_estimator_vcvc (int subcarriers,
-               int N_ofdm_symbols,
                std::string tag_key,
                std::string msg_buf_name,
                const std::vector<std::vector<int> > &pilot_carriers,
                const std::vector<std::vector<gr_complex> > &pilot_symbols);
 
      lte_channel_estimator_vcvc(int subcarriers,
-                                int N_ofdm_symbols,
                                 std::string tag_key,
                                 std::string msg_buf_name,
                                 const std::vector<std::vector<int> > &pilot_carriers,
@@ -66,7 +71,6 @@ private:
      static const gr_complex d_C_I;
      int d_subcarriers;
      int d_n_frame_syms;
-     int d_N_ofdm_symbols;
      int d_last_calced_sym;
      int d_work_call;
 

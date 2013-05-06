@@ -31,7 +31,8 @@ endif()
 GR_PYTHON_INSTALL(
     FILES
     __init__.py viterbi_vfvb.py hier_freq_estimate_cc.py hier_sss_sync_cc.py hier_pss_sync_cc.py linear_OFDM_estimator_hier_vcvc.py hier_sss_sync2_vcvc.py decode_bch_vfvb.py
-    decode_pbch_vcvf.py DESTINATION ${GR_PYTHON_DIR}/lte
+    decode_pbch_vcvf.py
+    estimator_parameterizer_msg.py DESTINATION ${GR_PYTHON_DIR}/lte
 )
 
 ########################################################################
@@ -77,3 +78,4 @@ GR_ADD_TEST(qa_channel_estimator ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR
 GR_ADD_TEST(qa_decode_bch_vfvb ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte_decode_bch_vfvb.py)
 GR_ADD_TEST(qa_decode_pbch_vcvf ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_decode_pbch_vcvf.py)
 GR_ADD_TEST(qa_channel_estimator_vcvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_channel_estimator_vcvc.py)
+GR_ADD_TEST(qa_estimator_parameterizer_msg ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_estimator_parameterizer_msg.py)

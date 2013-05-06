@@ -40,7 +40,6 @@ class qa_channel_estimator_vcvc (gr_unittest.TestCase):
         pilot_symbols = [[1j,2j,3j],[4j,5j,6j]]
         self.src = gr.vector_source_c(data, False, subcarriers)        
         self.estimator = lte.channel_estimator_vcvc(subcarriers,
-                                                    N_ofdm_symbols,
                                                     tag_key,
                                                     msg_buf_name,
                                                     pilot_carriers,
@@ -94,6 +93,15 @@ class qa_channel_estimator_vcvc (gr_unittest.TestCase):
         [rs_pos_frame, rs_val_frame] = frame_pilot_value_and_position(N_rb_dl, cell_id, Ncp, 0)
         self.estimator.set_pilot_map(rs_pos_frame, rs_val_frame)
         
+        
+#        pmt_dic = pmt.pmt_make_dict()
+#        for i in range(len(rs_pos_frame)):
+#            msg = pmt.pmt_make_int
+#            pmt_dic = pmt.pmt_dict_add(pmt_dic,)
+#        msg = pmt.pmt_make_c32vector( 12, np.complex(0,0))
+#        pos_msg = pmt.pmt_make_any(rs_pos_frame)
+        #self.estimator.set_pilot_map_msg(pilot_msg)
+        
 
         self.tb.run ()
         # check data
@@ -113,7 +121,7 @@ class qa_channel_estimator_vcvc (gr_unittest.TestCase):
                 m= 0
 
     def test_002_ieee80211a(self):
-        print "ieee80211a"
+        print "\n\nieee80211a"
         
         data_len = 42
         subcarriers = 52
@@ -124,10 +132,13 @@ class qa_channel_estimator_vcvc (gr_unittest.TestCase):
         
         pilot_pos = [-21,-7,7,21]
         pilot_pos = [pilot_pos[i]+52/2 for i in range(len(pilot_pos))]
-        print pilot_pos
-        
         pilot_carriers = [pilot_pos,]*N_frame_syms
-        print np.shape(pilot_carriers)
+        
+        pilot_syms = [1, -1, 1, -1]
+        pilot_syms = [complex(pilot_syms[i]) for i in range(len(pilot_syms))]
+        pilot_sym_vals = [pilot_syms,]*N_frame_syms
+        
+        #print np.shape(pilot_carriers)
         
 
         tag_list = []
@@ -141,10 +152,14 @@ class qa_channel_estimator_vcvc (gr_unittest.TestCase):
                 
         in_data = [0]*subcarriers
         
-        src = gr.vector_source_c(in_data, tag_list, subcarriers)
-        est = lte.channel_estimator_vcvc(subcarriers, N_frame_syms, tag_key, msg_buf_name,
-                                         pilot_carriers)
+        self.src.set_data(in_data, tag_list)
         
+        self.estimator.set_pilot_map(pilot_carriers, pilot_sym_vals)
+
+        #self.tb.run()
+        
+        res = self.snk.data()
+        print res   
 
 
 if __name__ == '__main__':

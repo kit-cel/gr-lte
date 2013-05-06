@@ -53,5 +53,6 @@ install(FILES
     lte_channel_estimator.xml
     lte_decode_bch_vfvb.xml
     lte_decode_pbch_vcvf.xml
-    lte_channel_estimator_vcvc.xml DESTINATION share/gnuradio/grc/blocks
+    lte_channel_estimator_vcvc.xml
+    lte_estimator_parameterizer_msg.xml DESTINATION share/gnuradio/grc/blocks
 )
