@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='ASCII'?>
 <flow_graph>
-  <timestamp>Mon May  6 13:51:54 2013</timestamp>
+  <timestamp>Tue May  7 15:09:50 2013</timestamp>
   <block>
     <key>options</key>
     <param>
@@ -123,63 +123,6 @@
     <param>
       <key>_coordinate</key>
       <value>(567, 8)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>lte_mib_unpack_vb</key>
-    <param>
-      <key>id</key>
-      <value>lte_mib_unpack_vb_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(847, 534)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>lte_decode_bch_vfvb</key>
-    <param>
-      <key>id</key>
-      <value>lte_decode_bch_vfvb_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(672, 585)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>lte_decode_pbch_vcvf</key>
-    <param>
-      <key>id</key>
-      <value>lte_decode_pbch_vcvf_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(514, 551)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -324,64 +267,6 @@
     <param>
       <key>_rotation</key>
       <value>180</value>
-    </param>
-  </block>
-  <block>
-    <key>gr_file_source</key>
-    <param>
-      <key>id</key>
-      <value>gr_file_source_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>file</key>
-      <value>/home/demel/Dokumente/Messungen/Messung_LTE_2012-05-23_12:47:32.dat</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>complex</value>
-    </param>
-    <param>
-      <key>repeat</key>
-      <value>False</value>
-    </param>
-    <param>
-      <key>vlen</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(246, 95)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>variable</key>
-    <param>
-      <key>id</key>
-      <value>N_rb_dl</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>6</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(182, 9)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
     </param>
   </block>
   <block>
@@ -635,22 +520,34 @@
     </param>
   </block>
   <block>
-    <key>variable</key>
+    <key>gr_file_source</key>
     <param>
       <key>id</key>
-      <value>pilot_carriers_p0</value>
+      <value>gr_file_source_0</value>
     </param>
     <param>
       <key>_enabled</key>
       <value>True</value>
     </param>
     <param>
-      <key>value</key>
-      <value>np.load('/home/demel/gr-lte/code/python/pilot_carriers_p0.npy')</value>
+      <key>file</key>
+      <value>/home/johannes/src/gr-lte/data/Messung_LTE_2012-05-23_12:47:32.dat</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>complex</value>
+    </param>
+    <param>
+      <key>repeat</key>
+      <value>False</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>1</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(244, 936)</value>
+      <value>(246, 95)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -658,22 +555,194 @@
     </param>
   </block>
   <block>
-    <key>lte_channel_estimator</key>
+    <key>lte_mib_unpack_vb</key>
     <param>
       <key>id</key>
-      <value>lte_channel_estimator_0</value>
+      <value>lte_mib_unpack_vb_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(865, 533)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>lte_decode_bch_vfvb</key>
+    <param>
+      <key>id</key>
+      <value>lte_decode_bch_vfvb_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(690, 584)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>lte_decode_pbch_vcvf</key>
+    <param>
+      <key>id</key>
+      <value>lte_decode_pbch_vcvf_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(532, 550)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>import</key>
+    <param>
+      <key>id</key>
+      <value>import_0_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>import</key>
+      <value>from lte import  estimator_parameterizer_msg as param</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(520, 865)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>import</key>
+    <param>
+      <key>id</key>
+      <value>import_0_0_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>import</key>
+      <value>from lte import  estimator_parameterizer_msg as param</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(513, 811)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>variable</key>
+    <param>
+      <key>id</key>
+      <value>tag_key</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>"symbol"</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(760, 768)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>variable</key>
+    <param>
+      <key>id</key>
+      <value>msg_buf_name</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>"cell_id"</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(649, 769)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>import</key>
+    <param>
+      <key>id</key>
+      <value>import_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>import</key>
+      <value>import numpy as np</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(852, 777)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>variable</key>
+    <param>
+      <key>id</key>
+      <value>pilots_0</value>
     </param>
     <param>
       <key>_enabled</key>
       <value>False</value>
     </param>
     <param>
-      <key>N_rb_dl</key>
-      <value>N_rb_dl</value>
+      <key>value</key>
+      <value>param.frame_pilot_value_and_position(N_rb_dl, 124, 1, 0)</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(102, 602)</value>
+      <value>(313, 810)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -708,6 +777,98 @@
     </param>
   </block>
   <block>
+    <key>lte_pbch_demux_vcvc</key>
+    <param>
+      <key>id</key>
+      <value>lte_pbch_demux_vcvc_1</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>N_rb_dl</key>
+      <value>N_rb_dl</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(330, 567)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>variable</key>
+    <param>
+      <key>id</key>
+      <value>pilot_carriers_p1</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>np.load('/home/johannes/src/gr-lte/code/python/lte_test/pilot_pos1.npy')</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(413, 935)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>variable</key>
+    <param>
+      <key>id</key>
+      <value>pilot_carriers_p0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>np.load('/home/johannes/src/gr-lte/code/python/lte_test/pilot_pos0.npy')</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(244, 936)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>variable</key>
+    <param>
+      <key>id</key>
+      <value>pilot_symbols</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>np.load('/home/johannes/src/gr-lte/code/python/lte_test/pilot_syms.npy')</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(73, 937)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
     <key>lte_channel_estimator_vcvc</key>
     <param>
       <key>id</key>
@@ -715,7 +876,7 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>True</value>
+      <value>False</value>
     </param>
     <param>
       <key>subcarriers</key>
@@ -747,144 +908,6 @@
     </param>
   </block>
   <block>
-    <key>lte_pbch_demux_vcvc</key>
-    <param>
-      <key>id</key>
-      <value>lte_pbch_demux_vcvc_1</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>N_rb_dl</key>
-      <value>N_rb_dl</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(312, 568)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>variable</key>
-    <param>
-      <key>id</key>
-      <value>pilot_symbols</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>np.load('/home/demel/gr-lte/code/python/pilot_symbols.npy')</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(73, 937)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>variable</key>
-    <param>
-      <key>id</key>
-      <value>msg_buf_name</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>"cell_id"</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(414, 935)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>variable</key>
-    <param>
-      <key>id</key>
-      <value>tag_key</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>"symbol"</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(525, 934)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>import</key>
-    <param>
-      <key>id</key>
-      <value>import_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>import</key>
-      <value>import numpy as np</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(617, 943)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>variable</key>
-    <param>
-      <key>id</key>
-      <value>pilot_carriers_p1</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>np.load('/home/demel/gr-lte/code/python/pilot_carriers_p1.npy')</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(692, 935)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
     <key>lte_channel_estimator_vcvc</key>
     <param>
       <key>id</key>
@@ -892,7 +915,7 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>True</value>
+      <value>False</value>
     </param>
     <param>
       <key>subcarriers</key>
@@ -917,6 +940,52 @@
     <param>
       <key>_coordinate</key>
       <value>(60, 824)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>lte_channel_estimator</key>
+    <param>
+      <key>id</key>
+      <value>lte_channel_estimator_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>N_rb_dl</key>
+      <value>N_rb_dl</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(92, 586)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>variable</key>
+    <param>
+      <key>id</key>
+      <value>N_rb_dl</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>15</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(183, 8)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -966,6 +1035,66 @@
     <sink_key>0</sink_key>
   </connection>
   <connection>
+    <source_block_id>lte_remove_cp_cvc_1</source_block_id>
+    <sink_block_id>fft_vxx_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>fft_vxx_0</source_block_id>
+    <sink_block_id>lte_extract_occupied_tones_vcvc_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_hier_sss_sync_cc_1</source_block_id>
+    <sink_block_id>lte_remove_cp_cvc_1</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_hier_freq_estimate_cc_0</source_block_id>
+    <sink_block_id>lte_hier_sss_sync_cc_1</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_hier_sss_sync_cc_1</source_block_id>
+    <sink_block_id>lte_channel_estimator_0</sink_block_id>
+    <source_key>cell_id</source_key>
+    <sink_key>cell_id</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>blks2_rational_resampler_xxx_0</source_block_id>
+    <sink_block_id>gr_throttle_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_extract_occupied_tones_vcvc_0</source_block_id>
+    <sink_block_id>lte_channel_estimator_vcvc_0_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_extract_occupied_tones_vcvc_0</source_block_id>
+    <sink_block_id>lte_channel_estimator_vcvc_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_channel_estimator_0</source_block_id>
+    <sink_block_id>lte_pbch_demux_vcvc_1</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_channel_estimator_0</source_block_id>
+    <sink_block_id>lte_pbch_demux_vcvc_1</sink_block_id>
+    <source_key>1</source_key>
+    <sink_key>1</sink_key>
+  </connection>
+  <connection>
     <source_block_id>lte_decode_bch_vfvb_0</source_block_id>
     <sink_block_id>lte_mib_unpack_vb_0</sink_block_id>
     <source_key>0</source_key>
@@ -1002,48 +1131,6 @@
     <sink_key>2</sink_key>
   </connection>
   <connection>
-    <source_block_id>lte_channel_estimator_0</source_block_id>
-    <sink_block_id>lte_pbch_demux_vcvc_1</sink_block_id>
-    <source_key>1</source_key>
-    <sink_key>1</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_channel_estimator_0</source_block_id>
-    <sink_block_id>lte_pbch_demux_vcvc_1</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_remove_cp_cvc_1</source_block_id>
-    <sink_block_id>fft_vxx_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>fft_vxx_0</source_block_id>
-    <sink_block_id>lte_extract_occupied_tones_vcvc_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_hier_sss_sync_cc_1</source_block_id>
-    <sink_block_id>lte_remove_cp_cvc_1</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_hier_freq_estimate_cc_0</source_block_id>
-    <sink_block_id>lte_hier_sss_sync_cc_1</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_channel_estimator_0</source_block_id>
-    <sink_block_id>lte_pbch_demux_vcvc_1</sink_block_id>
-    <source_key>2</source_key>
-    <sink_key>2</sink_key>
-  </connection>
-  <connection>
     <source_block_id>lte_hier_sss_sync_cc_1</source_block_id>
     <sink_block_id>lte_decode_pbch_vcvf_0</sink_block_id>
     <source_key>cell_id</source_key>
@@ -1056,45 +1143,21 @@
     <sink_key>cell_id</sink_key>
   </connection>
   <connection>
-    <source_block_id>lte_hier_sss_sync_cc_1</source_block_id>
-    <sink_block_id>lte_channel_estimator_0</sink_block_id>
-    <source_key>cell_id</source_key>
-    <sink_key>cell_id</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>blks2_rational_resampler_xxx_0</source_block_id>
-    <sink_block_id>gr_throttle_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_extract_occupied_tones_vcvc_0</source_block_id>
-    <sink_block_id>lte_channel_estimator_vcvc_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_extract_occupied_tones_vcvc_0</source_block_id>
-    <sink_block_id>lte_channel_estimator_vcvc_0_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_extract_occupied_tones_vcvc_0</source_block_id>
+    <source_block_id>lte_channel_estimator_0</source_block_id>
     <sink_block_id>lte_pbch_demux_vcvc_1</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_channel_estimator_vcvc_0</source_block_id>
-    <sink_block_id>lte_pbch_demux_vcvc_1</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>1</sink_key>
+    <source_key>2</source_key>
+    <sink_key>2</sink_key>
   </connection>
   <connection>
     <source_block_id>lte_channel_estimator_vcvc_0_0</source_block_id>
     <sink_block_id>lte_pbch_demux_vcvc_1</sink_block_id>
     <source_key>0</source_key>
     <sink_key>2</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_channel_estimator_vcvc_0</source_block_id>
+    <sink_block_id>lte_pbch_demux_vcvc_1</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>1</sink_key>
   </connection>
 </flow_graph>

@@ -171,8 +171,19 @@ if __name__ == "__main__":
     rs_seq = rs_generator(3, 4, cell_id,Ncp)
 
     frame = generate_frame(pbch, N_rb_dl, cell_id, sfn, N_ant)
+    
+    rbs = 15
+    
+    [p_pos0, p_sym0] = frame_pilot_value_and_position(rbs, 124, 1, 0)
+    [p_pos1, p_sym1] = frame_pilot_value_and_position(rbs, 124, 1, 1)
+    
+    np.save("pilot_pos0", p_pos0)
+    np.save("pilot_pos1", p_pos1)
+    np.save("pilot_syms", p_sym0)
+    
+    
 
-    print rs_seq
+    #print rs_seq
     
 
 

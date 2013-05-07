@@ -3,7 +3,7 @@
 # Gnuradio Python Flow Graph
 # Title: LTE flowgraph
 # Author: Johannes Demel
-# Generated: Mon May  6 13:51:54 2013
+# Generated: Tue May  7 18:12:19 2013
 ##################################################
 
 from gnuradio import blks2
@@ -13,6 +13,7 @@ from gnuradio import gr
 from gnuradio import window
 from gnuradio.eng_option import eng_option
 from gnuradio.gr import firdes
+from lte import  estimator_parameterizer_msg as param
 from optparse import OptionParser
 import lte
 import numpy as np
@@ -32,12 +33,12 @@ class LTE_flowgraph(gr.top_block):
 		self.samp_rate = samp_rate = slotl/0.0005
 		self.tag_key = tag_key = "symbol"
 		self.style = style = "tx_diversity"
-		self.pilot_symbols = pilot_symbols = np.load('/home/demel/gr-lte/code/python/pilot_symbols.npy')
-		self.pilot_carriers_p1 = pilot_carriers_p1 = np.load('/home/demel/gr-lte/code/python/pilot_carriers_p1.npy')
-		self.pilot_carriers_p0 = pilot_carriers_p0 = np.load('/home/demel/gr-lte/code/python/pilot_carriers_p0.npy')
+		self.pilot_symbols = pilot_symbols = np.load('/home/johannes/src/gr-lte/code/python/lte_test/pilot_syms.npy')
+		self.pilot_carriers_p1 = pilot_carriers_p1 = np.load('/home/johannes/src/gr-lte/code/python/lte_test/pilot_pos1.npy')
+		self.pilot_carriers_p0 = pilot_carriers_p0 = np.load('/home/johannes/src/gr-lte/code/python/lte_test/pilot_pos0.npy')
 		self.msg_buf_name = msg_buf_name = "cell_id"
 		self.interp_val = interp_val = int(samp_rate/1e4)
-		self.N_rb_dl = N_rb_dl = 6
+		self.N_rb_dl = N_rb_dl = 15
 
 		##################################################
 		# Blocks
@@ -52,10 +53,9 @@ class LTE_flowgraph(gr.top_block):
 		self.lte_decode_pbch_vcvf_0 = lte.decode_pbch_vcvf()
 		self.lte_decode_bch_vfvb_0 = lte.decode_bch_vfvb()
 		self.lte_cp_time_freq_sync_cc_0 = lte.cp_time_freq_sync_cc(fft_len)
-		self.lte_channel_estimator_vcvc_0_0 = lte.channel_estimator_vcvc(12*N_rb_dl, tag_key, msg_buf_name, pilot_carriers_p1, pilot_symbols)
-		self.lte_channel_estimator_vcvc_0 = lte.channel_estimator_vcvc(12*N_rb_dl, tag_key, msg_buf_name, pilot_carriers_p0, pilot_symbols)
+		self.lte_channel_estimator_0 = lte.channel_estimator(N_rb_dl)
 		self.gr_throttle_0 = gr.throttle(gr.sizeof_gr_complex*1, samp_rate)
-		self.gr_file_source_0 = gr.file_source(gr.sizeof_gr_complex*1, "/home/demel/Dokumente/Messungen/Messung_LTE_2012-05-23_12:47:32.dat", False)
+		self.gr_file_source_0 = gr.file_source(gr.sizeof_gr_complex*1, "/home/johannes/src/gr-lte/data/Messung_LTE_2012-05-23_12:47:32.dat", False)
 		self.fft_vxx_0 = fft.fft_vcc(fft_len, True, (window.rectangular(fft_len)), False, 1)
 		self.blks2_rational_resampler_xxx_0 = blks2.rational_resampler_ccc(
 			interpolation=interp_val,
@@ -71,26 +71,26 @@ class LTE_flowgraph(gr.top_block):
 		self.connect((self.lte_cp_time_freq_sync_cc_0, 0), (self.lte_hier_pss_sync_cc_0, 0))
 		self.connect((self.gr_throttle_0, 0), (self.lte_cp_time_freq_sync_cc_0, 0))
 		self.connect((self.lte_hier_pss_sync_cc_0, 0), (self.lte_hier_freq_estimate_cc_0, 0))
+		self.connect((self.lte_extract_occupied_tones_vcvc_0, 0), (self.lte_channel_estimator_0, 0))
+		self.connect((self.lte_remove_cp_cvc_1, 0), (self.fft_vxx_0, 0))
+		self.connect((self.fft_vxx_0, 0), (self.lte_extract_occupied_tones_vcvc_0, 0))
+		self.connect((self.lte_hier_sss_sync_cc_1, 0), (self.lte_remove_cp_cvc_1, 0))
+		self.connect((self.lte_hier_freq_estimate_cc_0, 0), (self.lte_hier_sss_sync_cc_1, 0))
+		self.connect((self.blks2_rational_resampler_xxx_0, 0), (self.gr_throttle_0, 0))
+		self.connect((self.lte_channel_estimator_0, 0), (self.lte_pbch_demux_vcvc_1, 0))
+		self.connect((self.lte_channel_estimator_0, 1), (self.lte_pbch_demux_vcvc_1, 1))
 		self.connect((self.lte_decode_bch_vfvb_0, 0), (self.lte_mib_unpack_vb_0, 0))
 		self.connect((self.lte_decode_bch_vfvb_0, 1), (self.lte_mib_unpack_vb_0, 1))
 		self.connect((self.lte_decode_pbch_vcvf_0, 0), (self.lte_decode_bch_vfvb_0, 0))
 		self.connect((self.lte_pbch_demux_vcvc_1, 0), (self.lte_decode_pbch_vcvf_0, 0))
 		self.connect((self.lte_pbch_demux_vcvc_1, 1), (self.lte_decode_pbch_vcvf_0, 1))
 		self.connect((self.lte_pbch_demux_vcvc_1, 2), (self.lte_decode_pbch_vcvf_0, 2))
-		self.connect((self.lte_remove_cp_cvc_1, 0), (self.fft_vxx_0, 0))
-		self.connect((self.fft_vxx_0, 0), (self.lte_extract_occupied_tones_vcvc_0, 0))
-		self.connect((self.lte_hier_sss_sync_cc_1, 0), (self.lte_remove_cp_cvc_1, 0))
-		self.connect((self.lte_hier_freq_estimate_cc_0, 0), (self.lte_hier_sss_sync_cc_1, 0))
-		self.connect((self.blks2_rational_resampler_xxx_0, 0), (self.gr_throttle_0, 0))
-		self.connect((self.lte_extract_occupied_tones_vcvc_0, 0), (self.lte_channel_estimator_vcvc_0, 0))
-		self.connect((self.lte_extract_occupied_tones_vcvc_0, 0), (self.lte_channel_estimator_vcvc_0_0, 0))
-		self.connect((self.lte_extract_occupied_tones_vcvc_0, 0), (self.lte_pbch_demux_vcvc_1, 0))
-		self.connect((self.lte_channel_estimator_vcvc_0, 0), (self.lte_pbch_demux_vcvc_1, 1))
-		self.connect((self.lte_channel_estimator_vcvc_0_0, 0), (self.lte_pbch_demux_vcvc_1, 2))
+		self.connect((self.lte_channel_estimator_0, 2), (self.lte_pbch_demux_vcvc_1, 2))
 
 		##################################################
 		# Asynch Message Connections
 		##################################################
+		self.msg_connect(self.lte_hier_sss_sync_cc_1, "cell_id", self.lte_channel_estimator_0, "cell_id")
 		self.msg_connect(self.lte_hier_sss_sync_cc_1, "cell_id", self.lte_decode_pbch_vcvf_0, "cell_id")
 		self.msg_connect(self.lte_hier_sss_sync_cc_1, "cell_id", self.lte_pbch_demux_vcvc_1, "cell_id")
 

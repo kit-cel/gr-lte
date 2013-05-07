@@ -478,38 +478,50 @@ lte_channel_estimator::set_cell_id(int cell_id)
 void
 lte_channel_estimator::generate_rs_frame(rs_matrix &mat, int cell_id, int Ncp)
 {
-    const int N_RB_MAX = 110;
     for(int p = 0 ; p < 2; p++){
         for(int ns = 0 ; ns < 20 ; ns++){
             //printf("%s\tp = %i\tns= = %i\n", name().c_str(), p, ns);
-            gr_complex r0[220];
-            gr_complex r4[220];
-            rs_generator( r0, ns, 0, cell_id, Ncp);
-            rs_generator( r4, ns, 4, cell_id, Ncp);
             gr_complex* rs0 = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*12*d_N_rb_dl);
             gr_complex* rs4 = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*12*d_N_rb_dl);
-
-            int mX = 0;
-            for (int m = 0 ; m < 2*d_N_rb_dl ; m++ ){
-                mX = m+N_RB_MAX-d_N_rb_dl;
-                rs0[m]=r0[mX];
-                rs4[m]=r4[mX];
-            }
+            get_used_rs_symbols(rs0, d_N_rb_dl, ns, 0, cell_id, Ncp);
+            get_used_rs_symbols(rs4, d_N_rb_dl, ns, 4, cell_id, Ncp);
             mat[p][2*ns  ] = rs0;
             mat[p][2*ns+1] = rs4;
         }
     }
 }
 
+inline void
+lte_channel_estimator::get_used_rs_symbols(gr_complex* rs, int N_rb_dl, int ns, int l, int cell_id, int Ncp)
+{
+    const int N_RB_MAX = 110;
+    gr_complex rs_syms[220];
+    rs_generator( rs_syms, ns, l, cell_id, Ncp);
+
+    int mX = 0;
+    for (int m = 0 ; m < 2*d_N_rb_dl ; m++ ){
+        mX = m+N_RB_MAX-d_N_rb_dl;
+        rs[m]=rs_syms[mX];
+    }
+}
+
 std::vector<std::vector<gr_complex> >
-lte_channel_estimator::get_frame_rs_symbols()
+lte_channel_estimator::get_frame_rs_symbols(int N_rb_dl, int cell_id, int Ncp)
 {
     std::vector<std::vector<gr_complex> > matrix;
 
-    for(int sym = 0; sym < 40 ; sym++){
-        std::vector<gr_complex> my_vec;
-        my_vec.insert(my_vec.begin(), &d_rs_matrix[0][sym][0], &d_rs_matrix[0][sym][2*d_N_rb_dl]);
-        matrix.push_back(my_vec);
+    for(int ns = 0; ns < 20 ; ns++){
+        for(int l = 0; l < 7 ; l++){
+            std::vector<gr_complex> my_vec;
+            if(l == 0 || l == 4){
+                gr_complex rs[2*N_rb_dl];
+                get_used_rs_symbols(rs, N_rb_dl, ns, l, cell_id, Ncp);
+                for(int i = 0; i < 2*N_rb_dl; i++){
+                    my_vec.push_back(rs[i]);
+                }
+            }
+            matrix.push_back(my_vec);
+        }
     }
 
     return matrix;
@@ -522,21 +534,18 @@ lte_channel_estimator::get_frame_rs_positions(int p)
 
     std::vector<std::vector<int> > mat;
     for(int ns = 0 ; ns < 20; ns++){
-        std::vector<int> osym;
-        int offset = calc_offset(p, 0, ns);
-        int k = 0;
-        for (int m = 0 ; m < 2*d_N_rb_dl ; m++ ){
-            k  = 6*m + offset;
-            osym.push_back(k);
+        for(int l = 0; l < 7; l++){
+            std::vector<int> vec;
+            if(l == 0 || l == 4){
+                int offset = calc_offset(p, l, ns);
+                int k = 0;
+                for (int m = 0 ; m < 2*d_N_rb_dl ; m++ ){
+                    k  = 6*m + offset;
+                    vec.push_back(k);
+                }
+            }
+            mat.push_back(vec);
         }
-        mat.push_back(osym);
-        std::vector<int> osym2;
-        offset = calc_offset(p, 4, ns);
-        for (int m = 0 ; m < 2*d_N_rb_dl ; m++ ){
-            k  = 6*m + offset;
-            osym2.push_back(k);
-        }
-        mat.push_back(osym2);
     }
     return mat;
 }

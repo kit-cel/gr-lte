@@ -23,6 +23,7 @@ from gruel import pmt
 #import lte_swig as lte
 import lte
 from lte_test import *
+import os
 
 class qa_channel_estimator_vcvc (gr_unittest.TestCase):
 
@@ -50,8 +51,92 @@ class qa_channel_estimator_vcvc (gr_unittest.TestCase):
 
     def tearDown (self):
         self.tb = None
+        
+    def test_001_symbols(self):
+        print "test_001_symbols BEGIN"
+        N_rb_dl = self.N_rb_dl
+        subcarriers = self.subcarriers
+        N_ofdm_symbols = self.N_ofdm_symbols
+        tag_key = self.tag_key
+        msg_buf_name = self.msg_buf_name
+        cell_id = 124
+        Ncp = 1
+        N_ant = 2
+        style= "tx_diversity"
+        sfn = 0
 
-    def test_001_t (self):        
+        [rs_pos_frame, rs_val_frame] = frame_pilot_value_and_position(N_rb_dl, cell_id, Ncp, 0)
+
+        com_est = lte.channel_estimator(N_rb_dl)
+        com_est.set_cell_id(cell_id)
+        rs_vals = com_est.get_frame_rs_symbols(N_rb_dl, cell_id, Ncp)
+        
+        for i in range(len(rs_vals)):
+            self.assertComplexTuplesAlmostEqual(rs_vals[i], rs_val_frame[i])
+        print "test_001_symbols END\n\n"
+        
+    def test_002_positions(self):
+        print "test_002_positions BEGIN"
+        N_rb_dl = self.N_rb_dl
+        subcarriers = self.subcarriers
+        N_ofdm_symbols = self.N_ofdm_symbols
+        tag_key = self.tag_key
+        msg_buf_name = self.msg_buf_name
+        cell_id = 124
+        Ncp = 1
+        N_ant = 2
+        style= "tx_diversity"
+        sfn = 0
+
+        [rs_pos_frame, rs_val_frame] = frame_pilot_value_and_position(N_rb_dl, cell_id, Ncp, 0)
+        com_est = lte.channel_estimator(N_rb_dl)
+        com_est.set_cell_id(cell_id)
+        
+        failed = 0
+        for p in range(2):
+            [rs_pos_frame, rs_val_frame] = frame_pilot_value_and_position(N_rb_dl, cell_id, Ncp, p)
+            rs_pos = com_est.get_frame_rs_positions(p)
+            for i in range(len(rs_pos)):
+                #print "ant = " + str(p) + "\tsym = " + str(i)
+                if len(rs_pos[i]) != len(rs_pos_frame[i]):
+                    print "size mismatch!"
+                    print "len(rs_pos[i]) = " + str(len(rs_pos[i]))
+                    print "len(rs_pos_frame[i]) = " + str(len(rs_pos_frame[i]))
+                    failed = failed +1
+                elif len(rs_pos[i]) > 0 and len(rs_pos_frame[i]) > 0 and len(rs_pos[i]) == len(rs_pos_frame[i]):
+                    try:
+                        self.assertEqual(rs_pos[i], tuple(rs_pos_frame[i]) )
+                    except:
+                        print "unequal"
+                        print "len(rs_pos[i]) = " + str(len(rs_pos[i]))
+                        print type(rs_pos[i])
+                        print type(rs_pos_frame[i])
+                        failed = failed +1
+        print "faulty vectors = " + str(failed)
+        if failed > 0:
+            print "\n\n"
+            raise Exception("Failed")
+        print "test_002_positions END\n\n"
+        
+    def test_003_set_pilot_map(self):
+        print "test_003_set_pilot_map BEGIN"
+        N_rb_dl = self.N_rb_dl
+        cell_id = 124
+        Ncp = 1
+        [rs_pos_frame, rs_val_frame] = frame_pilot_value_and_position(N_rb_dl, cell_id, Ncp, 0)
+        print "got python generated values"
+        self.estimator.set_pilot_map(rs_pos_frame, rs_val_frame)
+        print "passed values to estimator"
+        res_carriers = self.estimator.get_pilot_carriers()
+        for i in range(len(res_carriers)):
+            print i
+            print self.assertEqual(res_carrirers[i], rs_pos_frame[i])
+        print res_carriers
+        print "test_003_set_pilot_map END"
+        
+
+    def test_004_t (self):
+        print "test_004_t BEGIN"
         N_rb_dl = self.N_rb_dl
         subcarriers = self.subcarriers
         N_ofdm_symbols = self.N_ofdm_symbols
@@ -63,52 +148,22 @@ class qa_channel_estimator_vcvc (gr_unittest.TestCase):
         style= "tx_diversity"
         sfn = 0
         
-
-                
-        
-
-        mib = pack_mib(50,0,1.0, 511)
-        bch = encode_bch(mib, N_ant)
-        pbch = encode_pbch(bch, cell_id, N_ant, style)
-        frame = generate_frame(pbch, N_rb_dl, cell_id, sfn, N_ant)
-        stream = frame[0].flatten()
-        stream = stream + frame[1].flatten()
-        symbol = stream[0:subcarriers*5]
-        stream = np.append(stream, symbol)
-        
+        print "get and set data"
+        stream = self.get_data_stream(N_ant, cell_id, style, N_rb_dl, sfn, subcarriers) 
         data_len = len(stream)/subcarriers
-        #print data_len
-        tag_list = []
-        for i in range(data_len):
-                tag = gr.gr_tag_t()
-                tag.key = pmt.pmt_string_to_symbol(tag_key)
-                tag.srcid = pmt.pmt_string_to_symbol("test_src")
-                tag.value = pmt.pmt_from_long(i%N_ofdm_symbols)
-                tag.offset = i
-                tag_list.append(tag)
-        
-
+        tag_list = self.get_tag_list(data_len, tag_key, N_ofdm_symbols)
         self.src.set_data(stream, tag_list)
-        
+
+        print "get and set pilot map"        
         [rs_pos_frame, rs_val_frame] = frame_pilot_value_and_position(N_rb_dl, cell_id, Ncp, 0)
         self.estimator.set_pilot_map(rs_pos_frame, rs_val_frame)
-        
-        
-#        pmt_dic = pmt.pmt_make_dict()
-#        for i in range(len(rs_pos_frame)):
-#            msg = pmt.pmt_make_int
-#            pmt_dic = pmt.pmt_dict_add(pmt_dic,)
-#        msg = pmt.pmt_make_c32vector( 12, np.complex(0,0))
-#        pos_msg = pmt.pmt_make_any(rs_pos_frame)
-        #self.estimator.set_pilot_map_msg(pilot_msg)
-        
-
+        print "pilot Map set"
         self.tb.run ()
         # check data
         #print pmt.pmt_symbol_to_string(tag_list[0].key)
         expected = np.ones((subcarriers,), dtype=np.complex)
         res = self.snk.data()
-
+        failed = 0
         for i in range(len(res)/subcarriers):
             #print i
             vec = res[i*subcarriers:(i+1)*subcarriers]
@@ -118,8 +173,39 @@ class qa_channel_estimator_vcvc (gr_unittest.TestCase):
             except:
                 print str(i) +  "\tfail"
                 #print vec
-                m= 0
+                failed = failed +1                
+        print "failed vectors: " + str(failed)
+        
+        print "test_003_t END\n\n"
+        
 
+    def get_data_stream(self, N_ant, cell_id, style, N_rb_dl, sfn, subcarriers):
+        mib = pack_mib(50,0,1.0, 511)
+        bch = encode_bch(mib, N_ant)
+        pbch = encode_pbch(bch, cell_id, N_ant, style)
+        frame = generate_frame(pbch, N_rb_dl, cell_id, sfn, N_ant)
+        stream = frame[0].flatten()
+        stream = stream + frame[1].flatten()
+        symbol = stream[0:subcarriers*5]
+        stream = np.append(stream, symbol)
+        return stream
+
+    def get_tag_list(self, data_len, tag_key, N_ofdm_symbols):
+        tag_list = []
+        for i in range(data_len):
+                tag = gr.gr_tag_t()
+                tag.key = pmt.pmt_string_to_symbol(tag_key)
+                tag.srcid = pmt.pmt_string_to_symbol("test_src")
+                tag.value = pmt.pmt_from_long(i%N_ofdm_symbols)
+                tag.offset = i
+                tag_list.append(tag)
+        return tag_list
+        
+        
+        
+        
+
+"""
     def test_002_ieee80211a(self):
         print "\n\nieee80211a"
         
@@ -152,15 +238,16 @@ class qa_channel_estimator_vcvc (gr_unittest.TestCase):
                 
         in_data = [0]*subcarriers
         
-        self.src.set_data(in_data, tag_list)
+        #self.src.set_data(in_data, tag_list)
         
-        self.estimator.set_pilot_map(pilot_carriers, pilot_sym_vals)
+        #self.estimator.set_pilot_map(pilot_carriers, pilot_sym_vals)
 
         #self.tb.run()
         
         res = self.snk.data()
-        print res   
-
+        print res
+        print "end test ieee80211a"
+"""
 
 if __name__ == '__main__':
     gr_unittest.main()

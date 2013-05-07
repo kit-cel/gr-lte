@@ -20,7 +20,7 @@
 #
 
 from gnuradio import gr, gr_unittest
-import lte as lte_swig
+from lte import lte_swig
 #import numpy
 #import scipy.io
 import lte_test
