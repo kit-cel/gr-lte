@@ -74,22 +74,28 @@ private:
     int d_n_frame_syms;
     int d_last_calced_sym;
     int d_work_call;
-
     pmt::pmt_t d_key;
 
     std::vector<std::vector<int> > d_pilot_carriers;
     std::vector<gr_complex* > d_pilot_symbols;
-    void initialize_volk_vectors(int max_pilots);
-    inline int get_max_pilot_number(std::vector<std::vector<int> > pilot_carriers);
-    inline int get_nsyms_in_frame(std::vector<std::vector<int> > pilot_carriers);
-    inline int get_next_sym_with_pilots(int sym_num);
-    inline int get_sym_num_from_tags(std::vector <gr_tag_t> v_b);
 
-    inline void copy_estimates_to_out_buf(gr_complex* out, int sym_num, int processed_items);
+    // These methods do all the setup stuff.
+    inline void init_pilot_symbol_arrays(const std::vector<std::vector<gr_complex> > &pilot_symbols, int n_frame_syms, int max_pilots);
+    inline void initialize_volk_vectors(int max_pilots, int subcarriers, int n_frame_syms);
+    inline void init_pilot_dependend_volk_vectors(int max_pilots);
+    inline void init_subcarrier_dependend_volk_vectors(int subcarriers);
+    inline void init_estimates_store_volk_vectors(int subcarriers, int n_frame_syms);
 
     std::vector<gr_complex* > d_estimates;
     std::vector<float* > d_mag_estimates;
     std::vector<float* > d_phase_estimates;
+
+    inline int get_max_pilot_number(const std::vector<std::vector<int> > &pilot_carriers);
+    inline int get_nsyms_in_frame(const std::vector<std::vector<int> > &pilot_carriers);
+
+    // These methods are resposnible for control and data moves
+    inline int get_sym_num_from_tags(std::vector <gr_tag_t> v_b);
+    inline void copy_estimates_to_out_buf(gr_complex* out, int sym_num, int processed_items);
 
     // This method does all the estimation work
     int calculate_channel_estimates(const gr_complex* in_rx, int sym_num, int nitems);
@@ -117,6 +123,9 @@ private:
 
     void inline phase_bound_diff(float* phase_vec, int len);
     void inline phase_bound_abs(float* phase_vec, int len);
+    void inline phase_bound_between_pilot_vectors(int first_sym, int processable_items);
+    void inline phase_bound_between_vectors(float* first, float* last);
+    float* d_phase_bound_vector;
 
     void inline interpolate_between_vectors(std::vector<float*> &estimates, int previous_sym, int current_sym);
     float* d_diff_vector;

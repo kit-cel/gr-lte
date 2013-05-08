@@ -33,7 +33,7 @@ class lte_channel_estimator;
 typedef boost::shared_ptr<lte_channel_estimator> lte_channel_estimator_sptr;
 typedef gr_complex* rs_matrix[2][40];
 
-LTE_API lte_channel_estimator_sptr lte_make_channel_estimator (int N_rb_dl);
+LTE_API lte_channel_estimator_sptr lte_make_channel_estimator (int N_rb_dl, std::string tag_key);
 
 /*!
  * \brief Calculate channel estimation
@@ -41,9 +41,9 @@ LTE_API lte_channel_estimator_sptr lte_make_channel_estimator (int N_rb_dl);
  */
 class LTE_API lte_channel_estimator : public gr_sync_block
 {
-	friend LTE_API lte_channel_estimator_sptr lte_make_channel_estimator (int N_rb_dl);
+	friend LTE_API lte_channel_estimator_sptr lte_make_channel_estimator (int N_rb_dl, std::string tag_key);
 
-	lte_channel_estimator (int N_rb_dl);
+	lte_channel_estimator (int N_rb_dl, std::string tag_key);
 
 
 

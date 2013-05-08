@@ -181,6 +181,7 @@ if __name__ == "__main__":
     np.save("pilot_pos1", p_pos1)
     np.save("pilot_syms", p_sym0)
     
+    print "done"
     
 
     #print rs_seq

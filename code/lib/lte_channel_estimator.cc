@@ -27,13 +27,13 @@
 
 
 lte_channel_estimator_sptr
-lte_make_channel_estimator (int N_rb_dl)
+lte_make_channel_estimator (int N_rb_dl, std::string tag_key)
 {
-	return lte_channel_estimator_sptr (new lte_channel_estimator (N_rb_dl));
+	return lte_channel_estimator_sptr (new lte_channel_estimator (N_rb_dl, tag_key));
 }
 
 
-lte_channel_estimator::lte_channel_estimator (int N_rb_dl)
+lte_channel_estimator::lte_channel_estimator (int N_rb_dl, std::string tag_key)
 	: gr_sync_block ("channel_estimator",
 		gr_make_io_signature ( 1, 1, sizeof(gr_complex)*12*N_rb_dl),
 		gr_make_io_signature ( 3, 3, sizeof(gr_complex)*12*N_rb_dl)),
@@ -44,7 +44,7 @@ lte_channel_estimator::lte_channel_estimator (int N_rb_dl)
     message_port_register_in(pmt::mp("cell_id"));
     set_msg_handler(pmt::mp("cell_id"), boost::bind(&lte_channel_estimator::set_cell_id_msg, this, _1));
 
-    d_key=pmt::pmt_string_to_symbol("symbol"); // specify key of tag.
+    d_key=pmt::pmt_string_to_symbol(tag_key); // specify key of tag.
 
     //Initial block setup
     set_min_output_buffer(8* sizeof(gr_complex)*12*N_rb_dl );
@@ -132,7 +132,6 @@ lte_channel_estimator::work (int noutput_items,
     d_work_call++;
     //printf("%s\twork_call = %i\tnoutput_items = %i\n", name().c_str(), d_work_call, noutput_items);
 
-
     int slot_number = 5;
     std::vector <gr_tag_t> v_b;
     get_tags_in_range(v_b,0,nitems_read(0),nitems_read(0)+1, d_key);
@@ -141,10 +140,11 @@ lte_channel_estimator::work (int noutput_items,
         std::string key      = pmt::pmt_symbol_to_string(v_b[0].key);
         int value           = int(pmt::pmt_to_long(v_b[0].value) );
         if(value%7 != 0 ){return value%7+7;}
-        std::string srcid    = pmt::pmt_symbol_to_string(v_b[0].srcid);
         slot_number = value / 7;
         //printf("TAG!\tkey = %s\tvalue = %i\tslot_number = %i\toffset %ld\n", key.c_str(), value, slot_number, tag_offset);
 	}
+
+	//printf("work_call = %i\tslot_num = %i\titems_read = %i\n", d_work_call, slot_number, int(nitems_read(0)) );
 
     //The following part of work does all the work!
     // extract ofdm symbols with RSs

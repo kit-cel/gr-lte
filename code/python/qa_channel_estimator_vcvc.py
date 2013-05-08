@@ -112,7 +112,7 @@ class qa_channel_estimator_vcvc (gr_unittest.TestCase):
                         print type(rs_pos[i])
                         print type(rs_pos_frame[i])
                         failed = failed +1
-        print "faulty vectors = " + str(failed)
+        #print "faulty vectors = " + str(failed)
         if failed > 0:
             print "\n\n"
             raise Exception("Failed")
@@ -124,14 +124,10 @@ class qa_channel_estimator_vcvc (gr_unittest.TestCase):
         cell_id = 124
         Ncp = 1
         [rs_pos_frame, rs_val_frame] = frame_pilot_value_and_position(N_rb_dl, cell_id, Ncp, 0)
-        print "got python generated values"
         self.estimator.set_pilot_map(rs_pos_frame, rs_val_frame)
-        print "passed values to estimator"
         res_carriers = self.estimator.get_pilot_carriers()
         for i in range(len(res_carriers)):
-            print i
-            print self.assertEqual(res_carrirers[i], rs_pos_frame[i])
-        print res_carriers
+            self.assertEqual(res_carriers[i], tuple(rs_pos_frame[i]) )
         print "test_003_set_pilot_map END"
         
 

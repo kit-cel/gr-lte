@@ -20,6 +20,7 @@
 #
 
 from gnuradio import gr, gr_unittest
+from gruel import pmt
 import lte as lte_swig
 import random, math, cmath
 from lte_test import *
@@ -31,6 +32,7 @@ class qa_channel_estimator (gr_unittest.TestCase):
         self.tb = gr.top_block ()
         
         self.N_rb_dl = N_rb_dl = 6
+        self.tag_key = "symbol"
         
         # For now, generate a pseudo-random sequence and do QPSK modulation.
         values = range(140*12*N_rb_dl)
@@ -53,7 +55,7 @@ class qa_channel_estimator (gr_unittest.TestCase):
         self.snko2 = gr.vector_sink_c(12*N_rb_dl)
         
         # UUT
-        self.cest0 = lte_swig.channel_estimator(N_rb_dl)
+        self.cest0 = lte_swig.channel_estimator(N_rb_dl, self.tag_key)
         
         self.tb.connect(self.src, self.cest0)
         self.tb.connect( (self.cest0,0), self.snk0)
@@ -90,37 +92,36 @@ class qa_channel_estimator (gr_unittest.TestCase):
                     self.assertComplexTuplesAlmostEqual(cpp_rs_seq, tuple(py_rs_seq))
                 
     def test_003_rs_frame(self):
+        print "\n\ntest_003_rs_frame"
         N_rb_dl = self.N_rb_dl
         cell_id = 124
         Ncp = 1
         p = 0
         self.cest0.set_cell_id(cell_id)
         
-        cpp_matrix = self.cest0.get_frame_rs_symbols()
+        cpp_matrix = self.cest0.get_frame_rs_symbols(N_rb_dl, cell_id, Ncp)
+        print np.shape(cpp_matrix)
         for i in range(len(cpp_matrix)):
             mat = cpp_matrix[i]
-            mat = np.abs(mat)
-            comp = np.ones( (len(mat),), dtype=type(mat[0]) )
-            self.assertFloatTuplesAlmostEqual(mat, comp)
+            if len(mat) > 0:
+                mat = np.abs(mat)
+                comp = np.ones( (len(mat),), dtype=type(mat[0]) )
+                self.assertFloatTuplesAlmostEqual(mat, comp)
             
-        py_matrix = []
-        py_mat_pos = []
-        for ns in range(20):
-            sym0 = symbol_pilot_value_and_position(N_rb_dl, ns, 0, cell_id, Ncp, p)
-            sym4 = symbol_pilot_value_and_position(N_rb_dl, ns, 4, cell_id, Ncp, p)
-            py_mat_pos.extend([sym0[0], sym4[0] ])
-            py_matrix.extend([sym0[1], sym4[1] ])
-                  
-        for i in range(len(py_matrix)):
-            pym = py_matrix[i]
-            cppm = cpp_matrix[i]
-            self.assertComplexTuplesAlmostEqual(cppm, pym)
         
-        cpp_rs_pos = self.cest0.get_frame_rs_positions(0)
-        for i in range(len(py_matrix)):
-            pym = py_mat_pos[i]
-            cppm = cpp_rs_pos[i]
-            self.assertComplexTuplesAlmostEqual(cppm, pym)
+        [py_pilot_pos, py_pilot_vals] = frame_pilot_value_and_position(N_rb_dl, cell_id, Ncp, p)
+        
+        for i in range(len(cpp_matrix)):
+            if len(cpp_matrix[i]) > 0:
+                self.assertComplexTuplesAlmostEqual(cpp_matrix[i], py_pilot_vals[i])
+                
+        for p in range(2):
+            [py_pilot_pos, py_pilot_vals] = frame_pilot_value_and_position(N_rb_dl, cell_id, Ncp, p)
+            cpp_pos = self.cest0.get_frame_rs_positions(p)
+            for i in range(len(py_pilot_pos)):
+                if len(py_pilot_pos[i]) > 0:
+                    self.assertEqual(tuple(py_pilot_pos[i]), cpp_pos[i])
+                    
 
     def test_004_t (self):
         # set up fg
@@ -145,6 +146,7 @@ class qa_channel_estimator (gr_unittest.TestCase):
             
                 
     def test_005_t(self):
+        print "test_005"
         self.cest0.set_cell_id(124)
         self.cest1.set_cell_id(124)
         
@@ -161,7 +163,9 @@ class qa_channel_estimator (gr_unittest.TestCase):
         stream = frame[0].flatten()
         stream = stream + frame[1].flatten()
         
-        self.src.set_data(stream)
+        tag_list = self.get_tag_list(len(frame[0]), self.tag_key, len(frame[0]))
+   
+        self.src.set_data(stream, tag_list)
         self.tb.run()
         # get result and assert if rx samples are unchanged        
         res0 = self.snk0.data()
@@ -173,17 +177,28 @@ class qa_channel_estimator (gr_unittest.TestCase):
         res2=np.reshape(res2,(-1,12*N_rb_dl))
 
         exp1=np.ones( (len(res1), len(res1[0])) ,dtype=np.complex )
-        
-        print res1[0]
-        
-        print res2[4]
 
-#        for i in range(len(res1)):
-#            print i
-#            self.assertComplexTuplesAlmostEqual(res1[i], exp1[i])
+        for i in range(len(res1)-2):
+            #print i
+            self.assertComplexTuplesAlmostEqual(res1[i], exp1[i],6)
+            
+            
+        for i in range(len(res2)-2):
+            self.assertComplexTuplesAlmostEqual(res2[i], exp1[i],6)
+            
+        print "frame_val test successful!"
 
 
-        
+    def get_tag_list(self, data_len, tag_key, N_ofdm_symbols):
+        tag_list = []
+        for i in range(data_len):
+                tag = gr.gr_tag_t()
+                tag.key = pmt.pmt_string_to_symbol(tag_key)
+                tag.srcid = pmt.pmt_string_to_symbol("test_src")
+                tag.value = pmt.pmt_from_long(i%N_ofdm_symbols)
+                tag.offset = i
+                tag_list.append(tag)
+        return tag_list  
 
             
 
