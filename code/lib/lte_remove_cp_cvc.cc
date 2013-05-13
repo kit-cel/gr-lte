@@ -28,13 +28,13 @@
 
 
 lte_remove_cp_cvc_sptr
-lte_make_remove_cp_cvc (int fftl)
+lte_make_remove_cp_cvc (int fftl, std::string key)
 {
-	return lte_remove_cp_cvc_sptr (new lte_remove_cp_cvc (fftl));
+	return lte_remove_cp_cvc_sptr (new lte_remove_cp_cvc (fftl, key));
 }
 
 
-lte_remove_cp_cvc::lte_remove_cp_cvc (int fftl)
+lte_remove_cp_cvc::lte_remove_cp_cvc (int fftl, std::string key)
 	: gr_block ("remove_cp_cvc",
 		gr_make_io_signature (1,1, sizeof (gr_complex)),
 		gr_make_io_signature (1,1, sizeof (gr_complex)*fftl)),
@@ -48,7 +48,7 @@ lte_remove_cp_cvc::lte_remove_cp_cvc (int fftl)
 		d_found_frame_start(false),
 		d_frame_start(0)
 {
-    d_key=pmt::pmt_string_to_symbol("symbol");
+    d_key=pmt::pmt_string_to_symbol(key);
 	d_tag_id=pmt::pmt_string_to_symbol(name() );
 	set_tag_propagation_policy(TPP_DONT);
 }

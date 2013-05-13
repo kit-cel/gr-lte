@@ -82,38 +82,30 @@ lte_channel_estimator_vcvc::work(int noutput_items,
 {
     const gr_complex *in = (const gr_complex *) input_items[0];
     gr_complex *out = (gr_complex *) output_items[0];
-
-    d_work_call++;
-    //printf("chanest work_call = %i\n", d_work_call);
+    //d_work_call++;
 
     std::vector <gr_tag_t> v_b;
     get_tags_in_range(v_b, 0, nitems_read(0), nitems_read(0)+noutput_items, d_key);
     int first_sym = get_sym_num_from_tags(v_b);
 
-    //printf("work_call %i\tnoutput_items = %i\tsym_num = %i\n", d_work_call, noutput_items, sym_num);
     int processed_items = calculate_channel_estimates(in, first_sym, noutput_items);
-    //printf("END estimates %i\t%i\n", d_work_call, processed_items);
-
     copy_estimates_to_out_buf(out, first_sym, processed_items);
-    // Tell runtime system how many output items we produced.
-    if(processed_items == 0) {
-        //memcpy(out, d_estimates[last_sym], sizeof(gr_complex) * d_subcarriers);
-        printf("dummy output!\n");
-        processed_items = 1;
-    }
 
-    //printf("processed_items = %i\n", processed_items);
+    // Tell runtime system how many output items we produced.
     return processed_items;
 }
 
 inline int
 lte_channel_estimator_vcvc::get_sym_num_from_tags(std::vector <gr_tag_t> v_b)
 {
-    int sym_num = 0;
+    int sym_num = -1;
     for(int i = 0; i < v_b.size() ; i++) {
         long tag_offset     = v_b[i].offset;
         int value           = int(pmt::pmt_to_long(v_b[i].value) );
         sym_num = (value - ( tag_offset - nitems_read(0) ) + d_n_frame_syms )%d_n_frame_syms;
+    }
+    if(sym_num < 0){
+        sym_num = d_last_calced_sym+1;
     }
     return sym_num;
 }

@@ -67,7 +67,7 @@ class qa_channel_estimator_vcvc (gr_unittest.TestCase):
 
         [rs_pos_frame, rs_val_frame] = frame_pilot_value_and_position(N_rb_dl, cell_id, Ncp, 0)
 
-        com_est = lte.channel_estimator(N_rb_dl)
+        com_est = lte.channel_estimator(N_rb_dl, self.tag_key)
         com_est.set_cell_id(cell_id)
         rs_vals = com_est.get_frame_rs_symbols(N_rb_dl, cell_id, Ncp)
         
@@ -89,7 +89,7 @@ class qa_channel_estimator_vcvc (gr_unittest.TestCase):
         sfn = 0
 
         [rs_pos_frame, rs_val_frame] = frame_pilot_value_and_position(N_rb_dl, cell_id, Ncp, 0)
-        com_est = lte.channel_estimator(N_rb_dl)
+        com_est = lte.channel_estimator(N_rb_dl, self.tag_key)
         com_est.set_cell_id(cell_id)
         
         failed = 0
@@ -197,53 +197,6 @@ class qa_channel_estimator_vcvc (gr_unittest.TestCase):
                 tag_list.append(tag)
         return tag_list
         
-        
-        
-        
-
-"""
-    def test_002_ieee80211a(self):
-        print "\n\nieee80211a"
-        
-        data_len = 42
-        subcarriers = 52
-        tag_key = "symbol"
-        msg_buf_name = "cell_id"
-        N_frame_syms = 42
-        
-        
-        pilot_pos = [-21,-7,7,21]
-        pilot_pos = [pilot_pos[i]+52/2 for i in range(len(pilot_pos))]
-        pilot_carriers = [pilot_pos,]*N_frame_syms
-        
-        pilot_syms = [1, -1, 1, -1]
-        pilot_syms = [complex(pilot_syms[i]) for i in range(len(pilot_syms))]
-        pilot_sym_vals = [pilot_syms,]*N_frame_syms
-        
-        #print np.shape(pilot_carriers)
-        
-
-        tag_list = []
-        for i in range(data_len):
-                tag = gr.gr_tag_t()
-                tag.key = pmt.pmt_string_to_symbol(tag_key)
-                tag.srcid = pmt.pmt_string_to_symbol("test_src")
-                tag.value = pmt.pmt_from_long(i%N_frame_syms)
-                tag.offset = i
-                tag_list.append(tag)
-                
-        in_data = [0]*subcarriers
-        
-        #self.src.set_data(in_data, tag_list)
-        
-        #self.estimator.set_pilot_map(pilot_carriers, pilot_sym_vals)
-
-        #self.tb.run()
-        
-        res = self.snk.data()
-        print res
-        print "end test ieee80211a"
-"""
 
 if __name__ == '__main__':
     gr_unittest.main()

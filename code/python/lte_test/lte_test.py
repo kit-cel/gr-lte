@@ -172,7 +172,7 @@ if __name__ == "__main__":
 
     frame = generate_frame(pbch, N_rb_dl, cell_id, sfn, N_ant)
     
-    rbs = 15
+    rbs = 6
     
     [p_pos0, p_sym0] = frame_pilot_value_and_position(rbs, 124, 1, 0)
     [p_pos1, p_sym1] = frame_pilot_value_and_position(rbs, 124, 1, 1)
