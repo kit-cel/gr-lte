@@ -32,7 +32,8 @@ GR_PYTHON_INSTALL(
     FILES
     __init__.py viterbi_vfvb.py hier_freq_estimate_cc.py hier_sss_sync_cc.py hier_pss_sync_cc.py linear_OFDM_estimator_hier_vcvc.py hier_sss_sync2_vcvc.py decode_bch_vfvb.py
     decode_pbch_vcvf.py
-    estimator_parameterizer_msg.py DESTINATION ${GR_PYTHON_DIR}/lte
+    estimator_parameterizer_msg.py
+    utils.py DESTINATION ${GR_PYTHON_DIR}/lte
 )
 
 ########################################################################

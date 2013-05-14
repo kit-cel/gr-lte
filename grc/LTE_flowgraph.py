@@ -3,10 +3,11 @@
 # Gnuradio Python Flow Graph
 # Title: LTE flowgraph
 # Author: Johannes Demel
-# Generated: Mon May 13 17:41:36 2013
+# Generated: Tue May 14 15:25:06 2013
 ##################################################
 
 from PyQt4 import Qt
+from gnuradio import blks2
 from gnuradio import blocks
 from gnuradio import eng_notation
 from gnuradio import fft
@@ -16,7 +17,6 @@ from gnuradio.eng_option import eng_option
 from gnuradio.gr import firdes
 from optparse import OptionParser
 import lte
-import numpy as np
 import sys
 
 class LTE_flowgraph(gr.top_block, Qt.QWidget):
@@ -46,15 +46,17 @@ class LTE_flowgraph(gr.top_block, Qt.QWidget):
 		self.cpl0 = cpl0 = 160*fft_len/2048
 		self.cpl = cpl = 144*fft_len/2048
 		self.slotl = slotl = 7*fft_len+6*cpl+cpl0
+		self.N_rb_dl = N_rb_dl = 15
 		self.samp_rate = samp_rate = int(slotl/0.0005)
+		self.frame_pilots_1 = frame_pilots_1 = lte.frame_pilot_value_and_position(N_rb_dl, 124, 1, 1)
+		self.frame_pilots_0 = frame_pilots_0 = lte.frame_pilot_value_and_position(N_rb_dl, 124, 1, 0)
 		self.tag_key = tag_key = "symbol"
 		self.style = style = "tx_diversity"
-		self.pilot_symbols = pilot_symbols = np.load('/home/demel/gr-lte/code/python/lte_test/pilot_syms.npy')
-		self.pilot_carriers_p1 = pilot_carriers_p1 = np.load('/home/demel/gr-lte/code/python/lte_test/pilot_pos1.npy')
-		self.pilot_carriers_p0 = pilot_carriers_p0 = np.load('/home/demel/gr-lte/code/python/lte_test/pilot_pos0.npy')
+		self.pilot_symbols = pilot_symbols = frame_pilots_0[1]
+		self.pilot_carriers_p1 = pilot_carriers_p1 = frame_pilots_1[0]
+		self.pilot_carriers_p0 = pilot_carriers_p0 = frame_pilots_0[0]
 		self.msg_buf_name = msg_buf_name = "cell_id"
 		self.interp_val = interp_val = int(samp_rate/1e4)
-		self.N_rb_dl = N_rb_dl = 6
 
 		##################################################
 		# Blocks
@@ -73,7 +75,13 @@ class LTE_flowgraph(gr.top_block, Qt.QWidget):
 		self.lte_channel_estimator_vcvc_0 = lte.channel_estimator_vcvc(12*N_rb_dl, tag_key, msg_buf_name, pilot_carriers_p0, pilot_symbols)
 		self.fft_vxx_0 = fft.fft_vcc(fft_len, True, (window.rectangular(fft_len)), False, 1)
 		self.blocks_throttle_0 = blocks.throttle(gr.sizeof_gr_complex*1, samp_rate)
-		self.blocks_file_source_0_0 = blocks.file_source(gr.sizeof_gr_complex*1, "/home/demel/gr-lte/data/Messung_Resampled_3072MSps.dat", False)
+		self.blocks_file_source_1 = blocks.file_source(gr.sizeof_gr_complex*1, "/home/johannes/src/gr-lte/data/Messung_LTE_2012-05-23_12:47:32.dat", False)
+		self.blks2_rational_resampler_xxx_0 = blks2.rational_resampler_ccc(
+			interpolation=interp_val,
+			decimation=1000,
+			taps=None,
+			fractional_bw=None,
+		)
 
 		##################################################
 		# Connections
@@ -90,13 +98,14 @@ class LTE_flowgraph(gr.top_block, Qt.QWidget):
 		self.connect((self.lte_pbch_demux_vcvc_1, 0), (self.lte_decode_pbch_vcvf_0, 0))
 		self.connect((self.lte_pbch_demux_vcvc_1, 1), (self.lte_decode_pbch_vcvf_0, 1))
 		self.connect((self.lte_pbch_demux_vcvc_1, 2), (self.lte_decode_pbch_vcvf_0, 2))
-		self.connect((self.blocks_file_source_0_0, 0), (self.blocks_throttle_0, 0))
 		self.connect((self.blocks_throttle_0, 0), (self.lte_cp_time_freq_sync_cc_0, 0))
 		self.connect((self.lte_extract_occupied_tones_vcvc_0, 0), (self.lte_pbch_demux_vcvc_1, 0))
 		self.connect((self.lte_remove_cp_cvc_0, 0), (self.fft_vxx_0, 0))
 		self.connect((self.lte_hier_sss_sync_cc_1, 0), (self.lte_remove_cp_cvc_0, 0))
 		self.connect((self.lte_channel_estimator_vcvc_0, 0), (self.lte_pbch_demux_vcvc_1, 1))
 		self.connect((self.lte_channel_estimator_vcvc_0_0, 0), (self.lte_pbch_demux_vcvc_1, 2))
+		self.connect((self.blocks_file_source_1, 0), (self.blks2_rational_resampler_xxx_0, 0))
+		self.connect((self.blks2_rational_resampler_xxx_0, 0), (self.blocks_throttle_0, 0))
 
 		##################################################
 		# Asynch Message Connections
@@ -134,6 +143,14 @@ class LTE_flowgraph(gr.top_block, Qt.QWidget):
 		self.slotl = slotl
 		self.set_samp_rate(int(self.slotl/0.0005))
 
+	def get_N_rb_dl(self):
+		return self.N_rb_dl
+
+	def set_N_rb_dl(self, N_rb_dl):
+		self.N_rb_dl = N_rb_dl
+		self.set_frame_pilots_0(lte.frame_pilot_value_and_position(self.N_rb_dl, 124, 1, 0))
+		self.set_frame_pilots_1(lte.frame_pilot_value_and_position(self.N_rb_dl, 124, 1, 1))
+
 	def get_samp_rate(self):
 		return self.samp_rate
 
@@ -141,6 +158,21 @@ class LTE_flowgraph(gr.top_block, Qt.QWidget):
 		self.samp_rate = samp_rate
 		self.set_interp_val(int(self.samp_rate/1e4))
 		self.blocks_throttle_0.set_sample_rate(self.samp_rate)
+
+	def get_frame_pilots_1(self):
+		return self.frame_pilots_1
+
+	def set_frame_pilots_1(self, frame_pilots_1):
+		self.frame_pilots_1 = frame_pilots_1
+		self.set_pilot_carriers_p1(self.frame_pilots_1[0])
+
+	def get_frame_pilots_0(self):
+		return self.frame_pilots_0
+
+	def set_frame_pilots_0(self, frame_pilots_0):
+		self.frame_pilots_0 = frame_pilots_0
+		self.set_pilot_symbols(self.frame_pilots_0[1])
+		self.set_pilot_carriers_p0(self.frame_pilots_0[0])
 
 	def get_tag_key(self):
 		return self.tag_key
@@ -183,12 +215,6 @@ class LTE_flowgraph(gr.top_block, Qt.QWidget):
 
 	def set_interp_val(self, interp_val):
 		self.interp_val = interp_val
-
-	def get_N_rb_dl(self):
-		return self.N_rb_dl
-
-	def set_N_rb_dl(self, N_rb_dl):
-		self.N_rb_dl = N_rb_dl
 
 if __name__ == '__main__':
 	parser = OptionParser(option_class=eng_option, usage="%prog: [options]")

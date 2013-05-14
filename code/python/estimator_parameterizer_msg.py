@@ -21,6 +21,7 @@
 import numpy as np
 import math
 from gnuradio import gr
+from lte import utils
 
 class estimator_parameterizer_msg(gr.sync_block):
     """
@@ -30,7 +31,9 @@ class estimator_parameterizer_msg(gr.sync_block):
         gr.sync_block.__init__(self,
             name="estimator_parameterizer_msg",
             in_sig=None,
-            out_sig=np.int)
+            out_sig=None)
+        self.message_port_register_in("cell_id")
+        #self.message_port
 
 
     def work(self, input_items, output_items):
