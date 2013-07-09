@@ -3,11 +3,10 @@
 # Gnuradio Python Flow Graph
 # Title: LTE flowgraph
 # Author: Johannes Demel
-# Generated: Fri May 24 17:05:34 2013
+# Generated: Tue Jul  9 14:49:19 2013
 ##################################################
 
 from PyQt4 import Qt
-from gnuradio import blks2
 from gnuradio import blocks
 from gnuradio import eng_notation
 from gnuradio import fft
@@ -46,7 +45,7 @@ class LTE_flowgraph(gr.top_block, Qt.QWidget):
 		self.cpl0 = cpl0 = 160*fft_len/2048
 		self.cpl = cpl = 144*fft_len/2048
 		self.slotl = slotl = 7*fft_len+6*cpl+cpl0
-		self.N_rb_dl = N_rb_dl = 15
+		self.N_rb_dl = N_rb_dl = 6
 		self.samp_rate = samp_rate = int(slotl/0.0005)
 		self.frame_pilots_1 = frame_pilots_1 = lte.frame_pilot_value_and_position(N_rb_dl, 124, 1, 1)
 		self.frame_pilots_0 = frame_pilots_0 = lte.frame_pilot_value_and_position(N_rb_dl, 124, 1, 0)
@@ -75,19 +74,12 @@ class LTE_flowgraph(gr.top_block, Qt.QWidget):
 		self.lte_channel_estimator_vcvc_0 = lte.channel_estimator_vcvc(12*N_rb_dl, tag_key, msg_buf_name, pilot_carriers_p0, pilot_symbols)
 		self.fft_vxx_0 = fft.fft_vcc(fft_len, True, (window.rectangular(fft_len)), False, 1)
 		self.blocks_throttle_0 = blocks.throttle(gr.sizeof_gr_complex*1, samp_rate)
-		self.blocks_file_source_1 = blocks.file_source(gr.sizeof_gr_complex*1, "/home/johannes/src/gr-lte/data/Messung_LTE_2012-05-23_12:47:32.dat", False)
-		self.blks2_rational_resampler_xxx_0 = blks2.rational_resampler_ccc(
-			interpolation=interp_val,
-			decimation=1000,
-			taps=None,
-			fractional_bw=None,
-		)
+		self.blocks_file_source_0_0 = blocks.file_source(gr.sizeof_gr_complex*1, "/home/demel/gr-lte/data/Messung_Resampled_3072MSps.dat", False)
 
 		##################################################
 		# Connections
 		##################################################
-		self.connect((self.blocks_file_source_1, 0), (self.blks2_rational_resampler_xxx_0, 0))
-		self.connect((self.blks2_rational_resampler_xxx_0, 0), (self.blocks_throttle_0, 0))
+		self.connect((self.blocks_file_source_0_0, 0), (self.blocks_throttle_0, 0))
 		self.connect((self.lte_cp_time_freq_sync_cc_0, 0), (self.lte_hier_pss_sync_cc_0, 0))
 		self.connect((self.lte_hier_pss_sync_cc_0, 0), (self.lte_hier_freq_estimate_cc_0, 0))
 		self.connect((self.blocks_throttle_0, 0), (self.lte_cp_time_freq_sync_cc_0, 0))

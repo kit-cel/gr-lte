@@ -19,6 +19,8 @@
 # 
 
 from gnuradio import gr, gr_unittest, blocks
+from gruel import pmt
+import time
 from estimator_parameterizer_msg import estimator_parameterizer_msg
 
 class qa_estimator_parameterizer_msg (gr_unittest.TestCase):
@@ -26,30 +28,38 @@ class qa_estimator_parameterizer_msg (gr_unittest.TestCase):
     def setUp (self):
         self.tb = gr.top_block ()
         
-        msg_buf_name = "cell_id"
+        # These are block parameters        
+        msg_buf_name_in = "cell_id"
+        msg_buf_name_out = "est_params"
         N_rb_dl = 6
+        ant_port = 0
         
+        # These parameters are regarded as "data"
         cell_id = 124
-        data = (cell_id,)
-        self.src = blocks.vector_source_i(data, False, 1)
-        #self.msg_sink = blocks.message_sink(gr.sizeof_int, True)
-        #self.tb.connect(self.src, self.msg_sink, )
-        msg = gr.message(cell_id)
-        self.msgqin = gr.msg_queue()
-        self.msgqin.insert_tail(msg)
         
+        # Set up msg inputs and outputs
+        msg = pmt.pmt_from_long(cell_id)
+        self.strobe = blocks.message_strobe(msg, 1000)
+        self.dbg = blocks.message_debug()
         
-        self.param = estimator_parameterizer_msg(msg_buf_name, N_rb_dl)
+        # UUT
+        self.param = estimator_parameterizer_msg(msg_buf_name_in, msg_buf_name_out, N_rb_dl, ant_port)
         
-        self.tb.msg_connect(self.msgqin, self.param, "cell_id")
+        # Set up connections
+        self.tb.msg_connect(self.strobe, "strobe", self.param, msg_buf_name_in)
+        self.tb.msg_connect(self.param, msg_buf_name_out, self.dbg, "print")
 
     def tearDown (self):
         self.tb = None
 
     def test_001_t (self):
         # set up fg
-        self.tb.run ()
+        #self.tb.run ()
+        self.tb.start()
+        time.sleep(5)
+        self.tb.stop()        
         # check data
+        print "ended"
 
 
 if __name__ == '__main__':

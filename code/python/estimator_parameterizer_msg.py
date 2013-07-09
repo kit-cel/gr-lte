@@ -20,21 +20,78 @@
 
 import numpy as np
 import math
+from gruel import pmt
 from gnuradio import gr
 from lte import utils
 
 class estimator_parameterizer_msg(gr.sync_block):
     """
     docstring for block estimator_parameterizer_msg
+    This block takes in a message with the extacted cell ID.
+    Calculates the corresponding pilot symbols and positions and passes them on as a message
     """
-    def __init__(self, msg_buf_name, N_rb_dl):
+    def __init__(self, msg_buf_name_in, msg_buf_name_out, N_rb_dl, ant_port):
         gr.sync_block.__init__(self,
             name="estimator_parameterizer_msg",
             in_sig=None,
             out_sig=None)
-        self.message_port_register_in("cell_id")
+        print msg_buf_name_in
+        print msg_buf_name_out
+        print N_rb_dl
+        print ant_port
+        
+        self.N_rb_dl = N_rb_dl
+        self.ant_port = ant_port
+        self.msg_buf_in = pmt.pmt_intern(msg_buf_name_in)
+        self.msg_buf_out = pmt.pmt_intern(msg_buf_name_out)
+        
+        self.message_port_register_in(self.msg_buf_in)
+        self.set_msg_handler(self.msg_buf_in, self.handle_msg)
+        self.message_port_register_out(self.msg_buf_out)
         #self.message_port
 
+    def handle_msg(self, msg):
+        cell_id = pmt.pmt_to_long(msg)
+        Ncp = 1 # Always 1 for our purposes --> thus it's hard coded
+        [rs_poss, rs_vals] = self.frame_pilot_value_and_position(self.N_rb_dl, cell_id, Ncp, self.ant_port)
+        
+            
+        pmt_rs = self.rs_pos_to_pmt(rs_poss)        
+        pmt_vals = self.rs_val_to_pmt(rs_vals)
+        pmt_pilots = pmt.pmt_list2(pmt_rs, pmt_vals)
+        
+        self.message_port_pub(self.msg_buf_out, pmt_pilots)
+        
+    def rs_val_to_pmt(self, rs_vals):
+        pmt_vals = pmt.pmt_list1(self.complex_list_to_pmt(rs_vals[0]))
+        for i in range(len(rs_vals)-1):
+            pmt_vals = pmt.pmt_list_add(pmt_vals, self.complex_list_to_pmt(rs_vals[i+1]))
+        return pmt_vals
+
+    def complex_list_to_pmt(self, items):
+        if len(items) == 0:
+            return pmt.pmt_from_bool(pmt.PMT_F)
+        else:
+            pmtl = pmt.pmt_list1(pmt.pmt_from_complex(items[0]))
+            for i in range(len(items)-1):
+                pmtl = pmt.pmt_list_add(pmtl, pmt.pmt_from_complex(items[i+1]))
+            return pmtl
+
+    def rs_pos_to_pmt(self, rs_poss):
+        pmt_rs = pmt.pmt_list1(self.int_list_to_pmt(rs_poss[0]))
+        for i in range(len(rs_poss)-1):
+            pmt_rs = pmt.pmt_list_add(pmt_rs, self.int_list_to_pmt(rs_poss[i+1]))
+        return pmt_rs
+            
+    def int_list_to_pmt(self, items):
+        if len(items) == 0:
+            return pmt.pmt_from_bool(pmt.PMT_F)
+        else:
+            pmtl = pmt.pmt_list1(pmt.pmt_from_long(items[0]))
+            for i in range(len(items)-1):
+                pmtl = pmt.pmt_list_add(pmtl, pmt.pmt_from_long(items[i+1]))
+            return pmtl
+            
 
     def work(self, input_items, output_items):
         out = output_items[0]
@@ -56,7 +113,7 @@ class estimator_parameterizer_msg(gr.sync_block):
     def symbol_pilot_value_and_position(self, N_rb_dl, ns, l, cell_id, Ncp, p):
         N_RB_MAX = 110
         rs_seq = self.rs_generator(ns, l, cell_id, Ncp)
-        offset = calc_offset(ns, l, cell_id, p)
+        offset = self.calc_offset(ns, l, cell_id, p)
         rs_sym_pos = range(offset, 12*N_rb_dl, 6)
         rs_sym_val = rs_seq[N_RB_MAX-N_rb_dl:N_RB_MAX+N_rb_dl]
         return [rs_sym_pos, rs_sym_val]
