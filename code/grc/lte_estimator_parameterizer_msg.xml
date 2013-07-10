@@ -1,24 +1,38 @@
 <?xml version="1.0"?>
 <block>
-  <name>estimator_parameterizer_msg</name>
+  <name>Channel Estimator Parameterizer</name>
   <key>lte_estimator_parameterizer_msg</key>
   <category>lte</category>
   <import>import lte</import>
-  <make>lte.estimator_parameterizer_msg($msg_buf_name, $N_rb_dl)</make>
+  <make>lte.estimator_parameterizer_msg("cell_id", "pilots", $N_rb_dl, $ant_port)</make>
   <!-- Make one 'param' node for every Parameter you want settable from the GUI.
        Sub-nodes:
        * name
        * key (makes the value accessible as $keyname, e.g. in the make node)
        * type -->
+<!--
   <param>
-    <name>msg_buf_name</name>
-    <key>msg_buf_name</key>
+    <name>Msg in Buffer name</name>
+    <key>msg_buf_name_in</key>
     <type>string</type>
   </param>
+  
+  <param>
+    <name>Msg out Buffer name</name>
+    <key>msg_buf_name_out</key>
+    <type>string</type>
+  </param>
+-->
 
   <param>
     <name>resource blocks</name>
     <key>N_rb_dl</key>
+    <type>int</type>
+  </param>
+  
+  <param>
+    <name>antenna port</name>
+    <key>ant_port</key>
     <type>int</type>
   </param>
   
@@ -27,12 +41,11 @@
        * type
        * vlen
        * optional (set to 1 for optional inputs) -->
-<!--
+
   <sink>
-    <name>in</name>
-    <type>float</type>
+    <name>cell_id</name>
+    <type>message</type>
   </sink>
--->
 
   <!-- Make one 'source' node per output. Sub-nodes:
        * name (an identifier for the GUI)
@@ -40,7 +53,7 @@
        * vlen
        * optional (set to 1 for optional inputs) -->
   <source>
-    <name>out</name>
-    <type>float</type>
+    <name>pilots</name>
+    <type>message</type>
   </source>
 </block>

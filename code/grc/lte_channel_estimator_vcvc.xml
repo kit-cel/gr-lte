@@ -4,7 +4,7 @@
   <key>lte_channel_estimator_vcvc</key>
   <category>lte</category>
   <import>import lte</import>
-  <make>lte.channel_estimator_vcvc($subcarriers, $tag_key, $msg_buf_name, $pilot_carriers, $pilot_symbols)</make>
+  <make>lte.channel_estimator_vcvc($subcarriers, $tag_key, "pilots", $pilot_carriers, $pilot_symbols)</make>
   <!-- Make one 'param' node for every Parameter you want settable from the GUI.
        Sub-nodes:
        * name
@@ -21,12 +21,15 @@
     <key>tag_key</key>
     <type>string</type>
   </param>
-  
+
+<!--  
   <param>
     <name>message buffer name</name>
     <key>msg_buf_name</key>
+    <value>pilots</value>
     <type>string</type>
   </param>
+-->
   
   <param>
     <name>pilot carrier map</name>
@@ -49,6 +52,12 @@
     <name>in</name>
     <type>complex</type>
     <vlen>$subcarriers</vlen>
+  </sink>
+  
+  <sink>
+    <name>pilots</name>
+    <type>message</type>
+    <optional>1</optional>
   </sink>
 
   <!-- Make one 'source' node per output. Sub-nodes:

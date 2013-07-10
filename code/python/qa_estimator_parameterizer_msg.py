@@ -30,7 +30,7 @@ class qa_estimator_parameterizer_msg (gr_unittest.TestCase):
         
         # These are block parameters        
         msg_buf_name_in = "cell_id"
-        msg_buf_name_out = "est_params"
+        msg_buf_name_out = "pilots"
         N_rb_dl = 6
         ant_port = 0
         
@@ -47,7 +47,7 @@ class qa_estimator_parameterizer_msg (gr_unittest.TestCase):
         
         # Set up connections
         self.tb.msg_connect(self.strobe, "strobe", self.param, msg_buf_name_in)
-        self.tb.msg_connect(self.param, msg_buf_name_out, self.dbg, "print")
+        self.tb.msg_connect(self.param, msg_buf_name_out, self.dbg, "store")
 
     def tearDown (self):
         self.tb = None
@@ -60,7 +60,10 @@ class qa_estimator_parameterizer_msg (gr_unittest.TestCase):
         self.tb.stop()        
         # check data
         print "ended"
+        return
 
 
 if __name__ == '__main__':
-    gr_unittest.run(qa_estimator_parameterizer_msg, "qa_estimator_parameterizer_msg.xml")
+    #gr_unittest.run(qa_estimator_parameterizer_msg, "qa_estimator_parameterizer_msg.xml")
+    gr_unittest.run(qa_estimator_parameterizer_msg)
+    
