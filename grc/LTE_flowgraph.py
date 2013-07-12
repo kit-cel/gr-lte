@@ -3,12 +3,13 @@
 # Gnuradio Python Flow Graph
 # Title: LTE flowgraph
 # Author: Johannes Demel
-# Generated: Wed Jul 10 14:48:39 2013
+# Generated: Fri Jul 12 11:27:09 2013
 ##################################################
 
 execfile("/home/demel/.grc_gnuradio/lte_channel_est_hier.py")
+execfile("/home/demel/.grc_gnuradio/lte_decode_bch_hier.py")
+execfile("/home/demel/.grc_gnuradio/lte_source_c.py")
 from PyQt4 import Qt
-from gnuradio import blocks
 from gnuradio import eng_notation
 from gnuradio import fft
 from gnuradio import gr
@@ -56,6 +57,9 @@ class LTE_flowgraph(gr.top_block, Qt.QWidget):
 		##################################################
 		# Blocks
 		##################################################
+		self.lte_source_c_0 = lte_source_c(
+			samp_rate=30.72e6,
+		)
 		self.lte_remove_cp_cvc_0 = lte.remove_cp_cvc(fft_len, tag_key)
 		self.lte_pbch_demux_vcvc_1 = lte.pbch_demux_vcvc(N_rb_dl)
 		self.lte_mib_unpack_vb_0 = lte.mib_unpack_vb()
@@ -64,44 +68,41 @@ class LTE_flowgraph(gr.top_block, Qt.QWidget):
 		self.lte_hier_freq_estimate_cc_0 = lte.hier_freq_estimate_cc(fft_len)
 		self.lte_extract_occupied_tones_vcvc_0 = lte.extract_occupied_tones_vcvc(N_rb_dl,fft_len)
 		self.lte_decode_pbch_vcvf_0 = lte.decode_pbch_vcvf()
-		self.lte_decode_bch_vfvb_0 = lte.decode_bch_vfvb()
+		self.lte_decode_bch_hier_0 = lte_decode_bch_hier()
 		self.lte_cp_time_freq_sync_cc_0 = lte.cp_time_freq_sync_cc(fft_len)
 		self.lte_channel_est_hier_0 = lte_channel_est_hier(
 			N_rb_dl=6,
 			tag_key=tag_key,
 		)
 		self.fft_vxx_0 = fft.fft_vcc(fft_len, True, (window.rectangular(fft_len)), False, 1)
-		self.blocks_throttle_0 = blocks.throttle(gr.sizeof_gr_complex*1, samp_rate)
-		self.blocks_file_source_0_0 = blocks.file_source(gr.sizeof_gr_complex*1, "/home/demel/gr-lte/data/Messung_Resampled_3072MSps.dat", False)
 
 		##################################################
 		# Connections
 		##################################################
-		self.connect((self.blocks_file_source_0_0, 0), (self.blocks_throttle_0, 0))
-		self.connect((self.lte_cp_time_freq_sync_cc_0, 0), (self.lte_hier_pss_sync_cc_0, 0))
-		self.connect((self.lte_hier_pss_sync_cc_0, 0), (self.lte_hier_freq_estimate_cc_0, 0))
-		self.connect((self.blocks_throttle_0, 0), (self.lte_cp_time_freq_sync_cc_0, 0))
-		self.connect((self.lte_hier_sss_sync_cc_1, 0), (self.lte_remove_cp_cvc_0, 0))
-		self.connect((self.lte_remove_cp_cvc_0, 0), (self.fft_vxx_0, 0))
-		self.connect((self.lte_pbch_demux_vcvc_1, 2), (self.lte_decode_pbch_vcvf_0, 2))
-		self.connect((self.lte_pbch_demux_vcvc_1, 1), (self.lte_decode_pbch_vcvf_0, 1))
-		self.connect((self.lte_pbch_demux_vcvc_1, 0), (self.lte_decode_pbch_vcvf_0, 0))
-		self.connect((self.lte_decode_pbch_vcvf_0, 0), (self.lte_decode_bch_vfvb_0, 0))
-		self.connect((self.lte_decode_bch_vfvb_0, 1), (self.lte_mib_unpack_vb_0, 1))
-		self.connect((self.lte_decode_bch_vfvb_0, 0), (self.lte_mib_unpack_vb_0, 0))
-		self.connect((self.lte_hier_freq_estimate_cc_0, 0), (self.lte_hier_sss_sync_cc_1, 0))
-		self.connect((self.fft_vxx_0, 0), (self.lte_extract_occupied_tones_vcvc_0, 0))
-		self.connect((self.lte_extract_occupied_tones_vcvc_0, 0), (self.lte_channel_est_hier_0, 0))
-		self.connect((self.lte_extract_occupied_tones_vcvc_0, 0), (self.lte_pbch_demux_vcvc_1, 0))
-		self.connect((self.lte_channel_est_hier_0, 0), (self.lte_pbch_demux_vcvc_1, 1))
+		self.connect((self.lte_source_c_0, 0), (self.lte_cp_time_freq_sync_cc_0, 0))
 		self.connect((self.lte_channel_est_hier_0, 1), (self.lte_pbch_demux_vcvc_1, 2))
+		self.connect((self.lte_channel_est_hier_0, 0), (self.lte_pbch_demux_vcvc_1, 1))
+		self.connect((self.lte_extract_occupied_tones_vcvc_0, 0), (self.lte_pbch_demux_vcvc_1, 0))
+		self.connect((self.lte_extract_occupied_tones_vcvc_0, 0), (self.lte_channel_est_hier_0, 0))
+		self.connect((self.fft_vxx_0, 0), (self.lte_extract_occupied_tones_vcvc_0, 0))
+		self.connect((self.lte_hier_freq_estimate_cc_0, 0), (self.lte_hier_sss_sync_cc_1, 0))
+		self.connect((self.lte_pbch_demux_vcvc_1, 1), (self.lte_decode_pbch_vcvf_0, 1))
+		self.connect((self.lte_pbch_demux_vcvc_1, 2), (self.lte_decode_pbch_vcvf_0, 2))
+		self.connect((self.lte_remove_cp_cvc_0, 0), (self.fft_vxx_0, 0))
+		self.connect((self.lte_hier_sss_sync_cc_1, 0), (self.lte_remove_cp_cvc_0, 0))
+		self.connect((self.lte_hier_pss_sync_cc_0, 0), (self.lte_hier_freq_estimate_cc_0, 0))
+		self.connect((self.lte_cp_time_freq_sync_cc_0, 0), (self.lte_hier_pss_sync_cc_0, 0))
+		self.connect((self.lte_pbch_demux_vcvc_1, 0), (self.lte_decode_pbch_vcvf_0, 0))
+		self.connect((self.lte_decode_pbch_vcvf_0, 0), (self.lte_decode_bch_hier_0, 0))
+		self.connect((self.lte_decode_bch_hier_0, 0), (self.lte_mib_unpack_vb_0, 0))
+		self.connect((self.lte_decode_bch_hier_0, 1), (self.lte_mib_unpack_vb_0, 1))
 
 		##################################################
 		# Asynch Message Connections
 		##################################################
-		self.msg_connect(self.lte_hier_sss_sync_cc_1, "cell_id", self.lte_decode_pbch_vcvf_0, "cell_id")
-		self.msg_connect(self.lte_hier_sss_sync_cc_1, "cell_id", self.lte_pbch_demux_vcvc_1, "cell_id")
 		self.msg_connect(self.lte_hier_sss_sync_cc_1, "cell_id", self.lte_channel_est_hier_0, "cell_id")
+		self.msg_connect(self.lte_hier_sss_sync_cc_1, "cell_id", self.lte_pbch_demux_vcvc_1, "cell_id")
+		self.msg_connect(self.lte_hier_sss_sync_cc_1, "cell_id", self.lte_decode_pbch_vcvf_0, "cell_id")
 
 	def get_fft_len(self):
 		return self.fft_len
@@ -139,7 +140,6 @@ class LTE_flowgraph(gr.top_block, Qt.QWidget):
 	def set_samp_rate(self, samp_rate):
 		self.samp_rate = samp_rate
 		self.set_interp_val(int(self.samp_rate/1e4))
-		self.blocks_throttle_0.set_sample_rate(self.samp_rate)
 
 	def get_tag_key(self):
 		return self.tag_key
