@@ -3,7 +3,8 @@
 # Gnuradio Python Flow Graph
 # Title: LTE flowgraph
 # Author: Johannes Demel
-# Generated: Fri Jul 12 11:27:09 2013
+# Description: top level LTE flowgraph
+# Generated: Fri Jul 12 11:42:39 2013
 ##################################################
 
 execfile("/home/demel/.grc_gnuradio/lte_channel_est_hier.py")
@@ -47,11 +48,8 @@ class LTE_flowgraph(gr.top_block, Qt.QWidget):
 		self.cpl0 = cpl0 = 160*fft_len/2048
 		self.cpl = cpl = 144*fft_len/2048
 		self.slotl = slotl = 7*fft_len+6*cpl+cpl0
-		self.samp_rate = samp_rate = int(slotl/0.0005)
 		self.tag_key = tag_key = "symbol"
-		self.style = style = "tx_diversity"
-		self.msg_buf_name = msg_buf_name = "cell_id"
-		self.interp_val = interp_val = int(samp_rate/1e4)
+		self.samp_rate = samp_rate = int(slotl/0.0005)
 		self.N_rb_dl = N_rb_dl = 6
 
 		##################################################
@@ -134,13 +132,6 @@ class LTE_flowgraph(gr.top_block, Qt.QWidget):
 		self.slotl = slotl
 		self.set_samp_rate(int(self.slotl/0.0005))
 
-	def get_samp_rate(self):
-		return self.samp_rate
-
-	def set_samp_rate(self, samp_rate):
-		self.samp_rate = samp_rate
-		self.set_interp_val(int(self.samp_rate/1e4))
-
 	def get_tag_key(self):
 		return self.tag_key
 
@@ -148,23 +139,11 @@ class LTE_flowgraph(gr.top_block, Qt.QWidget):
 		self.tag_key = tag_key
 		self.lte_channel_est_hier_0.set_tag_key(self.tag_key)
 
-	def get_style(self):
-		return self.style
+	def get_samp_rate(self):
+		return self.samp_rate
 
-	def set_style(self, style):
-		self.style = style
-
-	def get_msg_buf_name(self):
-		return self.msg_buf_name
-
-	def set_msg_buf_name(self, msg_buf_name):
-		self.msg_buf_name = msg_buf_name
-
-	def get_interp_val(self):
-		return self.interp_val
-
-	def set_interp_val(self, interp_val):
-		self.interp_val = interp_val
+	def set_samp_rate(self, samp_rate):
+		self.samp_rate = samp_rate
 
 	def get_N_rb_dl(self):
 		return self.N_rb_dl
