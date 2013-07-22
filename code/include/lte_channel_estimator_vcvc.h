@@ -75,6 +75,11 @@ private:
     int d_last_calced_sym;
     int d_work_call;
     pmt::pmt_t d_key;
+    pmt::pmt_t d_msg_buf;
+
+    inline void handle_msg(pmt::pmt_t msg);
+    inline void msg_extract_poss(std::vector<std::vector<int> > &pilot_carriers, pmt::pmt_t poss);
+    inline void msg_extract_vals(std::vector<std::vector<gr_complex> > &pilot_symbols, pmt::pmt_t vals);
 
     std::vector<std::vector<int> > d_pilot_carriers;
     std::vector<gr_complex* > d_pilot_symbols;

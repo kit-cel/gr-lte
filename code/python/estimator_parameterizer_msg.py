@@ -35,10 +35,10 @@ class estimator_parameterizer_msg(gr.sync_block):
             name="estimator_parameterizer_msg",
             in_sig=None,
             out_sig=None)
-        print msg_buf_name_in
-        print msg_buf_name_out
-        print N_rb_dl
-        print ant_port
+        #print msg_buf_name_in
+        #print msg_buf_name_out
+        #print N_rb_dl
+        #print ant_port
         
         self.N_rb_dl = N_rb_dl
         self.ant_port = ant_port
@@ -52,6 +52,7 @@ class estimator_parameterizer_msg(gr.sync_block):
 
     def handle_msg(self, msg):
         cell_id = pmt.pmt_to_long(msg)
+        #print "generate pilot map: cell_id = " + str(cell_id) + "\tant_port = " + str(self.ant_port) 
         Ncp = 1 # Always 1 for our purposes --> thus it's hard coded
         [rs_poss, rs_vals] = self.frame_pilot_value_and_position(self.N_rb_dl, cell_id, Ncp, self.ant_port)
         
@@ -61,6 +62,7 @@ class estimator_parameterizer_msg(gr.sync_block):
         pmt_pilots = pmt.pmt_list2(pmt_rs, pmt_vals)
         
         self.message_port_pub(self.msg_buf_out, pmt_pilots)
+        #print "generate pilot map, ant_port = " + str(self.ant_port) + "\tFINISHED"
         
     def rs_val_to_pmt(self, rs_vals):
         pmt_vals = pmt.pmt_list1(self.complex_list_to_pmt(rs_vals[0]))

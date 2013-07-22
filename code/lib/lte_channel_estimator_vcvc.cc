@@ -52,9 +52,9 @@ lte_channel_estimator_vcvc::lte_channel_estimator_vcvc (int subcarriers,
     d_work_call(0)
 {
     d_key=pmt::pmt_string_to_symbol(tag_key); // specify key of tag.
-
-    message_port_register_in(pmt::mp(msg_buf_name));
-    //set_msg_handler(pmt::mp(tag_key), boost::bind(&lte_channel_estimator::set_cell_id_msg, this, _1));
+    d_msg_buf = pmt::mp(msg_buf_name);
+    message_port_register_in(d_msg_buf);
+    set_msg_handler(d_msg_buf, boost::bind(&lte_channel_estimator_vcvc::handle_msg, this, _1));
 
     set_pilot_map(pilot_carriers, pilot_symbols);
 }
@@ -83,6 +83,13 @@ lte_channel_estimator_vcvc::work(int noutput_items,
     const gr_complex *in = (const gr_complex *) input_items[0];
     gr_complex *out = (gr_complex *) output_items[0];
     //d_work_call++;
+
+    int num_msgs = nmsgs(d_msg_buf);
+//    if(num_msgs > 0){
+//        printf("num_msgs = %i\n", num_msgs);
+//        pmt::pmt_t msg = delete_head_blocking(d_msg_buf);
+//        handle_msg(msg);
+//    }
 
     std::vector <gr_tag_t> v_b;
     get_tags_in_range(v_b, 0, nitems_read(0), nitems_read(0)+noutput_items, d_key);
@@ -383,6 +390,57 @@ lte_channel_estimator_vcvc::mag_phase_to_complex(float mag, float phase)
 {
     return gr_complex(mag*cos(phase), mag*sin(phase));
 }
+
+inline void
+lte_channel_estimator_vcvc::handle_msg(pmt::pmt_t msg)
+{
+    pmt::pmt_t poss = pmt::pmt_nth(0, msg);
+    pmt::pmt_t vals = pmt::pmt_nth(1, msg);
+
+    std::vector<std::vector<int> > pilot_carriers;
+    std::vector<std::vector<gr_complex> > pilot_symbols;
+    msg_extract_poss(pilot_carriers, poss);
+    msg_extract_vals(pilot_symbols, vals);
+
+    set_pilot_map(pilot_carriers, pilot_symbols);
+    printf("%s PILOT MAP RESETTED!!!\n", name().c_str() );
+
+}
+
+inline void
+lte_channel_estimator_vcvc::msg_extract_poss(std::vector<std::vector<int> > &pilot_carriers, pmt::pmt_t poss)
+{
+    for(int i = 0; i < pmt::pmt_length((poss)); i++ ){
+        pmt::pmt_t p_sym = pmt::pmt_nth(i, poss);
+        std::vector<int> v_sym;
+        if(!pmt::pmt_is_bool(p_sym) ){
+            for(int c = 0; c < pmt::pmt_length(p_sym); c++ ){
+                int pos = int (pmt::pmt_to_long(pmt::pmt_nth(c, p_sym)) );
+                v_sym.push_back(pos);
+            }
+        }
+        pilot_carriers.push_back(v_sym);
+    }
+}
+
+inline void
+lte_channel_estimator_vcvc::msg_extract_vals(std::vector<std::vector<gr_complex> > &pilot_symbols, pmt::pmt_t vals)
+{
+    for(int i = 0; i < pmt::pmt_length((vals)); i++ ){
+        pmt::pmt_t p_sym = pmt::pmt_nth(i, vals);
+        std::vector<gr_complex> v_sym;
+        if(!pmt::pmt_is_bool(p_sym) ){
+            for(int c = 0; c < pmt::pmt_length(p_sym); c++ ){
+                gr_complex val = gr_complex(pmt::pmt_to_complex(pmt::pmt_nth(c, p_sym)) );
+                //printf("value %i,%i\t%+1.2f %+1.2fj\n", i, c, val.real(), val.imag() );
+                v_sym.push_back(val);
+            }
+        }
+        pilot_symbols.push_back(v_sym);
+    }
+}
+
+
 
 void
 lte_channel_estimator_vcvc::set_pilot_map(const std::vector<std::vector<int> > &pilot_carriers,
