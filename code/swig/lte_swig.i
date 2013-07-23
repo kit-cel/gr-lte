@@ -30,12 +30,7 @@
 #include "lte_pss_calc_vc.h"
 #include "lte_pss_tagging_cc.h"
 #include "lte_cp_time_freq_sync_cc.h"
-#include "lte_cell_id_daemon.h"
 #include "lte_zadoff_chu_seq_generator_vc.h"
-#include "lte_remove_cp2_cvc.h"
-#include "lte_sss_calc2_vc.h"
-#include "lte_sss_tagging2_vcvc.h"
-#include "lte_channel_estimator.h"
 #include "lte_channel_estimator_vcvc.h"
 %}
 
@@ -103,22 +98,8 @@ GR_SWIG_BLOCK_MAGIC(lte,pss_tagging_cc);
 GR_SWIG_BLOCK_MAGIC(lte,cp_time_freq_sync_cc);
 %include "lte_cp_time_freq_sync_cc.h"
 
-GR_SWIG_BLOCK_MAGIC(lte,cell_id_daemon);
-%include "lte_cell_id_daemon.h"
-
 GR_SWIG_BLOCK_MAGIC(lte,zadoff_chu_seq_generator_vc);
 %include "lte_zadoff_chu_seq_generator_vc.h"
 
-GR_SWIG_BLOCK_MAGIC(lte,remove_cp2_cvc);
-%include "lte_remove_cp2_cvc.h"
-
-GR_SWIG_BLOCK_MAGIC(lte,sss_calc2_vc);
-%include "lte_sss_calc2_vc.h"
-
-GR_SWIG_BLOCK_MAGIC(lte,sss_tagging2_vcvc);
-%include "lte_sss_tagging2_vcvc.h"
-
-GR_SWIG_BLOCK_MAGIC(lte,channel_estimator);
-%include "lte_channel_estimator.h"
 GR_SWIG_BLOCK_MAGIC(lte, channel_estimator_vcvc);
 %include "lte_channel_estimator_vcvc.h"

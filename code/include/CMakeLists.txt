@@ -44,11 +44,6 @@ install(FILES
     lte_pss_calc_vc.h
     lte_pss_tagging_cc.h
     lte_cp_time_freq_sync_cc.h
-    lte_cell_id_daemon.h
     lte_zadoff_chu_seq_generator_vc.h
-    lte_remove_cp2_cvc.h
-    lte_sss_calc2_vc.h
-    lte_sss_tagging2_vcvc.h
-    lte_channel_estimator.h
     lte_channel_estimator_vcvc.h DESTINATION include/lte
 )

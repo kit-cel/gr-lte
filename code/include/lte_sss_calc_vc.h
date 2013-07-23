@@ -24,11 +24,9 @@
 #include <lte_api.h>
 #include <gr_sync_block.h>
 #include <lte_sss_tagging_cc.h>
-#include <lte_cell_id_daemon.h>
 
 class lte_sss_calc_vc;
 typedef boost::shared_ptr<lte_sss_calc_vc> lte_sss_calc_vc_sptr;
-typedef boost::shared_ptr<lte_cell_id_daemon> daemon_sptr;
 typedef boost::shared_ptr<lte_sss_tagging_cc> tag_sptr;
 
 LTE_API lte_sss_calc_vc_sptr lte_make_sss_calc_vc (tag_sptr &tag, int fftl);
@@ -69,7 +67,6 @@ class LTE_API lte_sss_calc_vc : public gr_sync_block
     float d_max_val_old;
     int d_sss_pos;
     tag_sptr d_tag;
-    daemon_sptr d_daemon;
     long d_frame_start;
     bool d_is_locked;
     int d_unchanged_id;

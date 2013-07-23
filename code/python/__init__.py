@@ -49,7 +49,7 @@ from lte_swig import *
 from viterbi_vfvb import viterbi_vfvb
 from hier_freq_estimate_cc import hier_freq_estimate_cc
 from hier_sss_sync_cc import hier_sss_sync_cc
-from hier_sss_sync2_vcvc import hier_sss_sync2_vcvc
+
 from hier_pss_sync_cc import hier_pss_sync_cc
 from linear_OFDM_estimator_hier_vcvc import linear_OFDM_estimator_hier_vcvc
 from decode_bch_vfvb import decode_bch_vfvb
