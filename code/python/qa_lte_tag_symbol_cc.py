@@ -20,7 +20,7 @@
 #
 
 from gnuradio import gr, gr_unittest
-import lte_swig
+import lte as lte_swig
 import numpy
 import scipy.io
 
@@ -31,14 +31,15 @@ class qa_tag_symbol_cc (gr_unittest.TestCase):
         
         offset = 43223
         fftl = 512
-        
+        '''
         mod=scipy.io.loadmat('/home/demel/exchange/matlab_test_freq_estimate.mat') 
         mat_u1=tuple(mod['test'].flatten())
         mat_d=range(len(mat_u1))
         for idx, val in enumerate(mat_u1):
             mat_d[idx]=val
         intu=tuple(mat_d)
-        
+        '''
+        intu = [1.0] * fftl
         self.src = gr.vector_source_c(intu,False,1)
         self.tag = lte_swig.tag_symbol_cc(offset,fftl)
         self.snk = gr.vector_sink_c(1)

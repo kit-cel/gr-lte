@@ -21,7 +21,7 @@
 
 from gnuradio import gr, gr_unittest
 import lte
-import lte_swig
+#import lte_swig
 import scipy.io
 import os
 from pylab import *
@@ -30,40 +30,25 @@ from pylab import *
 class qa_hier_sss_sync_cc (gr_unittest.TestCase):
 
     def setUp (self):
-        
-        #print os.getpid()
-        #raw_input("Press Enter to continue")
-        
         print "begin test!"
         self.tb = gr.top_block ()
         
-        offset = 43223  #sample15 = 21839 #sample20 = 43223
+        offset = 43223
         fftl = 512
         cpl = 144 *fftl /2048
         cpl0 = 160 *fftl /2048
         slotl = 7*fftl+6+cpl+cpl0
         cell_id = 124
         N_rb_dl = 6
-        
-        mod=scipy.io.loadmat('/home/demel/exchange/matlab_test_first_freq.mat') 
-        mat_u1=tuple(mod['test'].flatten())
-        mat_d=range(len(mat_u1))
-        for idx, val in enumerate(mat_u1):
-            mat_d[idx]=val
-        intu=tuple(mat_d[0:30*slotl])
-        
-        self.src  = gr.vector_source_c(intu,False,1)
-        self.tag  = lte_swig.tag_symbol_cc(offset,fftl)
-        #self.head = gr.head(gr.sizeof_gr_complex,300000)
 
+        intu = [1.0] *100*fftl
+        self.src  = gr.vector_source_c(intu,False,1)
+        self.tag  = lte.tag_symbol_cc(offset,fftl)
         self.sss = lte.hier_sss_sync_cc(fftl)
-        
         self.snk = gr.vector_sink_c(1)
         
-        self.tb.connect(self.src,self.tag,self.sss,self.snk)#,self.head
-        
-        print "setup done!"
-        
+        self.tb.connect(self.src,self.tag,self.sss,self.snk)
+
     def tearDown (self):
         self.tb = None
 
@@ -75,8 +60,8 @@ class qa_hier_sss_sync_cc (gr_unittest.TestCase):
         # check data
         print "get test data"
         res = self.snk.data()
-        # print res
         
+        '''
         corr_vec = self.sss.calc.get_corr_vec()
         plot(corr_vec)
         show()
@@ -84,7 +69,7 @@ class qa_hier_sss_sync_cc (gr_unittest.TestCase):
         print "get_cell_id"
         print "cell_id = " + str(self.sss.get_cell_id())
         print "test finished"
-
+        '''
 
 if __name__ == '__main__':
     gr_unittest.main ()

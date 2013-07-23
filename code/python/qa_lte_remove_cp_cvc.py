@@ -20,7 +20,8 @@
 #
 
 from gnuradio import gr, gr_unittest
-import lte_swig
+from gruel import pmt
+import lte as lte_swig
 import numpy
 import scipy.io
 import time
@@ -29,78 +30,97 @@ class qa_remove_cp_cvc (gr_unittest.TestCase):
 
     def setUp (self):
         self.tb = gr.top_block ()
-        
-        offset = 43223
-        fftl = 512
-        
-        mytime=time.clock()
-        mod=scipy.io.loadmat('/home/demel/exchange/matlab_test_freq_estimate.mat') 
-        mat_u1=tuple(mod['test'].flatten())
-        mat_d=range(len(mat_u1))
-        for idx, val in enumerate(mat_u1):
-            mat_d[idx]=val
-        intu=tuple(mat_d)
-        
-        print "read in data time = " + str(time.clock() - mytime)
 
-        '''
-        mod=scipy.io.loadmat('/home/demel/exchange/matlab_frame_samples.mat') 
-        mat_u1=tuple(mod['frame_samples'].flatten())
-        mat_d=range(len(mat_u1))
-        for idx, val in enumerate(mat_u1):
-            mat_d[idx]=val
-        intu=tuple(mat_d)
-        '''
-        
-        print len(intu)
-        
+        # set variables
+        self.fftl = fftl = 512
+        self.key = key = "symbol"
+
+        #set up fg
+        intu = [0,]
         self.src  = gr.vector_source_c(intu,False,1)
-        self.tag = lte_swig.tag_symbol_cc(offset,fftl)
-        #self.head = gr.head(gr.sizeof_gr_complex,len(intu)*2)
-        self.rcp  = lte_swig.remove_cp_cvc(fftl)
+        self.rcp  = lte_swig.remove_cp_cvc(fftl, key)
         self.snk  = gr.vector_sink_c(fftl)
         
-        self.tb.connect(self.src,self.tag,self.rcp,self.snk)
-        
-        print "setup flowgraph time = " + str(time.clock() - mytime)
+        self.tb.connect(self.src,self.rcp,self.snk)
 
     def tearDown (self):
         self.tb = None
 
     def test_001_t (self):
         # set up fg
+        fftl = self.fftl
+        key = self.key
+        frame_len = 140
+        slots = frame_len / 7
+        #print slots
+        cpl0 = 160*fftl/2048
+        cpl1 = 144*fftl/2048
+        slotl = 7*fftl + 6*cpl1 + cpl0
+        #print cpl0
+        #print cpl1
+        #print slotl
         
-        myruntime = time.clock()
+        data = [1] * fftl * frame_len
+        in_data = []
+        for i in range(slots):
+            for sym in range(7):
+                if sym == 0:
+                    in_data.extend([0]*cpl0)
+                else:
+                    in_data.extend([0]*cpl1)
+                pos = i*slotl + sym * fftl
+                in_data.extend(data[pos:pos+fftl])
+
+        tag_list = self.get_tag_list(frame_len, key, 140)
+        
+        # run fg with test data           
+        self.src.set_data(in_data, tag_list)
         self.tb.run ()
-        print "flowgraph runtime = " + str(time.clock() - myruntime)
+        
         # check data
-        fftl=512
         res = self.snk.data()
-        print len(res)
+        self.assertFloatTuplesAlmostEqual(res[0:60000], data[0:60000])
+        #print len(res)
+        #print len(data)
+        #print len(data)-len(res)
+
         
-        mod=scipy.io.loadmat('/home/demel/exchange/matlab_mat_t.mat') 
-        mat_u1=tuple(mod['mat_t'].flatten())
-        mat_d=range(len(mat_u1))
-        for idx, val in enumerate(mat_u1):
-            mat_d[idx]=val
-        outtu=tuple(mat_d)
-        print len(outtu)
-        
-        count = 0
-        succ = 0
-        for i in range(len(res)/fftl):
-            try:
-                self.assertComplexTuplesAlmostEqual(res[fftl*i:fftl*(i+1)],outtu[fftl*i:fftl*(i+1)],5)
-                succ = succ+1
-                #print str(i) + "\tres == outtu"
-            except AssertionError:
-                #print str(i) + "\tres != outtu FAILED!!!"
-                count = count +1
-        print "failed vectors     = " + str(count)
-        print "successful vectors = " + str(succ)
-        
-        #for i in range(20):
-        #    print str(i) + "\t" + str(res[i]) + "\t" + str(outtu[i])
+
+    def get_tag_list(self, data_len, tag_key, N_ofdm_symbols):
+        fftl = self.fftl
+        key = self.key
+        frame_len = 140
+        slots = data_len / 7
+        cpl0 = 160*fftl/2048
+        cpl1 = 144*fftl/2048
+        slotl = 7*fftl + 6*cpl1 + cpl0
+        srcid = "test_src"
+        tag_list = []
+        for i in range(slots):
+            for sym in range(7):
+                offset = 0
+                if sym == 0:
+                    offset = i*slotl
+                else:
+                    offset = i*slotl + cpl0 + sym*fftl +(sym-1)*cpl1
+                value = (i*7+sym)%N_ofdm_symbols
+                tag = self.generate_tag(tag_key, srcid, value, offset)
+                tag_list.append(tag)
+        return tag_list
+    
+    def generate_tag(self, tag_key, srcid, value, offset):
+        tag = gr.gr_tag_t()
+        tag.key = pmt.pmt_string_to_symbol(tag_key)
+        tag.srcid = pmt.pmt_string_to_symbol(srcid)
+        tag.value = pmt.pmt_from_long(value)
+        tag.offset = offset
+        return tag
+
+    def print_tag(self, tag):
+        my_string = "key = " + pmt.pmt_symbol_to_string(tag.key) + "\tsrcid = " + pmt.pmt_symbol_to_string(tag.srcid)
+        my_string = my_string + "\tvalue = " + str(pmt.pmt_to_long(tag.value))
+        my_string = my_string + "\toffset = " + str(tag.offset)
+        print my_string
 
 
 if __name__ == '__main__':

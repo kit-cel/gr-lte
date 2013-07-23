@@ -37,19 +37,11 @@ class qa_hier_pss_sync_cc (gr_unittest.TestCase):
         cell_id = 124
         N_rb_dl = 6
         
-        
-        mod=scipy.io.loadmat('/home/demel/exchange/matlab_test_first_freq.mat') 
-        mat_u1=tuple(mod['test'].flatten())
-        mat_d=range(len(mat_u1))
-        for idx, val in enumerate(mat_u1):
-            mat_d[idx]=val
-        intu=tuple(mat_d[0:offset + 100*slotl])
-        
+        intu = [1.0] * 100 * fftl
         
         self.src = gr.vector_source_c(intu,False,1)
         self.tag = lte.tag_symbol_cc(offset,fftl)
         self.pss = lte.hier_pss_sync_cc(fftl)
-        
         self.snk = gr.vector_sink_c(1)
         
         self.tb.connect(self.src, self.tag, self.pss, self.snk)

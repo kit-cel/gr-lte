@@ -20,7 +20,7 @@
 #
 
 from gnuradio import gr, gr_unittest
-import lte_swig
+import lte as lte_swig
 import scipy.io
 import time
 import os
@@ -33,14 +33,8 @@ class qa_cp_time_freq_sync_cc (gr_unittest.TestCase):
         
         fftl = 512
         
-        mod=scipy.io.loadmat('/home/demel/exchange/matlab_test_origin.mat') 
-        mat_u1=tuple(mod['test'].flatten())
-        mat_d=range(len(mat_u1))
-        for idx, val in enumerate(mat_u1):
-            mat_d[idx]=val
-        intu=tuple(mat_d)
-        self.intu = intu
         
+        self.intu = intu = [1.0] * 100 * fftl        
         self.src = gr.vector_source_c(intu,False,1)
         
         self.sync = lte_swig.cp_time_freq_sync_cc(fftl)

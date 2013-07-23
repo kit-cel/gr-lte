@@ -20,7 +20,7 @@
 #
 
 from gnuradio import gr, gr_unittest
-import lte_swig
+#import lte_swig
 import lte
 import numpy
 import scipy.io
@@ -36,19 +36,11 @@ class qa_hier_freq_estimate_cc (gr_unittest.TestCase):
         fftl = 512
         cell_id = 124
         N_rb_dl = 6
-        # get test input from matlab
-        mod=scipy.io.loadmat('/home/demel/exchange/matlab_test_first_freq.mat') 
-        mat_u1=tuple(mod['test'].flatten())
-        mat_d=range(len(mat_u1))
-        for idx, val in enumerate(mat_u1):
-            mat_d[idx]=val
-        intu=tuple(mat_d)
-        self.myintu = intu
-        #for i in range(20):
-        #    print intu[i+100000]
+        test_len = 100000
+        intu = [1.0]*test_len
         
         self.src  = gr.vector_source_c(intu,False,1)
-        self.tag  = lte_swig.tag_symbol_cc(offset,fftl)
+        self.tag  = lte.tag_symbol_cc(offset,fftl)
         
         self.est  = lte.hier_freq_estimate_cc(fftl)
         
@@ -66,15 +58,6 @@ class qa_hier_freq_estimate_cc (gr_unittest.TestCase):
         # check data
         res=self.snk.data()
 
-        print "len(res) = " + str(len(res)) + "\tlen(intu) = " + str(len(self.myintu))
-
-
-
-        f_vec = self.est.est.get_f_vec()
-
-        
-        plot(f_vec)
-        show()
 
 if __name__ == '__main__':
     gr_unittest.main ()

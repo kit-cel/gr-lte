@@ -20,7 +20,7 @@
 #
 
 from gnuradio import gr, gr_unittest
-import lte_swig
+import lte as lte_swig
 import scipy.io
 import os
 
@@ -40,15 +40,7 @@ class qa_pss_selector_cvc (gr_unittest.TestCase):
         cell_id = 124
         N_rb_dl = 6
         
-        
-        mod=scipy.io.loadmat('/home/demel/exchange/matlab_test_first_freq.mat') 
-        mat_u1=tuple(mod['test'].flatten())
-        mat_d=range(len(mat_u1))
-        for idx, val in enumerate(mat_u1):
-            mat_d[idx]=val
-        intu=tuple(mat_d)
-        
-        
+        intu = [1.0] * 100 * fftl
         self.src  = gr.vector_source_c(intu,False,1)
         self.head = gr.head(gr.sizeof_gr_complex*fftl ,200)
         self.tag  = lte_swig.tag_symbol_cc(offset,fftl)
@@ -66,7 +58,6 @@ class qa_pss_selector_cvc (gr_unittest.TestCase):
         # check data
         
         res = self.snk.data()
-        print "\n"
         print len(res)
         print len(res)/512.0
 

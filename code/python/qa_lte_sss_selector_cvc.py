@@ -28,13 +28,10 @@ import os
 class qa_sss_selector_cvc (gr_unittest.TestCase):
 
     def setUp (self):
-    
-        #print os.getpid()
-        #raw_input("press the any key")
         
         self.tb = gr.top_block ()
         
-        offset = 43223  #sample15 = 21839 #sample20 = 43223
+        offset = 43223
         fftl = 512
         cpl = 144*fftl/2048
         cpl0 = 160*fftl/2048
@@ -42,21 +39,14 @@ class qa_sss_selector_cvc (gr_unittest.TestCase):
         cell_id = 124
         N_rb_dl = 6
         
-        mod=scipy.io.loadmat('/home/demel/exchange/matlab_test_first_freq.mat') 
-        mat_u1=tuple(mod['test'].flatten())
-        mat_d=range(len(mat_u1))
-        for idx, val in enumerate(mat_u1):
-            mat_d[idx]=val
-        intu=tuple(mat_d[0:slotl*60])
-        
+        intu = [1.0]*100*fftl
         self.src  = gr.vector_source_c(intu,False,1)
         self.tag  = lte.tag_symbol_cc(offset,fftl)
-        #self.head = gr.head(gr.sizeof_gr_complex,70000)
         self.sel = lte.sss_selector_cvc(fftl)
         self.vtos = gr.vector_to_stream(gr.sizeof_gr_complex,512)
         self.snk = gr.vector_sink_c(1)
         
-        self.tb.connect(self.src,self.tag,self.sel,self.vtos,self.snk)#,self.head
+        self.tb.connect(self.src,self.tag,self.sel,self.vtos,self.snk)
 
     def tearDown (self):
         self.tb = None
@@ -66,7 +56,6 @@ class qa_sss_selector_cvc (gr_unittest.TestCase):
         self.tb.run ()
         # check data
         res = self.snk.data()
-        print len(res)
 
 
 if __name__ == '__main__':

@@ -61,6 +61,9 @@ class LTE_API lte_remove_cp_cvc : public gr_block
 	bool d_found_frame_start;
 	long d_frame_start;
 
+	inline int copy_samples_from_in_to_out(gr_complex* out, const gr_complex* in, int noutput_items);
+	inline void add_tags_to_vectors(int noutput_items);
+
 };
 
 #endif /* INCLUDED_LTE_REMOVE_CP_CVC_H */

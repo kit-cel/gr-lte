@@ -26,7 +26,6 @@ from lte import utils
 
 class estimator_parameterizer_msg(gr.sync_block):
     """
-    docstring for block estimator_parameterizer_msg
     This block takes in a message with the extacted cell ID.
     Calculates the corresponding pilot symbols and positions and passes them on as a message
     """

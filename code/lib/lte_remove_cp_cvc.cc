@@ -75,22 +75,11 @@ lte_remove_cp_cvc::general_work (int noutput_items,
     const gr_complex *in = (const gr_complex *) input_items[0];
     gr_complex *out = (gr_complex *) output_items[0];
 
-    int fftl = d_fftl;
-    int cpl = d_cpl;
-    int cpl0 = d_cpl0;
-    int symb = d_symb;
-    int sym_num = d_sym_num;
-    long consumed_items = 0;
-    uint64_t offset = 0;
     d_work_call++;
-/*    if(nitems_read(0) < 100000){
-        printf("%s\twork_call = %i\t nitems_read = %li\tnoutput_items = %i\n",name().c_str(),d_work_call,nitems_read(0),noutput_items );
-    }
-*/
 
     // the following section removes the samples before the first frame start.
     std::vector <gr_tag_t> v;
-    get_tags_in_range(v,0,nitems_read(0),nitems_read(0)+noutput_items*(fftl+cpl0) );
+    get_tags_in_range(v,0,nitems_read(0),nitems_read(0)+noutput_items*(d_fftl+d_cpl0) );
     int size = v.size();
     if(!d_found_frame_start){
         for(int i = 0 ; i < size ; i++ ){
@@ -107,8 +96,8 @@ lte_remove_cp_cvc::general_work (int noutput_items,
                 printf("frame_start = %ld\n",d_frame_start);
                 d_frame_start = d_frame_start%(20*d_slotl);
                 printf("mod start   = %ld\n\n",d_frame_start);
-                sym_num = 0;
-                symb = 0;
+                d_sym_num = 0;
+                d_symb = 0;
                 d_found_frame_start = true;
                 consume_each(delay);
                 return 0;
@@ -118,14 +107,14 @@ lte_remove_cp_cvc::general_work (int noutput_items,
                     continue;
                 }
                 else{
-                    consume_each(noutput_items*(fftl+cpl0));
+                    consume_each(noutput_items*(d_fftl+d_cpl0));
                     return 0;
                 }
             }
         }
 
         if(size == 0){
-            consume_each(noutput_items*(fftl+cpl0));
+            consume_each(noutput_items*(d_fftl+d_cpl0));
             return 0;
         }
     }
@@ -136,54 +125,58 @@ lte_remove_cp_cvc::general_work (int noutput_items,
                 d_found_frame_start = false;
                 return 0;
             }
-            //else{
-            //    printf("found another frame_start at %ld\tninput_items = %i\tnoutput_items = %i\n",v[0].offset, ninput_items[0], noutput_items);
-            //}
-
         }
     }
 
 
-
-    // core of the function. removes CPs and copies relevant data to output stream.
-    for (int i = 0 ; i < noutput_items ; i++){
-        //if(nitems_read(0) < 100000) {
-            //printf("%ith symbol in slot!\tnitems_read = %li\n",symb, nitems_read(0));
-        //}
-        if(symb == 0){
-            memcpy(out,in+cpl0,sizeof(gr_complex)*fftl);
-            consumed_items += (cpl0 + fftl);
-
-            in += (cpl0 + fftl);
-
-        }
-        else{
-            memcpy(out,in+cpl,sizeof(gr_complex)*fftl);
-            consumed_items += (cpl + fftl);
-            in += (cpl + fftl);
-        }
-        out += fftl;
-        symb =(symb+1)%7;
-    }
-
+    // Copy the samples of interest from input to output buffer
+    long consumed_items = copy_samples_from_in_to_out(out, in, noutput_items);
 
     // add item tags. Item tags for each vector/OFDM symbol.
-    for (int i = 0 ; i < noutput_items ; i++){
-        if(sym_num%7 == 0){
-            add_item_tag(0,nitems_written(0)+i,d_key, pmt::pmt_from_long(sym_num),d_tag_id);
-        }
-        //printf("%s\tsym_num = %i\n",name().c_str(),sym_num);
+    add_tags_to_vectors(noutput_items);
 
-		sym_num=(sym_num+1)%140;
-	}
-
-    d_symb = symb;
-    d_sym_num = sym_num;
     // Tell runtime system how many input items we consumed on
     // each input stream.
     consume_each (consumed_items);
-
     // Tell runtime system how many output items we produced.
     return noutput_items;
 }
+
+inline int
+lte_remove_cp_cvc::copy_samples_from_in_to_out(gr_complex* out, const gr_complex* in, int noutput_items)
+{
+    int consumed_items = 0;
+    int vector_byte_size = sizeof(gr_complex)*d_fftl;
+    int syml0 = d_cpl0 + d_fftl;
+    int syml1 = d_cpl + d_fftl;
+
+    for (int i = 0 ; i < noutput_items ; i++){
+        if(d_symb == 0){
+            memcpy(out, in+d_cpl0, vector_byte_size);
+            consumed_items += syml0;
+            in += syml0;
+        }
+        else{
+            memcpy(out, in+d_cpl,vector_byte_size);
+            consumed_items += syml1;
+            in += syml1;
+        }
+        out += d_fftl;
+        d_symb =(d_symb+1)%7;
+    }
+    return consumed_items;
+}
+
+inline void
+lte_remove_cp_cvc::add_tags_to_vectors(int noutput_items)
+{
+    for (int i = 0 ; i < noutput_items ; i++){
+        if(d_sym_num%7 == 0){
+            add_item_tag(0,nitems_written(0)+i,d_key, pmt::pmt_from_long(d_sym_num),d_tag_id);
+        }
+		d_sym_num=(d_sym_num+1)%140;
+	}
+}
+
+
 
