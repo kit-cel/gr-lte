@@ -33,7 +33,6 @@ install(FILES
     lte_layer_demapper_vcvc.h
     lte_pre_decoder_vcvc.h
     lte_pbch_demux_vcvc.h
-    lte_linear_OFDM_estimator_vcvc.h
     lte_extract_occupied_tones_vcvc.h
     lte_remove_cp_cvc.h
     lte_tag_symbol_cc.h

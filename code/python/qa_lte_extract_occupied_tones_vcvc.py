@@ -20,8 +20,8 @@
 #
 
 from gnuradio import gr, gr_unittest
-import lte_swig
-import numpy
+import lte as lte_swig
+#import numpy
 import scipy.io
 
 class qa_extract_occupied_tones_vcvc (gr_unittest.TestCase):
@@ -29,17 +29,10 @@ class qa_extract_occupied_tones_vcvc (gr_unittest.TestCase):
     def setUp (self):
         self.tb = gr.top_block ()
         
-        N_rb_dl = 6
-        fftl = 512
-        
-        mod=scipy.io.loadmat('/home/demel/exchange/matlab_mat_f.mat') 
-        mat_u1=tuple(mod['mat_f'].flatten())
-        mat_d=range(len(mat_u1))
-        for idx, val in enumerate(mat_u1):
-            mat_d[idx]=val
-        intu1=tuple(mat_d)
-        print len(intu1)/fftl
-        
+        self.N_rb_dl = N_rb_dl = 6
+        self.fftl = fftl = 512
+                
+        intu1 = range(fftl)
         self.src = gr.vector_source_c(intu1,False,fftl)
         self.ext = lte_swig.extract_occupied_tones_vcvc(N_rb_dl,fftl)
         self.snk = gr.vector_sink_c(12*N_rb_dl)
@@ -51,27 +44,26 @@ class qa_extract_occupied_tones_vcvc (gr_unittest.TestCase):
 
     def test_001_t (self):
         # set up fg
+        frame_len = 140
+        data = [1.0] * self.N_rb_dl * 12 * frame_len
+        in_data = []
+        n_zeros = self.fftl- (self.N_rb_dl * 12) -1
+
+        for i in range(frame_len):
+            sym = i*12*self.N_rb_dl
+            vec = [0,]
+            vec.extend(data[sym:sym+(6*self.N_rb_dl)])
+            vec.extend([0]*n_zeros)
+            vec.extend(data[sym+6*self.N_rb_dl:sym+12*self.N_rb_dl])
+            in_data.extend(vec)
+
+        self.src.set_data(in_data)
+        
+        # run fg
         self.tb.run ()
         # check data
-        mod=scipy.io.loadmat('/home/demel/exchange/matlab_frame.mat') 
-        mat_u1=tuple(mod['frame_mat'].flatten())
-        mat_d=range(len(mat_u1))
-        for idx, val in enumerate(mat_u1):
-            mat_d[idx]=val
-        outtu=tuple(mat_d)
-        
         res=self.snk.data()
-        print len(res)/(12*6)
-        
-        for i in range(len(res)/72):
-            try:
-                self.assertComplexTuplesAlmostEqual(res[72*i:72*(i+1)],outtu[72*i:72*(i+1)],5)
-                print str(i) + "\tres == outtu"
-            except AssertionError:
-                print str(i) + "\tres != outtu FAILED!!!"
-                
-        #for i in range(72):
-        #    print str(res[i]) +"\t" + str(outtu[i])
+        self.assertFloatTuplesAlmostEqual(res,data)
 
 
 if __name__ == '__main__':

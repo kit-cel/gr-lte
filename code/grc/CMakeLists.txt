@@ -28,7 +28,6 @@ install(FILES
     lte_layer_demapper_vcvc.xml
     lte_pre_decoder_vcvc.xml
     lte_pbch_demux_vcvc.xml
-    lte_linear_OFDM_estimator_vcvc.xml
     lte_extract_occupied_tones_vcvc.xml
     lte_remove_cp_cvc.xml
     lte_tag_symbol_cc.xml

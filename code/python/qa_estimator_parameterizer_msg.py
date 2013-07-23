@@ -57,7 +57,9 @@ class qa_estimator_parameterizer_msg (gr_unittest.TestCase):
         #self.tb.run ()
         self.tb.start()
         time.sleep(5)
-        self.tb.stop()        
+        self.tb.pause()
+        self.tb.stop()
+        self.tb.wait()
         # check data
         print "ended"
         return

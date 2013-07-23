@@ -19,7 +19,6 @@
 #include "lte_layer_demapper_vcvc.h"
 #include "lte_pre_decoder_vcvc.h"
 #include "lte_pbch_demux_vcvc.h"
-#include "lte_linear_OFDM_estimator_vcvc.h"
 #include "lte_extract_occupied_tones_vcvc.h"
 #include "lte_remove_cp_cvc.h"
 #include "lte_tag_symbol_cc.h"
@@ -70,9 +69,6 @@ GR_SWIG_BLOCK_MAGIC(lte,pre_decoder_vcvc);
 
 GR_SWIG_BLOCK_MAGIC(lte,pbch_demux_vcvc);
 %include "lte_pbch_demux_vcvc.h"
-
-GR_SWIG_BLOCK_MAGIC(lte,linear_OFDM_estimator_vcvc);
-%include "lte_linear_OFDM_estimator_vcvc.h"
 
 GR_SWIG_BLOCK_MAGIC(lte,extract_occupied_tones_vcvc);
 %include "lte_extract_occupied_tones_vcvc.h"
