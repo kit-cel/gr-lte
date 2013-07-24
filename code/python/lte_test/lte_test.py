@@ -23,25 +23,7 @@ import math
 from mib import *
 from encode_bch import *
 from encode_pbch import *
-
-def pn_generator(vector_len, cinit):
-    NC=1600
-    x2 = [0]*(3*vector_len+NC)
-
-    for i in range(31):
-        x2[i] = cinit%2
-        cinit = int(math.floor(cinit/2))
-
-    x1 = [0]*(3*vector_len+NC)
-    x1[0] = 1
-    for n in range(2*vector_len+NC-3):
-        x1[n+31]=(x1[n+3]+x1[n])%2
-        x2[n+31]=(x2[n+3]+x2[n+2]+x2[n+1]+x2[n])%2
-
-    output = [0] * vector_len
-    for n in range(vector_len):
-        output[n]=(x1[n+NC]+x2[n+NC])%2
-    return output
+from encode_pcfich import *
 
 def rs_generator(ns, l, cell_id, Ncp):
     N_RB_MAX = 110
@@ -52,6 +34,12 @@ def rs_generator(ns, l, cell_id, Ncp):
     for m in range(2*N_RB_MAX):
         rs_seq.append(complex((1-2*pn_seq[2*m])/SQRT2, (1-2*pn_seq[2*m+1])/SQRT2 ) )
     return rs_seq
+    
+def nrz_encoding(data):
+    out_data = range(len(data))
+    for i in range(len(data)):
+        out_data[i] = float( (-2.0*data[i]) +1 )
+    return out_data
 
 def cmpl_str(val):
     #return '%+03f%+03fj' %(val.real, val.imag)
@@ -70,9 +58,11 @@ def generate_frame(pbch, N_rb_dl, cell_id, sfn, N_ant):
     n_carriers = 12*N_rb_dl
     frame = np.zeros((N_ant,140,n_carriers),dtype=np.complex)
     Ncp = 1
+    pcfich = encode_pcfich(2, cell_id, 0, N_ant)
     for p in range(N_ant):
         frame[p] = map_pbch_to_frame(frame[p], pbch, cell_id, sfn, p)
-        frame[p] = frame_map_rs_symbols(frame[p], N_rb_dl, cell_id, Ncp, p)       
+        frame[p] = frame_map_rs_symbols(frame[p], N_rb_dl, cell_id, Ncp, p)
+        #frame[p] = map_pcfich_to_frame(frame[p], pcfich, N_rb_dl, cell_id, p)
     return frame
 
 def rs_symbol_mapper(ofdm_symbol, N_rb_dl, ns, l, cell_id, Ncp, p):
@@ -154,6 +144,26 @@ def map_pbch_to_frame(frame, pbch, cell_id, sfn, ant):
 
     return frame
 
+def map_pcfich_to_frame(frame, pcfich, N_rb_dl, cell_id, ant):
+    print "tadada map pcfich " + str(ant)
+    print len(frame)
+    for i in range(len(frame)):
+        if i%14 == 0:
+            print i
+            frame[i] = map_pcfich_to_symbol(frame[i], pcfich, N_rb_dl, cell_id, ant)
+            
+        
+def map_pcfich_to_symbol(symbol, pcfich, N_rb_dl, cell_id, ant):     
+    print "map pcfich"
+    N_sc_rb = 12 # number of subcarriers per resource block
+    k_mean = (N_sc_rb/2) * (cell_id%(2*N_rb_dl))
+    regs = 4
+    for n in range(regs):
+        #print "reg = " + str(n)
+        k = int( (k_mean + (N_sc_rb/2) * math.floor(n*N_rb_dl/2))%(N_rb_dl*N_sc_rb) )
+        #print k
+        
+    return symbol
 
 if __name__ == "__main__":
     cell_id = 124
@@ -172,15 +182,11 @@ if __name__ == "__main__":
 
     frame = generate_frame(pbch, N_rb_dl, cell_id, sfn, N_ant)
     
-    rbs = 6
+    pcfich = encode_pcfich(2, cell_id, 4, N_ant)
+    symbol = map_pcfich_to_symbol([1]*12*N_rb_dl, pcfich, N_rb_dl, cell_id, 0)
+    print symbol
     
-    [p_pos0, p_sym0] = frame_pilot_value_and_position(rbs, 124, 1, 0)
-    [p_pos1, p_sym1] = frame_pilot_value_and_position(rbs, 124, 1, 1)
-    
-    np.save("pilot_pos0", p_pos0)
-    np.save("pilot_pos1", p_pos1)
-    np.save("pilot_syms", p_sym0)
-    
+    print np.shape(frame)    
     print "done"
     
 

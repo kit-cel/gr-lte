@@ -7,14 +7,7 @@ Created on Wed Mar 13 18:15:38 2013
 
 from mib import *
 from encode_bch import *
-from lte_test import *
-
-def nrz_encoding(data):
-    out_data = range(len(data))
-    for i in range(len(data)):
-        out_data[i] = float( (-2.0*data[i]) +1 )
-    return out_data
-
+from lte_core import *
 
 def pbch_scrambling(data, cell_id):
     if len(data) != 120:
@@ -31,74 +24,6 @@ def scrambling(data, cell_id):
     pn_sequence = pn_generator(len(data), cell_id)
     return [(data[i]+pn_sequence[i])%2 for i in range(len(data))]
 
-def qpsk_modulation(data):
-    output = []
-    nrz_data = nrz_encoding(data)
-    for i in range(len(nrz_data)/2):
-        mod = complex(nrz_data[i*2+0]/math.sqrt(2),nrz_data[i*2+1]/math.sqrt(2))
-        output.extend([mod])
-    return output
-    
-def layer_mapping(data, N_ant, style):
-    #Do layer Mapping according to ETSI 136.211 Sec 6.3.3.3    
-    M_symb = len(data)
-    
-    if(style != "tx_diversity"):
-        print style + "\tnot supported!"
-        return data
-    
-    output = []
-    if(N_ant == 1):
-        output = data
-    elif(N_ant == 2):
-        M_layer_symb=M_symb/2
-        x=[[],[]]
-        for i in range(M_layer_symb):
-            x[0].append(data[2*i+0])
-            x[1].append(data[2*i+1])
-        output = x
-    elif(N_ant == 4):
-        M_layer_symb = 0
-        if(M_symb%4 ==0):
-            M_layer_symb=M_symb/4
-        else:
-            M_layer_symb=(M_symb+2)/4;
-            data.extend([0]*2)
-
-        x=[[],[],[],[]]
-        for i in range(M_layer_symb):
-            x[0].append(data[4*i+0])
-            x[1].append(data[4*i+1])
-            x[2].append(data[4*i+2])
-            x[3].append(data[4*i+3])
-        output = x
-    return output
-    
-def pre_coding(data, N_ant, style):
-    if(style != "tx_diversity"):
-        print style + "\tnot supported!"
-        return data
-    
-    output = []
-    if N_ant == 1:
-        output = data
-        
-    elif N_ant == 2:
-        y = [[0]*len(data[0])*2,[0]*len(data[0])*2]
-        x = data
-        for n in range(len(data[0])):
-            y[0][2*n]   = complex( 1*x[0][n].real,  1*x[0][n].imag)/math.sqrt(2)
-            y[1][2*n]   = complex(-1*x[1][n].real,  1*x[1][n].imag)/math.sqrt(2)
-            y[0][2*n+1] = complex( 1*x[1][n].real,  1*x[1][n].imag)/math.sqrt(2)
-            y[1][2*n+1] = complex( 1*x[0][n].real, -1*x[0][n].imag)/math.sqrt(2)
-        output = y
-
-    else:
-        print str(N_ant) + "\tantenna port not supported!"
-        return data
-
-    return output
-   
 def pre_decoding(data, h, N_ant, style):
     '''
     alamouti Coding
