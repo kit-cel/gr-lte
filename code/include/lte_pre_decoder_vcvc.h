@@ -27,17 +27,21 @@
 class lte_pre_decoder_vcvc;
 typedef boost::shared_ptr<lte_pre_decoder_vcvc> lte_pre_decoder_vcvc_sptr;
 
-LTE_API lte_pre_decoder_vcvc_sptr lte_make_pre_decoder_vcvc (int N_ant,std::string style);
+LTE_API lte_pre_decoder_vcvc_sptr lte_make_pre_decoder_vcvc (int N_ant, int vlen, std::string style);
 
 /*!
- * \brief <+description+>
+ * \brief Pre Decoding block
+ * \param N_ant initial antenna setup. for now: 1 or 2 antennas
+ * \param vlen length of the input/output vector
+ * \param style decoding style as given by LTE standard. Only transmit diversity is supported
+ * Block takes in vectors and channel estimates. Output is decoded according to Alamouti or standard zero-forcing depending on antenna configuration
  *
  */
 class LTE_API lte_pre_decoder_vcvc : public gr_sync_block
 {
-	friend LTE_API lte_pre_decoder_vcvc_sptr lte_make_pre_decoder_vcvc (int N_ant,std::string style);
+	friend LTE_API lte_pre_decoder_vcvc_sptr lte_make_pre_decoder_vcvc (int N_ant, int vlen, std::string style);
 
-	lte_pre_decoder_vcvc (int N_ant, std::string style);
+	lte_pre_decoder_vcvc (int N_ant, int vlen, std::string style);
 
  public:
 	~lte_pre_decoder_vcvc ();
@@ -54,17 +58,18 @@ class LTE_API lte_pre_decoder_vcvc : public gr_sync_block
 
  private:
     int d_N_ant;
+    int d_vlen;
     std::string d_style;
 
 //    inline void decode_2_ant(gr_complex* out, gr_complex* frame, gr_complex* ce1, gr_complex* ce2);
 
-    inline void decode_1_ant(gr_complex* out, gr_complex* rx, gr_complex* h, int len);
+    inline void decode_1_ant(gr_complex* out, const gr_complex* rx, gr_complex* h, int len);
 
     inline void prepare_2_ant_vectors(gr_complex* h0,
                                       gr_complex* h1,
                                       gr_complex* r0,
                                       gr_complex* r1,
-                                      gr_complex* rx,
+                                      const gr_complex* rx,
                                       gr_complex* ce1,
                                       gr_complex* ce2,
                                       int len);

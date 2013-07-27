@@ -15,6 +15,12 @@
     <key>N_ant</key>
     <type>int</type>
   </param>
+
+  <param>
+    <name>vector length</name>
+    <key>vlen</key>
+    <type>int</type>
+  </param>
   
   <param>
     <name>RX style</name>
@@ -30,7 +36,7 @@
   <sink>
     <name>in</name>
     <type>complex</type>
-    <vlen>240</vlen>
+    <vlen>$vlen</vlen>
     <nports>1+$N_ant</nports>
   </sink>
   
@@ -43,6 +49,6 @@
   <source>
     <name>out</name>
     <type>complex</type>
-    <vlen>240</vlen>
+    <vlen>vlen</vlen>
   </source>
 </block>

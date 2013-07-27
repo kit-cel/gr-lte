@@ -62,7 +62,7 @@ def generate_frame(pbch, N_rb_dl, cell_id, sfn, N_ant):
     for p in range(N_ant):
         frame[p] = map_pbch_to_frame(frame[p], pbch, cell_id, sfn, p)
         frame[p] = frame_map_rs_symbols(frame[p], N_rb_dl, cell_id, Ncp, p)
-        #frame[p] = map_pcfich_to_frame(frame[p], pcfich, N_rb_dl, cell_id, p)
+        frame[p] = map_pcfich_to_frame(frame[p], pcfich[p], N_rb_dl, cell_id, p)
     return frame
 
 def rs_symbol_mapper(ofdm_symbol, N_rb_dl, ns, l, cell_id, Ncp, p):
@@ -146,22 +146,28 @@ def map_pbch_to_frame(frame, pbch, cell_id, sfn, ant):
 
 def map_pcfich_to_frame(frame, pcfich, N_rb_dl, cell_id, ant):
     print "tadada map pcfich " + str(ant)
-    print len(frame)
     for i in range(len(frame)):
         if i%14 == 0:
-            print i
             frame[i] = map_pcfich_to_symbol(frame[i], pcfich, N_rb_dl, cell_id, ant)
+    return frame
             
         
 def map_pcfich_to_symbol(symbol, pcfich, N_rb_dl, cell_id, ant):     
-    print "map pcfich"
+    #print "map pcfich"
     N_sc_rb = 12 # number of subcarriers per resource block
     k_mean = (N_sc_rb/2) * (cell_id%(2*N_rb_dl))
     regs = 4
+    cell_id_mod3 = cell_id%3
+    n_pcfi = 0
     for n in range(regs):
-        #print "reg = " + str(n)
         k = int( (k_mean + (N_sc_rb/2) * math.floor(n*N_rb_dl/2))%(N_rb_dl*N_sc_rb) )
-        #print k
+        for i in range(6):
+            if i%3 != cell_id_mod3:
+                symbol[k+i] = pcfich[n_pcfi]
+                n_pcfi = n_pcfi + 1
+#            else:
+#                symbol[k+i] = 111
+        
         
     return symbol
 
@@ -183,14 +189,14 @@ if __name__ == "__main__":
     frame = generate_frame(pbch, N_rb_dl, cell_id, sfn, N_ant)
     
     pcfich = encode_pcfich(2, cell_id, 4, N_ant)
-    symbol = map_pcfich_to_symbol([1]*12*N_rb_dl, pcfich, N_rb_dl, cell_id, 0)
-    print symbol
     
-    print np.shape(frame)    
-    print "done"
+#    for i in range(N_ant):
+#        frame[i] = map_pcfich_to_frame(frame[i], pcfich[i], N_rb_dl, cell_id, i)
+    print frame[0][0]
+#    for i in range(rev):
+#        print str(rev-1-i) + "\t" + str(in_sig[rev-1-i]) + "\t" + str(symbol[rev-1-i])
     
 
-    #print rs_seq
     
 
 

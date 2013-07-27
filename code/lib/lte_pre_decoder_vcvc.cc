@@ -30,16 +30,17 @@
 #include <volk/volk.h>
 
 lte_pre_decoder_vcvc_sptr
-lte_make_pre_decoder_vcvc (int N_ant,std::string style)
+lte_make_pre_decoder_vcvc (int N_ant, int vlen, std::string style)
 {
-	return lte_pre_decoder_vcvc_sptr (new lte_pre_decoder_vcvc (N_ant, style));
+	return lte_pre_decoder_vcvc_sptr (new lte_pre_decoder_vcvc (N_ant, vlen, style));
 }
 
 
-lte_pre_decoder_vcvc::lte_pre_decoder_vcvc (int N_ant,std::string style)
+lte_pre_decoder_vcvc::lte_pre_decoder_vcvc (int N_ant, int vlen, std::string style)
 	: gr_sync_block ("pre_decoder_vcvc",
-		gr_make_io_signature (2,3, sizeof (gr_complex)*240 ),
-		gr_make_io_signature (1,1, sizeof (gr_complex)*240 ))
+		gr_make_io_signature (2,3, sizeof (gr_complex)*vlen ),
+		gr_make_io_signature (1,1, sizeof (gr_complex)*vlen )),
+		d_vlen(vlen)
 {
     set_N_ant(N_ant);
     set_decoding_style(style);
@@ -72,7 +73,7 @@ lte_pre_decoder_vcvc::work (int noutput_items,
 
 
 	if (N_ant == 1){
-	    decode_1_ant(out, frame, ce1, 240);
+	    decode_1_ant(out, in1, ce1, 240);
 	}
 	else if(N_ant == 2){
 	    const gr_complex *in3 = (const gr_complex *) input_items[2];
@@ -84,7 +85,7 @@ lte_pre_decoder_vcvc::work (int noutput_items,
         gr_complex* h1 = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*len/2);
         gr_complex* r0 = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*len/2);
         gr_complex* r1 = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*len/2);
-        prepare_2_ant_vectors(h0, h1, r0, r1, frame, ce1, ce2, len);
+        prepare_2_ant_vectors(h0, h1, r0, r1, in1, ce1, ce2, len);
 
         gr_complex* out0 = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*len/2);
         gr_complex* out1 = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*len/2);
@@ -99,7 +100,7 @@ lte_pre_decoder_vcvc::work (int noutput_items,
 
 inline void
 lte_pre_decoder_vcvc::decode_1_ant(gr_complex* out,
-                                   gr_complex* rx,
+                                   const gr_complex* rx,
                                    gr_complex* h,
                                    int len)
 {
@@ -113,7 +114,7 @@ lte_pre_decoder_vcvc::prepare_2_ant_vectors(gr_complex* h0,
                                             gr_complex* h1,
                                             gr_complex* r0,
                                             gr_complex* r1,
-                                            gr_complex* rx,
+                                            const gr_complex* rx,
                                             gr_complex* ce1,
                                             gr_complex* ce2,
                                             int len)

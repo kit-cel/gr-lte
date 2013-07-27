@@ -33,11 +33,12 @@ class decode_pbch_vcvf(gr.hier_block2):
         self.message_port_register_hier_out("cell_id")
         # Define blocks and connect them
         style = "tx_diversity"
-        self.pre_decoder_1ant = lte.pre_decoder_vcvc(1, style)
-        self.pre_decoder_2ant = lte.pre_decoder_vcvc(2, style)
+        vlen = 240
+        self.pre_decoder_1ant = lte.pre_decoder_vcvc(1, vlen, style)
+        self.pre_decoder_2ant = lte.pre_decoder_vcvc(2, vlen, style)
         self.demapper_1ant = lte.layer_demapper_vcvc(1, style)
         self.demapper_2ant = lte.layer_demapper_vcvc(2, style)
-        self.interleave = gr.interleave(240*gr.sizeof_gr_complex)
+        self.interleave = gr.interleave(vlen*gr.sizeof_gr_complex)
         self.demod = lte.qpsk_soft_demod_vcvf()
         self.descr = lte.descrambling_vfvf()
         

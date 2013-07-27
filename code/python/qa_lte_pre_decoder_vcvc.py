@@ -30,17 +30,21 @@ class qa_pre_decoder_vcvc (gr_unittest.TestCase):
     def setUp (self):
         self.tb = gr.top_block ()
         
-        intu1 = [0]*240
-        intu2 = [0]*240
-        intu3 = [0]*240
+        N_ant = 2
+        vlen = 240
+        style = 'tx_diversity'
+        
+        intu1 = [0]*vlen
+        intu2 = [0]*vlen
+        intu3 = [0]*vlen
                      
-        self.src1 = gr.vector_source_c( intu1, False, 240)
-        self.src2 = gr.vector_source_c( intu2, False, 240)
-        self.src3 = gr.vector_source_c( intu3, False, 240)
+        self.src1 = gr.vector_source_c( intu1, False, vlen)
+        self.src2 = gr.vector_source_c( intu2, False, vlen)
+        self.src3 = gr.vector_source_c( intu3, False, vlen)
         
-        self.pd = lte_swig.pre_decoder_vcvc(2,'tx_diversity')
+        self.pd = lte_swig.pre_decoder_vcvc(N_ant, vlen, style)
         
-        self.snk = gr.vector_sink_c(240)
+        self.snk = gr.vector_sink_c(vlen)
         
         self.tb.connect(self.src1,(self.pd,0) )
         self.tb.connect(self.src2,(self.pd,1) )
@@ -56,7 +60,6 @@ class qa_pre_decoder_vcvc (gr_unittest.TestCase):
         N_ant = 2
         style= "tx_diversity"
         mib = pack_mib(50,0,1.0, 511)
-        
         bch = encode_bch(mib, N_ant)
         
         scrambled = pbch_scrambling(bch, cell_id)
@@ -79,6 +82,65 @@ class qa_pre_decoder_vcvc (gr_unittest.TestCase):
             exp_res.append(layer_mapped[0][i])
             exp_res.append(layer_mapped[1][i])
         print self.assertComplexTuplesAlmostEqual(res, exp_res)
+        
+    def test_002_pcfich(self):
+        print "test_002_pcfich"
+        
+        # some constants
+        cell_id = 124
+        N_ant = 2
+        style= "tx_diversity"
+        vlen = 16
+        ns = 0
+        
+        # new top_block because even the interface changes
+        self.tb2 = gr.top_block()
+        
+        # generate test data together with the expected output
+        data = []
+        exp_res = []
+        for cfi in range(4):
+            cfi_seq = get_cfi_sequence(cfi+1)
+            scr_cfi_seq = scramble_cfi_sequence(cfi_seq, cell_id, ns)
+            mod_cfi_seq = qpsk_modulation(scr_cfi_seq)
+            lay_cfi_seq = layer_mapping(mod_cfi_seq, N_ant, style)
+            for i in range(len(lay_cfi_seq[0])):
+                exp_res.append(lay_cfi_seq[0][i])
+                exp_res.append(lay_cfi_seq[1][i])
+            pc_cfi_seq = pre_coding(lay_cfi_seq, N_ant, style)
+            pc_cfi_seq = [pc_cfi_seq[0][i]+pc_cfi_seq[1][i] for i in range(len(pc_cfi_seq[0]))]
+            data.extend(pc_cfi_seq)
+
+        # dummy channel estimates        
+        intu2 = [1]*len(data)
+        intu3 = [1]*len(data)
+        
+        N_ant = 1        
+        # get blocks
+        self.src1 = gr.vector_source_c( data, False, vlen)
+        self.src2 = gr.vector_source_c( intu2, False, vlen)
+        self.src3 = gr.vector_source_c( intu3, False, vlen)
+        self.pd = lte_swig.pre_decoder_vcvc(N_ant, vlen, style)
+        self.snk = gr.vector_sink_c(vlen)
+        
+        # connect all blocks
+        self.tb2.connect(self.src1,(self.pd,0) )
+        self.tb2.connect(self.src2,(self.pd,1) )
+        self.tb2.connect(self.src3,(self.pd,2) )
+        self.tb2.connect(self.pd,self.snk)
+        
+        self.pd.set_N_ant(2)
+        
+        # run flowgraph
+        self.tb2.run()
+        
+        # compare result with expected result
+        res = self.snk.data()
+        self.assertComplexTuplesAlmostEqual(res,exp_res)
+        
+            
+        
+        
         
 
         
