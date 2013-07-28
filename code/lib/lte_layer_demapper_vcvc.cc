@@ -28,17 +28,18 @@
 
 
 lte_layer_demapper_vcvc_sptr
-lte_make_layer_demapper_vcvc (int N_ant, std::string style)
+lte_make_layer_demapper_vcvc (int N_ant, int vlen, std::string style)
 {
-	return lte_layer_demapper_vcvc_sptr (new lte_layer_demapper_vcvc ( N_ant, style));
+	return lte_layer_demapper_vcvc_sptr (new lte_layer_demapper_vcvc ( N_ant, vlen, style));
 }
 
 
-lte_layer_demapper_vcvc::lte_layer_demapper_vcvc (int N_ant, std::string style)
+lte_layer_demapper_vcvc::lte_layer_demapper_vcvc (int N_ant, int vlen, std::string style)
 	: gr_sync_block ("layer_demapper_vcvc",
-		gr_make_io_signature (1,1, sizeof (gr_complex)*240 ),
-		gr_make_io_signature (1,1, sizeof (gr_complex)*240 )),
+		gr_make_io_signature (1,1, sizeof (gr_complex)*vlen ),
+		gr_make_io_signature (1,1, sizeof (gr_complex)*vlen )),
 		d_N_ant(0),
+		d_vlen(vlen),
 		d_style("null")
 {
     set_N_ant(N_ant);
@@ -59,50 +60,49 @@ lte_layer_demapper_vcvc::work (int noutput_items,
 	const gr_complex *in = (const gr_complex *) input_items[0];
 	gr_complex *out = (gr_complex *) output_items[0];
 
-    gr_complex pbch[240] = {0};
-
     for(int i = 0 ; i < noutput_items; i++){
-        memcpy(pbch, in, 240*sizeof(gr_complex) );
-
         if(d_N_ant == 1){
-            demap_1_ant(out, pbch);
+            demap_1_ant(out, in, d_vlen);
         }
         else if(d_N_ant == 2){
-            demap_2_ant(out, pbch);
+            demap_2_ant(out, in, d_vlen);
         }
         else if(d_N_ant == 4){
-            demap_4_ant(out, pbch);
+            demap_4_ant(out, in, d_vlen);
         }
-        in+=240;
-        out+=240;
+        in+=d_vlen;
+        out+=d_vlen;
     }
 
 	return noutput_items;
 }
 
 inline void
-lte_layer_demapper_vcvc::demap_1_ant(gr_complex* out, gr_complex * in)
+lte_layer_demapper_vcvc::demap_1_ant(gr_complex* out, const gr_complex * in, int len)
 {
-    memcpy(out, in, 240*sizeof(gr_complex) );
+    memcpy(out, in, len*sizeof(gr_complex) );
 }
 
 inline void
-lte_layer_demapper_vcvc::demap_2_ant(gr_complex* out, gr_complex * in)
+lte_layer_demapper_vcvc::demap_2_ant(gr_complex* out, const gr_complex * in, int len)
 {
-    for(int i = 0 ; i < 120 ; i++ ){
+    int len2 = len/2;
+    for(int i = 0 ; i < len2 ; i++ ){
         *(out+2*i+0) = in[i    ];
-        *(out+2*i+1) = in[i+120];
+        *(out+2*i+1) = in[i+len2];
     }
 }
 
 inline void
-lte_layer_demapper_vcvc::demap_4_ant(gr_complex* out, gr_complex * in)
+lte_layer_demapper_vcvc::demap_4_ant(gr_complex* out, const gr_complex * in, int len)
 {
-    for(int i = 0 ; i < 60 ; i++ ){
+    int len4 = len/4;
+
+    for(int i = 0 ; i < len4 ; i++ ){
         *(out+4*i+0) = in[i    ];
-        *(out+4*i+1) = in[i+60 ];
-        *(out+4*i+2) = in[i+120];
-        *(out+4*i+3) = in[i+180];
+        *(out+4*i+1) = in[i+len4 ];
+        *(out+4*i+2) = in[i+2*len4];
+        *(out+4*i+3) = in[i+3*len4];
     }
 }
 

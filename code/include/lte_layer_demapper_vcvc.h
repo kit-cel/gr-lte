@@ -28,17 +28,21 @@
 class lte_layer_demapper_vcvc;
 typedef boost::shared_ptr<lte_layer_demapper_vcvc> lte_layer_demapper_vcvc_sptr;
 
-LTE_API lte_layer_demapper_vcvc_sptr lte_make_layer_demapper_vcvc (int N_ant, std::string style);
+LTE_API lte_layer_demapper_vcvc_sptr lte_make_layer_demapper_vcvc (int N_ant, int vlen, std::string style);
 
 /*!
- * \brief <+description+>
+ * \brief Layer Demapper
+ * \param N_ant number of antenna ports used in this system. Reconfigurable during runtime via message port
+ * \param vlen vector length of in and output
+ * \param style decoding style as given by LTE standard
+ * This block performs layer demapping as given by the ETSI 136211 document.
  *
  */
 class LTE_API lte_layer_demapper_vcvc : public gr_sync_block
 {
-	friend LTE_API lte_layer_demapper_vcvc_sptr lte_make_layer_demapper_vcvc (int N_ant, std::string style);
+	friend LTE_API lte_layer_demapper_vcvc_sptr lte_make_layer_demapper_vcvc (int N_ant, int vlen, std::string style);
 
-	lte_layer_demapper_vcvc (int N_ant, std::string style);
+	lte_layer_demapper_vcvc (int N_ant, int vlen, std::string style);
 
  public:
 	~lte_layer_demapper_vcvc ();
@@ -56,11 +60,12 @@ class LTE_API lte_layer_demapper_vcvc : public gr_sync_block
 
  private:
     int d_N_ant;
+    int d_vlen;
     std::string d_style;
 
-    inline void demap_1_ant(gr_complex* out, gr_complex * in);
-    inline void demap_2_ant(gr_complex* out, gr_complex * in);
-    inline void demap_4_ant(gr_complex* out, gr_complex * in);
+    inline void demap_1_ant(gr_complex* out, const gr_complex * in, int len);
+    inline void demap_2_ant(gr_complex* out, const gr_complex * in, int len);
+    inline void demap_4_ant(gr_complex* out, const gr_complex * in, int len);
 };
 
 #endif /* INCLUDED_LTE_LAYER_DEMAPPER_VCVC_H */

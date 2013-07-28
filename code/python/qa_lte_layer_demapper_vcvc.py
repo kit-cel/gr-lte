@@ -19,18 +19,20 @@
 # 
 #
 
-from gnuradio import gr, gr_unittest
+from gnuradio import gr, gr_unittest, blocks
 import lte as lte_swig
 import lte_test
+import numpy as np
 
 class qa_layer_demapper_vcvc (gr_unittest.TestCase):
 
     def setUp (self):
         print "setUp"
+        vlen = 240
         self.tb = gr.top_block ()
-        self.src = gr.vector_source_c([0]*240,False,240)
-        self.demapper = lte_swig.layer_demapper_vcvc(0, "tx_diversity")
-        self.snk = gr.vector_sink_c(240)
+        self.src = blocks.vector_source_c([0]*vlen,False,vlen)
+        self.demapper = lte_swig.layer_demapper_vcvc(0, vlen, "tx_diversity")
+        self.snk = blocks.vector_sink_c(vlen)
         self.tb.connect(self.src, self.demapper, self.snk)
 
     def tearDown (self):
@@ -101,6 +103,37 @@ class qa_layer_demapper_vcvc (gr_unittest.TestCase):
             except:
                 print "FAILED N_ant = " +str(self.demapper.get_N_ant())
                 self.assertComplexTuplesAlmostEqual(res, tuple(exp_res) )
+                
+    def test_004_pcfich(self):
+        print "\ntest_004_pcfich"
+        cell_id = 124
+        ns = 0
+        N_ant = 2
+        vlen = 16
+        style = "tx_diversity"
+        self.tb2 = gr.top_block()
+        self.src = blocks.vector_source_c([0]*vlen,False,vlen)
+        self.demapper = lte_swig.layer_demapper_vcvc(0, vlen, style)
+        self.snk = blocks.vector_sink_c(vlen)
+        self.tb2.connect(self.src, self.demapper, self.snk)
+        self.demapper.set_N_ant(N_ant)
+        
+        data = []
+        exp_res = []
+        for cfi in range(4):
+            cfi_seq = lte_test.get_cfi_sequence(cfi+1)
+            scr_cfi_seq = lte_test.scramble_cfi_sequence(cfi_seq, cell_id, ns)
+            mod_cfi_seq = lte_test.qpsk_modulation(scr_cfi_seq)
+            exp_res.extend(mod_cfi_seq)
+            lay_cfi_seq = lte_test.layer_mapping(mod_cfi_seq, N_ant, style)
+            for i in range(len(lay_cfi_seq)):
+                data.extend(lay_cfi_seq[i])
+                
+        self.src.set_data(data)
+        self.tb2.run()
+        res = self.snk.data()
+        self.assertComplexTuplesAlmostEqual(res, exp_res)
+
 
 
             

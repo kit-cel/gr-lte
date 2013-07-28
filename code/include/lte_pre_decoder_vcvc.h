@@ -63,15 +63,15 @@ class LTE_API lte_pre_decoder_vcvc : public gr_sync_block
 
 //    inline void decode_2_ant(gr_complex* out, gr_complex* frame, gr_complex* ce1, gr_complex* ce2);
 
-    inline void decode_1_ant(gr_complex* out, const gr_complex* rx, gr_complex* h, int len);
+    inline void decode_1_ant(gr_complex* out, const gr_complex* rx, const gr_complex* h, int len);
 
     inline void prepare_2_ant_vectors(gr_complex* h0,
                                       gr_complex* h1,
                                       gr_complex* r0,
                                       gr_complex* r1,
                                       const gr_complex* rx,
-                                      gr_complex* ce1,
-                                      gr_complex* ce2,
+                                      const gr_complex* ce1,
+                                      const gr_complex* ce2,
                                       int len);
 
     inline void decode_2_ant(gr_complex* out0,
@@ -86,6 +86,16 @@ class LTE_API lte_pre_decoder_vcvc : public gr_sync_block
                                gr_complex* out0,
                                gr_complex* out1,
                                int len);
+
+    gr_complex* d_h0;
+    gr_complex* d_h1;
+    gr_complex* d_r0;
+    gr_complex* d_r1;
+    gr_complex* d_out0;
+    gr_complex* d_out1;
+    gr_complex* d_mult0;
+    gr_complex* d_mult1;
+    inline void setup_volk_vectors(int len);
 };
 
 #endif /* INCLUDED_LTE_PRE_DECODER_VCVC_H */

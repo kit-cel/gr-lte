@@ -19,7 +19,7 @@
 # 
 #
 
-from gnuradio import gr, gr_unittest
+from gnuradio import gr, gr_unittest, blocks
 import lte as lte_swig
 from lte_test import *
 import scipy.io
@@ -38,13 +38,13 @@ class qa_pre_decoder_vcvc (gr_unittest.TestCase):
         intu2 = [0]*vlen
         intu3 = [0]*vlen
                      
-        self.src1 = gr.vector_source_c( intu1, False, vlen)
-        self.src2 = gr.vector_source_c( intu2, False, vlen)
-        self.src3 = gr.vector_source_c( intu3, False, vlen)
+        self.src1 = blocks.vector_source_c( intu1, False, vlen)
+        self.src2 = blocks.vector_source_c( intu2, False, vlen)
+        self.src3 = blocks.vector_source_c( intu3, False, vlen)
         
         self.pd = lte_swig.pre_decoder_vcvc(N_ant, vlen, style)
         
-        self.snk = gr.vector_sink_c(vlen)
+        self.snk = blocks.vector_sink_c(vlen)
         
         self.tb.connect(self.src1,(self.pd,0) )
         self.tb.connect(self.src2,(self.pd,1) )
@@ -117,11 +117,11 @@ class qa_pre_decoder_vcvc (gr_unittest.TestCase):
         
         N_ant = 1        
         # get blocks
-        self.src1 = gr.vector_source_c( data, False, vlen)
-        self.src2 = gr.vector_source_c( intu2, False, vlen)
-        self.src3 = gr.vector_source_c( intu3, False, vlen)
+        self.src1 = blocks.vector_source_c( data, False, vlen)
+        self.src2 = blocks.vector_source_c( intu2, False, vlen)
+        self.src3 = blocks.vector_source_c( intu3, False, vlen)
         self.pd = lte_swig.pre_decoder_vcvc(N_ant, vlen, style)
-        self.snk = gr.vector_sink_c(vlen)
+        self.snk = blocks.vector_sink_c(vlen)
         
         # connect all blocks
         self.tb2.connect(self.src1,(self.pd,0) )

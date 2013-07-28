@@ -44,6 +44,7 @@ lte_pre_decoder_vcvc::lte_pre_decoder_vcvc (int N_ant, int vlen, std::string sty
 {
     set_N_ant(N_ant);
     set_decoding_style(style);
+    setup_volk_vectors(vlen);
 }
 
 
@@ -63,45 +64,36 @@ lte_pre_decoder_vcvc::work (int noutput_items,
 
 	//get local copy of number of antenna ports
 	int N_ant = d_N_ant;
-	//get local copy of input 1 (received values)
-	gr_complex frame[240];
-	memcpy(frame,in1,240*sizeof(gr_complex) );
-	//get local copy of input 2 (calculated CE values for antenna port 1)
-	gr_complex ce1[240];
-    memcpy(ce1,in2,240*sizeof(gr_complex) );
-    // since antenna port 2 is an optional input, it is not yet copied.
-
 
 	if (N_ant == 1){
-	    decode_1_ant(out, in1, ce1, 240);
+        for(int i = 0; i < noutput_items; i++){
+            decode_1_ant(out, in1, in2, d_vlen);
+            out += d_vlen;
+            in1 += d_vlen;
+            in2 += d_vlen;
+        }
 	}
 	else if(N_ant == 2){
 	    const gr_complex *in3 = (const gr_complex *) input_items[2];
-	    gr_complex ce2[240];
-        memcpy(ce2,in3,240*sizeof(gr_complex) );
-
-        int len = 240;
-        gr_complex* h0 = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*len/2);
-        gr_complex* h1 = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*len/2);
-        gr_complex* r0 = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*len/2);
-        gr_complex* r1 = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*len/2);
-        prepare_2_ant_vectors(h0, h1, r0, r1, in1, ce1, ce2, len);
-
-        gr_complex* out0 = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*len/2);
-        gr_complex* out1 = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*len/2);
-
-        decode_2_ant(out0, out1, h0, h1,r0, r1, len/2);
-        combine_output(out, out0, out1, len);
+	    for(int i = 0; i < noutput_items; i++){
+            prepare_2_ant_vectors(d_h0, d_h1, d_r0, d_r1, in1, in2, in3, d_vlen);
+            decode_2_ant(d_out0, d_out1, d_h0, d_h1, d_r0, d_r1, d_vlen/2);
+            combine_output(out, d_out0, d_out1, d_vlen);
+            out += d_vlen;
+            in1 += d_vlen;
+            in2 += d_vlen;
+            in3 += d_vlen;
+	    }
 	}
 
 	// Tell runtime system how many output items we produced.
-	return 1;
+	return noutput_items;
 }
 
 inline void
 lte_pre_decoder_vcvc::decode_1_ant(gr_complex* out,
                                    const gr_complex* rx,
-                                   gr_complex* h,
+                                   const gr_complex* h,
                                    int len)
 {
     for(int i = 0 ; i < len ; i++ ){
@@ -115,8 +107,8 @@ lte_pre_decoder_vcvc::prepare_2_ant_vectors(gr_complex* h0,
                                             gr_complex* r0,
                                             gr_complex* r1,
                                             const gr_complex* rx,
-                                            gr_complex* ce1,
-                                            gr_complex* ce2,
+                                            const gr_complex* ce1,
+                                            const gr_complex* ce2,
                                             int len)
 {
     for(int n = 0; n < len/2; n++){
@@ -150,18 +142,16 @@ lte_pre_decoder_vcvc::decode_2_ant(gr_complex* out0,
     e_x0 = h0* r0 + h1 r1*
     e_x1 = h0* r1 - h1 r0*
     */
-    gr_complex* mult0 = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*len);
-    gr_complex* mult1 = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*len);
 
     // e_x0
-    volk_32fc_x2_multiply_conjugate_32fc_a(mult0, r0, h0, len);
-    volk_32fc_x2_multiply_conjugate_32fc_a(mult1, h1, r1, len);
-    volk_32f_x2_add_32f_a( (float*)out0, (float*)mult0, (float*)mult1, 2*len);
+    volk_32fc_x2_multiply_conjugate_32fc_a(d_mult0, r0, h0, len);
+    volk_32fc_x2_multiply_conjugate_32fc_a(d_mult1, h1, r1, len);
+    volk_32f_x2_add_32f_a( (float*)out0, (float*)d_mult0, (float*)d_mult1, 2*len);
 
     //e_x1
-    volk_32fc_x2_multiply_conjugate_32fc_a(mult0, r1, h0, len);
-    volk_32fc_x2_multiply_conjugate_32fc_a(mult1, h1, r0, len);
-    volk_32f_x2_subtract_32f_a( (float*)out1, (float*)mult0, (float*)mult1, 2*len);
+    volk_32fc_x2_multiply_conjugate_32fc_a(d_mult0, r1, h0, len);
+    volk_32fc_x2_multiply_conjugate_32fc_a(d_mult1, h1, r0, len);
+    volk_32f_x2_subtract_32f_a( (float*)out1, (float*)d_mult0, (float*)d_mult1, 2*len);
 
     // Do correct scaling!
     gr_complex divsqrt2 = gr_complex(1.0/std::sqrt(2),0);
@@ -209,6 +199,22 @@ lte_pre_decoder_vcvc::set_decoding_style(std::string style)
         printf("%s\tset decoding style to \"%s\"\n", name().c_str(), style.c_str() );
         d_style = style;
     }
+}
+
+//gr_complex* d_h0, d_h1, d_r0, d_r1, d_out0, d_out1, d_mult0, d_mult1;
+inline void
+lte_pre_decoder_vcvc::setup_volk_vectors(int len)
+{
+    d_h0 = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*d_vlen/2);
+    d_h1 = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*d_vlen/2);
+    d_r0 = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*d_vlen/2);
+    d_r1 = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*d_vlen/2);
+
+    d_out0 = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*d_vlen/2);
+    d_out1 = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*d_vlen/2);
+
+    d_mult0 = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*d_vlen/2);
+    d_mult1 = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*d_vlen/2);
 }
 
 
