@@ -39,7 +39,7 @@ class decode_pbch_vcvf(gr.hier_block2):
         self.demapper_1ant = lte.layer_demapper_vcvc(1, vlen, style)
         self.demapper_2ant = lte.layer_demapper_vcvc(2, vlen, style)
         self.interleave = gr.interleave(vlen*gr.sizeof_gr_complex)
-        self.demod = lte.qpsk_soft_demod_vcvf()
+        self.demod = lte.qpsk_soft_demod_vcvf(vlen)
         self.descr = lte.descrambling_vfvf()
         
         self.msg_connect(self, "cell_id", self.descr, "cell_id")

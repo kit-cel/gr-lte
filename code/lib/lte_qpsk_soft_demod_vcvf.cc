@@ -28,19 +28,19 @@
 
 
 lte_qpsk_soft_demod_vcvf_sptr
-lte_make_qpsk_soft_demod_vcvf ()
+lte_make_qpsk_soft_demod_vcvf (int vlen)
 {
-	return lte_qpsk_soft_demod_vcvf_sptr (new lte_qpsk_soft_demod_vcvf ());
+	return lte_qpsk_soft_demod_vcvf_sptr (new lte_qpsk_soft_demod_vcvf (vlen));
 }
 
 
-lte_qpsk_soft_demod_vcvf::lte_qpsk_soft_demod_vcvf ()
+lte_qpsk_soft_demod_vcvf::lte_qpsk_soft_demod_vcvf (int vlen)
 	: gr_sync_block ("qpsk_soft_demod_vcvf",
-		gr_make_io_signature (1,1, sizeof(gr_complex)*240),
-		gr_make_io_signature (1,1, sizeof (float)*480))
+		gr_make_io_signature (1,1, sizeof(gr_complex)*vlen),
+		gr_make_io_signature (1,1, sizeof (float)*(2*vlen))),
+		d_vlen(vlen)
 {
-    //printf("%s\tsizeof(gr_complex) = %ld\n", name().c_str(), sizeof(gr_complex));
-
+    d_demodulated = (float*)fftwf_malloc(sizeof(float)*2*d_vlen);
 }
 
 
@@ -57,14 +57,13 @@ lte_qpsk_soft_demod_vcvf::work (int noutput_items,
 	const gr_complex *in = (const gr_complex *) input_items[0];
 	float *out = (float *) output_items[0];
 
-	float* demodulated = (float*)fftwf_malloc(sizeof(float)*480*noutput_items);
-    for (int i = 0 ; i < 240*noutput_items ; i++ ) {
-	    *(demodulated+2*i  ) = (*(in+i)).real();
-	    *(demodulated+2*i+1) = (*(in+i)).imag();
+	for(int i = 0 ; i < noutput_items ; i++){
+        memcpy(d_demodulated, (float*) in,  sizeof(float) * 2 * d_vlen);
+        volk_32f_s32f_multiply_32f_u(d_demodulated, d_demodulated, d_SQRT2, (2*d_vlen));
+        memcpy(out, d_demodulated, sizeof(float)*(2*d_vlen));
+        in += d_vlen;
+        out += (2*d_vlen);
 	}
-	const float SQRT2 = std::sqrt(2);
-    volk_32f_s32f_multiply_32f_u(demodulated, demodulated, SQRT2, 480*noutput_items);
-    memcpy(out, demodulated, sizeof(float)*480*noutput_items);
 
 	// Tell runtime system how many output items we produced.
 	return noutput_items;

@@ -31,7 +31,7 @@
 class lte_qpsk_soft_demod_vcvf;
 typedef boost::shared_ptr<lte_qpsk_soft_demod_vcvf> lte_qpsk_soft_demod_vcvf_sptr;
 
-LTE_API lte_qpsk_soft_demod_vcvf_sptr lte_make_qpsk_soft_demod_vcvf ();
+LTE_API lte_qpsk_soft_demod_vcvf_sptr lte_make_qpsk_soft_demod_vcvf (int vlen);
 
 /*!
  * \brief This block does a qpsk soft demodulation
@@ -41,9 +41,13 @@ LTE_API lte_qpsk_soft_demod_vcvf_sptr lte_make_qpsk_soft_demod_vcvf ();
  */
 class LTE_API lte_qpsk_soft_demod_vcvf : public gr_sync_block
 {
-	friend LTE_API lte_qpsk_soft_demod_vcvf_sptr lte_make_qpsk_soft_demod_vcvf ();
+	friend LTE_API lte_qpsk_soft_demod_vcvf_sptr lte_make_qpsk_soft_demod_vcvf (int vlen);
 
-	lte_qpsk_soft_demod_vcvf ();
+	lte_qpsk_soft_demod_vcvf (int vlen);
+
+	int d_vlen;
+	const float d_SQRT2 = std::sqrt(2);
+	float* d_demodulated;
 
  public:
 	~lte_qpsk_soft_demod_vcvf ();

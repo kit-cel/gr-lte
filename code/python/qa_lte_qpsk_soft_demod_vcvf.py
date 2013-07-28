@@ -28,9 +28,11 @@ class qa_qpsk_soft_demod_vcvf (gr_unittest.TestCase):
     def setUp (self):
         self.tb = gr.top_block ()
         
-        self.src = gr.vector_source_c([0]*240,False, 240)
-        self.demod = lte_swig.qpsk_soft_demod_vcvf()
-        self.snk = gr.vector_sink_f(480)
+        vlen = 240
+        
+        self.src = gr.vector_source_c([0]*vlen,False, vlen)
+        self.demod = lte_swig.qpsk_soft_demod_vcvf(vlen)
+        self.snk = gr.vector_sink_f(2*vlen)
         
         self.tb.connect(self.src, self.demod, self.snk)
 
