@@ -24,6 +24,10 @@
 #include <lte_api.h>
 #include <gr_sync_interpolator.h>
 
+#include <fftw3.h>
+#include <volk/volk.h>
+
+
 class lte_descrambling_vfvf;
 typedef boost::shared_ptr<lte_descrambling_vfvf> lte_descrambling_vfvf_sptr;
 
@@ -31,6 +35,7 @@ LTE_API lte_descrambling_vfvf_sptr lte_make_descrambling_vfvf ();
 
 /*!
  * \brief Block performs descrambling with the given Cell ID
+ * Cell ID is passed to block via message port on runtime
  *
  */
 class LTE_API lte_descrambling_vfvf : public gr_sync_interpolator
@@ -53,7 +58,8 @@ class LTE_API lte_descrambling_vfvf : public gr_sync_interpolator
 		gr_vector_void_star &output_items);
 private:
 	int d_cell_id;
-	char d_pn_seq[1920];
+	float* d_pn_seq;
+	float* d_scr;
 	int d_pn_seq_len;
 
 	pmt::pmt_t d_key;

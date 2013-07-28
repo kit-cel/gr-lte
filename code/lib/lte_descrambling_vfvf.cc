@@ -26,7 +26,7 @@
 #include <lte_descrambling_vfvf.h>
 
 #include <cstdio>
-#include <fstream>
+//#include <fstream>
 
 lte_descrambling_vfvf_sptr
 lte_make_descrambling_vfvf ()
@@ -40,7 +40,8 @@ lte_descrambling_vfvf::lte_descrambling_vfvf ()
 		gr_make_io_signature (1, 1, sizeof (float)*480),
 		gr_make_io_signature (1, 1, sizeof (float)*120), 32),
 		d_cell_id(-1),
-		d_work_call(0)
+		d_work_call(0),
+		d_pn_seq_len(1920)
 {
     message_port_register_in(pmt::mp("cell_id"));
     set_msg_handler(pmt::mp("cell_id"), boost::bind(&lte_descrambling_vfvf::set_cell_id_msg, this, _1));
@@ -48,6 +49,9 @@ lte_descrambling_vfvf::lte_descrambling_vfvf ()
     // set PMT blob info
 	d_key=pmt::pmt_string_to_symbol("descr_part");
 	d_tag_id=pmt::pmt_string_to_symbol(name() );
+
+	d_scr = (float*)fftwf_malloc(sizeof(float)*d_pn_seq_len);
+	d_pn_seq = (float*)fftwf_malloc(sizeof(float)*d_pn_seq_len);
 }
 
 
@@ -73,35 +77,32 @@ lte_descrambling_vfvf::work (int noutput_items,
 	d_work_call++;
 
 	// Read in vector and make copies for a 1920-element vector.
-	float scr[d_pn_seq_len];
 	int len_in=d_pn_seq_len/4;
-
-	memcpy(scr         ,in,sizeof(float)*len_in );
-	memcpy(scr+len_in  ,in,sizeof(float)*len_in );
-	memcpy(scr+2*len_in,in,sizeof(float)*len_in );
-	memcpy(scr+3*len_in,in,sizeof(float)*len_in );
+	memcpy(d_scr         ,in,sizeof(float)*len_in );
+	memcpy(d_scr+len_in  ,in,sizeof(float)*len_in );
+	memcpy(d_scr+2*len_in,in,sizeof(float)*len_in );
+	memcpy(d_scr+3*len_in,in,sizeof(float)*len_in );
 
 	// Calculate actual descrambled sequence
-	// Write output to
-	for (int i = 0 ; i < d_pn_seq_len; i++){
-		scr[i]=scr[i]*d_pn_seq[i];
-		//value=i;
-	}
-	memcpy(out+1920,scr,sizeof(float)*d_pn_seq_len);
-	//Do Soft combining
-	for (int i = 0 ; i < 120 ; i++){
-		scr[i      ]=(scr[i]+scr[i+120]+scr[i+240]+scr[i+360])/4;
-		scr[i+480  ]=(scr[i+480]+scr[i+120+480]+scr[i+240+480]+scr[i+360+480])/4;
-		scr[i+480*2]=(scr[i+480*2]+scr[i+120+480*2]+scr[i+240+480*2]+scr[i+360+480*2])/4;
-		scr[i+480*3]=(scr[i+480*3]+scr[i+120+480*3]+scr[i+240+480*3]+scr[i+360+480*3])/4;
+	// Write to output buffer
+	volk_32f_x2_multiply_32f_a(d_scr, d_scr, d_pn_seq, d_pn_seq_len);
+	memcpy(out+d_pn_seq_len, d_scr, sizeof(float)*d_pn_seq_len);
+
+    // Soft combining
+	const float quarter = 0.25f;
+	for(int i = 0; i < 4; i++){
+        for(int c = 1; c < 4; c++){
+            volk_32f_x2_add_32f_a(d_scr+480*i, d_scr+480*i, d_scr+480*i+120*c, 120 );
+        }
+        volk_32f_s32f_multiply_32f_u(d_scr+480*i, d_scr+480*i, quarter, 120);
 	}
 
-	// Write to out.
+	// Write to output buffer
 	for (int i = 0 ; i < 4 ; i++ ){
-		memcpy(out+120*i      ,scr+0    ,sizeof(float) *120);
-		memcpy(out+120*i+480  ,scr+480  ,sizeof(float) *120);
-		memcpy(out+120*i+480*2,scr+480*2,sizeof(float) *120);
-		memcpy(out+120*i+480*3,scr+480*3,sizeof(float) *120);
+		memcpy(out+120*i      ,d_scr+0    ,sizeof(float) *120);
+		memcpy(out+120*i+480  ,d_scr+480  ,sizeof(float) *120);
+		memcpy(out+120*i+480*2,d_scr+480*2,sizeof(float) *120);
+		memcpy(out+120*i+480*3,d_scr+480*3,sizeof(float) *120);
 	}
 
 	for (int i = 0 ; i < 32 ; i++){
@@ -170,14 +171,13 @@ lte_descrambling_vfvf::set_cell_id_msg(pmt::pmt_t msg)
 void
 lte_descrambling_vfvf::set_cell_id(int id)
 {
-
     printf("%s\tset_cell_id = %i\n", name().c_str(), id);
-    int len=1920;
-	d_pn_seq_len=len;
-	char *pn_seq0 = pn_seq_generator(len, id);
+    //int len=1920;
+	d_pn_seq_len=1920;
+	char *pn_seq0 = pn_seq_generator(d_pn_seq_len, id);
 	//d_pn_seq = new char[len];
 	//NRZ coding of pn sequence
-	for (int i = 0 ; i<len; i++){
+	for (int i = 0 ; i<d_pn_seq_len; i++){
 		d_pn_seq[i]=1-2*pn_seq0[i];
 	}
     d_cell_id = id;
