@@ -26,7 +26,6 @@
 #include <lte_descrambling_vfvf.h>
 
 #include <cstdio>
-//#include <fstream>
 
 lte_descrambling_vfvf_sptr
 lte_make_descrambling_vfvf ()

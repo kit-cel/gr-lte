@@ -39,9 +39,6 @@ if __name__ == "__main__":
     N_ant = 2
     style = "tx_diversity"
     
-    print math.pow(2,9)
-    print 2**9
-    
 
     for i in range(5):
         cfi_seq = get_cfi_sequence(i)

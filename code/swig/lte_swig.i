@@ -32,6 +32,7 @@
 #include "lte_cp_time_freq_sync_cc.h"
 #include "lte_zadoff_chu_seq_generator_vc.h"
 #include "lte_channel_estimator_vcvc.h"
+#include "lte_pcfich_descrambler_vfvf.h"
 %}
 
 
@@ -103,3 +104,5 @@ GR_SWIG_BLOCK_MAGIC(lte,zadoff_chu_seq_generator_vc);
 
 GR_SWIG_BLOCK_MAGIC(lte, channel_estimator_vcvc);
 %include "lte_channel_estimator_vcvc.h"
+GR_SWIG_BLOCK_MAGIC(lte, pcfich_descrambler_vfvf);
+%include "lte_pcfich_descrambler_vfvf.h"
