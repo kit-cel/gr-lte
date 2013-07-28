@@ -42,7 +42,6 @@ install(FILES
     lte_pss_tagging_cc.xml
     lte_hier_pss_sync_cc.xml
     lte_cp_time_freq_sync_cc.xml
-    lte_linear_OFDM_estimator_hier_vcvc.xml
     lte_zadoff_chu_seq_generator_vc.xml
     lte_decode_bch_vfvb.xml
     lte_decode_pbch_vcvf.xml
