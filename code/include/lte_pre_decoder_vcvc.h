@@ -61,6 +61,8 @@ class LTE_API lte_pre_decoder_vcvc : public gr_sync_block
     int d_vlen;
     std::string d_style;
 
+    void handle_msg(pmt::pmt_t msg);
+
 //    inline void decode_2_ant(gr_complex* out, gr_complex* frame, gr_complex* ce1, gr_complex* ce2);
 
     inline void decode_1_ant(gr_complex* out, const gr_complex* rx, const gr_complex* h, int len);

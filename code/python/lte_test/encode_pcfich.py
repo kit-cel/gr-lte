@@ -21,6 +21,7 @@ def scramble_cfi_sequence(cfi_seq, cell_id, ns):
     # Initialize cinit with by the formula given in ETSI 136211
     # scrambled sequence is represented by b \tilda
     cinit = int( (math.floor(ns/2)+1) * (2*cell_id+1) * (2**9) + cell_id )
+#    print "cinit python = " + str(cinit)
     return scramble_sequence(cfi_seq, cinit)
 
 def encode_pcfich(cfi, cell_id, ns, N_ant):
@@ -42,26 +43,27 @@ if __name__ == "__main__":
 
     for i in range(5):
         cfi_seq = get_cfi_sequence(i)
-        #print i
-        #print len(cfi_seq)
-        print cfi_seq
   
     cfi_seq = get_cfi_sequence(cfi)
     for i in range(10):
         ns = 2*i # For tests, CFI at beginning of subframe
         scr_cfi_seq = scramble_cfi_sequence(cfi_seq, cell_id, ns)
-        print scr_cfi_seq
         #print qpsk_modulation(scr_cfi_seq)
     scr_cfi_seq = scramble_cfi_sequence(cfi_seq, cell_id, ns)
     mod_cfi_seq = qpsk_modulation(scr_cfi_seq)
     lay_cfi_seq = layer_mapping(mod_cfi_seq, N_ant, style)
     prc_cfi_seq = pre_coding(lay_cfi_seq, N_ant, style)
     pcfich = encode_pcfich(cfi, cell_id, ns, N_ant)
-    print pcfich
-    print np.shape(pcfich)
-    print len(lay_cfi_seq)
-    print np.shape(lay_cfi_seq)
-    print np.shape(prc_cfi_seq)
+    
+    cfi1 = nrz_encoding(get_cfi_sequence(1))
+    cfi2 = nrz_encoding(get_cfi_sequence(2))
+    cfi3 = nrz_encoding(get_cfi_sequence(3))
+    
+    corr = 0
+    for i in range(len(cfi1)):
+        corr = corr + cfi2[i]*cfi3[i]
+        
+    print corr
     
     
     

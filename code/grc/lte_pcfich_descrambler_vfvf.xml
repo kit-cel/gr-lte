@@ -1,19 +1,19 @@
 <?xml version="1.0"?>
 <block>
-  <name>pcfich_descrambler_vfvf</name>
+  <name>PCFICH Descrambler</name>
   <key>lte_pcfich_descrambler_vfvf</key>
   <category>lte</category>
   <import>import lte</import>
-  <make>lte.pcfich_descrambler_vfvf($tag_key, $msg_buf_name)</make>
+  <make>lte.pcfich_descrambler_vfvf($tag_key, "cell_id")</make>
   <!-- Make one 'param' node for every Parameter you want settable from the GUI.
        Sub-nodes:
        * name
        * key (makes the value accessible as $keyname, e.g. in the make node)
        * type -->
   <param>
-    <name>...</name>
-    <key>...</key>
-    <type>...</type>
+    <name>tag key value</name>
+    <key>tag_key</key>
+    <type>string</type>
   </param>
 
   <!-- Make one 'sink' node per input. Sub-nodes:
@@ -23,7 +23,14 @@
        * optional (set to 1 for optional inputs) -->
   <sink>
     <name>in</name>
-    <type><!-- e.g. int, float, complex, byte, short, xxx_vector, ...--></type>
+    <type>float</type>
+    <vlen>32</vlen>
+  </sink>
+
+  <sink>
+    <name>cell_id</name>
+    <type>message</type>
+    <optional>1</optional>
   </sink>
 
   <!-- Make one 'source' node per output. Sub-nodes:
@@ -33,6 +40,7 @@
        * optional (set to 1 for optional inputs) -->
   <source>
     <name>out</name>
-    <type><!-- e.g. int, float, complex, byte, short, xxx_vector, ...--></type>
+    <type>float</type>
+    <vlen>32</vlen>
   </source>
 </block>

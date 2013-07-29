@@ -49,6 +49,7 @@ class LTE_API lte_pcfich_descrambler_vfvf : public gr_sync_block
 	pmt::pmt_t d_tag_key;
 	pmt::pmt_t d_msg_buf;
 	int d_cell_id;
+	int d_subframe;
 
 	std::vector<float*> scr_seq_vec;
 
@@ -56,12 +57,13 @@ class LTE_API lte_pcfich_descrambler_vfvf : public gr_sync_block
 	inline void setup_descr_seqs(int cell_id);
     inline float* generate_scr_seq(int cell_id, int ns);
     inline void pn_seq_generator(float* vec, int len, int cinit);
+    void encode_nrz(float* out, float* in, int len);
 
  public:
   ~lte_pcfich_descrambler_vfvf();
 
     inline void set_cell_id(int cell_id);
-    //inline std::vector<float> get_descr_seq(int ns);
+    std::vector<std::vector<float> > get_descr_seqs();
 
 	// Where all the action really happens
 	int work (int noutput_items,

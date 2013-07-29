@@ -63,6 +63,8 @@ class LTE_API lte_layer_demapper_vcvc : public gr_sync_block
     int d_vlen;
     std::string d_style;
 
+    void handle_msg(pmt::pmt_t msg);
+
     inline void demap_1_ant(gr_complex* out, const gr_complex * in, int len);
     inline void demap_2_ant(gr_complex* out, const gr_complex * in, int len);
     inline void demap_4_ant(gr_complex* out, const gr_complex * in, int len);

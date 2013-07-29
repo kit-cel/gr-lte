@@ -45,6 +45,10 @@ lte_pre_decoder_vcvc::lte_pre_decoder_vcvc (int N_ant, int vlen, std::string sty
     set_N_ant(N_ant);
     set_decoding_style(style);
     setup_volk_vectors(vlen);
+
+    pmt::pmt_t msg_buf = pmt::mp("N_ant");
+    message_port_register_in(msg_buf);
+    set_msg_handler(msg_buf, boost::bind(&lte_pre_decoder_vcvc::handle_msg, this, _1));
 }
 
 
@@ -182,6 +186,12 @@ lte_pre_decoder_vcvc::set_N_ant(int N_ant)
         printf("%s\tset N_ant to %i\n",name().c_str(), N_ant);
         d_N_ant = N_ant;
     }
+}
+
+void
+lte_pre_decoder_vcvc::handle_msg(pmt::pmt_t msg)
+{
+    set_N_ant(int( pmt::pmt_to_long(msg) ));
 }
 
 void

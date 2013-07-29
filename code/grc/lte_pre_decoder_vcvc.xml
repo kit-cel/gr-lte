@@ -4,7 +4,7 @@
   <key>lte_pre_decoder_vcvc</key>
   <category>lte</category>
   <import>import lte</import>
-  <make>lte.pre_decoder_vcvc($N_ant, $style)</make>
+  <make>lte.pre_decoder_vcvc($num_ant, $vlen, $style)</make>
   <!-- Make one 'param' node for every Parameter you want settable from the GUI.
        Sub-nodes:
        * name
@@ -12,7 +12,7 @@
        * type -->
   <param>
     <name>antenna ports</name>
-    <key>N_ant</key>
+    <key>num_ant</key>
     <type>int</type>
   </param>
 
@@ -33,12 +33,21 @@
        * type
        * vlen
        * optional (set to 1 for optional inputs) -->
+<!--
+  <sink>
+    <name>antennas</name>
+    <type>message</type>
+    <nports>1</nports>
+  </sink>
+-->
   <sink>
     <name>in</name>
     <type>complex</type>
     <vlen>$vlen</vlen>
-    <nports>1+$N_ant</nports>
+    <nports>1+$num_ant</nports>
   </sink>
+
+
   
 
   <!-- Make one 'source' node per output. Sub-nodes:
@@ -49,6 +58,6 @@
   <source>
     <name>out</name>
     <type>complex</type>
-    <vlen>vlen</vlen>
+    <vlen>$vlen</vlen>
   </source>
 </block>

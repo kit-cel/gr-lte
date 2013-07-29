@@ -4,12 +4,18 @@
   <key>lte_qpsk_soft_demod_vcvf</key>
   <category>lte</category>
   <import>import lte</import>
-  <make>lte.qpsk_soft_demod_vcvf()</make>
+  <make>lte.qpsk_soft_demod_vcvf($vlen)</make>
   <!-- Make one 'param' node for every Parameter you want settable from the GUI.
        Sub-nodes:
        * name
        * key (makes the value accessible as $keyname, e.g. in the make node)
        * type -->
+  <param>
+    <name>vector length</name>
+    <key>vlen</key>
+    <type>int</type>
+  </param>
+
 
   <!-- Make one 'sink' node per input. Sub-nodes:
        * name (an identifier for the GUI)
@@ -19,7 +25,7 @@
   <sink>
     <name>in</name>
     <type>complex</type>
-    <vlen>240</vlen>
+    <vlen>$vlen</vlen>
   </sink>
 
   <!-- Make one 'source' node per output. Sub-nodes:
@@ -30,6 +36,6 @@
   <source>
     <name>out</name>
     <type>float</type>
-    <vlen>480</vlen>
+    <vlen>2*$vlen</vlen>
   </source>
 </block>
