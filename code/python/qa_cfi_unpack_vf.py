@@ -36,9 +36,14 @@ class qa_cfi_unpack_vf (gr_unittest.TestCase):
             cfi = get_cfi_sequence(i+1)
             data.extend(nrz_encoding(cfi))
         
-        taglist = self.get_tag_list(3, key, 10)
+        reps = 5
+        taglist = self.get_tag_list(3*reps, key, 10)
         
         data = [float(data[i]) for i in range(len(data))]
+        ext_data = []
+        for i in range(reps):
+            ext_data.extend(data)
+        data = ext_data
         
         self.src = blocks.vector_source_f(data, False, 32, taglist)
         self.cfi = lte.cfi_unpack_vf(key)

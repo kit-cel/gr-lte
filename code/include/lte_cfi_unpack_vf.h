@@ -35,7 +35,7 @@ typedef boost::shared_ptr<lte_cfi_unpack_vf> lte_cfi_unpack_vf_sptr;
 LTE_API lte_cfi_unpack_vf_sptr lte_make_cfi_unpack_vf (std::string key);
 
 /*!
- * \brief <+description+>
+ * \brief Unpack CFI and publish it on output message port
  * \ingroup lte
  *
  */
@@ -50,8 +50,12 @@ class LTE_API lte_cfi_unpack_vf : public gr_sync_block
 	pmt::pmt_t d_key;
 	float* d_in_seq;
 	std::vector<float*> d_ref_seqs;
+	int d_subframe;
 	void initialize_ref_seqs();
+	int calculate_cfi(float* in_seq);
 	float correlate(float* in0, float* in1, int len);
+
+	inline void publish_cfi(int subframe, int cfi);
 
  public:
   ~lte_cfi_unpack_vf();

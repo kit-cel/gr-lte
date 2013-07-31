@@ -1,19 +1,19 @@
 <?xml version="1.0"?>
 <block>
-  <name>cfi_unpack_vf</name>
+  <name>CFI unpack</name>
   <key>lte_cfi_unpack_vf</key>
   <category>lte</category>
   <import>import lte</import>
-  <make>lte.cfi_unpack_vf($)</make>
+  <make>lte.cfi_unpack_vf($key)</make>
   <!-- Make one 'param' node for every Parameter you want settable from the GUI.
        Sub-nodes:
        * name
        * key (makes the value accessible as $keyname, e.g. in the make node)
        * type -->
   <param>
-    <name>...</name>
-    <key>...</key>
-    <type>...</type>
+    <name>tag key value</name>
+    <key>key</key>
+    <type>string</type>
   </param>
 
   <!-- Make one 'sink' node per input. Sub-nodes:
@@ -23,7 +23,8 @@
        * optional (set to 1 for optional inputs) -->
   <sink>
     <name>in</name>
-    <type><!-- e.g. int, float, complex, byte, short, xxx_vector, ...--></type>
+    <type>float</type>
+    <vlen>32</vlen>
   </sink>
 
   <!-- Make one 'source' node per output. Sub-nodes:
@@ -33,6 +34,7 @@
        * optional (set to 1 for optional inputs) -->
   <source>
     <name>out</name>
-    <type><!-- e.g. int, float, complex, byte, short, xxx_vector, ...--></type>
+    <type>message</type>
+    <optional>1</optional>
   </source>
 </block>

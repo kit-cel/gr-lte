@@ -40,7 +40,8 @@ lte_make_cfi_unpack_vf (std::string key)
 lte_cfi_unpack_vf::lte_cfi_unpack_vf (std::string key)
   : gr_sync_block ("cfi_unpack_vf",
 		   gr_make_io_signature(1, 1, sizeof(float)* 32 ),
-		   gr_make_io_signature(0, 0, 0))
+		   gr_make_io_signature(0, 0, 0)),
+		   d_subframe(0)
 {
 	d_key = pmt::pmt_string_to_symbol(key);
 	d_port_cfi = pmt::pmt_string_to_symbol("cfi");
@@ -68,23 +69,40 @@ lte_cfi_unpack_vf::work(int noutput_items,
 {
 	const float *in = (const float *) input_items[0];
 
-    printf("This is a call to work\n");
     std::vector <gr_tag_t> v_b;
     get_tags_in_range(v_b, 0, nitems_read(0), nitems_read(0)+noutput_items, d_key);
     if(v_b.size() > 0){
-
         long offset = v_b[0].offset;
-        int value           = int(pmt::pmt_to_long(v_b[0].value) );
+        int value = int(pmt::pmt_to_long(v_b[0].value) );
+        d_subframe = value;
 
-        printf("%ld\tval = %i\n", offset, value );
+        //printf("%ld\tval = %i\n", offset, value );
     }
     memcpy(d_in_seq, in, sizeof(float)*32);
-    printf("%1.4f\n", correlate(d_in_seq, d_ref_seqs[0], 32) );
+    int cfi = calculate_cfi(d_in_seq);
+    //printf("cfi = %i\tsubframe = %i\n", cfi, d_subframe );
+    publish_cfi(d_subframe, cfi);
 
 
 
 	// Tell runtime system how many output items we produced.
 	return 1;
+}
+
+int
+lte_cfi_unpack_vf::calculate_cfi(float* in_seq)
+{
+    int cfi = 0;
+    float max_val = 0.0f;
+    float next_val = 0.0f;
+    for(int i = 0; i < 3; i++){
+        next_val = correlate(in_seq, d_ref_seqs[i], 32);
+        if(next_val > max_val){
+            cfi = i+1;
+            max_val = next_val;
+        }
+    }
+    return cfi;
 }
 
 float
@@ -115,6 +133,16 @@ lte_cfi_unpack_vf::initialize_ref_seqs()
             d_ref_seqs[i][c] = val;
         }
 	}
+}
+
+inline void
+lte_cfi_unpack_vf::publish_cfi(int subframe, int cfi)
+{
+    pmt::pmt_t msg_cfi = pmt::pmt_from_long(long(cfi) );
+    pmt::pmt_t msg_subframe = pmt::pmt_from_long(long(subframe) );
+    pmt::pmt_t msg = pmt::pmt_cons(msg_subframe, msg_cfi );
+
+    message_port_pub( d_port_cfi, msg );
 }
 
 
