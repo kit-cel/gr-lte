@@ -4,7 +4,7 @@
 # Title: LTE flowgraph
 # Author: Johannes Demel
 # Description: top level LTE flowgraph
-# Generated: Wed Jul 31 13:39:31 2013
+# Generated: Thu Aug  8 14:50:24 2013
 ##################################################
 
 execfile("/home/johannes/.grc_gnuradio/lte_decode_bch_hier.py")
@@ -44,7 +44,7 @@ class LTE_flowgraph(gr.top_block):
 		# Blocks
 		##################################################
 		self.lte_source_c_0 = lte_source_c(
-			samp_rate=30.72e6,
+			samp_rate=samp_rate,
 		)
 		self.lte_remove_cp_cvc_0 = lte.remove_cp_cvc(fft_len, tag_key)
 		self.lte_pbch_demux_vcvc_1 = lte.pbch_demux_vcvc(N_rb_dl)
@@ -166,6 +166,7 @@ class LTE_flowgraph(gr.top_block):
 
 	def set_samp_rate(self, samp_rate):
 		self.samp_rate = samp_rate
+		self.lte_source_c_0.set_samp_rate(self.samp_rate)
 
 	def get_pilot_symbols(self):
 		return self.pilot_symbols
