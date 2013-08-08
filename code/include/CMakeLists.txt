@@ -47,5 +47,6 @@ install(FILES
     lte_zadoff_chu_seq_generator_vc.h
     lte_channel_estimator_vcvc.h
     lte_pcfich_descrambler_vfvf.h
-    lte_cfi_unpack_vf.h DESTINATION include/lte
+    lte_cfi_unpack_vf.h
+    lte_pcfich_demux_vcvc.h DESTINATION include/lte
 )

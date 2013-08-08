@@ -18,7 +18,8 @@
 # Boston, MA 02110-1301, USA.
 # 
 
-
+from gnuradio import gr
+from gruel import pmt
 import math
 import numpy as np
 
@@ -121,6 +122,18 @@ def pre_coding(data, N_ant, style):
         print str(N_ant) + "\tantenna port not supported!"
         return data
     return output
+    
+def get_tag_list(data_len, tag_key, N_ofdm_symbols):
+    tag_list = []
+    for i in range(data_len):
+        tag = gr.gr_tag_t()
+        tag.key = pmt.pmt_string_to_symbol(tag_key)
+        tag.srcid = pmt.pmt_string_to_symbol("test_src")
+        tag.value = pmt.pmt_from_long(i%N_ofdm_symbols)
+        tag.offset = i
+        tag_list.append(tag)
+    return tag_list
+
     
 if __name__ == "__main__":
     cell_id = 124

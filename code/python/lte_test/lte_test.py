@@ -145,7 +145,7 @@ def map_pbch_to_frame(frame, pbch, cell_id, sfn, ant):
     return frame
 
 def map_pcfich_to_frame(frame, pcfich, N_rb_dl, cell_id, ant):
-    print "tadada map pcfich " + str(ant)
+    #print "tadada map pcfich " + str(ant)
     for i in range(len(frame)):
         if i%14 == 0:
             frame[i] = map_pcfich_to_symbol(frame[i], pcfich, N_rb_dl, cell_id, ant)
@@ -192,7 +192,7 @@ if __name__ == "__main__":
     
 #    for i in range(N_ant):
 #        frame[i] = map_pcfich_to_frame(frame[i], pcfich[i], N_rb_dl, cell_id, i)
-    print frame[0][0]
+    print np.shape(frame)
 #    for i in range(rev):
 #        print str(rev-1-i) + "\t" + str(in_sig[rev-1-i]) + "\t" + str(symbol[rev-1-i])
     

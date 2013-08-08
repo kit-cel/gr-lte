@@ -37,7 +37,7 @@ class qa_cfi_unpack_vf (gr_unittest.TestCase):
             data.extend(nrz_encoding(cfi))
         
         reps = 5
-        taglist = self.get_tag_list(3*reps, key, 10)
+        taglist = get_tag_list(3*reps, key, 10)
         
         data = [float(data[i]) for i in range(len(data))]
         ext_data = []
@@ -61,17 +61,6 @@ class qa_cfi_unpack_vf (gr_unittest.TestCase):
         # set up fg
         self.tb.run ()
         # check data
-        
-    def get_tag_list(self, data_len, tag_key, N_ofdm_symbols):
-        tag_list = []
-        for i in range(data_len):
-            tag = gr.gr_tag_t()
-            tag.key = pmt.pmt_string_to_symbol(tag_key)
-            tag.srcid = pmt.pmt_string_to_symbol("test_src")
-            tag.value = pmt.pmt_from_long(i%N_ofdm_symbols)
-            tag.offset = i
-            tag_list.append(tag)
-        return tag_list
 
 
 if __name__ == '__main__':
