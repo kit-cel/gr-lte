@@ -49,5 +49,6 @@ install(FILES
     lte_estimator_parameterizer_msg.xml
     lte_pcfich_descrambler_vfvf.xml
     lte_cfi_unpack_vf.xml
-    lte_pcfich_demux_vcvc.xml DESTINATION share/gnuradio/grc/blocks
+    lte_pcfich_demux_vcvc.xml
+    lte_decode_pcfich_vcm.xml DESTINATION share/gnuradio/grc/blocks
 )

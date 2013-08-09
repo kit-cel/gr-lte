@@ -33,7 +33,8 @@ GR_PYTHON_INSTALL(
     __init__.py viterbi_vfvb.py hier_freq_estimate_cc.py hier_sss_sync_cc.py hier_pss_sync_cc.py decode_bch_vfvb.py
     decode_pbch_vcvf.py
     estimator_parameterizer_msg.py
-    utils.py DESTINATION ${GR_PYTHON_DIR}/lte
+    utils.py
+    decode_pcfich_vcm.py DESTINATION ${GR_PYTHON_DIR}/lte
 )
 
 ########################################################################
@@ -75,3 +76,4 @@ GR_ADD_TEST(qa_estimator_parameterizer_msg ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_
 GR_ADD_TEST(qa_pcfich_descrambler_vfvf ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_pcfich_descrambler_vfvf.py)
 GR_ADD_TEST(qa_cfi_unpack_vf ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_cfi_unpack_vf.py)
 GR_ADD_TEST(qa_pcfich_demux_vcvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_pcfich_demux_vcvc.py)
+GR_ADD_TEST(qa_decode_pcfich_vcm ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_decode_pcfich_vcm.py)

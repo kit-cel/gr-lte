@@ -56,6 +56,7 @@ from decode_bch_vfvb import decode_bch_vfvb
 from decode_pbch_vcvf import decode_pbch_vcvf
 from estimator_parameterizer_msg import estimator_parameterizer_msg
 from utils import *
+from decode_pcfich_vcm import decode_pcfich_vcm
 
 
 # ----------------------------------------------------------------
