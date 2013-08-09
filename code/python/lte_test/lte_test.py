@@ -159,17 +159,30 @@ def map_pcfich_to_symbol(symbol, pcfich, N_rb_dl, cell_id, ant):
     regs = 4
     cell_id_mod3 = cell_id%3
     n_pcfi = 0
+    pcfich_pos = calculate_pcfich_pos(N_rb_dl, cell_id)
+    for n in range(len(pcfich)):
+        symbol[pcfich_pos[n]] = pcfich[n]
+#    for n in range(regs):
+#        k = int( (k_mean + (N_sc_rb/2) * math.floor(n*N_rb_dl/2))%(N_rb_dl*N_sc_rb) )
+#        for i in range(6):
+#            if i%3 != cell_id_mod3:
+#                symbol[k+i] = pcfich[n_pcfi]
+#                n_pcfi = n_pcfi + 1
+
+    return symbol
+    
+def calculate_pcfich_pos(N_rb_dl, cell_id):
+    N_sc_rb = 12 # number of subcarriers per resource block
+    k_mean = (N_sc_rb/2) * (cell_id%(2*N_rb_dl))
+    regs = 4
+    cell_id_mod3 = cell_id%3
+    pcfich_pos = []
     for n in range(regs):
         k = int( (k_mean + (N_sc_rb/2) * math.floor(n*N_rb_dl/2))%(N_rb_dl*N_sc_rb) )
         for i in range(6):
             if i%3 != cell_id_mod3:
-                symbol[k+i] = pcfich[n_pcfi]
-                n_pcfi = n_pcfi + 1
-#            else:
-#                symbol[k+i] = 111
-        
-        
-    return symbol
+                pcfich_pos.append(k+i)
+    return pcfich_pos
 
 if __name__ == "__main__":
     cell_id = 124
@@ -190,9 +203,11 @@ if __name__ == "__main__":
     
     pcfich = encode_pcfich(2, cell_id, 4, N_ant)
     
+    print calculate_pcfich_pos(N_rb_dl, cell_id)
+    
 #    for i in range(N_ant):
 #        frame[i] = map_pcfich_to_frame(frame[i], pcfich[i], N_rb_dl, cell_id, i)
-    print np.shape(frame)
+    print frame[0][0]
 #    for i in range(rev):
 #        print str(rev-1-i) + "\t" + str(in_sig[rev-1-i]) + "\t" + str(symbol[rev-1-i])
     

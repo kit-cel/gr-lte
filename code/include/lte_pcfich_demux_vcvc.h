@@ -35,7 +35,7 @@ class lte_pcfich_demux_vcvc;
 
 typedef boost::shared_ptr<lte_pcfich_demux_vcvc> lte_pcfich_demux_vcvc_sptr;
 
-LTE_API lte_pcfich_demux_vcvc_sptr lte_make_pcfich_demux_vcvc (int N_rb_dl, std::string key, std::string msg_buf_name);
+LTE_API lte_pcfich_demux_vcvc_sptr lte_make_pcfich_demux_vcvc (int N_rb_dl, std::string key, std::string out_key, std::string msg_buf_name);
 
 /*!
  * \brief Demux PCFICH from resource grid
@@ -45,21 +45,28 @@ LTE_API lte_pcfich_demux_vcvc_sptr lte_make_pcfich_demux_vcvc (int N_rb_dl, std:
 class LTE_API lte_pcfich_demux_vcvc : public gr_block
 {
  private:
-	friend LTE_API lte_pcfich_demux_vcvc_sptr lte_make_pcfich_demux_vcvc (int N_rb_dl, std::string key, std::string msg_buf_name);
+	friend LTE_API lte_pcfich_demux_vcvc_sptr lte_make_pcfich_demux_vcvc (int N_rb_dl, std::string key, std::string out_key, std::string msg_buf_name);
 
-	lte_pcfich_demux_vcvc(int N_rb_dl, std::string key, std::string msg_buf_name);
+	lte_pcfich_demux_vcvc(int N_rb_dl, std::string key, std::string out_key, std::string msg_buf_name);
 
 	pmt::pmt_t d_key;
+	pmt::pmt_t d_out_key;
+	pmt::pmt_t d_tag_id;
 	pmt::pmt_t d_msg_buf;
 	int d_N_rb_dl;
 
 	int d_cell_id;
+	void handle_msg(pmt::pmt_t msg);
 
+	int d_sym_num;
 
+	inline int calculate_n_process_items(gr_vector_int ninput_items);
+	inline int get_sym_num(std::vector<gr_tag_t> v);
 
     std::vector<int> d_pcfich_pos;
-    void initialize_pcfich(int N_rb_dl);
 	void update_pcfich_pos(int N_rb_dl, int cell_id);
+
+	void extract_pcfich(gr_complex* out0, gr_complex* out1, gr_complex* out2, const gr_complex* in0, const gr_complex* in1, const gr_complex* in2);
 
  public:
   ~lte_pcfich_demux_vcvc();

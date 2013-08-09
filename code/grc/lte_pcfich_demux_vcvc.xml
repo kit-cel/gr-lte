@@ -1,19 +1,31 @@
 <?xml version="1.0"?>
 <block>
-  <name>pcfich_demux_vcvc</name>
+  <name>PCFICH demux</name>
   <key>lte_pcfich_demux_vcvc</key>
   <category>lte</category>
   <import>import lte</import>
-  <make>lte.pcfich_demux_vcvc($N_rb_dl)</make>
+  <make>lte.pcfich_demux_vcvc($N_rb_dl, $key, $out_key, "cell_id")</make>
   <!-- Make one 'param' node for every Parameter you want settable from the GUI.
        Sub-nodes:
        * name
        * key (makes the value accessible as $keyname, e.g. in the make node)
        * type -->
   <param>
-    <name>...</name>
-    <key>...</key>
-    <type>...</type>
+    <name>resource blocks</name>
+    <key>N_rb_dl</key>
+    <type>int</type>
+  </param>
+
+  <param>
+    <name>in tag key value</name>
+    <key>key</key>
+    <type>string</type>
+  </param>
+
+  <param>
+    <name>out tag key value</name>
+    <key>out_key</key>
+    <type>string</type>
   </param>
 
   <!-- Make one 'sink' node per input. Sub-nodes:
@@ -21,9 +33,29 @@
        * type
        * vlen
        * optional (set to 1 for optional inputs) -->
+
   <sink>
-    <name>in</name>
-    <type><!-- e.g. int, float, complex, byte, short, xxx_vector, ...--></type>
+    <name>cell_id</name>
+    <type>message</type>
+    <optional>1</optional>
+  </sink>
+
+  <sink>
+    <name>in0</name>
+    <type>complex</type>
+    <vlen>12*$N_rb_dl</vlen>
+  </sink>
+
+  <sink>
+    <name>in1</name>
+    <type>complex</type>
+    <vlen>12*$N_rb_dl</vlen>
+  </sink>
+
+  <sink>
+    <name>in2</name>
+    <type>complex</type>
+    <vlen>12*$N_rb_dl</vlen>
   </sink>
 
   <!-- Make one 'source' node per output. Sub-nodes:
@@ -32,7 +64,20 @@
        * vlen
        * optional (set to 1 for optional inputs) -->
   <source>
-    <name>out</name>
-    <type><!-- e.g. int, float, complex, byte, short, xxx_vector, ...--></type>
+    <name>out0</name>
+    <type>complex</type>
+    <vlen>16</vlen>
+  </source>
+
+  <source>
+    <name>out1</name>
+    <type>complex</type>
+    <vlen>16</vlen>
+  </source>
+
+  <source>
+    <name>out2</name>
+    <type>complex</type>
+    <vlen>16</vlen>
   </source>
 </block>
