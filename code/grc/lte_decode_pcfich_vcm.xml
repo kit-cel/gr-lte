@@ -1,19 +1,31 @@
 <?xml version="1.0"?>
 <block>
-  <name>decode_pcfich_vcm</name>
+  <name>Decode PCFICH</name>
   <key>lte_decode_pcfich_vcm</key>
   <category>lte</category>
   <import>import lte</import>
-  <make>lte.decode_pcfich_vcm($N_rb_dl, $key, $out_key, $msg_buf_name)</make>
+  <make>lte.decode_pcfich_vcm($N_rb_dl, $key, $out_key, "cell_id", "N_ant", "CFI")</make>
   <!-- Make one 'param' node for every Parameter you want settable from the GUI.
        Sub-nodes:
        * name
        * key (makes the value accessible as $keyname, e.g. in the make node)
        * type -->
   <param>
-    <name>...</name>
-    <key>...</key>
-    <type>...</type>
+    <name>resource blocks</name>
+    <key>N_rb_dl</key>
+    <type>int</type>
+  </param>
+
+  <param>
+    <name>symbol tag key name</name>
+    <key>key</key>
+    <type>string</type>
+  </param>
+
+  <param>
+    <name>subframe tag key name</name>
+    <key>out_key</key>
+    <type>string</type>
   </param>
 
   <!-- Make one 'sink' node per input. Sub-nodes:
@@ -21,9 +33,35 @@
        * type
        * vlen
        * optional (set to 1 for optional inputs) -->
+
   <sink>
-    <name>in</name>
-    <type><!-- e.g. int, float, complex, byte, short, xxx_vector, ...--></type>
+    <name>cell_id</name>
+    <type>message</type>
+    <optional>1</optional>
+  </sink>
+
+  <sink>
+    <name>N_ant</name>
+    <type>message</type>
+    <optional>1</optional>
+  </sink>
+
+  <sink>
+    <name>in0</name>
+    <type>complex</type>
+    <vlen>12 * $N_rb_dl</vlen>
+  </sink>
+
+  <sink>
+    <name>in1</name>
+    <type>complex</type>
+    <vlen>12 * $N_rb_dl</vlen>
+  </sink>
+
+  <sink>
+    <name>in2</name>
+    <type>complex</type>
+    <vlen>12 * $N_rb_dl</vlen>
   </sink>
 
   <!-- Make one 'source' node per output. Sub-nodes:
@@ -32,7 +70,8 @@
        * vlen
        * optional (set to 1 for optional inputs) -->
   <source>
-    <name>out</name>
-    <type><!-- e.g. int, float, complex, byte, short, xxx_vector, ...--></type>
+    <name>CFI</name>
+    <type>message</type>
+    <optional>1</optional>
   </source>
 </block>

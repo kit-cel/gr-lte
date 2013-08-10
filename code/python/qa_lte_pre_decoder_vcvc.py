@@ -22,8 +22,6 @@
 from gnuradio import gr, gr_unittest, blocks
 import lte as lte_swig
 from lte_test import *
-import scipy.io
-import math
 
 class qa_pre_decoder_vcvc (gr_unittest.TestCase):
 
@@ -114,28 +112,32 @@ class qa_pre_decoder_vcvc (gr_unittest.TestCase):
         # dummy channel estimates        
         intu2 = [1]*len(data)
         intu3 = [1]*len(data)
-        
-        N_ant = 1        
+               
         # get blocks
         self.src1 = blocks.vector_source_c( data, False, vlen)
         self.src2 = blocks.vector_source_c( intu2, False, vlen)
         self.src3 = blocks.vector_source_c( intu3, False, vlen)
-        self.pd = lte_swig.pre_decoder_vcvc(N_ant, vlen, style)
+        self.pd = lte_swig.pre_decoder_vcvc(1, vlen, style)
         self.snk = blocks.vector_sink_c(vlen)
         
         # connect all blocks
-        self.tb2.connect(self.src1,(self.pd,0) )
-        self.tb2.connect(self.src2,(self.pd,1) )
-        self.tb2.connect(self.src3,(self.pd,2) )
-        self.tb2.connect(self.pd,self.snk)
+        self.tb2.connect(self.src1, (self.pd,0) )
+        self.tb2.connect(self.src2, (self.pd,1) )
+        self.tb2.connect(self.src3, (self.pd,2) )
+        self.tb2.connect(self.pd, self.snk)
         
-        self.pd.set_N_ant(2)
+        self.pd.set_N_ant(N_ant)
         
         # run flowgraph
         self.tb2.run()
         
         # compare result with expected result
         res = self.snk.data()
+        print res[0:16]
+        print exp_res[0:16]        
+        
+        
+        
         self.assertComplexTuplesAlmostEqual(res,exp_res)
         
             

@@ -32,7 +32,7 @@ class lte_cfi_unpack_vf;
 
 typedef boost::shared_ptr<lte_cfi_unpack_vf> lte_cfi_unpack_vf_sptr;
 
-LTE_API lte_cfi_unpack_vf_sptr lte_make_cfi_unpack_vf (std::string key);
+LTE_API lte_cfi_unpack_vf_sptr lte_make_cfi_unpack_vf (std::string key, std::string msg_buf_name);
 
 /*!
  * \brief Unpack CFI and publish it on output message port
@@ -42,9 +42,9 @@ LTE_API lte_cfi_unpack_vf_sptr lte_make_cfi_unpack_vf (std::string key);
 class LTE_API lte_cfi_unpack_vf : public gr_sync_block
 {
  private:
-	friend LTE_API lte_cfi_unpack_vf_sptr lte_make_cfi_unpack_vf (std::string key);
+	friend LTE_API lte_cfi_unpack_vf_sptr lte_make_cfi_unpack_vf (std::string key, std::string msg_buf_name);
 
-	lte_cfi_unpack_vf(std::string key);
+	lte_cfi_unpack_vf(std::string key, std::string msg_buf_name);
 
 	pmt::pmt_t d_port_cfi;
 	pmt::pmt_t d_key;

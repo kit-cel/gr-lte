@@ -49,6 +49,8 @@ lte_pcfich_descrambler_vfvf::lte_pcfich_descrambler_vfvf (std::string tag_key, s
     message_port_register_in(d_msg_buf);
     set_msg_handler(d_msg_buf, boost::bind(&lte_pcfich_descrambler_vfvf::handle_msg, this, _1));
 
+    set_cell_id(0);
+
 }
 
 
@@ -73,7 +75,7 @@ lte_pcfich_descrambler_vfvf::work(int noutput_items,
     std::vector <gr_tag_t> v_b;
     get_tags_in_range(v_b, 0, nitems_read(0), nitems_read(0)+noutput_items, d_tag_key);
     if(v_b.size() > 0){
-        std::string srcid = "srcid"; //pmt::pmt_symbol_to_string(v_b[0].srcid );
+        //std::string srcid = "srcid"; //pmt::pmt_symbol_to_string(v_b[0].srcid );
         long offset = v_b[0].offset;
         int value           = int(pmt::pmt_to_long(v_b[0].value) );
         d_subframe = (value - int(offset-nitems_read(0)) +10)%10;
@@ -112,6 +114,7 @@ inline void
 lte_pcfich_descrambler_vfvf::setup_descr_seqs(int cell_id)
 {
     //printf("setup_descr_seq BEGIN\n");
+    scr_seq_vec.clear();
     for(int ns = 0; ns < 10; ns++) {
         scr_seq_vec.push_back(generate_scr_seq(cell_id, 2*ns) );
     }

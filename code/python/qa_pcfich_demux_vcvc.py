@@ -92,6 +92,20 @@ class qa_pcfich_demux_vcvc (gr_unittest.TestCase):
         for i in range(len(res)/len(exp_res)):
             part = res[i*16:(i+1)*16]
             self.assertComplexTuplesAlmostEqual(part, exp_res)
+        
+        
+        
+        
+    def test_002_msg(self):
+        print "test_002"
+        
+        msg = pmt.pmt_from_long(220)
+        self.strobe = blocks.message_strobe(msg, 1000)        
+        self.tb.msg_connect(self.strobe, "strobe", self.demux, self.msg_buf_name)
+        
+        self.tb.run()
+
+
 
 
 if __name__ == '__main__':

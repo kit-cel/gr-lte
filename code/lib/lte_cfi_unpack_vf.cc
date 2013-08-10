@@ -28,23 +28,23 @@
 #include <cstdio>
 
 lte_cfi_unpack_vf_sptr
-lte_make_cfi_unpack_vf (std::string key)
+lte_make_cfi_unpack_vf (std::string key, std::string msg_buf_name)
 {
-	return gnuradio::get_initial_sptr (new lte_cfi_unpack_vf(key));
+	return gnuradio::get_initial_sptr (new lte_cfi_unpack_vf(key, msg_buf_name));
 }
 
 
 /*
  * The private constructor
  */
-lte_cfi_unpack_vf::lte_cfi_unpack_vf (std::string key)
+lte_cfi_unpack_vf::lte_cfi_unpack_vf (std::string key, std::string msg_buf_name)
   : gr_sync_block ("cfi_unpack_vf",
 		   gr_make_io_signature(1, 1, sizeof(float)* 32 ),
 		   gr_make_io_signature(0, 0, 0)),
 		   d_subframe(0)
 {
 	d_key = pmt::pmt_string_to_symbol(key);
-	d_port_cfi = pmt::pmt_string_to_symbol("cfi");
+	d_port_cfi = pmt::pmt_string_to_symbol(msg_buf_name);
 
 	message_port_register_out(d_port_cfi);
 
@@ -97,6 +97,7 @@ lte_cfi_unpack_vf::calculate_cfi(float* in_seq)
     float next_val = 0.0f;
     for(int i = 0; i < 3; i++){
         next_val = correlate(in_seq, d_ref_seqs[i], 32);
+        printf("find max corr = %1.2f\n", next_val);
         if(next_val > max_val){
             cfi = i+1;
             max_val = next_val;
@@ -141,6 +142,8 @@ lte_cfi_unpack_vf::publish_cfi(int subframe, int cfi)
     pmt::pmt_t msg_cfi = pmt::pmt_from_long(long(cfi) );
     pmt::pmt_t msg_subframe = pmt::pmt_from_long(long(subframe) );
     pmt::pmt_t msg = pmt::pmt_cons(msg_subframe, msg_cfi );
+
+    printf("%s\tsubframe = %i\tCFI = %i\n", name().c_str(), subframe, cfi);
 
     message_port_pub( d_port_cfi, msg );
 }

@@ -50,9 +50,9 @@ lte_pcfich_demux_vcvc::lte_pcfich_demux_vcvc (int N_rb_dl, std::string key, std:
     message_port_register_in(d_msg_buf);
     set_msg_handler(d_msg_buf, boost::bind(&lte_pcfich_demux_vcvc::handle_msg, this, _1));
 
-    set_tag_propagation_policy(TPP_DONT);
+    //set_tag_propagation_policy(TPP_DONT);
 
-    set_cell_id(0);
+    set_cell_id(d_cell_id);
 }
 
 
@@ -93,6 +93,8 @@ lte_pcfich_demux_vcvc::general_work (int noutput_items,
     std::vector<gr_tag_t> tags;
     get_tags_in_range(tags, 0, nitems_read(0), nitems_read(0)+ninitems);
     int sym_num = get_sym_num(tags);
+
+    printf("%s\t sym_num = %i\n", name().c_str(), sym_num);
 
     for(int i = 0; i < ninitems && nout_items < noutput_items; i++){
         int curr_sym = sym_num+i;
@@ -138,6 +140,7 @@ lte_pcfich_demux_vcvc::set_cell_id(int id)
 {
     d_cell_id = id;
     update_pcfich_pos(d_N_rb_dl, d_cell_id);
+    printf("%s\t set cell_id = %i\n", name().c_str(), d_cell_id);
 //    for(int i = 0; i < d_pcfich_pos.size(); i++){
 //        printf("%i\t%i\n", i, d_pcfich_pos[i]);
 //    }

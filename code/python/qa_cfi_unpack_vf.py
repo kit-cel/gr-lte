@@ -19,7 +19,6 @@
 # 
 
 from gnuradio import gr, gr_unittest, blocks
-from gruel import pmt
 import lte
 from lte_test import *
 
@@ -29,6 +28,7 @@ class qa_cfi_unpack_vf (gr_unittest.TestCase):
         self.tb = gr.top_block ()
         
         key = "subframe"
+        msg_buf_name = "cfi"
         print "setup test"
         
         data = []
@@ -46,11 +46,11 @@ class qa_cfi_unpack_vf (gr_unittest.TestCase):
         data = ext_data
         
         self.src = blocks.vector_source_f(data, False, 32, taglist)
-        self.cfi = lte.cfi_unpack_vf(key)
+        self.cfi = lte.cfi_unpack_vf(key, msg_buf_name)
         self.dbg = blocks.message_debug()
         
         self.tb.connect(self.src, self.cfi)
-        self.tb.msg_connect(self.cfi, "cfi", self.dbg, "print")
+        #self.tb.msg_connect(self.cfi, msg_buf_name, self.dbg, "print")
         print "setup finished"
 
     def tearDown (self):

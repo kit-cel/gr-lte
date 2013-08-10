@@ -4,7 +4,7 @@
   <key>lte_cfi_unpack_vf</key>
   <category>lte</category>
   <import>import lte</import>
-  <make>lte.cfi_unpack_vf($key)</make>
+  <make>lte.cfi_unpack_vf($key, "CFI")</make>
   <!-- Make one 'param' node for every Parameter you want settable from the GUI.
        Sub-nodes:
        * name
@@ -33,7 +33,7 @@
        * vlen
        * optional (set to 1 for optional inputs) -->
   <source>
-    <name>out</name>
+    <name>CFI</name>
     <type>message</type>
     <optional>1</optional>
   </source>
