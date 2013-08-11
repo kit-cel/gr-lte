@@ -97,7 +97,7 @@ lte_cfi_unpack_vf::calculate_cfi(float* in_seq)
     float next_val = 0.0f;
     for(int i = 0; i < 3; i++){
         next_val = correlate(in_seq, d_ref_seqs[i], 32);
-        printf("find max corr = %1.2f\n", next_val);
+        //printf("find max corr = %1.2f\n", next_val);
         if(next_val > max_val){
             cfi = i+1;
             max_val = next_val;

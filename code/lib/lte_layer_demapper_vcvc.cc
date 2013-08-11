@@ -125,7 +125,8 @@ lte_layer_demapper_vcvc::set_N_ant(int N_ant)
 void
 lte_layer_demapper_vcvc::handle_msg(pmt::pmt_t msg)
 {
-    set_N_ant(int( pmt::pmt_to_long(msg) ));
+    pmt::pmt_t cdr = pmt::pmt_cdr(msg);
+    set_N_ant(int( pmt::pmt_to_long(cdr) ));
 }
 
 void

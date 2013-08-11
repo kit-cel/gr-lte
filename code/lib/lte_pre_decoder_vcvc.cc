@@ -169,10 +169,13 @@ lte_pre_decoder_vcvc::combine_output(gr_complex* out,
                                      gr_complex* out1,
                                      int len)
 {
-    for(int n = 0; n < len/2 ; n++){
-        *(out+2*n  ) = out0[n];
-        *(out+2*n+1) = out1[n];
-    }
+    memcpy(out, out0, sizeof(gr_complex) * len/2 );
+    memcpy(out+len/2, out1, sizeof(gr_complex) * len/2 );
+
+//    for(int n = 0; n < len/2 ; n++){
+//        *(out+2*n  ) = out0[n];
+//        *(out+2*n+1) = out1[n];
+//    }
 }
 
 
@@ -191,7 +194,12 @@ lte_pre_decoder_vcvc::set_N_ant(int N_ant)
 void
 lte_pre_decoder_vcvc::handle_msg(pmt::pmt_t msg)
 {
-    set_N_ant(int( pmt::pmt_to_long(msg) ));
+    //pmt::pmt_t msg_ant = pmt::pmt_cons(d_port_N_ant, pmt::pmt_from_long(long(d_state_info.N_ant) ) );
+    //printf("is pair %s\n", pmt::pmt_is_pair(msg) ? "true" : "false");
+    //pmt::pmt_t car = pmt::pmt_car(msg);
+    pmt::pmt_t cdr = pmt::pmt_cdr(msg);
+    //printf("pair car = %s\tcdr = %ld\n", pmt::pmt_symbol_to_string(car).c_str(), pmt::pmt_to_long(cdr) );
+    set_N_ant(int( pmt::pmt_to_long(cdr) ));
 }
 
 void

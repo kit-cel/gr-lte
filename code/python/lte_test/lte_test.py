@@ -64,6 +64,18 @@ def generate_frame(pbch, N_rb_dl, cell_id, sfn, N_ant):
         frame[p] = frame_map_rs_symbols(frame[p], N_rb_dl, cell_id, Ncp, p)
         frame[p] = map_pcfich_to_frame(frame[p], pcfich[p], N_rb_dl, cell_id, p)
     return frame
+    
+def generate_stream_frame(frame, N_ant):
+    if N_ant == 1:
+        return frame.flatten()
+    elif N_ant == 2:
+        frame0 = frame[0].flatten()
+        frame1 = frame[1].flatten()
+        combined = []
+        for i in range(len(frame0)):
+            combined.append(frame0[i] + frame1[i])
+        return combined
+        print "test"
 
 def rs_symbol_mapper(ofdm_symbol, N_rb_dl, ns, l, cell_id, Ncp, p):
     #print "rs_symbol_mapper\t" + str(p) + "\t" + str(ns) + "\t" + str(l)
@@ -205,11 +217,9 @@ if __name__ == "__main__":
     
     print calculate_pcfich_pos(N_rb_dl, cell_id)
     
-#    for i in range(N_ant):
-#        frame[i] = map_pcfich_to_frame(frame[i], pcfich[i], N_rb_dl, cell_id, i)
-    print frame[0][0]
-#    for i in range(rev):
-#        print str(rev-1-i) + "\t" + str(in_sig[rev-1-i]) + "\t" + str(symbol[rev-1-i])
+    stream = generate_stream_frame(frame, 2)
+    print np.shape(stream)
+
     
 
     

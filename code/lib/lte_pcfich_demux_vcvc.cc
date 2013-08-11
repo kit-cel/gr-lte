@@ -91,10 +91,10 @@ lte_pcfich_demux_vcvc::general_work (int noutput_items,
     int nout_items = 0;
 
     std::vector<gr_tag_t> tags;
-    get_tags_in_range(tags, 0, nitems_read(0), nitems_read(0)+ninitems);
+    get_tags_in_range(tags, 0, nitems_read(0), nitems_read(0)+ninitems, d_key);
     int sym_num = get_sym_num(tags);
 
-    printf("%s\t sym_num = %i\n", name().c_str(), sym_num);
+    //printf("%s\t sym_num = %i\n", name().c_str(), sym_num);
 
     for(int i = 0; i < ninitems && nout_items < noutput_items; i++){
         int curr_sym = sym_num+i;
@@ -107,9 +107,11 @@ lte_pcfich_demux_vcvc::general_work (int noutput_items,
             out1 += 16;
             out2 += 16;
 
+
             // This should tag every sample with a tag containing a value which corresponds to the subframe!
             long offset = nitems_written(0) + nout_items;
-            pmt::pmt_t value = pmt::pmt_from_long(subframe);
+            //printf("sym_num  = %i\td_sym_num = %i\tsubframe = %i\toffset = %ld\n", sym_num, d_sym_num, subframe, offset);
+            pmt::pmt_t value = pmt::pmt_from_long(long(subframe));
             //printf("port = %i\toffset = %ld\tkey = %s\tvalue = %ld\tid = %s\n", out_port, offset, pmt::pmt_symbol_to_string(d_out_key).c_str(), pmt::pmt_to_long(value), pmt::pmt_symbol_to_string(d_tag_id).c_str() );
             add_item_tag(out_port, offset, d_out_key, value, d_tag_id);
 
@@ -119,7 +121,11 @@ lte_pcfich_demux_vcvc::general_work (int noutput_items,
         in0 += n_subcarriers;
         in1 += n_subcarriers;
         in2 += n_subcarriers;
+        d_sym_num = (d_sym_num+1)%140;
     }
+
+
+    //printf("%s\tninitems = %i\tnoutput_items = %i\tproduced = %i\n", name().c_str(), ninitems, noutput_items, nout_items);
 
 	// Tell runtime system how many input items we consumed on
 	// each input stream.

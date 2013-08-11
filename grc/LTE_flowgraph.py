@@ -4,11 +4,12 @@
 # Title: LTE flowgraph
 # Author: Johannes Demel
 # Description: top level LTE flowgraph
-# Generated: Sat Aug 10 17:21:43 2013
+# Generated: Sun Aug 11 17:54:27 2013
 ##################################################
 
 execfile("/home/johannes/.grc_gnuradio/lte_decode_bch_hier.py")
 execfile("/home/johannes/.grc_gnuradio/lte_source_c.py")
+from PyQt4 import Qt
 from gnuradio import eng_notation
 from gnuradio import fft
 from gnuradio import gr
@@ -17,11 +18,27 @@ from gnuradio.eng_option import eng_option
 from gnuradio.gr import firdes
 from optparse import OptionParser
 import lte
+import sys
 
-class LTE_flowgraph(gr.top_block):
+class LTE_flowgraph(gr.top_block, Qt.QWidget):
 
 	def __init__(self):
 		gr.top_block.__init__(self, "LTE flowgraph")
+		Qt.QWidget.__init__(self)
+		self.setWindowTitle("LTE flowgraph")
+		self.setWindowIcon(Qt.QIcon.fromTheme('gnuradio-grc'))
+		self.top_scroll_layout = Qt.QVBoxLayout()
+		self.setLayout(self.top_scroll_layout)
+		self.top_scroll = Qt.QScrollArea()
+		self.top_scroll.setFrameStyle(Qt.QFrame.NoFrame)
+		self.top_scroll_layout.addWidget(self.top_scroll)
+		self.top_scroll.setWidgetResizable(True)
+		self.top_widget = Qt.QWidget()
+		self.top_scroll.setWidget(self.top_widget)
+		self.top_layout = Qt.QVBoxLayout(self.top_widget)
+		self.top_grid_layout = Qt.QGridLayout()
+		self.top_layout.addLayout(self.top_grid_layout)
+
 
 		##################################################
 		# Variables
@@ -30,7 +47,7 @@ class LTE_flowgraph(gr.top_block):
 		self.cpl0 = cpl0 = 160*fft_len/2048
 		self.cpl = cpl = 144*fft_len/2048
 		self.cell_id = cell_id = 364
-		self.N_rb_dl = N_rb_dl = 15
+		self.N_rb_dl = N_rb_dl = 50
 		self.slotl = slotl = 7*fft_len+6*cpl+cpl0
 		self.frame_pilots_1 = frame_pilots_1 = lte.frame_pilot_value_and_position(N_rb_dl, cell_id, 1, 1)
 		self.frame_pilots_0 = frame_pilots_0 = lte.frame_pilot_value_and_position(N_rb_dl, cell_id, 1, 0)
@@ -55,6 +72,7 @@ class LTE_flowgraph(gr.top_block):
 		self.lte_extract_occupied_tones_vcvc_0 = lte.extract_occupied_tones_vcvc(N_rb_dl,fft_len)
 		self.lte_estimator_parameterizer_msg_0_0 = lte.estimator_parameterizer_msg("cell_id", "pilots", N_rb_dl, 1)
 		self.lte_estimator_parameterizer_msg_0 = lte.estimator_parameterizer_msg("cell_id", "pilots", N_rb_dl, 0)
+		self.lte_decode_pcfich_vcm_0 = lte.decode_pcfich_vcm(N_rb_dl, tag_key, "subframe", "cell_id", "N_ant", "CFI")
 		self.lte_decode_pbch_vcvf_0 = lte.decode_pbch_vcvf()
 		self.lte_decode_bch_hier_0 = lte_decode_bch_hier()
 		self.lte_cp_time_freq_sync_cc_0 = lte.cp_time_freq_sync_cc(fft_len)
@@ -83,6 +101,9 @@ class LTE_flowgraph(gr.top_block):
 		self.connect((self.lte_extract_occupied_tones_vcvc_0, 0), (self.lte_channel_estimator_ant_1, 0))
 		self.connect((self.lte_channel_estimator_ant_0, 0), (self.lte_pbch_demux_vcvc_1, 1))
 		self.connect((self.lte_channel_estimator_ant_1, 0), (self.lte_pbch_demux_vcvc_1, 2))
+		self.connect((self.lte_channel_estimator_ant_0, 0), (self.lte_decode_pcfich_vcm_0, 1))
+		self.connect((self.lte_channel_estimator_ant_1, 0), (self.lte_decode_pcfich_vcm_0, 2))
+		self.connect((self.lte_extract_occupied_tones_vcvc_0, 0), (self.lte_decode_pcfich_vcm_0, 0))
 
 		##################################################
 		# Asynch Message Connections
@@ -93,6 +114,8 @@ class LTE_flowgraph(gr.top_block):
 		self.msg_connect(self.lte_estimator_parameterizer_msg_0_0, "pilots", self.lte_channel_estimator_ant_1, "pilots")
 		self.msg_connect(self.lte_hier_sss_sync_cc_1, "cell_id", self.lte_estimator_parameterizer_msg_0, "cell_id")
 		self.msg_connect(self.lte_hier_sss_sync_cc_1, "cell_id", self.lte_estimator_parameterizer_msg_0_0, "cell_id")
+		self.msg_connect(self.lte_hier_sss_sync_cc_1, "cell_id", self.lte_decode_pcfich_vcm_0, "cell_id")
+		self.msg_connect(self.lte_mib_unpack_vb_0, "N_ant", self.lte_decode_pcfich_vcm_0, "N_ant")
 
 	def get_fft_len(self):
 		return self.fft_len
@@ -189,8 +212,10 @@ class LTE_flowgraph(gr.top_block):
 if __name__ == '__main__':
 	parser = OptionParser(option_class=eng_option, usage="%prog: [options]")
 	(options, args) = parser.parse_args()
+	qapp = Qt.QApplication(sys.argv)
 	tb = LTE_flowgraph()
 	tb.start()
-	raw_input('Press Enter to quit: ')
+	tb.show()
+	qapp.exec_()
 	tb.stop()
 

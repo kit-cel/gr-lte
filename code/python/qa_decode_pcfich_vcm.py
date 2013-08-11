@@ -28,7 +28,7 @@ class qa_decode_pcfich_vcm (gr_unittest.TestCase):
     def setUp (self):
         self.tb = gr.top_block ()
         
-        self.N_rb_dl = 15
+        self.N_rb_dl = 50
         self.key = "symbol"
         self.out_key = "subframe"
         self.msg_cell_id_name = "cell_id"
@@ -45,55 +45,20 @@ class qa_decode_pcfich_vcm (gr_unittest.TestCase):
         self.tb.connect(self.src0, (self.pcfich, 0) )
         self.tb.connect(self.src1, (self.pcfich, 1) )
         self.tb.connect(self.src2, (self.pcfich, 2) )
+        # pcfich is not connected to any output because its message port is optional.
+        # only testing correct screen print
+        # tests don't stop if message queue is in use :(
         
 
     def tearDown (self):
         self.tb = None
-
-    def test_001_t (self):
-        # set up fg
-        cell_id = 124
-        N_ant = 2
-        style= "tx_diversity"
-        N_rb_dl = self.N_rb_dl
         
-        mib = pack_mib(50,0,1.0, 511)
-        bch = encode_bch(mib, N_ant)
-        pbch = encode_pbch(bch, cell_id, N_ant, style)
-        
-        stream = []
-#        for i in range(4):
-#            frame = generate_frame(pbch, N_rb_dl, cell_id, i+20, N_ant)
-#            stream.extend(frame[0].flatten())
-        
-        frame = generate_frame(pbch, N_rb_dl, cell_id, 20, N_ant)
-        stream.extend(frame[0].flatten())        
-        
-        print len(stream)
-        syms = len(stream)/ (12*self.N_rb_dl)
-        print syms
-        taglist = get_tag_list(syms, self.key, 140)
-        
-        # no messages sent, set cell_id here
-        self.pcfich.demux.set_cell_id(cell_id)
-        self.pcfich.descrambler.set_cell_id(cell_id)
-        
-        # set generated test data
-        est = [complex(1,0)] * len(stream)
-        self.src0.set_data(stream, taglist)
-        self.src1.set_data(est)
-        self.src2.set_data(est)
-        
-        print "run test!!!"
-        self.tb.run ()
-        print "test finish"
-        # check data
-        
-    def test_002_parts(self):
-        print "\n\ntest 002"
+    def test_001_parts(self):
+        print "test 001 PARTS!!!"
+        # This test is for integration
+        # all parts expect Demux are tested if they decode CFI correctly
         
         self.tb2 = gr.top_block ()
-        
         
         cell_id = 124
         N_ant = 2
@@ -104,48 +69,84 @@ class qa_decode_pcfich_vcm (gr_unittest.TestCase):
         cfi = 1
         
         data = []
+        exp_pc = []
         for ns in range(10):
             cfi_seq = get_cfi_sequence(cfi)
             scr = scramble_cfi_sequence(cfi_seq, cell_id, 2*ns)
             mod = qpsk_modulation(scr)
             lay = layer_mapping(mod, N_ant, style)
             prc = pre_coding(lay, N_ant, style)
-            prc = [prc[0][i]+prc[1][i] for i in range(len(prc[0]))]
+            prc_prep = [prc[0][i]+prc[1][i] for i in range(len(prc[0]))]
             #print np.shape(prc)
-            prep = self.prepare_for_layer_in(lay)
-            data.extend(prep)
-        
+            prep = prepare_for_demapper_block(lay, N_ant, style)
+            exp_pc.extend(prep)
+            data.extend(prc_prep)
+              
         taglist = get_tag_list(len(data)/16, key, 10)
         self.src = blocks.vector_source_c(data, False, cvlen, taglist)
-
-        # These part fails, whatever... but WHY???       
+      
         h0 = [complex(1,0)]*len(data)
         h1 = [complex(1,0)]*len(data)
         self.src1 = blocks.vector_source_c(h0, False, cvlen)
         self.src2 = blocks.vector_source_c(h1, False, cvlen)
         self.predecoder = lte.pre_decoder_vcvc(N_ant, cvlen, style)
-        
-        # This part is nice. it works as expected.
+        self.snk = blocks.vector_sink_c(cvlen)
         self.demapper = lte.layer_demapper_vcvc(N_ant, cvlen, style)
         self.qpsk = lte.qpsk_soft_demod_vcvf(cvlen)
         self.descr = lte.pcfich_descrambler_vfvf(key, msg_buf_name)
         self.descr.set_cell_id(cell_id)
         self.cfi = lte.cfi_unpack_vf(key, msg_buf_name)
         
-#        self.tb2.connect(self.src, (self.predecoder, 0))
-#        self.tb2.connect(self.src1, (self.predecoder, 1))
-#        self.tb2.connect(self.src2, (self.predecoder, 2))
-#        self.tb2.connect(self.predecoder, self.demapper)
-        self.tb2.connect(self.src, self.demapper)
+        self.tb2.connect(self.src, (self.predecoder, 0))
+        self.tb2.connect(self.src1, (self.predecoder, 1))
+        self.tb2.connect(self.src2, (self.predecoder, 2))
+        self.tb2.connect(self.predecoder, self.demapper)
+        self.tb2.connect(self.predecoder, self.snk)
         self.tb2.connect(self.demapper, self.qpsk, self.descr, self.cfi)
         
         self.tb2.run()
+        print "test 001 PARTS FINISHED!!!\n"
         
-    def prepare_for_layer_in(self, pcfich):
-        m2a = []
-        m2a.extend(pcfich[0])
-        m2a.extend(pcfich[1])
-        return m2a
+
+    def test_002_t (self):
+        print "\ntest 002 hier block test"
+        # set up fg
+        cell_id = 124
+        N_ant = 2
+        style= "tx_diversity"
+        N_rb_dl = self.N_rb_dl
+        
+        # generate test data frame
+        mib = pack_mib(50,0,1.0, 511)
+        bch = encode_bch(mib, N_ant)
+        pbch = encode_pbch(bch, cell_id, N_ant, style)
+        frame = generate_frame(pbch, N_rb_dl, cell_id, 20, N_ant)
+
+        
+        stream = generate_stream_frame(frame, N_ant)
+        
+        print len(stream)
+        syms = len(stream)/ (12*self.N_rb_dl)
+        print syms
+        taglist = get_tag_list(syms, self.key, 140)
+        
+        # no messages sent, set cell_id here
+#        self.pcfich.demux.set_cell_id(cell_id)
+#        self.pcfich.descrambler.set_cell_id(cell_id)
+        self.pcfich.set_cell_id(cell_id)
+        self.pcfich.set_N_ant(N_ant)
+        
+        # set generated test data
+        est = [complex(1,0)] * len(stream)
+        self.src0.set_data(stream, taglist)
+        self.src1.set_data(est)
+        self.src2.set_data(est)
+        
+        print "run test!!!"
+        self.tb.run ()
+        print "test finish"
+        # check data        
+        
 
 
 if __name__ == '__main__':

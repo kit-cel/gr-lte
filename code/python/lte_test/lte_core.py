@@ -100,6 +100,19 @@ def layer_mapping(data, N_ant, style):
         output = x
     return output
     
+def prepare_for_demapper_block(lay, N_ant, style):
+    if N_ant == 1:
+        return lay
+    elif N_ant == 2 or N_ant == 4:
+        res = []
+        for i in range(len(lay)):
+            res.extend(lay[i])
+        return res
+    else:
+        print "invalid arguments"
+        return lay
+        
+    
 def pre_coding(data, N_ant, style):
     if(style != "tx_diversity"):
         print style + "\tnot supported!"

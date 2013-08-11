@@ -62,8 +62,10 @@ class qa_pre_decoder_vcvc (gr_unittest.TestCase):
         
         scrambled = pbch_scrambling(bch, cell_id)
         qpsk_modulated = qpsk_modulation(scrambled)
+        print np.shape(qpsk_modulated)
         layer_mapped = layer_mapping(qpsk_modulated, N_ant, style)
         pre_coded = pre_coding(layer_mapped, N_ant, style)
+        print np.shape(pre_coded)
 
         h0 = [complex(1,0)]*len(pre_coded[0])
         h1 = [complex(1,0)]*len(pre_coded[1])
@@ -76,9 +78,14 @@ class qa_pre_decoder_vcvc (gr_unittest.TestCase):
         res = self.snk.data()
         
         exp_res = []
-        for i in range(len(layer_mapped[0])):
-            exp_res.append(layer_mapped[0][i])
-            exp_res.append(layer_mapped[1][i])
+        for i in range(len(stream)/240):
+            print i
+            lay0 = layer_mapped[0][i*120:(i+1)*120]
+            lay1 = layer_mapped[1][i*120:(i+1)*120]
+            comb = [lay0, lay1]
+            exp_res.extend(prepare_for_demapper_block(comb, N_ant, style) )
+            
+        print "test 001 final ASSERT!"
         print self.assertComplexTuplesAlmostEqual(res, exp_res)
         
     def test_002_pcfich(self):
@@ -102,16 +109,15 @@ class qa_pre_decoder_vcvc (gr_unittest.TestCase):
             scr_cfi_seq = scramble_cfi_sequence(cfi_seq, cell_id, ns)
             mod_cfi_seq = qpsk_modulation(scr_cfi_seq)
             lay_cfi_seq = layer_mapping(mod_cfi_seq, N_ant, style)
-            for i in range(len(lay_cfi_seq[0])):
-                exp_res.append(lay_cfi_seq[0][i])
-                exp_res.append(lay_cfi_seq[1][i])
+            lay_cfi_prep = prepare_for_demapper_block(lay_cfi_seq, N_ant, style)
+            exp_res.extend(lay_cfi_prep)
             pc_cfi_seq = pre_coding(lay_cfi_seq, N_ant, style)
             pc_cfi_seq = [pc_cfi_seq[0][i]+pc_cfi_seq[1][i] for i in range(len(pc_cfi_seq[0]))]
             data.extend(pc_cfi_seq)
 
         # dummy channel estimates        
-        intu2 = [1]*len(data)
-        intu3 = [1]*len(data)
+        intu2 = [complex(1,0)]*len(data)
+        intu3 = [complex(1,0)]*len(data)
                
         # get blocks
         self.src1 = blocks.vector_source_c( data, False, vlen)
@@ -133,18 +139,8 @@ class qa_pre_decoder_vcvc (gr_unittest.TestCase):
         
         # compare result with expected result
         res = self.snk.data()
-        print res[0:16]
-        print exp_res[0:16]        
-        
-        
-        
-        self.assertComplexTuplesAlmostEqual(res,exp_res)
-        
-            
-        
-        
-        
 
+        self.assertComplexTuplesAlmostEqual(res, exp_res)
         
 
         
