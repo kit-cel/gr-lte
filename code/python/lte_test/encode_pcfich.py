@@ -38,6 +38,9 @@ def scramble_cfi_sequence(cfi_seq, cell_id, ns):
     cinit = int( (math.floor(ns/2)+1) * (2*cell_id+1) * (2**9) + cell_id )
 #    print "cinit python = " + str(cinit)
     return scramble_sequence(cfi_seq, cinit)
+    
+def get_pcfich_length_bits():
+    return 32
 
 def encode_pcfich(cfi, cell_id, ns, N_ant):
     style = "tx_diversity"

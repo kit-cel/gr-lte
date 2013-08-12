@@ -25,13 +25,16 @@ import numpy as np
 
 def pn_generator(vector_len, cinit):
     NC=1600
-    x2 = [0]*(3*vector_len+NC)
+    vec_len = vector_len
+    if vector_len < 32:
+        vec_len = 32
+    x2 = [0]*(3*vec_len+NC)
     for i in range(31):
         x2[i] = cinit%2
         cinit = int(math.floor(cinit/2))
-    x1 = [0]*(3*vector_len+NC)
+    x1 = [0]*(3*vec_len+NC)
     x1[0] = 1
-    for n in range(2*vector_len+NC-3):
+    for n in range(2*vec_len+NC-3):
         x1[n+31]=(x1[n+3]+x1[n])%2
         x2[n+31]=(x2[n+3]+x2[n+2]+x2[n+1]+x2[n])%2
     output = [0] * vector_len
@@ -66,6 +69,13 @@ def qpsk_modulation(data):
         mod = complex(nrz_data[i*2+0]/math.sqrt(2),nrz_data[i*2+1]/math.sqrt(2))
         output.extend([mod])
     return output
+    
+def bpsk_modulation(data):
+    res = []
+    nrz_data = nrz_encoding(data)
+    for i in range(len(nrz_data)):
+        res.append( complex(nrz_data[i]/math.sqrt(2), nrz_data[i]/math.sqrt(2)) )
+    return res
     
 def layer_mapping(data, N_ant, style):
     #Do layer Mapping according to ETSI 136.211 Sec 6.3.3.3    
