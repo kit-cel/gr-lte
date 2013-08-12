@@ -55,13 +55,18 @@ class qa_estimator_parameterizer_msg (gr_unittest.TestCase):
     def test_001_t (self):
         # set up fg
         #self.tb.run ()
+        print "start"
         self.tb.start()
         time.sleep(5)
-        self.tb.pause()
+        print "5sec mark"
+        #self.tb.pause()
+        print "pause"
         self.tb.stop()
+        print "stop"
         self.tb.wait()
         # check data
         print "ended"
+        self.tb = None
         return
 
 
