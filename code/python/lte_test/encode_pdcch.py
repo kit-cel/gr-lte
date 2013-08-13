@@ -33,9 +33,12 @@ def encode_dci(dci_format):
     for i in range(len(dci_format_lut)):
         print dci_format_lut[i]
 
-def encode_format0():
-    print "Carrier indicator - 0 or 3 bits"
+def encode_dci_format0():
+    length = 0
+    print "Carrier indicator" # - 0 or 3 bits
+    length = length + 3
     print "Flag Format 0/1A diff - 1bit"
+    length = length + 1
     print "Flag: Frequency Hopping - 1bit"
     N_ul_rb = 50
     rbaha = int(math.ceil(math.log( N_ul_rb * (N_ul_rb+1)/2 ,2) ) )
@@ -54,82 +57,178 @@ def get_pdcch_length_bits(dc_form):
 def get_pdcch_cinit(ns, cell_id):
     return int(math.floor(ns/2) * 2**9 + cell_id)
     
-def get_n_cce_available(N_ant, N_rb_dl, cfi, M_pcfich_bits, M_phich_bits):
+def get_n_cce_available(N_ant, N_rb_dl, cfi, N_g):
+    M_pcfich_bits = get_pcfich_length_bits()
+    M_phich_bits = get_phich_length_bits(N_g, N_rb_dl)    
     M_used = int(M_pcfich_bits/2) + M_phich_bits
-    M_used = M_used/3
     n_syms = cfi
     if N_rb_dl < 10:
         n_syms = n_syms + 1
     total_re = n_syms * 12 * N_rb_dl
-    
-    # continue HERE! 
-    n_sym0 = 2 * N_rb_dl
-    n_sym1 = 2 * N_rb_dl
+    rs_re = 0
     if N_ant < 4:
-        n_sym1 = 3 * N_rb_dl
-    n_sym2 = 3 * N_rb_dl
-    if N_rb_dl < 10:
-        cfi = cfi + 1
-    n_total = 0
-    if cfi == 1:
-        n_total = n_sym0 - M_used
-    elif cfi == 2:
-        n_total = n_sym0 + n_sym1 - M_used
-    elif cfi == 3:
-        n_total = n_sym0 + n_sym1 + n_sym2 - M_used
-    elif cfi == 4:
-        n_total = n_sym0 + n_sym1 + 2*n_sym2 - M_used
-    else:
-        print "invalid arguments!"
-        print cfi
-    print n_total
-    n_cce = int(math.floor(n_total/9) )
+        rs_re = 4 * N_rb_dl
+    elif N_ant == 4:
+        rs_re = 4 * N_rb_dl
+        if n_syms > 1:
+            rs_re = rs_re + 4 * N_rb_dl
+    n_avail = total_re - (rs_re + M_used)
+    n_reg = n_avail / 4
+    n_cce = int(math.floor(n_reg/9) )
     return n_cce
+    
+   
+def get_num_candidates_for_pdcch(L, pdcch_type):
+    M = 0
+    if pdcch_type == "Common":
+        if L == 4:
+            M = 4
+        elif L == 8:
+            M = 2
+        else:
+            print "invalid value L = " + str(L) + " for type " + pdcch_type
+    elif pdcch_type == "UE-specific":
+        if L == 1:
+            M = 6
+        elif L == 2:
+            M = 6
+        elif L == 4:
+            M = 2
+        elif L == 8:
+            M = 2
+        else:
+            print "invalid value L = " + str(L) + " for type " + pdcch_type
+    else:
+        print "invalid type = " + pdcch_type
+    return M
+    
+def get_pdcch_search_space(L, Y_k, N_CCE, pdcch_type):
+    M_cand = get_num_candidates_for_pdcch(L, pdcch_type)
+    cands = []
+    for m in range(M_cand):
+        cces = []
+        for i in range(L):
+            cce = L * ( (Y_k + m)%(int(math.floor(N_CCE/L))) ) + i
+            cces.append(cce)
+        cands.append(cces)
+    return cands
+    
+def get_si_rnti_value():
+    return 0xFFFF
+    
+def get_p_rnti_value():
+    return 0xFFFE
+    
+def get_m_rnti_value():
+    return 0xFFFD
+    
+def get_rba_len(N_rb_dl):
+    n_bits = int(math.ceil( math.log(N_rb_dl * (N_rb_dl+1) /2 ,2) ) )
+    print "RBA length = " + str(n_bits)    
+    return n_bits
+    
+def encode_dci_format1a(N_rb_dl, rap):
+    length = 0
+    print "carrier indicator"
+    length = length + 3
+    print "flag: format 0/1a diff"
+    length = length + 1
+    if rap == 1:
+        print "flag: loc/dist VRB set 0"
+        length = length + 1
+        print "RB assignment"
+        length = length + get_rba_len(N_rb_dl)
+        print "preamble index"
+        length = length + 6
+        print "PRACH Mask Index"
+        length = length + 4
+        print "all other bits are set to zero... which bits???"
+    elif rap == 0:
+        print "flag: loc/dist VRB"
+        length = length + 1
+        print "RB assignment"
+        length = length + get_rba_len(N_rb_dl)
+        print "localized = all RBA bits used"
+        print "distributed = first bit for GAP value if(N_rb_dl >= 50)"
+        print "modulation and coding scheme"
+        length = length + 5
+        print "HARQ process number"
+        length = length + 3 #for FDD, for TDD +4
+        print "new data indicator"
+        length = length + 1
+        print "redundancy version"
+        length = length + 2
+        print "TPC command for PUCCH"
+        length = length + 2
+    return length
+    
+def get_pdcch(pdcch_format): #return a PDCCH of a specified format
+    n_bits = get_pdcch_length_bits(pdcch_format)
+    return [1] * n_bits
+    
+def get_all_pdcchs(N_CCE):
+    res = []
+    for i in range(N_CCE):
+        res.append(get_pdcch(0))
+    return res
+    
+def get_multiplexed_pdcch(pdcchs):
+    res = []
+    for i in range(len(pdcchs)):
+        res.extend(pdcchs[i])
+    return res
 
+def scramble_pdcch(pdcch, ns, cell_id):
+    cinit = get_pdcch_cinit(ns, cell_id)
+    scr = pn_generator(len(pdcch), cinit)
+    return [(pdcch[i]+scr[i])%2 for i in range(len(pdcch))]
 
+lut_pdcch_types = {0:"Common", 1:"UE-specific"}
 if __name__ == "__main__":
     cell_id = 124
     N_ant = 2
     style= "tx_diversity"
-    N_rb_dl = 15
+    N_rb_dl = 50
     sfn = 0
-    Ncp = 1
+    ns = 0
+    Ncp = 1 # (0,1)
     N_g = 1
     cfi = 2
+    L = 4 # Aggregation Level (1,2,4,8)
+    Y_k = 0 # set to 0 for common search space
+    pdcch_type = lut_pdcch_types[0]
     
+    
+    
+    #rap = 0
+    #length = encode_dci_format1a(N_rb_dl, rap)
+    #print "len(format1a) = " + str(length)
+    #print "len(with crc) = " + str(length + 16)
+    
+        
     print "PDCCH - Encoding"
     print "1. DCI Multiplexing"
-    M_pcfich_bits = get_pcfich_length_bits()
-    M_phich_bits = get_phich_length_bits(N_g, N_rb_dl)
-    print M_pcfich_bits
-    print M_phich_bits
-    N_REG_unused = 10
-    N_CCE_avail = get_n_cce_available(N_ant, N_rb_dl, cfi, M_pcfich_bits, M_phich_bits)
-    print N_CCE_avail    
-    M_bit = get_pdcch_length_bits(0) #number of bits in one PDCCH
-    n_pdcch = 4 #number of PDCCHs in one subframe
+    N_CCE = get_n_cce_available(N_ant, N_rb_dl, cfi, N_g)
+    print "available CCEs = " + str(N_CCE)
+    #print get_pdcch_search_space(L, Y_k, N_CCE, pdcch_type)
+
+    pdcchs = get_all_pdcchs(N_CCE)
+    tot_pdcch = get_multiplexed_pdcch(pdcchs)
+
+    print "\n2. Scrambling"
+    scr_pdcch = scramble_pdcch(tot_pdcch, ns, cell_id)
     
-    total_pdcch_bits = M_bit * n_pdcch # Can PDCCHs have different lengths?
+    print "\n3. Modulation - QPSK"
+    mod_pdcch = qpsk_modulation(scr_pdcch)   
+    
+    print "\n4. Layer Mapping and precoding"
+    lay_pdcch = layer_mapping(mod_pdcch, N_ant, style)
+    pre_pdcch = pre_coding(lay_pdcch, N_ant, style)
 
     
+    test = 1
+    print test == None
     
-    print "\n\n\n\n2. Scrambling"
-    
-    #print "1 CCE == 9REGs"
-    #print "RNTI - Radio Network Temporary Identifier - a scrambling sequence"
-    
-    #encode_dci("mow")
-    #encode_format0()
-    #encode_format1()
-    
-
-    #
-    pdcch_cinit = get_pdcch_cinit(1,0)
-    
-    print "format\tCCEs\tN_REGs\tN_bits"
-    for i in range(4):
-        get_pdcch_length_bits(i)
-            
         
         
         
