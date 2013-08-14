@@ -62,7 +62,7 @@ class LTE_API lte_pcfich_descrambler_vfvf : public gr_sync_block
  public:
   ~lte_pcfich_descrambler_vfvf();
 
-    inline void set_cell_id(int cell_id);
+    void set_cell_id(int cell_id);
     std::vector<std::vector<float> > get_descr_seqs();
 
 	// Where all the action really happens

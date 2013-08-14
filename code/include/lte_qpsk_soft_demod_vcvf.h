@@ -46,7 +46,7 @@ class LTE_API lte_qpsk_soft_demod_vcvf : public gr_sync_block
 	lte_qpsk_soft_demod_vcvf (int vlen);
 
 	int d_vlen;
-	const float d_SQRT2 = std::sqrt(2);
+	const float d_SQRT2;
 	float* d_demodulated;
 
  public:

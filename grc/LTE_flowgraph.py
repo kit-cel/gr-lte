@@ -4,11 +4,11 @@
 # Title: LTE flowgraph
 # Author: Johannes Demel
 # Description: top level LTE flowgraph
-# Generated: Mon Aug 12 10:42:52 2013
+# Generated: Wed Aug 14 12:23:32 2013
 ##################################################
 
-execfile("/home/johannes/.grc_gnuradio/lte_decode_bch_hier.py")
-execfile("/home/johannes/.grc_gnuradio/lte_source_c.py")
+execfile("/home/demel/.grc_gnuradio/lte_decode_bch_hier.py")
+execfile("/home/demel/.grc_gnuradio/lte_source_c.py")
 from PyQt4 import Qt
 from gnuradio import eng_notation
 from gnuradio import fft

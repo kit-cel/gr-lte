@@ -38,7 +38,8 @@ lte_qpsk_soft_demod_vcvf::lte_qpsk_soft_demod_vcvf (int vlen)
 	: gr_sync_block ("qpsk_soft_demod_vcvf",
 		gr_make_io_signature (1,1, sizeof(gr_complex)*vlen),
 		gr_make_io_signature (1,1, sizeof (float)*(2*vlen))),
-		d_vlen(vlen)
+		d_vlen(vlen),
+		d_SQRT2( std::sqrt(2) )
 {
     d_demodulated = (float*)fftwf_malloc(sizeof(float)*2*d_vlen);
 }
@@ -47,6 +48,7 @@ lte_qpsk_soft_demod_vcvf::lte_qpsk_soft_demod_vcvf (int vlen)
 lte_qpsk_soft_demod_vcvf::~lte_qpsk_soft_demod_vcvf ()
 {
 }
+
 
 
 int

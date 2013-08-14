@@ -24,6 +24,7 @@ from mib import *
 from encode_bch import *
 from encode_pbch import *
 from encode_pcfich import *
+from encode_phich import *
 
 def rs_generator(ns, l, cell_id, Ncp):
     N_RB_MAX = 110
@@ -184,17 +185,60 @@ def map_pcfich_to_symbol(symbol, pcfich, N_rb_dl, cell_id, ant):
     return symbol
     
 def calculate_pcfich_pos(N_rb_dl, cell_id):
-    N_sc_rb = 12 # number of subcarriers per resource block
-    k_mean = (N_sc_rb/2) * (cell_id%(2*N_rb_dl))
-    regs = 4
     cell_id_mod3 = cell_id%3
     pcfich_pos = []
-    for n in range(regs):
-        k = int( (k_mean + (N_sc_rb/2) * math.floor(n*N_rb_dl/2))%(N_rb_dl*N_sc_rb) )
+    reg_pos = calculate_pcfich_reg_pos(N_rb_dl, cell_id)
+    for n in range(len(reg_pos)):
+        k = reg_pos[n]
         for i in range(6):
             if i%3 != cell_id_mod3:
                 pcfich_pos.append(k+i)
     return pcfich_pos
+    
+def calculate_pcfich_reg_pos(N_rb_dl, cell_id):
+    N_sc_rb = 12 # number of subcarriers per resource block
+    k_mean = (N_sc_rb/2) * (cell_id%(2*N_rb_dl))
+    regs = 4
+    pcfich_pos = []
+    for n in range(regs):
+        k = int( (k_mean + (N_sc_rb/2) * math.floor(n*N_rb_dl/2))%(N_rb_dl*N_sc_rb) )
+        pcfich_pos.append(k)                
+    return pcfich_pos
+    
+def get_free_reg_pos(N_rb_dl, cell_id):
+    cfi_reg = calculate_pcfich_reg_pos(N_rb_dl, cell_id)
+    nreg = 2 * N_rb_dl
+    res = []
+    for i in range(nreg):
+        pos = i*6
+        if not(pos in cfi_reg):
+            res.append(pos)
+    return res
+    
+def get_phich_pos(N_rb_dl, cell_id, N_g):
+    n_phich_groups = get_n_phich_groups(N_g, N_rb_dl)
+    free_reg = get_free_reg_pos(N_rb_dl, cell_id)
+    n_free_reg = len(free_reg)
+    phich_pos = []
+    for m in range(n_phich_groups):
+        for i in range(3):
+            l = 0 # time domain index, other values possible but ignored
+            n = 1
+            ni = get_freq_domain_index(cell_id, n_free_reg, m, i)
+            k = free_reg[ni]
+            phich_pos.append(k)
+            print "{0}\t{1}\t{2}".format(m, i, k)
+    return phich_pos
+    
+def get_freq_domain_index(cell_id, n_free_reg, m, i):
+    n0 = n_free_reg # where does this value come from?
+    stp0 = int(cell_id) * int(n_free_reg) / n0 
+    stp1 = m
+    stp2 = i * n_free_reg/3
+    stp = stp0 + stp1 + stp2
+    ni = int(stp)%n_free_reg
+    #print "{0} + {1} + {2} = {3}\t\t{4}".format(stp0, stp1, stp2, stp, ni)
+    return ni
 
 if __name__ == "__main__":
     cell_id = 124
@@ -203,19 +247,25 @@ if __name__ == "__main__":
     N_rb_dl = 6
     sfn = 0
     Ncp = 1
+    N_g = 1
 
     mib = pack_mib(50,0,1.0, 511)
     bch = encode_bch(mib, N_ant)
     pbch = encode_pbch(bch, cell_id, N_ant, style)
-
     pn_seq = pn_generator(220, cell_id)
     rs_seq = rs_generator(3, 4, cell_id,Ncp)
-
-    frame = generate_frame(pbch, N_rb_dl, cell_id, sfn, N_ant)
+    pcfich = encode_pcfich(2, cell_id, 4, N_ant)    
+    frame = generate_frame(pbch, N_rb_dl, cell_id, sfn, N_ant)    
     
-    pcfich = encode_pcfich(2, cell_id, 4, N_ant)
+    cfi_reg = calculate_pcfich_reg_pos(N_rb_dl, cell_id)
+    print cfi_reg
+    free_reg = get_free_reg_pos(N_rb_dl, cell_id)
+    print free_reg
+    n_phich_groups = get_n_phich_groups(N_g, N_rb_dl)
+    print n_phich_groups
     
-    print calculate_pcfich_pos(N_rb_dl, cell_id)
+    phich_pos = get_phich_pos(N_rb_dl, cell_id, N_g)
+    print phich_pos    
     
     stream = generate_stream_frame(frame, 2)
     print np.shape(stream)

@@ -50,6 +50,7 @@ def scramble_hi_cw(cw, n_seq, cp_len, ns, cell_id):
     seq = []
     for i in range(N_phich_sf):
         seq.extend(cw)
+    seq = nrz_encoding(seq)
     w_scr = get_w_scr_seq(n_seq)
     cinit = get_phich_cinit(ns, cell_id)
     scr = get_phich_scr_seq(cinit, len(seq))
@@ -82,6 +83,57 @@ def get_phich_scr_seq(cinit, scr_len):
     scr = pn_generator(scr_len, cinit)
     return nrz_encoding(scr)
 
+def align_phich_block(data, cp_len, n_phich_group):
+    # This block is still a dummy.
+    # Only with extended CP things must be taken care of.
+    return data
+    
+def encode_one_phich(hi, cp_len, ns, cell_id, n_phich_group, n_phich_seq, N_ant, style):
+    cw = encode_hi(hi)
+    scr_phich = scramble_hi_cw(cw, n_phich_seq, cp_len, ns, cell_id)
+    ali_phich = align_phich_block(scr_phich, cp_len, n_phich_group)
+    lay_phich = layer_mapping(ali_phich, N_ant, style)
+    pre_phich = pre_coding(lay_phich, N_ant, style)
+    return pre_phich
+    
+def encode_phich_group(hi, cp_len, ns, cell_id, n_phich_group, N_ant, style):
+    group = []
+    for n_seq in range(len(hi)):
+        one_phich = encode_one_phich(hi[n_seq], cp_len, ns, cell_id, n_phich_group, n_seq, N_ant, style)
+        group.append(one_phich)
+    return group
+            
+def get_phich_group_sum_ant(phich_group):
+    res = []
+    for i in range(len(phich_group[0])):
+        val = 0
+        for n in range(len(phich_group)):
+            val = val + phich_group[n][i]
+            #print str(n) + "\t" + str(val)
+        res.append(val)
+    return res
+
+def get_phich_group_sum(phich_group, N_ant):
+    if N_ant == 1:
+        return get_phich_group_sum_ant(phich_group)
+    else:
+        res = []
+        for i in range(N_ant):
+            ants = []
+            for n in range(len(phich_group)):
+                ants.append(phich_group[n][i])
+            ant_sum = get_phich_group_sum_ant(ants)
+            print ant_sum
+            res.append(ant_sum)
+        return res
+        
+def map_phich_group_to_unit(data, cp_len):
+    # If one wants to use EXTENDED CP len.
+    # Here is the starting point for impl
+    return data
+        
+N_g_lut = {0:1/6.0, 1:1/2.0, 2:1, 3:2}
+N_rb_dl_lut = {0:6, 1:15, 2:25, 3:50, 4:75, 5:100}
 if __name__ == "__main__":
     cell_id = 124
     N_ant = 2
@@ -93,11 +145,31 @@ if __name__ == "__main__":
     cp_len = "normal"
     n_seq = 0
     ns = 0
+    n_phich_group = 0
+    print get_n_phich_groups(N_g, N_rb_dl)
     
-    cw = encode_hi(1)
-    scramble_hi_cw(cw, n_seq, cp_len, ns, cell_id)
+    for i in range(4):
+        n_g = N_g_lut[i]
+        for n in range(len(N_rb_dl_lut)):
+            n_rb_dl = N_rb_dl_lut[n]
+            n_groups = get_n_phich_groups(n_g, n_rb_dl)
+            print '{0:+.3f}\t{1}\t{2}'.format(n_g, n_rb_dl, n_groups)
+        
+    
+    
+    hi = []
     for i in range(8):
-        print scramble_hi_cw(cw, i, cp_len, ns, cell_id)
+        hi.append(i%2)
+    
+    phich_group = encode_phich_group(hi, cp_len, ns, cell_id, n_phich_group, N_ant, style)
+    #print phich_group
+    #print np.shape(phich_group)
+    group_sum = get_phich_group_sum(phich_group, N_ant)
+    print group_sum
+        
+    
+        
+    
 
 
 
