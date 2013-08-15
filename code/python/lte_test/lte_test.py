@@ -18,6 +18,8 @@
 # Boston, MA 02110-1301, USA.
 #
 
+from gnuradio import gr
+from gruel import pmt
 import numpy as np
 import math
 from mib import *
@@ -25,6 +27,18 @@ from encode_bch import *
 from encode_pbch import *
 from encode_pcfich import *
 from encode_phich import *
+
+# This is a function to help test setup
+def get_tag_list(data_len, tag_key, N_ofdm_symbols):
+    tag_list = []
+    for i in range(data_len):
+        tag = gr.gr_tag_t()
+        tag.key = pmt.pmt_string_to_symbol(tag_key)
+        tag.srcid = pmt.pmt_string_to_symbol("test_src")
+        tag.value = pmt.pmt_from_long(i%N_ofdm_symbols)
+        tag.offset = i
+        tag_list.append(tag)
+    return tag_list
 
 def rs_generator(ns, l, cell_id, Ncp):
     N_RB_MAX = 110
@@ -166,22 +180,10 @@ def map_pcfich_to_frame(frame, pcfich, N_rb_dl, cell_id, ant):
             
         
 def map_pcfich_to_symbol(symbol, pcfich, N_rb_dl, cell_id, ant):     
-    #print "map pcfich"
-    N_sc_rb = 12 # number of subcarriers per resource block
-    k_mean = (N_sc_rb/2) * (cell_id%(2*N_rb_dl))
-    regs = 4
-    cell_id_mod3 = cell_id%3
-    n_pcfi = 0
-    pcfich_pos = calculate_pcfich_pos(N_rb_dl, cell_id)
-    for n in range(len(pcfich)):
-        symbol[pcfich_pos[n]] = pcfich[n]
-#    for n in range(regs):
-#        k = int( (k_mean + (N_sc_rb/2) * math.floor(n*N_rb_dl/2))%(N_rb_dl*N_sc_rb) )
-#        for i in range(6):
-#            if i%3 != cell_id_mod3:
-#                symbol[k+i] = pcfich[n_pcfi]
-#                n_pcfi = n_pcfi + 1
-
+    reg_pos = calculate_pcfich_reg_pos(N_rb_dl, cell_id)
+    for i in range(len(reg_pos)):
+        cfi_part = pcfich[4*i:4*(i+1)]
+        symbol = map_reg(symbol, cfi_part, reg_pos[i], cell_id, True)
     return symbol
     
 def calculate_pcfich_pos(N_rb_dl, cell_id):
@@ -215,6 +217,37 @@ def get_free_reg_pos(N_rb_dl, cell_id):
             res.append(pos)
     return res
     
+def get_occupied_regs(N_rb_dl, cell_id, N_g):
+    cfi_reg = calculate_pcfich_reg_pos(N_rb_dl, cell_id)
+    hi_reg = get_phich_pos(N_rb_dl, cell_id, N_g)
+    occ = cfi_reg
+    occ = occ.extend(hi_reg)
+    return cfi_reg
+    
+def get_pdcch_reg_pos(N_rb_dl, cell_id, N_g, cfi):
+    occ = get_occupied_regs(N_rb_dl, cell_id, N_g)
+    if N_rb_dl < 10:
+        cfi = cfi + 1
+    m = 0
+    res = []
+    print occ
+    for k in range(12*N_rb_dl):
+        for l in range(cfi):
+            #print "{0}\t{1}\t{2}".format(m, k, l)
+            if l > 0 and k%4 ==0:
+                 res.append([k, l])
+                 print "{0}\t{1}\t{2}".format(m, k, l)
+                 m = m + 1
+                 
+            elif l == 0 and k%6 == 0 and k not in occ:
+                 res.append([k, l])
+                 print "{0}\t{1}\t{2}".format(m, k, l)
+                 m = m + 1
+    return res
+                 
+                
+                
+    
 def get_phich_pos(N_rb_dl, cell_id, N_g):
     n_phich_groups = get_n_phich_groups(N_g, N_rb_dl)
     free_reg = get_free_reg_pos(N_rb_dl, cell_id)
@@ -227,8 +260,28 @@ def get_phich_pos(N_rb_dl, cell_id, N_g):
             ni = get_freq_domain_index(cell_id, n_free_reg, m, i)
             k = free_reg[ni]
             phich_pos.append(k)
-            print "{0}\t{1}\t{2}".format(m, i, k)
+            # print "{0}\t{1}\t{2}".format(m, i, k)
     return phich_pos
+
+def map_phich_to_symbol(symbol, phich, N_rb_dl, cell_id, N_g):
+    phich_pos = get_phich_pos(N_rb_dl, cell_id, N_g)
+    for i in range(len(phich_pos)):
+        reg = phich[i*4:4*(i+1)]
+        symbol = map_reg(symbol, reg, phich_pos[i], cell_id, True)
+    return symbol
+    
+def map_reg(symbol, reg, index, cell_id, has_rs_syms):
+    cell_id_mod3 = cell_id%3
+    if has_rs_syms == True:
+        reg_num = 0
+        for i in range(6):
+            if (index + i)%3 != cell_id_mod3:
+                symbol[index+i] = reg[reg_num]
+                reg_num = reg_num + 1
+    else:
+        for i in range(4):
+            symbol[index + i] = reg[i]
+    return symbol
     
 def get_freq_domain_index(cell_id, n_free_reg, m, i):
     n0 = n_free_reg # where does this value come from?
@@ -244,10 +297,11 @@ if __name__ == "__main__":
     cell_id = 124
     N_ant = 2
     style= "tx_diversity"
-    N_rb_dl = 6
+    N_rb_dl = 50
     sfn = 0
     Ncp = 1
     N_g = 1
+    cfi = 2
 
     mib = pack_mib(50,0,1.0, 511)
     bch = encode_bch(mib, N_ant)
@@ -265,7 +319,24 @@ if __name__ == "__main__":
     print n_phich_groups
     
     phich_pos = get_phich_pos(N_rb_dl, cell_id, N_g)
-    print phich_pos    
+    print phich_pos
+    
+    symbol = [0] * 12 * N_rb_dl
+    phich = ["PHICH"] * 12 * n_phich_groups
+    pcfi = ["CFI"] * 16
+    symbol = map_pcfich_to_symbol(symbol, pcfi, N_rb_dl, cell_id, 0)
+    symbol = map_phich_to_symbol(symbol, phich, N_rb_dl, cell_id, N_g)
+    
+    print "occupied"
+    occ = get_occupied_regs(N_rb_dl, cell_id, N_g)
+    print occ
+    
+    pdcch_pos = get_pdcch_reg_pos(N_rb_dl, cell_id, N_g, cfi)
+    print pdcch_pos
+    print len(pdcch_pos)
+    
+#    for i in range(len(symbol)):
+#        print "{0}\t{1}".format(i, symbol[i])
     
     stream = generate_stream_frame(frame, 2)
     print np.shape(stream)

@@ -18,8 +18,6 @@
 # Boston, MA 02110-1301, USA.
 # 
 
-from gnuradio import gr
-from gruel import pmt
 import math
 import numpy as np
 
@@ -130,7 +128,6 @@ def pre_coding(data, N_ant, style):
     output = []
     if N_ant == 1:
         output = data
-        
     elif N_ant == 2:
         y = [[0]*len(data[0])*2,[0]*len(data[0])*2]
         x = data
@@ -140,22 +137,64 @@ def pre_coding(data, N_ant, style):
             y[0][2*n+1] = complex( 1*x[1][n].real,  1*x[1][n].imag)/math.sqrt(2)
             y[1][2*n+1] = complex( 1*x[0][n].real, -1*x[0][n].imag)/math.sqrt(2)
         output = y
-
     else:
         print str(N_ant) + "\tantenna port not supported!"
         return data
     return output
+
+def interleave_row(data):
+    interleave_vector = tuple([1,17,9,25,5,21,13,29,3,19,11,27,7,23,15,31,0,16,8,24,4,20,12,28,2,18,10,26,6,22,14,30]) # defined in standard
+    return [data[idx] for idx in interleave_vector]
     
-def get_tag_list(data_len, tag_key, N_ofdm_symbols):
-    tag_list = []
-    for i in range(data_len):
-        tag = gr.gr_tag_t()
-        tag.key = pmt.pmt_string_to_symbol(tag_key)
-        tag.srcid = pmt.pmt_string_to_symbol("test_src")
-        tag.value = pmt.pmt_from_long(i%N_ofdm_symbols)
-        tag.offset = i
-        tag_list.append(tag)
-    return tag_list
+def interleave(data):
+    #interleave_vector = tuple([1,17,9,25,5,21,13,29,3,19,11,27,7,23,15,31,0,16,8,24,4,20,12,28,2,18,10,26,6,22,14,30]) # defined in standard
+    n_col = 32 # defined in standard
+    data_len = len(data)
+    n_row = int(math.ceil(data_len/(float(n_col))))
+    n_null = n_col*n_row - data_len
+    print "col = {0}\trow = {1}\tnull = {2}".format(n_col, n_row, n_null)
+    y = [None] * n_null
+    y.extend(data)
+    matrix = []
+    for i in range(n_row):
+        part = y[i * n_col: (i+1) * (n_col)]
+        matrix.append(part)
+    print matrix
+    
+    ## This part to be tested!
+    print "pythonic voodoo test"
+    vodoo =  zip(*matrix)
+    mint = interleave_row(vodoo)
+    print "voodooo"
+    print mint
+    mat = zip(*mint)
+    print "rada"
+    print np.shape(mat)
+    # Did it work????
+    
+    int_matrix = []
+    for i in range(n_row):
+        int_matrix.append(interleave_row(matrix[i]))
+    print int_matrix
+    int_matrix = mat # does this work corrextly?
+    
+    vec = [0] *(n_col*n_row)
+    print len(vec)
+    for col in range(n_col):
+        for row in range(n_row):
+            vec[col*n_row+row] = int_matrix[row][col]
+    print vec
+
+    print "almost"
+    res = [0] * len(data)
+    idx = 0
+    for i in range(len(vec)):
+        if vec[i] != None:
+            res[idx] = vec[i]
+            idx = idx + 1
+    print len(res)
+
+    return res
 
     
 if __name__ == "__main__":
@@ -165,3 +204,30 @@ if __name__ == "__main__":
     N_rb_dl = 6
     sfn = 0
     Ncp = 1
+    
+    arr = ["il"] *80
+    inter = interleave(arr)
+    print inter
+    print len(inter)
+    
+    x = [1, 2, 3]
+    y = [4,5,6]
+    m = [7,8,9]
+    z= zip(x,y,m)
+    print z
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

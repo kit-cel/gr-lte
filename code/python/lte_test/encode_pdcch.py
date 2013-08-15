@@ -224,6 +224,9 @@ if __name__ == "__main__":
     print "\n4. Layer Mapping and precoding"
     lay_pdcch = layer_mapping(mod_pdcch, N_ant, style)
     pre_pdcch = pre_coding(lay_pdcch, N_ant, style)
+    
+    print "\n5. Interleaving"
+    
 
     
     test = 1
