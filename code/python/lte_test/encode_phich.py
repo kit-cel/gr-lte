@@ -123,7 +123,6 @@ def get_phich_group_sum(phich_group, N_ant):
             for n in range(len(phich_group)):
                 ants.append(phich_group[n][i])
             ant_sum = get_phich_group_sum_ant(ants)
-            print ant_sum
             res.append(ant_sum)
         return res
         
@@ -131,6 +130,24 @@ def map_phich_group_to_unit(data, cp_len):
     # If one wants to use EXTENDED CP len.
     # Here is the starting point for impl
     return data
+    
+def encode_phich(hi, N_rb_dl, N_g, cp_len, ns, cell_id, N_ant, style):
+    n_groups = get_n_phich_groups(N_g, N_rb_dl) # for normal cp all fine
+    groups = []
+    for n in range(n_groups):
+        enc_group = encode_phich_group(hi[8*n:8*(n+1)], cp_len, ns, cell_id, n, N_ant, style)
+        sum_group = get_phich_group_sum(enc_group, N_ant)
+        groups.append(sum_group)
+    groups = zip(*groups)
+    res = []
+    for p in range(N_ant):
+        ant = groups[p]
+        part = []
+        for i in range(len(ant)):
+            part.extend(ant[i])
+        res.append(part)
+    return res
+
         
 N_g_lut = {0:1/6.0, 1:1/2.0, 2:1, 3:2}
 N_rb_dl_lut = {0:6, 1:15, 2:25, 3:50, 4:75, 5:100}
@@ -138,7 +155,7 @@ if __name__ == "__main__":
     cell_id = 124
     N_ant = 2
     style= "tx_diversity"
-    N_rb_dl = 6
+    N_rb_dl = 50
     sfn = 0
     Ncp = 1
     N_g = 1
@@ -146,7 +163,7 @@ if __name__ == "__main__":
     n_seq = 0
     ns = 0
     n_phich_group = 0
-    print get_n_phich_groups(N_g, N_rb_dl)
+    
     
     for i in range(4):
         n_g = N_g_lut[i]
@@ -156,16 +173,22 @@ if __name__ == "__main__":
             print '{0:+.3f}\t{1}\t{2}'.format(n_g, n_rb_dl, n_groups)
         
     
-    
+    n_groups = get_n_phich_groups(N_g, N_rb_dl)
     hi = []
-    for i in range(8):
+    for i in range(8*n_groups):
         hi.append(i%2)
     
-    phich_group = encode_phich_group(hi, cp_len, ns, cell_id, n_phich_group, N_ant, style)
+    #phich_group = encode_phich_group(hi, cp_len, ns, cell_id, n_phich_group, N_ant, style)
     #print phich_group
     #print np.shape(phich_group)
-    group_sum = get_phich_group_sum(phich_group, N_ant)
-    print group_sum
+    #group_sum = get_phich_group_sum(phich_group, N_ant)
+    #print np.shape(group_sum)
+    
+    phich = encode_phich(hi, N_rb_dl, N_g, cp_len, ns, cell_id, N_ant, style)
+    print "this is the result"
+    print np.shape(phich)
+    print n_groups
+    print 12 * 7
         
     
         

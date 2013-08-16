@@ -152,48 +152,24 @@ def interleave(data):
     data_len = len(data)
     n_row = int(math.ceil(data_len/(float(n_col))))
     n_null = n_col*n_row - data_len
-    print "col = {0}\trow = {1}\tnull = {2}".format(n_col, n_row, n_null)
+    #print "col = {0}\trow = {1}\tnull = {2}".format(n_col, n_row, n_null)
     y = [None] * n_null
     y.extend(data)
     matrix = []
     for i in range(n_row):
         part = y[i * n_col: (i+1) * (n_col)]
         matrix.append(part)
-    print matrix
-    
-    ## This part to be tested!
-    print "pythonic voodoo test"
-    vodoo =  zip(*matrix)
-    mint = interleave_row(vodoo)
-    print "voodooo"
-    print mint
-    mat = zip(*mint)
-    print "rada"
-    print np.shape(mat)
-    # Did it work????
-    
-    int_matrix = []
-    for i in range(n_row):
-        int_matrix.append(interleave_row(matrix[i]))
-    print int_matrix
-    int_matrix = mat # does this work corrextly?
-    
-    vec = [0] *(n_col*n_row)
-    print len(vec)
-    for col in range(n_col):
-        for row in range(n_row):
-            vec[col*n_row+row] = int_matrix[row][col]
-    print vec
-
-    print "almost"
+    zip_mat =  zip(*matrix)
+    intld = interleave_row(zip_mat)
+    vec = []
+    for i in range(len(intld)):
+        vec.extend(intld[i])
     res = [0] * len(data)
     idx = 0
     for i in range(len(vec)):
         if vec[i] != None:
             res[idx] = vec[i]
             idx = idx + 1
-    print len(res)
-
     return res
 
     
@@ -205,16 +181,18 @@ if __name__ == "__main__":
     sfn = 0
     Ncp = 1
     
-    arr = ["il"] *80
-    inter = interleave(arr)
-    print inter
-    print len(inter)
+    mat = []
+    for i in range(80):
+        mat.append([i]*3)
+    inter = interleave(mat)
     
-    x = [1, 2, 3]
-    y = [4,5,6]
-    m = [7,8,9]
-    z= zip(x,y,m)
-    print z
+    arr = range(80)
+    intl = interleave(arr)
+    for i in range(len(arr)):
+        print "{0}\t{1}".format(intl[i], inter[i])
+
+    
+    
     
     
     

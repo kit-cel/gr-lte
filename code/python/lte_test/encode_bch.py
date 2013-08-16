@@ -20,6 +20,7 @@
 
 import math
 from mib import *
+from lte_core import *
 
 def crc_checksum(mib, N_ant):
     if len(mib) != 24:
@@ -86,33 +87,6 @@ def rate_match(data):
     output.extend(interleave(data[0:40]))
     output.extend(interleave(data[40:80]))
     output.extend(interleave(data[80:120]))
-    return output
-    
-def interleave(data):
-    interleave_vector = tuple([1,17,9,25,5,21,13,29,3,19,11,27,7,23,15,31,0,16,8,24,4,20,12,28,2,18,10,26,6,22,14,30])
-    n_col = 32
-    n_row = int(math.ceil(40.0/(float(n_col))))
-    n_null = n_col*n_row - 40
-    y = [0]*n_null
-    y.extend([i+1 for i in range(40)])
-    matrix = [y[0:32], y[32:64]]
-    int_matrix = [[0]*32, [0]*32]
-    for i in range(n_col):
-        int_matrix[0][i] = matrix[0][interleave_vector[i]]
-        int_matrix[1][i] = matrix[1][interleave_vector[i]]
-
-    int_vector = []    
-    for i in range(32):
-        int_vector.append(int_matrix[0][i])
-        int_vector.append(int_matrix[1][i])
-    
-    output = range(len(data))
-    idx = 0
-    for i in range(len(int_vector)):
-        if int_vector[i] != 0:
-            output[idx] = data[int_vector[i]-1]
-            idx = idx+1
-
     return output
 
 def encode_bch(mib, N_ant):

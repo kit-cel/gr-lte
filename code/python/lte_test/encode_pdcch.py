@@ -182,11 +182,50 @@ def scramble_pdcch(pdcch, ns, cell_id):
     cinit = get_pdcch_cinit(ns, cell_id)
     scr = pn_generator(len(pdcch), cinit)
     return [(pdcch[i]+scr[i])%2 for i in range(len(pdcch))]
+    
+def reg_group(data):
+    res = []
+    for i in range(len(data)/4):
+        part = data[4*i:4*(i+1)]
+        #print "{0}\t{1}\t{2}\t{3}".format(i, 4*i, 4*(i+1), part)
+        res.append(part)
+    return res
 
-lut_pdcch_types = {0:"Common", 1:"UE-specific"}
-if __name__ == "__main__":
+def shift_pdcch(data, cell_id):
+    return [data[ (idx + cell_id)%len(data) ] for idx in range(len(data))]
+    
+def reg_intl_shift_pdcch(pdcch, cell_id, N_ant):
+    reg_pdcch = []
+    print np.shape(pdcch)
+    shi_pdcch = []
+    if N_ant == 1:
+        reg_pdcch = reg_group(pdcch)
+        int_pdcch = interleave(reg_pdcch)
+        shi_pdcch = shift_pdcch(int_pdcch, cell_id)
+    else:
+        for i in range(N_ant):
+            reg_pdcch.append(reg_group(pdcch[i]))
+        int_pdcch = []
+        for i in range(len(reg_pdcch)):
+            int_pdcch.append(interleave(reg_pdcch[i]))
+        shi_pdcch = []    
+        for i in range(len(int_pdcch)):
+            shi_pdcch.append(shift_pdcch(int_pdcch[i], cell_id) )
+    return shi_pdcch
+    
+def encode_pdcch(data, N_rb_dl, N_ant, style, cfi, N_g, ns, cell_id):
+    tot_pdcch = get_multiplexed_pdcch(data)
+    scr_pdcch = scramble_pdcch(tot_pdcch, ns, cell_id)
+    mod_pdcch = qpsk_modulation(scr_pdcch)
+    lay_pdcch = layer_mapping(mod_pdcch, N_ant, style)
+    pre_pdcch = pre_coding(lay_pdcch, N_ant, style)
+    shi_pdcch = reg_intl_shift_pdcch(pre_pdcch, cell_id, N_ant)
+    return shi_pdcch
+
+lut_pdcch_types = {0:"Common", 1:"UE-specific"} 
+def work():
     cell_id = 124
-    N_ant = 2
+    N_ant = 1
     style= "tx_diversity"
     N_rb_dl = 50
     sfn = 0
@@ -196,41 +235,22 @@ if __name__ == "__main__":
     cfi = 2
     L = 4 # Aggregation Level (1,2,4,8)
     Y_k = 0 # set to 0 for common search space
-    pdcch_type = lut_pdcch_types[0]
-    
-    
-    
-    #rap = 0
-    #length = encode_dci_format1a(N_rb_dl, rap)
-    #print "len(format1a) = " + str(length)
-    #print "len(with crc) = " + str(length + 16)
-    
-        
-    print "PDCCH - Encoding"
-    print "1. DCI Multiplexing"
-    N_CCE = get_n_cce_available(N_ant, N_rb_dl, cfi, N_g)
-    print "available CCEs = " + str(N_CCE)
+    pdcch_type = lut_pdcch_types[0] 
     #print get_pdcch_search_space(L, Y_k, N_CCE, pdcch_type)
-
+    
+    N_CCE = get_n_cce_available(N_ant, N_rb_dl, cfi, N_g)
     pdcchs = get_all_pdcchs(N_CCE)
-    tot_pdcch = get_multiplexed_pdcch(pdcchs)
+    enc_pdcch = encode_pdcch(pdcchs, N_rb_dl, N_ant, style, cfi, N_g, ns, cell_id)
+    # print enc_pdcch
+    print np.shape(enc_pdcch)
 
-    print "\n2. Scrambling"
-    scr_pdcch = scramble_pdcch(tot_pdcch, ns, cell_id)
-    
-    print "\n3. Modulation - QPSK"
-    mod_pdcch = qpsk_modulation(scr_pdcch)   
-    
-    print "\n4. Layer Mapping and precoding"
-    lay_pdcch = layer_mapping(mod_pdcch, N_ant, style)
-    pre_pdcch = pre_coding(lay_pdcch, N_ant, style)
-    
-    print "\n5. Interleaving"
-    
+
+if __name__ == "__main__":
+    work()
 
     
-    test = 1
-    print test == None
+    
+
     
         
         
