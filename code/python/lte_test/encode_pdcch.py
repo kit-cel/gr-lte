@@ -196,7 +196,6 @@ def shift_pdcch(data, cell_id):
     
 def reg_intl_shift_pdcch(pdcch, cell_id, N_ant):
     reg_pdcch = []
-    print np.shape(pdcch)
     shi_pdcch = []
     if N_ant == 1:
         reg_pdcch = reg_group(pdcch)

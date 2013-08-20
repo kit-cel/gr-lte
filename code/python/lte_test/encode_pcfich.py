@@ -48,7 +48,10 @@ def encode_pcfich(cfi, cell_id, ns, N_ant):
     scr_cfi_seq = scramble_cfi_sequence(cfi_seq, cell_id, ns)
     mod_cfi_seq = qpsk_modulation(scr_cfi_seq)
     lay_cfi_seq = layer_mapping(mod_cfi_seq, N_ant, style)
-    return pre_coding(lay_cfi_seq, N_ant, style)
+    pre_cfi_seq = pre_coding(lay_cfi_seq, N_ant, style)
+    if N_ant == 1:
+        pre_cfi_seq = [pre_cfi_seq]
+    return pre_cfi_seq
     
 if __name__ == "__main__":
     cfi = 2    

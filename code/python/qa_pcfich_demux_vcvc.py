@@ -65,14 +65,18 @@ class qa_pcfich_demux_vcvc (gr_unittest.TestCase):
         N_rb_dl = self.N_rb_dl
         sfn = 0
         Ncp = 1
+        cfi = 2
 
         mib = pack_mib(50,0,1.0, 511)
         bch = encode_bch(mib, N_ant)
         pbch = encode_pbch(bch, cell_id, N_ant, style)
+
+        exp_res = []
+        for sub in range(10):
+            ns = sub * 2
+            pcfich = encode_pcfich(cfi, cell_id, ns, N_ant)
+            exp_res.append(pcfich[0])
         
-        # FIX ME, where do these parameters come from?
-        pcfich = encode_pcfich(2, cell_id, 0, N_ant)
-        exp_res = pcfich[0]
 
         frame = generate_frame(pbch, N_rb_dl, cell_id, sfn, N_ant)
         data = frame[0].flatten()
@@ -89,20 +93,19 @@ class qa_pcfich_demux_vcvc (gr_unittest.TestCase):
         
         res = self.snk0.data()
         
-        for i in range(len(res)/len(exp_res)):
+        print "test 001 check res"
+        for i in range(len(res)/len(exp_res[0])):
             part = res[i*16:(i+1)*16]
-            self.assertComplexTuplesAlmostEqual(part, exp_res)
+            self.assertComplexTuplesAlmostEqual(part, exp_res[i])
         
         
         
         
     def test_002_msg(self):
         print "test_002"
-        
         msg = pmt.pmt_from_long(220)
         self.strobe = blocks.message_strobe(msg, 1000)        
         self.tb.msg_connect(self.strobe, "strobe", self.demux, self.msg_buf_name)
-        
         self.tb.run()
 
 

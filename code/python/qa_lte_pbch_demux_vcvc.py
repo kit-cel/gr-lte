@@ -30,7 +30,7 @@ class qa_pbch_demux_vcvc (gr_unittest.TestCase):
     def setUp (self):
         self.tb = gr.top_block ()
         
-        self.N_rb_dl = N_rb_dl = 100
+        self.N_rb_dl = N_rb_dl = 50
         n_carriers = 12*N_rb_dl
         intu = np.zeros(n_carriers,dtype=np.complex)
         

@@ -138,7 +138,10 @@ def encode_phich(hi, N_rb_dl, N_g, cp_len, ns, cell_id, N_ant, style):
         enc_group = encode_phich_group(hi[8*n:8*(n+1)], cp_len, ns, cell_id, n, N_ant, style)
         sum_group = get_phich_group_sum(enc_group, N_ant)
         groups.append(sum_group)
-    groups = zip(*groups)
+    if N_ant > 1:
+        groups = zip(*groups)
+    else:
+        groups = [groups]
     res = []
     for p in range(N_ant):
         ant = groups[p]
@@ -153,7 +156,7 @@ N_g_lut = {0:1/6.0, 1:1/2.0, 2:1, 3:2}
 N_rb_dl_lut = {0:6, 1:15, 2:25, 3:50, 4:75, 5:100}
 if __name__ == "__main__":
     cell_id = 124
-    N_ant = 2
+    N_ant = 1
     style= "tx_diversity"
     N_rb_dl = 50
     sfn = 0
