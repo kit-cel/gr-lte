@@ -4,23 +4,20 @@
 # Title: LTE flowgraph
 # Author: Johannes Demel
 # Description: top level LTE flowgraph
-# Generated: Thu Aug 15 12:59:52 2013
+# Generated: Tue Aug 20 17:41:25 2013
 ##################################################
 
 execfile("/home/johannes/.grc_gnuradio/lte_decode_bch_hier.py")
 execfile("/home/johannes/.grc_gnuradio/lte_source_c.py")
 from PyQt4 import Qt
-from gnuradio import blocks
 from gnuradio import eng_notation
 from gnuradio import fft
 from gnuradio import gr
 from gnuradio import window
 from gnuradio.eng_option import eng_option
 from gnuradio.gr import firdes
-from gnuradio.qtgui import qtgui
 from optparse import OptionParser
 import lte
-import sip
 import sys
 
 class LTE_flowgraph(gr.top_block, Qt.QWidget):
@@ -63,20 +60,6 @@ class LTE_flowgraph(gr.top_block, Qt.QWidget):
 		##################################################
 		# Blocks
 		##################################################
-		self.qtgui_sink_x_0 = qtgui.sink_f(
-			1024, #fftsize
-			firdes.WIN_BLACKMAN_hARRIS, #wintype
-			0, #fc
-			samp_rate, #bw
-			"QT GUI Plot", #name
-			True, #plotfreq
-			True, #plotwaterfall
-			True, #plottime
-			True, #plotconst
-		)
-		self.qtgui_sink_x_0.set_update_time(1.0 / 10)
-		self._qtgui_sink_x_0_win = sip.wrapinstance(self.qtgui_sink_x_0.pyqwidget(), Qt.QWidget)
-		self.top_layout.addWidget(self._qtgui_sink_x_0_win)
 		self.lte_source_c_0 = lte_source_c(
 			samp_rate=samp_rate,
 		)
@@ -96,7 +79,6 @@ class LTE_flowgraph(gr.top_block, Qt.QWidget):
 		self.lte_channel_estimator_ant_1 = lte.channel_estimator_vcvc(12*N_rb_dl, tag_key, "pilots", pilot_carriers_p1, pilot_symbols)
 		self.lte_channel_estimator_ant_0 = lte.channel_estimator_vcvc(12*N_rb_dl, tag_key, "pilots", pilot_carriers_p0, pilot_symbols)
 		self.fft_vxx_0 = fft.fft_vcc(fft_len, True, (window.rectangular(fft_len)), False, 1)
-		self.blocks_vector_to_stream_0 = blocks.vector_to_stream(gr.sizeof_float*1, 120)
 
 		##################################################
 		# Connections
@@ -122,8 +104,6 @@ class LTE_flowgraph(gr.top_block, Qt.QWidget):
 		self.connect((self.lte_channel_estimator_ant_1, 0), (self.lte_decode_pcfich_vcm_0, 2))
 		self.connect((self.lte_extract_occupied_tones_vcvc_0, 0), (self.lte_decode_pcfich_vcm_0, 0))
 		self.connect((self.lte_decode_pbch_vcvf_0, 0), (self.lte_decode_bch_hier_0, 0))
-		self.connect((self.lte_decode_pbch_vcvf_0, 0), (self.blocks_vector_to_stream_0, 0))
-		self.connect((self.blocks_vector_to_stream_0, 0), (self.qtgui_sink_x_0, 0))
 
 		##################################################
 		# Asynch Message Connections
@@ -210,7 +190,6 @@ class LTE_flowgraph(gr.top_block, Qt.QWidget):
 	def set_samp_rate(self, samp_rate):
 		self.samp_rate = samp_rate
 		self.lte_source_c_0.set_samp_rate(self.samp_rate)
-		self.qtgui_sink_x_0.set_frequency_range(0, self.samp_rate)
 
 	def get_pilot_symbols(self):
 		return self.pilot_symbols

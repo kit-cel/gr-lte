@@ -77,3 +77,4 @@ GR_ADD_TEST(qa_pcfich_descrambler_vfvf ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOUR
 GR_ADD_TEST(qa_cfi_unpack_vf ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_cfi_unpack_vf.py)
 GR_ADD_TEST(qa_pcfich_demux_vcvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_pcfich_demux_vcvc.py)
 GR_ADD_TEST(qa_decode_pcfich_vcm ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_decode_pcfich_vcm.py)
+GR_ADD_TEST(qa_descrambler_vfvf ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_descrambler_vfvf.py)

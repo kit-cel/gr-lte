@@ -86,7 +86,7 @@ lte_pcfich_descrambler_vfvf::work(int noutput_items,
     // This part is for descrambling logic
     for(int i = 0; i < noutput_items; i++){
         //printf("Hello this is work, subframe = %i\n", d_subframe);
-        volk_32f_x2_multiply_32f_u(out, in, scr_seq_vec[d_subframe], 32);
+        volk_32f_x2_multiply_32f_u(out, in, d_scr_seq_vec[d_subframe], 32);
         d_subframe = (d_subframe+1)%10;
         out += 32;
         in += 32;
@@ -114,9 +114,9 @@ inline void
 lte_pcfich_descrambler_vfvf::setup_descr_seqs(int cell_id)
 {
     //printf("setup_descr_seq BEGIN\n");
-    scr_seq_vec.clear();
-    for(int ns = 0; ns < 10; ns++) {
-        scr_seq_vec.push_back(generate_scr_seq(cell_id, 2*ns) );
+    d_scr_seq_vec.clear();
+    for(int sub = 0; sub < 10; sub++) {
+        d_scr_seq_vec.push_back(generate_scr_seq(cell_id, 2*sub) );
     }
 }
 
@@ -173,7 +173,7 @@ lte_pcfich_descrambler_vfvf::get_descr_seqs()
     for(int i = 0; i < 10; i++) {
         std::vector<float> vec;
         for(int c = 0; c < 32; c++) {
-            vec.push_back(scr_seq_vec[i][c]);
+            vec.push_back(d_scr_seq_vec[i][c]);
         }
         mat.push_back((vec));
     }

@@ -50,5 +50,6 @@ install(FILES
     lte_pcfich_descrambler_vfvf.xml
     lte_cfi_unpack_vf.xml
     lte_pcfich_demux_vcvc.xml
-    lte_decode_pcfich_vcm.xml DESTINATION share/gnuradio/grc/blocks
+    lte_decode_pcfich_vcm.xml
+    lte_descrambler_vfvf.xml DESTINATION share/gnuradio/grc/blocks
 )

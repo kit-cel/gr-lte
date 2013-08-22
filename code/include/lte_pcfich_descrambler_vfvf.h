@@ -51,7 +51,7 @@ class LTE_API lte_pcfich_descrambler_vfvf : public gr_sync_block
 	int d_cell_id;
 	int d_subframe;
 
-	std::vector<float*> scr_seq_vec;
+	std::vector<float*> d_scr_seq_vec;
 
 	inline void handle_msg(pmt::pmt_t msg);
 	inline void setup_descr_seqs(int cell_id);

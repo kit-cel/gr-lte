@@ -179,9 +179,12 @@ def get_multiplexed_pdcch(pdcchs):
     return res
 
 def scramble_pdcch(pdcch, ns, cell_id):
-    cinit = get_pdcch_cinit(ns, cell_id)
-    scr = pn_generator(len(pdcch), cinit)
+    scr = get_pdcch_scrambling_sequence(len(pdcch), cell_id, ns)
     return [(pdcch[i]+scr[i])%2 for i in range(len(pdcch))]
+    
+def get_pdcch_scrambling_sequence(length, cell_id, ns):
+    cinit = get_pdcch_cinit(ns, cell_id)
+    return pn_generator(length, cinit)
     
 def reg_group(data):
     res = []
