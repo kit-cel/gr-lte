@@ -4,7 +4,7 @@
 # Title: LTE flowgraph
 # Author: Johannes Demel
 # Description: top level LTE flowgraph
-# Generated: Tue Aug 20 17:41:25 2013
+# Generated: Fri Aug 23 15:55:06 2013
 ##################################################
 
 execfile("/home/johannes/.grc_gnuradio/lte_decode_bch_hier.py")

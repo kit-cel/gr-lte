@@ -54,6 +54,7 @@ class LTE_API lte_descrambler_vfvf : public gr_sync_block
     int d_scr_seq_len;
     int d_num_seqs;
     int d_seq_index;
+    int d_part;
 
     inline void handle_msg(pmt::pmt_t msg);
     float* get_aligned_sequence(std::vector<float> seq);

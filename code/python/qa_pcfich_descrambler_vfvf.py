@@ -34,7 +34,10 @@ class qa_pcfich_descrambler_vfvf (gr_unittest.TestCase):
         
         data = [0]*vlen
         self.src = blocks.vector_source_f(data, False, vlen)
-        self.descr = lte.pcfich_descrambler_vfvf(tag_key, msg_buf_name)
+        self.descr = lte.descrambler_vfvf(tag_key, msg_buf_name, 32)
+
+ 
+#        self.descr = lte.pcfich_descrambler_vfvf(tag_key, msg_buf_name)
         self.snk  = blocks.vector_sink_f(vlen)
         
         self.tb.connect(self.src, self.descr, self.snk)
@@ -43,8 +46,16 @@ class qa_pcfich_descrambler_vfvf (gr_unittest.TestCase):
         self.tb = None
 
     def test_001_t (self):
-        cell_id = 124        
-        self.descr.set_cell_id(cell_id) # cell_id set because msg port not connected
+        cell_id = 124
+        
+        seqs = []
+        for i in range(10):
+            seq = get_pcfich_scrambling_sequence(32, cell_id, 2*i)
+            seqs.append(nrz_encoding(seq))
+        print seqs
+        self.descr.set_descr_seqs(seqs)
+        
+#        self.descr.set_cell_id(cell_id) # cell_id set because msg port not connected
         #scr_mat = self.descr.get_descr_seqs()
         
         exp_res = []

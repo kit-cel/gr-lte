@@ -48,13 +48,15 @@ class qa_descrambler_vfvf (gr_unittest.TestCase):
         max_len = 84 * self.cce_len
         n_cce = 20
         pdcch_format = 3
+        
+        # set up descrambling block
         seqs = []
         for sub in range(10):
             seq = get_pdcch_scrambling_sequence(max_len, cell_id, 2*sub)
             seqs.append(nrz_encoding(seq))
         self.descr.set_descr_seqs(seqs)
-        
-        
+
+        # generate test data
         data = []
         exp_res = []
         for i in range(n_cce):
@@ -70,7 +72,13 @@ class qa_descrambler_vfvf (gr_unittest.TestCase):
         self.tb.run ()
         # check data
         res = self.snk.data()
-        self.assertFloatTuplesAlmostEqual(res, exp_res)
+
+#        self.assertFloatTuplesAlmostEqual(res, exp_res)
+        for i in range(self.cce_len * n_cce):
+#            print i
+            resp = res[i*n_cce:(i+1)*n_cce]
+            expp = exp_res[i*n_cce:(i+1)*n_cce]
+            self.assertFloatTuplesAlmostEqual(resp, expp)
         
 
 

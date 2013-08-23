@@ -35,9 +35,16 @@ def get_cfi_sequence(cfi):
 def scramble_cfi_sequence(cfi_seq, cell_id, ns):
     # Initialize cinit with by the formula given in ETSI 136211
     # scrambled sequence is represented by b \tilda
-    cinit = int( (math.floor(ns/2)+1) * (2*cell_id+1) * (2**9) + cell_id )
+    cinit = get_pcfich_cinit(ns, cell_id)
 #    print "cinit python = " + str(cinit)
     return scramble_sequence(cfi_seq, cinit)
+    
+def get_pcfich_cinit(ns, cell_id):
+    return int( (math.floor(ns/2)+1) * (2*cell_id+1) * (2**9) + cell_id )
+    
+def get_pcfich_scrambling_sequence(length, cell_id, ns):
+    cinit = get_pcfich_cinit(ns, cell_id)
+    return pn_generator(32, cinit)
     
 def get_pcfich_length_bits():
     return 32

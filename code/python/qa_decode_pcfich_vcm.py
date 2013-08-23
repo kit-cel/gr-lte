@@ -93,8 +93,16 @@ class qa_decode_pcfich_vcm (gr_unittest.TestCase):
         self.snk = blocks.vector_sink_c(cvlen)
         self.demapper = lte.layer_demapper_vcvc(N_ant, cvlen, style)
         self.qpsk = lte.qpsk_soft_demod_vcvf(cvlen)
-        self.descr = lte.pcfich_descrambler_vfvf(key, msg_buf_name)
-        self.descr.set_cell_id(cell_id)
+        
+        self.descr = lte.descrambler_vfvf(key, msg_buf_name, 32)
+        seqs = []
+        for i in range(10):
+            seq = get_pcfich_scrambling_sequence(32, cell_id, 2*i)
+            seqs.append(nrz_encoding(seq))
+        self.descr.set_descr_seqs(seqs)
+        
+#        self.descr = lte.pcfich_descrambler_vfvf(key, msg_buf_name)
+#        self.descr.set_cell_id(cell_id)
         self.cfi = lte.cfi_unpack_vf(key, msg_buf_name)
         
         self.tb2.connect(self.src, (self.predecoder, 0))

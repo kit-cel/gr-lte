@@ -41,7 +41,8 @@ lte_descrambler_vfvf::lte_descrambler_vfvf (std::string tag_key, std::string msg
 		   gr_make_io_signature(1, 1, sizeof(float) * len),
 		   gr_make_io_signature(1, 1, sizeof(float) * len)),
 		   d_len(len),
-		   d_seq_index(0)
+		   d_seq_index(0),
+		   d_part(0)
 {
     d_tag_key = pmt::pmt_string_to_symbol(tag_key);
 
@@ -68,20 +69,27 @@ lte_descrambler_vfvf::work(int noutput_items,
 	const float *in = (const float *) input_items[0];
 	float *out = (float *) output_items[0];
 
-    int part = 0;
+
+    int scr_pos = 0;
+    int max_parts = d_scr_seq_len/d_len;
+
     int seq_num = get_seq_num(0);
+    int part = d_part;
+
     for(int i = 0; i < noutput_items; i++){
         int next = get_seq_num(i);
         if(seq_num !=  next){
             part = 0;
             seq_num = next;
         }
-        //printf("seq_num = %i\tpart = %i\tidx = %i\n", seq_num, part, i);
-        volk_32f_x2_multiply_32f_u(out, in, &d_scr_seq_vec[seq_num][part*d_len], d_len);
-        part = (part+1)%(d_scr_seq_len/d_len);
+        printf("seq_num = %i\tpart = %i\tidx = %i\n", seq_num, part, i);
+        scr_pos = part * d_len;
+        volk_32f_x2_multiply_32f_u(out, in, &d_scr_seq_vec[seq_num][scr_pos], d_len);
+        part = (part+1)%(max_parts);
         out += d_len;
         in += d_len;
     }
+    d_part = part;
 
 	// Tell runtime system how many output items we produced.
 	return noutput_items;
@@ -100,13 +108,14 @@ lte_descrambler_vfvf::get_seq_num(int idx)
         int value = int(pmt::pmt_to_long(v_b[0].value) );
         seq_num = (value - int(offset-pos) +d_num_seqs)%d_num_seqs;
         d_seq_index = seq_num;
+        d_part = 0;
 //        printf("NEW\t");
     }
     else{
         seq_num = d_seq_index;
 //        printf("OLD\t");
     }
-    //printf("get_seq_num = %i\tidx = %i\tpos = %i\n", seq_num, idx, pos);
+//    printf("get_seq_num = %i\tidx = %i\tpos = %i\n", seq_num, idx, pos);
     return seq_num;
 }
 
