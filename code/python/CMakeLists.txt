@@ -34,7 +34,8 @@ GR_PYTHON_INSTALL(
     decode_pbch_vcvf.py
     estimator_parameterizer_msg.py
     utils.py
-    decode_pcfich_vcm.py DESTINATION ${GR_PYTHON_DIR}/lte
+    decode_pcfich_vcm.py
+    decode_pdcch_vcvf.py DESTINATION ${GR_PYTHON_DIR}/lte
 )
 
 ########################################################################
@@ -78,3 +79,4 @@ GR_ADD_TEST(qa_cfi_unpack_vf ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa
 GR_ADD_TEST(qa_pcfich_demux_vcvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_pcfich_demux_vcvc.py)
 GR_ADD_TEST(qa_decode_pcfich_vcm ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_decode_pcfich_vcm.py)
 GR_ADD_TEST(qa_descrambler_vfvf ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_descrambler_vfvf.py)
+GR_ADD_TEST(qa_decode_pdcch_vcvf ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_decode_pdcch_vcvf.py)

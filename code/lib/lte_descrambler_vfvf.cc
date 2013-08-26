@@ -82,7 +82,7 @@ lte_descrambler_vfvf::work(int noutput_items,
             part = 0;
             seq_num = next;
         }
-        printf("seq_num = %i\tpart = %i\tidx = %i\n", seq_num, part, i);
+        //printf("seq_num = %i\tpart = %i\tidx = %i\n", seq_num, part, i);
         scr_pos = part * d_len;
         volk_32f_x2_multiply_32f_u(out, in, &d_scr_seq_vec[seq_num][scr_pos], d_len);
         part = (part+1)%(max_parts);
