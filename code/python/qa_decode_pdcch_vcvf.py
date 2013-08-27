@@ -46,7 +46,7 @@ class qa_decode_pdcch_vcvf (gr_unittest.TestCase):
 
         cce_len = self.cce_len
         max_len = 84 * self.cce_len
-        n_cce = 20
+        n_cce = 100
         pdcch_format = 3
         vlen = cce_len/2
         #data = [0] * (vlen)
@@ -55,42 +55,27 @@ class qa_decode_pdcch_vcvf (gr_unittest.TestCase):
         data = []
         exp_res = []
         for i in range(n_cce):
-            print "gen {0}".format(i)
             pdcch = get_pdcch(pdcch_format)
-            print np.shape(pdcch)
             exp_res.extend(nrz_encoding(pdcch))
             scr = scramble_pdcch(pdcch, 2*(i%10), cell_id)
-            print np.shape(scr)
-#            data.extend(nrz_encoding(scr))
             mod = qpsk_modulation(scr)
-            print np.shape(mod)
-#            data.extend(mod)
             n_parts = 2**pdcch_format
             for n in range(n_parts):
-                print "pdcch part {0}".format(n)
                 part = mod[n*vlen:(n+1)*vlen]
-                print np.shape(part)
                 lmap = layer_mapping(part, N_ant, self.style)
-                print np.shape(lmap)
                 code = pre_coding(lmap, N_ant, self.style)
                 indat = [code[0][i]+code[1][i] for i in range(len(code[0]))]
-                print np.shape(indat)
-                lmaporg = []
-                for i in range(len(lmap)):
-                    lmaporg.extend(lmap[i])
-#                print np.shape(lmaporg)
                 data.extend(indat)
-#            code = pre_coding(lmap, N_ant, self.style)
-#            indat = [code[0][i]+code[1][i] for i in range(len(code[0]))]
-#            data.extend(indat)
+
 
         tag_list = get_tag_list(n_cce, self.tag_key, 10)
         for i in range(len(tag_list)):
             tag_list[i].offset = tag_list[i].offset*(2**pdcch_format)        
         
-        print np.shape(data)      
+        print np.shape(data)
+        
 
-        est = [1] * (vlen) 
+        est = [1] * (len(data)) 
         self.src0 = blocks.vector_source_c(data, False, vlen, tag_list)
 #        self.srct = blocks.vector_source_f(data, False, cce_len, tag_list)
         self.src1 = blocks.vector_source_c(est, False, vlen)
@@ -115,11 +100,13 @@ class qa_decode_pdcch_vcvf (gr_unittest.TestCase):
         tb2.run()
         
         res = self.snk.data()
+
+        
 #        self.assertFloatTuplesAlmostEqual(res, exp_res, 5)
         for i in range(self.cce_len * n_cce):
-            print i
-            resp = res[i*n_cce:(i+1)*n_cce]
-            expp = exp_res[i*n_cce:(i+1)*n_cce]
+#            print i
+            resp = res[i*cce_len:(i+1)*cce_len]
+            expp = exp_res[i*cce_len:(i+1)*cce_len]
             self.assertFloatTuplesAlmostEqual(resp, expp,5)
         # check data
 

@@ -23,7 +23,8 @@ add_library(gnuradio-lte SHARED lte_rate_unmatch_vff.cc lte_descrambling_vfvf.cc
     lte_pcfich_descrambler_vfvf.cc
     lte_cfi_unpack_vf.cc
     lte_pcfich_demux_vcvc.cc
-    lte_descrambler_vfvf.cc )
+    lte_descrambler_vfvf.cc
+    lte_unshift_pdcch_vcvc.cc )
 target_link_libraries(gnuradio-lte ${Boost_LIBRARIES} ${GRUEL_LIBRARIES} ${GNURADIO_CORE_LIBRARIES})
 set_target_properties(gnuradio-lte PROPERTIES DEFINE_SYMBOL "gnuradio_lte_EXPORTS")
 

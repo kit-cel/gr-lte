@@ -49,5 +49,6 @@ install(FILES
     lte_pcfich_descrambler_vfvf.h
     lte_cfi_unpack_vf.h
     lte_pcfich_demux_vcvc.h
-    lte_descrambler_vfvf.h DESTINATION include/lte
+    lte_descrambler_vfvf.h
+    lte_unshift_pdcch_vcvc.h DESTINATION include/lte
 )

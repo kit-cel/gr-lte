@@ -77,6 +77,23 @@ def get_n_cce_available(N_ant, N_rb_dl, cfi, N_g):
     n_cce = int(math.floor(n_reg/9) )
     return n_cce
     
+def get_n_reg_available(N_ant, N_rb_dl, cfi, N_g):
+    M_pcfich_bits = get_pcfich_length_bits()
+    M_phich_bits = get_phich_length_bits(N_g, N_rb_dl)    
+    M_used = int(M_pcfich_bits/2) + M_phich_bits
+    n_syms = cfi
+    if N_rb_dl < 10:
+        n_syms = n_syms + 1
+    total_re = n_syms * 12 * N_rb_dl
+    rs_re = 0
+    if N_ant < 4:
+        rs_re = 4 * N_rb_dl
+    elif N_ant == 4:
+        rs_re = 4 * N_rb_dl
+        if n_syms > 1:
+            rs_re = rs_re + 4 * N_rb_dl
+    n_avail = total_re - (rs_re + M_used)
+    return n_avail / 4
    
 def get_num_candidates_for_pdcch(L, pdcch_type):
     M = 0
@@ -197,6 +214,9 @@ def reg_group(data):
 def shift_pdcch(data, cell_id):
     return [data[ (idx + cell_id)%len(data) ] for idx in range(len(data))]
     
+def unshift_pdcch(data, cell_id):
+    return [data[(idx - cell_id + len(data))%len(data)] for idx in range(len(data)) ]
+    
 def reg_intl_shift_pdcch(pdcch, cell_id, N_ant):
     reg_pdcch = []
     shi_pdcch = []
@@ -234,7 +254,7 @@ def work():
     ns = 0
     Ncp = 1 # (0,1)
     N_g = 1
-    cfi = 2
+    cfi = 1
     L = 4 # Aggregation Level (1,2,4,8)
     Y_k = 0 # set to 0 for common search space
     pdcch_type = lut_pdcch_types[0] 
@@ -245,7 +265,25 @@ def work():
     enc_pdcch = encode_pdcch(pdcchs, N_rb_dl, N_ant, style, cfi, N_g, ns, cell_id)
     # print enc_pdcch
     print np.shape(enc_pdcch)
-
+    
+    tot_pdcch = get_multiplexed_pdcch(pdcchs)
+    scr_pdcch = scramble_pdcch(tot_pdcch, ns, cell_id)
+    mod_pdcch = qpsk_modulation(scr_pdcch)
+    lay_pdcch = layer_mapping(mod_pdcch, N_ant, style)
+    pre_pdcch = pre_coding(lay_pdcch, N_ant, style)
+    shi_pdcch = reg_intl_shift_pdcch(pre_pdcch, cell_id, N_ant)
+    mt = reg_group(range(len(tot_pdcch)))
+    shifted = shift_pdcch(mt, cell_id)
+    unshift = unshift_pdcch(shifted, cell_id)
+    for i in range(len(unshift)):
+        print "{0}\t{1}\t{2}\t{3}".format(i, mt[i], unshift[i], shifted[i])
+    
+    N_rb_dl_lut
+    for c in range(3):
+        for i in range(len(N_rb_dl_lut)):
+            n_cce = get_n_cce_available(N_ant, N_rb_dl_lut[i], c+1, N_g)
+            n_reg = get_n_reg_available(N_ant, N_rb_dl_lut[i], c+1, N_g)
+            print "cfi = {0}\t{1}\t{2}".format(c+1, n_reg, n_cce)
 
 if __name__ == "__main__":
     work()

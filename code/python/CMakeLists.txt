@@ -80,3 +80,4 @@ GR_ADD_TEST(qa_pcfich_demux_vcvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR
 GR_ADD_TEST(qa_decode_pcfich_vcm ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_decode_pcfich_vcm.py)
 GR_ADD_TEST(qa_descrambler_vfvf ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_descrambler_vfvf.py)
 GR_ADD_TEST(qa_decode_pdcch_vcvf ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_decode_pdcch_vcvf.py)
+GR_ADD_TEST(qa_unshift_pdcch_vcvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_unshift_pdcch_vcvc.py)

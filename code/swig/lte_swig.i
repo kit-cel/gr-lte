@@ -36,6 +36,7 @@
 #include "lte_cfi_unpack_vf.h"
 #include "lte_pcfich_demux_vcvc.h"
 #include "lte_descrambler_vfvf.h"
+#include "lte_unshift_pdcch_vcvc.h"
 %}
 
 
@@ -115,3 +116,5 @@ GR_SWIG_BLOCK_MAGIC(lte, pcfich_demux_vcvc);
 %include "lte_pcfich_demux_vcvc.h"
 GR_SWIG_BLOCK_MAGIC(lte, descrambler_vfvf);
 %include "lte_descrambler_vfvf.h"
+GR_SWIG_BLOCK_MAGIC(lte, unshift_pdcch_vcvc);
+%include "lte_unshift_pdcch_vcvc.h"
