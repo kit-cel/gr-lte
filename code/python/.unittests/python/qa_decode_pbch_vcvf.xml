@@ -1,5 +1,0 @@
-<testsuite errors="0" failures="0" name="unittest.suite.TestSuite" tests="1" time="2.551">
-  <testcase classname="__main__.qa_decode_pbch_vcvf" name="test_001_t" time="2.5508"></testcase>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
