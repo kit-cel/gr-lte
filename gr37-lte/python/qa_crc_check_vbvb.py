@@ -29,7 +29,7 @@ class qa_crc_check_vbvb (gr_unittest.TestCase):
         self.tb = gr.top_block ()
         
         data_len = 24
-        self.N_ant = 4
+        self.N_ant = 1
         final_xor = {1:0, 2:65535, 4:21845}
         #final_xor = 0 # 1 antenna
         #final_xor = 65535 # 2 antennas
@@ -66,9 +66,11 @@ class qa_crc_check_vbvb (gr_unittest.TestCase):
         self.src.set_data(data)        
         self.tb.run ()
         res = self.snk0.data()
+        print "data bits"
         self.assertTupleEqual(tuple(res), tuple(myinput))        
         check = self.snk1.data()
         crcres = [int(check[i]) for i in range(len(check))]
+        print check
         self.assertTupleEqual(tuple(crcres), tuple([1]*test_len))
         print crcres
         # check data

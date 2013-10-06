@@ -19,38 +19,40 @@
  */
 
 
-#ifndef INCLUDED_LTE_CRC_CHECK_VBVB_H
-#define INCLUDED_LTE_CRC_CHECK_VBVB_H
+#ifndef INCLUDED_LTE_PBCH_DESCRAMBLER_VFVF_H
+#define INCLUDED_LTE_PBCH_DESCRAMBLER_VFVF_H
 
 #include <lte/api.h>
-#include <gnuradio/sync_block.h>
+#include <gnuradio/sync_interpolator.h>
 
 namespace gr {
   namespace lte {
 
     /*!
-     * \brief Calculate CRC and check if it is equal to received CRC
+     * \brief Block performs descrambling of PBCH with the given Cell ID
      * \ingroup lte
-     *
+     * Cell ID is passed to block via message port on runtime
      */
-    class LTE_API crc_check_vbvb : virtual public gr::sync_block
+    class LTE_API pbch_descrambler_vfvf : virtual public gr::sync_interpolator
     {
      public:
-      typedef boost::shared_ptr<crc_check_vbvb> sptr;
+      typedef boost::shared_ptr<pbch_descrambler_vfvf> sptr;
 
       /*!
-       * \brief Return a shared_ptr to a new instance of lte::crc_check_vbvb.
+       * \brief Return a shared_ptr to a new instance of lte::pbch_descrambler_vfvf.
        *
-       * To avoid accidental use of raw pointers, lte::crc_check_vbvb's
+       * To avoid accidental use of raw pointers, lte::pbch_descrambler_vfvf's
        * constructor is in a private implementation
-       * class. lte::crc_check_vbvb::make is the public interface for
+       * class. lte::pbch_descrambler_vfvf::make is the public interface for
        * creating new instances.
        */
-      static sptr make(int data_len, int final_xor);
+      static sptr make(std::string key);
+      
+      virtual void set_cell_id(int id) = 0;
     };
 
   } // namespace lte
 } // namespace gr
 
-#endif /* INCLUDED_LTE_CRC_CHECK_VBVB_H */
+#endif /* INCLUDED_LTE_PBCH_DESCRAMBLER_VFVF_H */
 

@@ -23,8 +23,9 @@ from mib import *
 from lte_core import *
 
 def crc_checksum(mib, N_ant):
-    if len(mib) != 24:
-        print "FATAL ERROR: length mismatch!"
+    #print "calc crc and append"
+    if len(mib) != 24 or (N_ant != 1 and N_ant != 2 and N_ant != 4):
+        print "BCH CRC Error: len(" + str(len(mib)) + ")\tN_ant = " + str(N_ant)
         return [0]*40
         
     crc16 = [1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1] #CRC16 Polynom for LTE
@@ -43,17 +44,17 @@ def crc_checksum(mib, N_ant):
                 lfsr[i] = (lfsr[i]+crc16[i])%2
         lfsr[len(lfsr)-1] = (lfsr[len(lfsr)-1]+mib_crc[i])%2
 
+    final_xor = []
     if N_ant == 1:
-        for i in range(16):
-            mib_crc[i+24] = lfsr[i+1]
-    if N_ant == 2:
-        for i in range(16):
-            mib_crc[i+24] = (lfsr[i+1]+1)%2
-    final_xor = [0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1]
-    if N_ant == 4:
-        for i in range(16):
-            mib_crc[i+24] = (lfsr[i+1]+final_xor[i])%2
-            
+        final_xor = [0] * 16
+    elif N_ant == 2:
+        final_xor = [1] * 16
+    elif N_ant == 4:
+        final_xor = [0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1]
+
+    for i in range(16):
+        mib_crc[i+24] = (lfsr[i+1]+final_xor[i])%2
+
     return mib_crc
     
 def convolutional_encoder(input_data):      

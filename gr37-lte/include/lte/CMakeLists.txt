@@ -24,5 +24,7 @@ install(FILES
     api.h
     mib_unpack_vbm.h
     crc_check_vbvb.h
-    bch_crc_check_ant_chooser_bb.h DESTINATION include/lte
+    bch_crc_check_ant_chooser_bb.h
+    subblock_deinterleaver_vfvf.h
+    pbch_descrambler_vfvf.h DESTINATION include/lte
 )

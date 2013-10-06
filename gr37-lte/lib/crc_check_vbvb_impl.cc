@@ -31,7 +31,7 @@ namespace gr {
   namespace lte {
 
     crc_check_vbvb::sptr
-    crc_check_vbvb::make(int data_len, uint16_t final_xor)
+    crc_check_vbvb::make(int data_len, int final_xor)
     {
       return gnuradio::get_initial_sptr
         (new crc_check_vbvb_impl(data_len, final_xor));
@@ -40,7 +40,7 @@ namespace gr {
     /*
      * The private constructor
      */
-    crc_check_vbvb_impl::crc_check_vbvb_impl(int data_len, uint16_t final_xor)
+    crc_check_vbvb_impl::crc_check_vbvb_impl(int data_len, int final_xor)
       : gr::sync_block("crc_check_vbvb",
               gr::io_signature::make( 1, 1, sizeof(char)*(data_len+16)),
               gr::io_signature::make2( 2, 2, sizeof(char)*data_len, sizeof(char)*1 )),
@@ -96,7 +96,7 @@ namespace gr {
 			lte_crc_16.process_block(bytes, &bytes[d_data_len/8]);
 			int checksum = lte_crc_16.checksum();
 			checksum = checksum ^ d_final_xor; // bitwise XOR
-			//~ printf("final_xor = %i\tchecksum result = %i\t expected = %i\n", d_final_xor, checksum, rx_check );
+			printf("final_xor = %i\tchecksum result = %i\t expected = %i\n", d_final_xor, checksum, rx_check );
 			
 			memcpy(out0, in, d_data_len);
 			if(checksum == rx_check){

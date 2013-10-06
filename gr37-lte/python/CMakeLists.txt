@@ -45,3 +45,5 @@ GR_ADD_TEST(qa_mib_unpack_vbm ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/q
 GR_ADD_TEST(qa_crc_check_vbvb ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_crc_check_vbvb.py)
 GR_ADD_TEST(qa_bch_crc_check_ant_chooser_bb ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_bch_crc_check_ant_chooser_bb.py)
 GR_ADD_TEST(qa_bch_viterbi_vfvb ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_bch_viterbi_vfvb.py)
+GR_ADD_TEST(qa_subblock_deinterleaver_vfvf ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_subblock_deinterleaver_vfvf.py)
+GR_ADD_TEST(qa_pbch_descrambler_vfvf ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_pbch_descrambler_vfvf.py)

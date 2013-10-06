@@ -41,7 +41,8 @@ namespace gr {
     mib_unpack_vbm_impl::mib_unpack_vbm_impl()
       : gr::sync_block("mib_unpack_vbm",
               gr::io_signature::make2( 2, 2, sizeof(char)*24, sizeof(char)*1 ),
-              gr::io_signature::make(0, 0, 0))
+              gr::io_signature::make(0, 0, 0)),
+              d_unchanged_decodings(0)
     {
 		d_port_N_ant = pmt::string_to_symbol("N_ant");
 		d_port_N_rb_dl = pmt::string_to_symbol("N_rb_dl");
@@ -118,15 +119,12 @@ namespace gr {
 		float phich_res = decode_phich_resources(mib+4);
 
 		if(N_rb_dl != d_state_info.N_rb_dl){
-			printf("MIB state changed!\t N_rb_dl = %i\n", N_rb_dl);
 			unchanged = false;
 		}
 		if(phich_dur != d_state_info.phich_duration){
-			printf("MIB state changed!\t phich_duration = %i\n", phich_dur);
 			unchanged = false;
 		}
 		if(phich_res != d_state_info.phich_resources){
-			printf("MIB state changed!\t phich_resources = %1.2f\n", phich_res);
 			unchanged = false;
 		}
 
@@ -136,6 +134,8 @@ namespace gr {
 			d_state_info.phich_resources = phich_res;
 			d_unchanged_decodings = 0;
 			send_state_mib();
+			printf("MIB changed!\t");
+			d_state_info.print_values();
 		}
 		else{
 			d_unchanged_decodings++;

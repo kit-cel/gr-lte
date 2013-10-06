@@ -20,5 +20,7 @@ install(FILES
     lte_mib_unpack_vbm.xml
     lte_crc_check_vbvb.xml
     lte_bch_crc_check_ant_chooser_bb.xml
-    lte_bch_viterbi_vfvb.xml DESTINATION share/gnuradio/grc/blocks
+    lte_bch_viterbi_vfvb.xml
+    lte_subblock_deinterleaver_vfvf.xml
+    lte_pbch_descrambler_vfvf.xml DESTINATION share/gnuradio/grc/blocks
 )

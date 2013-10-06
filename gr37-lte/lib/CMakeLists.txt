@@ -28,10 +28,12 @@ list(APPEND lte_sources
     mib_unpack_vbm_impl.cc
     crc_check_vbvb_impl.cc
     bch_crc_check_ant_chooser_bb_impl.cc
+    subblock_deinterleaver_vfvf_impl.cc
+    pbch_descrambler_vfvf_impl.cc
 )
-
+SET(FFTW3f /usr/lib/x86_64-linux-gnu/libfftw3f.so) # This is an ugly hack!
 add_library(gnuradio-lte SHARED ${lte_sources})
-target_link_libraries(gnuradio-lte ${Boost_LIBRARIES} ${GNURADIO_RUNTIME_LIBRARIES})
+target_link_libraries(gnuradio-lte ${Boost_LIBRARIES} ${GNURADIO_RUNTIME_LIBRARIES} ${FFTW3f})
 set_target_properties(gnuradio-lte PROPERTIES DEFINE_SYMBOL "gnuradio_lte_EXPORTS")
 
 ########################################################################

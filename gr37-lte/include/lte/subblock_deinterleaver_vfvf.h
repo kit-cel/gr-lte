@@ -19,8 +19,8 @@
  */
 
 
-#ifndef INCLUDED_LTE_CRC_CHECK_VBVB_H
-#define INCLUDED_LTE_CRC_CHECK_VBVB_H
+#ifndef INCLUDED_LTE_SUBBLOCK_DEINTERLEAVER_VFVF_H
+#define INCLUDED_LTE_SUBBLOCK_DEINTERLEAVER_VFVF_H
 
 #include <lte/api.h>
 #include <gnuradio/sync_block.h>
@@ -29,28 +29,28 @@ namespace gr {
   namespace lte {
 
     /*!
-     * \brief Calculate CRC and check if it is equal to received CRC
+     * \brief Deinterleave groups of items according to LTE subblock interleaver.
      * \ingroup lte
      *
      */
-    class LTE_API crc_check_vbvb : virtual public gr::sync_block
+    class LTE_API subblock_deinterleaver_vfvf : virtual public gr::sync_block
     {
      public:
-      typedef boost::shared_ptr<crc_check_vbvb> sptr;
+      typedef boost::shared_ptr<subblock_deinterleaver_vfvf> sptr;
 
       /*!
-       * \brief Return a shared_ptr to a new instance of lte::crc_check_vbvb.
+       * \brief Return a shared_ptr to a new instance of lte::subblock_deinterleaver_vfvf.
        *
-       * To avoid accidental use of raw pointers, lte::crc_check_vbvb's
+       * To avoid accidental use of raw pointers, lte::subblock_deinterleaver_vfvf's
        * constructor is in a private implementation
-       * class. lte::crc_check_vbvb::make is the public interface for
+       * class. lte::subblock_deinterleaver_vfvf::make is the public interface for
        * creating new instances.
        */
-      static sptr make(int data_len, int final_xor);
+      static sptr make(int num_groups, int items_per_group);
     };
 
   } // namespace lte
 } // namespace gr
 
-#endif /* INCLUDED_LTE_CRC_CHECK_VBVB_H */
+#endif /* INCLUDED_LTE_SUBBLOCK_DEINTERLEAVER_VFVF_H */
 
