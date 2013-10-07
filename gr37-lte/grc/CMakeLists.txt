@@ -22,5 +22,8 @@ install(FILES
     lte_bch_crc_check_ant_chooser_bb.xml
     lte_bch_viterbi_vfvb.xml
     lte_subblock_deinterleaver_vfvf.xml
-    lte_pbch_descrambler_vfvf.xml DESTINATION share/gnuradio/grc/blocks
+    lte_pbch_descrambler_vfvf.xml
+    lte_repeat_message_source_vf.xml
+    lte_pbch_scramble_sequencer_m.xml
+    lte_qpsk_soft_demod_vcvf.xml DESTINATION share/gnuradio/grc/blocks
 )

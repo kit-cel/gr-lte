@@ -18,29 +18,24 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef INCLUDED_LTE_CRC_CHECK_VBVB_IMPL_H
-#define INCLUDED_LTE_CRC_CHECK_VBVB_IMPL_H
+#ifndef INCLUDED_LTE_QPSK_SOFT_DEMOD_VCVF_IMPL_H
+#define INCLUDED_LTE_QPSK_SOFT_DEMOD_VCVF_IMPL_H
 
-#include <lte/crc_check_vbvb.h>
-#include <boost/crc.hpp>
+#include <lte/qpsk_soft_demod_vcvf.h>
 
 namespace gr {
   namespace lte {
 
-    class crc_check_vbvb_impl : public crc_check_vbvb
+    class qpsk_soft_demod_vcvf_impl : public qpsk_soft_demod_vcvf
     {
      private:
-      int d_exp[16];
-      const int d_data_len;
-      const int d_final_xor;
-      // length checksum, CRC ploynomial, initial state, final XOR, REFLECT Input, REFLECT_REM
-	  boost::crc_optimal<16, 0x1021, 0x0000, 0x0000, false, false> lte_crc_16;
-	  // final XOR may be different, but due to template restrictions this is processed outside of this function.
-		unsigned char pack_byte(const char* unc);
-     
+		int d_vlen;
+		const float d_SQRT2;
+		float* d_demodulated;
+
      public:
-      crc_check_vbvb_impl(int data_len, int final_xor);
-      ~crc_check_vbvb_impl();
+      qpsk_soft_demod_vcvf_impl(int vlen);
+      ~qpsk_soft_demod_vcvf_impl();
 
       // Where all the action really happens
       int work(int noutput_items,
@@ -51,5 +46,5 @@ namespace gr {
   } // namespace lte
 } // namespace gr
 
-#endif /* INCLUDED_LTE_CRC_CHECK_VBVB_IMPL_H */
+#endif /* INCLUDED_LTE_QPSK_SOFT_DEMOD_VCVF_IMPL_H */
 

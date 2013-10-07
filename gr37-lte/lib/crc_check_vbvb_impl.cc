@@ -65,12 +65,16 @@ namespace gr {
     {
     }
     
-    char
+    unsigned char
     crc_check_vbvb_impl::pack_byte(const char* unc)
     {
-		char c;
-		for (int i = 0 ; i < 8 ; i++ ) { c += (unc[7-i]*d_exp[i]); }
-		return c;
+		unsigned char res = 0;
+		for (int i = 0 ; i < 8 ; i++ ) {
+			res += (unc[7-i]*d_exp[i]);
+			//~ printf("%i ", (int)unc[i]);
+		}
+		//~ printf("0x%X\n", res);
+		return res;
 	}
 
     int
@@ -96,7 +100,7 @@ namespace gr {
 			lte_crc_16.process_block(bytes, &bytes[d_data_len/8]);
 			int checksum = lte_crc_16.checksum();
 			checksum = checksum ^ d_final_xor; // bitwise XOR
-			printf("final_xor = %i\tchecksum result = %i\t expected = %i\n", d_final_xor, checksum, rx_check );
+			//~ printf("final_xor = %i\tchecksum result = %i\t expected = %i\n", d_final_xor, checksum, rx_check );
 			
 			memcpy(out0, in, d_data_len);
 			if(checksum == rx_check){

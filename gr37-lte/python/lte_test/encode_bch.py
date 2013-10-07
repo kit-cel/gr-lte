@@ -21,6 +21,15 @@
 import math
 from mib import *
 from lte_core import *
+#import crcmod
+
+def to_byte(bits):
+    bits = bits[0:8]
+    byte = 0
+    for i in range(8):
+        byte += bits[7-i] *(2**i)
+    print hex(byte)
+    return byte
 
 def crc_checksum(mib, N_ant):
     #print "calc crc and append"
@@ -54,6 +63,18 @@ def crc_checksum(mib, N_ant):
 
     for i in range(16):
         mib_crc[i+24] = (lfsr[i+1]+final_xor[i])%2
+
+    #crc_fun = crcmod.mkCrcFun(0x11021, rev=False, initCrc=0, xorOut=0)
+    #bytes = []
+    #for i in range(3):
+    #    bytes.append(to_byte(mib[8*i:8*(i+1)]))
+    #print mib
+    #print [hex(bytes[i]) for i in range(len(bytes))]
+    #str_mib = "".join(map(lambda x: str(x), bytes ))
+    #print str_mib
+    #val = crc_fun(str_mib)
+    #print hex(val)
+    #
 
     return mib_crc
     
@@ -91,7 +112,7 @@ def rate_match(data):
     return output
 
 def encode_bch(mib, N_ant):
-    print "encode_bch"
+    #print "encode_bch"
     mib_crc = crc_checksum(mib, N_ant)
     c_enc_sorted = convolutional_encoder_sorted(mib_crc)
     return rate_match(c_enc_sorted)

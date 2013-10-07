@@ -45,12 +45,18 @@ namespace gr {
      */
     pbch_descrambler_vfvf_impl::pbch_descrambler_vfvf_impl(std::string key)
       : gr::sync_interpolator("pbch_descrambler_vfvf",
-              gr::io_signature::make( 1, 1, sizeof(float) * 480),
-              gr::io_signature::make( 1, 1, sizeof(float) * 120), 32),
+              gr::io_signature::make( 1, 1, sizeof(float) * 1920),
+              gr::io_signature::make( 1, 1, sizeof(float) * 120), 16),
               d_cell_id(-1),
 			  d_work_call(0),
 			  d_pn_seq_len(1920)
     {
+		//~ printf("this is the constructor\n");
+		//~ const int item_size = sizeof(float);
+		//~ const int alignment_multiple = volk_get_alignment() / item_size;
+		//~ set_alignment(std::max(1,alignment_multiple));
+		//~ printf("alignment set!\n");
+		
 		message_port_register_in(pmt::mp("cell_id"));
 		set_msg_handler(pmt::mp("cell_id"), boost::bind(&pbch_descrambler_vfvf_impl::set_cell_id_msg, this, _1));
 
@@ -59,6 +65,7 @@ namespace gr {
 		d_tag_id=pmt::string_to_symbol(name() );
 
 		d_scr = (float*)fftwf_malloc(sizeof(float)*d_pn_seq_len);
+		d_comb = (float*)fftwf_malloc(sizeof(float)*d_pn_seq_len/4);
 		d_pn_seq = (float*)fftwf_malloc(sizeof(float)*d_pn_seq_len);
 		set_cell_id(124); // remove as soon as possible
 	}
@@ -84,42 +91,48 @@ namespace gr {
 		}
 
 		d_work_call++;
-
-		// Read in vector and make copies for a 1920-element vector.
-		int len_in=d_pn_seq_len/4;
-		memcpy(d_scr         ,in,sizeof(float)*len_in );
-		memcpy(d_scr+len_in  ,in,sizeof(float)*len_in );
-		memcpy(d_scr+2*len_in,in,sizeof(float)*len_in );
-		memcpy(d_scr+3*len_in,in,sizeof(float)*len_in );
-
+		//~ memcpy(d_scr, in, sizeof(float)*d_pn_seq_len );
 		// Calculate actual descrambled sequence
 		// Write to output buffer
-		volk_32f_x2_multiply_32f_a(d_scr, d_scr, d_pn_seq, d_pn_seq_len);
-		memcpy(out+d_pn_seq_len, d_scr, sizeof(float)*d_pn_seq_len);
+		volk_32f_x2_multiply_32f_a(d_scr, in, d_pn_seq, d_pn_seq_len);
+		memcpy(out, d_scr, sizeof(float)*d_pn_seq_len);
+		
+		//~ printf("values in\n");
+		//~ for(int k = 0; k < 10 ; k++){printf("%+1.2f ", *(in+k));}
+		//~ printf("\n");
+		//~ for(int k = 0; k < 10 ; k++){printf("%+1.2f ", *(d_pn_seq+k));}
+		//~ printf("\n");
 
-		// Soft combining
-		const float quarter = 0.25f;
-		for(int i = 0; i < 4; i++){
-			for(int c = 1; c < 4; c++){
-				volk_32f_x2_add_32f_a(d_scr+480*i, d_scr+480*i, d_scr+480*i+120*c, 120 );
-			}
-			volk_32f_s32f_multiply_32f_u(d_scr+480*i, d_scr+480*i, quarter, 120);
-		}
+		//~ // Soft combining
+		//~ const float quarter = 0.25f;
+		//~ for(int i = 0; i < 4; i++){
+			//~ for(int c = 1; c < 4; c++){
+				//~ volk_32f_x2_add_32f_a(d_comb+120*i, d_scr+480*i, d_scr+480*i+120*c, 120 );
+			//~ }
+			//~ 
+			//~ for(int k = 0; k < 10 ; k++){
+				//~ printf("%+1.2f ", *(d_comb+120*i+k) );
+			//~ }
+			//~ printf("\n");
+			//~ 
+			//~ volk_32f_s32f_multiply_32f_u(d_comb+120*i, d_comb+120*i, quarter, 120);
+			//~ for(int k = 0; k < 10 ; k++){printf("%+1.2f ", *(d_comb+120*i+k));}
+			//~ printf("\n");
+		//~ }
+//~ 
+		//~ for(int i = 0 ; i < 4 ; i++){
+			//~ memcpy(out, d_scr, sizeof(float)*480);
+			//~ out += 480;
+			//~ memcpy(out, d_comb, sizeof(float)*120);
+			//~ out += 120;
+		//~ }
 
-		// Write to output buffer
-		for (int i = 0 ; i < 4 ; i++ ){
-			memcpy(out+120*i      ,d_scr+0    ,sizeof(float) *120);
-			memcpy(out+120*i+480  ,d_scr+480  ,sizeof(float) *120);
-			memcpy(out+120*i+480*2,d_scr+480*2,sizeof(float) *120);
-			memcpy(out+120*i+480*3,d_scr+480*3,sizeof(float) *120);
-		}
-
-		for (int i = 0 ; i < 32 ; i++){
-			add_item_tag(0,nitems_written(0)+i,d_key, pmt::from_long(i),d_tag_id);
+		for (int i = 0 ; i < 4 ; i++){
+			add_item_tag(0,nitems_written(0)+i*4,d_key, pmt::from_long(i),d_tag_id);
 		}
 
 		// Tell runtime system how many output items we produced.
-		return 32; // noutput_items;
+		return 16; // noutput_items;
     }
     
 	char*
@@ -156,7 +169,7 @@ namespace gr {
 	}
 
 	std::vector<int>
-	pbch_descrambler_vfvf_impl::get_pn_sequence()
+	pbch_descrambler_vfvf_impl::pn_sequence() const
 	{
 		std::vector<int> pn_seq;
 		for(int i = 0 ; i < d_pn_seq_len; i++){

@@ -19,43 +19,38 @@
  */
 
 
-#ifndef INCLUDED_LTE_PBCH_DESCRAMBLER_VFVF_H
-#define INCLUDED_LTE_PBCH_DESCRAMBLER_VFVF_H
+#ifndef INCLUDED_LTE_QPSK_SOFT_DEMOD_VCVF_H
+#define INCLUDED_LTE_QPSK_SOFT_DEMOD_VCVF_H
 
 #include <lte/api.h>
-#include <gnuradio/sync_interpolator.h>
+#include <gnuradio/sync_block.h>
 
 namespace gr {
   namespace lte {
 
     /*!
-     * \brief Block performs descrambling of PBCH with the given Cell ID
+     * \brief QPSK soft demodulation. 1. item == real, 2. item == imaginary
      * \ingroup lte
-     * Cell ID is passed to block via message port on runtime
+     *
      */
-    class LTE_API pbch_descrambler_vfvf : virtual public gr::sync_interpolator
+    class LTE_API qpsk_soft_demod_vcvf : virtual public gr::sync_block
     {
      public:
-      typedef boost::shared_ptr<pbch_descrambler_vfvf> sptr;
+      typedef boost::shared_ptr<qpsk_soft_demod_vcvf> sptr;
 
       /*!
-       * \brief Return a shared_ptr to a new instance of lte::pbch_descrambler_vfvf.
+       * \brief Return a shared_ptr to a new instance of lte::qpsk_soft_demod_vcvf.
        *
-       * To avoid accidental use of raw pointers, lte::pbch_descrambler_vfvf's
+       * To avoid accidental use of raw pointers, lte::qpsk_soft_demod_vcvf's
        * constructor is in a private implementation
-       * class. lte::pbch_descrambler_vfvf::make is the public interface for
+       * class. lte::qpsk_soft_demod_vcvf::make is the public interface for
        * creating new instances.
        */
-      static sptr make(std::string key);
-      
-      virtual void set_cell_id(int id) = 0;
-      
-      virtual std::vector<int> pn_sequence() const = 0;
-      
+      static sptr make(int vlen);
     };
 
   } // namespace lte
 } // namespace gr
 
-#endif /* INCLUDED_LTE_PBCH_DESCRAMBLER_VFVF_H */
+#endif /* INCLUDED_LTE_QPSK_SOFT_DEMOD_VCVF_H */
 

@@ -21,21 +21,25 @@
 
 from gnuradio import gr, gr_unittest, blocks
 #import lte_swig as lte
-import lte
+import lte_swig as lte
 import lte_test
 
 class qa_pbch_descrambler_vfvf (gr_unittest.TestCase):
 
     def setUp(self):
         self.tb = gr.top_block()
+        print "begin setup"
 
 
         key = "descr_part"
         self.src = blocks.vector_source_f([0.0]*480, False, 480)
+        self.rpt = blocks.repeat(gr.sizeof_float*480, 4)
+        self.stv = blocks.stream_to_vector(gr.sizeof_float*480, 4)
         self.descr = lte.pbch_descrambler_vfvf(key)
         self.snk = blocks.vector_sink_f(120)
 
-        self.tb.connect(self.src, self.descr, self.snk)
+        self.tb.connect(self.src, self.rpt, self.stv, self.descr, self.snk)
+        print "end setup"
 
     def tearDown(self):
         self.tb = None
@@ -49,14 +53,20 @@ class qa_pbch_descrambler_vfvf (gr_unittest.TestCase):
         p_scrambled = lte_test.nrz_encoding(p_scrambled)
         n_bch = tuple(lte_test.nrz_encoding(bch))
 
+        print len(p_scrambled)
+        print p_scrambled[0:20]
 
         self.src.set_data(p_scrambled)#[0:480])
         self.descr.set_cell_id(cell_id)
+
+        #pn_seq = self.descr.pn_sequence()
+        #print pn_seq[0:20]
         dbgs = blocks.file_sink(480 * gr.sizeof_float, "/home/johannes/tests/descramble.dat")
         self.tb.connect(self.src, dbgs)
         # set up fg
-        self.tb.run ()
+        self.tb.run()
         res = self.snk.data()
+        print len(res)
 
         count = 0
         for i in range(len(res)/len(n_bch)):
@@ -72,13 +82,23 @@ class qa_pbch_descrambler_vfvf (gr_unittest.TestCase):
         print len(res)/len(n_bch)
 
     def test_002_data(self):
+        cell_id = 124
+        N_ant = 2
+        tl = 1024
+        data = []
+        for i in range(tl/4):
+            mib = lte_test.pack_mib(50,0,1.0, i*4)
+            bch = tuple(lte_test.encode_bch(mib, N_ant))
+            p_scrambled = lte_test.pbch_scrambling(bch, cell_id)
+            p_scrambled = lte_test.nrz_encoding(p_scrambled)
+            data.extend(p_scrambled)
+
+        self.src.set_data(data)
+        dbgs = blocks.file_sink(480 * gr.sizeof_float, "/home/johannes/tests/descramble.dat")
+        self.tb.connect(self.src, dbgs)
+        # set up fg
+        self.tb.run ()
         pass
-
-
-        #dbgs = blocks.file_sink(480 * gr.sizeof_float, "/home/johannes/tests/descramble.dat")
-        #self.tb.connect(self.src, dbgs)
-        ## set up fg
-        #self.tb.run ()
 
 
 if __name__ == '__main__':

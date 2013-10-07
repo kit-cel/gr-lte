@@ -19,43 +19,38 @@
  */
 
 
-#ifndef INCLUDED_LTE_PBCH_DESCRAMBLER_VFVF_H
-#define INCLUDED_LTE_PBCH_DESCRAMBLER_VFVF_H
+#ifndef INCLUDED_LTE_REPEAT_MESSAGE_SOURCE_VF_H
+#define INCLUDED_LTE_REPEAT_MESSAGE_SOURCE_VF_H
 
 #include <lte/api.h>
-#include <gnuradio/sync_interpolator.h>
+#include <gnuradio/sync_block.h>
 
 namespace gr {
   namespace lte {
 
     /*!
-     * \brief Block performs descrambling of PBCH with the given Cell ID
+     * \brief Repeat Vector in message infinitely
      * \ingroup lte
-     * Cell ID is passed to block via message port on runtime
+     *
      */
-    class LTE_API pbch_descrambler_vfvf : virtual public gr::sync_interpolator
+    class LTE_API repeat_message_source_vf : virtual public gr::sync_block
     {
      public:
-      typedef boost::shared_ptr<pbch_descrambler_vfvf> sptr;
+      typedef boost::shared_ptr<repeat_message_source_vf> sptr;
 
       /*!
-       * \brief Return a shared_ptr to a new instance of lte::pbch_descrambler_vfvf.
+       * \brief Return a shared_ptr to a new instance of lte::repeat_message_source_vf.
        *
-       * To avoid accidental use of raw pointers, lte::pbch_descrambler_vfvf's
+       * To avoid accidental use of raw pointers, lte::repeat_message_source_vf's
        * constructor is in a private implementation
-       * class. lte::pbch_descrambler_vfvf::make is the public interface for
+       * class. lte::repeat_message_source_vf::make is the public interface for
        * creating new instances.
        */
-      static sptr make(std::string key);
-      
-      virtual void set_cell_id(int id) = 0;
-      
-      virtual std::vector<int> pn_sequence() const = 0;
-      
+      static sptr make(int vector_len);
     };
 
   } // namespace lte
 } // namespace gr
 
-#endif /* INCLUDED_LTE_PBCH_DESCRAMBLER_VFVF_H */
+#endif /* INCLUDED_LTE_REPEAT_MESSAGE_SOURCE_VF_H */
 

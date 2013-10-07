@@ -21,25 +21,27 @@
 
 from gnuradio import gr, blocks, trellis
 
+
 class bch_viterbi_vfvb(gr.hier_block2):
     """
     docstring for block bch_viterbi_vfvb
     """
+
     def __init__(self):
         gr.hier_block2.__init__(self,
-            "bch_viterbi_vfvb",
-            gr.io_signature( 1, 1, gr.sizeof_float * 120),  # Input signature
-            gr.io_signature( 1, 1, gr.sizeof_char * 40)) # Output signature
+                                "bch_viterbi_vfvb",
+                                gr.io_signature(1, 1, gr.sizeof_float * 120), # Input signature
+                                gr.io_signature(1, 1, gr.sizeof_char * 40)) # Output signature
 
         # Define blocks and connect them
         # Repeat input vector one time to get viterbi decoder state right (tail-biting stuff)
-        self.rpt  = blocks.repeat(gr.sizeof_float*120,2)
+        self.rpt = blocks.repeat(gr.sizeof_float * 120, 2)
         # viterbi decoder requires stream as input
-        self.vtos = blocks.vector_to_stream(1*gr.sizeof_float,120)
-        
-	
+        self.vtos = blocks.vector_to_stream(1 * gr.sizeof_float, 120)
+
+
         # Correct FSM instantiation: k=num_input_bits, n=num_output_bits, Tuple[dim(k*n)] (decimal notation)
-        self.fsm  = trellis.fsm(1,3,[91,121,117])
+        self.fsm = trellis.fsm(1, 3, [91, 121, 117])
 
         # Values for viterbi decoder        
         K = 80  # steps for one coding block
@@ -53,27 +55,28 @@ class bch_viterbi_vfvb(gr.hier_block2):
         # 1 --> -1
         # This leads to the following constellation input
         #               |  0  |  1   | 2    | 3     |  4   |  5    |  6    |  7     |
-        constellation = [1,1,1,1,1,-1,1,-1,1,1,-1,-1,-1,1,1,-1,1,-1,-1,-1,1,-1,-1,-1]
+        constellation = [1, 1, 1, 1, 1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1]
         # print "len(constellation)/D = " + str(len(constellation)/D) + "\tfsm.O = " + str(self.fsm.O())
-	    
-	    # Viterbi_combined input: FSM, K, SO, SK, D, TABLE, TYPE
-	    # FSM    = Finite State Machine
-	    # K      = number of output symbols produced by the FSM
-	    # SO     = initial state of the FSM
-	    # SK     = final state of the FSM (unknown in this example)
-	    # D      = dimensionality
-	    # TABLE  = constellation of the input symbols
-        self.vit  = trellis.viterbi_combined_fb(self.fsm,K,SO,SK,D,constellation,200)	
+        # Viterbi_combined input: FSM, K, SO, SK, D, TABLE, TYPE
+        # FSM    = Finite State Machine
+        # K      = number of output symbols produced by the FSM
+        # SO     = initial state of the FSM
+        # SK     = final state of the FSM (unknown in this example)
+        # D      = dimensionality
+        # TABLE  = constellation of the input symbols
+        self.vit = trellis.viterbi_combined_fb(self.fsm, K, SO, SK, D, constellation, 200)
 
         # connect all streams which are crated yet        
         self.connect(self,self.rpt,self.vtos,self.vit)
         
         # extract second half of each viterbi output block
-        self.sts = blocks.stream_to_streams(1,80)
-       
+        self.sts = blocks.stream_to_streams(1, 80)
+        self.sts2 = blocks.streams_to_stream(1, 40)
+        self.null = blocks.null_sink(1)
+        self.connect(self.sts2, self.null)
        # dump the first half
         for i in range(40):
-            self.connect( (self.sts, i), blocks.null_sink(1))
+            self.connect( (self.sts, i), (self.sts2, i) )
         
         # vectorize the second half.
         self.sstv = blocks.streams_to_vector(1, 40)

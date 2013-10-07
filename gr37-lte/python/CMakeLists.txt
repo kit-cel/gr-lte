@@ -31,7 +31,9 @@ endif()
 GR_PYTHON_INSTALL(
     FILES
     __init__.py
-    bch_viterbi_vfvb.py DESTINATION ${GR_PYTHON_DIR}/lte
+    utils.py
+    bch_viterbi_vfvb.py
+    pbch_scramble_sequencer_m.py DESTINATION ${GR_PYTHON_DIR}/lte
 )
 
 ########################################################################
@@ -47,3 +49,6 @@ GR_ADD_TEST(qa_bch_crc_check_ant_chooser_bb ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT
 GR_ADD_TEST(qa_bch_viterbi_vfvb ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_bch_viterbi_vfvb.py)
 GR_ADD_TEST(qa_subblock_deinterleaver_vfvf ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_subblock_deinterleaver_vfvf.py)
 GR_ADD_TEST(qa_pbch_descrambler_vfvf ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_pbch_descrambler_vfvf.py)
+GR_ADD_TEST(qa_repeat_message_source_vf ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_repeat_message_source_vf.py)
+GR_ADD_TEST(qa_pbch_scramble_sequencer_m ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_pbch_scramble_sequencer_m.py)
+GR_ADD_TEST(qa_qpsk_soft_demod_vcvf ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_qpsk_soft_demod_vcvf.py)

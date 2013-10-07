@@ -46,6 +46,8 @@ from lte_swig import *
 
 # import any pure python here
 from bch_viterbi_vfvb import bch_viterbi_vfvb
+from utils import *
+from pbch_scramble_sequencer_m import pbch_scramble_sequencer_m
 #
 
 # ----------------------------------------------------------------

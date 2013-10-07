@@ -26,5 +26,7 @@ install(FILES
     crc_check_vbvb.h
     bch_crc_check_ant_chooser_bb.h
     subblock_deinterleaver_vfvf.h
-    pbch_descrambler_vfvf.h DESTINATION include/lte
+    pbch_descrambler_vfvf.h
+    repeat_message_source_vf.h
+    qpsk_soft_demod_vcvf.h DESTINATION include/lte
 )

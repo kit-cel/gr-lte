@@ -200,13 +200,15 @@ namespace gr {
 	int
 	mib_unpack_vbm_impl::extract_sfn_lsb_from_tag()
 	{
-		int sfn_lsb = 0;
-		std::vector <gr::tag_t> v;
-		get_tags_in_range(v,0,nitems_read(0),nitems_read(0)+1);
-		if (v.size() > 0){
-			long value = pmt::to_long(v[0].value);
-			sfn_lsb = (value%16)/4; // 32 consecutive vectors (16 with soft-combining, then 16 without)
-		}
+		int items = 20;
+		int sfn_lsb = (nitems_read(0)%items)/(items/4);
+		//~ int sfn_lsb = 0;
+		//~ std::vector <gr::tag_t> v;
+		//~ get_tags_in_range(v,0,nitems_read(0),nitems_read(0)+1);
+		//~ if (v.size() > 0){
+			//~ long value = pmt::to_long(v[0].value);
+			//~ sfn_lsb = (value%16)/4; // 32 consecutive vectors (16 with soft-combining, then 16 without)
+		//~ }
 		return sfn_lsb;
 	}
 

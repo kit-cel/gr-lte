@@ -172,25 +172,27 @@ def interleave(data):
             idx = idx + 1
     return res
 
-    
-if __name__ == "__main__":
+def main():
     cell_id = 124
     N_ant = 2
     style= "tx_diversity"
     N_rb_dl = 6
     sfn = 0
     Ncp = 1
-    
+
     mat = []
     for i in range(80):
         mat.append([i]*3)
     inter = interleave(mat)
-    
+
     arr = range(80)
     intl = interleave(arr)
     for i in range(len(arr)):
         print "{0}\t{1}".format(intl[i], inter[i])
 
+    
+if __name__ == "__main__":
+    main()
     
     
     

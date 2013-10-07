@@ -18,29 +18,27 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef INCLUDED_LTE_CRC_CHECK_VBVB_IMPL_H
-#define INCLUDED_LTE_CRC_CHECK_VBVB_IMPL_H
+#ifndef INCLUDED_LTE_REPEAT_MESSAGE_SOURCE_VF_IMPL_H
+#define INCLUDED_LTE_REPEAT_MESSAGE_SOURCE_VF_IMPL_H
 
-#include <lte/crc_check_vbvb.h>
-#include <boost/crc.hpp>
+#include <lte/repeat_message_source_vf.h>
 
 namespace gr {
   namespace lte {
 
-    class crc_check_vbvb_impl : public crc_check_vbvb
+    class repeat_message_source_vf_impl : public repeat_message_source_vf
     {
      private:
-      int d_exp[16];
-      const int d_data_len;
-      const int d_final_xor;
-      // length checksum, CRC ploynomial, initial state, final XOR, REFLECT Input, REFLECT_REM
-	  boost::crc_optimal<16, 0x1021, 0x0000, 0x0000, false, false> lte_crc_16;
-	  // final XOR may be different, but due to template restrictions this is processed outside of this function.
-		unsigned char pack_byte(const char* unc);
-     
+      int d_vector_len;
+      bool d_is_initialized;
+      float* d_out_vector;
+      pmt::pmt_t d_port;
+      
+      void handle_msg(pmt::pmt_t msg);
+
      public:
-      crc_check_vbvb_impl(int data_len, int final_xor);
-      ~crc_check_vbvb_impl();
+      repeat_message_source_vf_impl(int vector_len);
+      ~repeat_message_source_vf_impl();
 
       // Where all the action really happens
       int work(int noutput_items,
@@ -51,5 +49,5 @@ namespace gr {
   } // namespace lte
 } // namespace gr
 
-#endif /* INCLUDED_LTE_CRC_CHECK_VBVB_IMPL_H */
+#endif /* INCLUDED_LTE_REPEAT_MESSAGE_SOURCE_VF_IMPL_H */
 

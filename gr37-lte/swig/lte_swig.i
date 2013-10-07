@@ -13,6 +13,8 @@
 #include "lte/bch_crc_check_ant_chooser_bb.h"
 #include "lte/subblock_deinterleaver_vfvf.h"
 #include "lte/pbch_descrambler_vfvf.h"
+#include "lte/repeat_message_source_vf.h"
+#include "lte/qpsk_soft_demod_vcvf.h"
 %}
 
 
@@ -27,3 +29,7 @@ GR_SWIG_BLOCK_MAGIC2(lte, bch_crc_check_ant_chooser_bb);
 GR_SWIG_BLOCK_MAGIC2(lte, subblock_deinterleaver_vfvf);
 %include "lte/pbch_descrambler_vfvf.h"
 GR_SWIG_BLOCK_MAGIC2(lte, pbch_descrambler_vfvf);
+%include "lte/repeat_message_source_vf.h"
+GR_SWIG_BLOCK_MAGIC2(lte, repeat_message_source_vf);
+%include "lte/qpsk_soft_demod_vcvf.h"
+GR_SWIG_BLOCK_MAGIC2(lte, qpsk_soft_demod_vcvf);

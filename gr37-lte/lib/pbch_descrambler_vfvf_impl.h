@@ -32,6 +32,7 @@ namespace gr {
 		int d_cell_id;
 		float* d_pn_seq;
 		float* d_scr;
+		float* d_comb;
 		int d_pn_seq_len;
 
 		pmt::pmt_t d_key;
@@ -51,7 +52,7 @@ namespace gr {
 	  void set_cell_id_msg(pmt::pmt_t msg);
 
 	  static char* pn_seq_generator(int len, int cell_id);
-	  std::vector<int> get_pn_sequence();
+	  std::vector<int> pn_sequence() const;
     };
 
   } // namespace lte
