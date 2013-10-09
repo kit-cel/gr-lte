@@ -35,16 +35,25 @@ class bch_viterbi_vfvb(gr.hier_block2):
 
         # Define blocks and connect them
         # Repeat input vector one time to get viterbi decoder state right (tail-biting stuff)
-        self.rpt = blocks.repeat(gr.sizeof_float * 120, 2)
+        #self.rpt = blocks.repeat(gr.sizeof_float * 120, 2)
         # viterbi decoder requires stream as input
-        self.vtos = blocks.vector_to_stream(1 * gr.sizeof_float, 120)
+        #self.vtos = blocks.vector_to_stream(1 * gr.sizeof_float, 120)
+
+        self.vtss = blocks.vector_to_streams(1* gr.sizeof_float, 120)
+        self.app = blocks.streams_to_stream(1* gr.sizeof_float, 138)
+        self.connect(self, self.vtss)
+        for i in range(18):
+            self.connect( (self.vtss, 120-18+i), (self.app, i) )
+        for i in range(120):
+            self.connect( (self.vtss, i), (self.app, i+18) )
+
 
 
         # Correct FSM instantiation: k=num_input_bits, n=num_output_bits, Tuple[dim(k*n)] (decimal notation)
         self.fsm = trellis.fsm(1, 3, [91, 121, 117])
 
         # Values for viterbi decoder        
-        K = 80  # steps for one coding block
+        K = 46  # steps for one coding block
         SO = 0  # initial state
         SK = -1 # final state (in this case unknown, therefore -1)
         D = 3   # dimensionality
@@ -65,24 +74,10 @@ class bch_viterbi_vfvb(gr.hier_block2):
         # D      = dimensionality
         # TABLE  = constellation of the input symbols
         self.vit = trellis.viterbi_combined_fb(self.fsm, K, SO, SK, D, constellation, 200)
-
+        self.connect(self.app, self.vit)
         # connect all streams which are crated yet        
-        self.connect(self,self.rpt,self.vtos,self.vit)
-        
-        # extract second half of each viterbi output block
-        self.sts = blocks.stream_to_streams(1, 80)
-        self.sts2 = blocks.streams_to_stream(1, 40)
-        self.null = blocks.null_sink(1)
-        self.connect(self.sts2, self.null)
-       # dump the first half
-        for i in range(40):
-            self.connect( (self.sts, i), (self.sts2, i) )
-        
-        # vectorize the second half.
-        self.sstv = blocks.streams_to_vector(1, 40)
-        for i in range(40):
-            self.connect( (self.sts, i+40), (self.sstv, i) )
-            
-        self.connect(self.vit, self.sts)
-        self.connect(self.sstv, self)
+        #self.connect(self,self.rpt,self.vtos,self.vit)
+        self.keep = blocks.keep_m_in_n(gr.sizeof_char, 40, 46, 6)
+        self.tovec = blocks.stream_to_vector(1, 40)
+        self.connect(self.vit, self.keep, self.tovec, self)
 

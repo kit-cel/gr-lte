@@ -15,6 +15,9 @@
 #include "lte/pbch_descrambler_vfvf.h"
 #include "lte/repeat_message_source_vf.h"
 #include "lte/qpsk_soft_demod_vcvf.h"
+#include "lte/layer_demapper_vcvc.h"
+#include "lte/pre_decoder_vcvc.h"
+#include "lte/pbch_demux_vcvc.h"
 %}
 
 
@@ -33,3 +36,9 @@ GR_SWIG_BLOCK_MAGIC2(lte, pbch_descrambler_vfvf);
 GR_SWIG_BLOCK_MAGIC2(lte, repeat_message_source_vf);
 %include "lte/qpsk_soft_demod_vcvf.h"
 GR_SWIG_BLOCK_MAGIC2(lte, qpsk_soft_demod_vcvf);
+%include "lte/layer_demapper_vcvc.h"
+GR_SWIG_BLOCK_MAGIC2(lte, layer_demapper_vcvc);
+%include "lte/pre_decoder_vcvc.h"
+GR_SWIG_BLOCK_MAGIC2(lte, pre_decoder_vcvc);
+%include "lte/pbch_demux_vcvc.h"
+GR_SWIG_BLOCK_MAGIC2(lte, pbch_demux_vcvc);

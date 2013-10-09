@@ -28,5 +28,8 @@ install(FILES
     subblock_deinterleaver_vfvf.h
     pbch_descrambler_vfvf.h
     repeat_message_source_vf.h
-    qpsk_soft_demod_vcvf.h DESTINATION include/lte
+    qpsk_soft_demod_vcvf.h
+    layer_demapper_vcvc.h
+    pre_decoder_vcvc.h
+    pbch_demux_vcvc.h DESTINATION include/lte
 )

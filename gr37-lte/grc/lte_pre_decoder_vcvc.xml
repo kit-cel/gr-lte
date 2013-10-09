@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<block>
+  <name>Pre Decoder</name>
+  <key>lte_pre_decoder_vcvc</key>
+  <category>lte</category>
+  <import>import lte</import>
+  <make>lte.pre_decoder_vcvc($N_ant, $vlen, $style)</make>
+  <!-- Make one 'param' node for every Parameter you want settable from the GUI.
+       Sub-nodes:
+       * name
+       * key (makes the value accessible as $keyname, e.g. in the make node)
+       * type -->
+  <param>
+    <name>antenna ports</name>
+    <key>num_ant</key>
+    <type>int</type>
+  </param>
+
+  <param>
+    <name>vector length</name>
+    <key>vlen</key>
+    <type>int</type>
+  </param>
+  
+  <param>
+    <name>RX style</name>
+    <key>style</key>
+    <type>string</type>
+  </param>
+
+  <!-- Make one 'sink' node per input. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+<!--  
+  <sink>
+    <name>N_ant</name>
+    <type>message</type>
+    <optional>1</optional>
+  </sink>    
+-->
+
+  <sink>
+    <name>in</name>
+    <type>complex</type>
+    <vlen>$vlen</vlen>
+    <nports>1+$num_ant</nports>
+  </sink>
+  
+
+
+  <source>
+    <name>out</name>
+    <type>complex</type>
+    <vlen>$vlen</vlen>
+  </source>
+  
+</block>

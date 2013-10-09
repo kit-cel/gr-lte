@@ -25,5 +25,8 @@ install(FILES
     lte_pbch_descrambler_vfvf.xml
     lte_repeat_message_source_vf.xml
     lte_pbch_scramble_sequencer_m.xml
-    lte_qpsk_soft_demod_vcvf.xml DESTINATION share/gnuradio/grc/blocks
+    lte_qpsk_soft_demod_vcvf.xml
+    lte_layer_demapper_vcvc.xml
+    lte_pre_decoder_vcvc.xml
+    lte_pbch_demux_vcvc.xml DESTINATION share/gnuradio/grc/blocks
 )

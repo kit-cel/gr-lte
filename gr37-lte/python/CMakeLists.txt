@@ -52,3 +52,6 @@ GR_ADD_TEST(qa_pbch_descrambler_vfvf ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE
 GR_ADD_TEST(qa_repeat_message_source_vf ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_repeat_message_source_vf.py)
 GR_ADD_TEST(qa_pbch_scramble_sequencer_m ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_pbch_scramble_sequencer_m.py)
 GR_ADD_TEST(qa_qpsk_soft_demod_vcvf ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_qpsk_soft_demod_vcvf.py)
+GR_ADD_TEST(qa_layer_demapper_vcvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_layer_demapper_vcvc.py)
+GR_ADD_TEST(qa_pre_decoder_vcvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_pre_decoder_vcvc.py)
+GR_ADD_TEST(qa_pbch_demux_vcvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_pbch_demux_vcvc.py)

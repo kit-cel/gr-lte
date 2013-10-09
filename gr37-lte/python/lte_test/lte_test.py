@@ -22,6 +22,8 @@ from gnuradio import gr
 from gruel import pmt
 import numpy as np
 import math
+
+import lte_phy
 from mib import *
 from encode_bch import *
 from encode_pbch import *
@@ -65,7 +67,7 @@ def generate_frame(pbch, N_rb_dl, cell_id, sfn, N_ant):
 #        frame[p] = map_pbch_to_frame(frame[p], pbch[p], cell_id, sfn, p)
 #        frame[p] = frame_map_rs_symbols(frame[p], N_rb_dl, cell_id, Ncp, p)
 #        frame[p] = map_pcfich_to_frame(frame[p], pcfich[p], N_rb_dl, cell_id, p)
-        
+    frame = lte_phy.generate_frame(cell_id, N_rb_dl, N_ant)
     frame = []
     for i in range(N_ant):
         frame.append([])
@@ -79,9 +81,9 @@ def generate_frame(pbch, N_rb_dl, cell_id, sfn, N_ant):
         subframe = generate_subframe(pdcchs, hi, N_rb_dl, cell_id, N_ant, N_g, n_sub, cfi)
         for ant in range(N_ant):
             frame[ant].extend(subframe[ant])
-    for p in range(N_ant):
-        frame[p] = map_pbch_to_frame(frame[p], pbch[p], cell_id, sfn, p)
-        frame[p] = frame_map_rs_symbols(frame[p], N_rb_dl, cell_id, Ncp, p)
+    #for p in range(N_ant):
+    #    frame[p] = map_pbch_to_frame(frame[p], pbch[p], cell_id, sfn, p)
+    #    frame[p] = frame_map_rs_symbols(frame[p], N_rb_dl, cell_id, Ncp, p)
     return np.array(frame)
     
 def generate_subframe(pdcch_data, hi, N_rb_dl, cell_id, N_ant, N_g, n_sub, cfi):
@@ -126,52 +128,6 @@ def rs_symbol_mapper(ofdm_symbol, N_rb_dl, ns, l, cell_id, Ncp, p):
         ofdm_symbol[k] = rs_seq[mx]
 
     return ofdm_symbol
-    
-def frame_map_rs_symbols(frame, N_rb_dl, cell_id, Ncp, p):
-    [rs_pos_frame, rs_val_frame] = frame_pilot_value_and_position(N_rb_dl, cell_id, Ncp, p)
-    for i in range(len(frame)):
-        if len(rs_pos_frame[i]) > 0:
-            for sym in range(len(rs_pos_frame[i])):
-                frame[i][rs_pos_frame[i][sym]] = rs_val_frame[i][sym]
-    return frame
-    
-def frame_pilot_value_and_position(N_rb_dl, cell_id, Ncp, p):
-    rs_pos_frame = []
-    rs_val_frame = []
-    for ns in range(20):
-        sym0 = symbol_pilot_value_and_position(N_rb_dl, ns, 0, cell_id, Ncp, p)
-        sym4 = symbol_pilot_value_and_position(N_rb_dl, ns, 4, cell_id, Ncp, p)
-        rs_pos_frame.extend([sym0[0], [], [], [], sym4[0], [], [] ])
-        rs_val_frame.extend([sym0[1], [], [], [], sym4[1], [], [] ])
-    return [rs_pos_frame, rs_val_frame]
-         
-def symbol_pilot_value_and_position(N_rb_dl, ns, l, cell_id, Ncp, p):
-    N_RB_MAX = 110
-    rs_seq = rs_generator(ns, l, cell_id, Ncp)
-    offset = calc_offset(ns, l, cell_id, p)
-    rs_sym_pos = range(offset, 12*N_rb_dl, 6)
-    rs_sym_val = rs_seq[N_RB_MAX-N_rb_dl:N_RB_MAX+N_rb_dl]
-    return [rs_sym_pos, rs_sym_val]
-    
-def calc_offset(ns, l, cell_id, p):
-    v = calc_v(ns, l,  p)
-    return ( v + (cell_id%6) )%6
-
-def calc_v(ns, l, p):
-    v = 0
-    if p == 0 and l == 0:
-        v = 0
-    elif p == 0 and l != 0:
-        v = 3
-    elif p == 1 and l == 0:
-        v = 3
-    elif p == 1 and l != 0:
-        v = 0
-    elif p == 2:
-        v = 3*(ns%2)
-    elif p==3:
-        v = 3*3*(ns%2)
-    return v
 
 def map_pbch_to_frame(frame, pbch, cell_id, sfn, ant):
     sfn_mod4 = sfn%4
@@ -315,7 +271,7 @@ def get_freq_domain_index(cell_id, n_free_reg, m, i):
     #print "{0} + {1} + {2} = {3}\t\t{4}".format(stp0, stp1, stp2, stp, ni)
     return ni
     
-def work():
+def main():
     cell_id = 124
     N_ant = 1
     style= "tx_diversity"
@@ -385,9 +341,9 @@ def work():
         subframe = generate_subframe(pdcchs, hi, N_rb_dl, cell_id, N_ant, N_g, n_sub, cfi)
         for ant in range(N_ant):
             frame[ant].extend(subframe[ant])
-    for p in range(N_ant):
-        frame[p] = map_pbch_to_frame(frame[p], pbch[p], cell_id, sfn, p)
-        frame[p] = frame_map_rs_symbols(frame[p], N_rb_dl, cell_id, Ncp, p)
+    #for p in range(N_ant):
+    #    frame[p] = map_pbch_to_frame(frame[p], pbch[p], cell_id, sfn, p)
+    #    frame[p] = frame_map_rs_symbols(frame[p], N_rb_dl, cell_id, Ncp, p)
     print np.shape(frame)
     print np.shape(org_frame)
 #    for i in range(len(frame[0][0])):
@@ -407,4 +363,4 @@ def work():
     
 
 if __name__ == "__main__":
-    work()
+    main()

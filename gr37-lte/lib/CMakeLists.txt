@@ -32,6 +32,9 @@ list(APPEND lte_sources
     pbch_descrambler_vfvf_impl.cc
     repeat_message_source_vf_impl.cc
     qpsk_soft_demod_vcvf_impl.cc
+    layer_demapper_vcvc_impl.cc
+    pre_decoder_vcvc_impl.cc
+    pbch_demux_vcvc_impl.cc
 )
 SET(FFTW3f /usr/lib/x86_64-linux-gnu/libfftw3f.so) # This is an ugly hack!
 add_library(gnuradio-lte SHARED ${lte_sources})
