@@ -23,7 +23,6 @@ from gnuradio import gr, gr_unittest, blocks
 import lte_swig as lte
 import numpy as np
 import lte_test
-import pmt
 
 class qa_pbch_demux_vcvc (gr_unittest.TestCase):
 
@@ -60,39 +59,30 @@ class qa_pbch_demux_vcvc (gr_unittest.TestCase):
         N_ant = 2
         style= "tx_diversity"
         N_rb_dl = self.N_rb_dl
-        sim_frames = 2
-        tlen = 140 * sim_frames
+        sim_frames = 4
         self.demux.set_cell_id(cell_id)
-
-        mib = lte_test.pack_mib(50,0,1.0, 511)
+        sfn = 512
+        mib = lte_test.pack_mib(N_rb_dl, 0, 1.0, sfn)
         bch = lte_test.encode_bch(mib, N_ant)
         pbch = lte_test.encode_pbch(bch, cell_id, N_ant, style)
 
         stream = []
+        #for i in range(sim_frames):
+        #    frame = lte_test.generate_frame(pbch, N_rb_dl, cell_id, i+20, N_ant)
+        #    stream.extend(frame[0].flatten())
+        #
+        #print len(stream)
         for i in range(sim_frames):
-            frame = lte_test.generate_frame(pbch, N_rb_dl, cell_id, i+20, N_ant)
-            stream.extend(frame[0].flatten())
-
-        print len(stream)
-
+            frame = lte_test.generate_phy_frame(cell_id, N_rb_dl, N_ant)
+            for p in range(len(frame)):
+                frame[p] = lte_test.map_pbch_to_frame_layer(frame[p], pbch[p], cell_id, sfn+i, p)
+            stream.extend(frame[0].flatten().tolist() )
 
         key = self.key
         srcid = "source"
-        tag_list = []
-        for i in range(len(stream)/(12*N_rb_dl)):
-            if i%7 == 0:
-                tag = gr.tag_t()
-                tag.key = pmt.string_to_symbol(key)
-                tag.value = pmt.from_long(i%140)
-                tag.offset = i*12*N_rb_dl
-                tag.srcid = srcid
-                tag_list.append(tag)
+        tags = lte_test.get_tag_list(140 * sim_frames, 140, key, srcid)
 
-        tags = lte_test.get_tag_list(tlen, key, 140)
-        print len (tag_list)
-
-
-        self.src1.set_data(stream, tuple(tag_list))
+        self.src1.set_data(stream, tuple(tags))
         self.src2.set_data(np.ones(len(stream), dtype=np.complex))
         self.src3.set_data(np.ones(len(stream), dtype=np.complex))
 
@@ -119,11 +109,11 @@ class qa_pbch_demux_vcvc (gr_unittest.TestCase):
         #        print str(i*partl) + "\t" + str(partres)
         #'''
 
-        self.assertComplexTuplesAlmostEqual(compare, tuple(pbch[0]))
+        self.assertComplexTuplesAlmostEqual(compare, tuple(pbch[0][0:len(compare)]))
 
         self.assertComplexTuplesAlmostEqual(res2,tuple(np.ones(len(res2), dtype=np.complex)))
         self.assertComplexTuplesAlmostEqual(res3,tuple(np.ones(len(res3), dtype=np.complex)))
 
 
 if __name__ == '__main__':
-    gr_unittest.run(qa_pbch_demux_vcvc, "qa_pbch_demux_vcvc.xml")
+    gr_unittest.run(qa_pbch_demux_vcvc)

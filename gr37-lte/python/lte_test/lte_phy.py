@@ -24,17 +24,17 @@ import math
 
 # this function returns a frame with reference and sync symbols.
 # Can be used to be repeatedly for frames. Just put payload etc on it.
-def generate_frame(cell_id, N_rb_dl, N_ant):
+def generate_phy_frame(cell_id, N_rb_dl, N_ant):
     frame = []
     for ant in range(N_ant):
-        frame.append(generate_phy_frame(ant, cell_id, N_rb_dl) )
+        frame.append(generate_phy_frame_layer(ant, cell_id, N_rb_dl) )
     frame[0][5] = map_sss_to_symbol(frame[0][5], N_rb_dl, cell_id, 0)
     frame[0][6] = map_pss_to_symbol(frame[0][6], N_rb_dl, cell_id%3 )
     frame[0][75] = map_sss_to_symbol(frame[0][75], N_rb_dl, cell_id, 1)
     frame[0][76] = map_pss_to_symbol(frame[0][76], N_rb_dl, cell_id%3 )
     return frame
 
-def generate_phy_frame(ant, cell_id, N_rb_dl):
+def generate_phy_frame_layer(ant, cell_id, N_rb_dl):
     Ncp = 1 # a value defined by LTE standard. Here never used different
     frame = np.zeros((140, 12 * N_rb_dl), dtype=np.complex64)
     for i in range(20):
@@ -163,7 +163,7 @@ def main():
     N_ant = 2
     N_rb_dl = 6
     style= "tx_diversity"
-    frame = generate_frame(cell_id, N_rb_dl, N_ant)
+    frame = generate_phy_frame(cell_id, N_rb_dl, N_ant)
 
     print np.shape(frame)
     print np.shape( get_sss(cell_id) )
