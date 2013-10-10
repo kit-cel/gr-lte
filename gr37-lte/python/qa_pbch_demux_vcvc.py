@@ -35,27 +35,27 @@ class qa_pbch_demux_vcvc (gr_unittest.TestCase):
         intu = np.zeros(n_carriers,dtype=np.complex)
 
         self.src1 = blocks.vector_source_c( intu, False, n_carriers)
-        self.src2 = blocks.vector_source_c( intu, False, n_carriers)
-        self.src3 = blocks.vector_source_c( intu, False, n_carriers)
+        #self.src2 = blocks.vector_source_c( intu, False, n_carriers)
+        #self.src3 = blocks.vector_source_c( intu, False, n_carriers)
 
         self.demux = lte.pbch_demux_vcvc(N_rb_dl) # cell_id,
 
         self.snk1 = blocks.vector_sink_c(240)
-        self.snk2 = blocks.vector_sink_c(240)
-        self.snk3 = blocks.vector_sink_c(240)
+        #self.snk2 = blocks.vector_sink_c(240)
+        #self.snk3 = blocks.vector_sink_c(240)
 
         self.tb.connect(self.src1,(self.demux,0) )
         self.tb.connect( (self.demux,0),self.snk1)
-        self.tb.connect(self.src2,(self.demux,1) )
-        self.tb.connect( (self.demux,1),self.snk2)
-        self.tb.connect(self.src3,(self.demux,2) )
-        self.tb.connect( (self.demux,2),self.snk3)
+        #self.tb.connect(self.src2,(self.demux,1) )
+        #self.tb.connect( (self.demux,1),self.snk2)
+        #self.tb.connect(self.src3,(self.demux,2) )
+        #self.tb.connect( (self.demux,2),self.snk3)
 
     def tearDown (self):
         self.tb = None
 
     def test_001_t (self):
-        cell_id = 220
+        cell_id = 124
         N_ant = 2
         style= "tx_diversity"
         N_rb_dl = self.N_rb_dl
@@ -83,15 +83,14 @@ class qa_pbch_demux_vcvc (gr_unittest.TestCase):
         tags = lte_test.get_tag_list(140 * sim_frames, 140, key, srcid)
 
         self.src1.set_data(stream, tuple(tags))
-        self.src2.set_data(np.ones(len(stream), dtype=np.complex))
-        self.src3.set_data(np.ones(len(stream), dtype=np.complex))
-
+        self.dbg = blocks.file_sink(gr.sizeof_gr_complex * 12*N_rb_dl, "/home/johannes/tests/pbch_frame.dat")
+        self.tb.connect(self.src1, self.dbg)
         # set up fg
         self.tb.run ()
         # check data
         res1 = self.snk1.data()
-        res2 = self.snk2.data()
-        res3 = self.snk3.data()
+        #res2 = self.snk2.data()
+        #res3 = self.snk3.data()
 
         print len(res1)
         compare = res1[0:len(pbch[0])]
@@ -111,8 +110,8 @@ class qa_pbch_demux_vcvc (gr_unittest.TestCase):
 
         self.assertComplexTuplesAlmostEqual(compare, tuple(pbch[0][0:len(compare)]))
 
-        self.assertComplexTuplesAlmostEqual(res2,tuple(np.ones(len(res2), dtype=np.complex)))
-        self.assertComplexTuplesAlmostEqual(res3,tuple(np.ones(len(res3), dtype=np.complex)))
+        #self.assertComplexTuplesAlmostEqual(res2,tuple(np.ones(len(res2), dtype=np.complex)))
+        #self.assertComplexTuplesAlmostEqual(res3,tuple(np.ones(len(res3), dtype=np.complex)))
 
 
 if __name__ == '__main__':

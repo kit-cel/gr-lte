@@ -37,8 +37,7 @@ namespace gr {
 		gr_complex* d_pbch_ce2_symbs;
 
 		int calculate_n_process_items(gr_vector_int ninput_items, int noutput_items);
-		void extract_pbch_values(const gr_complex* in1, const gr_complex* in2, const gr_complex* in3,
-						gr_complex* out1, gr_complex* out2, gr_complex* out3);
+		void extract_pbch_values(gr_complex* out, const gr_complex* in);
 		int get_sym_num(std::vector<gr::tag_t> v);
 		
 		void set_cell_id_msg(pmt::pmt_t msg);

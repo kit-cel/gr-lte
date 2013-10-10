@@ -74,10 +74,7 @@ namespace gr {
 		const gr_complex *in2 = (const gr_complex *) input_items[1];
 		gr_complex *out = (gr_complex *) output_items[0];
 
-		//get local copy of number of antenna ports
-		int N_ant = d_N_ant;
-
-		if (N_ant == 1){
+		if (d_N_ant == 1){
 			for(int i = 0; i < noutput_items; i++){
 				decode_1_ant(out, in1, in2, d_vlen);
 				out += d_vlen;
@@ -85,7 +82,7 @@ namespace gr {
 				in2 += d_vlen;
 			}
 		}
-		else if(N_ant == 2){
+		else if(d_N_ant == 2){
 			const gr_complex *in3 = (const gr_complex *) input_items[2];
 			for(int i = 0; i < noutput_items; i++){
 				prepare_2_ant_vectors(d_h0, d_h1, d_r0, d_r1, in1, in2, in3, d_vlen);

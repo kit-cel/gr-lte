@@ -12,7 +12,7 @@
        * type -->
   <param>
     <name>antenna ports</name>
-    <key>num_ant</key>
+    <key>N_ant</key>
     <type>int</type>
   </param>
 
@@ -45,7 +45,7 @@
     <name>in</name>
     <type>complex</type>
     <vlen>$vlen</vlen>
-    <nports>1+$num_ant</nports>
+    <nports>1+$N_ant</nports>
   </sink>
   
 

@@ -42,8 +42,8 @@ namespace gr {
      */
     pbch_demux_vcvc_impl::pbch_demux_vcvc_impl(int N_rb_dl)
       : gr::block("pbch_demux_vcvc",
-              gr::io_signature::make( 3, 3, sizeof(gr_complex) * 12 * N_rb_dl),
-              gr::io_signature::make( 3, 3, sizeof(gr_complex) * 240)),
+              gr::io_signature::make( 1, 1, sizeof(gr_complex) * 12 * N_rb_dl),
+              gr::io_signature::make( 1, 1, sizeof(gr_complex) * 240)),
               d_cell_id(-1),
 			  d_N_rb_dl(N_rb_dl),
 			  d_sym_num(0)
@@ -75,19 +75,16 @@ namespace gr {
                        gr_vector_const_void_star &input_items,
                        gr_vector_void_star &output_items)
     {
-        const gr_complex *in0 = (const gr_complex *) input_items[0];
-		const gr_complex *in1 = (const gr_complex *) input_items[1];
-		const gr_complex *in2 = (const gr_complex *) input_items[2];
-		gr_complex *out0 = (gr_complex *) output_items[0];
-		gr_complex *out1 = (gr_complex *) output_items[1];
-		gr_complex *out2 = (gr_complex *) output_items[2];
-
+        const gr_complex *in = (const gr_complex *) input_items[0];
+		gr_complex *out = (gr_complex *) output_items[0];
+		
 		// get smallest number of input items
 		int ninitems = calculate_n_process_items(ninput_items, noutput_items);
+		//~ printf("this is a demux with %i items \n", ninitems);
 
 		// No data is processed as long as the cell_id is not available
 		if(d_cell_id < 0){
-			consume_each(ninitems);
+			//~ consume_each(ninitems);
 			return 0;
 		}
 
@@ -109,19 +106,15 @@ namespace gr {
 					ninitems = i;
 					break;
 				}
-				extract_pbch_values(in0, in1, in2, out0, out1, out2);
+				extract_pbch_values(out, in);
 
 				noutput_items++;
-				out0+=240;
-				out1+=240;
-				out2+=240;
+				out += 240;
 			}
 
 			// update work values for next symbol
 			sym_num = (sym_num+1)%140;
-			in0+=n_carriers;
-			in1+=n_carriers;
-			in2+=n_carriers;
+			in += n_carriers;
 		}
 
 		// update d_sym_num
@@ -168,8 +161,8 @@ namespace gr {
 	}
 
 	void
-	pbch_demux_vcvc_impl::extract_pbch_values(const gr_complex* in0, const gr_complex* in1, const gr_complex* in2,
-												gr_complex* out0, gr_complex* out1, gr_complex* out2)
+	pbch_demux_vcvc_impl::extract_pbch_values(gr_complex* out,
+												const gr_complex* in)
 	{
 		int cell_id_mod3 = d_cell_id%3;
 		int n_carriers = 12*d_N_rb_dl;
@@ -177,23 +170,15 @@ namespace gr {
 		int idx = 0;
 		for (int c = 0 ; c < 72 ; c++ ) {
 			if ( cell_id_mod3 != c%3 ){
-				out0[idx]    = in0[pbch_pos+c];
-				out0[idx+48] = in0[pbch_pos+c+n_carriers];
-				out1[idx]    = in1[pbch_pos+c];
-				out1[idx+48] = in1[pbch_pos+c+n_carriers];
-				out2[idx]    = in2[pbch_pos+c];
-				out2[idx+48] = in2[pbch_pos+c+n_carriers];
+				out[idx]    = in[pbch_pos+c];
+				out[idx+48] = in[pbch_pos+c+n_carriers];
 				idx++;
 			}
 		}
 		//Copy PBCH values on symbol 9
-		memcpy(out0+96, in0+2*n_carriers+pbch_pos, 72*sizeof(gr_complex) );
-		memcpy(out1+96, in1+2*n_carriers+pbch_pos, 72*sizeof(gr_complex) );
-		memcpy(out2+96, in2+2*n_carriers+pbch_pos, 72*sizeof(gr_complex) );
+		memcpy(out+96, in+2*n_carriers+pbch_pos, 72*sizeof(gr_complex) );
 		//Copy PBCH values on symbol 10
-		memcpy(out0+96+72, in0+3*n_carriers+pbch_pos, 72*sizeof(gr_complex) );
-		memcpy(out1+96+72, in1+3*n_carriers+pbch_pos, 72*sizeof(gr_complex) );
-		memcpy(out2+96+72, in2+3*n_carriers+pbch_pos, 72*sizeof(gr_complex) );
+		memcpy(out+96+72, in+3*n_carriers+pbch_pos, 72*sizeof(gr_complex) );
 	}
 
 	int

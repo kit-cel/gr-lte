@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <block>
-  <name>pbch_demux_vcvc</name>
+  <name>PBCH Demux</name>
   <key>lte_pbch_demux_vcvc</key>
   <category>lte</category>
   <import>import lte</import>
@@ -11,9 +11,9 @@
        * key (makes the value accessible as $keyname, e.g. in the make node)
        * type -->
   <param>
-    <name>...</name>
-    <key>...</key>
-    <type>...</type>
+    <name>resource blocks</name>
+    <key>N_rb_dl</key>
+    <type>int</type>
   </param>
 
   <!-- Make one 'sink' node per input. Sub-nodes:
@@ -23,7 +23,14 @@
        * optional (set to 1 for optional inputs) -->
   <sink>
     <name>in</name>
-    <type><!-- e.g. int, float, complex, byte, short, xxx_vector, ...--></type>
+    <type>complex</type>
+    <vlen>12 * $N_rb_dl</vlen>
+  </sink>
+
+  <sink>
+    <name>cell_id</name>
+    <type>message</type>
+    <optional>1</optional>
   </sink>
 
   <!-- Make one 'source' node per output. Sub-nodes:
@@ -33,6 +40,7 @@
        * optional (set to 1 for optional inputs) -->
   <source>
     <name>out</name>
-    <type><!-- e.g. int, float, complex, byte, short, xxx_vector, ...--></type>
+    <type>complex</type>
+    <vlen>240</vlen>
   </source>
 </block>
