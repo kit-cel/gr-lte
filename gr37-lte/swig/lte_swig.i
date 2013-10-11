@@ -18,6 +18,7 @@
 #include "lte/layer_demapper_vcvc.h"
 #include "lte/pre_decoder_vcvc.h"
 #include "lte/pbch_demux_vcvc.h"
+#include "lte/channel_estimator_vcvc.h"
 %}
 
 
@@ -42,3 +43,5 @@ GR_SWIG_BLOCK_MAGIC2(lte, layer_demapper_vcvc);
 GR_SWIG_BLOCK_MAGIC2(lte, pre_decoder_vcvc);
 %include "lte/pbch_demux_vcvc.h"
 GR_SWIG_BLOCK_MAGIC2(lte, pbch_demux_vcvc);
+%include "lte/channel_estimator_vcvc.h"
+GR_SWIG_BLOCK_MAGIC2(lte, channel_estimator_vcvc);

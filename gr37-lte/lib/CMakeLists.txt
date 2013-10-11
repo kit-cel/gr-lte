@@ -35,6 +35,7 @@ list(APPEND lte_sources
     layer_demapper_vcvc_impl.cc
     pre_decoder_vcvc_impl.cc
     pbch_demux_vcvc_impl.cc
+    channel_estimator_vcvc_impl.cc
 )
 SET(FFTW3f /usr/lib/x86_64-linux-gnu/libfftw3f.so) # This is an ugly hack!
 add_library(gnuradio-lte SHARED ${lte_sources})

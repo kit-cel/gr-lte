@@ -55,3 +55,4 @@ GR_ADD_TEST(qa_qpsk_soft_demod_vcvf ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_
 GR_ADD_TEST(qa_layer_demapper_vcvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_layer_demapper_vcvc.py)
 GR_ADD_TEST(qa_pre_decoder_vcvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_pre_decoder_vcvc.py)
 GR_ADD_TEST(qa_pbch_demux_vcvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_pbch_demux_vcvc.py)
+GR_ADD_TEST(qa_channel_estimator_vcvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_channel_estimator_vcvc.py)

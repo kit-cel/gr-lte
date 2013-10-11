@@ -31,5 +31,6 @@ install(FILES
     qpsk_soft_demod_vcvf.h
     layer_demapper_vcvc.h
     pre_decoder_vcvc.h
-    pbch_demux_vcvc.h DESTINATION include/lte
+    pbch_demux_vcvc.h
+    channel_estimator_vcvc.h DESTINATION include/lte
 )
