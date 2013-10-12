@@ -19,6 +19,8 @@
 #include "lte/pre_decoder_vcvc.h"
 #include "lte/pbch_demux_vcvc.h"
 #include "lte/channel_estimator_vcvc.h"
+#include "lte/extract_subcarriers_vcvc.h"
+#include "lte/remove_cp_cvc.h"
 %}
 
 
@@ -45,3 +47,7 @@ GR_SWIG_BLOCK_MAGIC2(lte, pre_decoder_vcvc);
 GR_SWIG_BLOCK_MAGIC2(lte, pbch_demux_vcvc);
 %include "lte/channel_estimator_vcvc.h"
 GR_SWIG_BLOCK_MAGIC2(lte, channel_estimator_vcvc);
+%include "lte/extract_subcarriers_vcvc.h"
+GR_SWIG_BLOCK_MAGIC2(lte, extract_subcarriers_vcvc);
+%include "lte/remove_cp_cvc.h"
+GR_SWIG_BLOCK_MAGIC2(lte, remove_cp_cvc);

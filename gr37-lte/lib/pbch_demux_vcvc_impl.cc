@@ -140,7 +140,7 @@ namespace gr {
 	pbch_demux_vcvc_impl::set_cell_id(int id)
 	{
 		d_cell_id = id;
-		printf("%s\t\tset_cell_id = %i\n", name().c_str(), d_cell_id );
+		//~ printf("%s\t\tset_cell_id = %i\n", name().c_str(), d_cell_id );
 	}
 
 	int

@@ -29,5 +29,8 @@ install(FILES
     lte_layer_demapper_vcvc.xml
     lte_pre_decoder_vcvc.xml
     lte_pbch_demux_vcvc.xml
-    lte_channel_estimator_vcvc.xml DESTINATION share/gnuradio/grc/blocks
+    lte_channel_estimator_vcvc.xml
+    lte_rs_map_generator_m.xml
+    lte_extract_subcarriers_vcvc.xml
+    lte_remove_cp_cvc.xml DESTINATION share/gnuradio/grc/blocks
 )

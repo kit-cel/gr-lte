@@ -31,7 +31,7 @@ class qa_channel_estimator_vcvc (gr_unittest.TestCase):
     def setUp(self):
         self.tb = gr.top_block ()
 
-        self.N_rb_dl = N_rb_dl = 6
+        self.N_rb_dl = N_rb_dl = 50
         self.subcarriers = subcarriers =  12*N_rb_dl
         self.N_ofdm_symbols = N_ofdm_symbols = 140
         self.tag_key = tag_key = "symbol"
@@ -66,7 +66,7 @@ class qa_channel_estimator_vcvc (gr_unittest.TestCase):
         print "test_001_set_pilot_map END"
 
     def test_002_t (self):
-        print "test_004_t BEGIN"
+        print "test_002_t BEGIN"
         N_rb_dl = self.N_rb_dl
         subcarriers = self.subcarriers
         N_ofdm_symbols = self.N_ofdm_symbols
@@ -116,7 +116,44 @@ class qa_channel_estimator_vcvc (gr_unittest.TestCase):
             vec = res[i*subcarriers:(i+1)*subcarriers]
             self.assertComplexTuplesAlmostEqual(vec, expected, 5)
 
-        print "test_003_t END\n\n"
+        print "test_002_t END\n\n"
+
+    def test_003_data_gen(self):
+        N_rb_dl = self.N_rb_dl
+        subcarriers = self.subcarriers
+        N_ofdm_symbols = self.N_ofdm_symbols
+        tag_key = self.tag_key
+        msg_buf_name = self.msg_buf_name
+        cell_id = 124
+        Ncp = 1
+        N_ant = 2
+        style= "tx_diversity"
+        sfn = 0
+        srcid = "source"
+
+        nf = 4
+        data = []
+        for sfn in range(nf):
+            mib = lte_test.pack_mib(N_rb_dl, 0, 1.0, sfn)
+            bch = lte_test.encode_bch(mib, N_ant)
+            pbch = lte_test.encode_pbch(bch, cell_id, N_ant, style)
+            frame = lte_test.generate_phy_frame(cell_id, N_rb_dl, N_ant)
+            for p in range(len(frame)):
+                frame[p] = lte_test.map_pbch_to_frame_layer(frame[p], pbch[p], cell_id, sfn, p)
+
+            stream = frame[0].flatten().tolist()
+            stream = np.add(stream, frame[1].flatten().tolist() )
+            data.extend(stream)
+        print len(data)
+
+        tags = lte_test.get_tag_list(140 * nf, 140, self.tag_key, srcid)
+
+        tb2 = gr.top_block ()
+        src = blocks.vector_source_c(data, False, subcarriers)
+        dbg = blocks.file_sink(gr.sizeof_gr_complex * 12*N_rb_dl, "/home/johannes/tests/est_frame_data.dat")
+        tb2.connect(src, dbg)
+        tb2.run()
+
 
 
     def get_data_stream(self, N_ant, cell_id, style, N_rb_dl, sfn, subcarriers):
@@ -137,6 +174,8 @@ class qa_channel_estimator_vcvc (gr_unittest.TestCase):
         #stream = np.append(stream, symbol)
 
         return streamp
+
+
 
 
 if __name__ == '__main__':

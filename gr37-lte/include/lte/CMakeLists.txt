@@ -32,5 +32,7 @@ install(FILES
     layer_demapper_vcvc.h
     pre_decoder_vcvc.h
     pbch_demux_vcvc.h
-    channel_estimator_vcvc.h DESTINATION include/lte
+    channel_estimator_vcvc.h
+    extract_subcarriers_vcvc.h
+    remove_cp_cvc.h DESTINATION include/lte
 )

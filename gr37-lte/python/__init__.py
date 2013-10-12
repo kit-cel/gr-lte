@@ -48,6 +48,7 @@ from lte_swig import *
 from bch_viterbi_vfvb import bch_viterbi_vfvb
 from utils import *
 from pbch_scramble_sequencer_m import pbch_scramble_sequencer_m
+from rs_map_generator_m import rs_map_generator_m
 #
 
 # ----------------------------------------------------------------

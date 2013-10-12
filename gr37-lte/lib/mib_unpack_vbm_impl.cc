@@ -95,9 +95,9 @@ namespace gr {
 	mib_unpack_vbm_impl::decode_mib(char* mib)
 	{
 		bool unchanged = decode_state_mib(mib);
-		if(!unchanged && d_SFN > -1){
-			return;
-		}
+		//~ if(!unchanged && d_SFN > -1){
+			//~ return;
+		//~ }
 
 		int sfn = decode_sfn(mib+6);
 		int diff = ((sfn+1024)-d_SFN)%1024;

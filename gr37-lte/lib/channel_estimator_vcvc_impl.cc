@@ -57,7 +57,7 @@ namespace gr {
               gr::io_signature::make( 1, 1, sizeof(gr_complex) * subcarriers),
               gr::io_signature::make( 1, 1, sizeof(gr_complex) * subcarriers)),
         d_subcarriers(subcarriers),
-		d_last_calced_sym(0),
+		d_last_calced_sym(-1),
 		d_work_call(0)   
     {
 		d_key = pmt::string_to_symbol(tag_key); // specify key of tag.

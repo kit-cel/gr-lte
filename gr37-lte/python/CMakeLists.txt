@@ -33,7 +33,8 @@ GR_PYTHON_INSTALL(
     __init__.py
     utils.py
     bch_viterbi_vfvb.py
-    pbch_scramble_sequencer_m.py DESTINATION ${GR_PYTHON_DIR}/lte
+    pbch_scramble_sequencer_m.py
+    rs_map_generator_m.py DESTINATION ${GR_PYTHON_DIR}/lte
 )
 
 ########################################################################
@@ -56,3 +57,6 @@ GR_ADD_TEST(qa_layer_demapper_vcvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_D
 GR_ADD_TEST(qa_pre_decoder_vcvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_pre_decoder_vcvc.py)
 GR_ADD_TEST(qa_pbch_demux_vcvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_pbch_demux_vcvc.py)
 GR_ADD_TEST(qa_channel_estimator_vcvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_channel_estimator_vcvc.py)
+GR_ADD_TEST(qa_rs_map_generator_m ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_rs_map_generator_m.py)
+GR_ADD_TEST(qa_extract_subcarriers_vcvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_extract_subcarriers_vcvc.py)
+GR_ADD_TEST(qa_remove_cp_cvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_remove_cp_cvc.py)
