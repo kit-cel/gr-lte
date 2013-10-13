@@ -88,11 +88,9 @@ namespace gr {
 		// the following section removes the samples before the first frame start.
 		std::vector <gr::tag_t> v;
 		get_tags_in_range(v,0,nitems_read(0),nitems_read(0)+ninput_items[0], d_key );
-		long frame_start = get_frame_start(v);
+		// TODO: work on a better and hopefully more performant solution
+		//~ long frame_start = get_frame_start(v);
 		//~ if(
-		
-		
-		
 		//~ int sym_num = get_sym_num(frame_start, nitems_read(0) );
 		
 		int size = v.size();

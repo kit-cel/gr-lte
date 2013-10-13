@@ -34,13 +34,22 @@ import lte_phy
 def get_tag_list(data_len,  value_range, tag_key, srcid):
     tag_list = []
     for i in range(data_len):
-        tag = gr.tag_t()
-        tag.key = pmt.string_to_symbol(tag_key)
-        tag.srcid = pmt.string_to_symbol(srcid)
-        tag.value = pmt.from_long(i%value_range)
-        tag.offset = i
+        tag = generate_tag(tag_key, srcid, i%value_range, i)
+        #tag = gr.tag_t()
+        #tag.key = pmt.string_to_symbol(tag_key)
+        #tag.srcid = pmt.string_to_symbol(srcid)
+        #tag.value = pmt.from_long(i%value_range)
+        #tag.offset = i
         tag_list.append(tag)
     return tag_list
+
+def generate_tag(tag_key, srcid, value, offset):
+    tag = gr.tag_t()
+    tag.key = pmt.string_to_symbol(tag_key)
+    tag.srcid = pmt.string_to_symbol(srcid)
+    tag.value = pmt.from_long(value)
+    tag.offset = offset
+    return tag
 
 def cmpl_str(val):
     #return '%+03f%+03fj' %(val.real, val.imag)

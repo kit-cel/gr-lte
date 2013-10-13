@@ -34,5 +34,6 @@ install(FILES
     pbch_demux_vcvc.h
     channel_estimator_vcvc.h
     extract_subcarriers_vcvc.h
-    remove_cp_cvc.h DESTINATION include/lte
+    remove_cp_cvc.h
+    sss_calculator_vcm.h DESTINATION include/lte
 )

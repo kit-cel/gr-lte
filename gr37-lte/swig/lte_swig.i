@@ -21,6 +21,7 @@
 #include "lte/channel_estimator_vcvc.h"
 #include "lte/extract_subcarriers_vcvc.h"
 #include "lte/remove_cp_cvc.h"
+#include "lte/sss_calculator_vcm.h"
 %}
 
 
@@ -51,3 +52,5 @@ GR_SWIG_BLOCK_MAGIC2(lte, channel_estimator_vcvc);
 GR_SWIG_BLOCK_MAGIC2(lte, extract_subcarriers_vcvc);
 %include "lte/remove_cp_cvc.h"
 GR_SWIG_BLOCK_MAGIC2(lte, remove_cp_cvc);
+%include "lte/sss_calculator_vcm.h"
+GR_SWIG_BLOCK_MAGIC2(lte, sss_calculator_vcm);
