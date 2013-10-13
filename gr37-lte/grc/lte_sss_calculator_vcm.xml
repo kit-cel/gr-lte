@@ -13,7 +13,7 @@
   <param>
     <name>FFT length</name>
     <key>fftl</key>
-    <type>...</type>
+    <type>int</type>
   </param>
 
   <!-- Make one 'sink' node per input. Sub-nodes:

@@ -52,11 +52,12 @@ namespace gr {
 			  d_sym_num(0),
 			  d_work_call(0),
 			  d_found_frame_start(false),
-			  d_frame_start(0)
+			  d_frame_start(0),
+              d_symbols_per_frame(140)
     {
 		d_key=pmt::string_to_symbol(key);
 		d_tag_id=pmt::string_to_symbol(name() );
-		set_tag_propagation_policy(TPP_DONT);	
+		set_tag_propagation_policy(TPP_DONT);
 	}
 
     /*
@@ -87,66 +88,40 @@ namespace gr {
 
 		// the following section removes the samples before the first frame start.
 		std::vector <gr::tag_t> v;
-		get_tags_in_range(v,0,nitems_read(0),nitems_read(0)+ninput_items[0], d_key );
-		// TODO: work on a better and hopefully more performant solution
-		//~ long frame_start = get_frame_start(v);
-		//~ if(
-		//~ int sym_num = get_sym_num(frame_start, nitems_read(0) );
-		
-		int size = v.size();
-		if(!d_found_frame_start){
-			for(int i = 0 ; i < size ; i++ ){
-				long value = pmt::to_long(v[i].value);
-				if(value == 0){
-					//std::string key = pmt::pmt_symbol_to_string(v[0].key);
-					//printf("%s found frame start offset = %li\trange = %i\tkey = %s\n",name().c_str(), v[0].offset,noutput_items*(fftl+cpl0),key.c_str() );
-					int delay = int(v[i].offset-nitems_read(0) );
-					d_frame_start = (v[i].offset);
-					printf("\n%s\n",name().c_str() );
-					//printf("nitems_read = %li\n",nitems_read(0) );
-					//printf("delay       = %i\n",delay);
-					//printf("a+b         = %li\n",nitems_read(0)+delay );
-					printf("frame_start = %ld\n",d_frame_start);
-					d_frame_start = d_frame_start%(20*d_slotl);
-					printf("mod start   = %ld\n\n",d_frame_start);
-					d_sym_num = 0;
-					d_symb = 0;
-					d_found_frame_start = true;
-					consume_each(delay);
-					return 0;
-				}
-				else{
-					if(size > i+1){
-						continue;
-					}
-					else{
-						consume_each(noutput_items*(d_fftl+d_cpl0));
-						return 0;
-					}
-				}
-			}
+		get_tags_in_range(v, 0, nitems_read(0), nitems_read(0)+ninput_items[0], d_key );
 
-			if(size == 0){
-				consume_each(noutput_items*(d_fftl+d_cpl0));
-				return 0;
-			}
-		}
-		for(int i = 0 ; i < size ; i++ ){
-			if(size > 0 && pmt::to_long(v[i].value) == 0 ){
-				if( (v[i].offset)%(20*d_slotl) != d_frame_start ){
-					printf("%s OUT of sync!\n", name().c_str() );
-					d_found_frame_start = false;
-					return 0;
-				}
-			}
-		}
+        if(!d_found_frame_start){
+            if(v.size() == 0){
+                consume_each(ninput_items[0]);
+                return 0;
+            }
+            d_frame_start = get_frame_start(v);
+            printf("first frame_start = %ld\n", d_frame_start);
+            
+            long framel = (d_symbols_per_frame / 7) * d_slotl;
+            long consume = (nitems_read(0) + framel - d_frame_start) % framel;
+            consume_each(consume);
+            //~ d_frame_start = frame_start;
+            d_found_frame_start = true;
+            return 0;
+        }
 
+        d_frame_start = get_frame_start(v);
+        sym_info info = get_sym_num_info(d_frame_start, nitems_read(0), d_symbols_per_frame );
+        //~ printf("%i: left = %i\n", info.num % 7, info.dump);
+        d_sym_num = info.num;
+        
+        if(info.dump != 0){ // align in buffer to symbols for next call
+            printf("work_call = %i\tnot aligned, consum %i\n", d_work_call, info.dump);
+            consume_each(info.dump);
+            return 0;
+        }
 
 		// Copy the samples of interest from input to output buffer
 		long consumed_items = copy_samples_from_in_to_out(out, in, noutput_items);
 
 		// add item tags. Item tags for each vector/OFDM symbol.
-		add_tags_to_vectors(noutput_items);
+		d_sym_num = add_tags_to_vectors(noutput_items, d_sym_num, d_symbols_per_frame);
 
 		// Tell runtime system how many input items we consumed on
 		// each input stream.
@@ -172,14 +147,45 @@ namespace gr {
 		return frame_start;
 	}
 	
-	//~ int
-	//~ remove_cp_cvc_impl::get_sym_num(long frame_start, long nitems_read )
-	//~ {
-		//~ int frame_items = (nitems_read + 20 * d_slotl - frame_start) % (20 * d_slotl); 
-		//~ int slots = frame_items / d_slotl;
-		//~ int part = frame_items % d_slotl;
-		//~ 
-	//~ }
+	sym_info
+	remove_cp_cvc_impl::get_sym_num_info(long frame_start, long nitems_read, int symbols_per_frame )
+	{
+		sym_info info;
+        int spf = symbols_per_frame / 7;
+        int frame_items = (nitems_read + spf * d_slotl - frame_start) % (spf * d_slotl); 
+		int slots = frame_items / d_slotl;
+		int syms_in_slot = (frame_items % d_slotl) / (d_fftl + d_cpl);
+        info.num = slots * 7 + syms_in_slot;
+        info.dump = leading_items_to_dump(frame_items % d_slotl, info.num % 7);
+        return info;
+	}
+    
+    int
+    remove_cp_cvc_impl::leading_items_to_dump(int slot_items, int slot_sym)
+    {
+        int dump = 0;
+        if(slot_items == 0){ // is aligned!
+            dump = 0;
+        }
+        else if(slot_items < d_fftl + d_cpl0){
+            dump = d_fftl + d_cpl0 - slot_items;
+        }
+        else{
+            int sym_items = (slot_items - d_fftl - d_cpl0) % (d_fftl + d_cpl);
+            if(sym_items == 0){
+                dump = 0;
+            }
+            else{
+                dump = d_fftl + d_cpl - sym_items;
+            }
+        }
+
+ 
+        //~ if(items != 0) {return items; }
+        printf("%i: slot_items = %i\tdump = %i\n", slot_sym, slot_items, dump);
+        return dump;
+            
+    }
     
     long
 	remove_cp_cvc_impl::copy_samples_from_in_to_out(gr_complex* out, const gr_complex* in, int noutput_items)
@@ -190,7 +196,7 @@ namespace gr {
 		int syml1 = d_cpl + d_fftl;
 
 		for (int i = 0 ; i < noutput_items ; i++){
-			if(d_symb == 0){ // 0. symbol in each LTE slot is longer than the rest
+            if(d_symb == 0){ // 0. symbol in each LTE slot is longer than the rest
 				memcpy(out, in+d_cpl0, vector_byte_size);
 				consumed_items += syml0;
 				in += syml0;
@@ -206,15 +212,18 @@ namespace gr {
 		return consumed_items;
 	}
 
-	void
-	remove_cp_cvc_impl::add_tags_to_vectors(int noutput_items)
+	int
+	remove_cp_cvc_impl::add_tags_to_vectors(int noutput_items, int sym_num, int symbols_per_frame)
 	{
-		for (int i = 0 ; i < noutput_items ; i++){
+        for (int i = 0 ; i < noutput_items ; i++){
 			if(d_sym_num%7 == 0){
-				add_item_tag(0,nitems_written(0)+i,d_key, pmt::from_long(d_sym_num),d_tag_id);
+                long offset = nitems_written(0) + i;
+                //~ printf("offset = %ld\tsym_num = %i\n", offset, sym_num);
+				add_item_tag(0, offset, d_key, pmt::from_long(sym_num), d_tag_id);
 			}
-			d_sym_num=(d_sym_num+1)%140;
+			sym_num = (sym_num+1)%symbols_per_frame;
 		}
+        return sym_num;
 	}
 
   } /* namespace lte */

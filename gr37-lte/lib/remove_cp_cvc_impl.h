@@ -25,7 +25,11 @@
 
 namespace gr {
   namespace lte {
-
+    struct sym_info{
+        int num;
+        int dump;
+    };
+    
     class remove_cp_cvc_impl : public remove_cp_cvc
     {
      private:
@@ -35,6 +39,7 @@ namespace gr {
 		int d_slotl;
 		int d_symb;
 		int d_sym_num;
+        int d_symbols_per_frame;
 		pmt::pmt_t d_key;
 		pmt::pmt_t d_tag_id;
 		int d_work_call;
@@ -42,8 +47,11 @@ namespace gr {
 		long d_frame_start;
 
 		long copy_samples_from_in_to_out(gr_complex* out, const gr_complex* in, int noutput_items);
-		void add_tags_to_vectors(int noutput_items);
+		int add_tags_to_vectors(int noutput_items, int sym_num, int symbols_per_frame);
 		long get_frame_start(std::vector <gr::tag_t> v);
+        sym_info get_sym_num_info(long frame_start, long nitems_read, int symbols_per_frame );
+        int leading_items_to_dump(int slot_items, int slot_sym);
+	
 
      public:
       remove_cp_cvc_impl(int fftl, std::string key);
