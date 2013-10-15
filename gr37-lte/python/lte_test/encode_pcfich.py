@@ -89,7 +89,7 @@ if __name__ == "__main__":
     
     corr = 0
     for i in range(len(cfi1)):
-        corr = corr + cfi2[i]*cfi3[i]
+        corr = corr + cfi2[i]*cfi2[i]
         
     print corr
     

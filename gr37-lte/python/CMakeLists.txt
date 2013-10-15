@@ -61,3 +61,4 @@ GR_ADD_TEST(qa_rs_map_generator_m ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DI
 GR_ADD_TEST(qa_extract_subcarriers_vcvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_extract_subcarriers_vcvc.py)
 GR_ADD_TEST(qa_remove_cp_cvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_remove_cp_cvc.py)
 GR_ADD_TEST(qa_sss_calculator_vcm ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_sss_calculator_vcm.py)
+GR_ADD_TEST(qa_pcfich_unpack_vfm ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_pcfich_unpack_vfm.py)

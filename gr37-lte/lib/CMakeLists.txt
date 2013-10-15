@@ -39,6 +39,7 @@ list(APPEND lte_sources
     extract_subcarriers_vcvc_impl.cc
     remove_cp_cvc_impl.cc
     sss_calculator_vcm_impl.cc
+    pcfich_unpack_vfm_impl.cc
 )
 SET(FFTW3f /usr/lib/x86_64-linux-gnu/libfftw3f.so) # This is an ugly hack!
 add_library(gnuradio-lte SHARED ${lte_sources})

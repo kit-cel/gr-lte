@@ -35,5 +35,6 @@ install(FILES
     channel_estimator_vcvc.h
     extract_subcarriers_vcvc.h
     remove_cp_cvc.h
-    sss_calculator_vcm.h DESTINATION include/lte
+    sss_calculator_vcm.h
+    pcfich_unpack_vfm.h DESTINATION include/lte
 )

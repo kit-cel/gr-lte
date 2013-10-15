@@ -33,5 +33,6 @@ install(FILES
     lte_rs_map_generator_m.xml
     lte_extract_subcarriers_vcvc.xml
     lte_remove_cp_cvc.xml
-    lte_sss_calculator_vcm.xml DESTINATION share/gnuradio/grc/blocks
+    lte_sss_calculator_vcm.xml
+    lte_pcfich_unpack_vfm.xml DESTINATION share/gnuradio/grc/blocks
 )
