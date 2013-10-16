@@ -97,55 +97,55 @@ lte_unshift_pdcch_vcvc::set_N_g(float N_g)
     d_N_g = N_g;
 }
 
-int
-lte_unshift_pdcch_vcvc::get_n_regs()
-{
-    int M_pcfich_bits = 32; // get_pcfich_length_bits() == 32 ALWAYS!!
-    int M_phich_bits = get_phich_length_bits(N_g, N_rb_dl)
-    int M_used = int(M_pcfich_bits/2) + M_phich_bits
-    n_syms = cfi
-    if N_rb_dl < 10:
-        n_syms = n_syms + 1
-    total_re = n_syms * 12 * N_rb_dl
-    rs_re = 0
-    if N_ant < 4:
-        rs_re = 4 * N_rb_dl
-    elif N_ant == 4:
-        rs_re = 4 * N_rb_dl
-        if n_syms > 1:
-            rs_re = rs_re + 4 * N_rb_dl
-    n_avail = total_re - (rs_re + M_used)
-    return n_avail / 4
-}
+//~ int
+//~ lte_unshift_pdcch_vcvc::get_n_regs()
+//~ {
+    //~ int M_pcfich_bits = 32; // get_pcfich_length_bits() == 32 ALWAYS!!
+    //~ int M_phich_bits = get_phich_length_bits(N_g, N_rb_dl)
+    //~ int M_used = int(M_pcfich_bits/2) + M_phich_bits
+    //~ n_syms = cfi
+    //~ if N_rb_dl < 10:
+        //~ n_syms = n_syms + 1
+    //~ total_re = n_syms * 12 * N_rb_dl
+    //~ rs_re = 0
+    //~ if N_ant < 4:
+        //~ rs_re = 4 * N_rb_dl
+    //~ elif N_ant == 4:
+        //~ rs_re = 4 * N_rb_dl
+        //~ if n_syms > 1:
+            //~ rs_re = rs_re + 4 * N_rb_dl
+    //~ n_avail = total_re - (rs_re + M_used)
+    //~ return n_avail / 4
+//~ }
 
 
-int
-lte_unshift_pdcch_vcvc::get_phich_length_bits(float N_g, int N_rb_dl)
-{
-    std::string cp_len = "normal";
-    return get_phich_scr_length(cp_len) * get_n_phich_groups(N_g, N_rb_dl); // only normal CP length at this point.
-}
+//~ int
+//~ lte_unshift_pdcch_vcvc::get_phich_length_bits(float N_g, int N_rb_dl)
+//~ {
+    //~ std::string cp_len = "normal";
+    //~ return get_phich_scr_length(cp_len) * get_n_phich_groups(N_g, N_rb_dl); // only normal CP length at this point.
+//~ }
 
-int
-lte_unshift_pdcch_vcvc::get_n_phich_groups(float N_g, int N_rb_dl)
-{
-    return int(math::ceil(N_g * (N_rb_dl/8)));
-}
-
-int
-lte_unshift_pdcch_vcvc::get_phich_scr_length(std::string cp_len)
-{
-    return 3 * get_N_phich_sf(cp_len);
-}
-
-int
-lte_unshift_pdcch_vcvc::get_N_phich_sf(std::string cp_len)
-{
-    switch(cp_len){
-        case "normal": return 4;
-        case "extended": return 2;
-        default: return 0; // invalid input!!!
-    }
-}
+//~ int
+//~ lte_unshift_pdcch_vcvc::get_n_phich_groups(float N_g, int N_rb_dl)
+//~ {
+    //~ return int(math::ceil(N_g * (N_rb_dl/8)));
+//~ }
+//~ 
+//~ int
+//~ lte_unshift_pdcch_vcvc::get_phich_scr_length(std::string cp_len)
+//~ {
+    //~ return 3 * get_N_phich_sf(cp_len);
+//~ }
+//~ 
+//~ int
+//~ lte_unshift_pdcch_vcvc::get_N_phich_sf(std::string cp_len)
+//~ {
+    //~ switch(cp_len){
+        //~ case "normal": return 4;
+        //~ case "extended": return 2;
+        //~ default: return 0; // invalid input!!!
+    //~ }
+//~ }
 
 

@@ -103,7 +103,7 @@ lte_pcfich_descrambler_vfvf::handle_msg(pmt::pmt_t msg)
     set_cell_id( int(pmt::pmt_to_long(msg)) );
 }
 
-inline void
+void
 lte_pcfich_descrambler_vfvf::set_cell_id(int cell_id)
 {
     printf("%s set_cell_id = %i\n", name().c_str(), cell_id);
