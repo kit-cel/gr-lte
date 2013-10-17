@@ -23,6 +23,13 @@
 #include "lte/remove_cp_cvc.h"
 #include "lte/sss_calculator_vcm.h"
 #include "lte/pcfich_unpack_vfm.h"
+#include "lte/rough_symbol_sync_cc.h"
+#include "lte/pss_symbol_selector_cvc.h"
+#include "lte/pss_calculator_vcm.h"
+#include "lte/pss_tagger_cc.h"
+#include "lte/correlator.h"
+#include "lte/sss_symbol_selector_cvc.h"
+#include "lte/sss_tagger_cc.h"
 %}
 
 
@@ -57,3 +64,16 @@ GR_SWIG_BLOCK_MAGIC2(lte, remove_cp_cvc);
 GR_SWIG_BLOCK_MAGIC2(lte, sss_calculator_vcm);
 %include "lte/pcfich_unpack_vfm.h"
 GR_SWIG_BLOCK_MAGIC2(lte, pcfich_unpack_vfm);
+%include "lte/rough_symbol_sync_cc.h"
+GR_SWIG_BLOCK_MAGIC2(lte, rough_symbol_sync_cc);
+%include "lte/pss_symbol_selector_cvc.h"
+GR_SWIG_BLOCK_MAGIC2(lte, pss_symbol_selector_cvc);
+%include "lte/pss_calculator_vcm.h"
+GR_SWIG_BLOCK_MAGIC2(lte, pss_calculator_vcm);
+%include "lte/pss_tagger_cc.h"
+GR_SWIG_BLOCK_MAGIC2(lte, pss_tagger_cc);
+%include "lte/correlator.h"
+%include "lte/sss_symbol_selector_cvc.h"
+GR_SWIG_BLOCK_MAGIC2(lte, sss_symbol_selector_cvc);
+%include "lte/sss_tagger_cc.h"
+GR_SWIG_BLOCK_MAGIC2(lte, sss_tagger_cc);

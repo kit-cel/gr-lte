@@ -14,7 +14,7 @@
   
   <param>
     <name>tag key value</name>
-    <key>tag_key</key>
+    <key>key</key>
     <type>string</type>
   </param>
 

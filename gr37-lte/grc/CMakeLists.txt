@@ -34,5 +34,13 @@ install(FILES
     lte_extract_subcarriers_vcvc.xml
     lte_remove_cp_cvc.xml
     lte_sss_calculator_vcm.xml
-    lte_pcfich_unpack_vfm.xml DESTINATION share/gnuradio/grc/blocks
+    lte_pcfich_unpack_vfm.xml
+    lte_rough_symbol_sync_cc.xml
+    lte_pss_symbol_selector_cvc.xml
+    lte_pss_calculator_vcm.xml
+    lte_pss_tagger_cc.xml
+    lte_correlator.xml
+    lte_sss_symbol_selector_cvc.xml
+    lte_sss_tagger_cc.xml
+    lte_sync_cc.xml DESTINATION share/gnuradio/grc/blocks
 )

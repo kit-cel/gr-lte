@@ -40,6 +40,13 @@ list(APPEND lte_sources
     remove_cp_cvc_impl.cc
     sss_calculator_vcm_impl.cc
     pcfich_unpack_vfm_impl.cc
+    rough_symbol_sync_cc_impl.cc
+    pss_symbol_selector_cvc_impl.cc
+    pss_calculator_vcm_impl.cc
+    pss_tagger_cc_impl.cc
+    correlator.cc
+    sss_symbol_selector_cvc_impl.cc
+    sss_tagger_cc_impl.cc
 )
 SET(FFTW3f /usr/lib/x86_64-linux-gnu/libfftw3f.so) # This is an ugly hack!
 add_library(gnuradio-lte SHARED ${lte_sources})
@@ -65,6 +72,7 @@ include_directories(${CPPUNIT_INCLUDE_DIRS})
 list(APPEND test_lte_sources
     ${CMAKE_CURRENT_SOURCE_DIR}/test_lte.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte.cc
+    ${CMAKE_CURRENT_SOURCE_DIR}/qa_correlator.cc
 )
 
 add_executable(test-lte ${test_lte_sources})

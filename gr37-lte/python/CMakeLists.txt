@@ -34,7 +34,8 @@ GR_PYTHON_INSTALL(
     utils.py
     bch_viterbi_vfvb.py
     pbch_scramble_sequencer_m.py
-    rs_map_generator_m.py DESTINATION ${GR_PYTHON_DIR}/lte
+    rs_map_generator_m.py
+    sync_cc.py DESTINATION ${GR_PYTHON_DIR}/lte
 )
 
 ########################################################################
@@ -62,3 +63,10 @@ GR_ADD_TEST(qa_extract_subcarriers_vcvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOU
 GR_ADD_TEST(qa_remove_cp_cvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_remove_cp_cvc.py)
 GR_ADD_TEST(qa_sss_calculator_vcm ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_sss_calculator_vcm.py)
 GR_ADD_TEST(qa_pcfich_unpack_vfm ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_pcfich_unpack_vfm.py)
+GR_ADD_TEST(qa_rough_symbol_sync_cc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_rough_symbol_sync_cc.py)
+GR_ADD_TEST(qa_pss_symbol_selector_cvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_pss_symbol_selector_cvc.py)
+GR_ADD_TEST(qa_pss_calculator_vcm ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_pss_calculator_vcm.py)
+GR_ADD_TEST(qa_pss_tagger_cc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_pss_tagger_cc.py)
+GR_ADD_TEST(qa_sss_symbol_selector_cvc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_sss_symbol_selector_cvc.py)
+GR_ADD_TEST(qa_sss_tagger_cc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_sss_tagger_cc.py)
+GR_ADD_TEST(qa_sync_cc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_sync_cc.py)

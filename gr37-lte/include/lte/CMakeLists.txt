@@ -36,5 +36,12 @@ install(FILES
     extract_subcarriers_vcvc.h
     remove_cp_cvc.h
     sss_calculator_vcm.h
-    pcfich_unpack_vfm.h DESTINATION include/lte
+    pcfich_unpack_vfm.h
+    rough_symbol_sync_cc.h
+    pss_symbol_selector_cvc.h
+    pss_calculator_vcm.h
+    pss_tagger_cc.h
+    correlator.h
+    sss_symbol_selector_cvc.h
+    sss_tagger_cc.h DESTINATION include/lte
 )
