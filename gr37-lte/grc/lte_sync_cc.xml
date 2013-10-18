@@ -35,4 +35,11 @@
     <name>out</name>
     <type>complex</type>
   </source>
+  
+  <source>
+    <name>cell_id</name>
+    <type>message</type>
+    <optional>1</optional>
+  </source>
+  
 </block>

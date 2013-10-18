@@ -25,6 +25,8 @@
 #include <gnuradio/io_signature.h>
 #include "sss_tagger_cc_impl.h"
 
+#include <cstdio>
+
 namespace gr {
   namespace lte {
 
@@ -130,7 +132,7 @@ namespace gr {
                 }
 
                 // prepare values for next iteration.
-                d_slot_num++;
+                d_slot_num = (d_slot_num + 1) % 20;
 
             }
         }

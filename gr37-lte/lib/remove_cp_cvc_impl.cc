@@ -137,7 +137,7 @@ namespace gr {
 		if(v.size() > 0){
 			gr::tag_t tag = v.back();
 			long value = pmt::to_long(tag.value);
-			int slots = value / 7;
+			int slots = value; //value / 7;
 			int items = slots * d_slotl;
 			if(value % 7 != 0){
 				items += d_cpl0 + (value % 7) * (d_cpl + d_fftl);

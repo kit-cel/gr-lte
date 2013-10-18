@@ -32,6 +32,7 @@ class sync_cc(gr.hier_block2):
             gr.io_signature(1, 1, gr.sizeof_gr_complex),  # Input signature
             gr.io_signature(1, 1, gr.sizeof_gr_complex)) # Output signature
 
+        self.message_port_register_hier_out("cell_id")
         N_rb_dl = 6
         # Define blocks and connect them
         self.sym = lte.rough_symbol_sync_cc(fftl)
@@ -51,6 +52,7 @@ class sync_cc(gr.hier_block2):
         self.msg_connect(self.pcal, "half_frame", self.pss_tag, "half_frame")
         self.msg_connect(self.pcal, "N_id_2", self.pss_tag, "N_id_2")
 
+        #self.connect(self.pss_tag, blocks.tag_debug())
 
         self.sss_tag = lte.sss_tagger_cc(fftl)
         self.connect(self.pss_tag, self.sss_tag, self)
@@ -60,10 +62,10 @@ class sync_cc(gr.hier_block2):
         self.sext = lte.extract_subcarriers_vcvc(N_rb_dl, fftl)
         self.scal = lte.sss_calculator_vcm(fftl, "N_id_2", "offset_marker")
         self.connect(self.pss_tag, self.sss_sel, self.sfft, self.sext, self.scal)
-
-        self.message_port_register_hier_out("cell_id")
-        self.msg_connect(self.scal, "cell_id", self, "cell_id")
         self.msg_connect(self.scal, "frame_start", self.sss_tag, "frame_start")
+
+        #self.msg_connect(self.scal, "cell_id", self, "cell_id")
+
 
 
 
