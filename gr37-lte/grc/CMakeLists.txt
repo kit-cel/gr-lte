@@ -42,5 +42,6 @@ install(FILES
     lte_correlator.xml
     lte_sss_symbol_selector_cvc.xml
     lte_sss_tagger_cc.xml
-    lte_sync_cc.xml DESTINATION share/gnuradio/grc/blocks
+    lte_sync_cc.xml
+    lte_sync_frequency_c.xml DESTINATION share/gnuradio/grc/blocks
 )

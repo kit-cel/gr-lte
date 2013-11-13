@@ -38,6 +38,7 @@ class rs_map_generator_m(gr.sync_block):
                                in_sig=None,
                                out_sig=None)
 
+        print "RS GENERATOR", msg_buf_name_in, "\t", msg_buf_name_out, "\t", ant_port
         self.N_rb_dl = N_rb_dl
         self.ant_port = ant_port
         self.msg_buf_in = pmt.intern(msg_buf_name_in)
@@ -55,6 +56,7 @@ class rs_map_generator_m(gr.sync_block):
         else:
             self.cell_id = cell_id
 
+        print self.name, " cell_id = ", self.cell_id, " generating RS map!"
         #print "generate pilot map: cell_id = " + str(cell_id) + "\tant_port = " + str(self.ant_port)
         Ncp = 1 # Always 1 for our purposes --> thus it's hard coded
         [rs_poss, rs_vals] = self.frame_pilot_value_and_position(self.N_rb_dl, cell_id, Ncp, self.ant_port)

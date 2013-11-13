@@ -43,5 +43,6 @@ install(FILES
     pss_tagger_cc.h
     correlator.h
     sss_symbol_selector_cvc.h
-    sss_tagger_cc.h DESTINATION include/lte
+    sss_tagger_cc.h
+    sync_frequency_c.h DESTINATION include/lte
 )

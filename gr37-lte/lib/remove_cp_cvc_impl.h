@@ -42,12 +42,13 @@ namespace gr {
         int d_symbols_per_frame;
 		pmt::pmt_t d_key;
 		pmt::pmt_t d_tag_id;
-		int d_work_call;
+		long d_work_call;
 		bool d_found_frame_start;
 		long d_frame_start;
 
 		long copy_samples_from_in_to_out(gr_complex* out, const gr_complex* in, int noutput_items);
-		int add_tags_to_vectors(int noutput_items, int sym_num, int symbols_per_frame);
+		//void add_tags_to_vectors(int noutput_items, int sym_num, int symbols_per_frame);
+        void add_tags_to_vectors(int noutput_items);
 		long get_frame_start(std::vector <gr::tag_t> v);
         sym_info get_sym_num_info(long frame_start, long nitems_read, int symbols_per_frame );
         int leading_items_to_dump(int slot_items, int slot_sym);

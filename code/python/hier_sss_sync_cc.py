@@ -18,6 +18,7 @@
 # 
 
 from gnuradio import gr, window
+from gruel import pmt
 import lte_swig
 
 class hier_sss_sync_cc(gr.hier_block2):
@@ -30,7 +31,9 @@ class hier_sss_sync_cc(gr.hier_block2):
 				gr.io_signature(1,1, gr.sizeof_gr_complex), # Input signature
 				gr.io_signature(1,1, gr.sizeof_gr_complex)) # Output signature
 
-        self.message_port_register_hier_in("cell_id")
+        #portname = pmt.pmt_string_to_symbol("cell_id")
+        portname = pmt.pmt_intern(pmt.pmt_string_to_symbol("cell_id") )
+        self.message_port_register_hier_in(portname)
         # input goes into 2 blocks: selector and tagging
         # 2 parallel streams: main (all data) right into tagging, sss symbol -> fft -> extract -> calc sss
         # required blocks:

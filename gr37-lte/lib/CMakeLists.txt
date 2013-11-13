@@ -47,6 +47,7 @@ list(APPEND lte_sources
     correlator.cc
     sss_symbol_selector_cvc_impl.cc
     sss_tagger_cc_impl.cc
+    sync_frequency_c_impl.cc
 )
 SET(FFTW3f /usr/lib/x86_64-linux-gnu/libfftw3f.so) # This is an ugly hack!
 add_library(gnuradio-lte SHARED ${lte_sources})

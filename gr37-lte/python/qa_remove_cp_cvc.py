@@ -87,6 +87,7 @@ class qa_remove_cp_cvc (gr_unittest.TestCase):
 
         # check data
         res = self.snk.data()
+        print len(res)
 
         # now really check if results is ok
         min_samps = min(len(res), len(data))
