@@ -4,7 +4,7 @@
   <key>lte_sss_calculator_vcm</key>
   <category>lte</category>
   <import>import lte</import>
-  <make>lte.sss_calculator_vcm($fftl)</make>
+  <make>lte.sss_calculator_vcm($fftl, $in_key, $out_key)</make>
   <!-- Make one 'param' node for every Parameter you want settable from the GUI.
        Sub-nodes:
        * name
@@ -14,6 +14,18 @@
     <name>FFT length</name>
     <key>fftl</key>
     <type>int</type>
+  </param>
+  
+  <param>
+    <name>cell ID group key</name>
+    <key>in_key</key>
+    <type>string</type>
+  </param>
+  
+  <param>
+    <name>offset marker key</name>
+    <key>out_key</key>
+    <type>string</type>
   </param>
 
   <!-- Make one 'sink' node per input. Sub-nodes:

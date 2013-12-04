@@ -55,36 +55,38 @@ class sync_cc(gr.hier_block2):
         self.msg_connect(self.pcal, "N_id_2", self.pss_tag, "N_id_2")
 
         # Here is supposed to be the part with frequency sync!
-        waveform = analog.GR_COS_WAVE
-
-        wave_freq = 0.0
-        ampl = 1.0
-        offset = 0.0
-        cpl = 144 * fftl / 2048
-        cpl0 = 160 * fftl / 2048
-        slotl = 7 * fftl + 6 * cpl + cpl0
-        samp_rate = slotl / 0.0005
-        self.sig = analog.sig_source_c(samp_rate, waveform, wave_freq, ampl, offset)
-        self.multi = blocks.multiply_cc(1)
-        self.est = lte.sync_frequency_c(self.sig, fftl)
+        #waveform = analog.GR_COS_WAVE
+        #
+        #wave_freq = 0.0
+        #ampl = 1.0
+        #offset = 0.0
+        #cpl = 144 * fftl / 2048
+        #cpl0 = 160 * fftl / 2048
+        #slotl = 7 * fftl + 6 * cpl + cpl0
+        #samp_rate = slotl / 0.0005
+        #self.sig = analog.sig_source_c(samp_rate, waveform, wave_freq, ampl, offset)
+        #self.multi = blocks.multiply_cc(1)
+        #self.est = lte.sync_frequency_c(self.sig, fftl)
 
 
 
         # initialize SSS sync blocks
-        self.sss_tag = lte.sss_tagger_cc(fftl)
-        self.connect(self.sig, (self.multi, 1))
-        self.connect(self.multi, self.est)
+        #self.sss_tag = lte.sss_tagger_cc(fftl)
+        #self.connect(self.sig, (self.multi, 1))
+        #self.connect(self.multi, self.est)
 
         #self.connect(self.pss_tag, self.sss_tag, self)
-        self.connect(self.pss_tag, (self.multi, 0), self.sss_tag, self)
+        #self.connect(self.pss_tag, (self.multi, 0), self.sss_tag, self)
+        #self.connect(self.pss_tag, (self.multi, 0), self)
+        self.connect(self.pss_tag, self)
 
-        # connect SSS sync blocks
-        self.sss_sel = lte.sss_symbol_selector_cvc(fftl)
-        self.sfft = fft.fft_vcc(fftl, True, window.rectangular(fftl), False, 1)
-        self.sext = lte.extract_subcarriers_vcvc(N_rb_dl, fftl)
-        self.scal = lte.sss_calculator_vcm(fftl, "N_id_2", "offset_marker")
-        self.connect(self.pss_tag, self.sss_sel, self.sfft, self.sext, self.scal)
-        self.msg_connect(self.scal, "frame_start", self.sss_tag, "frame_start")
+        ## connect SSS sync blocks
+        #self.sss_sel = lte.sss_symbol_selector_cvc(fftl)
+        #self.sfft = fft.fft_vcc(fftl, True, window.rectangular(fftl), False, 1)
+        #self.sext = lte.extract_subcarriers_vcvc(N_rb_dl, fftl)
+        #self.scal = lte.sss_calculator_vcm(fftl, "N_id_2", "offset_marker")
+        #self.connect(self.multi, self.sss_sel, self.sfft, self.sext, self.scal)
+        #self.msg_connect(self.scal, "frame_start", self.sss_tag, "frame_start")
 
         # Why does this not work so far?
         #self.msg_connect(self.scal, "cell_id", self, "cell_id")

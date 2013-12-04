@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <block>
-  <name>sss_tagger_cc</name>
+  <name>SSS Frame Tagger</name>
   <key>lte_sss_tagger_cc</key>
   <category>lte</category>
   <import>import lte</import>
@@ -11,9 +11,9 @@
        * key (makes the value accessible as $keyname, e.g. in the make node)
        * type -->
   <param>
-    <name>...</name>
-    <key>...</key>
-    <type>...</type>
+    <name>FFT length</name>
+    <key>fftl</key>
+    <type>int</type>
   </param>
 
   <!-- Make one 'sink' node per input. Sub-nodes:
@@ -23,9 +23,13 @@
        * optional (set to 1 for optional inputs) -->
   <sink>
     <name>in</name>
-    <type><!-- e.g. int, float, complex, byte, short, xxx_vector, ...--></type>
+    <type>complex</type>
   </sink>
 
+  <sink>
+    <name>frame_start</name>
+    <type>message</type>
+  </sink>
   <!-- Make one 'source' node per output. Sub-nodes:
        * name (an identifier for the GUI)
        * type
@@ -33,6 +37,6 @@
        * optional (set to 1 for optional inputs) -->
   <source>
     <name>out</name>
-    <type><!-- e.g. int, float, complex, byte, short, xxx_vector, ...--></type>
+    <type>complex</type>
   </source>
 </block>
