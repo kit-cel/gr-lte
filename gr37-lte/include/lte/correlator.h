@@ -31,7 +31,7 @@ namespace gr {
   namespace lte {
 
     /*!
-     * \brief <+description+>
+     * \brief This is a helper class to provide Fast Correlation using FFTW3f
      *
      */
     class LTE_API correlator

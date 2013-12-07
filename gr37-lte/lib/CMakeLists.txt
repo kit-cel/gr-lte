@@ -49,9 +49,9 @@ list(APPEND lte_sources
     sss_tagger_cc_impl.cc
     sync_frequency_c_impl.cc
 )
-SET(FFTW3f /usr/lib/x86_64-linux-gnu/libfftw3f.so) # This is an ugly hack!
+
 add_library(gnuradio-lte SHARED ${lte_sources})
-target_link_libraries(gnuradio-lte ${Boost_LIBRARIES} ${GNURADIO_RUNTIME_LIBRARIES} ${FFTW3f})
+target_link_libraries(gnuradio-lte ${Boost_LIBRARIES} ${GNURADIO_RUNTIME_LIBRARIES} ${FFTW3F_LIBRARIES})
 set_target_properties(gnuradio-lte PROPERTIES DEFINE_SYMBOL "gnuradio_lte_EXPORTS")
 
 ########################################################################

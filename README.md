@@ -12,6 +12,10 @@ This project aims to provide a modular environment for an LTE downlink receiver.
 The block design aims to be modular and reusable. Where possible GR blocks are used.<br>
 Furthermore message ports are used for configuration on runtime. This is supposed to make the control flow visible to users and thus better understandable.
 
+Capabilities
+-------------
+*gr-lte* provides blocks to synchronize to a LTE downlink signal. It performs OFDM operation to operate in the frequency domain and provides a channel estimator. At this point physical LTE downlink channels can be extracted from the symbols and be processed. PBCH is fully implemented and decodes MIB. PCFICH is available too. Almost all code for PHICH is implemented and there is lots of code to bring PDCCH support. It is not yet possible to just plug it in, though. Eventually all channels shall be supported.
+
 
 Requirements
 ------------
@@ -43,9 +47,9 @@ Build/Install instructions for Linux
 Assuming you are already in the project folder<br>
 `cd code/`<br>
 `mkdir build`<br>
-`cp cmake_install.sh build/`<br>
+`cp cmake_command.sh build/`<br>
 `cd build`<br>
-`./cmake_install.sh`<br>  
+`./cmake_command.sh`<br>  
 This will just run a little script to aid with project setup for Code::Blocks<br>
 Otherwise run `cmake ..`
 
