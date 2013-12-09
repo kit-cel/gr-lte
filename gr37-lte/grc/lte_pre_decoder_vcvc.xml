@@ -33,13 +33,15 @@
        * type
        * vlen
        * optional (set to 1 for optional inputs) -->
-<!--  
+<!-- 
+It would be good if it works to declare message ports and stream ports with a 'nports' argument.
+Unfortunately this doesn't seem to work. Thus, I hack is used to realize suitable numbers of ports.
   <sink>
     <name>N_ant</name>
     <type>message</type>
     <optional>1</optional>
   </sink>    
--->
+
 
   <sink>
     <name>in</name>
@@ -47,6 +49,31 @@
     <vlen>$vlen</vlen>
     <nports>1+$N_ant</nports>
   </sink>
+--> 
+  <sink>
+    <name>in0</name>
+    <type>complex</type>
+    <vlen>$vlen</vlen>
+  </sink>
+  
+  <sink>
+    <name>in1</name>
+    <type>complex</type>
+    <vlen>$vlen</vlen>
+  </sink>
+  
+  <sink>
+    <name>in2</name>
+    <type>complex</type>
+    <vlen>$vlen</vlen>
+    <optional>1</optional>
+  </sink>
+  
+  <sink>
+    <name>N_ant</name>
+    <type>message</type>
+    <optional>1</optional>
+  </sink>  
   
 
 
