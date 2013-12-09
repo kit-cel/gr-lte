@@ -44,5 +44,6 @@ install(FILES
     correlator.h
     sss_symbol_selector_cvc.h
     sss_tagger_cc.h
-    sync_frequency_c.h DESTINATION include/lte
+    sync_frequency_c.h
+    descrambler_vfvf.h DESTINATION include/lte
 )

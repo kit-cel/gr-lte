@@ -31,6 +31,7 @@
 #include "lte/sss_symbol_selector_cvc.h"
 #include "lte/sss_tagger_cc.h"
 #include "lte/sync_frequency_c.h"
+#include "lte/descrambler_vfvf.h"
 %}
 
 
@@ -80,3 +81,5 @@ GR_SWIG_BLOCK_MAGIC2(lte, sss_symbol_selector_cvc);
 GR_SWIG_BLOCK_MAGIC2(lte, sss_tagger_cc);
 %include "lte/sync_frequency_c.h"
 GR_SWIG_BLOCK_MAGIC2(lte, sync_frequency_c);
+%include "lte/descrambler_vfvf.h"
+GR_SWIG_BLOCK_MAGIC2(lte, descrambler_vfvf);

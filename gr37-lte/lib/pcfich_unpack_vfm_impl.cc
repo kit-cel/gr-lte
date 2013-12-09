@@ -147,6 +147,9 @@ namespace gr {
 
         printf("%s\tsubframe = %i\tCFI = %i\n", name().c_str(), subframe, cfi);
 
+        if(d_dbg){
+        	d_cfi_results.push_back(cfi);
+        }
         message_port_pub( d_port_cfi, msg );
     }
 

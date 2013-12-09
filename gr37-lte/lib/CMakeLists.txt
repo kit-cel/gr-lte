@@ -48,6 +48,7 @@ list(APPEND lte_sources
     sss_symbol_selector_cvc_impl.cc
     sss_tagger_cc_impl.cc
     sync_frequency_c_impl.cc
+    descrambler_vfvf_impl.cc
 )
 
 add_library(gnuradio-lte SHARED ${lte_sources})

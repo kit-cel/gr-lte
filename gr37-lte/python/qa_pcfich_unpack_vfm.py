@@ -33,11 +33,16 @@ class qa_pcfich_unpack_vfm (gr_unittest.TestCase):
         print "setup test"
 
         data = []
+        self.cfi_list = []
         for i in range(3):
-            cfi = lte_test.get_cfi_sequence(i+1)
+            val = i + 1
+            self.cfi_list.append(val)
+            cfi = lte_test.get_cfi_sequence(val)
             data.extend(lte_test.nrz_encoding(cfi))
 
         reps = 5
+        self.cfi_list *= reps
+
         srcid = "src"
         taglist = lte_test.get_tag_list(3*reps, 10, key, srcid)
 
@@ -49,10 +54,9 @@ class qa_pcfich_unpack_vfm (gr_unittest.TestCase):
 
         self.src = blocks.vector_source_f(data, False, 32, taglist)
         self.cfi = lte.pcfich_unpack_vfm(key, msg_buf_name)
-        self.dbg = blocks.message_debug()
+        self.cfi.activate_debug_mode(True)
 
         self.tb.connect(self.src, self.cfi)
-        #self.tb.msg_connect(self.cfi, msg_buf_name, self.dbg, "print")
         print "setup finished"
 
     def tearDown (self):
@@ -61,8 +65,12 @@ class qa_pcfich_unpack_vfm (gr_unittest.TestCase):
     def test_001_t (self):
         # set up fg
         self.tb.run ()
+        res = self.cfi.cfi_results()
+        print res
+        print self.cfi_list
+        self.assertListEqual(self.cfi_list, list(res))
         # check data
 
 
 if __name__ == '__main__':
-    gr_unittest.run(qa_pcfich_unpack_vfm, "qa_pcfich_unpack_vfm.xml")
+    gr_unittest.run(qa_pcfich_unpack_vfm)

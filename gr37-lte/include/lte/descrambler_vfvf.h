@@ -19,8 +19,8 @@
  */
 
 
-#ifndef INCLUDED_LTE_PCFICH_UNPACK_VFM_H
-#define INCLUDED_LTE_PCFICH_UNPACK_VFM_H
+#ifndef INCLUDED_LTE_DESCRAMBLER_VFVF_H
+#define INCLUDED_LTE_DESCRAMBLER_VFVF_H
 
 #include <lte/api.h>
 #include <gnuradio/sync_block.h>
@@ -30,31 +30,31 @@ namespace gr {
   namespace lte {
 
     /*!
-     * \brief Unpack CFI and publish it on output message port
+     * \brief LTE Descrambler
      * \ingroup lte
-     *
+     * Scrambling sequences are setable on runtime
+     * and chosen upon tag reception.
      */
-    class LTE_API pcfich_unpack_vfm : virtual public gr::sync_block
+    class LTE_API descrambler_vfvf : virtual public gr::sync_block
     {
      public:
-      typedef boost::shared_ptr<pcfich_unpack_vfm> sptr;
+      typedef boost::shared_ptr<descrambler_vfvf> sptr;
       
-      virtual void activate_debug_mode(bool ena) = 0;
-      virtual std::vector<int> cfi_results() = 0;
-      
+      virtual void set_descr_seqs(std::vector<std::vector<float> > seqs) = 0;
+
       /*!
-       * \brief Return a shared_ptr to a new instance of lte::pcfich_unpack_vfm.
+       * \brief Return a shared_ptr to a new instance of lte::descrambler_vfvf.
        *
-       * To avoid accidental use of raw pointers, lte::pcfich_unpack_vfm's
+       * To avoid accidental use of raw pointers, lte::descrambler_vfvf's
        * constructor is in a private implementation
-       * class. lte::pcfich_unpack_vfm::make is the public interface for
+       * class. lte::descrambler_vfvf::make is the public interface for
        * creating new instances.
        */
-      static sptr make(std::string key, std::string msg_buf_name);
+      static sptr make(std::string tag_key, std::string msg_buf_name, int len);
     };
 
   } // namespace lte
 } // namespace gr
 
-#endif /* INCLUDED_LTE_PCFICH_UNPACK_VFM_H */
+#endif /* INCLUDED_LTE_DESCRAMBLER_VFVF_H */
 

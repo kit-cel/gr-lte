@@ -71,7 +71,7 @@ if __name__ == "__main__":
 
     for i in range(5):
         cfi_seq = get_cfi_sequence(i)
-  
+
     cfi_seq = get_cfi_sequence(cfi)
     for i in range(10):
         ns = 2*i # For tests, CFI at beginning of subframe

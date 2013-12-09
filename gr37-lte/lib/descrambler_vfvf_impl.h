@@ -18,46 +18,45 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef INCLUDED_LTE_PCFICH_UNPACK_VFM_IMPL_H
-#define INCLUDED_LTE_PCFICH_UNPACK_VFM_IMPL_H
+#ifndef INCLUDED_LTE_DESCRAMBLER_VFVF_IMPL_H
+#define INCLUDED_LTE_DESCRAMBLER_VFVF_IMPL_H
 
-#include <lte/pcfich_unpack_vfm.h>
+#include <lte/descrambler_vfvf.h>
 
 namespace gr {
   namespace lte {
 
-    class pcfich_unpack_vfm_impl : public pcfich_unpack_vfm
+    class descrambler_vfvf_impl : public descrambler_vfvf
     {
      private:
-        pmt::pmt_t d_port_cfi;
-        pmt::pmt_t d_key;
-        float* d_in_seq;
-        std::vector<float*> d_ref_seqs;
-        int d_subframe;
-        void initialize_ref_seqs();
-        int calculate_cfi(float* in_seq);
-        float correlate(float* in0, float* in1, int len);
+        pmt::pmt_t d_tag_key;
+        pmt::pmt_t d_msg_buf;
+        int d_len;
 
-        void publish_cfi(int subframe, int cfi);
-        
-        // Helpers to write test code
-        bool d_dbg;
-        void activate_debug_mode(bool ena){d_dbg = ena;}
-        std::vector<int> d_cfi_results;
-        std::vector<int> cfi_results() {return d_cfi_results;}
+        std::vector<float*> d_scr_seq_vec;
+        int d_scr_seq_len;
+        int d_num_seqs;
+        int d_seq_index;
+        int d_part;
+
+        inline void handle_msg(pmt::pmt_t msg);
+        float* get_aligned_sequence(std::vector<float> seq);
+        int get_seq_num(int idx);
 
      public:
-      pcfich_unpack_vfm_impl(std::string key, std::string msg_buf_name);
-      ~pcfich_unpack_vfm_impl();
+      descrambler_vfvf_impl(std::string tag_key, std::string msg_buf_name, int len);
+      ~descrambler_vfvf_impl();
 
       // Where all the action really happens
       int work(int noutput_items,
 	       gr_vector_const_void_star &input_items,
 	       gr_vector_void_star &output_items);
+      
+      void set_descr_seqs(std::vector<std::vector<float> > seqs);
     };
 
   } // namespace lte
 } // namespace gr
 
-#endif /* INCLUDED_LTE_PCFICH_UNPACK_VFM_IMPL_H */
+#endif /* INCLUDED_LTE_DESCRAMBLER_VFVF_IMPL_H */
 
