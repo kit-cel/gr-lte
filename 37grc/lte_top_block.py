@@ -3,11 +3,12 @@
 # Gnuradio Python Flow Graph
 # Title: LTE_test
 # Author: Johannes Demel
-# Generated: Sun Dec  8 17:08:00 2013
+# Generated: Wed Dec 11 00:10:13 2013
 ##################################################
 
 execfile("/home/johannes/.grc_gnuradio/decode_bch_hier_gr37.py")
 execfile("/home/johannes/.grc_gnuradio/decode_pbch_37.py")
+execfile("/home/johannes/.grc_gnuradio/decode_pcfich_37.py")
 execfile("/home/johannes/.grc_gnuradio/lte_cp_freq_sync.py")
 execfile("/home/johannes/.grc_gnuradio/lte_estimator_hier.py")
 execfile("/home/johannes/.grc_gnuradio/lte_ofdm_hier.py")
@@ -68,10 +69,15 @@ class lte_top_block(gr.top_block):
         self.lte_cp_freq_sync_0 = lte_cp_freq_sync(
             fftlen=2048,
         )
+        self.decode_pcfich_37_0 = decode_pcfich_37(
+            vlen=16,
+        )
         self.decode_pbch_37_0 = decode_pbch_37(
             N_rb_dl=N_rb_dl,
         )
         self.decode_bch_hier_gr37_0 = decode_bch_hier_gr37()
+        self.blocks_stream_to_vector_0 = blocks.stream_to_vector(gr.sizeof_gr_complex*1, 16)
+        self.blocks_keep_one_in_n_0 = blocks.keep_one_in_n(gr.sizeof_gr_complex*16, 10000)
         self.blocks_file_source_0 = blocks.file_source(gr.sizeof_gr_complex*1, "/home/johannes/recorded_data/Messung_LTE_2012-05-23_12:47:32.dat", True)
         self.MIB = lte.mib_unpack_vbm()
 
@@ -91,12 +97,19 @@ class lte_top_block(gr.top_block):
         self.connect((self.lte_estimator_hier_0, 1), (self.decode_pbch_37_0, 2))
         self.connect((self.lte_ofdm_hier_0, 0), (self.decode_pbch_37_0, 0))
         self.connect((self.decode_pbch_37_0, 0), (self.decode_bch_hier_gr37_0, 0))
+        self.connect((self.top_block_0, 0), (self.blocks_stream_to_vector_0, 0))
+        self.connect((self.blocks_stream_to_vector_0, 0), (self.blocks_keep_one_in_n_0, 0))
+        self.connect((self.blocks_keep_one_in_n_0, 0), (self.decode_pcfich_37_0, 0))
+        self.connect((self.blocks_keep_one_in_n_0, 0), (self.decode_pcfich_37_0, 1))
+        self.connect((self.blocks_keep_one_in_n_0, 0), (self.decode_pcfich_37_0, 2))
 
         ##################################################
         # Asynch Message Connections
         ##################################################
         self.msg_connect(self.top_block_0, "cell_id", self.lte_estimator_hier_0, "cell_id")
         self.msg_connect(self.top_block_0, "cell_id", self.decode_pbch_37_0, "cell_id")
+        self.msg_connect(self.MIB, "N_ant", self.decode_pcfich_37_0, "N_ant")
+        self.msg_connect(self.top_block_0, "cell_id", self.decode_pcfich_37_0, "cell_id")
 
 # QT sink close method reimplementation
 
@@ -132,8 +145,8 @@ class lte_top_block(gr.top_block):
 
     def set_N_rb_dl(self, N_rb_dl):
         self.N_rb_dl = N_rb_dl
-        self.top_block_0.set_N_rb_dl(self.N_rb_dl)
         self.decode_pbch_37_0.set_N_rb_dl(self.N_rb_dl)
+        self.top_block_0.set_N_rb_dl(self.N_rb_dl)
 
 if __name__ == '__main__':
     parser = OptionParser(option_class=eng_option, usage="%prog: [options]")

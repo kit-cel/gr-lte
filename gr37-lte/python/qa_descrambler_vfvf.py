@@ -81,6 +81,57 @@ class qa_descrambler_vfvf(gr_unittest.TestCase):
             expp = exp_res[i*n_cce:(i+1)*n_cce]
             self.assertFloatTuplesAlmostEqual(resp, expp)
 
+    def test_002_pcfich(self):
+        print "pcfich test"
+        cfi = 2
+        cell_id = 387
+        vlen =32
+
+        # Generate descrambling sequences.
+        seqs = []
+        for ns in range(10):
+            #scr = lte_test.scramble_cfi_sequence([0] * 32, cell_id, ns)
+            scr = lte_test.get_pcfich_scrambling_sequence(cell_id, ns)
+            seqs.append(lte_test.nrz_encoding(scr))
+
+        # Generate a CFI sequence
+        cfi_seq = lte_test.get_cfi_sequence(cfi)
+        nrz_cfi_seq = lte_test.nrz_encoding(cfi_seq)
+
+        # Generate scrambled sequences
+        nvecs = 100
+        scr_cfi_seqs = []
+        expres = []
+        for ns in range(nvecs):
+            scr_cfi_seqs.extend(lte_test.nrz_encoding(lte_test.scramble_cfi_sequence(cfi_seq, cell_id, ns%10)))
+            expres.extend(nrz_cfi_seq)
+
+        # Get tags
+        tags = lte_test.get_tag_list(nvecs, 10, self.tag_key, "test_src")
+
+        # Get blocks for test flowgraph
+        src = blocks.vector_source_f(scr_cfi_seqs, False, vlen)
+        src.set_data(scr_cfi_seqs, tags)
+        descr = lte.descrambler_vfvf(self.tag_key, "cfi_seqs", vlen)
+        descr.set_descr_seqs(seqs)
+        snk = blocks.vector_sink_f(vlen)
+
+        # Create, connect, run fg
+        tb = gr.top_block()
+        tb.connect(src, descr, snk)
+        tb.run()
+
+        # Get result
+        res = snk.data()
+
+        # Check results!
+        self.assertFloatTuplesAlmostEqual(res, expres)
+
+
+
+
+
+
 
 if __name__ == '__main__':
-    gr_unittest.run(qa_descrambler_vfvf, "qa_descrambler_vfvf.xml")
+    gr_unittest.run(qa_descrambler_vfvf)

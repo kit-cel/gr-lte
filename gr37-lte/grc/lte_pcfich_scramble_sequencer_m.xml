@@ -1,33 +1,16 @@
 <?xml version="1.0"?>
 <block>
-  <name>LTE Channel Descrambler</name>
-  <key>lte_descrambler_vfvf</key>
+  <name>PCFICH Descrambler Parameterizer</name>
+  <key>lte_pcfich_scramble_sequencer_m</key>
   <category>lte</category>
   <import>import lte</import>
-  <make>lte.descrambler_vfvf($tag_key, "seqs", $vlen)
-self.$(id).set_descr_seqs($initial_seqs)</make>
+  <make>lte.pcfich_scramble_sequencer_m()</make>
   <!-- Make one 'param' node for every Parameter you want settable from the GUI.
        Sub-nodes:
        * name
        * key (makes the value accessible as $keyname, e.g. in the make node)
        * type -->
-  <param>
-    <name>Tag Key</name>
-    <key>tag_key</key>
-    <type>string</type>
-  </param>
-  
-  <param>
-    <name>vector length</name>
-    <key>vlen</key>
-    <type>int</type>
-  </param>
-  
-  <param>
-    <name>Initial sequences</name>
-    <key>initial_seqs</key>
-    <type>raw</type>
-  </param>
+
 
   <!-- Make one 'sink' node per input. Sub-nodes:
        * name (an identifier for the GUI)
@@ -35,13 +18,7 @@ self.$(id).set_descr_seqs($initial_seqs)</make>
        * vlen
        * optional (set to 1 for optional inputs) -->
   <sink>
-    <name>in</name>
-    <type>float</type>
-    <vlen>$vlen</vlen>
-  </sink>
-  
-  <sink>
-    <name>seqs</name>
+    <name>cell_id</name>
     <type>message</type>
   </sink>
 
@@ -51,8 +28,7 @@ self.$(id).set_descr_seqs($initial_seqs)</make>
        * vlen
        * optional (set to 1 for optional inputs) -->
   <source>
-    <name>out</name>
-    <type>float</type>
-    <vlen>$vlen</vlen>
+    <name>descr</name>
+    <type>message</type>
   </source>
 </block>

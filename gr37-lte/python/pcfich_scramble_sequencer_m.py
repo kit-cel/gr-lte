@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # 
-# Copyright 2013 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
+# Copyright 2013 <+YOU OR YOUR COMPANY+>.
 # 
 # This is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,25 +22,28 @@
 import numpy
 from gnuradio import gr
 import pmt
-import lte
+import utils
 
-class pbch_scramble_sequencer_m(gr.sync_block):
+
+class pcfich_scramble_sequencer_m(gr.sync_block):
     """
-    Take cell_id, generate scrambling sequence and out it out
+    Block receives message with cell_id and generates message with descrambling sequences for PCFICH
     """
+
     def __init__(self):
         gr.sync_block.__init__(self,
-            name="pbch_scramble_sequencer_m",
-            in_sig=None,
-            out_sig=None)
+                               name="pcfich_scramble_sequencer_m",
+                               in_sig=None,
+                               out_sig=None)
 
         self.msg_buf_in = pmt.intern("cell_id")
-        self.msg_buf_out = pmt.intern("vector")
+        self.msg_buf_out = pmt.intern("descr")
         self.cell_id = -1
-        
+
         self.message_port_register_in(self.msg_buf_in)
         self.set_msg_handler(self.msg_buf_in, self.handle_msg)
         self.message_port_register_out(self.msg_buf_out)
+
 
     def handle_msg(self, msg):
         cell_id = pmt.to_long(msg)
@@ -50,21 +53,21 @@ class pbch_scramble_sequencer_m(gr.sync_block):
             self.cell_id = cell_id
         print "received cell_id = " + str(cell_id)
 
-        seqs = []
+        seqs = pmt.make_vector(10, pmt.make_vector(32, pmt.from_double(0.0)))
+        for ns in range(10):
+            scr = utils.get_pcfich_scrambling_sequence(cell_id, ns)
+            scr = utils.encode_nrz(scr)
+            pmt_seq = pmt.make_vector(len(scr), pmt.from_double(0.0))
+            for i in range(len(scr)):
+                pmt.vector_set(pmt_seq, i, pmt.from_double(scr[i]))
+            pmt.vector_set(seqs, ns, pmt_seq)
+        self.message_port_pub(self.msg_buf_out, seqs)
 
-        seq = lte.encode_nrz(lte.generate_pn_sequence(1920, cell_id))
 
-        pmt_list = pmt.list1(pmt.from_double(seq[0]))
-        for i in range(len(seq) - 1):
-            pmt_list = pmt.list_add(pmt_list, pmt.from_double(seq[i+1]))
-        self.message_port_pub(self.msg_buf_out, pmt_list)
-
-
-
-    def work(self, input_items, output_items):
-        in0 = input_items[0]
-        out = output_items[0]
-        # <+signal processing here+>
-        out[:] = in0
-        return len(output_items[0])
+    #def work(self, input_items, output_items):
+    #    in0 = input_items[0]
+    #    out = output_items[0]
+    #    # <+signal processing here+>
+    #    out[:] = in0
+    #    return len(output_items[0])
 
