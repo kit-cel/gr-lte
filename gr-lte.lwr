@@ -1,0 +1,16 @@
+#
+# This file is a PyBOMBS recipe.
+# Use it to install gr-lte for GNU Radio 3.7.
+# 
+#
+#
+
+category: common
+depends: gnuradio
+source: git://https://github.com/kit-cel/gr-lte.git
+gitbranch: master
+inherit: cmake
+configuredir: build
+makedir: build
+installdir: build
+
