@@ -29,16 +29,22 @@ namespace gr {
     class pcfich_unpack_vfm_impl : public pcfich_unpack_vfm
     {
      private:
+        struct cfi_result {
+            int cfi;
+            float val;
+        };
+        
         pmt::pmt_t d_port_cfi;
         pmt::pmt_t d_key;
         float* d_in_seq;
         std::vector<float*> d_ref_seqs;
         int d_subframe;
         void initialize_ref_seqs();
-        int calculate_cfi(float* in_seq);
+        
+        cfi_result calculate_cfi(float* in_seq);
         float correlate(float* in0, float* in1, int len);
 
-        void publish_cfi(int subframe, int cfi);
+        void publish_cfi(int subframe, cfi_result cfi);
         
         // Helpers to write test code
         bool d_dbg;
@@ -52,8 +58,8 @@ namespace gr {
 
       // Where all the action really happens
       int work(int noutput_items,
-	       gr_vector_const_void_star &input_items,
-	       gr_vector_void_star &output_items);
+            gr_vector_const_void_star &input_items,
+            gr_vector_void_star &output_items);
     };
 
   } // namespace lte

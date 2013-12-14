@@ -45,5 +45,6 @@ install(FILES
     lte_sync_cc.xml
     lte_sync_frequency_c.xml
     lte_descrambler_vfvf.xml
-    lte_pcfich_scramble_sequencer_m.xml DESTINATION share/gnuradio/grc/blocks
+    lte_pcfich_scramble_sequencer_m.xml
+    lte_pcfich_demux_vcvc.xml DESTINATION share/gnuradio/grc/blocks
 )

@@ -32,6 +32,7 @@
 #include "lte/sss_tagger_cc.h"
 #include "lte/sync_frequency_c.h"
 #include "lte/descrambler_vfvf.h"
+#include "lte/pcfich_demux_vcvc.h"
 %}
 
 
@@ -83,3 +84,5 @@ GR_SWIG_BLOCK_MAGIC2(lte, sss_tagger_cc);
 GR_SWIG_BLOCK_MAGIC2(lte, sync_frequency_c);
 %include "lte/descrambler_vfvf.h"
 GR_SWIG_BLOCK_MAGIC2(lte, descrambler_vfvf);
+%include "lte/pcfich_demux_vcvc.h"
+GR_SWIG_BLOCK_MAGIC2(lte, pcfich_demux_vcvc);

@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='ASCII'?>
 <flow_graph>
-  <timestamp>Wed Dec 11 00:10:08 2013</timestamp>
+  <timestamp>Sat Dec 14 14:28:50 2013</timestamp>
   <block>
     <key>options</key>
     <param>
@@ -64,7 +64,7 @@
     <key>variable</key>
     <param>
       <key>id</key>
-      <value>tag_key</value>
+      <value>style</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -72,11 +72,11 @@
     </param>
     <param>
       <key>value</key>
-      <value>"subframe"</value>
+      <value>"tx_diversity"</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(206, 38)</value>
+      <value>(701, 37)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -99,7 +99,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(701, 40)</value>
+      <value>(926, 41)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -110,7 +110,7 @@
     <key>variable</key>
     <param>
       <key>id</key>
-      <value>style</value>
+      <value>vlen</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -118,11 +118,11 @@
     </param>
     <param>
       <key>value</key>
-      <value>"tx_diversity"</value>
+      <value>16</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(476, 36)</value>
+      <value>(721, 128)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -130,186 +130,22 @@
     </param>
   </block>
   <block>
-    <key>lte_layer_demapper_vcvc</key>
+    <key>variable</key>
     <param>
       <key>id</key>
-      <value>lte_layer_demapper_vcvc_0</value>
+      <value>tag_key</value>
     </param>
     <param>
       <key>_enabled</key>
       <value>True</value>
     </param>
     <param>
-      <key>N_ant</key>
-      <value>ants</value>
-    </param>
-    <param>
-      <key>vlen</key>
-      <value>vlen</value>
-    </param>
-    <param>
-      <key>style</key>
-      <value>style</value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
+      <key>value</key>
+      <value>"subframe"</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(437, 310)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>lte_pre_decoder_vcvc</key>
-    <param>
-      <key>id</key>
-      <value>lte_pre_decoder_vcvc_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>N_ant</key>
-      <value>ants</value>
-    </param>
-    <param>
-      <key>vlen</key>
-      <value>vlen</value>
-    </param>
-    <param>
-      <key>style</key>
-      <value>style</value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(237, 262)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>lte_qpsk_soft_demod_vcvf</key>
-    <param>
-      <key>id</key>
-      <value>lte_qpsk_soft_demod_vcvf_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>vlen</key>
-      <value>vlen</value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(626, 326)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>pad_source</key>
-    <param>
-      <key>id</key>
-      <value>z_pad_source_N_ant</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>label</key>
-      <value>N_ant</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>message</value>
-    </param>
-    <param>
-      <key>vlen</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>num_streams</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>optional</key>
-      <value>False</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(23, 427)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>pad_source</key>
-    <param>
-      <key>id</key>
-      <value>z_pad_source_cell_id</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>label</key>
-      <value>cell_id</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>message</value>
-    </param>
-    <param>
-      <key>vlen</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>num_streams</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>optional</key>
-      <value>False</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(21, 481)</value>
+      <value>(745, 209)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -320,7 +156,7 @@
     <key>parameter</key>
     <param>
       <key>id</key>
-      <value>vlen</value>
+      <value>N_rb_dl</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -328,11 +164,11 @@
     </param>
     <param>
       <key>label</key>
-      <value>vector length</value>
+      <value>resource blocks</value>
     </param>
     <param>
       <key>value</key>
-      <value>16</value>
+      <value>50</value>
     </param>
     <param>
       <key>type</key>
@@ -352,10 +188,10 @@
     </param>
   </block>
   <block>
-    <key>pad_source</key>
+    <key>parameter</key>
     <param>
       <key>id</key>
-      <value>pad_source_0</value>
+      <value>key</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -363,27 +199,23 @@
     </param>
     <param>
       <key>label</key>
-      <value>in0</value>
+      <value>Input key</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>symbol</value>
     </param>
     <param>
       <key>type</key>
-      <value>complex</value>
+      <value>string</value>
     </param>
     <param>
-      <key>vlen</key>
-      <value>16</value>
-    </param>
-    <param>
-      <key>num_streams</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>optional</key>
-      <value>False</value>
+      <key>short_id</key>
+      <value></value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(65, 250)</value>
+      <value>(453, 32)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -391,92 +223,18 @@
     </param>
   </block>
   <block>
-    <key>pad_source</key>
+    <key>lte_pcfich_unpack_vfm</key>
     <param>
       <key>id</key>
-      <value>pad_source_1</value>
+      <value>lte_pcfich_unpack_vfm_0</value>
     </param>
     <param>
       <key>_enabled</key>
       <value>True</value>
     </param>
     <param>
-      <key>label</key>
-      <value>in1</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>complex</value>
-    </param>
-    <param>
-      <key>vlen</key>
-      <value>16</value>
-    </param>
-    <param>
-      <key>num_streams</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>optional</key>
-      <value>False</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(64, 281)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>pad_source</key>
-    <param>
-      <key>id</key>
-      <value>pad_source_2</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>label</key>
-      <value>in2</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>complex</value>
-    </param>
-    <param>
-      <key>vlen</key>
-      <value>16</value>
-    </param>
-    <param>
-      <key>num_streams</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>optional</key>
-      <value>False</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(63, 318)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>lte_pcfich_scramble_sequencer_m</key>
-    <param>
-      <key>id</key>
-      <value>lte_pcfich_scramble_sequencer_m_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
+      <key>key</key>
+      <value>tag_key</value>
     </param>
     <param>
       <key>affinity</key>
@@ -488,46 +246,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(432, 485)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>pad_sink</key>
-    <param>
-      <key>id</key>
-      <value>pad_sink_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>label</key>
-      <value>CFI</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>message</value>
-    </param>
-    <param>
-      <key>vlen</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>num_streams</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>optional</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(1262, 346)</value>
+      <value>(1262, 376)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -566,7 +285,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(816, 330)</value>
+      <value>(1023, 360)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -574,17 +293,278 @@
     </param>
   </block>
   <block>
-    <key>lte_pcfich_unpack_vfm</key>
+    <key>pad_sink</key>
     <param>
       <key>id</key>
-      <value>lte_pcfich_unpack_vfm_0</value>
+      <value>pad_sink_0</value>
     </param>
     <param>
       <key>_enabled</key>
       <value>True</value>
     </param>
     <param>
+      <key>label</key>
+      <value>CFI</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>message</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>num_streams</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>optional</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(1469, 376)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>lte_pcfich_scramble_sequencer_m</key>
+    <param>
+      <key>id</key>
+      <value>lte_pcfich_scramble_sequencer_m_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(639, 515)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>lte_qpsk_soft_demod_vcvf</key>
+    <param>
+      <key>id</key>
+      <value>lte_qpsk_soft_demod_vcvf_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>vlen</value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(833, 356)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>lte_layer_demapper_vcvc</key>
+    <param>
+      <key>id</key>
+      <value>lte_layer_demapper_vcvc_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>N_ant</key>
+      <value>ants</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>vlen</value>
+    </param>
+    <param>
+      <key>style</key>
+      <value>style</value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(644, 340)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>pad_source</key>
+    <param>
+      <key>id</key>
+      <value>z_pad_source_cell_id</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>label</key>
+      <value>cell_id</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>message</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>num_streams</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>optional</key>
+      <value>False</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(69, 512)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>pad_source</key>
+    <param>
+      <key>id</key>
+      <value>z_pad_source_N_ant</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>label</key>
+      <value>N_ant</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>message</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>num_streams</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>optional</key>
+      <value>False</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(71, 458)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>pad_source</key>
+    <param>
+      <key>id</key>
+      <value>pad_source_2</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>label</key>
+      <value>in2</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>complex</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>12 * N_rb_dl</value>
+    </param>
+    <param>
+      <key>num_streams</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>optional</key>
+      <value>False</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(61, 348)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>lte_pcfich_demux_vcvc</key>
+    <param>
+      <key>id</key>
+      <value>lte_pcfich_demux_vcvc_2</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>N_rb_dl</key>
+      <value>N_rb_dl</value>
+    </param>
+    <param>
       <key>key</key>
+      <value>key</value>
+    </param>
+    <param>
+      <key>out_key</key>
       <value>tag_key</value>
     </param>
     <param>
@@ -597,7 +577,202 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(1055, 346)</value>
+      <value>(232, 340)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>pad_source</key>
+    <param>
+      <key>id</key>
+      <value>pad_source_1</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>label</key>
+      <value>in1</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>complex</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>12 * N_rb_dl</value>
+    </param>
+    <param>
+      <key>num_streams</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>optional</key>
+      <value>False</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(61, 314)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>pad_source</key>
+    <param>
+      <key>id</key>
+      <value>pad_source_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>label</key>
+      <value>in0</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>complex</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>12 * N_rb_dl</value>
+    </param>
+    <param>
+      <key>num_streams</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>optional</key>
+      <value>False</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(61, 280)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>lte_pre_decoder_vcvc</key>
+    <param>
+      <key>id</key>
+      <value>lte_pre_decoder_vcvc_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>N_ant</key>
+      <value>ants</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>vlen</value>
+    </param>
+    <param>
+      <key>style</key>
+      <value>style</value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(444, 292)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>lte_pcfich_demux_vcvc</key>
+    <param>
+      <key>id</key>
+      <value>lte_pcfich_demux_vcvc_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>N_rb_dl</key>
+      <value>N_rb_dl</value>
+    </param>
+    <param>
+      <key>key</key>
+      <value>key</value>
+    </param>
+    <param>
+      <key>out_key</key>
+      <value>tag_key</value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(232, 272)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>lte_pcfich_demux_vcvc</key>
+    <param>
+      <key>id</key>
+      <value>lte_pcfich_demux_vcvc_1</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>N_rb_dl</key>
+      <value>N_rb_dl</value>
+    </param>
+    <param>
+      <key>key</key>
+      <value>key</value>
+    </param>
+    <param>
+      <key>out_key</key>
+      <value>tag_key</value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(232, 306)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -605,44 +780,20 @@
     </param>
   </block>
   <connection>
-    <source_block_id>z_pad_source_N_ant</source_block_id>
-    <sink_block_id>lte_layer_demapper_vcvc_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>N_ant</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>z_pad_source_N_ant</source_block_id>
-    <sink_block_id>lte_pre_decoder_vcvc_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>N_ant</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>pad_source_0</source_block_id>
-    <sink_block_id>lte_pre_decoder_vcvc_0</sink_block_id>
-    <source_key>0</source_key>
+    <source_block_id>lte_pcfich_unpack_vfm_0</source_block_id>
+    <sink_block_id>pad_sink_0</sink_block_id>
+    <source_key>CFI</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>pad_source_1</source_block_id>
-    <sink_block_id>lte_pre_decoder_vcvc_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>1</sink_key>
+    <source_block_id>lte_pcfich_scramble_sequencer_m_0</source_block_id>
+    <sink_block_id>lte_descrambler_vfvf_0</sink_block_id>
+    <source_key>descr</source_key>
+    <sink_key>seqs</sink_key>
   </connection>
   <connection>
-    <source_block_id>pad_source_2</source_block_id>
-    <sink_block_id>lte_pre_decoder_vcvc_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>2</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_layer_demapper_vcvc_0</source_block_id>
-    <sink_block_id>lte_qpsk_soft_demod_vcvf_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_pre_decoder_vcvc_0</source_block_id>
-    <sink_block_id>lte_layer_demapper_vcvc_0</sink_block_id>
+    <source_block_id>lte_descrambler_vfvf_0</source_block_id>
+    <sink_block_id>lte_pcfich_unpack_vfm_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
@@ -653,16 +804,28 @@
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>lte_descrambler_vfvf_0</source_block_id>
-    <sink_block_id>lte_pcfich_unpack_vfm_0</sink_block_id>
+    <source_block_id>lte_pre_decoder_vcvc_0</source_block_id>
+    <sink_block_id>lte_layer_demapper_vcvc_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>lte_pcfich_scramble_sequencer_m_0</source_block_id>
-    <sink_block_id>lte_descrambler_vfvf_0</sink_block_id>
-    <source_key>descr</source_key>
-    <sink_key>seqs</sink_key>
+    <source_block_id>lte_layer_demapper_vcvc_0</source_block_id>
+    <sink_block_id>lte_qpsk_soft_demod_vcvf_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>z_pad_source_N_ant</source_block_id>
+    <sink_block_id>lte_layer_demapper_vcvc_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>N_ant</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>z_pad_source_N_ant</source_block_id>
+    <sink_block_id>lte_pre_decoder_vcvc_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>N_ant</sink_key>
   </connection>
   <connection>
     <source_block_id>z_pad_source_cell_id</source_block_id>
@@ -671,9 +834,39 @@
     <sink_key>cell_id</sink_key>
   </connection>
   <connection>
-    <source_block_id>lte_pcfich_unpack_vfm_0</source_block_id>
-    <sink_block_id>pad_sink_0</sink_block_id>
-    <source_key>CFI</source_key>
+    <source_block_id>pad_source_2</source_block_id>
+    <sink_block_id>lte_pcfich_demux_vcvc_2</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_pcfich_demux_vcvc_2</source_block_id>
+    <sink_block_id>lte_pre_decoder_vcvc_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>2</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>pad_source_1</source_block_id>
+    <sink_block_id>lte_pcfich_demux_vcvc_1</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_pcfich_demux_vcvc_1</source_block_id>
+    <sink_block_id>lte_pre_decoder_vcvc_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>1</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>pad_source_0</source_block_id>
+    <sink_block_id>lte_pcfich_demux_vcvc_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_pcfich_demux_vcvc_0</source_block_id>
+    <sink_block_id>lte_pre_decoder_vcvc_0</sink_block_id>
+    <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
 </flow_graph>

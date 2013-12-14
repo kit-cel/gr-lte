@@ -82,7 +82,7 @@ namespace gr {
             //printf("%ld\tval = %i\n", offset, value );
         }
         memcpy(d_in_seq, in, sizeof(float)*32);
-        int cfi = calculate_cfi(d_in_seq);
+        cfi_result cfi = calculate_cfi(d_in_seq);
         //printf("cfi = %i\tsubframe = %i\n", cfi, d_subframe );
         publish_cfi(d_subframe, cfi);
 
@@ -90,21 +90,26 @@ namespace gr {
         return 1;
     }
     
-    int
+    pcfich_unpack_vfm_impl::cfi_result
     pcfich_unpack_vfm_impl::calculate_cfi(float* in_seq)
     {
         int cfi = 0;
         float max_val = 0.0f;
         float next_val = 0.0f;
+        //~ printf("find cfi ");
         for(int i = 0; i < 3; i++){
             next_val = correlate(in_seq, d_ref_seqs[i], 32);
-            //printf("find max corr = %1.2f\n", next_val);
+            //~ printf("%1.2f\t", next_val);
             if(next_val > max_val){
                 cfi = i+1;
                 max_val = next_val;
             }
         }
-        return cfi;
+        //~ printf("\n");
+        cfi_result res;
+        res.cfi = cfi;
+        res.val = max_val;
+        return res;
     }
     
     
@@ -139,16 +144,16 @@ namespace gr {
     }
 
     void
-    pcfich_unpack_vfm_impl::publish_cfi(int subframe, int cfi)
+    pcfich_unpack_vfm_impl::publish_cfi(int subframe, cfi_result cfi)
     {
-        pmt::pmt_t msg_cfi = pmt::from_long(long(cfi) );
+        pmt::pmt_t msg_cfi = pmt::from_long(long(cfi.cfi) );
         pmt::pmt_t msg_subframe = pmt::from_long(long(subframe) );
         pmt::pmt_t msg = pmt::cons(msg_subframe, msg_cfi );
 
-        printf("%s\tsubframe = %i\tCFI = %i\n", name().c_str(), subframe, cfi);
+        printf("%s\tsubframe = %i\tCFI = %i\t(correlation value = %f)\n", name().c_str(), subframe, cfi.cfi, cfi.val);
 
         if(d_dbg){
-        	d_cfi_results.push_back(cfi);
+        	d_cfi_results.push_back(cfi.cfi);
         }
         message_port_pub( d_port_cfi, msg );
     }
