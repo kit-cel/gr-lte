@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<block>
+  <name>Pre Decoder</name>
+  <key>lte_pre_decoder_vcvc</key>
+  <category>lte</category>
+  <import>import lte</import>
+  <make>lte.pre_decoder_vcvc($N_ant, $vlen, $style)</make>
+  <!-- Make one 'param' node for every Parameter you want settable from the GUI.
+       Sub-nodes:
+       * name
+       * key (makes the value accessible as $keyname, e.g. in the make node)
+       * type -->
+  <param>
+    <name>antenna ports</name>
+    <key>N_ant</key>
+    <type>int</type>
+  </param>
+
+  <param>
+    <name>vector length</name>
+    <key>vlen</key>
+    <type>int</type>
+  </param>
+  
+  <param>
+    <name>RX style</name>
+    <key>style</key>
+    <type>string</type>
+  </param>
+
+  <!-- Make one 'sink' node per input. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+<!-- 
+It would be good if it works to declare message ports and stream ports with a 'nports' argument.
+Unfortunately this doesn't seem to work. Thus, I hack is used to realize suitable numbers of ports.
+  <sink>
+    <name>N_ant</name>
+    <type>message</type>
+    <optional>1</optional>
+  </sink>    
+
+
+  <sink>
+    <name>in</name>
+    <type>complex</type>
+    <vlen>$vlen</vlen>
+    <nports>1+$N_ant</nports>
+  </sink>
+--> 
+  <sink>
+    <name>in0</name>
+    <type>complex</type>
+    <vlen>$vlen</vlen>
+  </sink>
+  
+  <sink>
+    <name>in1</name>
+    <type>complex</type>
+    <vlen>$vlen</vlen>
+  </sink>
+  
+  <sink>
+    <name>in2</name>
+    <type>complex</type>
+    <vlen>$vlen</vlen>
+    <optional>1</optional>
+  </sink>
+  
+  <sink>
+    <name>N_ant</name>
+    <type>message</type>
+    <optional>1</optional>
+  </sink>  
+  
+
+
+  <source>
+    <name>out</name>
+    <type>complex</type>
+    <vlen>$vlen</vlen>
+  </source>
+  
+</block>
