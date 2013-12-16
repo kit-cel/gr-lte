@@ -42,7 +42,6 @@ install(FILES
     lte_correlator.xml
     lte_sss_symbol_selector_cvc.xml
     lte_sss_tagger_cc.xml
-    lte_sync_cc.xml
     lte_sync_frequency_c.xml
     lte_descrambler_vfvf.xml
     lte_pcfich_scramble_sequencer_m.xml
