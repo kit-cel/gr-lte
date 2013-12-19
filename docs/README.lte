@@ -9,3 +9,5 @@ in this package. A quick listing of the details can be found in Python
 after importing by using: 
 
     help(lte)
+    
+The screenshots in this directory are for reference purposes. Currently the flowgraph consists of 10 parts. All of them have to be manually opened and generated in GRC.

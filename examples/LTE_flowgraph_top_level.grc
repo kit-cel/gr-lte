@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='ASCII'?>
 <flow_graph>
-  <timestamp>Sat Dec 14 14:24:41 2013</timestamp>
+  <timestamp>Wed Dec 18 22:46:24 2013</timestamp>
   <block>
     <key>options</key>
     <param>
@@ -64,7 +64,7 @@
     <key>variable</key>
     <param>
       <key>id</key>
-      <value>frame_key</value>
+      <value>interp_val</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -72,11 +72,34 @@
     </param>
     <param>
       <key>value</key>
-      <value>"slot"</value>
+      <value>int(samp_rate/1e4)</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(475, 9)</value>
+      <value>(464, 122)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>variable</key>
+    <param>
+      <key>id</key>
+      <value>samp_rate</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>30.72e6</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(215, 69)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -99,7 +122,30 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(354, 8)</value>
+      <value>(361, 9)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>variable</key>
+    <param>
+      <key>id</key>
+      <value>fftlen</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>2048</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(256, 8)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -133,7 +179,7 @@
     <key>variable</key>
     <param>
       <key>id</key>
-      <value>fftlen</value>
+      <value>frame_key</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -141,57 +187,11 @@
     </param>
     <param>
       <key>value</key>
-      <value>2048</value>
+      <value>"slot"</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(262, 8)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>variable</key>
-    <param>
-      <key>id</key>
-      <value>samp_rate</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>30.72e6</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(275, 79)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>variable</key>
-    <param>
-      <key>id</key>
-      <value>interp_val</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>int(samp_rate/1e4)</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(468, 168)</value>
+      <value>(475, 9)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -214,7 +214,345 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(1026, 25)</value>
+      <value>(1488, 31)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>decode_pcfich_37</key>
+    <param>
+      <key>id</key>
+      <value>decode_pcfich_37_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>N_rb_dl</key>
+      <value>N_rb_dl</value>
+    </param>
+    <param>
+      <key>key</key>
+      <value>frame_key</value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(824, 541)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>top_block</key>
+    <param>
+      <key>id</key>
+      <value>top_block_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>fftlen</key>
+      <value>fftlen</value>
+    </param>
+    <param>
+      <key>N_rb_dl</key>
+      <value>N_rb_dl</value>
+    </param>
+    <param>
+      <key>group_key</key>
+      <value>"N_id_2"</value>
+    </param>
+    <param>
+      <key>offset_key</key>
+      <value>"offset_marker"</value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(77, 420)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>decode_pbch_37</key>
+    <param>
+      <key>id</key>
+      <value>decode_pbch_37_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>N_rb_dl</key>
+      <value>N_rb_dl</value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(819, 363)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>decode_bch_hier_gr37</key>
+    <param>
+      <key>id</key>
+      <value>decode_bch_hier_gr37_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(1011, 397)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>lte_mib_unpack_vbm</key>
+    <param>
+      <key>id</key>
+      <value>MIB</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(1207, 346)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>lte_ofdm_hier</key>
+    <param>
+      <key>id</key>
+      <value>lte_ofdm_hier_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>N_rb_dl</key>
+      <value>50</value>
+    </param>
+    <param>
+      <key>fftlen</key>
+      <value>2048</value>
+    </param>
+    <param>
+      <key>ofdm_key</key>
+      <value>frame_key</value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(340, 343)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>lte_rough_symbol_sync_cc</key>
+    <param>
+      <key>id</key>
+      <value>lte_rough_symbol_sync_cc_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>fftl</key>
+      <value>fftlen</value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(449, 286)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>180</value>
+    </param>
+  </block>
+  <block>
+    <key>lte_cp_freq_sync</key>
+    <param>
+      <key>id</key>
+      <value>lte_cp_freq_sync_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>fftlen</key>
+      <value>2048</value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(76, 286)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>180</value>
+    </param>
+  </block>
+  <block>
+    <key>lte_pss_sync_37</key>
+    <param>
+      <key>id</key>
+      <value>lte_pss_sync_37_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>fftlen</key>
+      <value>fftlen</value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(270, 286)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>180</value>
+    </param>
+  </block>
+  <block>
+    <key>blocks_file_source</key>
+    <param>
+      <key>id</key>
+      <value>blocks_file_source_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>file</key>
+      <value>/home/johannes/recorded_data/Messung_LTE_2012-05-23_12:47:32.dat</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>complex</value>
+    </param>
+    <param>
+      <key>repeat</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(232, 197)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -261,182 +599,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(454, 227)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>blocks_file_source</key>
-    <param>
-      <key>id</key>
-      <value>blocks_file_source_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>file</key>
-      <value>/home/johannes/recorded_data/Messung_LTE_2012-05-23_12:47:32.dat</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>complex</value>
-    </param>
-    <param>
-      <key>repeat</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>vlen</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(236, 243)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>lte_pss_sync_37</key>
-    <param>
-      <key>id</key>
-      <value>lte_pss_sync_37_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>fftlen</key>
-      <value>fftlen</value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(274, 332)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>180</value>
-    </param>
-  </block>
-  <block>
-    <key>lte_cp_freq_sync</key>
-    <param>
-      <key>id</key>
-      <value>lte_cp_freq_sync_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>fftlen</key>
-      <value>2048</value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(80, 332)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>180</value>
-    </param>
-  </block>
-  <block>
-    <key>lte_rough_symbol_sync_cc</key>
-    <param>
-      <key>id</key>
-      <value>lte_rough_symbol_sync_cc_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>fftl</key>
-      <value>fftlen</value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(453, 332)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>180</value>
-    </param>
-  </block>
-  <block>
-    <key>lte_ofdm_hier</key>
-    <param>
-      <key>id</key>
-      <value>lte_ofdm_hier_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>N_rb_dl</key>
-      <value>50</value>
-    </param>
-    <param>
-      <key>fftlen</key>
-      <value>2048</value>
-    </param>
-    <param>
-      <key>ofdm_key</key>
-      <value>frame_key</value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(344, 389)</value>
+      <value>(450, 181)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -475,218 +638,13 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(569, 440)</value>
+      <value>(565, 394)</value>
     </param>
     <param>
       <key>_rotation</key>
       <value>0</value>
     </param>
   </block>
-  <block>
-    <key>lte_mib_unpack_vbm</key>
-    <param>
-      <key>id</key>
-      <value>MIB</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(1211, 392)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>decode_bch_hier_gr37</key>
-    <param>
-      <key>id</key>
-      <value>decode_bch_hier_gr37_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(1015, 443)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>decode_pbch_37</key>
-    <param>
-      <key>id</key>
-      <value>decode_pbch_37_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>N_rb_dl</key>
-      <value>N_rb_dl</value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(823, 409)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>top_block</key>
-    <param>
-      <key>id</key>
-      <value>top_block_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>fftlen</key>
-      <value>fftlen</value>
-    </param>
-    <param>
-      <key>N_rb_dl</key>
-      <value>N_rb_dl</value>
-    </param>
-    <param>
-      <key>group_key</key>
-      <value>"N_id_2"</value>
-    </param>
-    <param>
-      <key>offset_key</key>
-      <value>"offset_marker"</value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(81, 466)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>decode_pcfich_37</key>
-    <param>
-      <key>id</key>
-      <value>decode_pcfich_37_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>N_rb_dl</key>
-      <value>N_rb_dl</value>
-    </param>
-    <param>
-      <key>key</key>
-      <value>frame_key</value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(828, 587)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <connection>
-    <source_block_id>rational_resampler_xxx_0</source_block_id>
-    <sink_block_id>lte_rough_symbol_sync_cc_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>blocks_file_source_0</source_block_id>
-    <sink_block_id>rational_resampler_xxx_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>top_block_0</source_block_id>
-    <sink_block_id>lte_estimator_hier_0</sink_block_id>
-    <source_key>cell_id</source_key>
-    <sink_key>cell_id</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_ofdm_hier_0</source_block_id>
-    <sink_block_id>lte_estimator_hier_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>top_block_0</source_block_id>
-    <sink_block_id>lte_ofdm_hier_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_rough_symbol_sync_cc_0</source_block_id>
-    <sink_block_id>lte_pss_sync_37_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_pss_sync_37_0</source_block_id>
-    <sink_block_id>lte_cp_freq_sync_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
   <connection>
     <source_block_id>lte_cp_freq_sync_0</source_block_id>
     <sink_block_id>top_block_0</sink_block_id>
@@ -694,20 +652,50 @@
     <sink_key>0</sink_key>
   </connection>
   <connection>
+    <source_block_id>decode_bch_hier_gr37_0</source_block_id>
+    <sink_block_id>MIB</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>decode_bch_hier_gr37_0</source_block_id>
+    <sink_block_id>MIB</sink_block_id>
+    <source_key>1</source_key>
+    <sink_key>1</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>decode_pbch_37_0</source_block_id>
+    <sink_block_id>decode_bch_hier_gr37_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
     <source_block_id>lte_estimator_hier_0</source_block_id>
-    <sink_block_id>decode_pbch_37_0</sink_block_id>
+    <sink_block_id>decode_pcfich_37_0</sink_block_id>
     <source_key>1</source_key>
     <sink_key>2</sink_key>
   </connection>
   <connection>
-    <source_block_id>lte_ofdm_hier_0</source_block_id>
+    <source_block_id>lte_estimator_hier_0</source_block_id>
+    <sink_block_id>decode_pcfich_37_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>1</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_estimator_hier_0</source_block_id>
     <sink_block_id>decode_pbch_37_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>1</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_ofdm_hier_0</source_block_id>
+    <sink_block_id>decode_pcfich_37_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
     <source_block_id>top_block_0</source_block_id>
-    <sink_block_id>decode_pbch_37_0</sink_block_id>
+    <sink_block_id>decode_pcfich_37_0</sink_block_id>
     <source_key>cell_id</source_key>
     <sink_key>cell_id</sink_key>
   </connection>
@@ -719,49 +707,61 @@
   </connection>
   <connection>
     <source_block_id>top_block_0</source_block_id>
-    <sink_block_id>decode_pcfich_37_0</sink_block_id>
+    <sink_block_id>decode_pbch_37_0</sink_block_id>
     <source_key>cell_id</source_key>
     <sink_key>cell_id</sink_key>
   </connection>
   <connection>
     <source_block_id>lte_ofdm_hier_0</source_block_id>
-    <sink_block_id>decode_pcfich_37_0</sink_block_id>
+    <sink_block_id>decode_pbch_37_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
     <source_block_id>lte_estimator_hier_0</source_block_id>
     <sink_block_id>decode_pbch_37_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>1</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_estimator_hier_0</source_block_id>
-    <sink_block_id>decode_pcfich_37_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>1</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_estimator_hier_0</source_block_id>
-    <sink_block_id>decode_pcfich_37_0</sink_block_id>
     <source_key>1</source_key>
     <sink_key>2</sink_key>
   </connection>
   <connection>
-    <source_block_id>decode_pbch_37_0</source_block_id>
-    <sink_block_id>decode_bch_hier_gr37_0</sink_block_id>
+    <source_block_id>lte_pss_sync_37_0</source_block_id>
+    <sink_block_id>lte_cp_freq_sync_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>decode_bch_hier_gr37_0</source_block_id>
-    <sink_block_id>MIB</sink_block_id>
-    <source_key>1</source_key>
-    <sink_key>1</sink_key>
+    <source_block_id>lte_rough_symbol_sync_cc_0</source_block_id>
+    <sink_block_id>lte_pss_sync_37_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>decode_bch_hier_gr37_0</source_block_id>
-    <sink_block_id>MIB</sink_block_id>
+    <source_block_id>top_block_0</source_block_id>
+    <sink_block_id>lte_ofdm_hier_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_ofdm_hier_0</source_block_id>
+    <sink_block_id>lte_estimator_hier_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>top_block_0</source_block_id>
+    <sink_block_id>lte_estimator_hier_0</sink_block_id>
+    <source_key>cell_id</source_key>
+    <sink_key>cell_id</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>blocks_file_source_0</source_block_id>
+    <sink_block_id>rational_resampler_xxx_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>rational_resampler_xxx_0</source_block_id>
+    <sink_block_id>lte_rough_symbol_sync_cc_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>

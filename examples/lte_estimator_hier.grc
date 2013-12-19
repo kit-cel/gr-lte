@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='ASCII'?>
 <flow_graph>
-  <timestamp>Mon Dec  2 23:16:05 2013</timestamp>
+  <timestamp>Wed Dec 18 22:52:01 2013</timestamp>
   <block>
     <key>options</key>
     <param>
@@ -64,6 +64,29 @@
     <key>variable</key>
     <param>
       <key>id</key>
+      <value>mymap</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>lte.frame_pilot_value_and_position(N_rb_dl, initial_id, 1, 0)</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(488, 381)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>variable</key>
+    <param>
+      <key>id</key>
       <value>vals</value>
     </param>
     <param>
@@ -76,30 +99,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(599, 507)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>variable</key>
-    <param>
-      <key>id</key>
-      <value>poss1</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>mymap1[0]</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(499, 626)</value>
+      <value>(555, 434)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -122,7 +122,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(481, 505)</value>
+      <value>(450, 433)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -145,7 +145,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(591, 567)</value>
+      <value>(553, 489)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -156,7 +156,7 @@
     <key>variable</key>
     <param>
       <key>id</key>
-      <value>mymap</value>
+      <value>poss1</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -164,11 +164,11 @@
     </param>
     <param>
       <key>value</key>
-      <value>lte.frame_pilot_value_and_position(N_rb_dl, initial_id, 1, 0)</value>
+      <value>mymap1[0]</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(532, 454)</value>
+      <value>(444, 490)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -281,30 +281,178 @@
     </param>
   </block>
   <block>
-    <key>lte_channel_estimator_vcvc</key>
+    <key>pad_source</key>
     <param>
       <key>id</key>
-      <value>lte_channel_estimator_vcvc_0_0</value>
+      <value>ain0</value>
     </param>
     <param>
       <key>_enabled</key>
       <value>True</value>
     </param>
     <param>
-      <key>subcarriers</key>
+      <key>label</key>
+      <value>in</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>complex</value>
+    </param>
+    <param>
+      <key>vlen</key>
       <value>12*N_rb_dl</value>
     </param>
     <param>
-      <key>tag_key</key>
-      <value>estimator_key</value>
+      <key>num_streams</key>
+      <value>1</value>
     </param>
     <param>
-      <key>pilot_carriers</key>
-      <value>poss1</value>
+      <key>optional</key>
+      <value>False</value>
     </param>
     <param>
-      <key>pilot_symbols</key>
-      <value>vals</value>
+      <key>_coordinate</key>
+      <value>(17, 155)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>pad_sink</key>
+    <param>
+      <key>id</key>
+      <value>pad_sink_0_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>label</key>
+      <value>out0</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>complex</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>12*N_rb_dl</value>
+    </param>
+    <param>
+      <key>num_streams</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>optional</key>
+      <value>False</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(793, 267)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>pad_sink</key>
+    <param>
+      <key>id</key>
+      <value>pad_sink_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>label</key>
+      <value>out0</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>complex</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>12*N_rb_dl</value>
+    </param>
+    <param>
+      <key>num_streams</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>optional</key>
+      <value>False</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(797, 172)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>pad_source</key>
+    <param>
+      <key>id</key>
+      <value>cell_id</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>label</key>
+      <value>cell_id</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>message</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>num_streams</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>optional</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(25, 246)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>lte_rs_map_generator_m</key>
+    <param>
+      <key>id</key>
+      <value>lte_rs_map_generator_m_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>N_rb_dl</key>
+      <value>N_rb_dl</value>
+    </param>
+    <param>
+      <key>ant_port</key>
+      <value>1</value>
     </param>
     <param>
       <key>affinity</key>
@@ -316,7 +464,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(556, 295)</value>
+      <value>(321, 284)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -359,7 +507,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(557, 200)</value>
+      <value>(536, 156)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -367,22 +515,30 @@
     </param>
   </block>
   <block>
-    <key>lte_rs_map_generator_m</key>
+    <key>lte_channel_estimator_vcvc</key>
     <param>
       <key>id</key>
-      <value>lte_rs_map_generator_m_0</value>
+      <value>lte_channel_estimator_vcvc_0_0</value>
     </param>
     <param>
       <key>_enabled</key>
       <value>True</value>
     </param>
     <param>
-      <key>N_rb_dl</key>
-      <value>N_rb_dl</value>
+      <key>subcarriers</key>
+      <value>12*N_rb_dl</value>
     </param>
     <param>
-      <key>ant_port</key>
-      <value>1</value>
+      <key>tag_key</key>
+      <value>estimator_key</value>
+    </param>
+    <param>
+      <key>pilot_carriers</key>
+      <value>poss1</value>
+    </param>
+    <param>
+      <key>pilot_symbols</key>
+      <value>vals</value>
     </param>
     <param>
       <key>affinity</key>
@@ -394,46 +550,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(342, 328)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>pad_source</key>
-    <param>
-      <key>id</key>
-      <value>cell_id</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>label</key>
-      <value>cell_id</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>message</value>
-    </param>
-    <param>
-      <key>vlen</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>num_streams</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>optional</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(46, 290)</value>
+      <value>(535, 251)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -468,124 +585,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(341, 233)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>pad_sink</key>
-    <param>
-      <key>id</key>
-      <value>pad_sink_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>label</key>
-      <value>out0</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>complex</value>
-    </param>
-    <param>
-      <key>vlen</key>
-      <value>12*N_rb_dl</value>
-    </param>
-    <param>
-      <key>num_streams</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>optional</key>
-      <value>False</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(818, 216)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>pad_sink</key>
-    <param>
-      <key>id</key>
-      <value>pad_sink_0_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>label</key>
-      <value>out0</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>complex</value>
-    </param>
-    <param>
-      <key>vlen</key>
-      <value>12*N_rb_dl</value>
-    </param>
-    <param>
-      <key>num_streams</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>optional</key>
-      <value>False</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(814, 311)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>pad_source</key>
-    <param>
-      <key>id</key>
-      <value>ain0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>label</key>
-      <value>in</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>complex</value>
-    </param>
-    <param>
-      <key>vlen</key>
-      <value>12*N_rb_dl</value>
-    </param>
-    <param>
-      <key>num_streams</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>optional</key>
-      <value>False</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(38, 199)</value>
+      <value>(320, 189)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -608,7 +608,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(455, 456)</value>
+      <value>(411, 383)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -616,26 +616,20 @@
     </param>
   </block>
   <connection>
-    <source_block_id>cell_id</source_block_id>
-    <sink_block_id>lte_rs_map_generator_m_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>cell_id</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>cell_id</source_block_id>
-    <sink_block_id>lte_rs_map_generator_m_1</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>cell_id</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>ain0</source_block_id>
-    <sink_block_id>lte_channel_estimator_vcvc_0_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>ain0</source_block_id>
+    <source_block_id>lte_rs_map_generator_m_1</source_block_id>
     <sink_block_id>lte_channel_estimator_vcvc_0</sink_block_id>
+    <source_key>pilots</source_key>
+    <sink_key>pilots</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_rs_map_generator_m_0</source_block_id>
+    <sink_block_id>lte_channel_estimator_vcvc_0_0</sink_block_id>
+    <source_key>pilots</source_key>
+    <sink_key>pilots</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_channel_estimator_vcvc_0</source_block_id>
+    <sink_block_id>pad_sink_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
@@ -646,21 +640,27 @@
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>lte_channel_estimator_vcvc_0</source_block_id>
-    <sink_block_id>pad_sink_0</sink_block_id>
+    <source_block_id>ain0</source_block_id>
+    <sink_block_id>lte_channel_estimator_vcvc_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>lte_rs_map_generator_m_0</source_block_id>
+    <source_block_id>ain0</source_block_id>
     <sink_block_id>lte_channel_estimator_vcvc_0_0</sink_block_id>
-    <source_key>pilots</source_key>
-    <sink_key>pilots</sink_key>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>lte_rs_map_generator_m_1</source_block_id>
-    <sink_block_id>lte_channel_estimator_vcvc_0</sink_block_id>
-    <source_key>pilots</source_key>
-    <sink_key>pilots</sink_key>
+    <source_block_id>cell_id</source_block_id>
+    <sink_block_id>lte_rs_map_generator_m_1</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>cell_id</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>cell_id</source_block_id>
+    <sink_block_id>lte_rs_map_generator_m_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>cell_id</sink_key>
   </connection>
 </flow_graph>
