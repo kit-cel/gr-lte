@@ -39,7 +39,6 @@ install(FILES
     lte_pss_symbol_selector_cvc.xml
     lte_pss_calculator_vcm.xml
     lte_pss_tagger_cc.xml
-    lte_correlator.xml
     lte_sss_symbol_selector_cvc.xml
     lte_sss_tagger_cc.xml
     lte_sync_frequency_c.xml

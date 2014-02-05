@@ -32,7 +32,7 @@ namespace gr {
       // Nothing to declare in this block.
 
      public:
-      bch_crc_check_ant_chooser_bb_impl();
+      bch_crc_check_ant_chooser_bb_impl(std::string& name);
       ~bch_crc_check_ant_chooser_bb_impl();
 
       // Where all the action really happens

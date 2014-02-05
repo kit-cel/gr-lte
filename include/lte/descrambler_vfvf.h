@@ -50,7 +50,7 @@ namespace gr {
        * class. lte::descrambler_vfvf::make is the public interface for
        * creating new instances.
        */
-      static sptr make(std::string tag_key, std::string msg_buf_name, int len);
+      static sptr make(std::string name, std::string tag_key, std::string msg_buf_name, int len);
     };
 
   } // namespace lte

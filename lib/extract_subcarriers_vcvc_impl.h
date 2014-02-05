@@ -33,7 +33,7 @@ namespace gr {
 		int d_fftl;
 
      public:
-      extract_subcarriers_vcvc_impl(int N_rb_dl, int fftl);
+      extract_subcarriers_vcvc_impl(std::string& name, int N_rb_dl, int fftl);
       ~extract_subcarriers_vcvc_impl();
 
       // Where all the action really happens

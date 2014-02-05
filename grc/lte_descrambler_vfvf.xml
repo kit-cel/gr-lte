@@ -4,7 +4,7 @@
   <key>lte_descrambler_vfvf</key>
   <category>lte</category>
   <import>import lte</import>
-  <make>lte.descrambler_vfvf($tag_key, "seqs", $vlen)
+  <make>lte.descrambler_vfvf("$id", $tag_key, "seqs", $vlen)
 self.$(id).set_descr_seqs($initial_seqs)</make>
   <!-- Make one 'param' node for every Parameter you want settable from the GUI.
        Sub-nodes:

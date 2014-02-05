@@ -46,7 +46,7 @@ namespace gr {
        * class. lte::extract_subcarriers_vcvc::make is the public interface for
        * creating new instances.
        */
-      static sptr make(int N_rb_dl, int fftl);
+      static sptr make(std::string name, int N_rb_dl, int fftl);
     };
 
   } // namespace lte

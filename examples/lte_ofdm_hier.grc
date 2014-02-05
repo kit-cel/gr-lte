@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='ASCII'?>
 <flow_graph>
-  <timestamp>Wed Dec 18 22:51:09 2013</timestamp>
+  <timestamp>Wed Feb  5 16:42:10 2014</timestamp>
   <block>
     <key>options</key>
     <param>
@@ -252,41 +252,6 @@
     </param>
   </block>
   <block>
-    <key>lte_extract_subcarriers_vcvc</key>
-    <param>
-      <key>id</key>
-      <value>lte_extract_subcarriers_vcvc_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>N_rb_dl</key>
-      <value>N_rb_dl</value>
-    </param>
-    <param>
-      <key>fftl</key>
-      <value>fftlen</value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(627, 168)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
     <key>pad_sink</key>
     <param>
       <key>id</key>
@@ -364,6 +329,41 @@
       <value>0</value>
     </param>
   </block>
+  <block>
+    <key>lte_extract_subcarriers_vcvc</key>
+    <param>
+      <key>id</key>
+      <value>ofdm_lte_extract_subcarriers_vcvc_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>N_rb_dl</key>
+      <value>N_rb_dl</value>
+    </param>
+    <param>
+      <key>fftl</key>
+      <value>fftlen</value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(627, 168)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
   <connection>
     <source_block_id>pad_source_0</source_block_id>
     <sink_block_id>lte_remove_cp_cvc_0</sink_block_id>
@@ -372,7 +372,7 @@
   </connection>
   <connection>
     <source_block_id>fft_vxx_0</source_block_id>
-    <sink_block_id>lte_extract_subcarriers_vcvc_0</sink_block_id>
+    <sink_block_id>ofdm_lte_extract_subcarriers_vcvc_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
@@ -383,7 +383,7 @@
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>lte_extract_subcarriers_vcvc_0</source_block_id>
+    <source_block_id>ofdm_lte_extract_subcarriers_vcvc_0</source_block_id>
     <sink_block_id>pad_sink_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>

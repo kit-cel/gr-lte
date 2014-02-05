@@ -32,17 +32,17 @@ namespace gr {
   namespace lte {
 
     descrambler_vfvf::sptr
-    descrambler_vfvf::make(std::string tag_key, std::string msg_buf_name, int len)
+    descrambler_vfvf::make(std::string name, std::string tag_key, std::string msg_buf_name, int len)
     {
       return gnuradio::get_initial_sptr
-        (new descrambler_vfvf_impl(tag_key, msg_buf_name, len));
+        (new descrambler_vfvf_impl(name, tag_key, msg_buf_name, len));
     }
 
     /*
      * The private constructor
      */
-    descrambler_vfvf_impl::descrambler_vfvf_impl(std::string tag_key, std::string msg_buf_name, int len)
-      : gr::sync_block("descrambler_vfvf",
+    descrambler_vfvf_impl::descrambler_vfvf_impl(std::string& name, std::string tag_key, std::string msg_buf_name, int len)
+      : gr::sync_block(name,
               gr::io_signature::make(1, 1, sizeof(float) * len),
               gr::io_signature::make(1, 1, sizeof(float) * len)),
               d_len(len),

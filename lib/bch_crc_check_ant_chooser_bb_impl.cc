@@ -30,17 +30,17 @@ namespace gr {
   namespace lte {
 
     bch_crc_check_ant_chooser_bb::sptr
-    bch_crc_check_ant_chooser_bb::make()
+    bch_crc_check_ant_chooser_bb::make(std::string name)
     {
       return gnuradio::get_initial_sptr
-        (new bch_crc_check_ant_chooser_bb_impl());
+        (new bch_crc_check_ant_chooser_bb_impl(name));
     }
 
     /*
      * The private constructor
      */
-    bch_crc_check_ant_chooser_bb_impl::bch_crc_check_ant_chooser_bb_impl()
-      : gr::sync_block("bch_crc_check_ant_chooser_bb",
+    bch_crc_check_ant_chooser_bb_impl::bch_crc_check_ant_chooser_bb_impl(std::string& name)
+      : gr::sync_block(name,
               gr::io_signature::make( 3, 3, sizeof(char)),
               gr::io_signature::make( 1, 1, sizeof(char)))
     {}

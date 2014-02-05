@@ -35,25 +35,25 @@ namespace gr {
   namespace lte {
 
     channel_estimator_vcvc::sptr
-    channel_estimator_vcvc::make(int subcarriers,
+    channel_estimator_vcvc::make(std::string name, int subcarriers,
 		std::string tag_key,
 		std::string msg_buf_name,
 		const std::vector<std::vector<int> > &pilot_carriers,
 		const std::vector<std::vector<gr_complex> > &pilot_symbols)
     {
       return gnuradio::get_initial_sptr
-        (new channel_estimator_vcvc_impl(subcarriers, tag_key, msg_buf_name, pilot_carriers, pilot_symbols));
+        (new channel_estimator_vcvc_impl(name, subcarriers, tag_key, msg_buf_name, pilot_carriers, pilot_symbols));
     }
 
     /*
      * The private constructor
      */
-    channel_estimator_vcvc_impl::channel_estimator_vcvc_impl(int subcarriers,
+    channel_estimator_vcvc_impl::channel_estimator_vcvc_impl(std::string& name, int subcarriers,
 			std::string tag_key,
 			std::string msg_buf_name,
 			const std::vector<std::vector<int> > &pilot_carriers,
 			const std::vector<std::vector<gr_complex> > &pilot_symbols)
-      : gr::sync_block("channel_estimator_vcvc",
+      : gr::sync_block(name /*"channel_estimator_vcvc"*/,
               gr::io_signature::make( 1, 1, sizeof(gr_complex) * subcarriers),
               gr::io_signature::make( 1, 1, sizeof(gr_complex) * subcarriers)),
         d_subcarriers(subcarriers),

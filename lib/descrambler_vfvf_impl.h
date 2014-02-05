@@ -44,7 +44,7 @@ namespace gr {
         int get_seq_num(int idx);
 
      public:
-      descrambler_vfvf_impl(std::string tag_key, std::string msg_buf_name, int len);
+      descrambler_vfvf_impl(std::string& name, std::string tag_key, std::string msg_buf_name, int len);
       ~descrambler_vfvf_impl();
 
       // Where all the action really happens

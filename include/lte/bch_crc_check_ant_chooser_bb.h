@@ -29,7 +29,7 @@ namespace gr {
   namespace lte {
 
     /*!
-     * \brief <+description of block+>
+     * \brief Depending on the results of the CRC block return number of antennas detected.
      * \ingroup lte
      *
      */
@@ -46,7 +46,7 @@ namespace gr {
        * class. lte::bch_crc_check_ant_chooser_bb::make is the public interface for
        * creating new instances.
        */
-      static sptr make();
+      static sptr make(std::string name);
     };
 
   } // namespace lte

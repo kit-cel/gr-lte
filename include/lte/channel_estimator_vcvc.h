@@ -54,7 +54,7 @@ namespace gr {
        * class. lte::channel_estimator_vcvc::make is the public interface for
        * creating new instances.
        */
-      static sptr make(int subcarriers,
+      static sptr make(std::string name, int subcarriers,
 						std::string tag_key,
 						std::string msg_buf_name,
 						const std::vector<std::vector<int> > &pilot_carriers,

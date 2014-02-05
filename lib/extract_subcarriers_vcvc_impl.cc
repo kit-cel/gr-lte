@@ -29,17 +29,17 @@ namespace gr {
   namespace lte {
 
     extract_subcarriers_vcvc::sptr
-    extract_subcarriers_vcvc::make(int N_rb_dl, int fftl)
+    extract_subcarriers_vcvc::make(std::string name, int N_rb_dl, int fftl)
     {
       return gnuradio::get_initial_sptr
-        (new extract_subcarriers_vcvc_impl(N_rb_dl, fftl));
+        (new extract_subcarriers_vcvc_impl(name, N_rb_dl, fftl));
     }
 
     /*
      * The private constructor
      */
-    extract_subcarriers_vcvc_impl::extract_subcarriers_vcvc_impl(int N_rb_dl, int fftl)
-      : gr::sync_block("extract_subcarriers_vcvc",
+    extract_subcarriers_vcvc_impl::extract_subcarriers_vcvc_impl(std::string& name, int N_rb_dl, int fftl)
+      : gr::sync_block(name,
               gr::io_signature::make( 1, 1, sizeof(gr_complex) * fftl),
               gr::io_signature::make( 1, 1, sizeof(gr_complex) * 12 * N_rb_dl)),
               d_N_rb_dl(N_rb_dl),

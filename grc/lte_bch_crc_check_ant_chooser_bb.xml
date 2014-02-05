@@ -4,7 +4,7 @@
   <key>lte_bch_crc_check_ant_chooser_bb</key>
   <category>lte</category>
   <import>import lte</import>
-  <make>lte.bch_crc_check_ant_chooser_bb()</make>
+  <make>lte.bch_crc_check_ant_chooser_bb("$id")</make>
 
   <!-- Make one 'sink' node per input. Sub-nodes:
        * name (an identifier for the GUI)

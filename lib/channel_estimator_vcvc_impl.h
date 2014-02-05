@@ -104,7 +104,7 @@ namespace gr {
 
 
      public:
-      channel_estimator_vcvc_impl(int subcarriers,
+      channel_estimator_vcvc_impl(std::string& name, int subcarriers,
 			std::string tag_key,
 			std::string msg_buf_name,
 			const std::vector<std::vector<int> > &pilot_carriers,
