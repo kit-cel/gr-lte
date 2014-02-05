@@ -3,7 +3,7 @@
 # Gnuradio Python Flow Graph
 # Title: LTE_test
 # Author: Johannes Demel
-# Generated: Wed Feb  5 17:14:15 2014
+# Generated: Wed Feb  5 17:42:31 2014
 ##################################################
 
 execfile("/home/johannes/.grc_gnuradio/decode_bch_hier_gr37.py")
@@ -98,14 +98,16 @@ class lte_top_block(gr.top_block):
         self.connect((self.lte_ofdm_hier_0, 0), (self.lte_estimator_hier_0, 0))
         self.connect((self.blocks_file_source_0, 0), (self.rational_resampler_xxx_0, 0))
         self.connect((self.rational_resampler_xxx_0, 0), (self.lte_rough_symbol_sync_cc_0, 0))
-        self.connect((self.lte_sss_sync_hier_0, 0), (self.lte_ofdm_hier_0, 0))
         self.connect((self.lte_cp_freq_sync_0, 0), (self.lte_sss_sync_hier_0, 0))
+        self.connect((self.lte_sss_sync_hier_0, 0), (self.lte_ofdm_hier_0, 0))
 
         ##################################################
         # Asynch Message Connections
         ##################################################
         self.msg_connect(self.MIB, "N_ant", self.decode_pcfich_37_0, "N_ant")
         self.msg_connect(self.lte_sss_sync_hier_0, "cell_id", self.lte_estimator_hier_0, "cell_id")
+        self.msg_connect(self.lte_sss_sync_hier_0, "cell_id", self.decode_pbch_37_0, "cell_id")
+        self.msg_connect(self.lte_sss_sync_hier_0, "cell_id", self.decode_pcfich_37_0, "cell_id")
 
 # QT sink close method reimplementation
 
@@ -133,8 +135,8 @@ class lte_top_block(gr.top_block):
 
     def set_frame_key(self, frame_key):
         self.frame_key = frame_key
-        self.decode_pcfich_37_0.set_key(self.frame_key)
         self.lte_ofdm_hier_0.set_ofdm_key(self.frame_key)
+        self.decode_pcfich_37_0.set_key(self.frame_key)
 
     def get_fftlen(self):
         return self.fftlen
@@ -149,8 +151,8 @@ class lte_top_block(gr.top_block):
 
     def set_N_rb_dl(self, N_rb_dl):
         self.N_rb_dl = N_rb_dl
-        self.decode_pcfich_37_0.set_N_rb_dl(self.N_rb_dl)
         self.decode_pbch_37_0.set_N_rb_dl(self.N_rb_dl)
+        self.decode_pcfich_37_0.set_N_rb_dl(self.N_rb_dl)
         self.lte_sss_sync_hier_0.set_N_rb_dl(self.N_rb_dl)
 
 if __name__ == '__main__':

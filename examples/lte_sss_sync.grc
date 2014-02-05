@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='ASCII'?>
 <flow_graph>
-  <timestamp>Wed Feb  5 16:47:12 2014</timestamp>
+  <timestamp>Wed Feb  5 17:28:58 2014</timestamp>
   <block>
     <key>parameter</key>
     <param>
@@ -251,6 +251,41 @@
     </param>
   </block>
   <block>
+    <key>lte_extract_subcarriers_vcvc</key>
+    <param>
+      <key>id</key>
+      <value>lte_extract_subcarriers_vcvc_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>N_rb_dl</key>
+      <value>6</value>
+    </param>
+    <param>
+      <key>fftl</key>
+      <value>fftlen</value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(611, 218)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
     <key>fft_vxx</key>
     <param>
       <key>id</key>
@@ -411,41 +446,6 @@
     </param>
   </block>
   <block>
-    <key>lte_extract_subcarriers_vcvc</key>
-    <param>
-      <key>id</key>
-      <value>sss_lte_extract_subcarriers_vcvc_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>N_rb_dl</key>
-      <value>6</value>
-    </param>
-    <param>
-      <key>fftl</key>
-      <value>fftlen</value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(611, 218)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
     <key>options</key>
     <param>
       <key>id</key>
@@ -529,14 +529,14 @@
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>sss_lte_extract_subcarriers_vcvc_0</source_block_id>
+    <source_block_id>lte_extract_subcarriers_vcvc_0</source_block_id>
     <sink_block_id>lte_sss_calculator_vcm_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
     <source_block_id>fft_vxx_0</source_block_id>
-    <sink_block_id>sss_lte_extract_subcarriers_vcvc_0</sink_block_id>
+    <sink_block_id>lte_extract_subcarriers_vcvc_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
