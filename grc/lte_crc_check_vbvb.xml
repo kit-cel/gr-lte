@@ -4,7 +4,7 @@
   <key>lte_crc_check_vbvb</key>
   <category>lte</category>
   <import>import lte</import>
-  <make>lte.crc_check_vbvb($data_len, $final_xor)</make>
+  <make>lte.crc_check_vbvb("$id", $data_len, $final_xor)</make>
   <!-- Make one 'param' node for every Parameter you want settable from the GUI.
        Sub-nodes:
        * name

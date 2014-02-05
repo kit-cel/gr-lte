@@ -31,17 +31,17 @@ namespace gr {
   namespace lte {
 
     crc_check_vbvb::sptr
-    crc_check_vbvb::make(int data_len, int final_xor)
+    crc_check_vbvb::make(std::string name, int data_len, int final_xor)
     {
       return gnuradio::get_initial_sptr
-        (new crc_check_vbvb_impl(data_len, final_xor));
+        (new crc_check_vbvb_impl(name, data_len, final_xor));
     }
 
     /*
      * The private constructor
      */
-    crc_check_vbvb_impl::crc_check_vbvb_impl(int data_len, int final_xor)
-      : gr::sync_block("crc_check_vbvb",
+    crc_check_vbvb_impl::crc_check_vbvb_impl(std::string& name, int data_len, int final_xor)
+      : gr::sync_block(name,
               gr::io_signature::make( 1, 1, sizeof(char)*(data_len+16)),
               gr::io_signature::make2( 2, 2, sizeof(char)*data_len, sizeof(char)*1 )),
               d_data_len(data_len),

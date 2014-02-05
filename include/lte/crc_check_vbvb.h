@@ -46,7 +46,7 @@ namespace gr {
        * class. lte::crc_check_vbvb::make is the public interface for
        * creating new instances.
        */
-      static sptr make(int data_len, int final_xor);
+      static sptr make(std::string name, int data_len, int final_xor);
     };
 
   } // namespace lte

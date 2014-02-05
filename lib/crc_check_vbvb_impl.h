@@ -39,7 +39,7 @@ namespace gr {
 		unsigned char pack_byte(const char* unc);
      
      public:
-      crc_check_vbvb_impl(int data_len, int final_xor);
+      crc_check_vbvb_impl(std::string& name, int data_len, int final_xor);
       ~crc_check_vbvb_impl();
 
       // Where all the action really happens
