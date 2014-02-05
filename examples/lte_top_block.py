@@ -3,7 +3,7 @@
 # Gnuradio Python Flow Graph
 # Title: LTE_test
 # Author: Johannes Demel
-# Generated: Sun Dec 15 23:38:34 2013
+# Generated: Wed Feb  5 17:33:06 2014
 ##################################################
 
 execfile("/home/johannes/.grc_gnuradio/decode_bch_hier_gr37.py")
@@ -13,7 +13,7 @@ execfile("/home/johannes/.grc_gnuradio/lte_cp_freq_sync.py")
 execfile("/home/johannes/.grc_gnuradio/lte_estimator_hier.py")
 execfile("/home/johannes/.grc_gnuradio/lte_ofdm_hier.py")
 execfile("/home/johannes/.grc_gnuradio/lte_pss_sync_37.py")
-execfile("/home/johannes/.grc_gnuradio/top_block.py")
+execfile("/home/johannes/.grc_gnuradio/lte_sss_sync_hier.py")
 from gnuradio import blocks
 from gnuradio import eng_notation
 from gnuradio import filter
@@ -41,17 +41,17 @@ class lte_top_block(gr.top_block):
         ##################################################
         # Blocks
         ##################################################
-        self.top_block_0 = top_block(
-            fftlen=fftlen,
-            N_rb_dl=N_rb_dl,
-            group_key="N_id_2",
-            offset_key="offset_marker",
-        )
         self.rational_resampler_xxx_0 = filter.rational_resampler_ccc(
                 interpolation=interp_val,
                 decimation=1000,
                 taps=None,
                 fractional_bw=None,
+        )
+        self.lte_sss_sync_hier_0 = lte_sss_sync_hier(
+            fftlen=fftlen,
+            N_rb_dl=N_rb_dl,
+            group_key="N_id_2",
+            offset_key="offset_marker",
         )
         self.lte_rough_symbol_sync_cc_0 = lte.rough_symbol_sync_cc(fftlen)
         self.lte_pss_sync_37_0 = lte_pss_sync_37(
@@ -84,30 +84,30 @@ class lte_top_block(gr.top_block):
         ##################################################
         # Connections
         ##################################################
-        self.connect((self.rational_resampler_xxx_0, 0), (self.lte_rough_symbol_sync_cc_0, 0))
-        self.connect((self.blocks_file_source_0, 0), (self.rational_resampler_xxx_0, 0))
-        self.connect((self.lte_ofdm_hier_0, 0), (self.lte_estimator_hier_0, 0))
-        self.connect((self.top_block_0, 0), (self.lte_ofdm_hier_0, 0))
-        self.connect((self.lte_rough_symbol_sync_cc_0, 0), (self.lte_pss_sync_37_0, 0))
-        self.connect((self.lte_pss_sync_37_0, 0), (self.lte_cp_freq_sync_0, 0))
-        self.connect((self.lte_cp_freq_sync_0, 0), (self.top_block_0, 0))
-        self.connect((self.lte_estimator_hier_0, 1), (self.decode_pbch_37_0, 2))
-        self.connect((self.lte_ofdm_hier_0, 0), (self.decode_pbch_37_0, 0))
-        self.connect((self.lte_ofdm_hier_0, 0), (self.decode_pcfich_37_0, 0))
-        self.connect((self.lte_estimator_hier_0, 0), (self.decode_pbch_37_0, 1))
-        self.connect((self.lte_estimator_hier_0, 0), (self.decode_pcfich_37_0, 1))
-        self.connect((self.lte_estimator_hier_0, 1), (self.decode_pcfich_37_0, 2))
-        self.connect((self.decode_pbch_37_0, 0), (self.decode_bch_hier_gr37_0, 0))
-        self.connect((self.decode_bch_hier_gr37_0, 1), (self.MIB, 1))
         self.connect((self.decode_bch_hier_gr37_0, 0), (self.MIB, 0))
+        self.connect((self.decode_bch_hier_gr37_0, 1), (self.MIB, 1))
+        self.connect((self.decode_pbch_37_0, 0), (self.decode_bch_hier_gr37_0, 0))
+        self.connect((self.lte_estimator_hier_0, 1), (self.decode_pcfich_37_0, 2))
+        self.connect((self.lte_estimator_hier_0, 0), (self.decode_pcfich_37_0, 1))
+        self.connect((self.lte_estimator_hier_0, 0), (self.decode_pbch_37_0, 1))
+        self.connect((self.lte_ofdm_hier_0, 0), (self.decode_pcfich_37_0, 0))
+        self.connect((self.lte_ofdm_hier_0, 0), (self.decode_pbch_37_0, 0))
+        self.connect((self.lte_estimator_hier_0, 1), (self.decode_pbch_37_0, 2))
+        self.connect((self.lte_pss_sync_37_0, 0), (self.lte_cp_freq_sync_0, 0))
+        self.connect((self.lte_rough_symbol_sync_cc_0, 0), (self.lte_pss_sync_37_0, 0))
+        self.connect((self.lte_ofdm_hier_0, 0), (self.lte_estimator_hier_0, 0))
+        self.connect((self.blocks_file_source_0, 0), (self.rational_resampler_xxx_0, 0))
+        self.connect((self.rational_resampler_xxx_0, 0), (self.lte_rough_symbol_sync_cc_0, 0))
+        self.connect((self.lte_cp_freq_sync_0, 0), (self.lte_sss_sync_hier_0, 0))
+        self.connect((self.lte_sss_sync_hier_0, 0), (self.lte_ofdm_hier_0, 0))
 
         ##################################################
         # Asynch Message Connections
         ##################################################
-        self.msg_connect(self.top_block_0, "cell_id", self.lte_estimator_hier_0, "cell_id")
-        self.msg_connect(self.top_block_0, "cell_id", self.decode_pbch_37_0, "cell_id")
         self.msg_connect(self.MIB, "N_ant", self.decode_pcfich_37_0, "N_ant")
-        self.msg_connect(self.top_block_0, "cell_id", self.decode_pcfich_37_0, "cell_id")
+        self.msg_connect(self.lte_sss_sync_hier_0, "cell_id", self.lte_estimator_hier_0, "cell_id")
+        self.msg_connect(self.lte_sss_sync_hier_0, "cell_id", self.decode_pbch_37_0, "cell_id")
+        self.msg_connect(self.lte_sss_sync_hier_0, "cell_id", self.decode_pcfich_37_0, "cell_id")
 
 # QT sink close method reimplementation
 
@@ -144,7 +144,7 @@ class lte_top_block(gr.top_block):
     def set_fftlen(self, fftlen):
         self.fftlen = fftlen
         self.lte_pss_sync_37_0.set_fftlen(self.fftlen)
-        self.top_block_0.set_fftlen(self.fftlen)
+        self.lte_sss_sync_hier_0.set_fftlen(self.fftlen)
 
     def get_N_rb_dl(self):
         return self.N_rb_dl
@@ -152,8 +152,8 @@ class lte_top_block(gr.top_block):
     def set_N_rb_dl(self, N_rb_dl):
         self.N_rb_dl = N_rb_dl
         self.decode_pbch_37_0.set_N_rb_dl(self.N_rb_dl)
-        self.top_block_0.set_N_rb_dl(self.N_rb_dl)
         self.decode_pcfich_37_0.set_N_rb_dl(self.N_rb_dl)
+        self.lte_sss_sync_hier_0.set_N_rb_dl(self.N_rb_dl)
 
 if __name__ == '__main__':
     parser = OptionParser(option_class=eng_option, usage="%prog: [options]")
