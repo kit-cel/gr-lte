@@ -4,7 +4,7 @@
   <key>lte_extract_subcarriers_vcvc</key>
   <category>lte</category>
   <import>import lte</import>
-  <make>lte.extract_subcarriers_vcvc("$id", $N_rb_dl, $fftl)</make>
+  <make>lte.extract_subcarriers_vcvc($N_rb_dl, $fftl, "$id")</make>
 
 
   <param>

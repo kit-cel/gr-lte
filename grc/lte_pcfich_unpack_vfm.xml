@@ -4,7 +4,7 @@
   <key>lte_pcfich_unpack_vfm</key>
   <category>lte</category>
   <import>import lte</import>
-  <make>lte.pcfich_unpack_vfm($key, "CFI")</make>
+  <make>lte.pcfich_unpack_vfm($key, "CFI", "$id")</make>
   <!-- Make one 'param' node for every Parameter you want settable from the GUI.
        Sub-nodes:
        * name

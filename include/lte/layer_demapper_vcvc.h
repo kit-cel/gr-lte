@@ -50,7 +50,7 @@ namespace gr {
        * class. lte::layer_demapper_vcvc::make is the public interface for
        * creating new instances.
        */
-      static sptr make(int N_ant, int vlen, std::string style);
+      static sptr make(int N_ant, int vlen, std::string style, std::string name = "layer_demapper_vcvc");
       virtual void set_N_ant(int N_ant) = 0;
 	  virtual int get_N_ant() = 0;
 	  virtual void set_decoding_style(std::string style) = 0;

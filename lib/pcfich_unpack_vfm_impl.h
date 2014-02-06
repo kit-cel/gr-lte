@@ -53,7 +53,7 @@ namespace gr {
         std::vector<int> cfi_results() {return d_cfi_results;}
 
      public:
-      pcfich_unpack_vfm_impl(std::string key, std::string msg_buf_name);
+      pcfich_unpack_vfm_impl(std::string key, std::string msg_buf_name, std::string& name);
       ~pcfich_unpack_vfm_impl();
 
       // Where all the action really happens

@@ -3,7 +3,7 @@
 # Gnuradio Python Flow Graph
 # Title: LTE_test
 # Author: Johannes Demel
-# Generated: Wed Feb  5 17:55:54 2014
+# Generated: Thu Feb  6 16:56:29 2014
 ##################################################
 
 execfile("/home/johannes/.grc_gnuradio/decode_bch_hier_gr37.py")
@@ -79,7 +79,7 @@ class lte_top_block(gr.top_block):
         )
         self.decode_bch_hier_gr37_0 = decode_bch_hier_gr37()
         self.blocks_file_source_0 = blocks.file_source(gr.sizeof_gr_complex*1, "/home/johannes/recorded_data/Messung_LTE_2012-05-23_12:47:32.dat", True)
-        self.MIB = lte.mib_unpack_vbm()
+        self.MIB = lte.mib_unpack_vbm("MIB")
 
         ##################################################
         # Connections

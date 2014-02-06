@@ -4,7 +4,7 @@
   <key>lte_pbch_demux_vcvc</key>
   <category>lte</category>
   <import>import lte</import>
-  <make>lte.pbch_demux_vcvc($N_rb_dl)</make>
+  <make>lte.pbch_demux_vcvc($N_rb_dl, "$id")</make>
   <!-- Make one 'param' node for every Parameter you want settable from the GUI.
        Sub-nodes:
        * name

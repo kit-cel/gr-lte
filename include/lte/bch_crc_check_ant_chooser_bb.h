@@ -46,7 +46,7 @@ namespace gr {
        * class. lte::bch_crc_check_ant_chooser_bb::make is the public interface for
        * creating new instances.
        */
-      static sptr make(std::string name);
+      static sptr make(std::string name = "bch_crc_check_ant_chooser_bb");
     };
 
   } // namespace lte

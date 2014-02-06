@@ -31,17 +31,17 @@ namespace gr {
   namespace lte {
 
     pbch_demux_vcvc::sptr
-    pbch_demux_vcvc::make(int N_rb_dl)
+    pbch_demux_vcvc::make(int N_rb_dl, std::string name)
     {
       return gnuradio::get_initial_sptr
-        (new pbch_demux_vcvc_impl(N_rb_dl));
+        (new pbch_demux_vcvc_impl(N_rb_dl, name));
     }
 
     /*
      * The private constructor
      */
-    pbch_demux_vcvc_impl::pbch_demux_vcvc_impl(int N_rb_dl)
-      : gr::block("pbch_demux_vcvc",
+    pbch_demux_vcvc_impl::pbch_demux_vcvc_impl(int N_rb_dl, std::string& name)
+      : gr::block(name,
               gr::io_signature::make( 1, 1, sizeof(gr_complex) * 12 * N_rb_dl),
               gr::io_signature::make( 1, 1, sizeof(gr_complex) * 240)),
               d_cell_id(-1),

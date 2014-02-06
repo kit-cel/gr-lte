@@ -29,17 +29,17 @@ namespace gr {
   namespace lte {
 
     mib_unpack_vbm::sptr
-    mib_unpack_vbm::make()
+    mib_unpack_vbm::make(std::string name)
     {
       return gnuradio::get_initial_sptr
-        (new mib_unpack_vbm_impl());
+        (new mib_unpack_vbm_impl(name));
     }
 
     /*
      * The private constructor
      */
-    mib_unpack_vbm_impl::mib_unpack_vbm_impl()
-      : gr::sync_block("mib_unpack_vbm",
+    mib_unpack_vbm_impl::mib_unpack_vbm_impl(std::string& name)
+      : gr::sync_block(name,
               gr::io_signature::make2( 2, 2, sizeof(char)*24, sizeof(char)*1 ),
               gr::io_signature::make(0, 0, 0)),
               d_unchanged_decodings(0)

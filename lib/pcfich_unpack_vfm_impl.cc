@@ -34,17 +34,17 @@ namespace gr {
   namespace lte {
 
     pcfich_unpack_vfm::sptr
-    pcfich_unpack_vfm::make(std::string key, std::string msg_buf_name)
+    pcfich_unpack_vfm::make(std::string key, std::string msg_buf_name, std::string name)
     {
       return gnuradio::get_initial_sptr
-        (new pcfich_unpack_vfm_impl(key, msg_buf_name));
+        (new pcfich_unpack_vfm_impl(key, msg_buf_name, name));
     }
 
     /*
      * The private constructor
      */
-    pcfich_unpack_vfm_impl::pcfich_unpack_vfm_impl(std::string key, std::string msg_buf_name)
-      : gr::sync_block("pcfich_unpack_vfm",
+    pcfich_unpack_vfm_impl::pcfich_unpack_vfm_impl(std::string key, std::string msg_buf_name, std::string& name)
+      : gr::sync_block(name,
               gr::io_signature::make( 1, 1, sizeof(float) * 32),
               gr::io_signature::make(0, 0, 0)),
               d_subframe(0)

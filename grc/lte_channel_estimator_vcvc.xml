@@ -4,7 +4,7 @@
   <key>lte_channel_estimator_vcvc</key>
   <category>lte</category>
   <import>import lte</import>
-  <make>lte.channel_estimator_vcvc("$id", $subcarriers, $tag_key, "pilots", $pilot_carriers, $pilot_symbols)</make>
+  <make>lte.channel_estimator_vcvc($subcarriers, $tag_key, "pilots", $pilot_carriers, $pilot_symbols, "$id")</make>
   <!-- Make one 'param' node for every Parameter you want settable from the GUI.
        Sub-nodes:
        * name

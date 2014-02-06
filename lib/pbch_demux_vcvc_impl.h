@@ -43,7 +43,7 @@ namespace gr {
 		void set_cell_id_msg(pmt::pmt_t msg);
 
      public:
-      pbch_demux_vcvc_impl(int N_rb_dl);
+      pbch_demux_vcvc_impl(int N_rb_dl, std::string& name);
       ~pbch_demux_vcvc_impl();
 
 	  void set_cell_id(int id);

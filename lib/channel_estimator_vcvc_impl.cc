@@ -35,11 +35,12 @@ namespace gr {
   namespace lte {
 
     channel_estimator_vcvc::sptr
-    channel_estimator_vcvc::make(std::string name, int subcarriers,
+    channel_estimator_vcvc::make(int subcarriers,
 		std::string tag_key,
 		std::string msg_buf_name,
 		const std::vector<std::vector<int> > &pilot_carriers,
-		const std::vector<std::vector<gr_complex> > &pilot_symbols)
+		const std::vector<std::vector<gr_complex> > &pilot_symbols,
+        std::string name)
     {
       return gnuradio::get_initial_sptr
         (new channel_estimator_vcvc_impl(name, subcarriers, tag_key, msg_buf_name, pilot_carriers, pilot_symbols));

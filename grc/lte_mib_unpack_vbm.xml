@@ -4,7 +4,7 @@
   <key>lte_mib_unpack_vbm</key>
   <category>lte</category>
   <import>import lte</import>
-  <make>lte.mib_unpack_vbm()</make>
+  <make>lte.mib_unpack_vbm("$id")</make>
   <!-- Make one 'param' node for every Parameter you want settable from the GUI.
        Sub-nodes:
        * name

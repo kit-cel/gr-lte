@@ -46,7 +46,7 @@ namespace gr {
        * class. lte::mib_unpack_vbm::make is the public interface for
        * creating new instances.
        */
-      static sptr make();
+      static sptr make(std::string name = "mib_unpack_vbm");
     };
 
   } // namespace lte

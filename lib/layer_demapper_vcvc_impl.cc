@@ -30,17 +30,17 @@ namespace gr {
   namespace lte {
 
     layer_demapper_vcvc::sptr
-    layer_demapper_vcvc::make(int N_ant, int vlen, std::string style)
+    layer_demapper_vcvc::make(int N_ant, int vlen, std::string style, std::string name)
     {
       return gnuradio::get_initial_sptr
-        (new layer_demapper_vcvc_impl(N_ant, vlen, style));
+        (new layer_demapper_vcvc_impl(name, N_ant, vlen, style));
     }
 
     /*
      * The private constructor
      */
-    layer_demapper_vcvc_impl::layer_demapper_vcvc_impl(int N_ant, int vlen, std::string style)
-      : gr::sync_block("layer_demapper_vcvc",
+    layer_demapper_vcvc_impl::layer_demapper_vcvc_impl(std::string& name, int N_ant, int vlen, std::string style)
+      : gr::sync_block(name,
               gr::io_signature::make( 1, 1, sizeof(gr_complex) * vlen),
               gr::io_signature::make( 1, 1, sizeof(gr_complex) * vlen)),
               d_N_ant(0),

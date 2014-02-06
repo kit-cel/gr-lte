@@ -40,7 +40,7 @@ namespace gr {
       void demap_4_ant(gr_complex* out, const gr_complex * in, int len);
 
      public:
-      layer_demapper_vcvc_impl(int N_ant, int vlen, std::string style);
+      layer_demapper_vcvc_impl(std::string& name, int N_ant, int vlen, std::string style);
       ~layer_demapper_vcvc_impl();
 
       // Where all the action really happens

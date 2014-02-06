@@ -50,7 +50,7 @@ namespace gr {
        * class. lte::pcfich_unpack_vfm::make is the public interface for
        * creating new instances.
        */
-      static sptr make(std::string key, std::string msg_buf_name);
+      static sptr make(std::string key, std::string msg_buf_name, std::string name = "pcfich_unpack_vfm");
     };
 
   } // namespace lte

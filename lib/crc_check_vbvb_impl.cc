@@ -31,7 +31,7 @@ namespace gr {
   namespace lte {
 
     crc_check_vbvb::sptr
-    crc_check_vbvb::make(std::string name, int data_len, int final_xor)
+    crc_check_vbvb::make(int data_len, int final_xor, std::string name)
     {
       return gnuradio::get_initial_sptr
         (new crc_check_vbvb_impl(name, data_len, final_xor));

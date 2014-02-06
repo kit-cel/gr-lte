@@ -68,7 +68,7 @@ namespace gr {
 		void send_sfn();
 
      public:
-      mib_unpack_vbm_impl();
+      mib_unpack_vbm_impl(std::string& name);
       ~mib_unpack_vbm_impl();
 
       // Where all the action really happens

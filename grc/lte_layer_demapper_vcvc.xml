@@ -4,7 +4,7 @@
   <key>lte_layer_demapper_vcvc</key>
   <category>lte</category>
   <import>import lte</import>
-  <make>lte.layer_demapper_vcvc($N_ant, $vlen, $style)</make>
+  <make>lte.layer_demapper_vcvc($N_ant, $vlen, $style, "$id")</make>
   <!-- Make one 'param' node for every Parameter you want settable from the GUI.
        Sub-nodes:
        * name

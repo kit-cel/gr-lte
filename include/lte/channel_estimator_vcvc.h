@@ -54,11 +54,12 @@ namespace gr {
        * class. lte::channel_estimator_vcvc::make is the public interface for
        * creating new instances.
        */
-      static sptr make(std::string name, int subcarriers,
+      static sptr make(int subcarriers,
 						std::string tag_key,
 						std::string msg_buf_name,
 						const std::vector<std::vector<int> > &pilot_carriers,
-						const std::vector<std::vector<gr_complex> > &pilot_symbols);
+						const std::vector<std::vector<gr_complex> > &pilot_symbols,
+                        std::string name = "channel_estimator_vcvc");
 	
 	  virtual void set_pilot_map(const std::vector<std::vector<int> > &pilot_carriers,
                        const std::vector<std::vector<gr_complex> > &pilot_symbols) = 0;
