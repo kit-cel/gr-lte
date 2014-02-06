@@ -4,7 +4,7 @@
   <key>lte_pre_decoder_vcvc</key>
   <category>lte</category>
   <import>import lte</import>
-  <make>lte.pre_decoder_vcvc($N_ant, $vlen, $style)</make>
+  <make>lte.pre_decoder_vcvc($N_ant, $vlen, $style, "$id")</make>
   <!-- Make one 'param' node for every Parameter you want settable from the GUI.
        Sub-nodes:
        * name

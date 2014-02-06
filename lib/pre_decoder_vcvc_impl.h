@@ -70,7 +70,7 @@ namespace gr {
 		void setup_volk_vectors(int len);
 
      public:
-      pre_decoder_vcvc_impl(int N_ant, int vlen, std::string style);
+      pre_decoder_vcvc_impl(int N_ant, int vlen, std::string style, std::string& name);
       ~pre_decoder_vcvc_impl();
 
       // Where all the action really happens

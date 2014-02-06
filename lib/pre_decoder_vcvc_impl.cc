@@ -34,17 +34,17 @@ namespace gr {
   namespace lte {
 
     pre_decoder_vcvc::sptr
-    pre_decoder_vcvc::make(int N_ant, int vlen, std::string style)
+    pre_decoder_vcvc::make(int N_ant, int vlen, std::string style, std::string name)
     {
       return gnuradio::get_initial_sptr
-        (new pre_decoder_vcvc_impl(N_ant, vlen, style));
+        (new pre_decoder_vcvc_impl(N_ant, vlen, style, name));
     }
 
     /*
      * The private constructor
      */
-    pre_decoder_vcvc_impl::pre_decoder_vcvc_impl(int N_ant, int vlen, std::string style)
-      : gr::sync_block("pre_decoder_vcvc",
+    pre_decoder_vcvc_impl::pre_decoder_vcvc_impl(int N_ant, int vlen, std::string style, std::string& name)
+      : gr::sync_block(name,
               gr::io_signature::make( 2, 3, sizeof(gr_complex) * vlen),
               gr::io_signature::make( 1, 1, sizeof(gr_complex) * vlen)),
               d_vlen(vlen)

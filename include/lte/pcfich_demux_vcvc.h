@@ -48,7 +48,7 @@ namespace gr {
        * class. lte::pcfich_demux_vcvc::make is the public interface for
        * creating new instances.
        */
-      static sptr make(int N_rb_dl, std::string key, std::string out_key, std::string msg_buf_name);
+      static sptr make(int N_rb_dl, std::string key, std::string out_key, std::string msg_buf_name, std::string name = "pcfich_demux_vcvc");
     };
 
   } // namespace lte

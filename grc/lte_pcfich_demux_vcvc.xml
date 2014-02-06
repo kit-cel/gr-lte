@@ -4,7 +4,7 @@
   <key>lte_pcfich_demux_vcvc</key>
   <category>lte</category>
   <import>import lte</import>
-  <make>lte.pcfich_demux_vcvc($N_rb_dl, $key, $out_key, "cell_id")</make>
+  <make>lte.pcfich_demux_vcvc($N_rb_dl, $key, $out_key, "cell_id", "$id")</make>
   <!-- Make one 'param' node for every Parameter you want settable from the GUI.
        Sub-nodes:
        * name

@@ -50,7 +50,7 @@ namespace gr {
        * class. lte::pre_decoder_vcvc::make is the public interface for
        * creating new instances.
        */
-      static sptr make(int N_ant, int vlen, std::string style);
+      static sptr make(int N_ant, int vlen, std::string style, std::string name = "pre_decoder_vcvc");
       
       virtual void set_N_ant(int N_ant) = 0;
 	  virtual int get_N_ant() = 0;

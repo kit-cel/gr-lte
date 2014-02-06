@@ -53,7 +53,7 @@ namespace gr {
 
 
      public:
-      pcfich_demux_vcvc_impl(int N_rb_dl, std::string key, std::string out_key, std::string msg_buf_name);
+      pcfich_demux_vcvc_impl(int N_rb_dl, std::string key, std::string out_key, std::string msg_buf_name, std::string& name);
       ~pcfich_demux_vcvc_impl();
 
       // Where all the action really happens

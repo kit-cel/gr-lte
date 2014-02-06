@@ -29,17 +29,17 @@ namespace gr {
   namespace lte {
 
     pcfich_demux_vcvc::sptr
-    pcfich_demux_vcvc::make(int N_rb_dl, std::string key, std::string out_key, std::string msg_buf_name)
+    pcfich_demux_vcvc::make(int N_rb_dl, std::string key, std::string out_key, std::string msg_buf_name, std::string name)
     {
       return gnuradio::get_initial_sptr
-        (new pcfich_demux_vcvc_impl(N_rb_dl, key, out_key, msg_buf_name));
+        (new pcfich_demux_vcvc_impl(N_rb_dl, key, out_key, msg_buf_name, name));
     }
 
     /*
      * The private constructor
      */
-    pcfich_demux_vcvc_impl::pcfich_demux_vcvc_impl(int N_rb_dl, std::string key, std::string out_key, std::string msg_buf_name)
-      : gr::block("pcfich_demux_vcvc",
+    pcfich_demux_vcvc_impl::pcfich_demux_vcvc_impl(int N_rb_dl, std::string key, std::string out_key, std::string msg_buf_name, std::string& name)
+      : gr::block(name,
               gr::io_signature::make(1, 1, sizeof(gr_complex) * 12 * N_rb_dl),
               gr::io_signature::make(1, 1, sizeof(gr_complex) * 16)),
               d_cell_id(0),
@@ -48,7 +48,7 @@ namespace gr {
     {
         d_key = pmt::string_to_symbol(key); // specify key of incoming tag.
         d_out_key = pmt::string_to_symbol(out_key); // key for new tags.
-        d_tag_id = pmt::string_to_symbol( name() );
+        d_tag_id = pmt::string_to_symbol( this->name() );
         d_msg_buf = pmt::mp(msg_buf_name);
         message_port_register_in(d_msg_buf);
         set_msg_handler(d_msg_buf, boost::bind(&pcfich_demux_vcvc_impl::handle_msg, this, _1));
