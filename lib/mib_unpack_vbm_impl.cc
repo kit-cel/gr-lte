@@ -67,7 +67,7 @@ namespace gr {
      */
     mib_unpack_vbm_impl::~mib_unpack_vbm_impl()
     {
-		printf("%s\tdecoding_rate = %1.3f\n",name().c_str(), get_decoding_rate() );
+        GR_LOG_INFO(d_logger, boost::format("%s\tdecoding_rate = %1.3f") % name().c_str() % get_decoding_rate());
     }
 
     int
@@ -103,12 +103,11 @@ namespace gr {
 		int diff = ((sfn+1024)-d_SFN)%1024;
 		d_SFN = sfn;
 
-		if(diff > 0){
-			printf("SFN = %i\tdiff = %i\t", d_SFN, diff );
-			d_state_info.print_values();
-			send_sfn();
-		}
-	}
+        if(diff > 0){
+            GR_LOG_INFO(d_logger, boost::format("SFN = %i\tdiff = %i\t%s") % d_SFN % diff % d_state_info.get_values_string().c_str());
+            send_sfn();
+        }
+    }
 
 	bool
 	mib_unpack_vbm_impl::decode_state_mib(char* mib)
@@ -133,9 +132,8 @@ namespace gr {
 			d_state_info.phich_duration = phich_dur;
 			d_state_info.phich_resources = phich_res;
 			d_unchanged_decodings = 0;
-			send_state_mib();
-			printf("MIB changed!\t");
-			d_state_info.print_values();
+            GR_LOG_INFO(d_logger, boost::format("MIB changed!\t%s") % d_state_info.get_values_string().c_str());
+            send_state_mib();
 		}
 		else{
 			d_unchanged_decodings++;
@@ -197,20 +195,13 @@ namespace gr {
 		return sfn;
 	}
 
-	int
-	mib_unpack_vbm_impl::extract_sfn_lsb_from_tag()
-	{
-		int items = 20;
-		int sfn_lsb = (nitems_read(0)%items)/(items/4);
-		//~ int sfn_lsb = 0;
-		//~ std::vector <gr::tag_t> v;
-		//~ get_tags_in_range(v,0,nitems_read(0),nitems_read(0)+1);
-		//~ if (v.size() > 0){
-			//~ long value = pmt::to_long(v[0].value);
-			//~ sfn_lsb = (value%16)/4; // 32 consecutive vectors (16 with soft-combining, then 16 without)
-		//~ }
-		return sfn_lsb;
-	}
+    int
+    mib_unpack_vbm_impl::extract_sfn_lsb_from_tag()
+    {
+        int items = 20;
+        int sfn_lsb = (nitems_read(0)%items)/(items/4);
+        return sfn_lsb;
+    }
 
 	float
 	mib_unpack_vbm_impl::get_decoding_rate()
@@ -243,7 +234,7 @@ namespace gr {
 	inline void
 	mib_unpack_vbm_impl::send_sfn()
 	{
-		pmt::pmt_t msg = pmt::cons(d_port_SFN, pmt::from_long(long(d_SFN) ) );
+        pmt::pmt_t msg = pmt::cons(d_port_SFN, pmt::from_long(long(d_SFN) ) );
 		message_port_pub( d_port_SFN, msg );
 	}
 

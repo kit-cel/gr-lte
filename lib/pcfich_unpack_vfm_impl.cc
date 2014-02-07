@@ -27,6 +27,7 @@
 
 #include <fftw3.h>
 #include <volk/volk.h>
+#include <boost/format.hpp>
 
 #include <cstdio>
 
@@ -150,8 +151,7 @@ namespace gr {
         pmt::pmt_t msg_subframe = pmt::from_long(long(subframe) );
         pmt::pmt_t msg = pmt::cons(msg_subframe, msg_cfi );
 
-        printf("%s\tsubframe = %i\tCFI = %i\t(correlation value = %f)\n", name().c_str(), subframe, cfi.cfi, cfi.val);
-
+        GR_LOG_INFO(d_logger, boost::format("%s\tsubframe = %i\tCFI = %i\t(correlation value = %f)") % name().c_str() % subframe % cfi.cfi % cfi.val);
         if(d_dbg){
         	d_cfi_results.push_back(cfi.cfi);
         }

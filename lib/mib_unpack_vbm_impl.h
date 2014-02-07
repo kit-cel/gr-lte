@@ -23,6 +23,7 @@
 
 #include <lte/mib_unpack_vbm.h>
 #include <cstdio>
+#include <boost/format.hpp>
 
 namespace gr {
   namespace lte {
@@ -32,10 +33,11 @@ namespace gr {
 		int N_rb_dl;
 		int phich_duration;
 		float phich_resources;
-		void print_values(){
-			printf("(N_ant=%i ", N_ant);
-			printf("N_rb_dl=%i ", N_rb_dl);
-			printf("PHICH: dur=%i res=%1.2f)\n", phich_duration, phich_resources);
+		std::string get_values_string(){
+            return (boost::format("(N_ant=%i N_rb_dl=%i PHICH: dur=%i res=%1.2f)") % N_ant % N_rb_dl % phich_duration % phich_resources).str();
+			//printf("(N_ant=%i ", N_ant);
+			//printf("N_rb_dl=%i ", N_rb_dl);
+			//printf("PHICH: dur=%i res=%1.2f)\n", phich_duration, phich_resources);
 		}
 	};
 
