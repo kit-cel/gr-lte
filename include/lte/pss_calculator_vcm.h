@@ -48,7 +48,7 @@ namespace gr {
        * class. lte::pss_calculator_vcm::make is the public interface for
        * creating new instances.
        */
-      static sptr make(int fftl);
+      static sptr make(int fftl, std::string name = "pss_calculator_vcm");
     };
 
   } // namespace lte

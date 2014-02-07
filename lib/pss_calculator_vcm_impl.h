@@ -34,8 +34,6 @@ namespace gr {
      private:
         static const gr_complex d_C_I;
         static const float d_PI;
-        //~ boost::shared_ptr<pss_tagger_cc> d_tag;
-        //~ boost::shared_ptr<pss_symbol_selector_cvc> d_sel;
         int d_fftl;
         int d_cpl;
         int d_cpl0;
@@ -70,8 +68,7 @@ namespace gr {
         gr_complex *d_corr_out;
 
      public:
-      pss_calculator_vcm_impl(int fftl);
-      //~ pss_calculator_vcm_impl(boost::shared_ptr<pss_tagger_cc> &tag, boost::shared_ptr<pss_symbol_selector_cvc> &sel, int fftl);
+      pss_calculator_vcm_impl(int fftl, std::string& name);
       ~pss_calculator_vcm_impl();
 
       // Where all the action really happens

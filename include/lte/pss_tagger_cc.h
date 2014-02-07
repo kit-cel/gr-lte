@@ -46,7 +46,7 @@ namespace gr {
        * class. lte::pss_tagger_cc::make is the public interface for
        * creating new instances.
        */
-      static sptr make(int fftl);
+      static sptr make(int fftl, std::string name = "pss_tagger_cc");
       
         virtual void set_half_frame_start(int start) = 0;
         virtual void set_N_id_2(int nid2) = 0;

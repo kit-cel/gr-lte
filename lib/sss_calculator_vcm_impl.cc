@@ -31,17 +31,17 @@ namespace gr {
   namespace lte {
 
     sss_calculator_vcm::sptr
-    sss_calculator_vcm::make(int fftl, std::string key_id, std::string key_offset)
+    sss_calculator_vcm::make(int fftl, std::string key_id, std::string key_offset, std::string name)
     {
       return gnuradio::get_initial_sptr
-        (new sss_calculator_vcm_impl(fftl, key_id, key_offset));
+        (new sss_calculator_vcm_impl(fftl, key_id, key_offset, name));
     }
 
     /*
      * The private constructor
      */
-    sss_calculator_vcm_impl::sss_calculator_vcm_impl(int fftl, std::string key_id, std::string key_offset)
-      : gr::sync_block("sss_calculator_vcm",
+    sss_calculator_vcm_impl::sss_calculator_vcm_impl(int fftl, std::string key_id, std::string key_offset, std::string& name)
+      : gr::sync_block(name,
               gr::io_signature::make( 1, 1, sizeof(gr_complex) * 72),
               gr::io_signature::make(0, 0, 0)),
                 d_fftl(fftl),

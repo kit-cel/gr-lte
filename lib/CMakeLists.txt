@@ -75,7 +75,7 @@ include_directories(${CPPUNIT_INCLUDE_DIRS})
 list(APPEND test_lte_sources
     ${CMAKE_CURRENT_SOURCE_DIR}/test_lte.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte.cc
-    ${CMAKE_CURRENT_SOURCE_DIR}/qa_correlator.cc
+#    ${CMAKE_CURRENT_SOURCE_DIR}/qa_correlator.cc
 )
 
 add_executable(test-lte ${test_lte_sources})

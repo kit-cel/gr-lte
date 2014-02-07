@@ -30,17 +30,17 @@ namespace gr {
   namespace lte {
 
     subblock_deinterleaver_vfvf::sptr
-    subblock_deinterleaver_vfvf::make(int num_groups, int items_per_group)
+    subblock_deinterleaver_vfvf::make(int num_groups, int items_per_group, std::string name)
     {
       return gnuradio::get_initial_sptr
-        (new subblock_deinterleaver_vfvf_impl(num_groups, items_per_group));
+        (new subblock_deinterleaver_vfvf_impl(num_groups, items_per_group, name));
     }
 
     /*
      * The private constructor
      */
-    subblock_deinterleaver_vfvf_impl::subblock_deinterleaver_vfvf_impl(int num_groups, int items_per_group)
-      : gr::sync_block("subblock_deinterleaver_vfvf",
+    subblock_deinterleaver_vfvf_impl::subblock_deinterleaver_vfvf_impl(int num_groups, int items_per_group, std::string& name)
+      : gr::sync_block(name,
               gr::io_signature::make( 1, 1, sizeof(float)*num_groups*items_per_group ),
               gr::io_signature::make( 1, 1, sizeof(float)*num_groups*items_per_group)),
               d_num_groups(num_groups),

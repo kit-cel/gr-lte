@@ -34,17 +34,17 @@ namespace gr {
   namespace lte {
 
     rough_symbol_sync_cc::sptr
-    rough_symbol_sync_cc::make(int fftl)
+    rough_symbol_sync_cc::make(int fftl, std::string name)
     {
       return gnuradio::get_initial_sptr
-        (new rough_symbol_sync_cc_impl(fftl));
+        (new rough_symbol_sync_cc_impl(fftl, name));
     }
 
     /*
      * The private constructor
      */
-    rough_symbol_sync_cc_impl::rough_symbol_sync_cc_impl(int fftl)
-      : gr::sync_block("rough_symbol_sync_cc",
+    rough_symbol_sync_cc_impl::rough_symbol_sync_cc_impl(int fftl, std::string& name)
+      : gr::sync_block(name,
               gr::io_signature::make( 1, 1, sizeof(gr_complex)),
               gr::io_signature::make( 1, 1, sizeof(gr_complex))),
                 d_fftl(fftl),
@@ -56,7 +56,7 @@ namespace gr {
                 d_work_call(0)
     {
         d_key=pmt::string_to_symbol("symbol");
-        d_tag_id=pmt::string_to_symbol(name() );
+        d_tag_id=pmt::string_to_symbol(this->name() );
 
         d_cp0 = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*d_cpl0);
         d_cp1 = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*d_cpl0);

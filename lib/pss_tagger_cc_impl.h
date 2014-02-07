@@ -46,7 +46,7 @@ namespace gr {
         void handle_msg_N_id_2(pmt::pmt_t msg);
 
      public:
-      pss_tagger_cc_impl(int fftl);
+      pss_tagger_cc_impl(int fftl, std::string& name);
       ~pss_tagger_cc_impl();
 
       // Where all the action really happens

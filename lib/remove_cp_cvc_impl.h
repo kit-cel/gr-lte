@@ -55,7 +55,7 @@ namespace gr {
 	
 
      public:
-      remove_cp_cvc_impl(int fftl, std::string key);
+      remove_cp_cvc_impl(int fftl, std::string key, std::string& name);
       ~remove_cp_cvc_impl();
 
       // Where all the action really happens

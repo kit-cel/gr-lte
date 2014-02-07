@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='ASCII'?>
 <flow_graph>
-  <timestamp>Wed Feb  5 15:45:00 2014</timestamp>
+  <timestamp>Fri Feb  7 15:40:45 2014</timestamp>
   <block>
     <key>options</key>
     <param>
@@ -64,30 +64,7 @@
     <key>variable</key>
     <param>
       <key>id</key>
-      <value>poss1</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>mymap1[0]</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(444, 490)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>variable</key>
-    <param>
-      <key>id</key>
-      <value>mymap1</value>
+      <value>mymap</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -99,30 +76,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(553, 489)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>variable</key>
-    <param>
-      <key>id</key>
-      <value>poss0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>mymap[0]</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(450, 433)</value>
+      <value>(488, 381)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -156,7 +110,30 @@
     <key>variable</key>
     <param>
       <key>id</key>
-      <value>mymap</value>
+      <value>poss0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>mymap[0]</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(450, 433)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>variable</key>
+    <param>
+      <key>id</key>
+      <value>mymap1</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -168,7 +145,30 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(488, 381)</value>
+      <value>(553, 489)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>variable</key>
+    <param>
+      <key>id</key>
+      <value>poss1</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>mymap1[0]</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(444, 490)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -437,34 +437,22 @@
     </param>
   </block>
   <block>
-    <key>lte_rs_map_generator_m</key>
+    <key>import</key>
     <param>
       <key>id</key>
-      <value>lte_rs_map_generator_m_0</value>
+      <value>import_0</value>
     </param>
     <param>
       <key>_enabled</key>
       <value>True</value>
     </param>
     <param>
-      <key>N_rb_dl</key>
-      <value>N_rb_dl</value>
-    </param>
-    <param>
-      <key>ant_port</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
+      <key>import</key>
+      <value>import lte</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(321, 284)</value>
+      <value>(411, 383)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -475,7 +463,7 @@
     <key>lte_rs_map_generator_m</key>
     <param>
       <key>id</key>
-      <value>lte_rs_map_generator_m_1</value>
+      <value>ofdm_estimator_lte_rs_map_generator_m_0</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -507,22 +495,34 @@
     </param>
   </block>
   <block>
-    <key>import</key>
+    <key>lte_rs_map_generator_m</key>
     <param>
       <key>id</key>
-      <value>import_0</value>
+      <value>ofdm_estimator_lte_rs_map_generator_m_1</value>
     </param>
     <param>
       <key>_enabled</key>
       <value>True</value>
     </param>
     <param>
-      <key>import</key>
-      <value>import lte</value>
+      <key>N_rb_dl</key>
+      <value>N_rb_dl</value>
+    </param>
+    <param>
+      <key>ant_port</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(411, 383)</value>
+      <value>(321, 284)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -533,7 +533,7 @@
     <key>lte_channel_estimator_vcvc</key>
     <param>
       <key>id</key>
-      <value>ofdm_lte_channel_estimator_vcvc_0</value>
+      <value>ofdm_estimator_lte_channel_estimator_vcvc_0</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -576,7 +576,7 @@
     <key>lte_channel_estimator_vcvc</key>
     <param>
       <key>id</key>
-      <value>ofdm_lte_channel_estimator_vcvc_1</value>
+      <value>ofdm_estimator_lte_channel_estimator_vcvc_1</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -616,50 +616,50 @@
     </param>
   </block>
   <connection>
-    <source_block_id>lte_rs_map_generator_m_1</source_block_id>
-    <sink_block_id>ofdm_lte_channel_estimator_vcvc_0</sink_block_id>
+    <source_block_id>ofdm_estimator_lte_rs_map_generator_m_0</source_block_id>
+    <sink_block_id>ofdm_estimator_lte_channel_estimator_vcvc_0</sink_block_id>
     <source_key>pilots</source_key>
     <sink_key>pilots</sink_key>
   </connection>
   <connection>
-    <source_block_id>lte_rs_map_generator_m_0</source_block_id>
-    <sink_block_id>ofdm_lte_channel_estimator_vcvc_1</sink_block_id>
+    <source_block_id>ofdm_estimator_lte_rs_map_generator_m_1</source_block_id>
+    <sink_block_id>ofdm_estimator_lte_channel_estimator_vcvc_1</sink_block_id>
     <source_key>pilots</source_key>
     <sink_key>pilots</sink_key>
   </connection>
   <connection>
-    <source_block_id>ofdm_lte_channel_estimator_vcvc_0</source_block_id>
+    <source_block_id>ofdm_estimator_lte_channel_estimator_vcvc_0</source_block_id>
     <sink_block_id>pad_sink_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>ofdm_lte_channel_estimator_vcvc_1</source_block_id>
+    <source_block_id>ofdm_estimator_lte_channel_estimator_vcvc_1</source_block_id>
     <sink_block_id>pad_sink_0_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
     <source_block_id>ain0</source_block_id>
-    <sink_block_id>ofdm_lte_channel_estimator_vcvc_0</sink_block_id>
+    <sink_block_id>ofdm_estimator_lte_channel_estimator_vcvc_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
     <source_block_id>ain0</source_block_id>
-    <sink_block_id>ofdm_lte_channel_estimator_vcvc_1</sink_block_id>
+    <sink_block_id>ofdm_estimator_lte_channel_estimator_vcvc_1</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
     <source_block_id>cell_id</source_block_id>
-    <sink_block_id>lte_rs_map_generator_m_1</sink_block_id>
+    <sink_block_id>ofdm_estimator_lte_rs_map_generator_m_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>cell_id</sink_key>
   </connection>
   <connection>
     <source_block_id>cell_id</source_block_id>
-    <sink_block_id>lte_rs_map_generator_m_0</sink_block_id>
+    <sink_block_id>ofdm_estimator_lte_rs_map_generator_m_1</sink_block_id>
     <source_key>0</source_key>
     <sink_key>cell_id</sink_key>
   </connection>

@@ -4,7 +4,7 @@
   <key>lte_rough_symbol_sync_cc</key>
   <category>lte</category>
   <import>import lte</import>
-  <make>lte.rough_symbol_sync_cc($fftl)</make>
+  <make>lte.rough_symbol_sync_cc($fftl, "$id")</make>
   <!-- Make one 'param' node for every Parameter you want settable from the GUI.
        Sub-nodes:
        * name

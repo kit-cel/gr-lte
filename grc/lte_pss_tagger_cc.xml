@@ -4,7 +4,7 @@
   <key>lte_pss_tagger_cc</key>
   <category>lte</category>
   <import>import lte</import>
-  <make>lte.pss_tagger_cc($fftl)</make>
+  <make>lte.pss_tagger_cc($fftl, "$id")</make>
   <!-- Make one 'param' node for every Parameter you want settable from the GUI.
        Sub-nodes:
        * name

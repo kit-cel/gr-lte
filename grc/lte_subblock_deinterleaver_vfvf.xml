@@ -4,7 +4,7 @@
   <key>lte_subblock_deinterleaver_vfvf</key>
   <category>lte</category>
   <import>import lte</import>
-  <make>lte.subblock_deinterleaver_vfvf($num_groups, $items_per_group)</make>
+  <make>lte.subblock_deinterleaver_vfvf($num_groups, $items_per_group, "$id")</make>
   <!-- Make one 'param' node for every Parameter you want settable from the GUI.
        Sub-nodes:
        * name

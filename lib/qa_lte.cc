@@ -26,13 +26,11 @@
  */
 
 #include "qa_lte.h"
-#include "qa_correlator.h"
 
 CppUnit::TestSuite *
 qa_lte::suite()
 {
   CppUnit::TestSuite *s = new CppUnit::TestSuite("lte");
-  s->addTest(gr::lte::qa_correlator::suite());
 
   return s;
 }

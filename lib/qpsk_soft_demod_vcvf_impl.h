@@ -34,7 +34,7 @@ namespace gr {
 		float* d_demodulated;
 
      public:
-      qpsk_soft_demod_vcvf_impl(int vlen);
+      qpsk_soft_demod_vcvf_impl(int vlen, std::string& name);
       ~qpsk_soft_demod_vcvf_impl();
 
       // Where all the action really happens

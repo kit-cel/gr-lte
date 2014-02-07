@@ -31,17 +31,17 @@ namespace gr {
   namespace lte {
 
     sss_tagger_cc::sptr
-    sss_tagger_cc::make(int fftl)
+    sss_tagger_cc::make(int fftl, std::string name)
     {
       return gnuradio::get_initial_sptr
-        (new sss_tagger_cc_impl(fftl));
+        (new sss_tagger_cc_impl(fftl, name));
     }
 
     /*
      * The private constructor
      */
-    sss_tagger_cc_impl::sss_tagger_cc_impl(int fftl)
-      : gr::sync_block("sss_tagger_cc",
+    sss_tagger_cc_impl::sss_tagger_cc_impl(int fftl, std::string& name)
+      : gr::sync_block(name,
               gr::io_signature::make( 1, 1, sizeof(gr_complex)),
               gr::io_signature::make( 1, 1, sizeof(gr_complex))),
                 d_fftl(fftl),
@@ -55,7 +55,7 @@ namespace gr {
     {
         set_tag_propagation_policy(TPP_DONT);
         d_key = pmt::string_to_symbol("slot");
-        d_tag_id = pmt::string_to_symbol(name() );
+        d_tag_id = pmt::string_to_symbol(this->name() );
         
         message_port_register_in(pmt::mp("frame_start"));
 		set_msg_handler(pmt::mp("frame_start"), boost::bind(&sss_tagger_cc_impl::handle_msg_frame_start, this, _1));

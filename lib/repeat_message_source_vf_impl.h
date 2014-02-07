@@ -37,7 +37,7 @@ namespace gr {
       void handle_msg(pmt::pmt_t msg);
 
      public:
-      repeat_message_source_vf_impl(int vector_len);
+      repeat_message_source_vf_impl(int vector_len, std::string& name);
       ~repeat_message_source_vf_impl();
 
       // Where all the action really happens

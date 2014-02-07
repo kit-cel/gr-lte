@@ -46,7 +46,7 @@ namespace gr {
        * class. lte::repeat_message_source_vf::make is the public interface for
        * creating new instances.
        */
-      static sptr make(int vector_len);
+      static sptr make(int vector_len, std::string name = "repeat_message_source_vf");
     };
 
   } // namespace lte

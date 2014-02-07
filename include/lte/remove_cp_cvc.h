@@ -47,7 +47,7 @@ namespace gr {
        * class. lte::remove_cp_cvc::make is the public interface for
        * creating new instances.
        */
-      static sptr make(int fftl, std::string key);
+      static sptr make(int fftl, std::string key, std::string name = "remove_cp_cvc");
     };
 
   } // namespace lte

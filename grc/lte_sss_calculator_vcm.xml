@@ -4,7 +4,7 @@
   <key>lte_sss_calculator_vcm</key>
   <category>lte</category>
   <import>import lte</import>
-  <make>lte.sss_calculator_vcm($fftl, $in_key, $out_key)</make>
+  <make>lte.sss_calculator_vcm($fftl, $in_key, $out_key, "$id")</make>
   <!-- Make one 'param' node for every Parameter you want settable from the GUI.
        Sub-nodes:
        * name

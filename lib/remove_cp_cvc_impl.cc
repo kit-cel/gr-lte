@@ -31,17 +31,17 @@ namespace gr {
   namespace lte {
 
     remove_cp_cvc::sptr
-    remove_cp_cvc::make(int fftl, std::string key)
+    remove_cp_cvc::make(int fftl, std::string key, std::string name)
     {
       return gnuradio::get_initial_sptr
-        (new remove_cp_cvc_impl(fftl, key));
+        (new remove_cp_cvc_impl(fftl, key, name));
     }
 
     /*
      * The private constructor
      */
-    remove_cp_cvc_impl::remove_cp_cvc_impl(int fftl, std::string key)
-      : gr::block("remove_cp_cvc",
+    remove_cp_cvc_impl::remove_cp_cvc_impl(int fftl, std::string key, std::string& name)
+      : gr::block(name,
               gr::io_signature::make( 1, 1, sizeof(gr_complex)),
               gr::io_signature::make( 1, 1, sizeof(gr_complex) * fftl)),
               d_fftl(fftl),
@@ -56,7 +56,7 @@ namespace gr {
               d_symbols_per_frame(140)
     {
 		d_key=pmt::string_to_symbol(key);
-		d_tag_id=pmt::string_to_symbol(name() );
+		d_tag_id=pmt::string_to_symbol(this->name() );
 		set_tag_propagation_policy(TPP_DONT);
 	}
 

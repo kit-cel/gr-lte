@@ -46,7 +46,7 @@ namespace gr {
        * class. lte::qpsk_soft_demod_vcvf::make is the public interface for
        * creating new instances.
        */
-      static sptr make(int vlen);
+      static sptr make(int vlen, std::string name = "qpsk_soft_demod_vcvf");
     };
 
   } // namespace lte

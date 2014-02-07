@@ -4,7 +4,7 @@
   <key>lte_remove_cp_cvc</key>
   <category>lte</category>
   <import>import lte</import>
-  <make>lte.remove_cp_cvc($fftl, $key)</make>
+  <make>lte.remove_cp_cvc($fftl, $key, "$id")</make>
 
   <param>
     <name>FFT length</name>

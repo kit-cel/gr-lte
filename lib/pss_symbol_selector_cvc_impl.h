@@ -51,7 +51,7 @@ namespace gr {
         void handle_msg_half_frame_start(pmt::pmt_t msg);
      
      public:
-      pss_symbol_selector_cvc_impl(int fftl);
+      pss_symbol_selector_cvc_impl(int fftl, std::string& name);
       ~pss_symbol_selector_cvc_impl();
 
       // Where all the action really happens

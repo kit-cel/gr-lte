@@ -31,17 +31,17 @@ namespace gr {
   namespace lte {
 
     pss_symbol_selector_cvc::sptr
-    pss_symbol_selector_cvc::make(int fftl)
+    pss_symbol_selector_cvc::make(int fftl, std::string name)
     {
       return gnuradio::get_initial_sptr
-        (new pss_symbol_selector_cvc_impl(fftl));
+        (new pss_symbol_selector_cvc_impl(fftl, name));
     }
 
     /*
      * The private constructor
      */
-    pss_symbol_selector_cvc_impl::pss_symbol_selector_cvc_impl(int fftl)
-      : gr::block("pss_symbol_selector_cvc",
+    pss_symbol_selector_cvc_impl::pss_symbol_selector_cvc_impl(int fftl, std::string& name)
+      : gr::block(name,
               gr::io_signature::make( 1, 1, sizeof(gr_complex)),
               gr::io_signature::make( 1, 1, sizeof(gr_complex) * fftl)),
                 d_fftl(fftl),
@@ -60,7 +60,7 @@ namespace gr {
         set_tag_propagation_policy(TPP_DONT);
         d_key = pmt::string_to_symbol("offset_marker");
         d_sym_key = pmt::string_to_symbol("symbol");
-        d_tag_id = pmt::string_to_symbol(name() );
+        d_tag_id = pmt::string_to_symbol(this->name() );
         
         message_port_register_in(pmt::mp("lock"));
 		set_msg_handler(pmt::mp("lock"), boost::bind(&pss_symbol_selector_cvc_impl::handle_msg_lock, this, _1));

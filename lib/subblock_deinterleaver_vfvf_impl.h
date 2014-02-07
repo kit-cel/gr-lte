@@ -36,7 +36,7 @@ namespace gr {
 		std::vector<int> subblock_interleaver_prototype(int len);
 
      public:
-      subblock_deinterleaver_vfvf_impl(int num_groups, int items_per_group);
+      subblock_deinterleaver_vfvf_impl(int num_groups, int items_per_group, std::string& name);
       ~subblock_deinterleaver_vfvf_impl();
 
       // Where all the action really happens

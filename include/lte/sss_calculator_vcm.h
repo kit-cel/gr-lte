@@ -46,7 +46,7 @@ namespace gr {
        * class. lte::sss_calculator_vcm::make is the public interface for
        * creating new instances.
        */
-      static sptr make(int fftl, std::string key_id, std::string key_offset);
+      static sptr make(int fftl, std::string key_id, std::string key_offset, std::string name = "sss_calculator_vcm");
       
       virtual int get_cell_id() = 0;
       virtual long get_frame_start() = 0;

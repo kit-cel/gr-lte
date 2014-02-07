@@ -34,17 +34,17 @@ namespace gr {
   namespace lte {
 
     pss_calculator_vcm::sptr
-    pss_calculator_vcm::make(int fftl)
+    pss_calculator_vcm::make(int fftl, std::string name)
     {
       return gnuradio::get_initial_sptr
-        (new pss_calculator_vcm_impl(fftl));
+        (new pss_calculator_vcm_impl(fftl, name));
     }
 
     /*
      * The private constructor
      */
-    pss_calculator_vcm_impl::pss_calculator_vcm_impl(int fftl)
-      : gr::sync_block("pss_calculator_vcm",
+    pss_calculator_vcm_impl::pss_calculator_vcm_impl(int fftl, std::string& name)
+      : gr::sync_block(name,
               gr::io_signature::make(1, 1, sizeof(gr_complex) * 72),
               gr::io_signature::make(0, 0, 0)),
                 //~ d_tag(tag),

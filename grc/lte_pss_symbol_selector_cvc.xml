@@ -4,7 +4,7 @@
   <key>lte_pss_symbol_selector_cvc</key>
   <category>lte</category>
   <import>import lte</import>
-  <make>lte.pss_symbol_selector_cvc($fftl)</make>
+  <make>lte.pss_symbol_selector_cvc($fftl, "$id")</make>
   <!-- Make one 'param' node for every Parameter you want settable from the GUI.
        Sub-nodes:
        * name

@@ -46,7 +46,7 @@ namespace gr {
        * class. lte::sss_symbol_selector_cvc::make is the public interface for
        * creating new instances.
        */
-      static sptr make(int fftl);
+      static sptr make(int fftl, std::string name = "sss_symbol_selector_cvc");
     };
 
   } // namespace lte

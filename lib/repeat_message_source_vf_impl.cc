@@ -31,17 +31,17 @@ namespace gr {
   namespace lte {
 
     repeat_message_source_vf::sptr
-    repeat_message_source_vf::make(int vector_len)
+    repeat_message_source_vf::make(int vector_len, std::string name)
     {
       return gnuradio::get_initial_sptr
-        (new repeat_message_source_vf_impl(vector_len));
+        (new repeat_message_source_vf_impl(vector_len, name));
     }
 
     /*
      * The private constructor
      */
-    repeat_message_source_vf_impl::repeat_message_source_vf_impl(int vector_len)
-      : gr::sync_block("repeat_message_source_vf",
+    repeat_message_source_vf_impl::repeat_message_source_vf_impl(int vector_len, std::string& name)
+      : gr::sync_block(name,
               gr::io_signature::make(0, 0, 0),
               gr::io_signature::make( 1, 1, sizeof(float) * vector_len)),
               d_vector_len(vector_len),

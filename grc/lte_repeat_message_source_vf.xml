@@ -4,7 +4,7 @@
   <key>lte_repeat_message_source_vf</key>
   <category>lte</category>
   <import>import lte</import>
-  <make>lte.repeat_message_source_vf($vector_len)</make>
+  <make>lte.repeat_message_source_vf($vector_len, "$id")</make>
   <!-- Make one 'param' node for every Parameter you want settable from the GUI.
        Sub-nodes:
        * name

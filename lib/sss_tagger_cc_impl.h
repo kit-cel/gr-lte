@@ -44,7 +44,7 @@ namespace gr {
         void handle_msg_frame_start(pmt::pmt_t msg);
 
      public:
-      sss_tagger_cc_impl(int fftl);
+      sss_tagger_cc_impl(int fftl, std::string& name);
       ~sss_tagger_cc_impl();
 
       // Where all the action really happens

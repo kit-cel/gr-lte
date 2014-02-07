@@ -47,7 +47,7 @@ namespace gr {
         gr_complex corr(gr_complex *res, gr_complex *x, gr_complex *y, int len);
 
      public:
-      rough_symbol_sync_cc_impl(int fftl);
+      rough_symbol_sync_cc_impl(int fftl, std::string& name);
       ~rough_symbol_sync_cc_impl();
 
       // Where all the action really happens

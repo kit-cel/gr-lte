@@ -43,7 +43,7 @@ namespace gr {
         pmt::pmt_t d_tag_id;
 
      public:
-      sss_symbol_selector_cvc_impl(int fftl);
+      sss_symbol_selector_cvc_impl(int fftl, std::string& name);
       ~sss_symbol_selector_cvc_impl();
 
       // Where all the action really happens

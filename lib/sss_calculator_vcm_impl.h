@@ -65,7 +65,7 @@ namespace gr {
         void publish_frame_start(long frame_start);
 
      public:
-      sss_calculator_vcm_impl(int fftl, std::string key_id, std::string key_offset);
+      sss_calculator_vcm_impl(int fftl, std::string key_id, std::string key_offset, std::string& name);
       ~sss_calculator_vcm_impl();
 
       // Where all the action really happens

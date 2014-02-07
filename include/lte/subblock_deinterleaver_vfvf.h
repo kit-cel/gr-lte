@@ -46,7 +46,7 @@ namespace gr {
        * class. lte::subblock_deinterleaver_vfvf::make is the public interface for
        * creating new instances.
        */
-      static sptr make(int num_groups, int items_per_group);
+      static sptr make(int num_groups, int items_per_group, std::string name = "subblock_deinterleaver_vfvf");
     };
 
   } // namespace lte
