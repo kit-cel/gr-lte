@@ -4,7 +4,7 @@
   <key>lte_pbch_scramble_sequencer_m</key>
   <category>lte</category>
   <import>import lte</import>
-  <make>lte.pbch_scramble_sequencer_m()</make>
+  <make>lte.pbch_scramble_sequencer_m("$id")</make>
 
 
   <!-- Make one 'sink' node per input. Sub-nodes:

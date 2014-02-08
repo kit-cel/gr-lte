@@ -30,9 +30,9 @@ class pcfich_scramble_sequencer_m(gr.sync_block):
     Block receives message with cell_id and generates message with descrambling sequences for PCFICH
     """
 
-    def __init__(self):
+    def __init__(self, name="pcfich_scramble_sequencer_m"):
         gr.sync_block.__init__(self,
-                               name="pcfich_scramble_sequencer_m",
+                               name=name,
                                in_sig=None,
                                out_sig=None)
 

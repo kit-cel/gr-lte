@@ -26,11 +26,11 @@ import lte
 
 class pbch_scramble_sequencer_m(gr.sync_block):
     """
-    Take cell_id, generate scrambling sequence and out it out
+    Take cell_id, generate scrambling sequence and publish it to outport.
     """
-    def __init__(self):
+    def __init__(self, name="pbch_scramble_sequencer_m"):
         gr.sync_block.__init__(self,
-            name="pbch_scramble_sequencer_m",
+            name=name,
             in_sig=None,
             out_sig=None)
 

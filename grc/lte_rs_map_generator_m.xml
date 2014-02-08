@@ -4,7 +4,7 @@
   <key>lte_rs_map_generator_m</key>
   <category>lte</category>
   <import>import lte</import>
-  <make>lte.rs_map_generator_m("cell_id", "pilots", $N_rb_dl, $ant_port)</make>
+  <make>lte.rs_map_generator_m("cell_id", "pilots", $N_rb_dl, $ant_port, "$id")</make>
 
   <param>
     <name>resource blocks</name>

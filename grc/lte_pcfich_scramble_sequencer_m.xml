@@ -4,7 +4,7 @@
   <key>lte_pcfich_scramble_sequencer_m</key>
   <category>lte</category>
   <import>import lte</import>
-  <make>lte.pcfich_scramble_sequencer_m()</make>
+  <make>lte.pcfich_scramble_sequencer_m("$id")</make>
   <!-- Make one 'param' node for every Parameter you want settable from the GUI.
        Sub-nodes:
        * name
