@@ -3,7 +3,7 @@
 # Gnuradio Python Flow Graph
 # Title: LTE_test
 # Author: Johannes Demel
-# Generated: Fri Feb  7 15:48:52 2014
+# Generated: Sat Feb  8 18:04:38 2014
 ##################################################
 
 execfile("/home/johannes/.grc_gnuradio/decode_bch_hier_gr37.py")
@@ -79,6 +79,7 @@ class lte_top_block(gr.top_block):
             estimator_key="slot",
             N_rb_dl=50,
         )
+        self.blocks_throttle_0 = blocks.throttle(gr.sizeof_gr_complex*1, samp_rate)
         self.blocks_ctrlport_monitor_performance_0 = not True or monitor("gr-perf-monitorx")
         self.bch_decode_bch_hier_gr37_0 = decode_bch_hier_gr37()
         self.MIB = lte.mib_unpack_vbm("MIB")
@@ -98,10 +99,11 @@ class lte_top_block(gr.top_block):
         self.connect((self.sync_lte_pss_sync_37_0, 0), (self.sync_lte_cp_freq_sync_0, 0))
         self.connect((self.sync_lte_rough_symbol_sync_cc_0, 0), (self.sync_lte_pss_sync_37_0, 0))
         self.connect((self.ofdm_lte_ofdm_hier_0, 0), (self.ofdm_estimator_lte_estimator_hier_0, 0))
-        self.connect((self.pre_blocks_file_source_0, 0), (self.pre_rational_resampler_xxx_0, 0))
-        self.connect((self.pre_rational_resampler_xxx_0, 0), (self.sync_lte_rough_symbol_sync_cc_0, 0))
         self.connect((self.sync_lte_cp_freq_sync_0, 0), (self.sync_lte_sss_sync_hier_0, 0))
         self.connect((self.sync_lte_sss_sync_hier_0, 0), (self.ofdm_lte_ofdm_hier_0, 0))
+        self.connect((self.pre_blocks_file_source_0, 0), (self.blocks_throttle_0, 0))
+        self.connect((self.blocks_throttle_0, 0), (self.pre_rational_resampler_xxx_0, 0))
+        self.connect((self.pre_rational_resampler_xxx_0, 0), (self.sync_lte_rough_symbol_sync_cc_0, 0))
 
         ##################################################
         # Asynch Message Connections
@@ -119,6 +121,7 @@ class lte_top_block(gr.top_block):
     def set_samp_rate(self, samp_rate):
         self.samp_rate = samp_rate
         self.set_interp_val(int(self.samp_rate/1e4))
+        self.blocks_throttle_0.set_sample_rate(self.samp_rate)
 
     def get_pbch_descr_key(self):
         return self.pbch_descr_key

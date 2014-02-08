@@ -27,6 +27,7 @@
 #include <cstdio>
 #include <fftw3.h>
 #include <volk/volk.h>
+#include <boost/format.hpp>
 
 namespace gr {
   namespace lte {
@@ -84,9 +85,9 @@ namespace gr {
                 part = 0;
                 seq_num = next;
             }
-            //printf("seq_num = %i\tpart = %i\tidx = %i\n", seq_num, part, i);
             scr_pos = part * d_len;
-            volk_32f_x2_multiply_32f_u(out, in, &d_scr_seq_vec[seq_num][scr_pos], d_len);
+            float* seq = &d_scr_seq_vec[seq_num][scr_pos];
+            volk_32f_x2_multiply_32f_u(out, in, seq, d_len);
             part = (part+1)%(max_parts);
             out += d_len;
             in += d_len;
@@ -147,20 +148,15 @@ namespace gr {
     void
     descrambler_vfvf_impl::set_descr_seqs(std::vector<std::vector<float> > seqs)
     {
-
+        GR_LOG_INFO(d_debug_logger, "set_descr_seqs\n");
         d_scr_seq_len = seqs[0].size();
         d_num_seqs = seqs.size();
-        //printf("setup_descr_seq BEGIN\t%i\n", d_scr_seq_len);
-        d_scr_seq_vec.clear();
+
+        std::vector<float*> aligned_seqs;
         for(int n = 0; n < seqs.size(); n++) {
-            d_scr_seq_vec.push_back(get_aligned_sequence(seqs[n]));
+            aligned_seqs.push_back(get_aligned_sequence(seqs[n]));
         }
-    //    for(int i = 0; i < d_scr_seq_len; i++){
-    //        for(int el = 0; el < seqs.size(); el++){
-    //            printf("%+1.2f  ", seqs[el][i]-d_scr_seq_vec[el][i]);
-    //        }
-    //        printf("\n");
-    //    }
+        d_scr_seq_vec = aligned_seqs;
     }
 
     float*
@@ -168,6 +164,7 @@ namespace gr {
     {
         float* vec = (float*)fftwf_malloc(sizeof(float)*seq.size() );
         memcpy(vec, &seq[0], sizeof(float)*seq.size() );
+        return vec;
     }
 
   } /* namespace lte */
