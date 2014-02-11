@@ -3,7 +3,7 @@
 # Gnuradio Python Flow Graph
 # Title: LTE_test
 # Author: Johannes Demel
-# Generated: Sun Feb  9 21:36:33 2014
+# Generated: Mon Feb 10 15:43:01 2014
 ##################################################
 
 execfile("/home/johannes/.grc_gnuradio/decode_bch_hier_gr37.py")
@@ -165,9 +165,9 @@ if __name__ == '__main__':
     (options, args) = parser.parse_args()
     tb = lte_top_block()
     tb.start()
-    (tb.blocks_ctrlport_monitor_performance_0).start()
+    #(tb.blocks_ctrlport_monitor_performance_0).start()
     raw_input('Press Enter to quit: ')
     tb.stop()
-    (tb.blocks_ctrlport_monitor_performance_0).start()
+    #(tb.blocks_ctrlport_monitor_performance_0).start()
     tb.wait()
 
