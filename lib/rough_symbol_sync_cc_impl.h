@@ -36,6 +36,7 @@ namespace gr {
         long d_sym_pos;
         float d_corr_val;
         int d_work_call;
+	int d_vlen;
         gr_complex* d_cp0;
         gr_complex* d_cp1;
         gr_complex* d_res;
@@ -47,8 +48,11 @@ namespace gr {
         gr_complex corr(gr_complex *res, gr_complex *x, gr_complex *y, int len);
 
      public:
-      rough_symbol_sync_cc_impl(int fftl, std::string& name);
+      rough_symbol_sync_cc_impl(int fftl, int vlen, std::string& name);
       ~rough_symbol_sync_cc_impl();
+
+      void forecast(int noutput_items, 
+	       gr_vector_int &ninput_items_required);
 
       // Where all the action really happens
       int work(int noutput_items,
