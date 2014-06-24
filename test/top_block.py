@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 ##################################################
 # Gnuradio Python Flow Graph
-# Title: lte_pss_mimo_sync
+# Title: lte_mimo_pss_sync
 # Author: Kristian Maier
 # Description: hier block for pss time sync
-# Generated: Tue Jun 24 14:35:58 2014
+# Generated: Tue Jun 24 17:31:21 2014
 ##################################################
 
 from gnuradio import blocks
@@ -19,7 +19,7 @@ import lte
 class top_block(gr.top_block):
 
     def __init__(self, fftlen=1024):
-        gr.top_block.__init__(self, "lte_pss_mimo_sync")
+        gr.top_block.__init__(self, "lte_mimo_pss_sync")
 
         ##################################################
         # Parameters
@@ -39,25 +39,23 @@ class top_block(gr.top_block):
         self.lte_mimo_pss_coarse_sync_0 = lte.mimo_pss_coarse_sync(synclen)
         self.fir_filter_xxx_0_0 = filter.fir_filter_ccc(fftlen/128, (taps_fftl_1024))
         self.fir_filter_xxx_0_0.declare_sample_delay(0)
-        (self.fir_filter_xxx_0_0).set_min_output_buffer(9800)
         self.fir_filter_xxx_0 = filter.fir_filter_ccf(fftlen/128, (taps_fftl_1024))
         self.fir_filter_xxx_0.declare_sample_delay(0)
-        (self.fir_filter_xxx_0).set_min_output_buffer(9800)
         self.blocks_vector_to_streams_0 = blocks.vector_to_streams(gr.sizeof_gr_complex*1, 2)
         self.blocks_throttle_0 = blocks.throttle(gr.sizeof_gr_complex*2, samp_rate*100,True)
         self.blocks_head_0_0 = blocks.head(gr.sizeof_gr_complex*2, 1550000)
-        self.blocks_file_source_0 = blocks.file_source(gr.sizeof_gr_complex*2, "/home/maier/Schreibtisch/lte5framesFadingChannelETU.dat", False)
+        self.blocks_file_source_0 = blocks.file_source(gr.sizeof_gr_complex*2, "/home/maier/gr-lte/test/lte5framesFadingChannelETU_vec2.dat", False)
 
         ##################################################
         # Connections
         ##################################################
-        self.connect((self.blocks_file_source_0, 0), (self.blocks_throttle_0, 0))
         self.connect((self.blocks_head_0_0, 0), (self.blocks_vector_to_streams_0, 0))
         self.connect((self.blocks_throttle_0, 0), (self.blocks_head_0_0, 0))
-        self.connect((self.blocks_vector_to_streams_0, 1), (self.fir_filter_xxx_0_0, 0))
-        self.connect((self.blocks_vector_to_streams_0, 0), (self.fir_filter_xxx_0, 0))
-        self.connect((self.fir_filter_xxx_0, 0), (self.lte_mimo_pss_coarse_sync_0, 0))
         self.connect((self.fir_filter_xxx_0_0, 0), (self.lte_mimo_pss_coarse_sync_0, 1))
+        self.connect((self.fir_filter_xxx_0, 0), (self.lte_mimo_pss_coarse_sync_0, 0))
+        self.connect((self.blocks_vector_to_streams_0, 0), (self.fir_filter_xxx_0, 0))
+        self.connect((self.blocks_vector_to_streams_0, 1), (self.fir_filter_xxx_0_0, 0))
+        self.connect((self.blocks_file_source_0, 0), (self.blocks_throttle_0, 0))
 
 
 # QT sink close method reimplementation

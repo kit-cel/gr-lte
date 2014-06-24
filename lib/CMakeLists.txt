@@ -51,6 +51,8 @@ list(APPEND lte_sources
     descrambler_vfvf_impl.cc
     pcfich_demux_vcvc_impl.cc
     mimo_pss_coarse_sync_impl.cc
+    mimo_pss_fine_sync_impl.cc
+    mimo_pss_helper.cc
 )
 
 add_library(gnuradio-lte SHARED ${lte_sources})

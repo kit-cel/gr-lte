@@ -47,5 +47,7 @@ install(FILES
     sync_frequency_c.h
     descrambler_vfvf.h
     pcfich_demux_vcvc.h
-    mimo_pss_coarse_sync.h DESTINATION include/lte
+    mimo_pss_coarse_sync.h
+    mimo_pss_fine_sync.h
+    mimo_pss_helper.h DESTINATION include/lte
 )

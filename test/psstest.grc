@@ -1,29 +1,6 @@
 <?xml version='1.0' encoding='ASCII'?>
 <flow_graph>
-  <timestamp>Tue Jun 24 14:35:58 2014</timestamp>
-  <block>
-    <key>variable</key>
-    <param>
-      <key>id</key>
-      <value>taps_fftl_1024</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>[-0.00141422616403692464996655342446274517, 0.015642606095112098624211327546618122142, 0.030243226636871359258584845974837662652, 0.052594337944074170954067426464462187141, 0.078507642615830444676738864018261665478, 0.103921182343643836443192185470252297819, 0.124279358836934944454455376217083539814, 0.135614264806182049927230082175810821354, 0.135614264806182049927230082175810821354, 0.124279358836934944454455376217083539814, 0.103921182343643836443192185470252297819, 0.078507642615830444676738864018261665478, 0.052594337944074170954067426464462187141,0.030243226636871359258584845974837662652,0.015642606095112098624211327546618122142,-0.00141422616403692464996655342446274517]</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(465, 23)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
+  <timestamp>Tue Jun 24 15:48:44 2014</timestamp>
   <block>
     <key>variable</key>
     <param>
@@ -64,6 +41,29 @@
     <param>
       <key>_coordinate</key>
       <value>(10, 170)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>variable</key>
+    <param>
+      <key>id</key>
+      <value>taps_fftl_1024</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>[-0.00141422616403692464996655342446274517, 0.015642606095112098624211327546618122142, 0.030243226636871359258584845974837662652, 0.052594337944074170954067426464462187141, 0.078507642615830444676738864018261665478, 0.103921182343643836443192185470252297819, 0.124279358836934944454455376217083539814, 0.135614264806182049927230082175810821354, 0.135614264806182049927230082175810821354, 0.124279358836934944454455376217083539814, 0.103921182343643836443192185470252297819, 0.078507642615830444676738864018261665478, 0.052594337944074170954067426464462187141,0.030243226636871359258584845974837662652,0.015642606095112098624211327546618122142,-0.00141422616403692464996655342446274517]</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(465, 23)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -184,53 +184,6 @@
     </param>
   </block>
   <block>
-    <key>blocks_throttle</key>
-    <param>
-      <key>id</key>
-      <value>blocks_throttle_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>complex</value>
-    </param>
-    <param>
-      <key>samples_per_second</key>
-      <value>samp_rate*100</value>
-    </param>
-    <param>
-      <key>vlen</key>
-      <value>2</value>
-    </param>
-    <param>
-      <key>ignoretag</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>maxoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(311, 281)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
     <key>blocks_head</key>
     <param>
       <key>id</key>
@@ -266,54 +219,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(515, 277)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>blocks_file_source</key>
-    <param>
-      <key>id</key>
-      <value>blocks_file_source_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>file</key>
-      <value>/home/maier/Schreibtisch/lte5framesFadingChannelETU.dat</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>complex</value>
-    </param>
-    <param>
-      <key>repeat</key>
-      <value>False</value>
-    </param>
-    <param>
-      <key>vlen</key>
-      <value>2</value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>maxoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(76, 270)</value>
+      <value>(707, 272)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -356,7 +262,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(149, 464)</value>
+      <value>(126, 483)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -395,7 +301,7 @@
     </param>
     <param>
       <key>minoutbuf</key>
-      <value>9800</value>
+      <value>0</value>
     </param>
     <param>
       <key>maxoutbuf</key>
@@ -403,7 +309,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(378, 432)</value>
+      <value>(455, 430)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -442,7 +348,7 @@
     </param>
     <param>
       <key>minoutbuf</key>
-      <value>9800</value>
+      <value>0</value>
     </param>
     <param>
       <key>maxoutbuf</key>
@@ -450,7 +356,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(372, 510)</value>
+      <value>(452, 506)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -485,7 +391,54 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(685, 470)</value>
+      <value>(729, 442)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>blocks_file_source</key>
+    <param>
+      <key>id</key>
+      <value>blocks_file_source_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>file</key>
+      <value>/home/maier/gr-lte/test/lte5framesFadingChannelETU_vec2.dat</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>complex</value>
+    </param>
+    <param>
+      <key>repeat</key>
+      <value>False</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>2</value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(58, 273)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -504,7 +457,7 @@
     </param>
     <param>
       <key>title</key>
-      <value>lte_pss_mimo_sync</value>
+      <value>lte_mimo_pss_sync</value>
     </param>
     <param>
       <key>author</key>
@@ -551,12 +504,53 @@
       <value>0</value>
     </param>
   </block>
-  <connection>
-    <source_block_id>blocks_file_source_0</source_block_id>
-    <sink_block_id>blocks_throttle_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
+  <block>
+    <key>blocks_throttle</key>
+    <param>
+      <key>id</key>
+      <value>blocks_throttle_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>complex</value>
+    </param>
+    <param>
+      <key>samples_per_second</key>
+      <value>samp_rate*100</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>2</value>
+    </param>
+    <param>
+      <key>ignoretag</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(414, 281)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
   <connection>
     <source_block_id>blocks_head_0_0</source_block_id>
     <sink_block_id>blocks_vector_to_streams_0</sink_block_id>
@@ -570,9 +564,15 @@
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>blocks_vector_to_streams_0</source_block_id>
-    <sink_block_id>fir_filter_xxx_0_0</sink_block_id>
-    <source_key>1</source_key>
+    <source_block_id>fir_filter_xxx_0_0</source_block_id>
+    <sink_block_id>lte_mimo_pss_coarse_sync_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>1</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>fir_filter_xxx_0</source_block_id>
+    <sink_block_id>lte_mimo_pss_coarse_sync_0</sink_block_id>
+    <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
@@ -582,15 +582,15 @@
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>fir_filter_xxx_0</source_block_id>
-    <sink_block_id>lte_mimo_pss_coarse_sync_0</sink_block_id>
-    <source_key>0</source_key>
+    <source_block_id>blocks_vector_to_streams_0</source_block_id>
+    <sink_block_id>fir_filter_xxx_0_0</sink_block_id>
+    <source_key>1</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>fir_filter_xxx_0_0</source_block_id>
-    <sink_block_id>lte_mimo_pss_coarse_sync_0</sink_block_id>
+    <source_block_id>blocks_file_source_0</source_block_id>
+    <sink_block_id>blocks_throttle_0</sink_block_id>
     <source_key>0</source_key>
-    <sink_key>1</sink_key>
+    <sink_key>0</sink_key>
   </connection>
 </flow_graph>

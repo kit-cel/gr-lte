@@ -34,6 +34,8 @@
 #include "lte/descrambler_vfvf.h"
 #include "lte/pcfich_demux_vcvc.h"
 #include "lte/mimo_pss_coarse_sync.h"
+#include "lte/mimo_pss_fine_sync.h"
+#include "lte/mimo_pss_helper.h"
 %}
 
 
@@ -89,3 +91,6 @@ GR_SWIG_BLOCK_MAGIC2(lte, descrambler_vfvf);
 GR_SWIG_BLOCK_MAGIC2(lte, pcfich_demux_vcvc);
 %include "lte/mimo_pss_coarse_sync.h"
 GR_SWIG_BLOCK_MAGIC2(lte, mimo_pss_coarse_sync);
+%include "lte/mimo_pss_fine_sync.h"
+GR_SWIG_BLOCK_MAGIC2(lte, mimo_pss_fine_sync);
+%include "lte/mimo_pss_helper.h"

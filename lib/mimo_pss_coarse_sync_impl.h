@@ -22,6 +22,7 @@
 #define INCLUDED_LTE_mimo_pss_coarse_sync_IMPL_H
 
 #include <lte/mimo_pss_coarse_sync.h>
+#include <lte/mimo_pss_helper.h>
 
 namespace gr {
   namespace lte {
@@ -29,9 +30,6 @@ namespace gr {
     class mimo_pss_coarse_sync_impl : public mimo_pss_coarse_sync
     {
      private:
-        static const gr_complex d_C_I;
-        static const float d_PI;
-	
 	static const int d_TIME_HYPO=9600;
 	static const int d_CORRL=128;	
 
@@ -44,27 +42,19 @@ namespace gr {
         pmt::pmt_t d_port_coarse_pss;
         pmt::pmt_t d_port_N_id_2;
 
-        gr_complex d_pss0_t[128];
-        gr_complex d_pss1_t[128];
-        gr_complex d_pss2_t[128];
-        gr_complex d_pss012_t[128];
-	float d_result[9600];
-
-	gr_complex *d_a;	
+        gr_complex d_pss0_t[d_CORRL];
+        gr_complex d_pss1_t[d_CORRL];
+        gr_complex d_pss2_t[d_CORRL];
+        gr_complex d_pss012_t[d_CORRL];
+	float d_result[d_TIME_HYPO];	
     
-        void zc(gr_complex *zc, int cell_id);	//generate Zadoff-Chu Sequenz
-        void gen_pss_t(gr_complex *pss_t, int cell_id);
-        void prepare_corr_vecs();
+	void prepare_corr_vecs();
 
-	float diff_corr(const gr_complex* x,const gr_complex* y);
-	float diff_corr2(const gr_complex* x1, const gr_complex* x2, const gr_complex* y);
 	int calc_N_id_2(const gr_complex* in1, const gr_complex* in2, const int &mpos);
 
      public:
       mimo_pss_coarse_sync_impl(int syncl);
       ~mimo_pss_coarse_sync_impl();    
-
-      //void forecast (int noutput_items, gr_vector_int &ninput_items_required);
 
       // Where all the action really happens
       int work(int noutput_items,
