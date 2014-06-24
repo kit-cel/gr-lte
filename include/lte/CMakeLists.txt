@@ -46,5 +46,6 @@ install(FILES
     sss_tagger_cc.h
     sync_frequency_c.h
     descrambler_vfvf.h
-    pcfich_demux_vcvc.h DESTINATION include/lte
+    pcfich_demux_vcvc.h
+    mimo_pss_coarse_sync.h DESTINATION include/lte
 )

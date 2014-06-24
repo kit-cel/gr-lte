@@ -1,41 +1,41 @@
  
 
-% clf; 
-% close all;
-% clear all;
-% % 
-% rmc.RC='R.10';
-% rmc.NCellID=113;
-% rmc.PDSCH.TxScheme='TxDiversity';
-% rmc.CyclicPrefix='Normal';
-% rmc.DuplexMode='FDD';
-% rmc.TotSubframes=10;
-% waveconfig=lteRMCDL(rmc);
+clf; 
+close all;
+clear all;
 % 
-% [waveform, grid, waveconfig]=lteRMCDLTool(waveconfig,[1;0;0;1]);
-% 
-% chcfg.Seed=22;
-% chcfg.DelayProfile='ETU';
-% chcfg.NRxAnts=2;
-% chcfg.DopplerFreq=0;
-% chcfg.MIMOCorrelation='low';
-% chcfg.SamplingRate=waveconfig.SamplingRate;
-% chcfg.InitTime = 0;
-% [rx_ant, chinfo]=lteFadingChannel(chcfg,waveform);
-% 
-% f_off=5000;
-% phi=f_off/waveconfig.SamplingRate;
-% rm_sim_offset=exp(1i*2*pi*phi*(0:length(rx_ant(:,1))-1))';
-% rx_ant = rx_ant .* [rm_sim_offset rm_sim_offset];
-% clear f_off phi;
-% 
-% rx_ant(:,1)=awgn(rx_ant(:,1),6, 'measured');
-% rx_ant(:,2)=awgn(rx_ant(:,2),6, 'measured');
+rmc.RC='R.10';
+rmc.NCellID=113;
+rmc.PDSCH.TxScheme='TxDiversity';
+rmc.CyclicPrefix='Normal';
+rmc.DuplexMode='FDD';
+rmc.TotSubframes=50;
+waveconfig=lteRMCDL(rmc);
+
+[waveform, grid, waveconfig]=lteRMCDLTool(waveconfig,[1;0;0;1]);
+
+chcfg.Seed=22;
+chcfg.DelayProfile='ETU';
+chcfg.NRxAnts=2;
+chcfg.DopplerFreq=0;
+chcfg.MIMOCorrelation='low';
+chcfg.SamplingRate=waveconfig.SamplingRate;
+chcfg.InitTime = 0;
+[rx_ant, chinfo]=lteFadingChannel(chcfg,waveform);
+
+f_off=5000;
+phi=f_off/waveconfig.SamplingRate;
+rm_sim_offset=exp(1i*2*pi*phi*(0:length(rx_ant(:,1))-1))';
+rx_ant = rx_ant .* [rm_sim_offset rm_sim_offset];
+clear f_off phi;
+
+rx_ant(:,1)=awgn(rx_ant(:,1),6, 'measured');
+rx_ant(:,2)=awgn(rx_ant(:,2),6, 'measured');
 
 test=rx_ant;
 
  
-% save_complex(rx_ant, 2, '/home/maier/Schreibtisch/lte10framesFadingChannelETU.dat');
+ save_complex(rx_ant, 2, '/home/maier/Schreibtisch/lte5framesFadingChannelETU.dat');
 
  
 fftl=single(waveconfig.Nfft);
