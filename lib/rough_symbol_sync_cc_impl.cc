@@ -104,7 +104,7 @@ namespace gr {
         const gr_complex *in = (const gr_complex *) input_items[0];
         gr_complex *out = (gr_complex *) output_items[0];
 
-        printf("%s.work\tnoutput_items = %i\tnitems_read = %ld\n", name().c_str(), noutput_items, nitems_read(0) );
+        //printf("%s.work\tnoutput_items = %i\tnitems_read = %ld\n", name().c_str(), noutput_items, nitems_read(0) );
 
         if(nitems_read(0) > 100000){
             add_item_tag(0,nitems_read(0)+5,d_key, pmt::from_long(d_sym_pos),d_tag_id);

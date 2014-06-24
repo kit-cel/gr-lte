@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='ASCII'?>
 <flow_graph>
-  <timestamp>Wed Jun 11 14:10:45 2014</timestamp>
+  <timestamp>Tue Jun 17 17:23:57 2014</timestamp>
   <block>
     <key>variable</key>
     <param>
       <key>id</key>
-      <value>pbch_descr_key</value>
+      <value>interp_val</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -13,11 +13,11 @@
     </param>
     <param>
       <key>value</key>
-      <value>"descr_part"</value>
+      <value>int(samp_rate/1e4)</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(361, 9)</value>
+      <value>(828, 90)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -36,57 +36,11 @@
     </param>
     <param>
       <key>value</key>
-      <value>2048</value>
+      <value>1024</value>
     </param>
     <param>
       <key>_coordinate</key>
       <value>(256, 8)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>variable</key>
-    <param>
-      <key>id</key>
-      <value>samp_rate</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>30.72e6</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(215, 69)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>variable</key>
-    <param>
-      <key>id</key>
-      <value>frame_key</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>"slot"</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(475, 9)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -120,7 +74,7 @@
     <key>variable</key>
     <param>
       <key>id</key>
-      <value>interp_val</value>
+      <value>pbch_descr_key</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -128,11 +82,11 @@
     </param>
     <param>
       <key>value</key>
-      <value>int(samp_rate/1e4)</value>
+      <value>"descr_part"</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(784, 122)</value>
+      <value>(361, 9)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -140,38 +94,49 @@
     </param>
   </block>
   <block>
-    <key>lte_pss_sync_37</key>
+    <key>variable</key>
     <param>
       <key>id</key>
-      <value>sync_lte_pss_sync_37_0</value>
+      <value>frame_key</value>
     </param>
     <param>
       <key>_enabled</key>
       <value>True</value>
     </param>
     <param>
-      <key>fftlen</key>
-      <value>fftlen</value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>maxoutbuf</key>
-      <value>0</value>
+      <key>value</key>
+      <value>"slot"</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(270, 286)</value>
+      <value>(475, 9)</value>
     </param>
     <param>
       <key>_rotation</key>
-      <value>180</value>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>variable</key>
+    <param>
+      <key>id</key>
+      <value>samp_rate</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>30.72e6</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(215, 69)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
     </param>
   </block>
   <block>
@@ -502,46 +467,38 @@
     </param>
   </block>
   <block>
-    <key>blocks_file_source</key>
+    <key>blocks_null_sink</key>
     <param>
       <key>id</key>
-      <value>pre_blocks_file_source_0</value>
+      <value>blocks_null_sink_0</value>
     </param>
     <param>
       <key>_enabled</key>
       <value>True</value>
     </param>
     <param>
-      <key>file</key>
-      <value>/home/maier/Schreibtisch/20frames_awgn20db.dat</value>
-    </param>
-    <param>
       <key>type</key>
       <value>complex</value>
-    </param>
-    <param>
-      <key>repeat</key>
-      <value>False</value>
     </param>
     <param>
       <key>vlen</key>
       <value>1</value>
     </param>
     <param>
+      <key>num_inputs</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>bus_conns</key>
+      <value>[[0,],]</value>
+    </param>
+    <param>
       <key>affinity</key>
       <value></value>
     </param>
     <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>maxoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
       <key>_coordinate</key>
-      <value>(246, 196)</value>
+      <value>(205, 331)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -549,30 +506,18 @@
     </param>
   </block>
   <block>
-    <key>blocks_throttle</key>
+    <key>lte_pss_sync_37</key>
     <param>
       <key>id</key>
-      <value>blocks_throttle_0</value>
+      <value>sync_lte_pss_sync_37_0</value>
     </param>
     <param>
       <key>_enabled</key>
       <value>True</value>
     </param>
     <param>
-      <key>type</key>
-      <value>complex</value>
-    </param>
-    <param>
-      <key>samples_per_second</key>
-      <value>samp_rate</value>
-    </param>
-    <param>
-      <key>vlen</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>ignoretag</key>
-      <value>True</value>
+      <key>fftlen</key>
+      <value>fftlen</value>
     </param>
     <param>
       <key>affinity</key>
@@ -588,11 +533,54 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(477, 204)</value>
+      <value>(269, 287)</value>
     </param>
     <param>
       <key>_rotation</key>
+      <value>180</value>
+    </param>
+  </block>
+  <block>
+    <key>blocks_vector_to_streams</key>
+    <param>
+      <key>id</key>
+      <value>blocks_vector_to_streams_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>complex</value>
+    </param>
+    <param>
+      <key>num_streams</key>
+      <value>2</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
       <value>0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(452, 289)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>180</value>
     </param>
   </block>
   <block>
@@ -639,7 +627,54 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(766, 180)</value>
+      <value>(810, 148)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>blocks_throttle</key>
+    <param>
+      <key>id</key>
+      <value>blocks_throttle_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>complex</value>
+    </param>
+    <param>
+      <key>samples_per_second</key>
+      <value>samp_rate</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>2</value>
+    </param>
+    <param>
+      <key>ignoretag</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>5000</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(521, 172)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -662,7 +697,7 @@
     </param>
     <param>
       <key>vlen</key>
-      <value>1</value>
+      <value>2</value>
     </param>
     <param>
       <key>affinity</key>
@@ -678,7 +713,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(470, 278)</value>
+      <value>(605, 261)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -738,6 +773,53 @@
     <param>
       <key>_coordinate</key>
       <value>(10, 10)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>blocks_file_source</key>
+    <param>
+      <key>id</key>
+      <value>pre_blocks_file_source_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>file</key>
+      <value>/home/maier/Schreibtisch/40framesperfect.dat</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>complex</value>
+    </param>
+    <param>
+      <key>repeat</key>
+      <value>False</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>2</value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(288, 164)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -811,12 +893,6 @@
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>sync_lte_rough_symbol_sync_cc_0</source_block_id>
-    <sink_block_id>sync_lte_pss_sync_37_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
     <source_block_id>ofdm_lte_ofdm_hier_0</source_block_id>
     <sink_block_id>ofdm_estimator_lte_estimator_hier_0</sink_block_id>
     <source_key>0</source_key>
@@ -853,8 +929,8 @@
     <sink_key>cell_id</sink_key>
   </connection>
   <connection>
-    <source_block_id>pre_blocks_file_source_0</source_block_id>
-    <sink_block_id>blocks_throttle_0</sink_block_id>
+    <source_block_id>pre_rational_resampler_xxx_0</source_block_id>
+    <sink_block_id>sync_lte_rough_symbol_sync_cc_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
@@ -865,9 +941,27 @@
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>pre_rational_resampler_xxx_0</source_block_id>
-    <sink_block_id>sync_lte_rough_symbol_sync_cc_0</sink_block_id>
+    <source_block_id>pre_blocks_file_source_0</source_block_id>
+    <sink_block_id>blocks_throttle_0</sink_block_id>
     <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>sync_lte_rough_symbol_sync_cc_0</source_block_id>
+    <sink_block_id>blocks_vector_to_streams_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>blocks_vector_to_streams_0</source_block_id>
+    <sink_block_id>blocks_null_sink_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>blocks_vector_to_streams_0</source_block_id>
+    <sink_block_id>sync_lte_pss_sync_37_0</sink_block_id>
+    <source_key>1</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>

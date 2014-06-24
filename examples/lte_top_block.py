@@ -3,7 +3,7 @@
 # Gnuradio Python Flow Graph
 # Title: LTE_test
 # Author: Johannes Demel
-# Generated: Wed Jun 11 14:12:42 2014
+# Generated: Tue Jun 17 17:23:57 2014
 ##################################################
 
 execfile("/home/maier/.grc_gnuradio/decode_bch_hier_gr37.py")
@@ -33,7 +33,7 @@ class lte_top_block(gr.top_block):
         self.pbch_descr_key = pbch_descr_key = "descr_part"
         self.interp_val = interp_val = int(samp_rate/1e4)
         self.frame_key = frame_key = "slot"
-        self.fftlen = fftlen = 2048
+        self.fftlen = fftlen = 1024
         self.N_rb_dl = N_rb_dl = 50
 
         ##################################################
@@ -45,14 +45,14 @@ class lte_top_block(gr.top_block):
             group_key="N_id_2",
             offset_key="offset_marker",
         )
-        self.sync_lte_rough_symbol_sync_cc_0 = lte.rough_symbol_sync_cc(fftlen, 1, "sync_lte_rough_symbol_sync_cc_0")
+        self.sync_lte_rough_symbol_sync_cc_0 = lte.rough_symbol_sync_cc(fftlen, 2, "sync_lte_rough_symbol_sync_cc_0")
         self.sync_lte_pss_sync_37_0 = lte_pss_sync_37(
             fftlen=fftlen,
         )
         self.sync_lte_cp_freq_sync_0 = lte_cp_freq_sync(
             fftlen=2048,
         )
-        self.pre_blocks_file_source_0 = blocks.file_source(gr.sizeof_gr_complex*1, "/home/maier/Schreibtisch/20frames_awgn20db.dat", False)
+        self.pre_blocks_file_source_0 = blocks.file_source(gr.sizeof_gr_complex*2, "/home/maier/Schreibtisch/40framesperfect.dat", False)
         self.pbch_decode_pbch_37_0 = decode_pbch_37(
             N_rb_dl=N_rb_dl,
         )
@@ -66,7 +66,10 @@ class lte_top_block(gr.top_block):
             estimator_key="slot",
             N_rb_dl=50,
         )
-        self.blocks_throttle_0 = blocks.throttle(gr.sizeof_gr_complex*1, samp_rate,True)
+        self.blocks_vector_to_streams_0 = blocks.vector_to_streams(gr.sizeof_gr_complex*1, 2)
+        self.blocks_throttle_0 = blocks.throttle(gr.sizeof_gr_complex*2, samp_rate,True)
+        (self.blocks_throttle_0).set_min_output_buffer(5000)
+        self.blocks_null_sink_0 = blocks.null_sink(gr.sizeof_gr_complex*1)
         self.bch_decode_bch_hier_gr37_0 = decode_bch_hier_gr37()
         self.MIB = lte.mib_unpack_vbm("MIB")
 
@@ -80,11 +83,13 @@ class lte_top_block(gr.top_block):
         self.connect((self.ofdm_lte_ofdm_hier_0, 0), (self.pbch_decode_pbch_37_0, 0))
         self.connect((self.ofdm_estimator_lte_estimator_hier_0, 1), (self.pbch_decode_pbch_37_0, 2))
         self.connect((self.sync_lte_pss_sync_37_0, 0), (self.sync_lte_cp_freq_sync_0, 0))
-        self.connect((self.sync_lte_rough_symbol_sync_cc_0, 0), (self.sync_lte_pss_sync_37_0, 0))
         self.connect((self.ofdm_lte_ofdm_hier_0, 0), (self.ofdm_estimator_lte_estimator_hier_0, 0))
         self.connect((self.sync_lte_cp_freq_sync_0, 0), (self.sync_lte_sss_sync_hier_0, 0))
         self.connect((self.sync_lte_sss_sync_hier_0, 0), (self.ofdm_lte_ofdm_hier_0, 0))
         self.connect((self.pre_blocks_file_source_0, 0), (self.blocks_throttle_0, 0))
+        self.connect((self.sync_lte_rough_symbol_sync_cc_0, 0), (self.blocks_vector_to_streams_0, 0))
+        self.connect((self.blocks_vector_to_streams_0, 0), (self.blocks_null_sink_0, 0))
+        self.connect((self.blocks_vector_to_streams_0, 1), (self.sync_lte_pss_sync_37_0, 0))
         self.connect((self.blocks_throttle_0, 0), (self.sync_lte_rough_symbol_sync_cc_0, 0))
 
         ##################################################
@@ -127,8 +132,8 @@ class lte_top_block(gr.top_block):
 
     def set_fftlen(self, fftlen):
         self.fftlen = fftlen
-        self.sync_lte_pss_sync_37_0.set_fftlen(self.fftlen)
         self.sync_lte_sss_sync_hier_0.set_fftlen(self.fftlen)
+        self.sync_lte_pss_sync_37_0.set_fftlen(self.fftlen)
 
     def get_N_rb_dl(self):
         return self.N_rb_dl
