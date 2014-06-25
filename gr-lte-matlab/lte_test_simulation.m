@@ -35,7 +35,7 @@ rx_ant(:,2)=awgn(rx_ant(:,2),6, 'measured');
 test=rx_ant;
 
  
- save_complex(rx_ant, 2, '/home/maier/Schreibtisch/lte5framesFadingChannelETU.dat');
+ %save_complex(rx_ant, 2, '/home/maier/Schreibtisch/lte5framesFadingChannelETU.dat');
 
  
 fftl=single(waveconfig.Nfft);

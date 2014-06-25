@@ -52,8 +52,7 @@ list(APPEND lte_sources
     pcfich_demux_vcvc_impl.cc
     mimo_pss_coarse_sync_impl.cc
     mimo_pss_fine_sync_impl.cc
-    mimo_pss_helper.cc
-)
+    )
 
 add_library(gnuradio-lte SHARED ${lte_sources})
 target_link_libraries(gnuradio-lte ${Boost_LIBRARIES} ${GNURADIO_RUNTIME_LIBRARIES} ${FFTW3F_LIBRARIES})

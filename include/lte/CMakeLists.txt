@@ -49,5 +49,5 @@ install(FILES
     pcfich_demux_vcvc.h
     mimo_pss_coarse_sync.h
     mimo_pss_fine_sync.h
-    mimo_pss_helper.h DESTINATION include/lte
+    DESTINATION include/lte
 )

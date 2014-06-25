@@ -146,8 +146,8 @@ clear corrmax;
 tic
 
 
-corrvec1=xcorr(invec(finepos+1:end,1), chu_t_high(:, N_id_2+1),decim);
-corrvec2=xcorr(invec(finepos+1:end,2), chu_t_high(:, N_id_2+1),decim);
+corrvec1=xcorr(invec(finepos+1:end,1), chu_t_high(:, N_id_2+1),decim*500);
+corrvec2=xcorr(invec(finepos+1:end,2), chu_t_high(:, N_id_2+1),decim*500);
 
 [c, p] = max(abs(corrvec1)+abs(corrvec2));
 finepos=finepos+p-decim-1;

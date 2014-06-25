@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <block>
-  <name>mimo_pss_coarse_sync</name>
+  <name>MIMO PSS coarse sync</name>
   <key>lte_mimo_pss_coarse_sync</key>
   <category>lte</category>
   <import>import lte</import>

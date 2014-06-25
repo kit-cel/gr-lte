@@ -158,7 +158,7 @@ class rs_map_generator_m(gr.sync_block):
         elif p == 2:
             v = 3 * (ns % 2)
         elif p == 3:
-            v = 3 * 3 * (ns % 2)
+            v = 3 + 3 * (ns % 2)
         return v
 
         #def work(self, input_items, output_items):

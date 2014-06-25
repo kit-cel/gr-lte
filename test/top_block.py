@@ -4,7 +4,7 @@
 # Title: lte_mimo_pss_sync
 # Author: Kristian Maier
 # Description: hier block for pss time sync
-# Generated: Tue Jun 24 17:31:21 2014
+# Generated: Wed Jun 25 15:26:29 2014
 ##################################################
 
 from gnuradio import blocks
@@ -39,23 +39,25 @@ class top_block(gr.top_block):
         self.lte_mimo_pss_coarse_sync_0 = lte.mimo_pss_coarse_sync(synclen)
         self.fir_filter_xxx_0_0 = filter.fir_filter_ccc(fftlen/128, (taps_fftl_1024))
         self.fir_filter_xxx_0_0.declare_sample_delay(0)
-        self.fir_filter_xxx_0 = filter.fir_filter_ccf(fftlen/128, (taps_fftl_1024))
+        self.fir_filter_xxx_0 = filter.fir_filter_ccc(fftlen/128, (taps_fftl_1024))
         self.fir_filter_xxx_0.declare_sample_delay(0)
         self.blocks_vector_to_streams_0 = blocks.vector_to_streams(gr.sizeof_gr_complex*1, 2)
-        self.blocks_throttle_0 = blocks.throttle(gr.sizeof_gr_complex*2, samp_rate*100,True)
-        self.blocks_head_0_0 = blocks.head(gr.sizeof_gr_complex*2, 1550000)
+        self.blocks_throttle_0 = blocks.throttle(gr.sizeof_gr_complex*2, 1e6,True)
+        self.blocks_head_0_0_0 = blocks.head(gr.sizeof_gr_complex*1, 1550000)
+        self.blocks_head_0_0 = blocks.head(gr.sizeof_gr_complex*1, 1550000)
         self.blocks_file_source_0 = blocks.file_source(gr.sizeof_gr_complex*2, "/home/maier/gr-lte/test/lte5framesFadingChannelETU_vec2.dat", False)
 
         ##################################################
         # Connections
         ##################################################
-        self.connect((self.blocks_head_0_0, 0), (self.blocks_vector_to_streams_0, 0))
-        self.connect((self.blocks_throttle_0, 0), (self.blocks_head_0_0, 0))
-        self.connect((self.fir_filter_xxx_0_0, 0), (self.lte_mimo_pss_coarse_sync_0, 1))
-        self.connect((self.fir_filter_xxx_0, 0), (self.lte_mimo_pss_coarse_sync_0, 0))
-        self.connect((self.blocks_vector_to_streams_0, 0), (self.fir_filter_xxx_0, 0))
-        self.connect((self.blocks_vector_to_streams_0, 1), (self.fir_filter_xxx_0_0, 0))
         self.connect((self.blocks_file_source_0, 0), (self.blocks_throttle_0, 0))
+        self.connect((self.blocks_throttle_0, 0), (self.blocks_vector_to_streams_0, 0))
+        self.connect((self.blocks_vector_to_streams_0, 0), (self.blocks_head_0_0, 0))
+        self.connect((self.fir_filter_xxx_0, 0), (self.lte_mimo_pss_coarse_sync_0, 0))
+        self.connect((self.fir_filter_xxx_0_0, 0), (self.lte_mimo_pss_coarse_sync_0, 1))
+        self.connect((self.blocks_head_0_0, 0), (self.fir_filter_xxx_0, 0))
+        self.connect((self.blocks_head_0_0_0, 0), (self.fir_filter_xxx_0_0, 0))
+        self.connect((self.blocks_vector_to_streams_0, 1), (self.blocks_head_0_0_0, 0))
 
 
 # QT sink close method reimplementation
@@ -71,8 +73,8 @@ class top_block(gr.top_block):
 
     def set_taps_fftl_1024(self, taps_fftl_1024):
         self.taps_fftl_1024 = taps_fftl_1024
-        self.fir_filter_xxx_0.set_taps((self.taps_fftl_1024))
         self.fir_filter_xxx_0_0.set_taps((self.taps_fftl_1024))
+        self.fir_filter_xxx_0.set_taps((self.taps_fftl_1024))
 
     def get_synclen(self):
         return self.synclen
@@ -85,7 +87,6 @@ class top_block(gr.top_block):
 
     def set_samp_rate(self, samp_rate):
         self.samp_rate = samp_rate
-        self.blocks_throttle_0.set_sample_rate(self.samp_rate*100)
 
 if __name__ == '__main__':
     parser = OptionParser(option_class=eng_option, usage="%prog: [options]")
