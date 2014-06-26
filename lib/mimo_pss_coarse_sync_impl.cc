@@ -66,8 +66,8 @@ mimo_pss_coarse_sync_impl::mimo_pss_coarse_sync_impl(int syncl)
 
     d_port_N_id_2 = pmt::string_to_symbol("N_id_2");
     message_port_register_out(d_port_N_id_2);
-    d_port_coarse_pss = pmt::string_to_symbol("coarse_pss");
-    message_port_register_out(d_port_coarse_pss);
+    d_port_coarse_pos = pmt::string_to_symbol("coarse_pos");
+    message_port_register_out(d_port_coarse_pos);
 
     //float/gr_complex can be set to 0 since binary representation of 0.0 is 0
     memset(d_result, 0, sizeof(float)*d_TIME_HYPO);
@@ -131,7 +131,7 @@ mimo_pss_coarse_sync_impl::work(int noutput_items,
 
     //publish results
     message_port_pub(d_port_N_id_2, pmt::from_long((long)d_N_id_2));
-    message_port_pub(d_port_coarse_pss, pmt::from_long( d_posmax) );
+    message_port_pub(d_port_coarse_pos, pmt::from_long( d_posmax) );
 
     printf("\n%s:found N_id_2=%i\n", name().c_str(), d_N_id_2);
     printf("%s:coarse pss-pos=%i\n", name().c_str(), d_posmax);

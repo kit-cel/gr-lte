@@ -43,7 +43,7 @@ private:
     float d_max;
 
 
-    pmt::pmt_t d_port_coarse_pss;
+    pmt::pmt_t d_port_coarse_pos;
     pmt::pmt_t d_port_N_id_2;
 
     gr_complex d_pss0_t[d_CORRL];

@@ -36,20 +36,18 @@ private:
     static const gr_complex d_C_I;
     static const float d_PI;
     int d_N_id_2;
-    int d_coarse_pss;
-    int d_fine_pss;
+    int d_coarse_pos;
     int d_fftl;
     int d_cpl;
     int d_cpl0;
     int d_slotl;
     int d_decim;
-    int d_fine_count;
+    int d_fine_pos;
     long d_half_frame_start;
     float d_corr_val;
     bool d_is_locked;
 
     gr_complex* d_pssX_t;
-
     gr_complex* d_a;
 
     void zc(gr_complex *zc, int cell_id);
@@ -62,7 +60,7 @@ public:
     ~mimo_pss_fine_sync_impl();
 
     void handle_msg_N_id_2(pmt::pmt_t msg);
-    void handle_msg_coarse_pss(pmt::pmt_t msg);
+    void handle_msg_coarse_pos(pmt::pmt_t msg);
 
     // Where all the action really happens
     int work(int noutput_items,

@@ -37,7 +37,7 @@
   </sink>
 
   <sink>
-    <name>coarse_pss</name>
+    <name>coarse_pos</name>
     <type>message</type>
   </sink>
 

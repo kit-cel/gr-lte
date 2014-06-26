@@ -50,7 +50,7 @@ mimo_pss_fine_sync_impl::mimo_pss_fine_sync_impl(int fftl)
                      gr::io_signature::make(2, 2, sizeof(gr_complex)),
                      gr::io_signature::make(2, 2, sizeof(gr_complex))),
     d_N_id_2(-1),
-    d_coarse_pss(-1),
+    d_coarse_pos(-1),
     d_fftl(fftl),
     d_cpl(144*fftl/2048),
     d_cpl0(160*fftl/2048),
@@ -59,7 +59,7 @@ mimo_pss_fine_sync_impl::mimo_pss_fine_sync_impl(int fftl)
     d_corr_val(0),
     d_is_locked(false),
     d_decim(fftl/128),
-    d_lock_count(0)
+    d_fine_pos(0)
 {
 
 
@@ -71,8 +71,8 @@ mimo_pss_fine_sync_impl::mimo_pss_fine_sync_impl(int fftl)
     message_port_register_in(pmt::mp("N_id_2"));
     set_msg_handler(pmt::mp("N_id_2"), boost::bind(&mimo_pss_fine_sync_impl::handle_msg_N_id_2, this, _1));
 
-    message_port_register_in(pmt::mp("coarse_pss"));
-    set_msg_handler(pmt::mp("coarse_pss"), boost::bind(&mimo_pss_fine_sync_impl::handle_msg_coarse_pss, this, _1));
+    message_port_register_in(pmt::mp("coarse_pos"));
+    set_msg_handler(pmt::mp("coarse_pos"), boost::bind(&mimo_pss_fine_sync_impl::handle_msg_coarse_pos, this, _1));
 }
 
 
@@ -96,14 +96,18 @@ mimo_pss_fine_sync_impl::d_PI = float(M_PI);
 
 
 void mimo_pss_fine_sync_impl::handle_msg_N_id_2(pmt::pmt_t msg)
+{
     d_N_id_2 =  (int) pmt::to_long(msg);
     //init pss sequence in time domain
     gen_pss_t(d_pssX_t, d_N_id_2, d_fftl);
 }
 
-void mimo_pss_fine_sync_impl::handle_msg_coarse_pss(pmt::pmt_t msg)
+void mimo_pss_fine_sync_impl::handle_msg_coarse_pos(pmt::pmt_t msg)
 {
-    set_coarse_pss((int) pmt::to_long(msg));
+    d_coarse_pos=(int)pmt::to_long(msg);
+    //fine correlation is done around this position, multiply for correct samplerate
+    d_coarse_pos = d_coarse_pos*d_decim;
+    d_is_locked=false;
 }
 
 
@@ -114,31 +118,50 @@ mimo_pss_fine_sync_impl::work(int noutput_items,
 {
     const gr_complex *in1 = (const gr_complex *) input_items[0];
     const gr_complex *in2 = (const gr_complex *) input_items[1];
+    gr_complex *out1 = (gr_complex *) output_items[0];
+    gr_complex *out2 = (gr_complex *) output_items[1];
 
     memcpy(out1, in1, sizeof(gr_complex)*noutput_items);
     memcpy(out2, in2, sizeof(gr_complex)*noutput_items);
 
     long nir = nitems_read(0);
 
-    int coarse = d_coarse_pss;
-
     //no coarse sync yet
-    if(coarse == -1)
+    if(d_coarse_pos == -1){
         return noutput_items;
+    }
 
-    //do fine sync
-    d_fine
+    int mod_pos=nir%(10*d_slotl);
+    float val=0;
+
     if(!d_is_locked){
+        //do first fine sync
+        int search_int=d_decim*20; //search intervall for correlation maximum
         for(int i=0; i<noutput_items-d_fftl; i++){
-            diff_corr2(in1, in2, d_pssX_t, d_fftl)
-            d_fine_count++;
+            mod_pos++;
+            if(mod_pos>d_coarse_pos-search_int && mod_pos<d_coarse_pos+search_int) {   //TODO: group-delay of the filter
+                val=diff_corr2(in1+i, in2+i, d_pssX_t, d_fftl);
+                if(val>d_corr_val){
+                    d_fine_pos=mod_pos;
+                    d_half_frame_start=mod_pos-(6*d_fftl+6*d_cpl+d_cpl0);
+                    d_corr_val=val;
+                    printf("new fine timing: corr_val:%f\t half_frame_start: %li \t nitems_read: %li\n", d_corr_val, d_half_frame_start, nir);
+                }
+            }else if(mod_pos==d_coarse_pos+search_int){   //reached end of search intervall;
+                d_is_locked=true;
+               // set_tags();
+                break;
+            }
         }
-
+        return noutput_items-d_fftl;//more output than needed is produced at top, but no problem here (happens only once)
     }
 
 
-
-
+    else{
+        //set_tags()
+        //TODO tracking
+       //if(mod_pos)
+    }
 
     // Tell runtime system how many output items we produced.
     return noutput_items;
