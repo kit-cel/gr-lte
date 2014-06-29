@@ -47,6 +47,11 @@
     <name>coarse_pos</name>
     <type>message</type>
     <optional>1</optional>
+  </source>  
+<source>
+    <name>control</name>
+    <type>message</type>
+    <optional>1</optional>
   </source>
 
 </block>

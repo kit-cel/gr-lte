@@ -22,7 +22,6 @@
 #define INCLUDED_LTE_mimo_pss_coarse_sync_IMPL_H
 
 #include <lte/mimo_pss_coarse_sync.h>
-#include <lte/mimo_pss_helper.h>
 
 namespace gr
 {
@@ -32,8 +31,8 @@ namespace lte
 class mimo_pss_coarse_sync_impl : public mimo_pss_coarse_sync
 {
 private:
-    static const int d_TIME_HYPO=9600;
-    static const int d_CORRL=128;
+    static const int d_TIME_HYPO=4800;
+    static const int d_CORRL=64;
     static const gr_complex d_C_I;
     static const float d_PI;
     int d_syncl;
@@ -45,6 +44,7 @@ private:
 
     pmt::pmt_t d_port_coarse_pos;
     pmt::pmt_t d_port_N_id_2;
+    pmt::pmt_t d_port_control;
 
     gr_complex d_pss0_t[d_CORRL];
     gr_complex d_pss1_t[d_CORRL];

@@ -8,12 +8,12 @@ function Hd = FIR_Filter128FFT(Fs)
 % Equiripple Lowpass filter designed using the FIRPM function.
 
 % All frequency values are in Hz.
-Fs = 15360000;  % Sampling Frequency
+% Fs = 15360000;  % Sampling Frequency
 
-Fpass = 472500;          % Passband Frequency
-Fstop = 960000;        % Stopband Frequency
+Fpass = 500000;          % Passband Frequency
+Fstop = 960000;          % Stopband Frequency
 Dpass = 0.057501127785;  % Passband Ripple
-Dstop = 0.1;             % Stopband Attenuation
+Dstop = 0.01;            % Stopband Attenuation
 dens  = 20;              % Density Factor
 
 % Calculate the order from the parameters using FIRPMORD.

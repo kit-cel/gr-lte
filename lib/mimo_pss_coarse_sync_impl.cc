@@ -68,8 +68,10 @@ mimo_pss_coarse_sync_impl::mimo_pss_coarse_sync_impl(int syncl)
     message_port_register_out(d_port_N_id_2);
     d_port_coarse_pos = pmt::string_to_symbol("coarse_pos");
     message_port_register_out(d_port_coarse_pos);
+    d_port_control = pmt::string_to_symbol("control");
+    message_port_register_out(d_port_control);
 
-    //float/gr_complex can be set to 0 since binary representation of 0.0 is 0
+    //binary representation of 0.0 is 0
     memset(d_result, 0, sizeof(float)*d_TIME_HYPO);
 
     prepare_corr_vecs();
@@ -103,6 +105,7 @@ mimo_pss_coarse_sync_impl::work(int noutput_items,
     if(d_work_call==d_syncl)
         return noutput_items;
 
+
     //printf("---BEGIN coarse timing---\n");
 
     for(int d = 0; d < d_TIME_HYPO; d++)
@@ -132,6 +135,9 @@ mimo_pss_coarse_sync_impl::work(int noutput_items,
     //publish results
     message_port_pub(d_port_N_id_2, pmt::from_long((long)d_N_id_2));
     message_port_pub(d_port_coarse_pos, pmt::from_long( d_posmax) );
+
+    //stop coarse calculation
+    message_port_pub(d_port_control, pmt::PMT_T);
 
     printf("\n%s:found N_id_2=%i\n", name().c_str(), d_N_id_2);
     printf("%s:coarse pss-pos=%i\n", name().c_str(), d_posmax);
@@ -225,7 +231,7 @@ mimo_pss_coarse_sync_impl::gen_pss_t(gr_complex *zc_t, int cell_id, int len)
     memcpy(d_in+len-31, zc_f, sizeof(gr_complex)*31);
     memcpy(d_in+1, zc_f+31, sizeof(gr_complex)*31);
 
-    fftwf_plan p = fftwf_plan_dft_1d(len, reinterpret_cast<fftwf_complex*>(d_in),		 reinterpret_cast<fftwf_complex*>(d_out), FFTW_BACKWARD, FFTW_ESTIMATE);
+    fftwf_plan p = fftwf_plan_dft_1d(len, reinterpret_cast<fftwf_complex*>(d_in), reinterpret_cast<fftwf_complex*>(d_out), FFTW_BACKWARD, FFTW_ESTIMATE);
 
     fftwf_execute(p);
 

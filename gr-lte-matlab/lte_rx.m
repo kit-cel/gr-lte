@@ -42,21 +42,17 @@ pos=symb;
 
 
 %CP freq estimate at fine PSS pos
-off2=lte_cp_freq_sync(test,pss_pos);
+off2=lte_cp_freq_sync(test,pss_pos,fftl);
 
 %freq offset identic for both streams-->middle
-phi_corr=(off2(1)+off2(2))/2/fs;
+phi_corr=off2/fs;
 rm_offset_vec=exp(-1i*2*pi*phi_corr*(0:length(test)-1)).';
 test = test .* [rm_offset_vec rm_offset_vec];
-
-off2=lte_cp_freq_sync(test,pss_pos);
 
 
 
 %disp(['N_id_2: ' num2str(N_id_2_rx) ' ni: ' num2str(ni) ' pss_pos: ' num2str(pss_pos) ]);
 %disp(['PSS sync: pss_pos = ' num2str(pss_pos) ' input pos = ' num2str(pos)]);
-
-
 
 pss_pos_save = pss_pos;
 disp('lte_sss_sync');
@@ -78,19 +74,15 @@ end
 
 
 frame_start=pss_pos+1-slot_symbs;
-while(frame_start(1) > 0)
+while(frame_start > 0)
     frame_start=frame_start-20*slot_symbs;
 end
 disp(frame_start);
-if frame_start(1) < 0
-    frame_start=frame_start+n_sub*n_slot*slot_symbs;
-end
-if frame_start(2) < 0
+if frame_start< 0
     frame_start=frame_start+n_sub*n_slot*slot_symbs;
 end
 
-disp(['assumed frame start1: ' num2str(frame_start(1))]);
-disp(['assumed frame start2: ' num2str(frame_start(2))]);
+disp(['assumed frame start1: ' num2str(frame_start)]);
 
 N_id_rx=N_id_1_rx*3+N_id_2_rx;
 if N_id_rx < 0
@@ -125,7 +117,7 @@ sfn_succ=-1;
 N_ant_succ=-1;
 
 
-disp(['frame_start = ' num2str(frame_start(1)) ' ' num2str(frame_start(2))]);
+disp(['frame_start = ' num2str(frame_start)]);
 
 disp(' ');
 disp(' ');

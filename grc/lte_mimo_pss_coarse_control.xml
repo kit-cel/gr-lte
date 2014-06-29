@@ -1,20 +1,16 @@
 <?xml version="1.0"?>
 <block>
-  <name>MIMO PSS fine sync</name>
-  <key>lte_mimo_pss_fine_sync</key>
+  <name>MIMO PSS coarse control</name>
+  <key>lte_mimo_pss_coarse_control</key>
   <category>lte</category>
   <import>import lte</import>
-  <make>lte.mimo_pss_fine_sync($fftl)</make>
+  <make>lte.mimo_pss_coarse_control()</make>
   <!-- Make one 'param' node for every Parameter you want settable from the GUI.
        Sub-nodes:
        * name
        * key (makes the value accessible as $keyname, e.g. in the make node)
        * type -->
-  <param>
-    <name>FFT length</name>
-    <key>fftl</key>
-    <type>int</type>
-  </param>
+
 
   <!-- Make one 'sink' node per input. Sub-nodes:
        * name (an identifier for the GUI)
@@ -24,20 +20,13 @@
   <sink>
     <name>in1</name>
     <type>complex</type>
-  </sink>
-
+  </sink>  
   <sink>
     <name>in2</name>
     <type>complex</type>
   </sink>
-
   <sink>
-    <name>N_id_2</name>
-    <type>message</type>
-  </sink>
-
-  <sink>
-    <name>coarse_pos</name>
+    <name>control</name>
     <type>message</type>
   </sink>
 
@@ -47,13 +36,11 @@
        * vlen
        * optional (set to 1 for optional inputs) -->
   <source>
-    <name>half_frame</name>
-    <type>message</type>
+    <name>out1</name>
+    <type>complex</type>
   </source>
-
   <source>
-    <name>lock</name>
-    <type>message</type>
+    <name>out2</name>
+    <type>complex</type>
   </source>
-  
 </block>

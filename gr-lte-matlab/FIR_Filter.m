@@ -13,7 +13,7 @@ function Hd = FIR_Filter(Fs)
 Fpass = 472500;  % Passband Frequency
 Fstop = 547500;  % Stopband Frequency
 Dpass = 0.1;     % Passband Ripple
-Dstop = 0.1;     % Stopband Attenuation
+Dstop = 0.001;     % Stopband Attenuation
 dens  = 20;      % Density Factor
 
 % Calculate the order from the parameters using FIRPMORD.
