@@ -44,19 +44,26 @@ namespace gr {
       : gr::sync_block("mimo_pss_tagger",
               gr::io_signature::make(2, 2, sizeof(gr_complex)),
               gr::io_signature::make(2, 2, sizeof(gr_complex))),
-              d_is_locked(false)
+                d_fftl(fftl),
+                d_cpl(144*fftl/2048),
+                d_cpl0(160*fftl/2048),
+                d_slotl(7*fftl+6*d_cpl+d_cpl0),
+                d_halffl(10*d_slotl),
+                d_half_frame_start(0),
+                d_N_id_2(-1),
+                d_slot_num(0),
+                d_is_locked(false)
     {
-
+        d_slot_key=pmt::string_to_symbol("slot");
+        d_tag_id = pmt::string_to_symbol(this->name() );
+        d_id_key = pmt::string_to_symbol("N_id_2");
 
         message_port_register_in(pmt::mp("lock"));
         set_msg_handler(pmt::mp("lock"), boost::bind(&mimo_pss_tagger_impl::handle_msg_lock, this, _1));
         message_port_register_in(pmt::mp("half_frame"));
-        set_msg_handler(pmt::mp("lock"), boost::bind(&mimo_pss_tagger_impl::handle_msg_half_frame, this, _1));
+        set_msg_handler(pmt::mp("half_frame"), boost::bind(&mimo_pss_tagger_impl::handle_msg_half_frame, this, _1));
         message_port_register_in(pmt::mp("N_id_2"));
-        set_msg_handler(pmt::mp("lock"), boost::bind(&mimo_pss_tagger_impl::handle_msg_N_id_2, this, _1));
-
-       printf("tagger");
-
+        set_msg_handler(pmt::mp("N_id_2"), boost::bind(&mimo_pss_tagger_impl::handle_msg_N_id_2, this, _1));
 
     }
 
@@ -68,19 +75,15 @@ namespace gr {
     }
 
     void mimo_pss_tagger_impl::handle_msg_lock(pmt::pmt_t msg){
-        if(msg==pmt::PMT_T){
-            d_is_locked=true;
-        }else{
-            d_is_locked=false;
-        }
+        d_is_locked = (msg==pmt::PMT_T) ? true : false;
     }
 
     void mimo_pss_tagger_impl::handle_msg_half_frame(pmt::pmt_t msg){
-
+        d_half_frame_start = (int)pmt::to_long(msg);
     }
 
     void mimo_pss_tagger_impl::handle_msg_N_id_2(pmt::pmt_t msg){
-
+        d_N_id_2=(int)pmt::to_long(msg);
     }
 
 
@@ -97,19 +100,33 @@ namespace gr {
         memcpy(out1, in1, sizeof(gr_complex)*noutput_items);
         memcpy(out2, in2, sizeof(gr_complex)*noutput_items);
 
+        long nir = nitems_read(0);
+        int offset = d_half_frame_start%d_slotl;
 
-//        if((nir+i)%d_slotl==d_half_frame_start%d_slotl){
-//                if((nir+i)%d_halffl==d_half_frame_start){
-//                //attach tag with Nid2 at start of half frame
-//                    add_item_tag(0,nir+i,d_id_key, pmt::from_long(d_N_id_2),d_tag_id);
-//                    d_slot_num=0;
-//                }
-//                //attach tag with slotnumber at start of slot
-//                add_item_tag(0,nir+i,d_slot_key, pmt::from_long(d_slot_num),d_tag_id);
-//                d_slot_num = (d_slot_num+1)%10;
-//
-//        }
+        for (int i = 0 ; i < noutput_items; i++){
 
+            if( (nir+i)%d_slotl == offset){
+                if((nir+i)%d_halffl == d_half_frame_start){
+                    //printf("found half_frame_start\t num = %li\t0 < %li\n", nitems_read(0)+i,(nitems_read(0)+i-d_half_frame_start) );
+                    if(d_is_locked){
+                        //printf("%s\thalf_frame_start = %i\tabs_pos = %ld\n", name().c_str(), d_half_frame_start, nitems_read(0)+i );
+                        add_item_tag(0,nir+i,d_id_key, pmt::from_long(d_N_id_2),d_tag_id);
+                        d_slot_num=0;
+                    }
+                }
+
+                //printf("%s\tslot_num = %i\tabs_pos = %ld\n",name().c_str(),d_slot_num,nitems_read(0)+i );
+                add_item_tag(0,nir+i,d_slot_key, pmt::from_long(d_slot_num),d_tag_id);
+                d_slot_num = (d_slot_num+1)%10;
+
+                if(i+d_slotl < noutput_items){
+                    i += (d_slotl-1);
+                }
+                else{
+                    i+=(noutput_items-i-1);
+                }
+            }
+        }
 
         // Tell runtime system how many output items we produced.
         return noutput_items;

@@ -17,13 +17,13 @@ waveconfig=lteRMCDL(rmc);
 chcfg.Seed=3;
 chcfg.DelayProfile='ETU';
 chcfg.NRxAnts=2;
-chcfg.DopplerFreq=1;
+chcfg.DopplerFreq=0;
 chcfg.MIMOCorrelation='medium';
 chcfg.SamplingRate=waveconfig.SamplingRate;
-chcfg.InitTime = 0;
+chcfg.InitTime = 10;
 [rx_ant, chinfo]=lteFadingChannel(chcfg,waveform);
 
-f_off=8000;
+f_off=7000;
 phi=f_off/waveconfig.SamplingRate;
 rm_sim_offset=exp(1i*2*pi*phi*(0:length(rx_ant(:,1))-1))';
 rx_ant = rx_ant .* [rm_sim_offset rm_sim_offset];

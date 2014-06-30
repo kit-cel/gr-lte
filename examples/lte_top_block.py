@@ -3,7 +3,7 @@
 # Gnuradio Python Flow Graph
 # Title: LTE_test
 # Author: Johannes Demel
-# Generated: Wed Jun 25 15:47:31 2014
+# Generated: Mon Jun 30 15:29:35 2014
 ##################################################
 
 execfile("/home/maier/.grc_gnuradio/decode_bch_hier_gr37.py")
@@ -128,9 +128,9 @@ class lte_top_block(gr.top_block):
 
     def set_fftlen(self, fftlen):
         self.fftlen = fftlen
-        self.sync_lte_cp_freq_sync_0.set_fftlen(self.fftlen)
         self.sync_lte_pss_sync_37_0.set_fftlen(self.fftlen)
         self.sync_lte_sss_sync_hier_0.set_fftlen(self.fftlen)
+        self.sync_lte_cp_freq_sync_0.set_fftlen(self.fftlen)
 
     def get_N_rb_dl(self):
         return self.N_rb_dl

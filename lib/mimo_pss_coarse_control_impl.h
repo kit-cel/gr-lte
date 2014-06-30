@@ -31,11 +31,12 @@ namespace gr {
      private:
       bool d_control;
 
+      void handle_msg_control(pmt::pmt_t msg);
+
      public:
       mimo_pss_coarse_control_impl();
       ~mimo_pss_coarse_control_impl();
 
-      void handle_msg_control(pmt::pmt_t msg);
 
       // Where all the action really happens
     int general_work(int noutput_items,

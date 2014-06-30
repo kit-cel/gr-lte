@@ -29,15 +29,29 @@ namespace gr {
     class mimo_pss_tagger_impl : public mimo_pss_tagger
     {
      private:
-      bool d_is_locked;
+        int d_fftl;
+        int d_cpl;
+        int d_cpl0;
+        int d_slotl;
+        int d_half_frame_start;
+        int d_N_id_2;
+        int d_slot_num;
+        int d_halffl;
+        bool d_is_locked;
+
+        pmt::pmt_t d_slot_key;
+        pmt::pmt_t d_id_key;
+        pmt::pmt_t d_tag_id;
+
+      void handle_msg_lock(pmt::pmt_t msg);
+      void handle_msg_half_frame(pmt::pmt_t msg);
+      void handle_msg_N_id_2(pmt::pmt_t msg);
+
 
      public:
       mimo_pss_tagger_impl(int fftl);
       ~mimo_pss_tagger_impl();
 
-      void handle_msg_lock(pmt::pmt_t msg);
-      void handle_msg_half_frame(pmt::pmt_t msg);
-      void handle_msg_N_id_2(pmt::pmt_t msg);
 
       // Where all the action really happens
       int work(int noutput_items,

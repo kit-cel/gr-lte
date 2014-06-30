@@ -134,7 +134,7 @@ mimo_pss_coarse_sync_impl::work(int noutput_items,
 
     //publish results
     message_port_pub(d_port_N_id_2, pmt::from_long((long)d_N_id_2));
-    message_port_pub(d_port_coarse_pos, pmt::from_long( d_posmax) );
+    message_port_pub(d_port_coarse_pos, pmt::from_long((long)d_posmax) );
 
     //stop coarse calculation
     message_port_pub(d_port_control, pmt::PMT_T);

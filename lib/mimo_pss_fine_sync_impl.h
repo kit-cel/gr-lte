@@ -65,12 +65,14 @@ private:
     float diff_corr2(const gr_complex* x1, const gr_complex* x2, const gr_complex* y, int len);
     int calc_half_frame_start(int pss_pos);
 
+    void handle_msg_N_id_2(pmt::pmt_t msg);
+    void handle_msg_coarse_pos(pmt::pmt_t msg);
+
 public:
     mimo_pss_fine_sync_impl(int fftl);
     ~mimo_pss_fine_sync_impl();
 
-    void handle_msg_N_id_2(pmt::pmt_t msg);
-    void handle_msg_coarse_pos(pmt::pmt_t msg);
+
 
     void forecast (int noutput_items, gr_vector_int &ninput_items_required);
     // Where all the action really happens

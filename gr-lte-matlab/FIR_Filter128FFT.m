@@ -10,7 +10,7 @@ function Hd = FIR_Filter128FFT(Fs)
 % All frequency values are in Hz.
 % Fs = 15360000;  % Sampling Frequency
 
-Fpass = 500000;          % Passband Frequency
+Fpass = 472500;          % Passband Frequency
 Fstop = 960000;          % Stopband Frequency
 Dpass = 0.057501127785;  % Passband Ripple
 Dstop = 0.01;            % Stopband Attenuation

@@ -204,7 +204,7 @@ int mimo_pss_fine_sync_impl::work(int noutput_items,
             {
                 d_is_locked=true;
                 message_port_pub(d_port_lock, pmt::PMT_T);
-                message_port_pub(d_port_half_frame, pmt::from_long(d_half_frame_start));
+                message_port_pub(d_port_half_frame, pmt::from_long((long)d_half_frame_start));
                 printf("fine timing is locked, now tracking\n");
                 break;
             }
@@ -250,9 +250,11 @@ int mimo_pss_fine_sync_impl::work(int noutput_items,
                 printf("PSS-tracking: old_pos:%i\told_val:%f\tnew_pos:%i\tnew_val:%f\n", d_fine_pos, d_corr_val, fine_pos, val);
                 d_fine_pos=fine_pos;
                 d_corr_val=val;
-                message_port_pub(d_port_half_frame, pmt::from_long(calc_half_frame_start(fine_pos)));
+                d_half_frame_start=calc_half_frame_start(fine_pos);
+                message_port_pub(d_port_half_frame, pmt::from_long((long)d_half_frame_start));
                 //step over next samples until next pss occurs
-                d_step=d_halffl-10;
+                d_step=d_halffl-noutput_items;
+
             }
 
         }
