@@ -24,6 +24,7 @@
 
 #include <lte/mimo_pss_fine_sync.h>
 
+
 namespace gr
 {
 namespace lte
@@ -32,17 +33,18 @@ namespace lte
 class mimo_pss_fine_sync_impl : public mimo_pss_fine_sync
 {
 private:
-    static const gr_complex d_C_I;
-    static const float d_PI;
-    int d_N_id_2;
-    int d_coarse_pos;
     int d_fftl;
+    int d_rxant;
+    int d_grpdelay;
     int d_cpl;
     int d_cpl0;
     int d_slotl;
     int d_halffl;
     int d_decim;
-    int d_fine_pos; //position of pss
+    int d_N_id_2;
+    int d_coarse_pos;
+
+    int d_fine_pos;
     int d_fine_corr_count;
     int d_step;
     long d_half_frame_start;
@@ -59,20 +61,16 @@ private:
     gr_complex* d_pssX_t;
     gr_complex* d_a;
 
-    void zc(gr_complex *zc, int cell_id);
-    void gen_pss_t(gr_complex *pss_t, int cell_id, int len);
     float diff_corr(const gr_complex* x,const gr_complex* y, int len);
-    float diff_corr2(const gr_complex* x1, const gr_complex* x2, const gr_complex* y, int len);
+    float diff_corr2(const gr_vector_const_void_star in, const gr_complex* y, int len, int cpos);
     int calc_half_frame_start(int pss_pos);
 
     void handle_msg_N_id_2(pmt::pmt_t msg);
     void handle_msg_coarse_pos(pmt::pmt_t msg);
 
 public:
-    mimo_pss_fine_sync_impl(int fftl);
+    mimo_pss_fine_sync_impl(int fftl, int rxant, int grpdelay);
     ~mimo_pss_fine_sync_impl();
-
-
 
     void forecast (int noutput_items, gr_vector_int &ninput_items_required);
     // Where all the action really happens

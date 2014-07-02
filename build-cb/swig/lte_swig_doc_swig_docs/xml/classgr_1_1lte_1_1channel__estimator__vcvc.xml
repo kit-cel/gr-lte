@@ -1,0 +1,168 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classgr_1_1lte_1_1channel__estimator__vcvc" kind="class" prot="public" abstract="yes">
+    <compoundname>gr::lte::channel_estimator_vcvc</compoundname>
+    <basecompoundref prot="public" virt="virtual">sync_block</basecompoundref>
+    <includes refid="channel__estimator__vcvc_8h" local="no">channel_estimator_vcvc.h</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classgr_1_1lte_1_1channel__estimator__vcvc_1ad84f4c42c523f64cc46ddac654765591" prot="public" static="no">
+        <type>boost::shared_ptr&lt; <ref refid="classgr_1_1lte_1_1channel__estimator__vcvc" kindref="compound">channel_estimator_vcvc</ref> &gt;</type>
+        <definition>typedef boost::shared_ptr&lt;channel_estimator_vcvc&gt; gr::lte::channel_estimator_vcvc::sptr</definition>
+        <argsstring></argsstring>
+        <name>sptr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/channel_estimator_vcvc.h" line="47" column="1" bodyfile="/home/maier/gr-lte/include/lte/channel_estimator_vcvc.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classgr_1_1lte_1_1channel__estimator__vcvc_1ad98f4eff072b874e30ffb55a42c387bc" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classgr_1_1lte_1_1channel__estimator__vcvc_1ad84f4c42c523f64cc46ddac654765591" kindref="member">sptr</ref></type>
+        <definition>static sptr gr::lte::channel_estimator_vcvc::make</definition>
+        <argsstring>(int subcarriers, std::string tag_key, std::string msg_buf_name, const std::vector&lt; std::vector&lt; int &gt; &gt; &amp;pilot_carriers, const std::vector&lt; std::vector&lt; gr_complex &gt; &gt; &amp;pilot_symbols, std::string name=&quot;channel_estimator_vcvc&quot;)</argsstring>
+        <name>make</name>
+        <param>
+          <type>int</type>
+          <declname>subcarriers</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>tag_key</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>msg_buf_name</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; std::vector&lt; int &gt; &gt; &amp;</type>
+          <declname>pilot_carriers</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; std::vector&lt; gr_complex &gt; &gt; &amp;</type>
+          <declname>pilot_symbols</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>name</declname>
+          <defval>&quot;channel_estimator_vcvc&quot;</defval>
+        </param>
+        <briefdescription>
+<para>Return a shared_ptr to a new instance of <ref refid="classgr_1_1lte_1_1channel__estimator__vcvc" kindref="compound">lte::channel_estimator_vcvc</ref>. </para>        </briefdescription>
+        <detaileddescription>
+<para>To avoid accidental use of raw pointers, <ref refid="classgr_1_1lte_1_1channel__estimator__vcvc" kindref="compound">lte::channel_estimator_vcvc</ref>&apos;s constructor is in a private implementation class. <ref refid="classgr_1_1lte_1_1channel__estimator__vcvc_1ad98f4eff072b874e30ffb55a42c387bc" kindref="member">lte::channel_estimator_vcvc::make</ref> is the public interface for creating new instances. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/channel_estimator_vcvc.h" line="57" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classgr_1_1lte_1_1channel__estimator__vcvc_1a103e0febbe45b8e29af6949443121ccb" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void gr::lte::channel_estimator_vcvc::set_pilot_map</definition>
+        <argsstring>(const std::vector&lt; std::vector&lt; int &gt; &gt; &amp;pilot_carriers, const std::vector&lt; std::vector&lt; gr_complex &gt; &gt; &amp;pilot_symbols)=0</argsstring>
+        <name>set_pilot_map</name>
+        <param>
+          <type>const std::vector&lt; std::vector&lt; int &gt; &gt; &amp;</type>
+          <declname>pilot_carriers</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; std::vector&lt; gr_complex &gt; &gt; &amp;</type>
+          <declname>pilot_symbols</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/channel_estimator_vcvc.h" line="64" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1lte_1_1channel__estimator__vcvc_1aebb7e0632f37b04b32bfa99336b3fcf2" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::vector&lt; std::vector&lt; int &gt; &gt;</type>
+        <definition>virtual std::vector&lt;std::vector&lt;int&gt; &gt; gr::lte::channel_estimator_vcvc::get_pilot_carriers</definition>
+        <argsstring>()=0</argsstring>
+        <name>get_pilot_carriers</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/channel_estimator_vcvc.h" line="67" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Channel Estimator for OFDM. </para>    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>subcarriers</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A value to determine the vector size and number of used subcarriers </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tag_key</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A string value to set the name of the OFDM symbol number tag </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>msg_buf_name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of the in message port to reset pilot carriers and pilot symbol values </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pilot_carriers</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A vector of vectors of indices. first vector has length max OFDM symbols per frame. second vector contains indices of pilot carriers </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pilot_symbols</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A vector of vectors with pilot symbol values same as pilot_carriers but complex values. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="4">
+        <label>gr::lte::channel_estimator_vcvc</label>
+        <link refid="classgr_1_1lte_1_1channel__estimator__vcvc"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>sync_block</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="6">
+        <label>gr::lte::channel_estimator_vcvc</label>
+        <link refid="classgr_1_1lte_1_1channel__estimator__vcvc"/>
+        <childnode refid="7" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>sync_block</label>
+      </node>
+    </collaborationgraph>
+    <location file="/home/maier/gr-lte/include/lte/channel_estimator_vcvc.h" line="45" column="1" bodyfile="/home/maier/gr-lte/include/lte/channel_estimator_vcvc.h" bodystart="44" bodyend="69"/>
+    <listofallmembers>
+      <member refid="classgr_1_1lte_1_1channel__estimator__vcvc_1aebb7e0632f37b04b32bfa99336b3fcf2" prot="public" virt="pure-virtual"><scope>gr::lte::channel_estimator_vcvc</scope><name>get_pilot_carriers</name></member>
+      <member refid="classgr_1_1lte_1_1channel__estimator__vcvc_1ad98f4eff072b874e30ffb55a42c387bc" prot="public" virt="non-virtual"><scope>gr::lte::channel_estimator_vcvc</scope><name>make</name></member>
+      <member refid="classgr_1_1lte_1_1channel__estimator__vcvc_1a103e0febbe45b8e29af6949443121ccb" prot="public" virt="pure-virtual"><scope>gr::lte::channel_estimator_vcvc</scope><name>set_pilot_map</name></member>
+      <member refid="classgr_1_1lte_1_1channel__estimator__vcvc_1ad84f4c42c523f64cc46ddac654765591" prot="public" virt="non-virtual"><scope>gr::lte::channel_estimator_vcvc</scope><name>sptr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

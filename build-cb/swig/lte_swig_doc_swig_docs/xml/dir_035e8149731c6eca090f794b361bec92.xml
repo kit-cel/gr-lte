@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="dir_035e8149731c6eca090f794b361bec92" kind="dir">
+    <compoundname>/home/maier/gr-lte/include/lte</compoundname>
+    <innerfile refid="api_8h">api.h</innerfile>
+    <innerfile refid="bch__crc__check__ant__chooser__bb_8h">bch_crc_check_ant_chooser_bb.h</innerfile>
+    <innerfile refid="channel__estimator__vcvc_8h">channel_estimator_vcvc.h</innerfile>
+    <innerfile refid="correlator_8h">correlator.h</innerfile>
+    <innerfile refid="crc__check__vbvb_8h">crc_check_vbvb.h</innerfile>
+    <innerfile refid="descrambler__vfvf_8h">descrambler_vfvf.h</innerfile>
+    <innerfile refid="extract__subcarriers__vcvc_8h">extract_subcarriers_vcvc.h</innerfile>
+    <innerfile refid="layer__demapper__vcvc_8h">layer_demapper_vcvc.h</innerfile>
+    <innerfile refid="mib__unpack__vbm_8h">mib_unpack_vbm.h</innerfile>
+    <innerfile refid="mimo__pss__coarse__control_8h">mimo_pss_coarse_control.h</innerfile>
+    <innerfile refid="mimo__pss__coarse__sync_8h">mimo_pss_coarse_sync.h</innerfile>
+    <innerfile refid="mimo__pss__fine__sync_8h">mimo_pss_fine_sync.h</innerfile>
+    <innerfile refid="mimo__pss__tagger_8h">mimo_pss_tagger.h</innerfile>
+    <innerfile refid="pbch__demux__vcvc_8h">pbch_demux_vcvc.h</innerfile>
+    <innerfile refid="pbch__descrambler__vfvf_8h">pbch_descrambler_vfvf.h</innerfile>
+    <innerfile refid="pcfich__demux__vcvc_8h">pcfich_demux_vcvc.h</innerfile>
+    <innerfile refid="pcfich__unpack__vfm_8h">pcfich_unpack_vfm.h</innerfile>
+    <innerfile refid="pre__decoder__vcvc_8h">pre_decoder_vcvc.h</innerfile>
+    <innerfile refid="pss_8h">pss.h</innerfile>
+    <innerfile refid="pss__calculator__vcm_8h">pss_calculator_vcm.h</innerfile>
+    <innerfile refid="pss__symbol__selector__cvc_8h">pss_symbol_selector_cvc.h</innerfile>
+    <innerfile refid="pss__tagger__cc_8h">pss_tagger_cc.h</innerfile>
+    <innerfile refid="qpsk__soft__demod__vcvf_8h">qpsk_soft_demod_vcvf.h</innerfile>
+    <innerfile refid="remove__cp__cvc_8h">remove_cp_cvc.h</innerfile>
+    <innerfile refid="repeat__message__source__vf_8h">repeat_message_source_vf.h</innerfile>
+    <innerfile refid="rough__symbol__sync__cc_8h">rough_symbol_sync_cc.h</innerfile>
+    <innerfile refid="sss__calculator__vcm_8h">sss_calculator_vcm.h</innerfile>
+    <innerfile refid="sss__symbol__selector__cvc_8h">sss_symbol_selector_cvc.h</innerfile>
+    <innerfile refid="sss__tagger__cc_8h">sss_tagger_cc.h</innerfile>
+    <innerfile refid="subblock__deinterleaver__vfvf_8h">subblock_deinterleaver_vfvf.h</innerfile>
+    <innerfile refid="sync__frequency__c_8h">sync_frequency_c.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/maier/gr-lte/include/lte/"/>
+  </compounddef>
+</doxygen>

@@ -23,7 +23,7 @@ chcfg.SamplingRate=waveconfig.SamplingRate;
 chcfg.InitTime = 10;
 [rx_ant, chinfo]=lteFadingChannel(chcfg,waveform);
 
-f_off=7000;
+f_off=6000;
 phi=f_off/waveconfig.SamplingRate;
 rm_sim_offset=exp(1i*2*pi*phi*(0:length(rx_ant(:,1))-1))';
 rx_ant = rx_ant .* [rm_sim_offset rm_sim_offset];

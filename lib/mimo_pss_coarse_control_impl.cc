@@ -52,7 +52,8 @@ namespace gr {
 
     }
 
-    void mimo_pss_coarse_control_impl::handle_msg_control(pmt::pmt_t msg){
+    void
+    mimo_pss_coarse_control_impl::handle_msg_control(pmt::pmt_t msg){
 
         if(msg == pmt::PMT_T)
         {
@@ -70,7 +71,8 @@ namespace gr {
     {
     }
 
-    int mimo_pss_coarse_control_impl::general_work(int noutput_items,
+    int
+    mimo_pss_coarse_control_impl::general_work(int noutput_items,
                    gr_vector_int &ninput_items,
                    gr_vector_const_void_star &input_items,
                    gr_vector_void_star &output_items)

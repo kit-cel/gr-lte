@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classgr_1_1lte_1_1subblock__deinterleaver__vfvf" kind="class" prot="public">
+    <compoundname>gr::lte::subblock_deinterleaver_vfvf</compoundname>
+    <basecompoundref prot="public" virt="virtual">sync_block</basecompoundref>
+    <includes refid="subblock__deinterleaver__vfvf_8h" local="no">subblock_deinterleaver_vfvf.h</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classgr_1_1lte_1_1subblock__deinterleaver__vfvf_1a609bdd8f95e7cb14d12660929649f213" prot="public" static="no">
+        <type>boost::shared_ptr&lt; <ref refid="classgr_1_1lte_1_1subblock__deinterleaver__vfvf" kindref="compound">subblock_deinterleaver_vfvf</ref> &gt;</type>
+        <definition>typedef boost::shared_ptr&lt;subblock_deinterleaver_vfvf&gt; gr::lte::subblock_deinterleaver_vfvf::sptr</definition>
+        <argsstring></argsstring>
+        <name>sptr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/subblock_deinterleaver_vfvf.h" line="39" column="1" bodyfile="/home/maier/gr-lte/include/lte/subblock_deinterleaver_vfvf.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classgr_1_1lte_1_1subblock__deinterleaver__vfvf_1a247fecd91fa802cda8ee0555bd1e262d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classgr_1_1lte_1_1subblock__deinterleaver__vfvf_1a609bdd8f95e7cb14d12660929649f213" kindref="member">sptr</ref></type>
+        <definition>static sptr gr::lte::subblock_deinterleaver_vfvf::make</definition>
+        <argsstring>(int num_groups, int items_per_group, std::string name=&quot;subblock_deinterleaver_vfvf&quot;)</argsstring>
+        <name>make</name>
+        <param>
+          <type>int</type>
+          <declname>num_groups</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>items_per_group</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>name</declname>
+          <defval>&quot;subblock_deinterleaver_vfvf&quot;</defval>
+        </param>
+        <briefdescription>
+<para>Return a shared_ptr to a new instance of <ref refid="classgr_1_1lte_1_1subblock__deinterleaver__vfvf" kindref="compound">lte::subblock_deinterleaver_vfvf</ref>. </para>        </briefdescription>
+        <detaileddescription>
+<para>To avoid accidental use of raw pointers, <ref refid="classgr_1_1lte_1_1subblock__deinterleaver__vfvf" kindref="compound">lte::subblock_deinterleaver_vfvf</ref>&apos;s constructor is in a private implementation class. <ref refid="classgr_1_1lte_1_1subblock__deinterleaver__vfvf_1a247fecd91fa802cda8ee0555bd1e262d" kindref="member">lte::subblock_deinterleaver_vfvf::make</ref> is the public interface for creating new instances. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/subblock_deinterleaver_vfvf.h" line="49" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Deinterleave groups of items according to LTE subblock interleaver. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="108">
+        <label>gr::lte::subblock_deinterleaver_vfvf</label>
+        <link refid="classgr_1_1lte_1_1subblock__deinterleaver__vfvf"/>
+        <childnode refid="109" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="109">
+        <label>sync_block</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="110">
+        <label>gr::lte::subblock_deinterleaver_vfvf</label>
+        <link refid="classgr_1_1lte_1_1subblock__deinterleaver__vfvf"/>
+        <childnode refid="111" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="111">
+        <label>sync_block</label>
+      </node>
+    </collaborationgraph>
+    <location file="/home/maier/gr-lte/include/lte/subblock_deinterleaver_vfvf.h" line="37" column="1" bodyfile="/home/maier/gr-lte/include/lte/subblock_deinterleaver_vfvf.h" bodystart="36" bodyend="50"/>
+    <listofallmembers>
+      <member refid="classgr_1_1lte_1_1subblock__deinterleaver__vfvf_1a247fecd91fa802cda8ee0555bd1e262d" prot="public" virt="non-virtual"><scope>gr::lte::subblock_deinterleaver_vfvf</scope><name>make</name></member>
+      <member refid="classgr_1_1lte_1_1subblock__deinterleaver__vfvf_1a609bdd8f95e7cb14d12660929649f213" prot="public" virt="non-virtual"><scope>gr::lte::subblock_deinterleaver_vfvf</scope><name>sptr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

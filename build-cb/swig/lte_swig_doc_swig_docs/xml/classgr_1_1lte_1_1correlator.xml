@@ -1,0 +1,280 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classgr_1_1lte_1_1correlator" kind="class" prot="public">
+    <compoundname>gr::lte::correlator</compoundname>
+    <includes refid="correlator_8h" local="no">correlator.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classgr_1_1lte_1_1correlator_1acd699f4d24f19885aa52af74e9579c65" prot="private" static="no" mutable="no">
+        <type>gr_complex *</type>
+        <definition>gr_complex* gr::lte::correlator::d_in1</definition>
+        <argsstring></argsstring>
+        <name>d_in1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/correlator.h" line="48" column="1" bodyfile="/home/maier/gr-lte/include/lte/correlator.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1lte_1_1correlator_1a1745c93b9386a033cae77a697443cca2" prot="private" static="no" mutable="no">
+        <type>gr_complex *</type>
+        <definition>gr_complex* gr::lte::correlator::d_in2</definition>
+        <argsstring></argsstring>
+        <name>d_in2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/correlator.h" line="49" column="1" bodyfile="/home/maier/gr-lte/include/lte/correlator.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1lte_1_1correlator_1a51c913248371d959cc49dc31203f01ca" prot="private" static="no" mutable="no">
+        <type>gr_complex *</type>
+        <definition>gr_complex* gr::lte::correlator::d_out_p</definition>
+        <argsstring></argsstring>
+        <name>d_out_p</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/correlator.h" line="50" column="1" bodyfile="/home/maier/gr-lte/include/lte/correlator.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1lte_1_1correlator_1af6d24b931e64e4df1d55ea64039eba52" prot="private" static="no" mutable="no">
+        <type>gr_complex *</type>
+        <definition>gr_complex* gr::lte::correlator::d_in</definition>
+        <argsstring></argsstring>
+        <name>d_in</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/correlator.h" line="52" column="1" bodyfile="/home/maier/gr-lte/include/lte/correlator.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1lte_1_1correlator_1a234dd324d9590f4057c55e679fb310f7" prot="private" static="no" mutable="no">
+        <type>gr_complex *</type>
+        <definition>gr_complex* gr::lte::correlator::d_out</definition>
+        <argsstring></argsstring>
+        <name>d_out</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/correlator.h" line="53" column="1" bodyfile="/home/maier/gr-lte/include/lte/correlator.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1lte_1_1correlator_1a7cbae3caa68241ca47654899d8dc8089" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int gr::lte::correlator::d_len</definition>
+        <argsstring></argsstring>
+        <name>d_len</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/correlator.h" line="55" column="1" bodyfile="/home/maier/gr-lte/include/lte/correlator.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1lte_1_1correlator_1a93aac145f09e69bf6e10944f622a990d" prot="private" static="no" mutable="no">
+        <type>fftwf_plan</type>
+        <definition>fftwf_plan gr::lte::correlator::d_plan_f</definition>
+        <argsstring></argsstring>
+        <name>d_plan_f</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/correlator.h" line="58" column="1" bodyfile="/home/maier/gr-lte/include/lte/correlator.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1lte_1_1correlator_1a2cb1e7fa4b2d22baf8a7ab8b42bc1bc2" prot="private" static="no" mutable="no">
+        <type>fftwf_plan</type>
+        <definition>fftwf_plan gr::lte::correlator::d_plan_r</definition>
+        <argsstring></argsstring>
+        <name>d_plan_r</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/correlator.h" line="59" column="1" bodyfile="/home/maier/gr-lte/include/lte/correlator.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1lte_1_1correlator_1a19638316b0f30a34c4793aca39a51d47" prot="private" static="no" mutable="no">
+        <type>gr_complex *</type>
+        <definition>gr_complex* gr::lte::correlator::d_f1</definition>
+        <argsstring></argsstring>
+        <name>d_f1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/correlator.h" line="62" column="1" bodyfile="/home/maier/gr-lte/include/lte/correlator.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1lte_1_1correlator_1a3b8ac6f03252e631d2e9dac1dec07064" prot="private" static="no" mutable="no">
+        <type>gr_complex *</type>
+        <definition>gr_complex* gr::lte::correlator::d_f2</definition>
+        <argsstring></argsstring>
+        <name>d_f2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/correlator.h" line="63" column="1" bodyfile="/home/maier/gr-lte/include/lte/correlator.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1lte_1_1correlator_1ac2f2fbaf3d5fd210c6d1c2ea361a25b2" prot="private" static="no" mutable="no">
+        <type>gr_complex *</type>
+        <definition>gr_complex* gr::lte::correlator::d_res_f</definition>
+        <argsstring></argsstring>
+        <name>d_res_f</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/correlator.h" line="64" column="1" bodyfile="/home/maier/gr-lte/include/lte/correlator.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1lte_1_1correlator_1a858e8d9a4a3cc6c3af10ee41dbb11737" prot="private" static="no" mutable="no">
+        <type>gr_complex *</type>
+        <definition>gr_complex* gr::lte::correlator::d_res_t</definition>
+        <argsstring></argsstring>
+        <name>d_res_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/correlator.h" line="65" column="1" bodyfile="/home/maier/gr-lte/include/lte/correlator.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1lte_1_1correlator_1a4a627fc0b55bffcfce2cf4aa03b6d096" prot="private" static="no" mutable="no">
+        <type>float *</type>
+        <definition>float* gr::lte::correlator::d_abs</definition>
+        <argsstring></argsstring>
+        <name>d_abs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/correlator.h" line="66" column="1" bodyfile="/home/maier/gr-lte/include/lte/correlator.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classgr_1_1lte_1_1correlator_1a9496f22326bf48436135b9bde3e11c02" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>gr::lte::correlator::correlator</definition>
+        <argsstring>(gr_complex *in1, gr_complex *in2, gr_complex *out, int len)</argsstring>
+        <name>correlator</name>
+        <param>
+          <type>gr_complex *</type>
+          <declname>in1</declname>
+        </param>
+        <param>
+          <type>gr_complex *</type>
+          <declname>in2</declname>
+        </param>
+        <param>
+          <type>gr_complex *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>len</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/correlator.h" line="40" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1lte_1_1correlator_1ac6f0f17c77d39b86dc1f8b60e76a2a9e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>gr::lte::correlator::~correlator</definition>
+        <argsstring>()</argsstring>
+        <name>~correlator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/correlator.h" line="41" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1lte_1_1correlator_1ac2c37c807e1ff4fb02d9884c444f422c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gr::lte::correlator::execute</definition>
+        <argsstring>()</argsstring>
+        <name>execute</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/correlator.h" line="43" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1lte_1_1correlator_1acf95888246f20c4b1fd7437a40e1ee4d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gr::lte::correlator::get_maximum</definition>
+        <argsstring>(int &amp;pos, float &amp;max)</argsstring>
+        <name>get_maximum</name>
+        <param>
+          <type>int &amp;</type>
+          <declname>pos</declname>
+        </param>
+        <param>
+          <type>float &amp;</type>
+          <declname>max</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/correlator.h" line="44" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This is a helper class to provide Fast Correlation using FFTW3f. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/maier/gr-lte/include/lte/correlator.h" line="38" column="1" bodyfile="/home/maier/gr-lte/include/lte/correlator.h" bodystart="37" bodyend="68"/>
+    <listofallmembers>
+      <member refid="classgr_1_1lte_1_1correlator_1a9496f22326bf48436135b9bde3e11c02" prot="public" virt="non-virtual"><scope>gr::lte::correlator</scope><name>correlator</name></member>
+      <member refid="classgr_1_1lte_1_1correlator_1a4a627fc0b55bffcfce2cf4aa03b6d096" prot="private" virt="non-virtual"><scope>gr::lte::correlator</scope><name>d_abs</name></member>
+      <member refid="classgr_1_1lte_1_1correlator_1a19638316b0f30a34c4793aca39a51d47" prot="private" virt="non-virtual"><scope>gr::lte::correlator</scope><name>d_f1</name></member>
+      <member refid="classgr_1_1lte_1_1correlator_1a3b8ac6f03252e631d2e9dac1dec07064" prot="private" virt="non-virtual"><scope>gr::lte::correlator</scope><name>d_f2</name></member>
+      <member refid="classgr_1_1lte_1_1correlator_1af6d24b931e64e4df1d55ea64039eba52" prot="private" virt="non-virtual"><scope>gr::lte::correlator</scope><name>d_in</name></member>
+      <member refid="classgr_1_1lte_1_1correlator_1acd699f4d24f19885aa52af74e9579c65" prot="private" virt="non-virtual"><scope>gr::lte::correlator</scope><name>d_in1</name></member>
+      <member refid="classgr_1_1lte_1_1correlator_1a1745c93b9386a033cae77a697443cca2" prot="private" virt="non-virtual"><scope>gr::lte::correlator</scope><name>d_in2</name></member>
+      <member refid="classgr_1_1lte_1_1correlator_1a7cbae3caa68241ca47654899d8dc8089" prot="private" virt="non-virtual"><scope>gr::lte::correlator</scope><name>d_len</name></member>
+      <member refid="classgr_1_1lte_1_1correlator_1a234dd324d9590f4057c55e679fb310f7" prot="private" virt="non-virtual"><scope>gr::lte::correlator</scope><name>d_out</name></member>
+      <member refid="classgr_1_1lte_1_1correlator_1a51c913248371d959cc49dc31203f01ca" prot="private" virt="non-virtual"><scope>gr::lte::correlator</scope><name>d_out_p</name></member>
+      <member refid="classgr_1_1lte_1_1correlator_1a93aac145f09e69bf6e10944f622a990d" prot="private" virt="non-virtual"><scope>gr::lte::correlator</scope><name>d_plan_f</name></member>
+      <member refid="classgr_1_1lte_1_1correlator_1a2cb1e7fa4b2d22baf8a7ab8b42bc1bc2" prot="private" virt="non-virtual"><scope>gr::lte::correlator</scope><name>d_plan_r</name></member>
+      <member refid="classgr_1_1lte_1_1correlator_1ac2f2fbaf3d5fd210c6d1c2ea361a25b2" prot="private" virt="non-virtual"><scope>gr::lte::correlator</scope><name>d_res_f</name></member>
+      <member refid="classgr_1_1lte_1_1correlator_1a858e8d9a4a3cc6c3af10ee41dbb11737" prot="private" virt="non-virtual"><scope>gr::lte::correlator</scope><name>d_res_t</name></member>
+      <member refid="classgr_1_1lte_1_1correlator_1ac2c37c807e1ff4fb02d9884c444f422c" prot="public" virt="non-virtual"><scope>gr::lte::correlator</scope><name>execute</name></member>
+      <member refid="classgr_1_1lte_1_1correlator_1acf95888246f20c4b1fd7437a40e1ee4d" prot="public" virt="non-virtual"><scope>gr::lte::correlator</scope><name>get_maximum</name></member>
+      <member refid="classgr_1_1lte_1_1correlator_1ac6f0f17c77d39b86dc1f8b60e76a2a9e" prot="public" virt="non-virtual"><scope>gr::lte::correlator</scope><name>~correlator</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

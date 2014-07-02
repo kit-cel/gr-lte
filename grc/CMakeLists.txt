@@ -48,7 +48,6 @@ install(FILES
     lte_mimo_pss_coarse_sync.xml
     lte_mimo_pss_fine_sync.xml
     lte_mimo_pss_tagger.xml
-    lte_mimo_pss_coarse_control.xml DESTINATION share/gnuradio/grc/blocks
-    
+    lte_mimo_pss_coarse_control.xml DESTINATION share/gnuradio/grc/blocks    
    
 )

@@ -33,9 +33,9 @@ class mimo_pss_coarse_sync_impl : public mimo_pss_coarse_sync
 private:
     static const int d_TIME_HYPO=4800;
     static const int d_CORRL=64;
-    static const gr_complex d_C_I;
-    static const float d_PI;
+
     int d_syncl;
+    int d_rxant;
     int d_N_id_2;
     int d_work_call;
     int d_posmax;
@@ -54,16 +54,15 @@ private:
     float d_result[d_TIME_HYPO];
 
     void prepare_corr_vecs();
-    void zc(gr_complex *zc, int cell_id);
-    void gen_pss_t(gr_complex *pss_t, int cell_id, int len);
 
-    int calc_N_id_2(const gr_complex* in1, const gr_complex* in2, const int &mpos);
+    float diff_corr2(const gr_vector_const_void_star &in, const gr_complex* y, int len, int cpos);
+    int calc_N_id_2(const gr_vector_const_void_star &in, const int &mpos);
+
     float diff_corr(const gr_complex* x,const gr_complex* y, int len);
-    float diff_corr2(const gr_complex* x1, const gr_complex* x2, const gr_complex* y, int len);
 
 
 public:
-    mimo_pss_coarse_sync_impl(int syncl);
+    mimo_pss_coarse_sync_impl(int syncl, int rxant);
     ~mimo_pss_coarse_sync_impl();
 
     // Where all the action really happens

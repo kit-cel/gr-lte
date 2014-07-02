@@ -29,8 +29,8 @@
 
 #include <cstdio>
 #include <cmath>
-#include <fftw3.h>
 #include <volk/volk.h>
+#include "lte/pss.h"
 
 namespace gr
 {
@@ -38,20 +38,21 @@ namespace lte
 {
 
 mimo_pss_coarse_sync::sptr
-mimo_pss_coarse_sync::make(int syncl)
+mimo_pss_coarse_sync::make(int syncl, int rxant)
 {
     return gnuradio::get_initial_sptr
-           (new mimo_pss_coarse_sync_impl(syncl));
+           (new mimo_pss_coarse_sync_impl(syncl, rxant));
 }
 
 /*
  * The private constructor
  */
-mimo_pss_coarse_sync_impl::mimo_pss_coarse_sync_impl(int syncl)
+mimo_pss_coarse_sync_impl::mimo_pss_coarse_sync_impl(int syncl, int rxant)
     : gr::sync_block("mimo_pss_coarse_sync",
-                     gr::io_signature::make(2, 2, sizeof(gr_complex)),
+                     gr::io_signature::make(1, 8, sizeof(gr_complex)),
                      gr::io_signature::make(0, 0, 0)),
     d_syncl(syncl),
+    d_rxant(rxant),
     d_work_call(0),
     d_posmax(0),
     d_max(0)
@@ -85,21 +86,11 @@ mimo_pss_coarse_sync_impl::~mimo_pss_coarse_sync_impl()
     volk_free(d_a);
 }
 
-const gr_complex
-mimo_pss_coarse_sync_impl::d_C_I = gr_complex(0,1);
-
-// Define PI for use in this block
-const float
-mimo_pss_coarse_sync_impl::d_PI = float(M_PI);
-
-
 int
 mimo_pss_coarse_sync_impl::work(int noutput_items,
                                 gr_vector_const_void_star &input_items,
                                 gr_vector_void_star &output_items)
 {
-    const gr_complex *in1 = (const gr_complex *) input_items[0];
-    const gr_complex *in2 = (const gr_complex *) input_items[1];
 
     //deactivate block after synclen ist reached
     if(d_work_call==d_syncl)
@@ -111,7 +102,7 @@ mimo_pss_coarse_sync_impl::work(int noutput_items,
     for(int d = 0; d < d_TIME_HYPO; d++)
     {
         //TODO use aligned vectors, faster?, memcpy(tmp, in,...)
-        d_result[d] += diff_corr2(in1+d, in2+d, d_pss012_t, d_CORRL);
+        d_result[d] += diff_corr2(input_items, d_pss012_t, d_CORRL, d);
 
         if(d_result[d]>d_max)
         {
@@ -130,7 +121,7 @@ mimo_pss_coarse_sync_impl::work(int noutput_items,
 
     //obtain N_id_2 after coarse timinig sync
     //for now only last received vector is used,
-    d_N_id_2 = calc_N_id_2(in1, in2, d_posmax);
+    d_N_id_2 = calc_N_id_2(input_items, d_posmax);
 
     //publish results
     message_port_pub(d_port_N_id_2, pmt::from_long((long)d_N_id_2));
@@ -148,17 +139,18 @@ mimo_pss_coarse_sync_impl::work(int noutput_items,
 
 
 
-int mimo_pss_coarse_sync_impl::calc_N_id_2(const gr_complex* in1, const gr_complex* in2, const int &mpos)
+int
+mimo_pss_coarse_sync_impl::calc_N_id_2(const gr_vector_const_void_star &in, const int &mpos)
 {
 
     float max0;
-    max0=diff_corr2(in1+mpos, in2+mpos, d_pss0_t, d_CORRL);
+    max0=diff_corr2(in, d_pss0_t, d_CORRL, mpos);
 
     float max1;
-    max1=diff_corr2(in1+mpos, in2+mpos, d_pss1_t, d_CORRL);
+    max1=diff_corr2(in, d_pss1_t, d_CORRL, mpos);
 
     float max2;
-    max2=diff_corr2(in1+mpos, in2+mpos, d_pss2_t, d_CORRL);
+    max2=diff_corr2(in, d_pss2_t, d_CORRL, mpos);
 
     int id=0;
     float max=max0;
@@ -181,9 +173,9 @@ void
 mimo_pss_coarse_sync_impl::prepare_corr_vecs()
 {
     //init pss sequences in time domain
-    gen_pss_t(d_pss0_t, 0, d_CORRL);
-    gen_pss_t(d_pss1_t, 1, d_CORRL);
-    gen_pss_t(d_pss2_t, 2, d_CORRL);
+    pss::gen_pss_t(d_pss0_t, 0, d_CORRL);
+    pss::gen_pss_t(d_pss1_t, 1, d_CORRL);
+    pss::gen_pss_t(d_pss2_t, 2, d_CORRL);
 
     //add pss for correlation
     for(int i=0; i<d_CORRL; i++)
@@ -196,16 +188,20 @@ mimo_pss_coarse_sync_impl::prepare_corr_vecs()
 
 
 
-
-//for better readability, differential correlation for 2 streams
-float mimo_pss_coarse_sync_impl::diff_corr2(const gr_complex* x1, const gr_complex* x2, const gr_complex* y, int len)
+//differential correlation for n streams
+float
+mimo_pss_coarse_sync_impl::diff_corr2(const gr_vector_const_void_star &in, const gr_complex* y, int len, int cpos)
 {
-    return diff_corr(x1, y, len) + diff_corr(x2, y, len);
+    float val=0;
+    for(int rx=0; rx<d_rxant; rx++)
+        val+=diff_corr((gr_complex*) in[rx]+cpos, y, len);
+    return val;
 }
 
 
 //calculate differential correlation, 4parts, returns absolute value
-float mimo_pss_coarse_sync_impl::diff_corr(const gr_complex* x,const gr_complex* y, int len)
+float
+mimo_pss_coarse_sync_impl::diff_corr(const gr_complex* x,const gr_complex* y, int len)
 {
     volk_32fc_x2_dot_prod_32fc(d_a,   x,         y,         len/4);
     volk_32fc_x2_dot_prod_32fc(d_a+1, x+len/4*1, y+len/4*1, len/4);
@@ -214,64 +210,6 @@ float mimo_pss_coarse_sync_impl::diff_corr(const gr_complex* x,const gr_complex*
 
     return abs(d_a[0]*conj(d_a[1]) + d_a[1]*conj(d_a[2]) + d_a[2]*conj(d_a[3]));
 }
-
-
-
-//generate pss in time domain with fftw
-void
-mimo_pss_coarse_sync_impl::gen_pss_t(gr_complex *zc_t, int cell_id, int len)
-{
-    gr_complex zc_f[62];
-    zc(zc_f, cell_id);
-
-    gr_complex* d_in  = (gr_complex*) fftwf_malloc(sizeof(gr_complex)*len);
-    gr_complex* d_out = (gr_complex*) fftwf_malloc(sizeof(gr_complex)*len);
-
-    memset(d_in, 0, sizeof(gr_complex)*len);
-    memcpy(d_in+len-31, zc_f, sizeof(gr_complex)*31);
-    memcpy(d_in+1, zc_f+31, sizeof(gr_complex)*31);
-
-    fftwf_plan p = fftwf_plan_dft_1d(len, reinterpret_cast<fftwf_complex*>(d_in), reinterpret_cast<fftwf_complex*>(d_out), FFTW_BACKWARD, FFTW_ESTIMATE);
-
-    fftwf_execute(p);
-
-    memcpy(zc_t, d_out, sizeof(gr_complex)*len);
-
-    fftwf_destroy_plan(p);
-    fftwf_free(d_in);
-    fftwf_free(d_out);
-}
-
-
-void
-mimo_pss_coarse_sync_impl::zc(gr_complex *zc, int cell_id)
-{
-    // calculate value of variable u according to cell id number
-    float u=0;
-    switch (cell_id)
-    {
-    case 0:
-        u=25.0;
-        break;
-    case 1:
-        u=29.0;
-        break;
-    case 2:
-        u=34.0;
-        break;
-    }
-
-    //generate zadoff-chu sequences
-    for(int n = 0; n < 31; n++)
-    {
-        zc[n]=exp(d_C_I* gr_complex(d_PI*u* float(-1*n*(n+1))/63.0 ) );
-    }
-    for(int n = 31; n < 62; n++)
-    {
-        zc[n]=exp(d_C_I* gr_complex(d_PI*u* float(-1*(n+1)*(n+2))/63.0 ) );
-    }
-}
-
 
 } /* namespace lte */
 } /* namespace gr */

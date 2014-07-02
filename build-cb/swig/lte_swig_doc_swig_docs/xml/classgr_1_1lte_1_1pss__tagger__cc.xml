@@ -1,0 +1,144 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classgr_1_1lte_1_1pss__tagger__cc" kind="class" prot="public" abstract="yes">
+    <compoundname>gr::lte::pss_tagger_cc</compoundname>
+    <basecompoundref prot="public" virt="virtual">sync_block</basecompoundref>
+    <includes refid="pss__tagger__cc_8h" local="no">pss_tagger_cc.h</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classgr_1_1lte_1_1pss__tagger__cc_1a9c7b4652b83ef9c4d286783208f5d021" prot="public" static="no">
+        <type>boost::shared_ptr&lt; <ref refid="classgr_1_1lte_1_1pss__tagger__cc" kindref="compound">pss_tagger_cc</ref> &gt;</type>
+        <definition>typedef boost::shared_ptr&lt;pss_tagger_cc&gt; gr::lte::pss_tagger_cc::sptr</definition>
+        <argsstring></argsstring>
+        <name>sptr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/pss_tagger_cc.h" line="39" column="1" bodyfile="/home/maier/gr-lte/include/lte/pss_tagger_cc.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classgr_1_1lte_1_1pss__tagger__cc_1a718b81bcdde533ac5c63f6c6b4dff5bf" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classgr_1_1lte_1_1pss__tagger__cc_1a9c7b4652b83ef9c4d286783208f5d021" kindref="member">sptr</ref></type>
+        <definition>static sptr gr::lte::pss_tagger_cc::make</definition>
+        <argsstring>(int fftl, std::string name=&quot;pss_tagger_cc&quot;)</argsstring>
+        <name>make</name>
+        <param>
+          <type>int</type>
+          <declname>fftl</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>name</declname>
+          <defval>&quot;pss_tagger_cc&quot;</defval>
+        </param>
+        <briefdescription>
+<para>Return a shared_ptr to a new instance of <ref refid="classgr_1_1lte_1_1pss__tagger__cc" kindref="compound">lte::pss_tagger_cc</ref>. </para>        </briefdescription>
+        <detaileddescription>
+<para>To avoid accidental use of raw pointers, <ref refid="classgr_1_1lte_1_1pss__tagger__cc" kindref="compound">lte::pss_tagger_cc</ref>&apos;s constructor is in a private implementation class. <ref refid="classgr_1_1lte_1_1pss__tagger__cc_1a718b81bcdde533ac5c63f6c6b4dff5bf" kindref="member">lte::pss_tagger_cc::make</ref> is the public interface for creating new instances. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/pss_tagger_cc.h" line="49" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classgr_1_1lte_1_1pss__tagger__cc_1a5edf2bc384d7447164d5cb7a8f6f445c" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void gr::lte::pss_tagger_cc::set_half_frame_start</definition>
+        <argsstring>(int start)=0</argsstring>
+        <name>set_half_frame_start</name>
+        <param>
+          <type>int</type>
+          <declname>start</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/pss_tagger_cc.h" line="51" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1lte_1_1pss__tagger__cc_1a1c49a373c0a2842aa5b812556fb1e9c5" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void gr::lte::pss_tagger_cc::set_N_id_2</definition>
+        <argsstring>(int nid2)=0</argsstring>
+        <name>set_N_id_2</name>
+        <param>
+          <type>int</type>
+          <declname>nid2</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/pss_tagger_cc.h" line="52" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1lte_1_1pss__tagger__cc_1aa26ae434e95fde4cf24a116c138c0591" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void gr::lte::pss_tagger_cc::lock</definition>
+        <argsstring>()=0</argsstring>
+        <name>lock</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/pss_tagger_cc.h" line="53" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1lte_1_1pss__tagger__cc_1a0efcaf342126140d2852e24d3e1037fb" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void gr::lte::pss_tagger_cc::unlock</definition>
+        <argsstring>()=0</argsstring>
+        <name>unlock</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/pss_tagger_cc.h" line="54" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>&lt;+description of block+&gt; </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="77">
+        <label>sync_block</label>
+      </node>
+      <node id="76">
+        <label>gr::lte::pss_tagger_cc</label>
+        <link refid="classgr_1_1lte_1_1pss__tagger__cc"/>
+        <childnode refid="77" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="79">
+        <label>sync_block</label>
+      </node>
+      <node id="78">
+        <label>gr::lte::pss_tagger_cc</label>
+        <link refid="classgr_1_1lte_1_1pss__tagger__cc"/>
+        <childnode refid="79" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/maier/gr-lte/include/lte/pss_tagger_cc.h" line="37" column="1" bodyfile="/home/maier/gr-lte/include/lte/pss_tagger_cc.h" bodystart="36" bodyend="55"/>
+    <listofallmembers>
+      <member refid="classgr_1_1lte_1_1pss__tagger__cc_1aa26ae434e95fde4cf24a116c138c0591" prot="public" virt="pure-virtual"><scope>gr::lte::pss_tagger_cc</scope><name>lock</name></member>
+      <member refid="classgr_1_1lte_1_1pss__tagger__cc_1a718b81bcdde533ac5c63f6c6b4dff5bf" prot="public" virt="non-virtual"><scope>gr::lte::pss_tagger_cc</scope><name>make</name></member>
+      <member refid="classgr_1_1lte_1_1pss__tagger__cc_1a5edf2bc384d7447164d5cb7a8f6f445c" prot="public" virt="pure-virtual"><scope>gr::lte::pss_tagger_cc</scope><name>set_half_frame_start</name></member>
+      <member refid="classgr_1_1lte_1_1pss__tagger__cc_1a1c49a373c0a2842aa5b812556fb1e9c5" prot="public" virt="pure-virtual"><scope>gr::lte::pss_tagger_cc</scope><name>set_N_id_2</name></member>
+      <member refid="classgr_1_1lte_1_1pss__tagger__cc_1a9c7b4652b83ef9c4d286783208f5d021" prot="public" virt="non-virtual"><scope>gr::lte::pss_tagger_cc</scope><name>sptr</name></member>
+      <member refid="classgr_1_1lte_1_1pss__tagger__cc_1a0efcaf342126140d2852e24d3e1037fb" prot="public" virt="pure-virtual"><scope>gr::lte::pss_tagger_cc</scope><name>unlock</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

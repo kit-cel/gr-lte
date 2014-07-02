@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classgr_1_1lte_1_1mimo__pss__fine__sync" kind="class" prot="public">
+    <compoundname>gr::lte::mimo_pss_fine_sync</compoundname>
+    <basecompoundref prot="public" virt="virtual">sync_block</basecompoundref>
+    <includes refid="mimo__pss__fine__sync_8h" local="no">mimo_pss_fine_sync.h</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classgr_1_1lte_1_1mimo__pss__fine__sync_1ac4e24d5eafa8d761a3916df9eb7d9c89" prot="public" static="no">
+        <type>boost::shared_ptr&lt; <ref refid="classgr_1_1lte_1_1mimo__pss__fine__sync" kindref="compound">mimo_pss_fine_sync</ref> &gt;</type>
+        <definition>typedef boost::shared_ptr&lt;mimo_pss_fine_sync&gt; gr::lte::mimo_pss_fine_sync::sptr</definition>
+        <argsstring></argsstring>
+        <name>sptr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/mimo_pss_fine_sync.h" line="696" column="1" bodyfile="/home/maier/gr-lte/include/lte/mimo_pss_fine_sync.h" bodystart="696" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classgr_1_1lte_1_1mimo__pss__fine__sync_1a37c66431f1269eecf7e34c34a370533b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classgr_1_1lte_1_1mimo__pss__fine__sync_1ac4e24d5eafa8d761a3916df9eb7d9c89" kindref="member">sptr</ref></type>
+        <definition>static sptr gr::lte::mimo_pss_fine_sync::make</definition>
+        <argsstring>(int fftl, int rxant, int grpdelay)</argsstring>
+        <name>make</name>
+        <param>
+          <type>int</type>
+          <declname>fftl</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>rxant</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>grpdelay</declname>
+        </param>
+        <briefdescription>
+<para>Return a shared_ptr to a new instance of <ref refid="classgr_1_1lte_1_1mimo__pss__fine__sync" kindref="compound">lte::mimo_pss_fine_sync</ref>. </para>        </briefdescription>
+        <detaileddescription>
+<para>To avoid accidental use of raw pointers, <ref refid="classgr_1_1lte_1_1mimo__pss__fine__sync" kindref="compound">lte::mimo_pss_fine_sync</ref>&apos;s constructor is in a private implementation class. <ref refid="classgr_1_1lte_1_1mimo__pss__fine__sync_1a37c66431f1269eecf7e34c34a370533b" kindref="member">lte::mimo_pss_fine_sync::make</ref> is the public interface for creating new instances. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/mimo_pss_fine_sync.h" line="706" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>&lt;+description of block+&gt; </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="39">
+        <label>sync_block</label>
+      </node>
+      <node id="38">
+        <label>gr::lte::mimo_pss_fine_sync</label>
+        <link refid="classgr_1_1lte_1_1mimo__pss__fine__sync"/>
+        <childnode refid="39" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="41">
+        <label>sync_block</label>
+      </node>
+      <node id="40">
+        <label>gr::lte::mimo_pss_fine_sync</label>
+        <link refid="classgr_1_1lte_1_1mimo__pss__fine__sync"/>
+        <childnode refid="41" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/maier/gr-lte/include/lte/mimo_pss_fine_sync.h" line="694" column="1" bodyfile="/home/maier/gr-lte/include/lte/mimo_pss_fine_sync.h" bodystart="693" bodyend="707"/>
+    <listofallmembers>
+      <member refid="classgr_1_1lte_1_1mimo__pss__fine__sync_1a37c66431f1269eecf7e34c34a370533b" prot="public" virt="non-virtual"><scope>gr::lte::mimo_pss_fine_sync</scope><name>make</name></member>
+      <member refid="classgr_1_1lte_1_1mimo__pss__fine__sync_1ac4e24d5eafa8d761a3916df9eb7d9c89" prot="public" virt="non-virtual"><scope>gr::lte::mimo_pss_fine_sync</scope><name>sptr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

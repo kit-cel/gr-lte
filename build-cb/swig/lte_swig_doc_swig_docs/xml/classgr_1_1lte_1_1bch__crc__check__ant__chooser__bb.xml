@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classgr_1_1lte_1_1bch__crc__check__ant__chooser__bb" kind="class" prot="public">
+    <compoundname>gr::lte::bch_crc_check_ant_chooser_bb</compoundname>
+    <basecompoundref prot="public" virt="virtual">sync_block</basecompoundref>
+    <includes refid="bch__crc__check__ant__chooser__bb_8h" local="no">bch_crc_check_ant_chooser_bb.h</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classgr_1_1lte_1_1bch__crc__check__ant__chooser__bb_1af55eed2b096e84c0aeeb39f3e57f5448" prot="public" static="no">
+        <type>boost::shared_ptr&lt; <ref refid="classgr_1_1lte_1_1bch__crc__check__ant__chooser__bb" kindref="compound">bch_crc_check_ant_chooser_bb</ref> &gt;</type>
+        <definition>typedef boost::shared_ptr&lt;bch_crc_check_ant_chooser_bb&gt; gr::lte::bch_crc_check_ant_chooser_bb::sptr</definition>
+        <argsstring></argsstring>
+        <name>sptr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/bch_crc_check_ant_chooser_bb.h" line="39" column="1" bodyfile="/home/maier/gr-lte/include/lte/bch_crc_check_ant_chooser_bb.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classgr_1_1lte_1_1bch__crc__check__ant__chooser__bb_1ac3f5cf45f3b9616cdbb43adad35359cb" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classgr_1_1lte_1_1bch__crc__check__ant__chooser__bb_1af55eed2b096e84c0aeeb39f3e57f5448" kindref="member">sptr</ref></type>
+        <definition>static sptr gr::lte::bch_crc_check_ant_chooser_bb::make</definition>
+        <argsstring>(std::string name=&quot;bch_crc_check_ant_chooser_bb&quot;)</argsstring>
+        <name>make</name>
+        <param>
+          <type>std::string</type>
+          <declname>name</declname>
+          <defval>&quot;bch_crc_check_ant_chooser_bb&quot;</defval>
+        </param>
+        <briefdescription>
+<para>Return a shared_ptr to a new instance of <ref refid="classgr_1_1lte_1_1bch__crc__check__ant__chooser__bb" kindref="compound">lte::bch_crc_check_ant_chooser_bb</ref>. </para>        </briefdescription>
+        <detaileddescription>
+<para>To avoid accidental use of raw pointers, <ref refid="classgr_1_1lte_1_1bch__crc__check__ant__chooser__bb" kindref="compound">lte::bch_crc_check_ant_chooser_bb</ref>&apos;s constructor is in a private implementation class. <ref refid="classgr_1_1lte_1_1bch__crc__check__ant__chooser__bb_1ac3f5cf45f3b9616cdbb43adad35359cb" kindref="member">lte::bch_crc_check_ant_chooser_bb::make</ref> is the public interface for creating new instances. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/bch_crc_check_ant_chooser_bb.h" line="49" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Depending on the results of the CRC block return number of antennas detected. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="0">
+        <label>gr::lte::bch_crc_check_ant_chooser_bb</label>
+        <link refid="classgr_1_1lte_1_1bch__crc__check__ant__chooser__bb"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>sync_block</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>gr::lte::bch_crc_check_ant_chooser_bb</label>
+        <link refid="classgr_1_1lte_1_1bch__crc__check__ant__chooser__bb"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>sync_block</label>
+      </node>
+    </collaborationgraph>
+    <location file="/home/maier/gr-lte/include/lte/bch_crc_check_ant_chooser_bb.h" line="37" column="1" bodyfile="/home/maier/gr-lte/include/lte/bch_crc_check_ant_chooser_bb.h" bodystart="36" bodyend="50"/>
+    <listofallmembers>
+      <member refid="classgr_1_1lte_1_1bch__crc__check__ant__chooser__bb_1ac3f5cf45f3b9616cdbb43adad35359cb" prot="public" virt="non-virtual"><scope>gr::lte::bch_crc_check_ant_chooser_bb</scope><name>make</name></member>
+      <member refid="classgr_1_1lte_1_1bch__crc__check__ant__chooser__bb_1af55eed2b096e84c0aeeb39f3e57f5448" prot="public" virt="non-virtual"><scope>gr::lte::bch_crc_check_ant_chooser_bb</scope><name>sptr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

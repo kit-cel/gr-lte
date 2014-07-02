@@ -37,6 +37,7 @@
 #include "lte/mimo_pss_fine_sync.h"
 #include "lte/mimo_pss_tagger.h"
 #include "lte/mimo_pss_coarse_control.h"
+#include "lte/pss.h"
 %}
 
 
@@ -99,3 +100,4 @@ GR_SWIG_BLOCK_MAGIC2(lte, mimo_pss_fine_sync);
 GR_SWIG_BLOCK_MAGIC2(lte, mimo_pss_tagger);
 %include "lte/mimo_pss_coarse_control.h"
 GR_SWIG_BLOCK_MAGIC2(lte, mimo_pss_coarse_control);
+%include "lte/pss.h"

@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classgr_1_1lte_1_1repeat__message__source__vf" kind="class" prot="public">
+    <compoundname>gr::lte::repeat_message_source_vf</compoundname>
+    <basecompoundref prot="public" virt="virtual">sync_block</basecompoundref>
+    <includes refid="repeat__message__source__vf_8h" local="no">repeat_message_source_vf.h</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classgr_1_1lte_1_1repeat__message__source__vf_1af29ea84dd754cf19e478e21bbc5a26c5" prot="public" static="no">
+        <type>boost::shared_ptr&lt; <ref refid="classgr_1_1lte_1_1repeat__message__source__vf" kindref="compound">repeat_message_source_vf</ref> &gt;</type>
+        <definition>typedef boost::shared_ptr&lt;repeat_message_source_vf&gt; gr::lte::repeat_message_source_vf::sptr</definition>
+        <argsstring></argsstring>
+        <name>sptr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/repeat_message_source_vf.h" line="39" column="1" bodyfile="/home/maier/gr-lte/include/lte/repeat_message_source_vf.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classgr_1_1lte_1_1repeat__message__source__vf_1aca1b752af7ef83b6138a1ebb6cc446d9" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classgr_1_1lte_1_1repeat__message__source__vf_1af29ea84dd754cf19e478e21bbc5a26c5" kindref="member">sptr</ref></type>
+        <definition>static sptr gr::lte::repeat_message_source_vf::make</definition>
+        <argsstring>(int vector_len, std::string name=&quot;repeat_message_source_vf&quot;)</argsstring>
+        <name>make</name>
+        <param>
+          <type>int</type>
+          <declname>vector_len</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>name</declname>
+          <defval>&quot;repeat_message_source_vf&quot;</defval>
+        </param>
+        <briefdescription>
+<para>Return a shared_ptr to a new instance of <ref refid="classgr_1_1lte_1_1repeat__message__source__vf" kindref="compound">lte::repeat_message_source_vf</ref>. </para>        </briefdescription>
+        <detaileddescription>
+<para>To avoid accidental use of raw pointers, <ref refid="classgr_1_1lte_1_1repeat__message__source__vf" kindref="compound">lte::repeat_message_source_vf</ref>&apos;s constructor is in a private implementation class. <ref refid="classgr_1_1lte_1_1repeat__message__source__vf_1aca1b752af7ef83b6138a1ebb6cc446d9" kindref="member">lte::repeat_message_source_vf::make</ref> is the public interface for creating new instances. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/repeat_message_source_vf.h" line="49" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Repeat Vector in message infinitely. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="89">
+        <label>sync_block</label>
+      </node>
+      <node id="88">
+        <label>gr::lte::repeat_message_source_vf</label>
+        <link refid="classgr_1_1lte_1_1repeat__message__source__vf"/>
+        <childnode refid="89" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="91">
+        <label>sync_block</label>
+      </node>
+      <node id="90">
+        <label>gr::lte::repeat_message_source_vf</label>
+        <link refid="classgr_1_1lte_1_1repeat__message__source__vf"/>
+        <childnode refid="91" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/maier/gr-lte/include/lte/repeat_message_source_vf.h" line="37" column="1" bodyfile="/home/maier/gr-lte/include/lte/repeat_message_source_vf.h" bodystart="36" bodyend="50"/>
+    <listofallmembers>
+      <member refid="classgr_1_1lte_1_1repeat__message__source__vf_1aca1b752af7ef83b6138a1ebb6cc446d9" prot="public" virt="non-virtual"><scope>gr::lte::repeat_message_source_vf</scope><name>make</name></member>
+      <member refid="classgr_1_1lte_1_1repeat__message__source__vf_1af29ea84dd754cf19e478e21bbc5a26c5" prot="public" virt="non-virtual"><scope>gr::lte::repeat_message_source_vf</scope><name>sptr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,637 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="gr-lte" />
+		<Option makefile_is_custom="1" />
+		<Option compiler="gcc" />
+		<Option virtualFolders="CMake Files/;CMake Files/cmake/;CMake Files/cmake/Modules/;CMake Files/include/;CMake Files/include/lte/;CMake Files/lib/;CMake Files/swig/;CMake Files/docs/;CMake Files/docs/doxygen/;CMake Files/python/;CMake Files/grc/;CMake Files/apps/;" />
+		<Build>
+			<Target title="all">
+				<Option type="4" />
+				<Option compiler="gcc" />
+				<ExtraCommands>
+					<Add after="echo foobar  | sudo -S make install" />
+				</ExtraCommands>
+				<MakeCommands>
+					<Build command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/Makefile&quot;  VERBOSE=1 all' />
+					<CompileFile command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/Makefile&quot;  VERBOSE=1 clean' />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/Makefile&quot;  VERBOSE=1 all &gt; $(CMD_NULL)' />
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option type="4" />
+				<Option compiler="gcc" />
+				<MakeCommands>
+					<Build command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/Makefile&quot;  VERBOSE=1 edit_cache' />
+					<CompileFile command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/Makefile&quot;  VERBOSE=1 clean' />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+			<Target title="install">
+				<Option type="4" />
+				<Option compiler="gcc" />
+				<MakeCommands>
+					<Build command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/Makefile&quot;  VERBOSE=1 install' />
+					<CompileFile command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/Makefile&quot;  VERBOSE=1 clean' />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+			<Target title="install/local">
+				<Option type="4" />
+				<Option compiler="gcc" />
+				<MakeCommands>
+					<Build command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/Makefile&quot;  VERBOSE=1 install/local' />
+					<CompileFile command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/Makefile&quot;  VERBOSE=1 clean' />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+			<Target title="install/strip">
+				<Option type="4" />
+				<Option compiler="gcc" />
+				<MakeCommands>
+					<Build command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/Makefile&quot;  VERBOSE=1 install/strip' />
+					<CompileFile command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/Makefile&quot;  VERBOSE=1 clean' />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+			<Target title="list_install_components">
+				<Option type="4" />
+				<Option compiler="gcc" />
+				<MakeCommands>
+					<Build command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/Makefile&quot;  VERBOSE=1 list_install_components' />
+					<CompileFile command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/Makefile&quot;  VERBOSE=1 clean' />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option type="4" />
+				<Option compiler="gcc" />
+				<MakeCommands>
+					<Build command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/Makefile&quot;  VERBOSE=1 rebuild_cache' />
+					<CompileFile command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/Makefile&quot;  VERBOSE=1 clean' />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+			<Target title="test">
+				<Option type="4" />
+				<Option compiler="gcc" />
+				<MakeCommands>
+					<Build command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/Makefile&quot;  VERBOSE=1 test' />
+					<CompileFile command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/Makefile&quot;  VERBOSE=1 clean' />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+			<Target title="uninstall">
+				<Option type="4" />
+				<Option compiler="gcc" />
+				<MakeCommands>
+					<Build command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/Makefile&quot;  VERBOSE=1 uninstall' />
+					<CompileFile command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/Makefile&quot;  VERBOSE=1 clean' />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+			<Target title="gnuradio-lte">
+				<Option output="/home/maier/gr-lte/build-cb/lib/libgnuradio-lte.so" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="/home/maier/gr-lte/build-cb/lib" />
+				<Option object_output="./" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add directory="/home/maier/gr-lte/build-cb/include" />
+					<Add directory="/home/maier/gr-lte/build-cb/lib" />
+					<Add directory="/home/maier/gr-lte/include" />
+					<Add directory="/home/maier/gr-lte/lib" />
+					<Add directory="/usr/include" />
+					<Add directory="/usr/include/c++/4.8" />
+					<Add directory="/usr/include/c++/4.8/backward" />
+					<Add directory="/usr/include/x86_64-linux-gnu" />
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8" />
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include" />
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed" />
+					<Add directory="/usr/local/include" />
+				</Compiler>
+				<MakeCommands>
+					<Build command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/lib/Makefile&quot;  VERBOSE=1 gnuradio-lte' />
+					<CompileFile command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/lib/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/lib/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/lib/Makefile&quot;  VERBOSE=1 clean' />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+			<Target title="gnuradio-lte/fast">
+				<Option output="/home/maier/gr-lte/build-cb/lib/libgnuradio-lte.so" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="/home/maier/gr-lte/build-cb/lib" />
+				<Option object_output="./" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add directory="/home/maier/gr-lte/build-cb/include" />
+					<Add directory="/home/maier/gr-lte/build-cb/lib" />
+					<Add directory="/home/maier/gr-lte/include" />
+					<Add directory="/home/maier/gr-lte/lib" />
+					<Add directory="/usr/include" />
+					<Add directory="/usr/include/c++/4.8" />
+					<Add directory="/usr/include/c++/4.8/backward" />
+					<Add directory="/usr/include/x86_64-linux-gnu" />
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8" />
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include" />
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed" />
+					<Add directory="/usr/local/include" />
+				</Compiler>
+				<MakeCommands>
+					<Build command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/lib/Makefile&quot;  VERBOSE=1 gnuradio-lte/fast' />
+					<CompileFile command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/lib/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/lib/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/lib/Makefile&quot;  VERBOSE=1 clean' />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+			<Target title="test-lte">
+				<Option output="/home/maier/gr-lte/build-cb/lib/test-lte" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="/home/maier/gr-lte/build-cb/lib" />
+				<Option object_output="./" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add directory="/home/maier/gr-lte/build-cb/include" />
+					<Add directory="/home/maier/gr-lte/build-cb/lib" />
+					<Add directory="/home/maier/gr-lte/include" />
+					<Add directory="/home/maier/gr-lte/lib" />
+					<Add directory="/usr/include" />
+					<Add directory="/usr/include/c++/4.8" />
+					<Add directory="/usr/include/c++/4.8/backward" />
+					<Add directory="/usr/include/x86_64-linux-gnu" />
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8" />
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include" />
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed" />
+					<Add directory="/usr/local/include" />
+				</Compiler>
+				<MakeCommands>
+					<Build command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/lib/Makefile&quot;  VERBOSE=1 test-lte' />
+					<CompileFile command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/lib/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/lib/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/lib/Makefile&quot;  VERBOSE=1 clean' />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+			<Target title="test-lte/fast">
+				<Option output="/home/maier/gr-lte/build-cb/lib/test-lte" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="/home/maier/gr-lte/build-cb/lib" />
+				<Option object_output="./" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add directory="/home/maier/gr-lte/build-cb/include" />
+					<Add directory="/home/maier/gr-lte/build-cb/lib" />
+					<Add directory="/home/maier/gr-lte/include" />
+					<Add directory="/home/maier/gr-lte/lib" />
+					<Add directory="/usr/include" />
+					<Add directory="/usr/include/c++/4.8" />
+					<Add directory="/usr/include/c++/4.8/backward" />
+					<Add directory="/usr/include/x86_64-linux-gnu" />
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8" />
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include" />
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed" />
+					<Add directory="/usr/local/include" />
+				</Compiler>
+				<MakeCommands>
+					<Build command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/lib/Makefile&quot;  VERBOSE=1 test-lte/fast' />
+					<CompileFile command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/lib/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/lib/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/lib/Makefile&quot;  VERBOSE=1 clean' />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+			<Target title="_lte_swig">
+				<Option output="/home/maier/gr-lte/build-cb/swig/_lte_swig.so" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="/home/maier/gr-lte/build-cb/swig" />
+				<Option object_output="./" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add directory="/home/maier/gr-lte/build-cb/include" />
+					<Add directory="/home/maier/gr-lte/build-cb/lib" />
+					<Add directory="/home/maier/gr-lte/build-cb/swig" />
+					<Add directory="/home/maier/gr-lte/include" />
+					<Add directory="/home/maier/gr-lte/lib" />
+					<Add directory="/home/maier/gr-lte/swig" />
+					<Add directory="/usr/include" />
+					<Add directory="/usr/include/c++/4.8" />
+					<Add directory="/usr/include/c++/4.8/backward" />
+					<Add directory="/usr/include/python2.7" />
+					<Add directory="/usr/include/x86_64-linux-gnu" />
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8" />
+					<Add directory="/usr/include/x86_64-linux-gnu/python2.7" />
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include" />
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed" />
+					<Add directory="/usr/local/include" />
+					<Add directory="/usr/local/include/gnuradio/swig" />
+				</Compiler>
+				<MakeCommands>
+					<Build command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/swig/Makefile&quot;  VERBOSE=1 _lte_swig' />
+					<CompileFile command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/swig/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/swig/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/swig/Makefile&quot;  VERBOSE=1 clean' />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+			<Target title="_lte_swig/fast">
+				<Option output="/home/maier/gr-lte/build-cb/swig/_lte_swig.so" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="/home/maier/gr-lte/build-cb/swig" />
+				<Option object_output="./" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add directory="/home/maier/gr-lte/build-cb/include" />
+					<Add directory="/home/maier/gr-lte/build-cb/lib" />
+					<Add directory="/home/maier/gr-lte/build-cb/swig" />
+					<Add directory="/home/maier/gr-lte/include" />
+					<Add directory="/home/maier/gr-lte/lib" />
+					<Add directory="/home/maier/gr-lte/swig" />
+					<Add directory="/usr/include" />
+					<Add directory="/usr/include/c++/4.8" />
+					<Add directory="/usr/include/c++/4.8/backward" />
+					<Add directory="/usr/include/python2.7" />
+					<Add directory="/usr/include/x86_64-linux-gnu" />
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8" />
+					<Add directory="/usr/include/x86_64-linux-gnu/python2.7" />
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include" />
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed" />
+					<Add directory="/usr/local/include" />
+					<Add directory="/usr/local/include/gnuradio/swig" />
+				</Compiler>
+				<MakeCommands>
+					<Build command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/swig/Makefile&quot;  VERBOSE=1 _lte_swig/fast' />
+					<CompileFile command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/swig/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/swig/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/swig/Makefile&quot;  VERBOSE=1 clean' />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+			<Target title="_lte_swig_doc_tag">
+				<Option output="/home/maier/gr-lte/build-cb/swig/_lte_swig_doc_tag" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="/home/maier/gr-lte/build-cb/swig" />
+				<Option object_output="./" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add directory="/home/maier/gr-lte/build-cb/include" />
+					<Add directory="/home/maier/gr-lte/build-cb/lib" />
+					<Add directory="/home/maier/gr-lte/build-cb/swig" />
+					<Add directory="/home/maier/gr-lte/include" />
+					<Add directory="/home/maier/gr-lte/lib" />
+					<Add directory="/home/maier/gr-lte/swig" />
+					<Add directory="/usr/include" />
+					<Add directory="/usr/include/c++/4.8" />
+					<Add directory="/usr/include/c++/4.8/backward" />
+					<Add directory="/usr/include/python2.7" />
+					<Add directory="/usr/include/x86_64-linux-gnu" />
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8" />
+					<Add directory="/usr/include/x86_64-linux-gnu/python2.7" />
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include" />
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed" />
+					<Add directory="/usr/local/include" />
+					<Add directory="/usr/local/include/gnuradio/swig" />
+				</Compiler>
+				<MakeCommands>
+					<Build command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/swig/Makefile&quot;  VERBOSE=1 _lte_swig_doc_tag' />
+					<CompileFile command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/swig/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/swig/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/swig/Makefile&quot;  VERBOSE=1 clean' />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+			<Target title="_lte_swig_doc_tag/fast">
+				<Option output="/home/maier/gr-lte/build-cb/swig/_lte_swig_doc_tag" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="/home/maier/gr-lte/build-cb/swig" />
+				<Option object_output="./" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add directory="/home/maier/gr-lte/build-cb/include" />
+					<Add directory="/home/maier/gr-lte/build-cb/lib" />
+					<Add directory="/home/maier/gr-lte/build-cb/swig" />
+					<Add directory="/home/maier/gr-lte/include" />
+					<Add directory="/home/maier/gr-lte/lib" />
+					<Add directory="/home/maier/gr-lte/swig" />
+					<Add directory="/usr/include" />
+					<Add directory="/usr/include/c++/4.8" />
+					<Add directory="/usr/include/c++/4.8/backward" />
+					<Add directory="/usr/include/python2.7" />
+					<Add directory="/usr/include/x86_64-linux-gnu" />
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8" />
+					<Add directory="/usr/include/x86_64-linux-gnu/python2.7" />
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include" />
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed" />
+					<Add directory="/usr/local/include" />
+					<Add directory="/usr/local/include/gnuradio/swig" />
+				</Compiler>
+				<MakeCommands>
+					<Build command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/swig/Makefile&quot;  VERBOSE=1 _lte_swig_doc_tag/fast' />
+					<CompileFile command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/swig/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/swig/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/swig/Makefile&quot;  VERBOSE=1 clean' />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+			<Target title="_lte_swig_swig_tag">
+				<Option output="/home/maier/gr-lte/build-cb/swig/_lte_swig_swig_tag" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="/home/maier/gr-lte/build-cb/swig" />
+				<Option object_output="./" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add directory="/home/maier/gr-lte/build-cb/include" />
+					<Add directory="/home/maier/gr-lte/build-cb/lib" />
+					<Add directory="/home/maier/gr-lte/build-cb/swig" />
+					<Add directory="/home/maier/gr-lte/include" />
+					<Add directory="/home/maier/gr-lte/lib" />
+					<Add directory="/home/maier/gr-lte/swig" />
+					<Add directory="/usr/include" />
+					<Add directory="/usr/include/c++/4.8" />
+					<Add directory="/usr/include/c++/4.8/backward" />
+					<Add directory="/usr/include/python2.7" />
+					<Add directory="/usr/include/x86_64-linux-gnu" />
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8" />
+					<Add directory="/usr/include/x86_64-linux-gnu/python2.7" />
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include" />
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed" />
+					<Add directory="/usr/local/include" />
+					<Add directory="/usr/local/include/gnuradio/swig" />
+				</Compiler>
+				<MakeCommands>
+					<Build command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/swig/Makefile&quot;  VERBOSE=1 _lte_swig_swig_tag' />
+					<CompileFile command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/swig/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/swig/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/swig/Makefile&quot;  VERBOSE=1 clean' />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+			<Target title="_lte_swig_swig_tag/fast">
+				<Option output="/home/maier/gr-lte/build-cb/swig/_lte_swig_swig_tag" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="/home/maier/gr-lte/build-cb/swig" />
+				<Option object_output="./" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add directory="/home/maier/gr-lte/build-cb/include" />
+					<Add directory="/home/maier/gr-lte/build-cb/lib" />
+					<Add directory="/home/maier/gr-lte/build-cb/swig" />
+					<Add directory="/home/maier/gr-lte/include" />
+					<Add directory="/home/maier/gr-lte/lib" />
+					<Add directory="/home/maier/gr-lte/swig" />
+					<Add directory="/usr/include" />
+					<Add directory="/usr/include/c++/4.8" />
+					<Add directory="/usr/include/c++/4.8/backward" />
+					<Add directory="/usr/include/python2.7" />
+					<Add directory="/usr/include/x86_64-linux-gnu" />
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8" />
+					<Add directory="/usr/include/x86_64-linux-gnu/python2.7" />
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include" />
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed" />
+					<Add directory="/usr/local/include" />
+					<Add directory="/usr/local/include/gnuradio/swig" />
+				</Compiler>
+				<MakeCommands>
+					<Build command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/swig/Makefile&quot;  VERBOSE=1 _lte_swig_swig_tag/fast' />
+					<CompileFile command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/swig/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/swig/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/swig/Makefile&quot;  VERBOSE=1 clean' />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+			<Target title="pygen_swig_9a719">
+				<Option type="4" />
+				<Option compiler="gcc" />
+				<MakeCommands>
+					<Build command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/swig/Makefile&quot;  VERBOSE=1 pygen_swig_9a719' />
+					<CompileFile command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/swig/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/swig/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/swig/Makefile&quot;  VERBOSE=1 clean' />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+			<Target title="pygen_python_bc9c3">
+				<Option type="4" />
+				<Option compiler="gcc" />
+				<MakeCommands>
+					<Build command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/python/Makefile&quot;  VERBOSE=1 pygen_python_bc9c3' />
+					<CompileFile command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/python/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/python/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/python/Makefile&quot;  VERBOSE=1 clean' />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+			<Target title="pygen_apps_9a6dd">
+				<Option type="4" />
+				<Option compiler="gcc" />
+				<MakeCommands>
+					<Build command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/apps/Makefile&quot;  VERBOSE=1 pygen_apps_9a6dd' />
+					<CompileFile command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/apps/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/apps/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/apps/Makefile&quot;  VERBOSE=1 clean' />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="../CMakeLists.txt">
+			<Option virtualFolder="CMake Files/" />
+		</Unit>
+		<Unit filename="../apps/CMakeLists.txt">
+			<Option virtualFolder="CMake Files/apps/" />
+		</Unit>
+		<Unit filename="../cmake/Modules/CMakeParseArgumentsCopy.cmake">
+			<Option virtualFolder="CMake Files/cmake/Modules/" />
+		</Unit>
+		<Unit filename="../cmake/Modules/FindCppUnit.cmake">
+			<Option virtualFolder="CMake Files/cmake/Modules/" />
+		</Unit>
+		<Unit filename="../cmake/Modules/FindFFTW3f.cmake">
+			<Option virtualFolder="CMake Files/cmake/Modules/" />
+		</Unit>
+		<Unit filename="../cmake/Modules/FindGnuradioRuntime.cmake">
+			<Option virtualFolder="CMake Files/cmake/Modules/" />
+		</Unit>
+		<Unit filename="../cmake/Modules/GrMiscUtils.cmake">
+			<Option virtualFolder="CMake Files/cmake/Modules/" />
+		</Unit>
+		<Unit filename="../cmake/Modules/GrPlatform.cmake">
+			<Option virtualFolder="CMake Files/cmake/Modules/" />
+		</Unit>
+		<Unit filename="../cmake/Modules/GrPython.cmake">
+			<Option virtualFolder="CMake Files/cmake/Modules/" />
+		</Unit>
+		<Unit filename="../cmake/Modules/GrSwig.cmake">
+			<Option virtualFolder="CMake Files/cmake/Modules/" />
+		</Unit>
+		<Unit filename="../cmake/Modules/GrTest.cmake">
+			<Option virtualFolder="CMake Files/cmake/Modules/" />
+		</Unit>
+		<Unit filename="../cmake/cmake_uninstall.cmake.in">
+			<Option virtualFolder="CMake Files/cmake/" />
+		</Unit>
+		<Unit filename="../docs/CMakeLists.txt">
+			<Option virtualFolder="CMake Files/docs/" />
+		</Unit>
+		<Unit filename="../docs/doxygen/Doxyfile.swig_doc.in">
+			<Option virtualFolder="CMake Files/docs/doxygen/" />
+		</Unit>
+		<Unit filename="../grc/CMakeLists.txt">
+			<Option virtualFolder="CMake Files/grc/" />
+		</Unit>
+		<Unit filename="../include/lte/CMakeLists.txt">
+			<Option virtualFolder="CMake Files/include/lte/" />
+		</Unit>
+		<Unit filename="../include/lte/api.h" />
+		<Unit filename="../include/lte/bch_crc_check_ant_chooser_bb.h" />
+		<Unit filename="../include/lte/channel_estimator_vcvc.h" />
+		<Unit filename="../include/lte/correlator.h" />
+		<Unit filename="../include/lte/crc_check_vbvb.h" />
+		<Unit filename="../include/lte/descrambler_vfvf.h" />
+		<Unit filename="../include/lte/extract_subcarriers_vcvc.h" />
+		<Unit filename="../include/lte/layer_demapper_vcvc.h" />
+		<Unit filename="../include/lte/mib_unpack_vbm.h" />
+		<Unit filename="../include/lte/mimo_pss_coarse_control.h" />
+		<Unit filename="../include/lte/mimo_pss_coarse_sync.h" />
+		<Unit filename="../include/lte/mimo_pss_fine_sync.h" />
+		<Unit filename="../include/lte/mimo_pss_tagger.h" />
+		<Unit filename="../include/lte/pbch_demux_vcvc.h" />
+		<Unit filename="../include/lte/pbch_descrambler_vfvf.h" />
+		<Unit filename="../include/lte/pcfich_demux_vcvc.h" />
+		<Unit filename="../include/lte/pcfich_unpack_vfm.h" />
+		<Unit filename="../include/lte/pre_decoder_vcvc.h" />
+		<Unit filename="../include/lte/pss.h" />
+		<Unit filename="../include/lte/pss_calculator_vcm.h" />
+		<Unit filename="../include/lte/pss_symbol_selector_cvc.h" />
+		<Unit filename="../include/lte/pss_tagger_cc.h" />
+		<Unit filename="../include/lte/qpsk_soft_demod_vcvf.h" />
+		<Unit filename="../include/lte/remove_cp_cvc.h" />
+		<Unit filename="../include/lte/repeat_message_source_vf.h" />
+		<Unit filename="../include/lte/rough_symbol_sync_cc.h" />
+		<Unit filename="../include/lte/sss_calculator_vcm.h" />
+		<Unit filename="../include/lte/sss_symbol_selector_cvc.h" />
+		<Unit filename="../include/lte/sss_tagger_cc.h" />
+		<Unit filename="../include/lte/subblock_deinterleaver_vfvf.h" />
+		<Unit filename="../include/lte/sync_frequency_c.h" />
+		<Unit filename="../lib/CMakeLists.txt">
+			<Option virtualFolder="CMake Files/lib/" />
+		</Unit>
+		<Unit filename="../lib/bch_crc_check_ant_chooser_bb_impl.cc" />
+		<Unit filename="../lib/bch_crc_check_ant_chooser_bb_impl.h" />
+		<Unit filename="../lib/channel_estimator_vcvc_impl.cc" />
+		<Unit filename="../lib/channel_estimator_vcvc_impl.h" />
+		<Unit filename="../lib/correlator.cc" />
+		<Unit filename="../lib/crc_check_vbvb_impl.cc" />
+		<Unit filename="../lib/crc_check_vbvb_impl.h" />
+		<Unit filename="../lib/descrambler_vfvf_impl.cc" />
+		<Unit filename="../lib/descrambler_vfvf_impl.h" />
+		<Unit filename="../lib/extract_subcarriers_vcvc_impl.cc" />
+		<Unit filename="../lib/extract_subcarriers_vcvc_impl.h" />
+		<Unit filename="../lib/layer_demapper_vcvc_impl.cc" />
+		<Unit filename="../lib/layer_demapper_vcvc_impl.h" />
+		<Unit filename="../lib/mib_unpack_vbm_impl.cc" />
+		<Unit filename="../lib/mib_unpack_vbm_impl.h" />
+		<Unit filename="../lib/mimo_pss_coarse_control_impl.cc" />
+		<Unit filename="../lib/mimo_pss_coarse_control_impl.h" />
+		<Unit filename="../lib/mimo_pss_coarse_sync_impl.cc" />
+		<Unit filename="../lib/mimo_pss_coarse_sync_impl.h" />
+		<Unit filename="../lib/mimo_pss_fine_sync_impl.cc" />
+		<Unit filename="../lib/mimo_pss_fine_sync_impl.h" />
+		<Unit filename="../lib/mimo_pss_tagger_impl.cc" />
+		<Unit filename="../lib/mimo_pss_tagger_impl.h" />
+		<Unit filename="../lib/pbch_demux_vcvc_impl.cc" />
+		<Unit filename="../lib/pbch_demux_vcvc_impl.h" />
+		<Unit filename="../lib/pbch_descrambler_vfvf_impl.cc" />
+		<Unit filename="../lib/pbch_descrambler_vfvf_impl.h" />
+		<Unit filename="../lib/pcfich_demux_vcvc_impl.cc" />
+		<Unit filename="../lib/pcfich_demux_vcvc_impl.h" />
+		<Unit filename="../lib/pcfich_unpack_vfm_impl.cc" />
+		<Unit filename="../lib/pcfich_unpack_vfm_impl.h" />
+		<Unit filename="../lib/pre_decoder_vcvc_impl.cc" />
+		<Unit filename="../lib/pre_decoder_vcvc_impl.h" />
+		<Unit filename="../lib/pss.cc" />
+		<Unit filename="../lib/pss_calculator_vcm_impl.cc" />
+		<Unit filename="../lib/pss_calculator_vcm_impl.h" />
+		<Unit filename="../lib/pss_symbol_selector_cvc_impl.cc" />
+		<Unit filename="../lib/pss_symbol_selector_cvc_impl.h" />
+		<Unit filename="../lib/pss_tagger_cc_impl.cc" />
+		<Unit filename="../lib/pss_tagger_cc_impl.h" />
+		<Unit filename="../lib/qa_lte.cc" />
+		<Unit filename="../lib/qa_lte.h" />
+		<Unit filename="../lib/qpsk_soft_demod_vcvf_impl.cc" />
+		<Unit filename="../lib/qpsk_soft_demod_vcvf_impl.h" />
+		<Unit filename="../lib/remove_cp_cvc_impl.cc" />
+		<Unit filename="../lib/remove_cp_cvc_impl.h" />
+		<Unit filename="../lib/repeat_message_source_vf_impl.cc" />
+		<Unit filename="../lib/repeat_message_source_vf_impl.h" />
+		<Unit filename="../lib/rough_symbol_sync_cc_impl.cc" />
+		<Unit filename="../lib/rough_symbol_sync_cc_impl.h" />
+		<Unit filename="../lib/sss_calculator_vcm_impl.cc" />
+		<Unit filename="../lib/sss_calculator_vcm_impl.h" />
+		<Unit filename="../lib/sss_symbol_selector_cvc_impl.cc" />
+		<Unit filename="../lib/sss_symbol_selector_cvc_impl.h" />
+		<Unit filename="../lib/sss_tagger_cc_impl.cc" />
+		<Unit filename="../lib/sss_tagger_cc_impl.h" />
+		<Unit filename="../lib/subblock_deinterleaver_vfvf_impl.cc" />
+		<Unit filename="../lib/subblock_deinterleaver_vfvf_impl.h" />
+		<Unit filename="../lib/sync_frequency_c_impl.cc" />
+		<Unit filename="../lib/sync_frequency_c_impl.h" />
+		<Unit filename="../lib/test_lte.cc" />
+		<Unit filename="../python/CMakeLists.txt">
+			<Option virtualFolder="CMake Files/python/" />
+		</Unit>
+		<Unit filename="../swig/CMakeLists.txt">
+			<Option virtualFolder="CMake Files/swig/" />
+		</Unit>
+		<Unit filename="../swig/lte_swig.i">
+			<Option compile="1" />
+		</Unit>
+		<Unit filename="swig/_lte_swig_doc_tag.cpp" />
+		<Unit filename="swig/_lte_swig_swig_tag.cpp" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

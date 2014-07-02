@@ -16,19 +16,25 @@
     <type>int</type>
   </param>
 
+  <param>
+    <name>RX antennas</name>
+    <key>rxant</key>
+    <type>int</type>
+  </param>
+
   <!-- Make one 'sink' node per input. Sub-nodes:
        * name (an identifier for the GUI)
        * type
        * vlen
        * optional (set to 1 for optional inputs) -->
-  <sink>
-    <name>in1</name>
-    <type>complex</type>
-  </sink>
-  <sink>
-    <name>in2</name>
-    <type>complex</type>
-  </sink>  
+
+    <sink>
+      <name>in</name>
+      <type>complex</type>
+      <nports>$rxant</nports>
+    </sink>
+
+
   <sink>
     <name>half_frame</name>
     <type>message</type>
@@ -47,11 +53,8 @@
        * vlen
        * optional (set to 1 for optional inputs) -->
   <source>
-    <name>out1</name>
+    <name>out</name>
     <type>complex</type>
-  </source>
-  <source>
-    <name>out2</name>
-    <type>complex</type>
+    <nports>$rxant</nports>
   </source>
 </block>

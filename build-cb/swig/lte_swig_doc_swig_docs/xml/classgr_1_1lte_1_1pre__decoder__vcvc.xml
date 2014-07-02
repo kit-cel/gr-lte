@@ -1,0 +1,174 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classgr_1_1lte_1_1pre__decoder__vcvc" kind="class" prot="public" abstract="yes">
+    <compoundname>gr::lte::pre_decoder_vcvc</compoundname>
+    <basecompoundref prot="public" virt="virtual">sync_block</basecompoundref>
+    <includes refid="pre__decoder__vcvc_8h" local="no">pre_decoder_vcvc.h</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classgr_1_1lte_1_1pre__decoder__vcvc_1a2b654433844b1d62a050505ed528c2af" prot="public" static="no">
+        <type>boost::shared_ptr&lt; <ref refid="classgr_1_1lte_1_1pre__decoder__vcvc" kindref="compound">pre_decoder_vcvc</ref> &gt;</type>
+        <definition>typedef boost::shared_ptr&lt;pre_decoder_vcvc&gt; gr::lte::pre_decoder_vcvc::sptr</definition>
+        <argsstring></argsstring>
+        <name>sptr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/pre_decoder_vcvc.h" line="43" column="1" bodyfile="/home/maier/gr-lte/include/lte/pre_decoder_vcvc.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classgr_1_1lte_1_1pre__decoder__vcvc_1a47fa490c4a017d99b2158c145d5ebbef" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classgr_1_1lte_1_1pre__decoder__vcvc_1a2b654433844b1d62a050505ed528c2af" kindref="member">sptr</ref></type>
+        <definition>static sptr gr::lte::pre_decoder_vcvc::make</definition>
+        <argsstring>(int N_ant, int vlen, std::string style, std::string name=&quot;pre_decoder_vcvc&quot;)</argsstring>
+        <name>make</name>
+        <param>
+          <type>int</type>
+          <declname>N_ant</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>vlen</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>style</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>name</declname>
+          <defval>&quot;pre_decoder_vcvc&quot;</defval>
+        </param>
+        <briefdescription>
+<para>Return a shared_ptr to a new instance of <ref refid="classgr_1_1lte_1_1pre__decoder__vcvc" kindref="compound">lte::pre_decoder_vcvc</ref>. </para>        </briefdescription>
+        <detaileddescription>
+<para>To avoid accidental use of raw pointers, <ref refid="classgr_1_1lte_1_1pre__decoder__vcvc" kindref="compound">lte::pre_decoder_vcvc</ref>&apos;s constructor is in a private implementation class. <ref refid="classgr_1_1lte_1_1pre__decoder__vcvc_1a47fa490c4a017d99b2158c145d5ebbef" kindref="member">lte::pre_decoder_vcvc::make</ref> is the public interface for creating new instances. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/pre_decoder_vcvc.h" line="53" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classgr_1_1lte_1_1pre__decoder__vcvc_1afbadd3b9494e7ea5fe12b534b45c8565" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void gr::lte::pre_decoder_vcvc::set_N_ant</definition>
+        <argsstring>(int N_ant)=0</argsstring>
+        <name>set_N_ant</name>
+        <param>
+          <type>int</type>
+          <declname>N_ant</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/pre_decoder_vcvc.h" line="55" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1lte_1_1pre__decoder__vcvc_1ab6d65dafa87590a269efc55414d507e0" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int gr::lte::pre_decoder_vcvc::get_N_ant</definition>
+        <argsstring>()=0</argsstring>
+        <name>get_N_ant</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/pre_decoder_vcvc.h" line="56" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1lte_1_1pre__decoder__vcvc_1acf1c384524614adde52ee02295000c50" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void gr::lte::pre_decoder_vcvc::set_decoding_style</definition>
+        <argsstring>(std::string style)=0</argsstring>
+        <name>set_decoding_style</name>
+        <param>
+          <type>std::string</type>
+          <declname>style</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/pre_decoder_vcvc.h" line="57" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1lte_1_1pre__decoder__vcvc_1a0c1862c823272d3bdf25b4e9974a466b" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::string</type>
+        <definition>virtual std::string gr::lte::pre_decoder_vcvc::get_decoding_style</definition>
+        <argsstring>()=0</argsstring>
+        <name>get_decoding_style</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/pre_decoder_vcvc.h" line="58" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Pre Decoder for LTE. </para>    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>N_ant</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>initial antenna setup. for now: 1 or 2 antennas </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>vlen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>length of the input/output vector </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>style</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>decoding style as given by LTE standard. Only transmit diversity is supported Block takes in vectors and channel estimates. Output is decoded according to Alamouti or standard zero-forcing depending on antenna configuration </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="62">
+        <label>gr::lte::pre_decoder_vcvc</label>
+        <link refid="classgr_1_1lte_1_1pre__decoder__vcvc"/>
+        <childnode refid="63" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="63">
+        <label>sync_block</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="64">
+        <label>gr::lte::pre_decoder_vcvc</label>
+        <link refid="classgr_1_1lte_1_1pre__decoder__vcvc"/>
+        <childnode refid="65" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="65">
+        <label>sync_block</label>
+      </node>
+    </collaborationgraph>
+    <location file="/home/maier/gr-lte/include/lte/pre_decoder_vcvc.h" line="41" column="1" bodyfile="/home/maier/gr-lte/include/lte/pre_decoder_vcvc.h" bodystart="40" bodyend="59"/>
+    <listofallmembers>
+      <member refid="classgr_1_1lte_1_1pre__decoder__vcvc_1a0c1862c823272d3bdf25b4e9974a466b" prot="public" virt="pure-virtual"><scope>gr::lte::pre_decoder_vcvc</scope><name>get_decoding_style</name></member>
+      <member refid="classgr_1_1lte_1_1pre__decoder__vcvc_1ab6d65dafa87590a269efc55414d507e0" prot="public" virt="pure-virtual"><scope>gr::lte::pre_decoder_vcvc</scope><name>get_N_ant</name></member>
+      <member refid="classgr_1_1lte_1_1pre__decoder__vcvc_1a47fa490c4a017d99b2158c145d5ebbef" prot="public" virt="non-virtual"><scope>gr::lte::pre_decoder_vcvc</scope><name>make</name></member>
+      <member refid="classgr_1_1lte_1_1pre__decoder__vcvc_1acf1c384524614adde52ee02295000c50" prot="public" virt="pure-virtual"><scope>gr::lte::pre_decoder_vcvc</scope><name>set_decoding_style</name></member>
+      <member refid="classgr_1_1lte_1_1pre__decoder__vcvc_1afbadd3b9494e7ea5fe12b534b45c8565" prot="public" virt="pure-virtual"><scope>gr::lte::pre_decoder_vcvc</scope><name>set_N_ant</name></member>
+      <member refid="classgr_1_1lte_1_1pre__decoder__vcvc_1a2b654433844b1d62a050505ed528c2af" prot="public" virt="non-virtual"><scope>gr::lte::pre_decoder_vcvc</scope><name>sptr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

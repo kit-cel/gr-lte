@@ -50,5 +50,6 @@ install(FILES
     mimo_pss_coarse_sync.h
     mimo_pss_fine_sync.h
     mimo_pss_tagger.h
-    mimo_pss_coarse_control.h DESTINATION include/lte
+    mimo_pss_coarse_control.h
+    pss.h DESTINATION include/lte
 )

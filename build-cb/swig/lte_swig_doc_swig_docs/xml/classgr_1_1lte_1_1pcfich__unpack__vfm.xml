@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classgr_1_1lte_1_1pcfich__unpack__vfm" kind="class" prot="public" abstract="yes">
+    <compoundname>gr::lte::pcfich_unpack_vfm</compoundname>
+    <basecompoundref prot="public" virt="virtual">sync_block</basecompoundref>
+    <includes refid="pcfich__unpack__vfm_8h" local="no">pcfich_unpack_vfm.h</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classgr_1_1lte_1_1pcfich__unpack__vfm_1a065933bfe2015518b62d0e6ace7bf38f" prot="public" static="no">
+        <type>boost::shared_ptr&lt; <ref refid="classgr_1_1lte_1_1pcfich__unpack__vfm" kindref="compound">pcfich_unpack_vfm</ref> &gt;</type>
+        <definition>typedef boost::shared_ptr&lt;pcfich_unpack_vfm&gt; gr::lte::pcfich_unpack_vfm::sptr</definition>
+        <argsstring></argsstring>
+        <name>sptr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/pcfich_unpack_vfm.h" line="40" column="1" bodyfile="/home/maier/gr-lte/include/lte/pcfich_unpack_vfm.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classgr_1_1lte_1_1pcfich__unpack__vfm_1a828c7b51187650ed5f08a0b3533a431f" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void gr::lte::pcfich_unpack_vfm::activate_debug_mode</definition>
+        <argsstring>(bool ena)=0</argsstring>
+        <name>activate_debug_mode</name>
+        <param>
+          <type>bool</type>
+          <declname>ena</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/pcfich_unpack_vfm.h" line="42" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1lte_1_1pcfich__unpack__vfm_1a26c21cd5a157a0705e6639b2759c7e1f" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::vector&lt; int &gt;</type>
+        <definition>virtual std::vector&lt;int&gt; gr::lte::pcfich_unpack_vfm::cfi_results</definition>
+        <argsstring>()=0</argsstring>
+        <name>cfi_results</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/pcfich_unpack_vfm.h" line="43" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classgr_1_1lte_1_1pcfich__unpack__vfm_1a07b841e38b12f4ea3cbc7a7e0d81e2f3" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classgr_1_1lte_1_1pcfich__unpack__vfm_1a065933bfe2015518b62d0e6ace7bf38f" kindref="member">sptr</ref></type>
+        <definition>static sptr gr::lte::pcfich_unpack_vfm::make</definition>
+        <argsstring>(std::string key, std::string msg_buf_name, std::string name=&quot;pcfich_unpack_vfm&quot;)</argsstring>
+        <name>make</name>
+        <param>
+          <type>std::string</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>msg_buf_name</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>name</declname>
+          <defval>&quot;pcfich_unpack_vfm&quot;</defval>
+        </param>
+        <briefdescription>
+<para>Return a shared_ptr to a new instance of <ref refid="classgr_1_1lte_1_1pcfich__unpack__vfm" kindref="compound">lte::pcfich_unpack_vfm</ref>. </para>        </briefdescription>
+        <detaileddescription>
+<para>To avoid accidental use of raw pointers, <ref refid="classgr_1_1lte_1_1pcfich__unpack__vfm" kindref="compound">lte::pcfich_unpack_vfm</ref>&apos;s constructor is in a private implementation class. <ref refid="classgr_1_1lte_1_1pcfich__unpack__vfm_1a07b841e38b12f4ea3cbc7a7e0d81e2f3" kindref="member">lte::pcfich_unpack_vfm::make</ref> is the public interface for creating new instances. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/pcfich_unpack_vfm.h" line="53" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Unpack CFI and publish it on output message port. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="59">
+        <label>sync_block</label>
+      </node>
+      <node id="58">
+        <label>gr::lte::pcfich_unpack_vfm</label>
+        <link refid="classgr_1_1lte_1_1pcfich__unpack__vfm"/>
+        <childnode refid="59" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="61">
+        <label>sync_block</label>
+      </node>
+      <node id="60">
+        <label>gr::lte::pcfich_unpack_vfm</label>
+        <link refid="classgr_1_1lte_1_1pcfich__unpack__vfm"/>
+        <childnode refid="61" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/maier/gr-lte/include/lte/pcfich_unpack_vfm.h" line="38" column="1" bodyfile="/home/maier/gr-lte/include/lte/pcfich_unpack_vfm.h" bodystart="37" bodyend="54"/>
+    <listofallmembers>
+      <member refid="classgr_1_1lte_1_1pcfich__unpack__vfm_1a828c7b51187650ed5f08a0b3533a431f" prot="public" virt="pure-virtual"><scope>gr::lte::pcfich_unpack_vfm</scope><name>activate_debug_mode</name></member>
+      <member refid="classgr_1_1lte_1_1pcfich__unpack__vfm_1a26c21cd5a157a0705e6639b2759c7e1f" prot="public" virt="pure-virtual"><scope>gr::lte::pcfich_unpack_vfm</scope><name>cfi_results</name></member>
+      <member refid="classgr_1_1lte_1_1pcfich__unpack__vfm_1a07b841e38b12f4ea3cbc7a7e0d81e2f3" prot="public" virt="non-virtual"><scope>gr::lte::pcfich_unpack_vfm</scope><name>make</name></member>
+      <member refid="classgr_1_1lte_1_1pcfich__unpack__vfm_1a065933bfe2015518b62d0e6ace7bf38f" prot="public" virt="non-virtual"><scope>gr::lte::pcfich_unpack_vfm</scope><name>sptr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
