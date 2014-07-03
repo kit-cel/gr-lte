@@ -444,6 +444,30 @@ mimo_pss_fine_sync_impl.cc.s:
 	cd /home/maier/gr-lte/build-cb && $(MAKE) -f lib/CMakeFiles/gnuradio-lte.dir/build.make lib/CMakeFiles/gnuradio-lte.dir/mimo_pss_fine_sync_impl.cc.s
 .PHONY : mimo_pss_fine_sync_impl.cc.s
 
+mimo_pss_freq_sync_impl.o: mimo_pss_freq_sync_impl.cc.o
+.PHONY : mimo_pss_freq_sync_impl.o
+
+# target to build an object file
+mimo_pss_freq_sync_impl.cc.o:
+	cd /home/maier/gr-lte/build-cb && $(MAKE) -f lib/CMakeFiles/gnuradio-lte.dir/build.make lib/CMakeFiles/gnuradio-lte.dir/mimo_pss_freq_sync_impl.cc.o
+.PHONY : mimo_pss_freq_sync_impl.cc.o
+
+mimo_pss_freq_sync_impl.i: mimo_pss_freq_sync_impl.cc.i
+.PHONY : mimo_pss_freq_sync_impl.i
+
+# target to preprocess a source file
+mimo_pss_freq_sync_impl.cc.i:
+	cd /home/maier/gr-lte/build-cb && $(MAKE) -f lib/CMakeFiles/gnuradio-lte.dir/build.make lib/CMakeFiles/gnuradio-lte.dir/mimo_pss_freq_sync_impl.cc.i
+.PHONY : mimo_pss_freq_sync_impl.cc.i
+
+mimo_pss_freq_sync_impl.s: mimo_pss_freq_sync_impl.cc.s
+.PHONY : mimo_pss_freq_sync_impl.s
+
+# target to generate assembly for a file
+mimo_pss_freq_sync_impl.cc.s:
+	cd /home/maier/gr-lte/build-cb && $(MAKE) -f lib/CMakeFiles/gnuradio-lte.dir/build.make lib/CMakeFiles/gnuradio-lte.dir/mimo_pss_freq_sync_impl.cc.s
+.PHONY : mimo_pss_freq_sync_impl.cc.s
+
 mimo_pss_tagger_impl.o: mimo_pss_tagger_impl.cc.o
 .PHONY : mimo_pss_tagger_impl.o
 
@@ -996,6 +1020,9 @@ help:
 	@echo "... mimo_pss_fine_sync_impl.o"
 	@echo "... mimo_pss_fine_sync_impl.i"
 	@echo "... mimo_pss_fine_sync_impl.s"
+	@echo "... mimo_pss_freq_sync_impl.o"
+	@echo "... mimo_pss_freq_sync_impl.i"
+	@echo "... mimo_pss_freq_sync_impl.s"
 	@echo "... mimo_pss_tagger_impl.o"
 	@echo "... mimo_pss_tagger_impl.i"
 	@echo "... mimo_pss_tagger_impl.s"

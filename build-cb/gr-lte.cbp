@@ -10,16 +10,13 @@
 			<Target title="all">
 				<Option type="4" />
 				<Option compiler="gcc" />
-				<ExtraCommands>
-					<Add after="echo foobar  | sudo -S make install" />
-				</ExtraCommands>
 				<MakeCommands>
 					<Build command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/Makefile&quot;  VERBOSE=1 all' />
 					<CompileFile command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
 					<Clean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/Makefile&quot;  VERBOSE=1 clean' />
 					<DistClean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/Makefile&quot;  VERBOSE=1 clean' />
 					<AskRebuildNeeded command="$make -q -f $makefile $target" />
-					<SilentBuild command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/Makefile&quot;  VERBOSE=1 all &gt; $(CMD_NULL)' />
+					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
@@ -475,11 +472,24 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<ExtraCommands>
+			<Add after="echo foobar | sudo -S make install" />
+			<Add after="echo foobar | sudo -S ldconfig" />
+		</ExtraCommands>
 		<Unit filename="../CMakeLists.txt">
 			<Option virtualFolder="CMake Files/" />
 		</Unit>
 		<Unit filename="../apps/CMakeLists.txt">
 			<Option virtualFolder="CMake Files/apps/" />
+		</Unit>
+		<Unit filename="../cmake/Modules/CMakeParseArgumentsCopy.cmake">
+			<Option virtualFolder="CMake Files/cmake/Modules/" />
+		</Unit>
+		<Unit filename="../cmake/Modules/CMakeParseArgumentsCopy.cmake">
+			<Option virtualFolder="CMake Files/cmake/Modules/" />
+		</Unit>
+		<Unit filename="../cmake/Modules/CMakeParseArgumentsCopy.cmake">
+			<Option virtualFolder="CMake Files/cmake/Modules/" />
 		</Unit>
 		<Unit filename="../cmake/Modules/CMakeParseArgumentsCopy.cmake">
 			<Option virtualFolder="CMake Files/cmake/Modules/" />
@@ -496,13 +506,34 @@
 		<Unit filename="../cmake/Modules/GrMiscUtils.cmake">
 			<Option virtualFolder="CMake Files/cmake/Modules/" />
 		</Unit>
+		<Unit filename="../cmake/Modules/GrMiscUtils.cmake">
+			<Option virtualFolder="CMake Files/cmake/Modules/" />
+		</Unit>
+		<Unit filename="../cmake/Modules/GrPlatform.cmake">
+			<Option virtualFolder="CMake Files/cmake/Modules/" />
+		</Unit>
 		<Unit filename="../cmake/Modules/GrPlatform.cmake">
 			<Option virtualFolder="CMake Files/cmake/Modules/" />
 		</Unit>
 		<Unit filename="../cmake/Modules/GrPython.cmake">
 			<Option virtualFolder="CMake Files/cmake/Modules/" />
 		</Unit>
+		<Unit filename="../cmake/Modules/GrPython.cmake">
+			<Option virtualFolder="CMake Files/cmake/Modules/" />
+		</Unit>
+		<Unit filename="../cmake/Modules/GrPython.cmake">
+			<Option virtualFolder="CMake Files/cmake/Modules/" />
+		</Unit>
+		<Unit filename="../cmake/Modules/GrPython.cmake">
+			<Option virtualFolder="CMake Files/cmake/Modules/" />
+		</Unit>
+		<Unit filename="../cmake/Modules/GrPython.cmake">
+			<Option virtualFolder="CMake Files/cmake/Modules/" />
+		</Unit>
 		<Unit filename="../cmake/Modules/GrSwig.cmake">
+			<Option virtualFolder="CMake Files/cmake/Modules/" />
+		</Unit>
+		<Unit filename="../cmake/Modules/GrTest.cmake">
 			<Option virtualFolder="CMake Files/cmake/Modules/" />
 		</Unit>
 		<Unit filename="../cmake/Modules/GrTest.cmake">
@@ -535,6 +566,7 @@
 		<Unit filename="../include/lte/mimo_pss_coarse_control.h" />
 		<Unit filename="../include/lte/mimo_pss_coarse_sync.h" />
 		<Unit filename="../include/lte/mimo_pss_fine_sync.h" />
+		<Unit filename="../include/lte/mimo_pss_freq_sync.h" />
 		<Unit filename="../include/lte/mimo_pss_tagger.h" />
 		<Unit filename="../include/lte/pbch_demux_vcvc.h" />
 		<Unit filename="../include/lte/pbch_descrambler_vfvf.h" />
@@ -578,6 +610,8 @@
 		<Unit filename="../lib/mimo_pss_coarse_sync_impl.h" />
 		<Unit filename="../lib/mimo_pss_fine_sync_impl.cc" />
 		<Unit filename="../lib/mimo_pss_fine_sync_impl.h" />
+		<Unit filename="../lib/mimo_pss_freq_sync_impl.cc" />
+		<Unit filename="../lib/mimo_pss_freq_sync_impl.h" />
 		<Unit filename="../lib/mimo_pss_tagger_impl.cc" />
 		<Unit filename="../lib/mimo_pss_tagger_impl.h" />
 		<Unit filename="../lib/pbch_demux_vcvc_impl.cc" />

@@ -29,6 +29,7 @@
 /usr/local/include/lte/mimo_pss_tagger.h
 /usr/local/include/lte/mimo_pss_coarse_control.h
 /usr/local/include/lte/pss.h
+/usr/local/include/lte/mimo_pss_freq_sync.h
 /usr/local/lib/libgnuradio-lte.so
 /usr/local/lib/python2.7/dist-packages/lte/_lte_swig.so
 /usr/local/lib/python2.7/dist-packages/lte/lte_swig.py
@@ -86,3 +87,4 @@
 /usr/local/share/gnuradio/grc/blocks/lte_mimo_pss_fine_sync.xml
 /usr/local/share/gnuradio/grc/blocks/lte_mimo_pss_tagger.xml
 /usr/local/share/gnuradio/grc/blocks/lte_mimo_pss_coarse_control.xml
+/usr/local/share/gnuradio/grc/blocks/lte_mimo_pss_freq_sync.xml

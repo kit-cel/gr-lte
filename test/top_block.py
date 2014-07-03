@@ -2,9 +2,10 @@
 ##################################################
 # Gnuradio Python Flow Graph
 # Title: Top Block
-# Generated: Wed Jul  2 22:51:57 2014
+# Generated: Thu Jul  3 21:19:54 2014
 ##################################################
 
+execfile("/home/maier/.grc_gnuradio/lte_mimo_pss_based_frey_sync.py")
 execfile("/home/maier/.grc_gnuradio/lte_mimo_pss_sync.py")
 from PyQt4 import Qt
 from gnuradio import blocks
@@ -52,21 +53,28 @@ class top_block(gr.top_block, Qt.QWidget):
         ##################################################
         self.lte_mimo_pss_sync_0 = lte_mimo_pss_sync(
             fftlen=fftl,
+            rxant=2,
+        )
+        self.lte_mimo_pss_based_frey_sync_0 = lte_mimo_pss_based_frey_sync(
+            rxant=2,
+            fftlen=1024,
         )
         self.blocks_vector_to_streams_0 = blocks.vector_to_streams(gr.sizeof_gr_complex*1, 2)
         self.blocks_throttle_0 = blocks.throttle(gr.sizeof_gr_complex*2, samp_rate,True)
         self.blocks_null_sink_0 = blocks.null_sink(gr.sizeof_gr_complex*1)
-        self.blocks_file_source_0 = blocks.file_source(gr.sizeof_gr_complex*2, "/home/maier/gr-lte/test/lte5framesFadingChannelETU_vec2.dat", False)
+        self.blocks_file_source_0 = blocks.file_source(gr.sizeof_gr_complex*2, "/home/maier/Schreibtisch/lte5framesFadingChannelETU_fOff6000.dat", False)
 
         ##################################################
         # Connections
         ##################################################
-        self.connect((self.lte_mimo_pss_sync_0, 0), (self.blocks_null_sink_0, 0))
-        self.connect((self.lte_mimo_pss_sync_0, 1), (self.blocks_null_sink_0, 1))
         self.connect((self.blocks_vector_to_streams_0, 1), (self.lte_mimo_pss_sync_0, 1))
         self.connect((self.blocks_vector_to_streams_0, 0), (self.lte_mimo_pss_sync_0, 0))
         self.connect((self.blocks_throttle_0, 0), (self.blocks_vector_to_streams_0, 0))
         self.connect((self.blocks_file_source_0, 0), (self.blocks_throttle_0, 0))
+        self.connect((self.lte_mimo_pss_sync_0, 1), (self.lte_mimo_pss_based_frey_sync_0, 1))
+        self.connect((self.lte_mimo_pss_sync_0, 0), (self.lte_mimo_pss_based_frey_sync_0, 0))
+        self.connect((self.lte_mimo_pss_based_frey_sync_0, 0), (self.blocks_null_sink_0, 0))
+        self.connect((self.lte_mimo_pss_based_frey_sync_0, 1), (self.blocks_null_sink_0, 1))
 
 
     def closeEvent(self, event):

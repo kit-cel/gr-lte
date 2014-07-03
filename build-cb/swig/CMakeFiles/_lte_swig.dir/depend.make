@@ -13,6 +13,7 @@ swig/CMakeFiles/_lte_swig.dir/lte_swigPYTHON_wrap.cxx.o: ../include/lte/mib_unpa
 swig/CMakeFiles/_lte_swig.dir/lte_swigPYTHON_wrap.cxx.o: ../include/lte/mimo_pss_coarse_control.h
 swig/CMakeFiles/_lte_swig.dir/lte_swigPYTHON_wrap.cxx.o: ../include/lte/mimo_pss_coarse_sync.h
 swig/CMakeFiles/_lte_swig.dir/lte_swigPYTHON_wrap.cxx.o: ../include/lte/mimo_pss_fine_sync.h
+swig/CMakeFiles/_lte_swig.dir/lte_swigPYTHON_wrap.cxx.o: ../include/lte/mimo_pss_freq_sync.h
 swig/CMakeFiles/_lte_swig.dir/lte_swigPYTHON_wrap.cxx.o: ../include/lte/mimo_pss_tagger.h
 swig/CMakeFiles/_lte_swig.dir/lte_swigPYTHON_wrap.cxx.o: ../include/lte/pbch_demux_vcvc.h
 swig/CMakeFiles/_lte_swig.dir/lte_swigPYTHON_wrap.cxx.o: ../include/lte/pbch_descrambler_vfvf.h

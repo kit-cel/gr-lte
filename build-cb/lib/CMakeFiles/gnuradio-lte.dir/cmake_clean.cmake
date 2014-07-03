@@ -29,6 +29,7 @@ FILE(REMOVE_RECURSE
   "CMakeFiles/gnuradio-lte.dir/mimo_pss_tagger_impl.cc.o"
   "CMakeFiles/gnuradio-lte.dir/mimo_pss_coarse_control_impl.cc.o"
   "CMakeFiles/gnuradio-lte.dir/pss.cc.o"
+  "CMakeFiles/gnuradio-lte.dir/mimo_pss_freq_sync_impl.cc.o"
   "libgnuradio-lte.pdb"
   "libgnuradio-lte.so"
 )

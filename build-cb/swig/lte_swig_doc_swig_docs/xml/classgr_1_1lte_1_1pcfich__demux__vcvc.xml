@@ -79,24 +79,24 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="54">
+      <node id="58">
         <label>gr::lte::pcfich_demux_vcvc</label>
         <link refid="classgr_1_1lte_1_1pcfich__demux__vcvc"/>
-        <childnode refid="55" relation="public-inheritance">
+        <childnode refid="59" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="55">
+      <node id="59">
         <label>block</label>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="56">
+      <node id="60">
         <label>gr::lte::pcfich_demux_vcvc</label>
         <link refid="classgr_1_1lte_1_1pcfich__demux__vcvc"/>
-        <childnode refid="57" relation="public-inheritance">
+        <childnode refid="61" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="57">
+      <node id="61">
         <label>block</label>
       </node>
     </collaborationgraph>

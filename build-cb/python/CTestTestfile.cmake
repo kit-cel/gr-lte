@@ -32,3 +32,4 @@ ADD_TEST(qa_sync_frequency_c "/bin/sh" "/home/maier/gr-lte/build-cb/python/qa_sy
 ADD_TEST(qa_descrambler_vfvf "/bin/sh" "/home/maier/gr-lte/build-cb/python/qa_descrambler_vfvf_test.sh")
 ADD_TEST(qa_pcfich_scramble_sequencer_m "/bin/sh" "/home/maier/gr-lte/build-cb/python/qa_pcfich_scramble_sequencer_m_test.sh")
 ADD_TEST(qa_pcfich_demux_vcvc "/bin/sh" "/home/maier/gr-lte/build-cb/python/qa_pcfich_demux_vcvc_test.sh")
+ADD_TEST(qa_mimo_pss_freq_sync "/bin/sh" "/home/maier/gr-lte/build-cb/python/qa_mimo_pss_freq_sync_test.sh")

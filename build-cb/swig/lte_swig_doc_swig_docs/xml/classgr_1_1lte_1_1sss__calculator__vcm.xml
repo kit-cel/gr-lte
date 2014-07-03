@@ -84,24 +84,24 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="96">
+      <node id="100">
         <label>gr::lte::sss_calculator_vcm</label>
         <link refid="classgr_1_1lte_1_1sss__calculator__vcm"/>
-        <childnode refid="97" relation="public-inheritance">
+        <childnode refid="101" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="97">
+      <node id="101">
         <label>sync_block</label>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="98">
+      <node id="102">
         <label>gr::lte::sss_calculator_vcm</label>
         <link refid="classgr_1_1lte_1_1sss__calculator__vcm"/>
-        <childnode refid="99" relation="public-inheritance">
+        <childnode refid="103" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="99">
+      <node id="103">
         <label>sync_block</label>
       </node>
     </collaborationgraph>

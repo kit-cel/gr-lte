@@ -23,7 +23,7 @@ chcfg.SamplingRate=waveconfig.SamplingRate;
 chcfg.InitTime = 10;
 [rx_ant, chinfo]=lteFadingChannel(chcfg,waveform);
 
-f_off=6000;
+f_off=500;
 phi=f_off/waveconfig.SamplingRate;
 rm_sim_offset=exp(1i*2*pi*phi*(0:length(rx_ant(:,1))-1))';
 rx_ant = rx_ant .* [rm_sim_offset rm_sim_offset];
@@ -35,12 +35,12 @@ rx_ant(:,2)=awgn(rx_ant(:,2),6, 'measured');
 test=rx_ant;
 samplerate=waveconfig.SamplingRate;
 fftl=single(waveconfig.Nfft);
-%test=invec;
+% test=invec;
 % fftl=1024;
 % samplerate=15360000;
 
 
- %save_complex(rx_ant, 2, '/home/maier/Schreibtisch/lte5framesFadingChannelETU.dat');
+ %save_complex(rx_ant, 2, '/home/maier/Schreibtisch/lte5framesFadingChannelETU_fOff6000.dat');
 
 %  lte_rx(test, fftl);
 

@@ -172,16 +172,19 @@ mimo_pss_coarse_sync_impl::calc_N_id_2(const gr_vector_const_void_star &in, cons
 void
 mimo_pss_coarse_sync_impl::prepare_corr_vecs()
 {
-    //init pss sequences in time domain
-    pss::gen_pss_t(d_pss0_t, 0, d_CORRL);
-    pss::gen_pss_t(d_pss1_t, 1, d_CORRL);
-    pss::gen_pss_t(d_pss2_t, 2, d_CORRL);
+    //init pss sequences in time domain (conj for correlations)
+    pss::gen_conj_pss_t(d_pss0_t, 0, d_CORRL);
+    pss::gen_conj_pss_t(d_pss1_t, 1, d_CORRL);
+    pss::gen_conj_pss_t(d_pss2_t, 2, d_CORRL);
 
-    //add pss for correlation
+    //add pss' for correlation
     for(int i=0; i<d_CORRL; i++)
     {
-        d_pss012_t[i]=conj(d_pss0_t[i]+d_pss1_t[i]+d_pss2_t[i]);
+        d_pss012_t[i]=d_pss0_t[i]+d_pss1_t[i]+d_pss2_t[i];
     }
+
+
+
 
 }
 

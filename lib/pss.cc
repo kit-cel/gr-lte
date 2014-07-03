@@ -23,6 +23,7 @@
 
 #include <gnuradio/io_signature.h>
 #include <lte/pss.h>
+#include <volk/volk.h>
 
 
 namespace gr
@@ -68,6 +69,14 @@ pss::gen_pss_t(gr_complex *zc_t, int cell_id, int len)
     fftwf_destroy_plan(p);
     fftwf_free(d_in);
     fftwf_free(d_out);
+}
+
+//generate cunjungate pss in time domain
+void
+pss::gen_conj_pss_t(gr_complex *zc_t, int cell_id, int len)
+{
+    gen_pss_t(zc_t, cell_id, len);
+    volk_32fc_conjugate_32fc(zc_t, zc_t, len);
 }
 
 

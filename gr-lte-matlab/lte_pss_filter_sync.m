@@ -171,19 +171,23 @@ title('corr at high rate with unfiltered data');
 disp(['fine pos:' num2str(finepos) ' corrval:' num2str(corrmax) ' N_id_2=' num2str(N_id_2)]);
 pss_pos=finepos;
 
+cfo=0;
 
+for i=0:10*slot_symbs:60*slot_symbs-1
+    a1=xcorr(invec(finepos+1+i:end,1),chu_t_high(1:fftl/2, N_id_2+1),0);
+    a2=xcorr(invec(finepos+1+i+fftl/2:end,1),chu_t_high(fftl/2+1:fftl, N_id_2+1),0);
+    disp(num2str(15000/pi*angle(conj(a1)*a2)));
+    cfo=cfo+1/pi*angle(conj(a1)*a2);
+    
+    a1=xcorr(invec(finepos+1+i:end,2),chu_t_high(1:fftl/2, N_id_2+1),0);
+    a2=xcorr(invec(finepos+1+i+fftl/2:end,2),chu_t_high(fftl/2+1:fftl, N_id_2+1),0);
+    disp(num2str(15000/pi*angle(conj(a1)*a2)));
+    cfo=cfo+1/pi*angle(conj(a1)*a2);
+end
 
-
-a1=xcorr(invec(finepos+1:end,1),chu_t_high(1:fftl/2, N_id_2+1),0);
-a2=xcorr(invec(finepos+1+fftl/2:end,1),chu_t_high(fftl/2+1:fftl, N_id_2+1),0);
-cfo=1/pi*angle(conj(a1)*a2);
-
-a1=xcorr(invec(finepos+1:end,2),chu_t_high(1:fftl/2, N_id_2+1),0);
-a2=xcorr(invec(finepos+1+fftl/2:end,2),chu_t_high(fftl/2+1:fftl, N_id_2+1),0);
-cfo=-(cfo+1/pi*angle(conj(a1)*a2))/2;
-
+cfo=cfo/12;
 
 disp(['CFO-pss-estimation:' num2str(cfo*15000)]);
-freqoffset=cfo*15000;
+freqoffset=-cfo*15000;
 
 end

@@ -65,6 +65,7 @@ IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
     "/home/maier/gr-lte/include/lte/mimo_pss_tagger.h"
     "/home/maier/gr-lte/include/lte/mimo_pss_coarse_control.h"
     "/home/maier/gr-lte/include/lte/pss.h"
+    "/home/maier/gr-lte/include/lte/mimo_pss_freq_sync.h"
     )
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 

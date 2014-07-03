@@ -383,6 +383,50 @@ lib/CMakeFiles/gnuradio-lte.dir/mimo_pss_fine_sync_impl.cc.o
  /usr/local/include/volk/volk_config_fixed.h
  /usr/local/include/volk/volk_malloc.h
  /usr/local/include/volk/volk_typedefs.h
+lib/CMakeFiles/gnuradio-lte.dir/mimo_pss_freq_sync_impl.cc.o
+ ../include/lte/api.h
+ ../include/lte/mimo_pss_freq_sync.h
+ ../include/lte/pss.h
+ /home/maier/gr-lte/lib/mimo_pss_freq_sync_impl.cc
+ /home/maier/gr-lte/lib/mimo_pss_freq_sync_impl.h
+ /usr/local/include/gnuradio/analog/api.h
+ /usr/local/include/gnuradio/analog/sig_source_c.h
+ /usr/local/include/gnuradio/analog/sig_source_waveform.h
+ /usr/local/include/gnuradio/api.h
+ /usr/local/include/gnuradio/attributes.h
+ /usr/local/include/gnuradio/basic_block.h
+ /usr/local/include/gnuradio/block.h
+ /usr/local/include/gnuradio/block_registry.h
+ /usr/local/include/gnuradio/gr_complex.h
+ /usr/local/include/gnuradio/io_signature.h
+ /usr/local/include/gnuradio/logger.h
+ /usr/local/include/gnuradio/messages/msg_accepter.h
+ /usr/local/include/gnuradio/messages/msg_producer.h
+ /usr/local/include/gnuradio/msg_accepter.h
+ /usr/local/include/gnuradio/rpccallbackregister_base.h
+ /usr/local/include/gnuradio/rpcmanager.h
+ /usr/local/include/gnuradio/rpcmanager_base.h
+ /usr/local/include/gnuradio/rpcregisterhelpers.h
+ /usr/local/include/gnuradio/rpcserver_aggregator.h
+ /usr/local/include/gnuradio/rpcserver_base.h
+ /usr/local/include/gnuradio/rpcserver_booter_aggregator.h
+ /usr/local/include/gnuradio/rpcserver_booter_base.h
+ /usr/local/include/gnuradio/rpcserver_selector.h
+ /usr/local/include/gnuradio/runtime_types.h
+ /usr/local/include/gnuradio/sptr_magic.h
+ /usr/local/include/gnuradio/sync_block.h
+ /usr/local/include/gnuradio/tags.h
+ /usr/local/include/gnuradio/thread/thread.h
+ /usr/local/include/gnuradio/types.h
+ /usr/local/include/pmt/api.h
+ /usr/local/include/pmt/pmt.h
+ /usr/local/include/pmt/pmt_sugar.h
+ /usr/local/include/volk/volk.h
+ /usr/local/include/volk/volk_common.h
+ /usr/local/include/volk/volk_complex.h
+ /usr/local/include/volk/volk_config_fixed.h
+ /usr/local/include/volk/volk_malloc.h
+ /usr/local/include/volk/volk_typedefs.h
 lib/CMakeFiles/gnuradio-lte.dir/mimo_pss_tagger_impl.cc.o
  ../include/lte/api.h
  ../include/lte/mimo_pss_tagger.h
@@ -614,6 +658,12 @@ lib/CMakeFiles/gnuradio-lte.dir/pss.cc.o
  /usr/local/include/gnuradio/io_signature.h
  /usr/local/include/gnuradio/runtime_types.h
  /usr/local/include/gnuradio/types.h
+ /usr/local/include/volk/volk.h
+ /usr/local/include/volk/volk_common.h
+ /usr/local/include/volk/volk_complex.h
+ /usr/local/include/volk/volk_config_fixed.h
+ /usr/local/include/volk/volk_malloc.h
+ /usr/local/include/volk/volk_typedefs.h
 lib/CMakeFiles/gnuradio-lte.dir/pss_calculator_vcm_impl.cc.o
  ../include/lte/api.h
  ../include/lte/correlator.h

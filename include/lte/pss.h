@@ -42,6 +42,7 @@ public:
     pss();
     ~pss();
     static void gen_pss_t(gr_complex *zc_t, int cell_id, int len);
+    static void gen_conj_pss_t(gr_complex *zc_t, int cell_id, int len);
     static void zc(gr_complex *zc, int cell_id);
 
 private:

@@ -1,4 +1,5 @@
 build/
+build-cb/
 *~
 *.pyc
 .idea/

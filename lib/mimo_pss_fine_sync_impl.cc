@@ -47,7 +47,7 @@ mimo_pss_fine_sync::make(int fftl, int rxant, int grpdelay)
  */
 mimo_pss_fine_sync_impl::mimo_pss_fine_sync_impl(int fftl, int rxant, int grpdelay)
     : gr::sync_block("mimo_pss_fine_sync",
-                     gr::io_signature::make(2, 2, sizeof(gr_complex)),
+                     gr::io_signature::make(1, 8, sizeof(gr_complex)),
                      gr::io_signature::make(0, 0, 0)),
     d_N_id_2(-1),
     d_rxant(rxant),
@@ -86,8 +86,6 @@ mimo_pss_fine_sync_impl::mimo_pss_fine_sync_impl(int fftl, int rxant, int grpdel
     d_port_lock= pmt::string_to_symbol("lock");
     message_port_register_out(d_port_lock);
 
-    set_min_noutput_items(d_fftl+3);
-    printf("fine");
 }
 
 
@@ -107,7 +105,9 @@ mimo_pss_fine_sync_impl::handle_msg_N_id_2(pmt::pmt_t msg)
 {
     d_N_id_2 =  (int) pmt::to_long(msg);
     //init pss sequence in time domain
-    pss::gen_pss_t(d_pssX_t, d_N_id_2, d_fftl);
+    pss::gen_conj_pss_t(d_pssX_t, d_N_id_2, d_fftl);
+    //volk_32fc_conjugate_32fc(d_pssX_t, d_pssX_t, d_fftl);
+
 }
 
 
@@ -126,10 +126,11 @@ mimo_pss_fine_sync_impl::handle_msg_coarse_pos(pmt::pmt_t msg)
 void
 mimo_pss_fine_sync_impl::forecast (int noutput_items, gr_vector_int &ninput_items_required)
 {
-    unsigned int ninputs = ninput_items_required.size ();
-    for (unsigned int i = 0; i < ninputs; i++)
-        ninput_items_required[i] = noutput_items + d_fftl;
+    unsigned ninputs = ninput_items_required.size ();
+    for (unsigned i = 0; i < ninputs; i++)
+        ninput_items_required[i] = noutput_items+d_fftl;
 }
+
 
 
 int
@@ -156,14 +157,13 @@ mimo_pss_fine_sync_impl::work(int noutput_items,
     int mod_pos=nir%d_halffl;
     int diff=0;
     int diff2=0;
-    int consumed_items=0;
     float val=0;
 
+    //printf("NIR:%li, NOUT: %i\n", nir, noutput_items);
 
-    for(int i=0; i<noutput_items-d_fftl; i++)
+    for(int i=0; i<noutput_items; i++)
     {
         mod_pos=(nir+i)%d_halffl;
-        consumed_items++;
         if(!d_is_locked)
         {
             //do first fine sync
@@ -250,7 +250,7 @@ mimo_pss_fine_sync_impl::work(int noutput_items,
     }
 
     // Tell runtime system how many output items we produced.
-    return noutput_items-d_fftl;
+    return noutput_items;
 }
 
 

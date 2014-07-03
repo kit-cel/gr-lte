@@ -80,6 +80,14 @@ lte/api.h
 gnuradio/sync_block.h
 -
 
+../include/lte/mimo_pss_freq_sync.h
+lte/api.h
+-
+gnuradio/sync_block.h
+-
+gnuradio/analog/sig_source_c.h
+-
+
 ../include/lte/mimo_pss_tagger.h
 lte/api.h
 -
@@ -309,6 +317,8 @@ lte/mimo_pss_coarse_control.h
 /home/maier/gr-lte/build-cb/swig/lte/mimo_pss_coarse_control.h
 lte/pss.h
 /home/maier/gr-lte/build-cb/swig/lte/pss.h
+lte/mimo_pss_freq_sync.h
+/home/maier/gr-lte/build-cb/swig/lte/mimo_pss_freq_sync.h
 float.h
 -
 math.h

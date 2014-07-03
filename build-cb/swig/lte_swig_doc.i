@@ -136,6 +136,14 @@ To avoid accidental use of raw pointers, lte::mimo_pss_fine_sync's constructor i
 
 Params: (fftl, rxant, grpdelay)"
 
+%feature("docstring") gr::lte::mimo_pss_freq_sync "<+description of block+>"
+
+%feature("docstring") gr::lte::mimo_pss_freq_sync::make "Return a shared_ptr to a new instance of lte::mimo_pss_freq_sync.
+
+To avoid accidental use of raw pointers, lte::mimo_pss_freq_sync's constructor is in a private implementation class. lte::mimo_pss_freq_sync::make is the public interface for creating new instances.
+
+Params: (fftl, rxant, sig)"
+
 %feature("docstring") gr::lte::mimo_pss_tagger "<+description of block+>"
 
 %feature("docstring") gr::lte::mimo_pss_tagger::make "Return a shared_ptr to a new instance of lte::mimo_pss_tagger.

@@ -90,7 +90,7 @@ mimo_pss_tagger_impl::handle_msg_half_frame(pmt::pmt_t msg)
 void
 mimo_pss_tagger_impl::handle_msg_N_id_2(pmt::pmt_t msg)
 {
-    d_N_id_2=(int)pmt::to_long(msg);
+    d_N_id_2 = (int)pmt::to_long(msg);
 }
 
 
@@ -113,7 +113,6 @@ mimo_pss_tagger_impl::work(int noutput_items,
 
     for (int i = 0 ; i < noutput_items; i++)
     {
-
         if( (nir+i)%d_slotl == offset)
         {
             if((nir+i)%d_halffl == d_half_frame_start)
