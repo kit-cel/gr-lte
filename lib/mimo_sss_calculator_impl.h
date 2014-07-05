@@ -1,6 +1,6 @@
 /* -*- c++ -*- */
 /*
- * Copyright 2013 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
+ * Copyright 2014 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
  *
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,10 +18,10 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef INCLUDED_LTE_SSS_CALCULATOR_VCM_IMPL_H
-#define INCLUDED_LTE_SSS_CALCULATOR_VCM_IMPL_H
+#ifndef INCLUDED_LTE_MIMO_SSS_CALCULATOR_IMPL_H
+#define INCLUDED_LTE_MIMO_SSS_CALCULATOR_IMPL_H
 
-#include <lte/sss_calculator_vcm.h>
+#include <lte/mimo_sss_calculator.h>
 
 namespace gr {
   namespace lte {
@@ -31,12 +31,14 @@ namespace gr {
         int N_id_1;
     };
 
-    class sss_calculator_vcm_impl : public sss_calculator_vcm
+
+    class mimo_sss_calculator_impl : public mimo_sss_calculator
     {
      private:
-        int d_N_id_2;z
+        int d_N_id_2;
         int d_cell_id;
         int d_fftl;
+        int d_rxant;
         int d_slotl;
         char d_cX[31];
         gr_complex d_sref[62];
@@ -65,8 +67,8 @@ namespace gr {
         void publish_frame_start(long frame_start);
 
      public:
-      sss_calculator_vcm_impl(int fftl, std::string key_id, std::string key_offset, std::string& name);
-      ~sss_calculator_vcm_impl();
+      mimo_sss_calculator_impl(int fftl, int rxant);
+      ~mimo_sss_calculator_impl();
 
       // Where all the action really happens
       int work(int noutput_items,
@@ -80,5 +82,5 @@ namespace gr {
   } // namespace lte
 } // namespace gr
 
-#endif /* INCLUDED_LTE_SSS_CALCULATOR_VCM_IMPL_H */
+#endif /* INCLUDED_LTE_MIMO_SSS_CALCULATOR_IMPL_H */
 

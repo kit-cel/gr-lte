@@ -21,7 +21,7 @@ for i=1:2
         vec1=invec(idh:idh+cpl,i);
         vec2=invec(idh+fftl:idh+cpl+fftl,i);
         a1=a1+angle(xcorr(vec1,vec2,0)); 
-        
+        disp(num2str(angle(xcorr(vec1,vec2,0))));
         if mod(h,7)==0
             idh=idh+syml0;
         else            

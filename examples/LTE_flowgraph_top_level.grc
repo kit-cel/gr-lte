@@ -1,88 +1,6 @@
 <?xml version='1.0' encoding='ASCII'?>
 <flow_graph>
-  <timestamp>Wed Jun 25 15:47:31 2014</timestamp>
-  <block>
-    <key>options</key>
-    <param>
-      <key>id</key>
-      <value>lte_top_block</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>title</key>
-      <value>LTE_test</value>
-    </param>
-    <param>
-      <key>author</key>
-      <value>Johannes Demel</value>
-    </param>
-    <param>
-      <key>description</key>
-      <value></value>
-    </param>
-    <param>
-      <key>window_size</key>
-      <value>1920, 1080</value>
-    </param>
-    <param>
-      <key>generate_options</key>
-      <value>no_gui</value>
-    </param>
-    <param>
-      <key>category</key>
-      <value>Custom</value>
-    </param>
-    <param>
-      <key>run_options</key>
-      <value>prompt</value>
-    </param>
-    <param>
-      <key>run</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>max_nouts</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>realtime_scheduling</key>
-      <value></value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(10, 10)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>variable</key>
-    <param>
-      <key>id</key>
-      <value>samp_rate</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>30.72e6/2</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(215, 68)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
+  <timestamp>Thu Jul  3 23:20:03 2014</timestamp>
   <block>
     <key>variable</key>
     <param>
@@ -98,77 +16,12 @@
       <value>int(samp_rate/1e4)</value>
     </param>
     <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
       <key>_coordinate</key>
       <value>(828, 90)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>variable</key>
-    <param>
-      <key>id</key>
-      <value>fftlen</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>1024</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(256, 8)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>variable</key>
-    <param>
-      <key>id</key>
-      <value>N_rb_dl</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>50</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(185, 8)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>variable</key>
-    <param>
-      <key>id</key>
-      <value>pbch_descr_key</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>"descr_part"</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(361, 9)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -190,8 +43,120 @@
       <value>"slot"</value>
     </param>
     <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
       <key>_coordinate</key>
       <value>(475, 9)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>variable</key>
+    <param>
+      <key>id</key>
+      <value>pbch_descr_key</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>"descr_part"</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(361, 9)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>variable</key>
+    <param>
+      <key>id</key>
+      <value>N_rb_dl</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>50</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(185, 8)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>variable</key>
+    <param>
+      <key>id</key>
+      <value>fftlen</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>1024</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(256, 8)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>variable</key>
+    <param>
+      <key>id</key>
+      <value>samp_rate</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>30.72e6/2</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(215, 68)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -207,6 +172,10 @@
     <param>
       <key>_enabled</key>
       <value>True</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
     </param>
     <param>
       <key>affinity</key>
@@ -240,6 +209,10 @@
       <value>True</value>
     </param>
     <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
       <key>affinity</key>
       <value></value>
     </param>
@@ -271,16 +244,20 @@
       <value>True</value>
     </param>
     <param>
+      <key>en</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
       <key>_coordinate</key>
       <value>(1488, 31)</value>
     </param>
     <param>
       <key>_rotation</key>
       <value>0</value>
-    </param>
-    <param>
-      <key>en</key>
-      <value>True</value>
     </param>
   </block>
   <block>
@@ -296,6 +273,10 @@
     <param>
       <key>N_rb_dl</key>
       <value>N_rb_dl</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
     </param>
     <param>
       <key>affinity</key>
@@ -337,6 +318,10 @@
       <value>frame_key</value>
     </param>
     <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
       <key>affinity</key>
       <value></value>
     </param>
@@ -376,6 +361,10 @@
       <value>1</value>
     </param>
     <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
       <key>affinity</key>
       <value></value>
     </param>
@@ -394,53 +383,6 @@
     <param>
       <key>_rotation</key>
       <value>180</value>
-    </param>
-  </block>
-  <block>
-    <key>blocks_throttle</key>
-    <param>
-      <key>id</key>
-      <value>blocks_throttle_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>complex</value>
-    </param>
-    <param>
-      <key>samples_per_second</key>
-      <value>samp_rate</value>
-    </param>
-    <param>
-      <key>vlen</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>ignoretag</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>5000</value>
-    </param>
-    <param>
-      <key>maxoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(521, 172)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
     </param>
   </block>
   <block>
@@ -464,6 +406,10 @@
     <param>
       <key>N_rb_dl</key>
       <value>50</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
     </param>
     <param>
       <key>affinity</key>
@@ -501,6 +447,10 @@
       <value>fftlen</value>
     </param>
     <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
       <key>affinity</key>
       <value></value>
     </param>
@@ -534,6 +484,10 @@
     <param>
       <key>fftlen</key>
       <value>fftlen</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
     </param>
     <param>
       <key>affinity</key>
@@ -583,6 +537,10 @@
       <value>"offset_marker"</value>
     </param>
     <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
       <key>affinity</key>
       <value></value>
     </param>
@@ -626,6 +584,10 @@
       <value>frame_key</value>
     </param>
     <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
       <key>affinity</key>
       <value></value>
     </param>
@@ -640,6 +602,120 @@
     <param>
       <key>_coordinate</key>
       <value>(340, 343)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>options</key>
+    <param>
+      <key>id</key>
+      <value>lte_top_block</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>title</key>
+      <value>LTE_test</value>
+    </param>
+    <param>
+      <key>author</key>
+      <value>Johannes Demel</value>
+    </param>
+    <param>
+      <key>description</key>
+      <value></value>
+    </param>
+    <param>
+      <key>window_size</key>
+      <value>1920, 1080</value>
+    </param>
+    <param>
+      <key>generate_options</key>
+      <value>qt_gui</value>
+    </param>
+    <param>
+      <key>category</key>
+      <value>Custom</value>
+    </param>
+    <param>
+      <key>run_options</key>
+      <value>prompt</value>
+    </param>
+    <param>
+      <key>run</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>max_nouts</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>realtime_scheduling</key>
+      <value></value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(10, 10)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>blocks_file_source</key>
+    <param>
+      <key>id</key>
+      <value>pre_blocks_file_source_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>file</key>
+      <value>/home/maier/gqrx_20140703_211737_795999999_4000000_fc.raw</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>complex</value>
+    </param>
+    <param>
+      <key>repeat</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(207, 157)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -666,7 +742,7 @@
     </param>
     <param>
       <key>decim</key>
-      <value>1000</value>
+      <value>400</value>
     </param>
     <param>
       <key>taps</key>
@@ -675,6 +751,10 @@
     <param>
       <key>fbw</key>
       <value>0</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
     </param>
     <param>
       <key>affinity</key>
@@ -698,30 +778,34 @@
     </param>
   </block>
   <block>
-    <key>blocks_file_source</key>
+    <key>blocks_throttle</key>
     <param>
       <key>id</key>
-      <value>pre_blocks_file_source_0</value>
+      <value>blocks_throttle_0</value>
     </param>
     <param>
       <key>_enabled</key>
       <value>True</value>
     </param>
     <param>
-      <key>file</key>
-      <value>/home/maier/Schreibtisch/ltetest5framesETUvec1.dat</value>
-    </param>
-    <param>
       <key>type</key>
       <value>complex</value>
     </param>
     <param>
-      <key>repeat</key>
-      <value>True</value>
+      <key>samples_per_second</key>
+      <value>samp_rate</value>
     </param>
     <param>
       <key>vlen</key>
       <value>1</value>
+    </param>
+    <param>
+      <key>ignoretag</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
     </param>
     <param>
       <key>affinity</key>
@@ -729,7 +813,7 @@
     </param>
     <param>
       <key>minoutbuf</key>
-      <value>0</value>
+      <value>5000</value>
     </param>
     <param>
       <key>maxoutbuf</key>
@@ -737,7 +821,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(207, 157)</value>
+      <value>(520, 170)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -859,12 +943,6 @@
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>pre_blocks_file_source_0</source_block_id>
-    <sink_block_id>blocks_throttle_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
     <source_block_id>blocks_throttle_0</source_block_id>
     <sink_block_id>sync_lte_rough_symbol_sync_cc_0</sink_block_id>
     <source_key>0</source_key>
@@ -873,6 +951,12 @@
   <connection>
     <source_block_id>sync_lte_rough_symbol_sync_cc_0</source_block_id>
     <sink_block_id>sync_lte_pss_sync_37_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>pre_blocks_file_source_0</source_block_id>
+    <sink_block_id>blocks_throttle_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>

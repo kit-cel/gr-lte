@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='ASCII'?>
 <flow_graph>
-  <timestamp>Thu Jul  3 11:47:16 2014</timestamp>
+  <timestamp>Fri Jul  4 15:15:08 2014</timestamp>
   <block>
     <key>options</key>
     <param>
@@ -68,7 +68,7 @@
     <key>variable</key>
     <param>
       <key>id</key>
-      <value>taps</value>
+      <value>synclen</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -76,7 +76,7 @@
     </param>
     <param>
       <key>value</key>
-      <value>filter.optfir.low_pass(1, fftlen*15e3, 472.5e3, 960e3, 0.2, 20)</value>
+      <value>4</value>
     </param>
     <param>
       <key>alias</key>
@@ -84,7 +84,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(669, 20)</value>
+      <value>(458, 21)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -95,7 +95,7 @@
     <key>variable</key>
     <param>
       <key>id</key>
-      <value>synclen</value>
+      <value>taps</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -103,7 +103,7 @@
     </param>
     <param>
       <key>value</key>
-      <value>2</value>
+      <value>filter.optfir.low_pass(1, fftlen*15e3, 472.5e3, 540e3, 0.2, 40)</value>
     </param>
     <param>
       <key>alias</key>
@@ -111,7 +111,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(458, 21)</value>
+      <value>(669, 20)</value>
     </param>
     <param>
       <key>_rotation</key>

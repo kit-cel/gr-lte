@@ -9,7 +9,7 @@ rmc.NCellID=113;
 rmc.PDSCH.TxScheme='TxDiversity';
 rmc.CyclicPrefix='Normal';
 rmc.DuplexMode='FDD';
-rmc.TotSubframes=50;
+rmc.TotSubframes=500;
 waveconfig=lteRMCDL(rmc);
 
 [waveform, grid, waveconfig]=lteRMCDLTool(waveconfig,[1;0;0;1]);
@@ -23,7 +23,7 @@ chcfg.SamplingRate=waveconfig.SamplingRate;
 chcfg.InitTime = 10;
 [rx_ant, chinfo]=lteFadingChannel(chcfg,waveform);
 
-f_off=500;
+f_off=2000;
 phi=f_off/waveconfig.SamplingRate;
 rm_sim_offset=exp(1i*2*pi*phi*(0:length(rx_ant(:,1))-1))';
 rx_ant = rx_ant .* [rm_sim_offset rm_sim_offset];
@@ -40,8 +40,8 @@ fftl=single(waveconfig.Nfft);
 % samplerate=15360000;
 
 
- %save_complex(rx_ant, 2, '/home/maier/Schreibtisch/lte5framesFadingChannelETU_fOff6000.dat');
-
+save_complex(rx_ant, 2, '/home/maier/Schreibtisch/lte50framesFadingChannelETU_fOff2000.dat');
+return;
 %  lte_rx(test, fftl);
 
 cpl=144*(fftl/2048);

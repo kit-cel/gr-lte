@@ -485,15 +485,6 @@
 		<Unit filename="../cmake/Modules/CMakeParseArgumentsCopy.cmake">
 			<Option virtualFolder="CMake Files/cmake/Modules/" />
 		</Unit>
-		<Unit filename="../cmake/Modules/CMakeParseArgumentsCopy.cmake">
-			<Option virtualFolder="CMake Files/cmake/Modules/" />
-		</Unit>
-		<Unit filename="../cmake/Modules/CMakeParseArgumentsCopy.cmake">
-			<Option virtualFolder="CMake Files/cmake/Modules/" />
-		</Unit>
-		<Unit filename="../cmake/Modules/CMakeParseArgumentsCopy.cmake">
-			<Option virtualFolder="CMake Files/cmake/Modules/" />
-		</Unit>
 		<Unit filename="../cmake/Modules/FindCppUnit.cmake">
 			<Option virtualFolder="CMake Files/cmake/Modules/" />
 		</Unit>
@@ -506,34 +497,13 @@
 		<Unit filename="../cmake/Modules/GrMiscUtils.cmake">
 			<Option virtualFolder="CMake Files/cmake/Modules/" />
 		</Unit>
-		<Unit filename="../cmake/Modules/GrMiscUtils.cmake">
-			<Option virtualFolder="CMake Files/cmake/Modules/" />
-		</Unit>
 		<Unit filename="../cmake/Modules/GrPlatform.cmake">
-			<Option virtualFolder="CMake Files/cmake/Modules/" />
-		</Unit>
-		<Unit filename="../cmake/Modules/GrPlatform.cmake">
-			<Option virtualFolder="CMake Files/cmake/Modules/" />
-		</Unit>
-		<Unit filename="../cmake/Modules/GrPython.cmake">
-			<Option virtualFolder="CMake Files/cmake/Modules/" />
-		</Unit>
-		<Unit filename="../cmake/Modules/GrPython.cmake">
-			<Option virtualFolder="CMake Files/cmake/Modules/" />
-		</Unit>
-		<Unit filename="../cmake/Modules/GrPython.cmake">
-			<Option virtualFolder="CMake Files/cmake/Modules/" />
-		</Unit>
-		<Unit filename="../cmake/Modules/GrPython.cmake">
 			<Option virtualFolder="CMake Files/cmake/Modules/" />
 		</Unit>
 		<Unit filename="../cmake/Modules/GrPython.cmake">
 			<Option virtualFolder="CMake Files/cmake/Modules/" />
 		</Unit>
 		<Unit filename="../cmake/Modules/GrSwig.cmake">
-			<Option virtualFolder="CMake Files/cmake/Modules/" />
-		</Unit>
-		<Unit filename="../cmake/Modules/GrTest.cmake">
 			<Option virtualFolder="CMake Files/cmake/Modules/" />
 		</Unit>
 		<Unit filename="../cmake/Modules/GrTest.cmake">
@@ -614,6 +584,10 @@
 		<Unit filename="../lib/mimo_pss_freq_sync_impl.h" />
 		<Unit filename="../lib/mimo_pss_tagger_impl.cc" />
 		<Unit filename="../lib/mimo_pss_tagger_impl.h" />
+		<Unit filename="../lib/mimo_sss_calculator_impl.cc" />
+		<Unit filename="../lib/mimo_sss_calculator_impl.h" />
+		<Unit filename="../lib/mimo_sss_symbol_selector_impl.cc" />
+		<Unit filename="../lib/mimo_sss_symbol_selector_impl.h" />
 		<Unit filename="../lib/pbch_demux_vcvc_impl.cc" />
 		<Unit filename="../lib/pbch_demux_vcvc_impl.h" />
 		<Unit filename="../lib/pbch_descrambler_vfvf_impl.cc" />

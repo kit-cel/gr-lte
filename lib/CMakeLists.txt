@@ -55,7 +55,9 @@ list(APPEND lte_sources
     mimo_pss_tagger_impl.cc
     mimo_pss_coarse_control_impl.cc
     pss.cc
-    mimo_pss_freq_sync_impl.cc )
+    mimo_pss_freq_sync_impl.cc
+    mimo_sss_symbol_selector_impl.cc
+    mimo_sss_calculator_impl.cc )
 
 add_library(gnuradio-lte SHARED ${lte_sources})
 target_link_libraries(gnuradio-lte ${Boost_LIBRARIES} ${GNURADIO_RUNTIME_LIBRARIES} ${FFTW3F_LIBRARIES})

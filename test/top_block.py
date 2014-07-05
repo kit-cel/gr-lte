@@ -2,7 +2,7 @@
 ##################################################
 # Gnuradio Python Flow Graph
 # Title: Top Block
-# Generated: Thu Jul  3 21:19:54 2014
+# Generated: Fri Jul  4 15:17:44 2014
 ##################################################
 
 execfile("/home/maier/.grc_gnuradio/lte_mimo_pss_based_frey_sync.py")
@@ -47,19 +47,20 @@ class top_block(gr.top_block, Qt.QWidget):
         ##################################################
         self.fftl = fftl = 1024
         self.samp_rate = samp_rate = fftl*15e3
+        self.rxant = rxant = 2
 
         ##################################################
         # Blocks
         ##################################################
         self.lte_mimo_pss_sync_0 = lte_mimo_pss_sync(
             fftlen=fftl,
-            rxant=2,
+            rxant=rxant,
         )
         self.lte_mimo_pss_based_frey_sync_0 = lte_mimo_pss_based_frey_sync(
-            rxant=2,
             fftlen=1024,
+            rxant=rxant,
         )
-        self.blocks_vector_to_streams_0 = blocks.vector_to_streams(gr.sizeof_gr_complex*1, 2)
+        self.blocks_vector_to_streams_0 = blocks.vector_to_streams(gr.sizeof_gr_complex*1, rxant)
         self.blocks_throttle_0 = blocks.throttle(gr.sizeof_gr_complex*2, samp_rate,True)
         self.blocks_null_sink_0 = blocks.null_sink(gr.sizeof_gr_complex*1)
         self.blocks_file_source_0 = blocks.file_source(gr.sizeof_gr_complex*2, "/home/maier/Schreibtisch/lte5framesFadingChannelETU_fOff6000.dat", False)
@@ -67,14 +68,14 @@ class top_block(gr.top_block, Qt.QWidget):
         ##################################################
         # Connections
         ##################################################
-        self.connect((self.blocks_vector_to_streams_0, 1), (self.lte_mimo_pss_sync_0, 1))
-        self.connect((self.blocks_vector_to_streams_0, 0), (self.lte_mimo_pss_sync_0, 0))
-        self.connect((self.blocks_throttle_0, 0), (self.blocks_vector_to_streams_0, 0))
-        self.connect((self.blocks_file_source_0, 0), (self.blocks_throttle_0, 0))
-        self.connect((self.lte_mimo_pss_sync_0, 1), (self.lte_mimo_pss_based_frey_sync_0, 1))
-        self.connect((self.lte_mimo_pss_sync_0, 0), (self.lte_mimo_pss_based_frey_sync_0, 0))
         self.connect((self.lte_mimo_pss_based_frey_sync_0, 0), (self.blocks_null_sink_0, 0))
         self.connect((self.lte_mimo_pss_based_frey_sync_0, 1), (self.blocks_null_sink_0, 1))
+        self.connect((self.blocks_vector_to_streams_0, 0), (self.lte_mimo_pss_sync_0, 0))
+        self.connect((self.blocks_vector_to_streams_0, 1), (self.lte_mimo_pss_sync_0, 1))
+        self.connect((self.lte_mimo_pss_sync_0, 0), (self.lte_mimo_pss_based_frey_sync_0, 0))
+        self.connect((self.lte_mimo_pss_sync_0, 1), (self.lte_mimo_pss_based_frey_sync_0, 1))
+        self.connect((self.blocks_file_source_0, 0), (self.blocks_throttle_0, 0))
+        self.connect((self.blocks_throttle_0, 0), (self.blocks_vector_to_streams_0, 0))
 
 
     def closeEvent(self, event):
@@ -96,6 +97,14 @@ class top_block(gr.top_block, Qt.QWidget):
     def set_samp_rate(self, samp_rate):
         self.samp_rate = samp_rate
         self.blocks_throttle_0.set_sample_rate(self.samp_rate)
+
+    def get_rxant(self):
+        return self.rxant
+
+    def set_rxant(self, rxant):
+        self.rxant = rxant
+        self.lte_mimo_pss_based_frey_sync_0.set_rxant(self.rxant)
+        self.lte_mimo_pss_sync_0.set_rxant(self.rxant)
 
 if __name__ == '__main__':
     import ctypes

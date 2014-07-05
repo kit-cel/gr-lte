@@ -3,7 +3,7 @@
 # Gnuradio Python Flow Graph
 # Title: LTE_test
 # Author: Johannes Demel
-# Generated: Mon Jun 30 15:29:35 2014
+# Generated: Thu Jul  3 23:20:03 2014
 ##################################################
 
 execfile("/home/maier/.grc_gnuradio/decode_bch_hier_gr37.py")
@@ -13,18 +13,42 @@ execfile("/home/maier/.grc_gnuradio/lte_estimator_hier.py")
 execfile("/home/maier/.grc_gnuradio/lte_ofdm_hier.py")
 execfile("/home/maier/.grc_gnuradio/lte_pss_sync_37.py")
 execfile("/home/maier/.grc_gnuradio/lte_sss_sync_hier.py")
+from PyQt4 import Qt
 from gnuradio import blocks
 from gnuradio import eng_notation
 from gnuradio import gr
+from gnuradio.ctrlport.monitor import *
 from gnuradio.eng_option import eng_option
 from gnuradio.filter import firdes
 from optparse import OptionParser
 import lte
+import sys
 
-class lte_top_block(gr.top_block):
+class lte_top_block(gr.top_block, Qt.QWidget):
 
     def __init__(self):
         gr.top_block.__init__(self, "LTE_test")
+        Qt.QWidget.__init__(self)
+        self.setWindowTitle("LTE_test")
+        try:
+             self.setWindowIcon(Qt.QIcon.fromTheme('gnuradio-grc'))
+        except:
+             pass
+        self.top_scroll_layout = Qt.QVBoxLayout()
+        self.setLayout(self.top_scroll_layout)
+        self.top_scroll = Qt.QScrollArea()
+        self.top_scroll.setFrameStyle(Qt.QFrame.NoFrame)
+        self.top_scroll_layout.addWidget(self.top_scroll)
+        self.top_scroll.setWidgetResizable(True)
+        self.top_widget = Qt.QWidget()
+        self.top_scroll.setWidget(self.top_widget)
+        self.top_layout = Qt.QVBoxLayout(self.top_widget)
+        self.top_grid_layout = Qt.QGridLayout()
+        self.top_layout.addLayout(self.top_grid_layout)
+
+        self.settings = Qt.QSettings("GNU Radio", "lte_top_block")
+        self.restoreGeometry(self.settings.value("geometry").toByteArray())
+
 
         ##################################################
         # Variables
@@ -52,7 +76,7 @@ class lte_top_block(gr.top_block):
         self.sync_lte_cp_freq_sync_0 = lte_cp_freq_sync(
             fftlen=fftlen,
         )
-        self.pre_blocks_file_source_0 = blocks.file_source(gr.sizeof_gr_complex*1, "/home/maier/Schreibtisch/ltetest5framesETUvec1.dat", True)
+        self.pre_blocks_file_source_0 = blocks.file_source(gr.sizeof_gr_complex*1, "/home/maier/gqrx_20140703_211737_795999999_4000000_fc.raw", True)
         self.pbch_decode_pbch_37_0 = decode_pbch_37(
             N_rb_dl=N_rb_dl,
         )
@@ -68,6 +92,7 @@ class lte_top_block(gr.top_block):
         )
         self.blocks_throttle_0 = blocks.throttle(gr.sizeof_gr_complex*1, samp_rate,True)
         (self.blocks_throttle_0).set_min_output_buffer(5000)
+        self.blocks_ctrlport_monitor_performance_0 = not True or monitor("gr-perf-monitorx")
         self.bch_decode_bch_hier_gr37_0 = decode_bch_hier_gr37()
         self.MIB = lte.mib_unpack_vbm("MIB")
 
@@ -84,9 +109,9 @@ class lte_top_block(gr.top_block):
         self.connect((self.ofdm_lte_ofdm_hier_0, 0), (self.ofdm_estimator_lte_estimator_hier_0, 0))
         self.connect((self.sync_lte_cp_freq_sync_0, 0), (self.sync_lte_sss_sync_hier_0, 0))
         self.connect((self.sync_lte_sss_sync_hier_0, 0), (self.ofdm_lte_ofdm_hier_0, 0))
-        self.connect((self.pre_blocks_file_source_0, 0), (self.blocks_throttle_0, 0))
         self.connect((self.blocks_throttle_0, 0), (self.sync_lte_rough_symbol_sync_cc_0, 0))
         self.connect((self.sync_lte_rough_symbol_sync_cc_0, 0), (self.sync_lte_pss_sync_37_0, 0))
+        self.connect((self.pre_blocks_file_source_0, 0), (self.blocks_throttle_0, 0))
 
         ##################################################
         # Asynch Message Connections
@@ -94,7 +119,10 @@ class lte_top_block(gr.top_block):
         self.msg_connect(self.sync_lte_sss_sync_hier_0, "cell_id", self.ofdm_estimator_lte_estimator_hier_0, "cell_id")
         self.msg_connect(self.sync_lte_sss_sync_hier_0, "cell_id", self.pbch_decode_pbch_37_0, "cell_id")
 
-# QT sink close method reimplementation
+    def closeEvent(self, event):
+        self.settings = Qt.QSettings("GNU Radio", "lte_top_block")
+        self.settings.setValue("geometry", self.saveGeometry())
+        event.accept()
 
     def get_samp_rate(self):
         return self.samp_rate
@@ -128,9 +156,9 @@ class lte_top_block(gr.top_block):
 
     def set_fftlen(self, fftlen):
         self.fftlen = fftlen
+        self.sync_lte_cp_freq_sync_0.set_fftlen(self.fftlen)
         self.sync_lte_pss_sync_37_0.set_fftlen(self.fftlen)
         self.sync_lte_sss_sync_hier_0.set_fftlen(self.fftlen)
-        self.sync_lte_cp_freq_sync_0.set_fftlen(self.fftlen)
 
     def get_N_rb_dl(self):
         return self.N_rb_dl
@@ -141,11 +169,29 @@ class lte_top_block(gr.top_block):
         self.sync_lte_sss_sync_hier_0.set_N_rb_dl(self.N_rb_dl)
 
 if __name__ == '__main__':
+    import ctypes
+    import sys
+    if sys.platform.startswith('linux'):
+        try:
+            x11 = ctypes.cdll.LoadLibrary('libX11.so')
+            x11.XInitThreads()
+        except:
+            print "Warning: failed to XInitThreads()"
     parser = OptionParser(option_class=eng_option, usage="%prog: [options]")
     (options, args) = parser.parse_args()
+    Qt.QApplication.setGraphicsSystem(gr.prefs().get_string('qtgui','style','raster'))
+    qapp = Qt.QApplication(sys.argv)
     tb = lte_top_block()
     tb.start()
-    raw_input('Press Enter to quit: ')
-    tb.stop()
-    tb.wait()
-
+    tb.show()
+    def quitting():
+        tb.stop()
+        tb.wait()
+    qapp.connect(qapp, Qt.SIGNAL("aboutToQuit()"), quitting)
+    if True:
+        if True:
+            (tb.blocks_ctrlport_monitor_performance_0).start()
+    else:
+        sys.stderr.write("Monitor '{0}' does not have an enable ('en') parameter.".format("tb.blocks_ctrlport_monitor_performance_0"))
+    qapp.exec_()
+    tb = None #to clean up Qt widgets
