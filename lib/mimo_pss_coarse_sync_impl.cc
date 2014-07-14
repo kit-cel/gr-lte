@@ -32,22 +32,23 @@
 #include <volk/volk.h>
 #include "lte/pss.h"
 
+
 namespace gr
 {
 namespace lte
 {
 
 mimo_pss_coarse_sync::sptr
-mimo_pss_coarse_sync::make(int syncl, int rxant)
+mimo_pss_coarse_sync::make(int fftl, int syncl, int rxant)
 {
     return gnuradio::get_initial_sptr
-           (new mimo_pss_coarse_sync_impl(syncl, rxant));
+           (new mimo_pss_coarse_sync_impl(fftl, syncl, rxant));
 }
 
 /*
  * The private constructor
  */
-mimo_pss_coarse_sync_impl::mimo_pss_coarse_sync_impl(int syncl, int rxant)
+mimo_pss_coarse_sync_impl::mimo_pss_coarse_sync_impl(int fftl, int syncl, int rxant)
     : gr::sync_block("mimo_pss_coarse_sync",
                      gr::io_signature::make(1, 8, sizeof(gr_complex)),
                      gr::io_signature::make(0, 0, 0)),
@@ -57,6 +58,11 @@ mimo_pss_coarse_sync_impl::mimo_pss_coarse_sync_impl(int syncl, int rxant)
     d_posmax(0),
     d_max(0)
 {
+    //int decim = fftl/d_CORRL;
+	//std::vector< float > tapsd(10,4);
+	//d_fir = new filter::kernel::fir_filter_ccf(1, tapsd);
+    //d_fir = new filter::kernel::fir_filter_ccf(decim, taps);
+
 
     //make sure that there are enough input items for
     //a 128 point correalation at position 9600 (index=9599)

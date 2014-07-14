@@ -15,6 +15,10 @@
     <innerclass refid="classgr_1_1lte_1_1mimo__pss__fine__sync" prot="public">gr::lte::mimo_pss_fine_sync</innerclass>
     <innerclass refid="classgr_1_1lte_1_1mimo__pss__freq__sync" prot="public">gr::lte::mimo_pss_freq_sync</innerclass>
     <innerclass refid="classgr_1_1lte_1_1mimo__pss__tagger" prot="public">gr::lte::mimo_pss_tagger</innerclass>
+    <innerclass refid="classgr_1_1lte_1_1mimo__remove__cp" prot="public">gr::lte::mimo_remove_cp</innerclass>
+    <innerclass refid="classgr_1_1lte_1_1mimo__sss__calculator" prot="public">gr::lte::mimo_sss_calculator</innerclass>
+    <innerclass refid="classgr_1_1lte_1_1mimo__sss__symbol__selector" prot="public">gr::lte::mimo_sss_symbol_selector</innerclass>
+    <innerclass refid="classgr_1_1lte_1_1mimo__sss__tagger" prot="public">gr::lte::mimo_sss_tagger</innerclass>
     <innerclass refid="classgr_1_1lte_1_1pbch__demux__vcvc" prot="public">gr::lte::pbch_demux_vcvc</innerclass>
     <innerclass refid="classgr_1_1lte_1_1pbch__descrambler__vfvf" prot="public">gr::lte::pbch_descrambler_vfvf</innerclass>
     <innerclass refid="classgr_1_1lte_1_1pcfich__demux__vcvc" prot="public">gr::lte::pcfich_demux_vcvc</innerclass>

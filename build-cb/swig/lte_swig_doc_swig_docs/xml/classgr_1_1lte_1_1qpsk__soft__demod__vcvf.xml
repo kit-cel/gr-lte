@@ -48,24 +48,24 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="84">
+      <node id="100">
         <label>gr::lte::qpsk_soft_demod_vcvf</label>
         <link refid="classgr_1_1lte_1_1qpsk__soft__demod__vcvf"/>
-        <childnode refid="85" relation="public-inheritance">
+        <childnode refid="101" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="85">
+      <node id="101">
         <label>sync_block</label>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="86">
+      <node id="102">
         <label>gr::lte::qpsk_soft_demod_vcvf</label>
         <link refid="classgr_1_1lte_1_1qpsk__soft__demod__vcvf"/>
-        <childnode refid="87" relation="public-inheritance">
+        <childnode refid="103" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="87">
+      <node id="103">
         <label>sync_block</label>
       </node>
     </collaborationgraph>

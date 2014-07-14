@@ -34,9 +34,6 @@ RM = /usr/bin/cmake -E remove -f
 # Escaping for special characters.
 EQUALS = =
 
-# The program to use to edit the cache.
-CMAKE_EDIT_COMMAND = /usr/bin/cmake-gui
-
 # The top-level source directory on which CMake was run.
 CMAKE_SOURCE_DIR = /home/maier/gr-lte
 
@@ -52,28 +49,51 @@ include swig/CMakeFiles/_lte_swig.dir/progress.make
 # Include the compile flags for this target's objects.
 include swig/CMakeFiles/_lte_swig.dir/flags.make
 
+swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/tagged_stream_block.i
 swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/gnuradio.i
-swig/lte_swigPYTHON_wrap.cxx: swig/lte_swig_doc.i
-swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/gr_extras.i
-swig/lte_swigPYTHON_wrap.cxx: ../swig/lte_swig.i
+swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/realtime.i
+swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/block.i
+swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/block_detail.i
+swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/constants.i
+swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/sync_block.i
 swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/gr_shared_ptr.i
-swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/gnuradio_swig_bug_workaround.h
+swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/block_gateway.i
+swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/sync_interpolator.i
 swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/gr_types.i
+swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/basic_block.i
+swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/gr_ctrlport.i
+swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/io_signature.i
+swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/top_block.i
+swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/gr_extras.i
+swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/message.i
+swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/tags.i
+swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/msg_handler.i
+swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/runtime_swig.i
+swig/lte_swigPYTHON_wrap.cxx: swig/lte_swig_doc.i
+swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/msg_queue.i
+swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/buffer.i
+swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/gr_swig_block_magic.i
+swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/hier_block2.i
+swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/runtime_swig_doc.i
+swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/feval.i
+swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/sync_decimator.i
+swig/lte_swigPYTHON_wrap.cxx: ../swig/lte_swig.i
+swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/gr_logger.i
+swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/prefs.i
 swig/lte_swigPYTHON_wrap.cxx: swig/lte_swig.tag
 swig/lte_swigPYTHON_wrap.cxx: ../swig/lte_swig.i
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/maier/gr-lte/build-cb/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Swig source"
 	cd /home/maier/gr-lte/build-cb/swig && /usr/bin/cmake -E make_directory /home/maier/gr-lte/build-cb/swig
-	cd /home/maier/gr-lte/build-cb/swig && /usr/bin/swig2.0 -python -fvirtual -modern -keyword -w511 -module lte_swig -I/usr/local/include/gnuradio/swig -I/usr/include/python2.7 -I/usr/include/python2.7 -I/usr/include/x86_64-linux-gnu/python2.7 -I/home/maier/gr-lte/swig -I/home/maier/gr-lte/build-cb/swig -outdir /home/maier/gr-lte/build-cb/swig -c++ -I/home/maier/gr-lte/lib -I/home/maier/gr-lte/include -I/home/maier/gr-lte/build-cb/lib -I/home/maier/gr-lte/build-cb/include -I/usr/include -I/usr/include -I/usr/local/include -I/usr/local/include/gnuradio/swig -I/usr/include/python2.7 -I/usr/include/python2.7 -I/usr/include/x86_64-linux-gnu/python2.7 -I/home/maier/gr-lte/swig -I/home/maier/gr-lte/build-cb/swig -o /home/maier/gr-lte/build-cb/swig/lte_swigPYTHON_wrap.cxx /home/maier/gr-lte/swig/lte_swig.i
+	cd /home/maier/gr-lte/build-cb/swig && /usr/bin/swig2.0 -python -fvirtual -modern -keyword -w511 -module lte_swig -I/home/maier/gr-lte/build-cb/swig -I/home/maier/gr-lte/swig -I/usr/local/include/gnuradio/swig -I/usr/include/python2.7 -I/usr/include/python2.7 -I/usr/include/x86_64-linux-gnu/python2.7 -outdir /home/maier/gr-lte/build-cb/swig -c++ -I/home/maier/gr-lte/lib -I/home/maier/gr-lte/include -I/home/maier/gr-lte/build-cb/lib -I/home/maier/gr-lte/build-cb/include -I/usr/include -I/usr/include -I/usr/local/include -I/home/maier/gr-lte/build-cb/swig -I/home/maier/gr-lte/swig -I/usr/local/include/gnuradio/swig -I/usr/include/python2.7 -I/usr/include/python2.7 -I/usr/include/x86_64-linux-gnu/python2.7 -o /home/maier/gr-lte/build-cb/swig/lte_swigPYTHON_wrap.cxx /home/maier/gr-lte/swig/lte_swig.i
 
 swig/lte_swig.py: swig/lte_swigPYTHON_wrap.cxx
 
 swig/lte_swig_doc.i: swig/lte_swig_doc_swig_docs/xml/index.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/maier/gr-lte/build-cb/CMakeFiles $(CMAKE_PROGRESS_2)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating lte_swig_doc.i"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating python docstrings for lte_swig_doc"
 	cd /home/maier/gr-lte/docs/doxygen && /usr/bin/python2 -B /home/maier/gr-lte/docs/doxygen/swig_doc.py /home/maier/gr-lte/build-cb/swig/lte_swig_doc_swig_docs/xml /home/maier/gr-lte/build-cb/swig/lte_swig_doc.i
 
-swig/lte_swig.tag: swig/lte_swig_doc.i
 swig/lte_swig.tag: swig/_lte_swig_swig_tag
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/maier/gr-lte/build-cb/CMakeFiles $(CMAKE_PROGRESS_3)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating lte_swig.tag"
@@ -123,6 +143,7 @@ swig/_lte_swig.so: lib/libgnuradio-lte.so
 swig/_lte_swig.so: /usr/lib/x86_64-linux-gnu/libboost_filesystem.so
 swig/_lte_swig.so: /usr/lib/x86_64-linux-gnu/libboost_system.so
 swig/_lte_swig.so: /usr/local/lib/libgnuradio-runtime.so
+swig/_lte_swig.so: /usr/local/lib/libgnuradio-pmt.so
 swig/_lte_swig.so: /usr/lib/x86_64-linux-gnu/libfftw3f.so
 swig/_lte_swig.so: swig/CMakeFiles/_lte_swig.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX shared module _lte_swig.so"
@@ -131,6 +152,30 @@ swig/_lte_swig.so: swig/CMakeFiles/_lte_swig.dir/link.txt
 # Rule to build all files generated by this target.
 swig/CMakeFiles/_lte_swig.dir/build: swig/_lte_swig.so
 .PHONY : swig/CMakeFiles/_lte_swig.dir/build
+
+# Object files for target _lte_swig
+_lte_swig_OBJECTS = \
+"CMakeFiles/_lte_swig.dir/lte_swigPYTHON_wrap.cxx.o"
+
+# External object files for target _lte_swig
+_lte_swig_EXTERNAL_OBJECTS =
+
+swig/CMakeFiles/CMakeRelink.dir/_lte_swig.so: swig/CMakeFiles/_lte_swig.dir/lte_swigPYTHON_wrap.cxx.o
+swig/CMakeFiles/CMakeRelink.dir/_lte_swig.so: swig/CMakeFiles/_lte_swig.dir/build.make
+swig/CMakeFiles/CMakeRelink.dir/_lte_swig.so: /usr/lib/x86_64-linux-gnu/libpython2.7.so
+swig/CMakeFiles/CMakeRelink.dir/_lte_swig.so: lib/libgnuradio-lte.so
+swig/CMakeFiles/CMakeRelink.dir/_lte_swig.so: /usr/lib/x86_64-linux-gnu/libboost_filesystem.so
+swig/CMakeFiles/CMakeRelink.dir/_lte_swig.so: /usr/lib/x86_64-linux-gnu/libboost_system.so
+swig/CMakeFiles/CMakeRelink.dir/_lte_swig.so: /usr/local/lib/libgnuradio-runtime.so
+swig/CMakeFiles/CMakeRelink.dir/_lte_swig.so: /usr/local/lib/libgnuradio-pmt.so
+swig/CMakeFiles/CMakeRelink.dir/_lte_swig.so: /usr/lib/x86_64-linux-gnu/libfftw3f.so
+swig/CMakeFiles/CMakeRelink.dir/_lte_swig.so: swig/CMakeFiles/_lte_swig.dir/relink.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX shared module CMakeFiles/CMakeRelink.dir/_lte_swig.so"
+	cd /home/maier/gr-lte/build-cb/swig && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/_lte_swig.dir/relink.txt --verbose=$(VERBOSE)
+
+# Rule to relink during preinstall.
+swig/CMakeFiles/_lte_swig.dir/preinstall: swig/CMakeFiles/CMakeRelink.dir/_lte_swig.so
+.PHONY : swig/CMakeFiles/_lte_swig.dir/preinstall
 
 swig/CMakeFiles/_lte_swig.dir/requires: swig/CMakeFiles/_lte_swig.dir/lte_swigPYTHON_wrap.cxx.o.requires
 .PHONY : swig/CMakeFiles/_lte_swig.dir/requires

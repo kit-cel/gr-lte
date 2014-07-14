@@ -64,7 +64,10 @@ mimo_pss_fine_sync_impl::mimo_pss_fine_sync_impl(int fftl, int rxant, int grpdel
     d_corr_val(0),
     d_is_locked(false),
     d_decim(fftl/64),
-    d_step(0)
+    d_step(0),
+    d_val_early(0),
+    d_val_prompt(0),
+    d_val_late(0)
 {
 
     d_slot_key=pmt::string_to_symbol("slot");
@@ -200,39 +203,37 @@ mimo_pss_fine_sync_impl::work(int noutput_items,
         //do tracking after block is locked, 3 correlations around center
         else
         {
-            float val_early;
-            float val_prompt;
-            float val_late;
-            int fine_pos;
+
 
             if((d_fine_pos-1+d_halffl)%d_halffl==mod_pos)
             {
                 d_corr_val=d_corr_val*0.99;
-                val_early=diff_corr2(input_items, d_pssX_t, d_fftl, i);
+                d_val_early=diff_corr2(input_items, d_pssX_t, d_fftl, i);
             }
             else if (d_fine_pos==mod_pos)
             {
-                val_prompt=diff_corr2(input_items, d_pssX_t, d_fftl, i);
+                d_val_prompt=diff_corr2(input_items, d_pssX_t, d_fftl, i);
             }
             else if ((d_fine_pos+1)%d_halffl==mod_pos)
             {
-                val_late=diff_corr2(input_items, d_pssX_t, d_fftl, i);
+                int fine_pos;
+                d_val_late=diff_corr2(input_items, d_pssX_t, d_fftl, i);
                 val=d_corr_val;
                 fine_pos=d_fine_pos;
 
-                if(val_early>val)
+                if(d_val_early>val)
                 {
-                    val=val_early;
+                    val=d_val_early;
                     fine_pos=(d_fine_pos-1+d_halffl)%d_halffl;
                 }
-                if(val_prompt>val)
+                if(d_val_prompt>val)
                 {
-                    val=val_prompt;
+                    val=d_val_prompt;
                     fine_pos=d_fine_pos;
                 }
-                if(val_late>val)
+                if(d_val_late>val)
                 {
-                    val=val_late;
+                    val=d_val_late;
                     fine_pos=(d_fine_pos+1)%d_halffl;
                 }
 

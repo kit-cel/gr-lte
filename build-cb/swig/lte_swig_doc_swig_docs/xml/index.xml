@@ -60,7 +60,7 @@
   </compound>
   <compound refid="classgr_1_1lte_1_1mimo__pss__coarse__sync" kind="class"><name>gr::lte::mimo_pss_coarse_sync</name>
     <member refid="classgr_1_1lte_1_1mimo__pss__coarse__sync_1af796935a0b0be42d1ce81b61ff3b2082" kind="typedef"><name>sptr</name></member>
-    <member refid="classgr_1_1lte_1_1mimo__pss__coarse__sync_1ab02a3ac94ed20851813ad1dc88dfb4bd" kind="function"><name>make</name></member>
+    <member refid="classgr_1_1lte_1_1mimo__pss__coarse__sync_1a588775602e4c47c991ecca099630603e" kind="function"><name>make</name></member>
   </compound>
   <compound refid="classgr_1_1lte_1_1mimo__pss__fine__sync" kind="class"><name>gr::lte::mimo_pss_fine_sync</name>
     <member refid="classgr_1_1lte_1_1mimo__pss__fine__sync_1ac4e24d5eafa8d761a3916df9eb7d9c89" kind="typedef"><name>sptr</name></member>
@@ -73,6 +73,22 @@
   <compound refid="classgr_1_1lte_1_1mimo__pss__tagger" kind="class"><name>gr::lte::mimo_pss_tagger</name>
     <member refid="classgr_1_1lte_1_1mimo__pss__tagger_1a905add8abc3788081f704b2e0cc006a7" kind="typedef"><name>sptr</name></member>
     <member refid="classgr_1_1lte_1_1mimo__pss__tagger_1ad0968cdc691d4b948c2291f943daca20" kind="function"><name>make</name></member>
+  </compound>
+  <compound refid="classgr_1_1lte_1_1mimo__remove__cp" kind="class"><name>gr::lte::mimo_remove_cp</name>
+    <member refid="classgr_1_1lte_1_1mimo__remove__cp_1a42715e195e91516f93f43c413f557e36" kind="typedef"><name>sptr</name></member>
+    <member refid="classgr_1_1lte_1_1mimo__remove__cp_1a42feb323d9ad2db59281acd2c6b4805f" kind="function"><name>make</name></member>
+  </compound>
+  <compound refid="classgr_1_1lte_1_1mimo__sss__calculator" kind="class"><name>gr::lte::mimo_sss_calculator</name>
+    <member refid="classgr_1_1lte_1_1mimo__sss__calculator_1a6ce3b702ada77225257fcd76f24b49eb" kind="typedef"><name>sptr</name></member>
+    <member refid="classgr_1_1lte_1_1mimo__sss__calculator_1a0d6218c1f3357f340d8c3bd49b713459" kind="function"><name>make</name></member>
+  </compound>
+  <compound refid="classgr_1_1lte_1_1mimo__sss__symbol__selector" kind="class"><name>gr::lte::mimo_sss_symbol_selector</name>
+    <member refid="classgr_1_1lte_1_1mimo__sss__symbol__selector_1af6a30d186ce650d6e9f62f138444ac5a" kind="typedef"><name>sptr</name></member>
+    <member refid="classgr_1_1lte_1_1mimo__sss__symbol__selector_1a9eaf03f128851cad240b2347202f89a9" kind="function"><name>make</name></member>
+  </compound>
+  <compound refid="classgr_1_1lte_1_1mimo__sss__tagger" kind="class"><name>gr::lte::mimo_sss_tagger</name>
+    <member refid="classgr_1_1lte_1_1mimo__sss__tagger_1af237d29247791ff652ca5b9ae633404d" kind="typedef"><name>sptr</name></member>
+    <member refid="classgr_1_1lte_1_1mimo__sss__tagger_1af7a839e16ac86bec0fc7cbf571f0e55d" kind="function"><name>make</name></member>
   </compound>
   <compound refid="classgr_1_1lte_1_1pbch__demux__vcvc" kind="class"><name>gr::lte::pbch_demux_vcvc</name>
     <member refid="classgr_1_1lte_1_1pbch__demux__vcvc_1a3b53526422e58c9c234e610a5863dab5" kind="typedef"><name>sptr</name></member>
@@ -110,6 +126,7 @@
     <member refid="classgr_1_1lte_1_1pss_1a2124d4686f57096025b9257339bd4c22" kind="function"><name>pss</name></member>
     <member refid="classgr_1_1lte_1_1pss_1a98d52336912bab9011e457d178d7b37d" kind="function"><name>~pss</name></member>
     <member refid="classgr_1_1lte_1_1pss_1a5a9ac8a3aa5f7988d056195336d152f6" kind="function"><name>gen_pss_t</name></member>
+    <member refid="classgr_1_1lte_1_1pss_1a9ce354adf4490f18c65c1a1efab1dc2e" kind="function"><name>gen_conj_pss_t</name></member>
     <member refid="classgr_1_1lte_1_1pss_1a370e4777bf393914683c1887cd8a4c63" kind="function"><name>zc</name></member>
   </compound>
   <compound refid="classgr_1_1lte_1_1pss__calculator__vcm" kind="class"><name>gr::lte::pss_calculator_vcm</name>
@@ -200,6 +217,14 @@
   <compound refid="mimo__pss__freq__sync_8h" kind="file"><name>mimo_pss_freq_sync.h</name>
   </compound>
   <compound refid="mimo__pss__tagger_8h" kind="file"><name>mimo_pss_tagger.h</name>
+  </compound>
+  <compound refid="mimo__remove__cp_8h" kind="file"><name>mimo_remove_cp.h</name>
+  </compound>
+  <compound refid="mimo__sss__calculator_8h" kind="file"><name>mimo_sss_calculator.h</name>
+  </compound>
+  <compound refid="mimo__sss__symbol__selector_8h" kind="file"><name>mimo_sss_symbol_selector.h</name>
+  </compound>
+  <compound refid="mimo__sss__tagger_8h" kind="file"><name>mimo_sss_tagger.h</name>
   </compound>
   <compound refid="pbch__demux__vcvc_8h" kind="file"><name>pbch_demux_vcvc.h</name>
   </compound>

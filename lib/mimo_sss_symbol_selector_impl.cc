@@ -82,7 +82,7 @@ namespace gr {
                        gr_vector_int &ninput_items,
                        gr_vector_const_void_star &input_items,
                        gr_vector_void_star &output_items)
-
+        {
         //printf("work! nitems_read+ninput_items = %ld\t", nitems_read(0) + ninput_items[0]);
         std::vector <gr::tag_t> v_id;
         get_tags_in_range(v_id,0,nitems_read(0),nitems_read(0)+ninput_items[0],d_id_key);
@@ -113,7 +113,7 @@ namespace gr {
             if(d_abs_pos+d_fftl < nitems_read(0)+ninput_items[0]){
                 //printf("\nPRODUCE real output!\tdiff = %ld\tpos = %ld\n\n",d_abs_pos-nitems_read(0), d_abs_pos);
 
-                for(int i=0; i<d_rxant; i++
+                for(int i=0; i<d_rxant; i++)
                 {
                     const gr_complex *in = (const gr_complex *) input_items[i];
                     gr_complex *out = (gr_complex *) output_items[i];

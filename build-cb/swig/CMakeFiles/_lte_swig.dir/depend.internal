@@ -16,6 +16,10 @@ swig/CMakeFiles/_lte_swig.dir/lte_swigPYTHON_wrap.cxx.o
  ../include/lte/mimo_pss_fine_sync.h
  ../include/lte/mimo_pss_freq_sync.h
  ../include/lte/mimo_pss_tagger.h
+ ../include/lte/mimo_remove_cp.h
+ ../include/lte/mimo_sss_calculator.h
+ ../include/lte/mimo_sss_symbol_selector.h
+ ../include/lte/mimo_sss_tagger.h
  ../include/lte/pbch_demux_vcvc.h
  ../include/lte/pbch_descrambler_vfvf.h
  ../include/lte/pcfich_demux_vcvc.h

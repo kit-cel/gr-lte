@@ -34,9 +34,6 @@ RM = /usr/bin/cmake -E remove -f
 # Escaping for special characters.
 EQUALS = =
 
-# The program to use to edit the cache.
-CMAKE_EDIT_COMMAND = /usr/bin/cmake-gui
-
 # The top-level source directory on which CMake was run.
 CMAKE_SOURCE_DIR = /home/maier/gr-lte
 
@@ -110,11 +107,13 @@ lib/test-lte: lib/CMakeFiles/test-lte.dir/test_lte.cc.o
 lib/test-lte: lib/CMakeFiles/test-lte.dir/qa_lte.cc.o
 lib/test-lte: lib/CMakeFiles/test-lte.dir/build.make
 lib/test-lte: /usr/local/lib/libgnuradio-runtime.so
+lib/test-lte: /usr/local/lib/libgnuradio-pmt.so
 lib/test-lte: /usr/lib/x86_64-linux-gnu/libboost_filesystem.so
 lib/test-lte: /usr/lib/x86_64-linux-gnu/libboost_system.so
 lib/test-lte: /usr/lib/x86_64-linux-gnu/libcppunit.so
 lib/test-lte: lib/libgnuradio-lte.so
 lib/test-lte: /usr/local/lib/libgnuradio-runtime.so
+lib/test-lte: /usr/local/lib/libgnuradio-pmt.so
 lib/test-lte: /usr/lib/x86_64-linux-gnu/libboost_filesystem.so
 lib/test-lte: /usr/lib/x86_64-linux-gnu/libboost_system.so
 lib/test-lte: /usr/lib/x86_64-linux-gnu/libfftw3f.so

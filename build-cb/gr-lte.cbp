@@ -5,7 +5,7 @@
 		<Option title="gr-lte" />
 		<Option makefile_is_custom="1" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="CMake Files/;CMake Files/cmake/;CMake Files/cmake/Modules/;CMake Files/include/;CMake Files/include/lte/;CMake Files/lib/;CMake Files/swig/;CMake Files/docs/;CMake Files/docs/doxygen/;CMake Files/python/;CMake Files/grc/;CMake Files/apps/;" />
+		<Option virtualFolders="CMake Files/;CMake Files/cmake/;CMake Files/cmake/Modules/;CMake Files/../;CMake Files/../../;CMake Files/../../../;CMake Files/../../../usr/;CMake Files/../../../usr/local/;CMake Files/../../../usr/local/lib/;CMake Files/../../../usr/local/lib/cmake/;CMake Files/../../../usr/local/lib/cmake/gnuradio/;CMake Files/include/;CMake Files/include/lte/;CMake Files/lib/;CMake Files/swig/;CMake Files/python/;CMake Files/grc/;CMake Files/apps/;CMake Files/docs/;" />
 		<Build>
 			<Target title="all">
 				<Option type="4" />
@@ -299,74 +299,6 @@
 					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
 				</MakeCommands>
 			</Target>
-			<Target title="_lte_swig_doc_tag">
-				<Option output="/home/maier/gr-lte/build-cb/swig/_lte_swig_doc_tag" prefix_auto="0" extension_auto="0" />
-				<Option working_dir="/home/maier/gr-lte/build-cb/swig" />
-				<Option object_output="./" />
-				<Option type="1" />
-				<Option compiler="gcc" />
-				<Compiler>
-					<Add directory="/home/maier/gr-lte/build-cb/include" />
-					<Add directory="/home/maier/gr-lte/build-cb/lib" />
-					<Add directory="/home/maier/gr-lte/build-cb/swig" />
-					<Add directory="/home/maier/gr-lte/include" />
-					<Add directory="/home/maier/gr-lte/lib" />
-					<Add directory="/home/maier/gr-lte/swig" />
-					<Add directory="/usr/include" />
-					<Add directory="/usr/include/c++/4.8" />
-					<Add directory="/usr/include/c++/4.8/backward" />
-					<Add directory="/usr/include/python2.7" />
-					<Add directory="/usr/include/x86_64-linux-gnu" />
-					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8" />
-					<Add directory="/usr/include/x86_64-linux-gnu/python2.7" />
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include" />
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed" />
-					<Add directory="/usr/local/include" />
-					<Add directory="/usr/local/include/gnuradio/swig" />
-				</Compiler>
-				<MakeCommands>
-					<Build command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/swig/Makefile&quot;  VERBOSE=1 _lte_swig_doc_tag' />
-					<CompileFile command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/swig/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
-					<Clean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/swig/Makefile&quot;  VERBOSE=1 clean' />
-					<DistClean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/swig/Makefile&quot;  VERBOSE=1 clean' />
-					<AskRebuildNeeded command="$make -q -f $makefile $target" />
-					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
-				</MakeCommands>
-			</Target>
-			<Target title="_lte_swig_doc_tag/fast">
-				<Option output="/home/maier/gr-lte/build-cb/swig/_lte_swig_doc_tag" prefix_auto="0" extension_auto="0" />
-				<Option working_dir="/home/maier/gr-lte/build-cb/swig" />
-				<Option object_output="./" />
-				<Option type="1" />
-				<Option compiler="gcc" />
-				<Compiler>
-					<Add directory="/home/maier/gr-lte/build-cb/include" />
-					<Add directory="/home/maier/gr-lte/build-cb/lib" />
-					<Add directory="/home/maier/gr-lte/build-cb/swig" />
-					<Add directory="/home/maier/gr-lte/include" />
-					<Add directory="/home/maier/gr-lte/lib" />
-					<Add directory="/home/maier/gr-lte/swig" />
-					<Add directory="/usr/include" />
-					<Add directory="/usr/include/c++/4.8" />
-					<Add directory="/usr/include/c++/4.8/backward" />
-					<Add directory="/usr/include/python2.7" />
-					<Add directory="/usr/include/x86_64-linux-gnu" />
-					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8" />
-					<Add directory="/usr/include/x86_64-linux-gnu/python2.7" />
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include" />
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed" />
-					<Add directory="/usr/local/include" />
-					<Add directory="/usr/local/include/gnuradio/swig" />
-				</Compiler>
-				<MakeCommands>
-					<Build command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/swig/Makefile&quot;  VERBOSE=1 _lte_swig_doc_tag/fast' />
-					<CompileFile command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/swig/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
-					<Clean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/swig/Makefile&quot;  VERBOSE=1 clean' />
-					<DistClean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/swig/Makefile&quot;  VERBOSE=1 clean' />
-					<AskRebuildNeeded command="$make -q -f $makefile $target" />
-					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
-				</MakeCommands>
-			</Target>
 			<Target title="_lte_swig_swig_tag">
 				<Option output="/home/maier/gr-lte/build-cb/swig/_lte_swig_swig_tag" prefix_auto="0" extension_auto="0" />
 				<Option working_dir="/home/maier/gr-lte/build-cb/swig" />
@@ -435,6 +367,18 @@
 					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
 				</MakeCommands>
 			</Target>
+			<Target title="lte_swig_swig_doc">
+				<Option type="4" />
+				<Option compiler="gcc" />
+				<MakeCommands>
+					<Build command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/swig/Makefile&quot;  VERBOSE=1 lte_swig_swig_doc' />
+					<CompileFile command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/swig/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/swig/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='/usr/bin/make -f &quot;/home/maier/gr-lte/build-cb/swig/Makefile&quot;  VERBOSE=1 clean' />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
 			<Target title="pygen_swig_9a719">
 				<Option type="4" />
 				<Option compiler="gcc" />
@@ -474,16 +418,36 @@
 		</Build>
 		<ExtraCommands>
 			<Add after="echo foobar | sudo -S make install" />
-			<Add after="echo foobar | sudo -S ldconfig" />
 		</ExtraCommands>
+		<Unit filename="../../../../usr/local/lib/cmake/gnuradio/CMakeParseArgumentsCopy.cmake">
+			<Option virtualFolder="CMake Files/../../../usr/local/lib/cmake/gnuradio/" />
+		</Unit>
+		<Unit filename="../../../../usr/local/lib/cmake/gnuradio/GnuradioConfig.cmake">
+			<Option virtualFolder="CMake Files/../../../usr/local/lib/cmake/gnuradio/" />
+		</Unit>
+		<Unit filename="../../../../usr/local/lib/cmake/gnuradio/GnuradioConfigVersion.cmake">
+			<Option virtualFolder="CMake Files/../../../usr/local/lib/cmake/gnuradio/" />
+		</Unit>
+		<Unit filename="../../../../usr/local/lib/cmake/gnuradio/GrMiscUtils.cmake">
+			<Option virtualFolder="CMake Files/../../../usr/local/lib/cmake/gnuradio/" />
+		</Unit>
+		<Unit filename="../../../../usr/local/lib/cmake/gnuradio/GrPlatform.cmake">
+			<Option virtualFolder="CMake Files/../../../usr/local/lib/cmake/gnuradio/" />
+		</Unit>
+		<Unit filename="../../../../usr/local/lib/cmake/gnuradio/GrPython.cmake">
+			<Option virtualFolder="CMake Files/../../../usr/local/lib/cmake/gnuradio/" />
+		</Unit>
+		<Unit filename="../../../../usr/local/lib/cmake/gnuradio/GrSwig.cmake">
+			<Option virtualFolder="CMake Files/../../../usr/local/lib/cmake/gnuradio/" />
+		</Unit>
+		<Unit filename="../../../../usr/local/lib/cmake/gnuradio/GrTest.cmake">
+			<Option virtualFolder="CMake Files/../../../usr/local/lib/cmake/gnuradio/" />
+		</Unit>
 		<Unit filename="../CMakeLists.txt">
 			<Option virtualFolder="CMake Files/" />
 		</Unit>
 		<Unit filename="../apps/CMakeLists.txt">
 			<Option virtualFolder="CMake Files/apps/" />
-		</Unit>
-		<Unit filename="../cmake/Modules/CMakeParseArgumentsCopy.cmake">
-			<Option virtualFolder="CMake Files/cmake/Modules/" />
 		</Unit>
 		<Unit filename="../cmake/Modules/FindCppUnit.cmake">
 			<Option virtualFolder="CMake Files/cmake/Modules/" />
@@ -491,22 +455,7 @@
 		<Unit filename="../cmake/Modules/FindFFTW3f.cmake">
 			<Option virtualFolder="CMake Files/cmake/Modules/" />
 		</Unit>
-		<Unit filename="../cmake/Modules/FindGnuradioRuntime.cmake">
-			<Option virtualFolder="CMake Files/cmake/Modules/" />
-		</Unit>
-		<Unit filename="../cmake/Modules/GrMiscUtils.cmake">
-			<Option virtualFolder="CMake Files/cmake/Modules/" />
-		</Unit>
 		<Unit filename="../cmake/Modules/GrPlatform.cmake">
-			<Option virtualFolder="CMake Files/cmake/Modules/" />
-		</Unit>
-		<Unit filename="../cmake/Modules/GrPython.cmake">
-			<Option virtualFolder="CMake Files/cmake/Modules/" />
-		</Unit>
-		<Unit filename="../cmake/Modules/GrSwig.cmake">
-			<Option virtualFolder="CMake Files/cmake/Modules/" />
-		</Unit>
-		<Unit filename="../cmake/Modules/GrTest.cmake">
 			<Option virtualFolder="CMake Files/cmake/Modules/" />
 		</Unit>
 		<Unit filename="../cmake/cmake_uninstall.cmake.in">
@@ -514,9 +463,6 @@
 		</Unit>
 		<Unit filename="../docs/CMakeLists.txt">
 			<Option virtualFolder="CMake Files/docs/" />
-		</Unit>
-		<Unit filename="../docs/doxygen/Doxyfile.swig_doc.in">
-			<Option virtualFolder="CMake Files/docs/doxygen/" />
 		</Unit>
 		<Unit filename="../grc/CMakeLists.txt">
 			<Option virtualFolder="CMake Files/grc/" />
@@ -538,6 +484,10 @@
 		<Unit filename="../include/lte/mimo_pss_fine_sync.h" />
 		<Unit filename="../include/lte/mimo_pss_freq_sync.h" />
 		<Unit filename="../include/lte/mimo_pss_tagger.h" />
+		<Unit filename="../include/lte/mimo_remove_cp.h" />
+		<Unit filename="../include/lte/mimo_sss_calculator.h" />
+		<Unit filename="../include/lte/mimo_sss_symbol_selector.h" />
+		<Unit filename="../include/lte/mimo_sss_tagger.h" />
 		<Unit filename="../include/lte/pbch_demux_vcvc.h" />
 		<Unit filename="../include/lte/pbch_descrambler_vfvf.h" />
 		<Unit filename="../include/lte/pcfich_demux_vcvc.h" />
@@ -584,10 +534,14 @@
 		<Unit filename="../lib/mimo_pss_freq_sync_impl.h" />
 		<Unit filename="../lib/mimo_pss_tagger_impl.cc" />
 		<Unit filename="../lib/mimo_pss_tagger_impl.h" />
+		<Unit filename="../lib/mimo_remove_cp_impl.cc" />
+		<Unit filename="../lib/mimo_remove_cp_impl.h" />
 		<Unit filename="../lib/mimo_sss_calculator_impl.cc" />
 		<Unit filename="../lib/mimo_sss_calculator_impl.h" />
 		<Unit filename="../lib/mimo_sss_symbol_selector_impl.cc" />
 		<Unit filename="../lib/mimo_sss_symbol_selector_impl.h" />
+		<Unit filename="../lib/mimo_sss_tagger_impl.cc" />
+		<Unit filename="../lib/mimo_sss_tagger_impl.h" />
 		<Unit filename="../lib/pbch_demux_vcvc_impl.cc" />
 		<Unit filename="../lib/pbch_demux_vcvc_impl.h" />
 		<Unit filename="../lib/pbch_descrambler_vfvf_impl.cc" />
@@ -635,7 +589,6 @@
 		<Unit filename="../swig/lte_swig.i">
 			<Option compile="1" />
 		</Unit>
-		<Unit filename="swig/_lte_swig_doc_tag.cpp" />
 		<Unit filename="swig/_lte_swig_swig_tag.cpp" />
 		<Extensions>
 			<code_completion />

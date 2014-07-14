@@ -30,8 +30,14 @@ FILE(REMOVE_RECURSE
   "CMakeFiles/gnuradio-lte.dir/mimo_pss_coarse_control_impl.cc.o"
   "CMakeFiles/gnuradio-lte.dir/pss.cc.o"
   "CMakeFiles/gnuradio-lte.dir/mimo_pss_freq_sync_impl.cc.o"
+  "CMakeFiles/gnuradio-lte.dir/mimo_sss_symbol_selector_impl.cc.o"
+  "CMakeFiles/gnuradio-lte.dir/mimo_sss_calculator_impl.cc.o"
+  "CMakeFiles/gnuradio-lte.dir/mimo_sss_tagger_impl.cc.o"
+  "CMakeFiles/gnuradio-lte.dir/mimo_remove_cp_impl.cc.o"
   "libgnuradio-lte.pdb"
   "libgnuradio-lte.so"
+  "libgnuradio-lte.pdb"
+  "CMakeFiles/CMakeRelink.dir/libgnuradio-lte.so"
 )
 
 # Per-language clean rules from dependency scanning.

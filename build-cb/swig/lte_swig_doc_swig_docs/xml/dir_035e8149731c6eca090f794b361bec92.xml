@@ -16,6 +16,10 @@
     <innerfile refid="mimo__pss__fine__sync_8h">mimo_pss_fine_sync.h</innerfile>
     <innerfile refid="mimo__pss__freq__sync_8h">mimo_pss_freq_sync.h</innerfile>
     <innerfile refid="mimo__pss__tagger_8h">mimo_pss_tagger.h</innerfile>
+    <innerfile refid="mimo__remove__cp_8h">mimo_remove_cp.h</innerfile>
+    <innerfile refid="mimo__sss__calculator_8h">mimo_sss_calculator.h</innerfile>
+    <innerfile refid="mimo__sss__symbol__selector_8h">mimo_sss_symbol_selector.h</innerfile>
+    <innerfile refid="mimo__sss__tagger_8h">mimo_sss_tagger.h</innerfile>
     <innerfile refid="pbch__demux__vcvc_8h">pbch_demux_vcvc.h</innerfile>
     <innerfile refid="pbch__descrambler__vfvf_8h">pbch_descrambler_vfvf.h</innerfile>
     <innerfile refid="pcfich__demux__vcvc_8h">pcfich_demux_vcvc.h</innerfile>

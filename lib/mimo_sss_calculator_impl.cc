@@ -24,6 +24,10 @@
 
 #include <gnuradio/io_signature.h>
 #include "mimo_sss_calculator_impl.h"
+#include <volk/volk.h>
+#include <cstdio>
+
+#include <boost/multi_array.hpp>
 
 namespace gr {
   namespace lte {
@@ -54,8 +58,8 @@ namespace gr {
                 d_is_locked(false),
                 d_unchanged_id(0)
     {
-        d_key_id = pmt::string_to_symbol(key_id);
-        d_key_offset = pmt::string_to_symbol(key_offset);
+        d_key_id = pmt::string_to_symbol("N_id_2");
+        d_key_offset = pmt::string_to_symbol("offset_marker");
         // Get needed message ports!
         d_port_cell_id = pmt::string_to_symbol("cell_id");
         message_port_register_out(d_port_cell_id);
@@ -138,14 +142,22 @@ namespace gr {
         if(d_N_id_2 < 0){return 1;}
 
         // extract the 2 half sss symbols which are interleaved differently by their position within a frame.
-        gr_complex even[31]={0};
-        gr_complex odd [31]={0};
-        for(int i = 0; i < 31 ; i++){
-            even[i] = in[5 + 2 * i + 0];
-            odd[i]  = in[5 + 2 * i + 1];
+        gr_complex** even = new gr_complex*[d_rxant];
+        gr_complex** odd = new gr_complex*[d_rxant];
+
+        for(int rx=0; rx<d_rxant; rx++)
+        {
+            even[rx] = new gr_complex[31];
+            odd[rx] = new gr_complex[31];
+            for(int i = 0; i < 31 ; i++)
+            {
+                gr_complex* in = (gr_complex*) input_items[rx];
+                even[rx][i] = in[5 + 2 * i + 0];
+                odd[rx][i]  = in[5 + 2 * i + 1];
+            }
         }
 
-        sss_info info = get_sss_info(even, odd, d_N_id_2);
+        sss_info info = get_sss_info(even, odd, d_N_id_2, d_rxant);
         if(info.N_id_1 < 0){return 1;}
 
         if(d_max_val_new > d_max_val_old*0.8){
@@ -177,12 +189,22 @@ namespace gr {
         }
 
         d_max_val_old = d_max_val_new;
+
+
+        //delete used arrays
+        for(int rx=0; rx<d_rxant; rx++){
+            delete[] even[rx];
+            delete[] odd[rx];
+        }
+        delete[] even;
+        delete[] odd;
+
         // Tell runtime system how many output items we produced.
         return 1;
     }
 
     sss_info
-    mimo_sss_calculator_impl::get_sss_info(gr_complex* even, gr_complex* odd, int N_id_2)
+    mimo_sss_calculator_impl::get_sss_info(gr_complex** &even, gr_complex** &odd, int N_id_2, int rxant)
     {
         sss_info info;
         // next 2 sequences depend on N_id_2
@@ -193,22 +215,29 @@ namespace gr {
             c1[i] = d_cX[ (i+d_N_id_2+3)%31 ];
         }
 
-        gr_complex s0m0[31]={0};
-        for (int i = 0 ; i < 31 ; i++){
-            s0m0[i]=even[i]/gr_complex(c0[i]);
+        gr_complex** s0m0 = new gr_complex*[rxant];
+        for(int rx=0; rx<rxant; rx++){
+            s0m0[rx] = new gr_complex[31];
+            for (int i = 0 ; i < 31 ; i++){
+                s0m0[rx][i]=even[rx][i]/gr_complex(c0[i]);
+            }
         }
-        int m0 = calc_m(s0m0);
+
+        int m0 = calc_m(s0m0, rxant);
 
         char z1m0[31] = {0};
         for (int i = 0 ; i < 31 ; i++) {
             z1m0[i] = d_zX[ ( i+(m0%8) )%31 ];
         }
-        gr_complex s1m1[31] = {0};
-        for (int i = 0 ; i < 31 ; i++){
-            s1m1[i] = odd[i] / (c1[i] * gr_complex(z1m0[i]) );
-        }
 
-        int m1 = calc_m(s1m1);
+        gr_complex** s1m1 = new gr_complex*[rxant];
+        for(int rx=0; rx<rxant; rx++){
+            s1m1[rx] = new gr_complex[31];
+            for (int i = 0 ; i < 31 ; i++){
+                s1m1[rx][i] = odd[rx][i] / (c1[i] * gr_complex(z1m0[i]) );
+            }
+        }
+        int m1 = calc_m(s1m1, rxant);
         //printf("m1 = %i\n",m1);
 
         info.pos = 0;
@@ -217,6 +246,14 @@ namespace gr {
             info.pos = 5;
         }
         info.N_id_1 = get_N_id_1(m0, m1);
+
+        for(int rx=0; rx<rxant; rx++){
+            delete[] s0m0[rx];
+            delete[] s1m1[rx];
+        }
+
+        delete[] s0m0;
+        delete[] s1m1;
         return info;
     }
 
@@ -234,24 +271,28 @@ namespace gr {
     }
 
     int
-    mimo_sss_calculator_impl::calc_m(gr_complex *s0m0)
+    mimo_sss_calculator_impl::calc_m(gr_complex **s0m0, int rxant)
     {
         int mX = -1;
         int N = 62;
 
-        gr_complex s0[62] = {0};
-        memcpy(s0, s0m0, sizeof(gr_complex) * 31);
+
+        gr_complex** s0 = new gr_complex*[rxant];
+        for(int i=0; i<rxant; i++){
+            s0[i] = new gr_complex[62];
+            memcpy(s0[i], s0m0[i], sizeof(gr_complex) * 31);
+        }
 
         gr_complex sr[62] = {0};
         memcpy(sr, d_sref, sizeof(gr_complex) * 62);
 
-        std::vector<gr_complex> x_vec;
-        xcorr(x_vec, s0, sr, N);
+        std::vector<float> x_vec;
+        xcorr(x_vec, s0, sr, N, rxant);
 
         float max = 0;
         int pos = -1;
         for (int i = 0 ; i < 2*N-1 ; i++){
-            float mag = abs(x_vec[i]);
+            float mag = x_vec[i];
             if (max < mag){
                 max = mag;
                 pos = i;
@@ -261,6 +302,10 @@ namespace gr {
         mX = abs(pos-31-31);
 
         d_max_val_new = (d_max_val_new + max)/2;
+        for(int rx=0; rx<rxant; rx++){
+           delete s0[rx];
+        }
+        delete[] s0;
 
         return mX;
     }
@@ -278,16 +323,22 @@ namespace gr {
 
     // be careful! input arrays must have the same size!
     void
-    mimo_sss_calculator_impl::xcorr(std::vector<gr_complex> &v, gr_complex *x,gr_complex *y, int len)
+    mimo_sss_calculator_impl::xcorr(std::vector<float> &v, gr_complex **x,gr_complex *y, int len, int rxant)
     {
         int N = len;
+        float val;
 
         for (int i = 0 ; i < 2 * N - 1 ; i++){
+            val=0;
             if(i < N){
-                v.push_back( corr(x+(N-1-i),y,i+1) );
+                for(int rx=0; rx<rxant; rx++)
+                    val += abs(corr(x[rx]+(N-1-i),y,i+1));
+                v.push_back(val);
             }
             else{
-                v.push_back( corr(x,y+(i-N),2*N-1-i) );
+                for(int rx=0; rx<rxant; rx++)
+                    val += abs(corr(x[rx],y+(i-N),2*N-1-i));
+                v.push_back(val);
             }
         }
     }

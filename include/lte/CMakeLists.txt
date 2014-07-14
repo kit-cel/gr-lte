@@ -54,5 +54,7 @@ install(FILES
     pss.h
     mimo_pss_freq_sync.h
     mimo_sss_symbol_selector.h
-    mimo_sss_calculator.h DESTINATION include/lte
+    mimo_sss_calculator.h
+    mimo_sss_tagger.h
+    mimo_remove_cp.h DESTINATION include/lte
 )

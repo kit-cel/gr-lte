@@ -49,6 +49,9 @@ private:
     int d_step;
     long d_half_frame_start;
     float d_corr_val;
+    float d_val_early;
+    float d_val_prompt;
+    float d_val_late;
     bool d_is_locked;
 
     pmt::pmt_t d_slot_key;

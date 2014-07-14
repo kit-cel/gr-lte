@@ -9,6 +9,8 @@ FILE(REMOVE_RECURSE
   "CMakeFiles/_lte_swig.dir/lte_swigPYTHON_wrap.cxx.o"
   "_lte_swig.pdb"
   "_lte_swig.so"
+  "_lte_swig.pdb"
+  "CMakeFiles/CMakeRelink.dir/_lte_swig.so"
 )
 
 # Per-language clean rules from dependency scanning.

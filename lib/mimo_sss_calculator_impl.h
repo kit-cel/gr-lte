@@ -51,15 +51,19 @@ namespace gr {
         long d_frame_start;
         bool d_is_locked;
         int d_unchanged_id;
+
+
+
         pmt::pmt_t d_key_id;
         pmt::pmt_t d_key_offset;
 
+
         // calculation functions!
-        int calc_m(gr_complex *s0m0);
+        int calc_m(gr_complex **s0m0, int rxant);
         int get_N_id_1(int m0, int m1);
-        sss_info get_sss_info(gr_complex* even, gr_complex* odd, int N_id_2);
+        sss_info get_sss_info(gr_complex** &even, gr_complex** &odd, int N_id_2, int rxant);
         gr_complex corr(gr_complex *x,gr_complex *y, int len);
-        void xcorr(std::vector<gr_complex> &v, gr_complex *x,gr_complex *y, int len);
+        void xcorr(std::vector<float> &v, gr_complex **x,gr_complex *y, int len, int rxant);
 
         pmt::pmt_t d_port_cell_id;
         pmt::pmt_t d_port_frame_start;

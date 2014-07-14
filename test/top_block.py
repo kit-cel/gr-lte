@@ -2,11 +2,13 @@
 ##################################################
 # Gnuradio Python Flow Graph
 # Title: Top Block
-# Generated: Fri Jul  4 15:17:44 2014
+# Generated: Tue Jul 15 00:25:14 2014
 ##################################################
 
+execfile("/home/maier/.grc_gnuradio/lte_mimo_ofdm_rx.py")
 execfile("/home/maier/.grc_gnuradio/lte_mimo_pss_based_frey_sync.py")
 execfile("/home/maier/.grc_gnuradio/lte_mimo_pss_sync.py")
+execfile("/home/maier/.grc_gnuradio/lte_mimo_sss_sync.py")
 from PyQt4 import Qt
 from gnuradio import blocks
 from gnuradio import eng_notation
@@ -46,36 +48,53 @@ class top_block(gr.top_block, Qt.QWidget):
         # Variables
         ##################################################
         self.fftl = fftl = 1024
+        self.slot = slot = "slot"
         self.samp_rate = samp_rate = fftl*15e3
         self.rxant = rxant = 2
+        self.frame_key = frame_key = "slot"
 
         ##################################################
         # Blocks
         ##################################################
+        self.lte_mimo_sss_sync_0 = lte_mimo_sss_sync(
+            rxant=2,
+            fftlen=1024,
+        )
         self.lte_mimo_pss_sync_0 = lte_mimo_pss_sync(
             fftlen=fftl,
             rxant=rxant,
+            synclen=2,
         )
         self.lte_mimo_pss_based_frey_sync_0 = lte_mimo_pss_based_frey_sync(
             fftlen=1024,
             rxant=rxant,
         )
+        self.lte_mimo_ofdm_rx_0 = lte_mimo_ofdm_rx(
+            rxant=rxant,
+            fftlen=fftl,
+            ofdm_key=slot,
+            N_rb_dl=50,
+        )
         self.blocks_vector_to_streams_0 = blocks.vector_to_streams(gr.sizeof_gr_complex*1, rxant)
         self.blocks_throttle_0 = blocks.throttle(gr.sizeof_gr_complex*2, samp_rate,True)
-        self.blocks_null_sink_0 = blocks.null_sink(gr.sizeof_gr_complex*1)
+        self.blocks_null_sink_0 = blocks.null_sink(gr.sizeof_gr_complex*600)
         self.blocks_file_source_0 = blocks.file_source(gr.sizeof_gr_complex*2, "/home/maier/Schreibtisch/lte5framesFadingChannelETU_fOff6000.dat", False)
 
         ##################################################
         # Connections
         ##################################################
-        self.connect((self.lte_mimo_pss_based_frey_sync_0, 0), (self.blocks_null_sink_0, 0))
-        self.connect((self.lte_mimo_pss_based_frey_sync_0, 1), (self.blocks_null_sink_0, 1))
-        self.connect((self.blocks_vector_to_streams_0, 0), (self.lte_mimo_pss_sync_0, 0))
-        self.connect((self.blocks_vector_to_streams_0, 1), (self.lte_mimo_pss_sync_0, 1))
-        self.connect((self.lte_mimo_pss_sync_0, 0), (self.lte_mimo_pss_based_frey_sync_0, 0))
-        self.connect((self.lte_mimo_pss_sync_0, 1), (self.lte_mimo_pss_based_frey_sync_0, 1))
         self.connect((self.blocks_file_source_0, 0), (self.blocks_throttle_0, 0))
         self.connect((self.blocks_throttle_0, 0), (self.blocks_vector_to_streams_0, 0))
+        self.connect((self.blocks_vector_to_streams_0, 0), (self.lte_mimo_pss_sync_0, 0))
+        self.connect((self.lte_mimo_pss_based_frey_sync_0, 1), (self.lte_mimo_sss_sync_0, 1))
+        self.connect((self.lte_mimo_pss_based_frey_sync_0, 0), (self.lte_mimo_sss_sync_0, 0))
+        self.connect((self.lte_mimo_pss_sync_0, 1), (self.lte_mimo_pss_based_frey_sync_0, 1))
+        self.connect((self.lte_mimo_pss_sync_0, 0), (self.lte_mimo_pss_based_frey_sync_0, 0))
+        self.connect((self.blocks_vector_to_streams_0, 1), (self.lte_mimo_pss_sync_0, 1))
+        self.connect((self.lte_mimo_sss_sync_0, 0), (self.lte_mimo_ofdm_rx_0, 0))
+        self.connect((self.lte_mimo_sss_sync_0, 1), (self.lte_mimo_ofdm_rx_0, 1))
+        self.connect((self.lte_mimo_ofdm_rx_0, 0), (self.blocks_null_sink_0, 1))
+        self.connect((self.lte_mimo_ofdm_rx_0, 1), (self.blocks_null_sink_0, 0))
 
 
     def closeEvent(self, event):
@@ -90,6 +109,14 @@ class top_block(gr.top_block, Qt.QWidget):
         self.fftl = fftl
         self.set_samp_rate(self.fftl*15e3)
         self.lte_mimo_pss_sync_0.set_fftlen(self.fftl)
+        self.lte_mimo_ofdm_rx_0.set_fftlen(self.fftl)
+
+    def get_slot(self):
+        return self.slot
+
+    def set_slot(self, slot):
+        self.slot = slot
+        self.lte_mimo_ofdm_rx_0.set_ofdm_key(self.slot)
 
     def get_samp_rate(self):
         return self.samp_rate
@@ -103,8 +130,15 @@ class top_block(gr.top_block, Qt.QWidget):
 
     def set_rxant(self, rxant):
         self.rxant = rxant
-        self.lte_mimo_pss_based_frey_sync_0.set_rxant(self.rxant)
         self.lte_mimo_pss_sync_0.set_rxant(self.rxant)
+        self.lte_mimo_pss_based_frey_sync_0.set_rxant(self.rxant)
+        self.lte_mimo_ofdm_rx_0.set_rxant(self.rxant)
+
+    def get_frame_key(self):
+        return self.frame_key
+
+    def set_frame_key(self, frame_key):
+        self.frame_key = frame_key
 
 if __name__ == '__main__':
     import ctypes

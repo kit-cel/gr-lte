@@ -22,6 +22,7 @@
 #define INCLUDED_LTE_mimo_pss_coarse_sync_IMPL_H
 
 #include <lte/mimo_pss_coarse_sync.h>
+#include <gnuradio/filter/fir_filter.h>
 
 namespace gr
 {
@@ -31,8 +32,9 @@ namespace lte
 class mimo_pss_coarse_sync_impl : public mimo_pss_coarse_sync
 {
 private:
-    static const int d_TIME_HYPO=4800;
     static const int d_CORRL=64;
+    static const int d_TIME_HYPO=d_CORRL*75;
+
 
     int d_syncl;
     int d_rxant;
@@ -41,6 +43,7 @@ private:
     int d_posmax;
     float d_max;
 
+    //filter::kernel::fir_filter_ccf *d_fir;
 
     pmt::pmt_t d_port_coarse_pos;
     pmt::pmt_t d_port_N_id_2;
@@ -62,7 +65,7 @@ private:
 
 
 public:
-    mimo_pss_coarse_sync_impl(int syncl, int rxant);
+    mimo_pss_coarse_sync_impl(int fftl, int syncl, int rxant);
     ~mimo_pss_coarse_sync_impl();
 
     // Where all the action really happens

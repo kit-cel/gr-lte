@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/maier/gr-lte/include/lte/pss.h" line="48" column="1" bodyfile="/home/maier/gr-lte/include/lte/pss.h" bodystart="48" bodyend="-1"/>
+        <location file="/home/maier/gr-lte/include/lte/pss.h" line="49" column="1" bodyfile="/home/maier/gr-lte/include/lte/pss.h" bodystart="49" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classgr_1_1lte_1_1pss_1abcbb0312574bcd31d6487aa4f31c6c25" prot="private" static="yes" mutable="no">
         <type>const float</type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/maier/gr-lte/include/lte/pss.h" line="49" column="1" bodyfile="/home/maier/gr-lte/include/lte/pss.h" bodystart="49" bodyend="-1"/>
+        <location file="/home/maier/gr-lte/include/lte/pss.h" line="50" column="1" bodyfile="/home/maier/gr-lte/include/lte/pss.h" bodystart="50" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -85,6 +85,31 @@
         </inbodydescription>
         <location file="/home/maier/gr-lte/include/lte/pss.h" line="44" column="1"/>
       </memberdef>
+      <memberdef kind="function" id="classgr_1_1lte_1_1pss_1a9ce354adf4490f18c65c1a1efab1dc2e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void gr::lte::pss::gen_conj_pss_t</definition>
+        <argsstring>(gr_complex *zc_t, int cell_id, int len)</argsstring>
+        <name>gen_conj_pss_t</name>
+        <param>
+          <type>gr_complex *</type>
+          <declname>zc_t</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>cell_id</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>len</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/maier/gr-lte/include/lte/pss.h" line="45" column="1"/>
+      </memberdef>
       <memberdef kind="function" id="classgr_1_1lte_1_1pss_1a370e4777bf393914683c1887cd8a4c63" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>static void gr::lte::pss::zc</definition>
@@ -104,17 +129,18 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/maier/gr-lte/include/lte/pss.h" line="45" column="1"/>
+        <location file="/home/maier/gr-lte/include/lte/pss.h" line="46" column="1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>helper class for pss blocks </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/maier/gr-lte/include/lte/pss.h" line="40" column="1" bodyfile="/home/maier/gr-lte/include/lte/pss.h" bodystart="39" bodyend="51"/>
+    <location file="/home/maier/gr-lte/include/lte/pss.h" line="40" column="1" bodyfile="/home/maier/gr-lte/include/lte/pss.h" bodystart="39" bodyend="52"/>
     <listofallmembers>
       <member refid="classgr_1_1lte_1_1pss_1aef6bcb373f6dff9ff41cc6bbcb7dc5cb" prot="private" virt="non-virtual"><scope>gr::lte::pss</scope><name>d_C_I</name></member>
       <member refid="classgr_1_1lte_1_1pss_1abcbb0312574bcd31d6487aa4f31c6c25" prot="private" virt="non-virtual"><scope>gr::lte::pss</scope><name>d_PI</name></member>
+      <member refid="classgr_1_1lte_1_1pss_1a9ce354adf4490f18c65c1a1efab1dc2e" prot="public" virt="non-virtual"><scope>gr::lte::pss</scope><name>gen_conj_pss_t</name></member>
       <member refid="classgr_1_1lte_1_1pss_1a5a9ac8a3aa5f7988d056195336d152f6" prot="public" virt="non-virtual"><scope>gr::lte::pss</scope><name>gen_pss_t</name></member>
       <member refid="classgr_1_1lte_1_1pss_1a2124d4686f57096025b9257339bd4c22" prot="public" virt="non-virtual"><scope>gr::lte::pss</scope><name>pss</name></member>
       <member refid="classgr_1_1lte_1_1pss_1a370e4777bf393914683c1887cd8a4c63" prot="public" virt="non-virtual"><scope>gr::lte::pss</scope><name>zc</name></member>

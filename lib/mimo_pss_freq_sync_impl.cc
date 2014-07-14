@@ -81,7 +81,7 @@ mimo_pss_freq_sync_impl::~mimo_pss_freq_sync_impl()
 
     for(int i=0; i<d_rxant; i++)
         volk_free(d_buf_pss[i]);
-    free(d_buf_pss);
+    delete[] d_buf_pss;
     volk_free(d_pssX);
 }
 

@@ -38,9 +38,6 @@ RM = /usr/bin/cmake -E remove -f
 # Escaping for special characters.
 EQUALS = =
 
-# The program to use to edit the cache.
-CMAKE_EDIT_COMMAND = /usr/bin/cmake-gui
-
 # The top-level source directory on which CMake was run.
 CMAKE_SOURCE_DIR = /home/maier/gr-lte
 
@@ -52,8 +49,8 @@ CMAKE_BINARY_DIR = /home/maier/gr-lte/build-cb
 
 # Special rule for the target edit_cache
 edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/usr/bin/cmake-gui -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running interactive CMake command-line interface..."
+	/usr/bin/cmake -i .
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -81,16 +78,6 @@ install/local: preinstall
 # Special rule for the target install/local
 install/local/fast: install/local
 .PHONY : install/local/fast
-
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
-
-# Special rule for the target install/strip
-install/strip/fast: install/strip
-.PHONY : install/strip/fast
 
 # Special rule for the target list_install_components
 list_install_components:
@@ -165,6 +152,11 @@ gnuradio-lte: lib/CMakeFiles/gnuradio-lte.dir/rule
 gnuradio-lte/fast:
 	cd /home/maier/gr-lte/build-cb && $(MAKE) -f lib/CMakeFiles/gnuradio-lte.dir/build.make lib/CMakeFiles/gnuradio-lte.dir/build
 .PHONY : gnuradio-lte/fast
+
+# Manual pre-install relink rule for target.
+gnuradio-lte/preinstall:
+	cd /home/maier/gr-lte/build-cb && $(MAKE) -f CMakeFiles/Makefile2 lib/CMakeFiles/gnuradio-lte.dir/preinstall
+.PHONY : gnuradio-lte/preinstall
 
 # Convenience name for target.
 lib/CMakeFiles/test-lte.dir/rule:
@@ -491,6 +483,102 @@ mimo_pss_tagger_impl.s: mimo_pss_tagger_impl.cc.s
 mimo_pss_tagger_impl.cc.s:
 	cd /home/maier/gr-lte/build-cb && $(MAKE) -f lib/CMakeFiles/gnuradio-lte.dir/build.make lib/CMakeFiles/gnuradio-lte.dir/mimo_pss_tagger_impl.cc.s
 .PHONY : mimo_pss_tagger_impl.cc.s
+
+mimo_remove_cp_impl.o: mimo_remove_cp_impl.cc.o
+.PHONY : mimo_remove_cp_impl.o
+
+# target to build an object file
+mimo_remove_cp_impl.cc.o:
+	cd /home/maier/gr-lte/build-cb && $(MAKE) -f lib/CMakeFiles/gnuradio-lte.dir/build.make lib/CMakeFiles/gnuradio-lte.dir/mimo_remove_cp_impl.cc.o
+.PHONY : mimo_remove_cp_impl.cc.o
+
+mimo_remove_cp_impl.i: mimo_remove_cp_impl.cc.i
+.PHONY : mimo_remove_cp_impl.i
+
+# target to preprocess a source file
+mimo_remove_cp_impl.cc.i:
+	cd /home/maier/gr-lte/build-cb && $(MAKE) -f lib/CMakeFiles/gnuradio-lte.dir/build.make lib/CMakeFiles/gnuradio-lte.dir/mimo_remove_cp_impl.cc.i
+.PHONY : mimo_remove_cp_impl.cc.i
+
+mimo_remove_cp_impl.s: mimo_remove_cp_impl.cc.s
+.PHONY : mimo_remove_cp_impl.s
+
+# target to generate assembly for a file
+mimo_remove_cp_impl.cc.s:
+	cd /home/maier/gr-lte/build-cb && $(MAKE) -f lib/CMakeFiles/gnuradio-lte.dir/build.make lib/CMakeFiles/gnuradio-lte.dir/mimo_remove_cp_impl.cc.s
+.PHONY : mimo_remove_cp_impl.cc.s
+
+mimo_sss_calculator_impl.o: mimo_sss_calculator_impl.cc.o
+.PHONY : mimo_sss_calculator_impl.o
+
+# target to build an object file
+mimo_sss_calculator_impl.cc.o:
+	cd /home/maier/gr-lte/build-cb && $(MAKE) -f lib/CMakeFiles/gnuradio-lte.dir/build.make lib/CMakeFiles/gnuradio-lte.dir/mimo_sss_calculator_impl.cc.o
+.PHONY : mimo_sss_calculator_impl.cc.o
+
+mimo_sss_calculator_impl.i: mimo_sss_calculator_impl.cc.i
+.PHONY : mimo_sss_calculator_impl.i
+
+# target to preprocess a source file
+mimo_sss_calculator_impl.cc.i:
+	cd /home/maier/gr-lte/build-cb && $(MAKE) -f lib/CMakeFiles/gnuradio-lte.dir/build.make lib/CMakeFiles/gnuradio-lte.dir/mimo_sss_calculator_impl.cc.i
+.PHONY : mimo_sss_calculator_impl.cc.i
+
+mimo_sss_calculator_impl.s: mimo_sss_calculator_impl.cc.s
+.PHONY : mimo_sss_calculator_impl.s
+
+# target to generate assembly for a file
+mimo_sss_calculator_impl.cc.s:
+	cd /home/maier/gr-lte/build-cb && $(MAKE) -f lib/CMakeFiles/gnuradio-lte.dir/build.make lib/CMakeFiles/gnuradio-lte.dir/mimo_sss_calculator_impl.cc.s
+.PHONY : mimo_sss_calculator_impl.cc.s
+
+mimo_sss_symbol_selector_impl.o: mimo_sss_symbol_selector_impl.cc.o
+.PHONY : mimo_sss_symbol_selector_impl.o
+
+# target to build an object file
+mimo_sss_symbol_selector_impl.cc.o:
+	cd /home/maier/gr-lte/build-cb && $(MAKE) -f lib/CMakeFiles/gnuradio-lte.dir/build.make lib/CMakeFiles/gnuradio-lte.dir/mimo_sss_symbol_selector_impl.cc.o
+.PHONY : mimo_sss_symbol_selector_impl.cc.o
+
+mimo_sss_symbol_selector_impl.i: mimo_sss_symbol_selector_impl.cc.i
+.PHONY : mimo_sss_symbol_selector_impl.i
+
+# target to preprocess a source file
+mimo_sss_symbol_selector_impl.cc.i:
+	cd /home/maier/gr-lte/build-cb && $(MAKE) -f lib/CMakeFiles/gnuradio-lte.dir/build.make lib/CMakeFiles/gnuradio-lte.dir/mimo_sss_symbol_selector_impl.cc.i
+.PHONY : mimo_sss_symbol_selector_impl.cc.i
+
+mimo_sss_symbol_selector_impl.s: mimo_sss_symbol_selector_impl.cc.s
+.PHONY : mimo_sss_symbol_selector_impl.s
+
+# target to generate assembly for a file
+mimo_sss_symbol_selector_impl.cc.s:
+	cd /home/maier/gr-lte/build-cb && $(MAKE) -f lib/CMakeFiles/gnuradio-lte.dir/build.make lib/CMakeFiles/gnuradio-lte.dir/mimo_sss_symbol_selector_impl.cc.s
+.PHONY : mimo_sss_symbol_selector_impl.cc.s
+
+mimo_sss_tagger_impl.o: mimo_sss_tagger_impl.cc.o
+.PHONY : mimo_sss_tagger_impl.o
+
+# target to build an object file
+mimo_sss_tagger_impl.cc.o:
+	cd /home/maier/gr-lte/build-cb && $(MAKE) -f lib/CMakeFiles/gnuradio-lte.dir/build.make lib/CMakeFiles/gnuradio-lte.dir/mimo_sss_tagger_impl.cc.o
+.PHONY : mimo_sss_tagger_impl.cc.o
+
+mimo_sss_tagger_impl.i: mimo_sss_tagger_impl.cc.i
+.PHONY : mimo_sss_tagger_impl.i
+
+# target to preprocess a source file
+mimo_sss_tagger_impl.cc.i:
+	cd /home/maier/gr-lte/build-cb && $(MAKE) -f lib/CMakeFiles/gnuradio-lte.dir/build.make lib/CMakeFiles/gnuradio-lte.dir/mimo_sss_tagger_impl.cc.i
+.PHONY : mimo_sss_tagger_impl.cc.i
+
+mimo_sss_tagger_impl.s: mimo_sss_tagger_impl.cc.s
+.PHONY : mimo_sss_tagger_impl.s
+
+# target to generate assembly for a file
+mimo_sss_tagger_impl.cc.s:
+	cd /home/maier/gr-lte/build-cb && $(MAKE) -f lib/CMakeFiles/gnuradio-lte.dir/build.make lib/CMakeFiles/gnuradio-lte.dir/mimo_sss_tagger_impl.cc.s
+.PHONY : mimo_sss_tagger_impl.cc.s
 
 pbch_demux_vcvc_impl.o: pbch_demux_vcvc_impl.cc.o
 .PHONY : pbch_demux_vcvc_impl.o
@@ -982,7 +1070,6 @@ help:
 	@echo "... gnuradio-lte"
 	@echo "... install"
 	@echo "... install/local"
-	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... test"
@@ -1026,6 +1113,18 @@ help:
 	@echo "... mimo_pss_tagger_impl.o"
 	@echo "... mimo_pss_tagger_impl.i"
 	@echo "... mimo_pss_tagger_impl.s"
+	@echo "... mimo_remove_cp_impl.o"
+	@echo "... mimo_remove_cp_impl.i"
+	@echo "... mimo_remove_cp_impl.s"
+	@echo "... mimo_sss_calculator_impl.o"
+	@echo "... mimo_sss_calculator_impl.i"
+	@echo "... mimo_sss_calculator_impl.s"
+	@echo "... mimo_sss_symbol_selector_impl.o"
+	@echo "... mimo_sss_symbol_selector_impl.i"
+	@echo "... mimo_sss_symbol_selector_impl.s"
+	@echo "... mimo_sss_tagger_impl.o"
+	@echo "... mimo_sss_tagger_impl.i"
+	@echo "... mimo_sss_tagger_impl.s"
 	@echo "... pbch_demux_vcvc_impl.o"
 	@echo "... pbch_demux_vcvc_impl.i"
 	@echo "... pbch_demux_vcvc_impl.s"

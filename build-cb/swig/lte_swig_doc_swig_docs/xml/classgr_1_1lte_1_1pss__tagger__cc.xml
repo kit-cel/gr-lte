@@ -110,24 +110,24 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="81">
+      <node id="97">
         <label>sync_block</label>
       </node>
-      <node id="80">
+      <node id="96">
         <label>gr::lte::pss_tagger_cc</label>
         <link refid="classgr_1_1lte_1_1pss__tagger__cc"/>
-        <childnode refid="81" relation="public-inheritance">
+        <childnode refid="97" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="83">
+      <node id="99">
         <label>sync_block</label>
       </node>
-      <node id="82">
+      <node id="98">
         <label>gr::lte::pss_tagger_cc</label>
         <link refid="classgr_1_1lte_1_1pss__tagger__cc"/>
-        <childnode refid="83" relation="public-inheritance">
+        <childnode refid="99" relation="public-inheritance">
         </childnode>
       </node>
     </collaborationgraph>

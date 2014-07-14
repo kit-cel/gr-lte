@@ -67,6 +67,10 @@ IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
     "/home/maier/gr-lte/grc/lte_mimo_pss_tagger.xml"
     "/home/maier/gr-lte/grc/lte_mimo_pss_coarse_control.xml"
     "/home/maier/gr-lte/grc/lte_mimo_pss_freq_sync.xml"
+    "/home/maier/gr-lte/grc/lte_mimo_sss_symbol_selector.xml"
+    "/home/maier/gr-lte/grc/lte_mimo_sss_calculator.xml"
+    "/home/maier/gr-lte/grc/lte_mimo_sss_tagger.xml"
+    "/home/maier/gr-lte/grc/lte_mimo_remove_cp.xml"
     )
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 

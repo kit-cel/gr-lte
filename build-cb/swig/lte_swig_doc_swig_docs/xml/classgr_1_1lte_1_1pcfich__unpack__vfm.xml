@@ -84,24 +84,24 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="63">
+      <node id="79">
         <label>sync_block</label>
       </node>
-      <node id="62">
+      <node id="78">
         <label>gr::lte::pcfich_unpack_vfm</label>
         <link refid="classgr_1_1lte_1_1pcfich__unpack__vfm"/>
-        <childnode refid="63" relation="public-inheritance">
+        <childnode refid="79" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="65">
+      <node id="81">
         <label>sync_block</label>
       </node>
-      <node id="64">
+      <node id="80">
         <label>gr::lte::pcfich_unpack_vfm</label>
         <link refid="classgr_1_1lte_1_1pcfich__unpack__vfm"/>
-        <childnode refid="65" relation="public-inheritance">
+        <childnode refid="81" relation="public-inheritance">
         </childnode>
       </node>
     </collaborationgraph>

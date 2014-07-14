@@ -126,7 +126,7 @@ Params: (NONE)"
 
 To avoid accidental use of raw pointers, lte::mimo_pss_coarse_sync's constructor is in a private implementation class. lte::mimo_pss_coarse_sync::make is the public interface for creating new instances.
 
-Params: (syncl, rxant)"
+Params: (fftl, syncl, rxant)"
 
 %feature("docstring") gr::lte::mimo_pss_fine_sync "<+description of block+>"
 
@@ -151,6 +151,38 @@ Params: (fftl, rxant, sig)"
 To avoid accidental use of raw pointers, lte::mimo_pss_tagger's constructor is in a private implementation class. lte::mimo_pss_tagger::make is the public interface for creating new instances.
 
 Params: (fftl)"
+
+%feature("docstring") gr::lte::mimo_remove_cp "<+description of block+>"
+
+%feature("docstring") gr::lte::mimo_remove_cp::make "Return a shared_ptr to a new instance of lte::mimo_remove_cp.
+
+To avoid accidental use of raw pointers, lte::mimo_remove_cp's constructor is in a private implementation class. lte::mimo_remove_cp::make is the public interface for creating new instances.
+
+Params: (fflt, rxant, key)"
+
+%feature("docstring") gr::lte::mimo_sss_calculator "<+description of block+>"
+
+%feature("docstring") gr::lte::mimo_sss_calculator::make "Return a shared_ptr to a new instance of lte::mimo_sss_calculator.
+
+To avoid accidental use of raw pointers, lte::mimo_sss_calculator's constructor is in a private implementation class. lte::mimo_sss_calculator::make is the public interface for creating new instances.
+
+Params: (fftl, rxant)"
+
+%feature("docstring") gr::lte::mimo_sss_symbol_selector "<+description of block+>"
+
+%feature("docstring") gr::lte::mimo_sss_symbol_selector::make "Return a shared_ptr to a new instance of lte::mimo_sss_symbol_selector.
+
+To avoid accidental use of raw pointers, lte::mimo_sss_symbol_selector's constructor is in a private implementation class. lte::mimo_sss_symbol_selector::make is the public interface for creating new instances.
+
+Params: (fftl, rxant)"
+
+%feature("docstring") gr::lte::mimo_sss_tagger "<+description of block+>"
+
+%feature("docstring") gr::lte::mimo_sss_tagger::make "Return a shared_ptr to a new instance of lte::mimo_sss_tagger.
+
+To avoid accidental use of raw pointers, lte::mimo_sss_tagger's constructor is in a private implementation class. lte::mimo_sss_tagger::make is the public interface for creating new instances.
+
+Params: (fftl, rxant)"
 
 %feature("docstring") gr::lte::pbch_demux_vcvc "Demultiplex PBCH data from resource grid."
 
@@ -245,6 +277,10 @@ Params: (NONE)"
 Params: (NONE)"
 
 %feature("docstring") gr::lte::pss::gen_pss_t "
+
+Params: (zc_t, cell_id, len)"
+
+%feature("docstring") gr::lte::pss::gen_conj_pss_t "
 
 Params: (zc_t, cell_id, len)"
 

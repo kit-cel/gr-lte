@@ -41,6 +41,8 @@
 #include "lte/mimo_pss_freq_sync.h"
 #include "lte/mimo_sss_symbol_selector.h"
 #include "lte/mimo_sss_calculator.h"
+#include "lte/mimo_sss_tagger.h"
+#include "lte/mimo_remove_cp.h"
 %}
 
 
@@ -110,3 +112,8 @@ GR_SWIG_BLOCK_MAGIC2(lte, mimo_pss_freq_sync);
 GR_SWIG_BLOCK_MAGIC2(lte, mimo_sss_symbol_selector);
 %include "lte/mimo_sss_calculator.h"
 GR_SWIG_BLOCK_MAGIC2(lte, mimo_sss_calculator);
+
+%include "lte/mimo_sss_tagger.h"
+GR_SWIG_BLOCK_MAGIC2(lte, mimo_sss_tagger);
+%include "lte/mimo_remove_cp.h"
+GR_SWIG_BLOCK_MAGIC2(lte, mimo_remove_cp);

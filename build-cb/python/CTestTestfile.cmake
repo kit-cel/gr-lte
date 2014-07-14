@@ -33,3 +33,7 @@ ADD_TEST(qa_descrambler_vfvf "/bin/sh" "/home/maier/gr-lte/build-cb/python/qa_de
 ADD_TEST(qa_pcfich_scramble_sequencer_m "/bin/sh" "/home/maier/gr-lte/build-cb/python/qa_pcfich_scramble_sequencer_m_test.sh")
 ADD_TEST(qa_pcfich_demux_vcvc "/bin/sh" "/home/maier/gr-lte/build-cb/python/qa_pcfich_demux_vcvc_test.sh")
 ADD_TEST(qa_mimo_pss_freq_sync "/bin/sh" "/home/maier/gr-lte/build-cb/python/qa_mimo_pss_freq_sync_test.sh")
+ADD_TEST(qa_mimo_sss_symbol_selector "/bin/sh" "/home/maier/gr-lte/build-cb/python/qa_mimo_sss_symbol_selector_test.sh")
+ADD_TEST(qa_mimo_sss_calculator "/bin/sh" "/home/maier/gr-lte/build-cb/python/qa_mimo_sss_calculator_test.sh")
+ADD_TEST(qa_mimo_sss_tagger "/bin/sh" "/home/maier/gr-lte/build-cb/python/qa_mimo_sss_tagger_test.sh")
+ADD_TEST(qa_mimo_remove_cp "/bin/sh" "/home/maier/gr-lte/build-cb/python/qa_mimo_remove_cp_test.sh")

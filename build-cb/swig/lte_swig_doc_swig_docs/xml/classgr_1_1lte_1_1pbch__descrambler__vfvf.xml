@@ -75,24 +75,24 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="54">
+      <node id="70">
         <label>gr::lte::pbch_descrambler_vfvf</label>
         <link refid="classgr_1_1lte_1_1pbch__descrambler__vfvf"/>
-        <childnode refid="55" relation="public-inheritance">
+        <childnode refid="71" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="55">
+      <node id="71">
         <label>gr::sync_interpolator</label>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="56">
+      <node id="72">
         <label>gr::lte::pbch_descrambler_vfvf</label>
         <link refid="classgr_1_1lte_1_1pbch__descrambler__vfvf"/>
-        <childnode refid="57" relation="public-inheritance">
+        <childnode refid="73" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="57">
+      <node id="73">
         <label>gr::sync_interpolator</label>
       </node>
     </collaborationgraph>

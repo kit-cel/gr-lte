@@ -8060,13 +8060,13 @@ class mimo_pss_coarse_sync(object):
     __repr__ = _swig_repr
     def make(*args, **kwargs):
         """
-        make(int syncl, int rxant) -> mimo_pss_coarse_sync_sptr
+        make(int fftl, int syncl, int rxant) -> mimo_pss_coarse_sync_sptr
 
         Return a shared_ptr to a new instance of lte::mimo_pss_coarse_sync.
 
         To avoid accidental use of raw pointers, lte::mimo_pss_coarse_sync's constructor is in a private implementation class. lte::mimo_pss_coarse_sync::make is the public interface for creating new instances.
 
-        Params: (syncl, rxant)
+        Params: (fftl, syncl, rxant)
         """
         return _lte_swig.mimo_pss_coarse_sync_make(*args, **kwargs)
 
@@ -8078,13 +8078,13 @@ mimo_pss_coarse_sync_swigregister(mimo_pss_coarse_sync)
 
 def mimo_pss_coarse_sync_make(*args, **kwargs):
   """
-    mimo_pss_coarse_sync_make(int syncl, int rxant) -> mimo_pss_coarse_sync_sptr
+    mimo_pss_coarse_sync_make(int fftl, int syncl, int rxant) -> mimo_pss_coarse_sync_sptr
 
     Return a shared_ptr to a new instance of lte::mimo_pss_coarse_sync.
 
     To avoid accidental use of raw pointers, lte::mimo_pss_coarse_sync's constructor is in a private implementation class. lte::mimo_pss_coarse_sync::make is the public interface for creating new instances.
 
-    Params: (syncl, rxant)
+    Params: (fftl, syncl, rxant)
     """
   return _lte_swig.mimo_pss_coarse_sync_make(*args, **kwargs)
 
@@ -8108,13 +8108,13 @@ class mimo_pss_coarse_sync_sptr(object):
     __del__ = lambda self : None;
     def make(self, *args, **kwargs):
         """
-        make(mimo_pss_coarse_sync_sptr self, int syncl, int rxant) -> mimo_pss_coarse_sync_sptr
+        make(mimo_pss_coarse_sync_sptr self, int fftl, int syncl, int rxant) -> mimo_pss_coarse_sync_sptr
 
         Return a shared_ptr to a new instance of lte::mimo_pss_coarse_sync.
 
         To avoid accidental use of raw pointers, lte::mimo_pss_coarse_sync's constructor is in a private implementation class. lte::mimo_pss_coarse_sync::make is the public interface for creating new instances.
 
-        Params: (syncl, rxant)
+        Params: (fftl, syncl, rxant)
         """
         return _lte_swig.mimo_pss_coarse_sync_sptr_make(self, *args, **kwargs)
 
@@ -9333,6 +9333,15 @@ class pss(object):
         return _lte_swig.pss_gen_pss_t(*args, **kwargs)
 
     gen_pss_t = staticmethod(gen_pss_t)
+    def gen_conj_pss_t(*args, **kwargs):
+        """
+        gen_conj_pss_t(gr_complex * zc_t, int cell_id, int len)
+
+        Params: (zc_t, cell_id, len)
+        """
+        return _lte_swig.pss_gen_conj_pss_t(*args, **kwargs)
+
+    gen_conj_pss_t = staticmethod(gen_conj_pss_t)
     def zc(*args, **kwargs):
         """
         zc(gr_complex * zc, int cell_id)
@@ -9352,6 +9361,14 @@ def pss_gen_pss_t(*args, **kwargs):
     Params: (zc_t, cell_id, len)
     """
   return _lte_swig.pss_gen_pss_t(*args, **kwargs)
+
+def pss_gen_conj_pss_t(*args, **kwargs):
+  """
+    pss_gen_conj_pss_t(gr_complex * zc_t, int cell_id, int len)
+
+    Params: (zc_t, cell_id, len)
+    """
+  return _lte_swig.pss_gen_conj_pss_t(*args, **kwargs)
 
 def pss_zc(*args, **kwargs):
   """
@@ -9674,6 +9691,1262 @@ mimo_pss_freq_sync_sptr_swigregister(mimo_pss_freq_sync_sptr)
 
 mimo_pss_freq_sync_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.name(), self.unique_id())
 mimo_pss_freq_sync = mimo_pss_freq_sync.make;
+
+class mimo_sss_symbol_selector(object):
+    """<+description of block+>"""
+    thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+    def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined")
+    __repr__ = _swig_repr
+    def make(*args, **kwargs):
+        """
+        make(int fftl, int rxant) -> mimo_sss_symbol_selector_sptr
+
+        Return a shared_ptr to a new instance of lte::mimo_sss_symbol_selector.
+
+        To avoid accidental use of raw pointers, lte::mimo_sss_symbol_selector's constructor is in a private implementation class. lte::mimo_sss_symbol_selector::make is the public interface for creating new instances.
+
+        Params: (fftl, rxant)
+        """
+        return _lte_swig.mimo_sss_symbol_selector_make(*args, **kwargs)
+
+    make = staticmethod(make)
+    __swig_destroy__ = _lte_swig.delete_mimo_sss_symbol_selector
+    __del__ = lambda self : None;
+mimo_sss_symbol_selector_swigregister = _lte_swig.mimo_sss_symbol_selector_swigregister
+mimo_sss_symbol_selector_swigregister(mimo_sss_symbol_selector)
+
+def mimo_sss_symbol_selector_make(*args, **kwargs):
+  """
+    mimo_sss_symbol_selector_make(int fftl, int rxant) -> mimo_sss_symbol_selector_sptr
+
+    Return a shared_ptr to a new instance of lte::mimo_sss_symbol_selector.
+
+    To avoid accidental use of raw pointers, lte::mimo_sss_symbol_selector's constructor is in a private implementation class. lte::mimo_sss_symbol_selector::make is the public interface for creating new instances.
+
+    Params: (fftl, rxant)
+    """
+  return _lte_swig.mimo_sss_symbol_selector_make(*args, **kwargs)
+
+class mimo_sss_symbol_selector_sptr(object):
+    """Proxy of C++ boost::shared_ptr<(gr::lte::mimo_sss_symbol_selector)> class"""
+    thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+    __repr__ = _swig_repr
+    def __init__(self, *args): 
+        """
+        __init__(boost::shared_ptr<(gr::lte::mimo_sss_symbol_selector)> self) -> mimo_sss_symbol_selector_sptr
+        __init__(boost::shared_ptr<(gr::lte::mimo_sss_symbol_selector)> self, mimo_sss_symbol_selector p) -> mimo_sss_symbol_selector_sptr
+        """
+        this = _lte_swig.new_mimo_sss_symbol_selector_sptr(*args)
+        try: self.this.append(this)
+        except: self.this = this
+    def __deref__(self):
+        """__deref__(mimo_sss_symbol_selector_sptr self) -> mimo_sss_symbol_selector"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr___deref__(self)
+
+    __swig_destroy__ = _lte_swig.delete_mimo_sss_symbol_selector_sptr
+    __del__ = lambda self : None;
+    def make(self, *args, **kwargs):
+        """
+        make(mimo_sss_symbol_selector_sptr self, int fftl, int rxant) -> mimo_sss_symbol_selector_sptr
+
+        Return a shared_ptr to a new instance of lte::mimo_sss_symbol_selector.
+
+        To avoid accidental use of raw pointers, lte::mimo_sss_symbol_selector's constructor is in a private implementation class. lte::mimo_sss_symbol_selector::make is the public interface for creating new instances.
+
+        Params: (fftl, rxant)
+        """
+        return _lte_swig.mimo_sss_symbol_selector_sptr_make(self, *args, **kwargs)
+
+    def history(self):
+        """history(mimo_sss_symbol_selector_sptr self) -> unsigned int"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr_history(self)
+
+    def declare_sample_delay(self, *args):
+        """
+        declare_sample_delay(mimo_sss_symbol_selector_sptr self, int which, int delay)
+        declare_sample_delay(mimo_sss_symbol_selector_sptr self, unsigned int delay)
+        """
+        return _lte_swig.mimo_sss_symbol_selector_sptr_declare_sample_delay(self, *args)
+
+    def sample_delay(self, *args, **kwargs):
+        """sample_delay(mimo_sss_symbol_selector_sptr self, int which) -> unsigned int"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr_sample_delay(self, *args, **kwargs)
+
+    def output_multiple(self):
+        """output_multiple(mimo_sss_symbol_selector_sptr self) -> int"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr_output_multiple(self)
+
+    def relative_rate(self):
+        """relative_rate(mimo_sss_symbol_selector_sptr self) -> double"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr_relative_rate(self)
+
+    def start(self):
+        """start(mimo_sss_symbol_selector_sptr self) -> bool"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr_start(self)
+
+    def stop(self):
+        """stop(mimo_sss_symbol_selector_sptr self) -> bool"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr_stop(self)
+
+    def nitems_read(self, *args, **kwargs):
+        """nitems_read(mimo_sss_symbol_selector_sptr self, unsigned int which_input) -> uint64_t"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr_nitems_read(self, *args, **kwargs)
+
+    def nitems_written(self, *args, **kwargs):
+        """nitems_written(mimo_sss_symbol_selector_sptr self, unsigned int which_output) -> uint64_t"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr_nitems_written(self, *args, **kwargs)
+
+    def max_noutput_items(self):
+        """max_noutput_items(mimo_sss_symbol_selector_sptr self) -> int"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr_max_noutput_items(self)
+
+    def set_max_noutput_items(self, *args, **kwargs):
+        """set_max_noutput_items(mimo_sss_symbol_selector_sptr self, int m)"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr_set_max_noutput_items(self, *args, **kwargs)
+
+    def unset_max_noutput_items(self):
+        """unset_max_noutput_items(mimo_sss_symbol_selector_sptr self)"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr_unset_max_noutput_items(self)
+
+    def is_set_max_noutput_items(self):
+        """is_set_max_noutput_items(mimo_sss_symbol_selector_sptr self) -> bool"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr_is_set_max_noutput_items(self)
+
+    def set_min_noutput_items(self, *args, **kwargs):
+        """set_min_noutput_items(mimo_sss_symbol_selector_sptr self, int m)"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr_set_min_noutput_items(self, *args, **kwargs)
+
+    def min_noutput_items(self):
+        """min_noutput_items(mimo_sss_symbol_selector_sptr self) -> int"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr_min_noutput_items(self)
+
+    def max_output_buffer(self, *args, **kwargs):
+        """max_output_buffer(mimo_sss_symbol_selector_sptr self, int i) -> long"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr_max_output_buffer(self, *args, **kwargs)
+
+    def set_max_output_buffer(self, *args):
+        """
+        set_max_output_buffer(mimo_sss_symbol_selector_sptr self, long max_output_buffer)
+        set_max_output_buffer(mimo_sss_symbol_selector_sptr self, int port, long max_output_buffer)
+        """
+        return _lte_swig.mimo_sss_symbol_selector_sptr_set_max_output_buffer(self, *args)
+
+    def min_output_buffer(self, *args, **kwargs):
+        """min_output_buffer(mimo_sss_symbol_selector_sptr self, int i) -> long"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr_min_output_buffer(self, *args, **kwargs)
+
+    def set_min_output_buffer(self, *args):
+        """
+        set_min_output_buffer(mimo_sss_symbol_selector_sptr self, long min_output_buffer)
+        set_min_output_buffer(mimo_sss_symbol_selector_sptr self, int port, long min_output_buffer)
+        """
+        return _lte_swig.mimo_sss_symbol_selector_sptr_set_min_output_buffer(self, *args)
+
+    def pc_noutput_items(self):
+        """pc_noutput_items(mimo_sss_symbol_selector_sptr self) -> float"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr_pc_noutput_items(self)
+
+    def pc_noutput_items_avg(self):
+        """pc_noutput_items_avg(mimo_sss_symbol_selector_sptr self) -> float"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr_pc_noutput_items_avg(self)
+
+    def pc_noutput_items_var(self):
+        """pc_noutput_items_var(mimo_sss_symbol_selector_sptr self) -> float"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr_pc_noutput_items_var(self)
+
+    def pc_nproduced(self):
+        """pc_nproduced(mimo_sss_symbol_selector_sptr self) -> float"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr_pc_nproduced(self)
+
+    def pc_nproduced_avg(self):
+        """pc_nproduced_avg(mimo_sss_symbol_selector_sptr self) -> float"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr_pc_nproduced_avg(self)
+
+    def pc_nproduced_var(self):
+        """pc_nproduced_var(mimo_sss_symbol_selector_sptr self) -> float"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr_pc_nproduced_var(self)
+
+    def pc_input_buffers_full(self, *args):
+        """
+        pc_input_buffers_full(mimo_sss_symbol_selector_sptr self, int which) -> float
+        pc_input_buffers_full(mimo_sss_symbol_selector_sptr self) -> pmt_vector_float
+        """
+        return _lte_swig.mimo_sss_symbol_selector_sptr_pc_input_buffers_full(self, *args)
+
+    def pc_input_buffers_full_avg(self, *args):
+        """
+        pc_input_buffers_full_avg(mimo_sss_symbol_selector_sptr self, int which) -> float
+        pc_input_buffers_full_avg(mimo_sss_symbol_selector_sptr self) -> pmt_vector_float
+        """
+        return _lte_swig.mimo_sss_symbol_selector_sptr_pc_input_buffers_full_avg(self, *args)
+
+    def pc_input_buffers_full_var(self, *args):
+        """
+        pc_input_buffers_full_var(mimo_sss_symbol_selector_sptr self, int which) -> float
+        pc_input_buffers_full_var(mimo_sss_symbol_selector_sptr self) -> pmt_vector_float
+        """
+        return _lte_swig.mimo_sss_symbol_selector_sptr_pc_input_buffers_full_var(self, *args)
+
+    def pc_output_buffers_full(self, *args):
+        """
+        pc_output_buffers_full(mimo_sss_symbol_selector_sptr self, int which) -> float
+        pc_output_buffers_full(mimo_sss_symbol_selector_sptr self) -> pmt_vector_float
+        """
+        return _lte_swig.mimo_sss_symbol_selector_sptr_pc_output_buffers_full(self, *args)
+
+    def pc_output_buffers_full_avg(self, *args):
+        """
+        pc_output_buffers_full_avg(mimo_sss_symbol_selector_sptr self, int which) -> float
+        pc_output_buffers_full_avg(mimo_sss_symbol_selector_sptr self) -> pmt_vector_float
+        """
+        return _lte_swig.mimo_sss_symbol_selector_sptr_pc_output_buffers_full_avg(self, *args)
+
+    def pc_output_buffers_full_var(self, *args):
+        """
+        pc_output_buffers_full_var(mimo_sss_symbol_selector_sptr self, int which) -> float
+        pc_output_buffers_full_var(mimo_sss_symbol_selector_sptr self) -> pmt_vector_float
+        """
+        return _lte_swig.mimo_sss_symbol_selector_sptr_pc_output_buffers_full_var(self, *args)
+
+    def pc_work_time(self):
+        """pc_work_time(mimo_sss_symbol_selector_sptr self) -> float"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr_pc_work_time(self)
+
+    def pc_work_time_avg(self):
+        """pc_work_time_avg(mimo_sss_symbol_selector_sptr self) -> float"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr_pc_work_time_avg(self)
+
+    def pc_work_time_var(self):
+        """pc_work_time_var(mimo_sss_symbol_selector_sptr self) -> float"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr_pc_work_time_var(self)
+
+    def pc_work_time_total(self):
+        """pc_work_time_total(mimo_sss_symbol_selector_sptr self) -> float"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr_pc_work_time_total(self)
+
+    def set_processor_affinity(self, *args, **kwargs):
+        """set_processor_affinity(mimo_sss_symbol_selector_sptr self, std::vector< int,std::allocator< int > > const & mask)"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr_set_processor_affinity(self, *args, **kwargs)
+
+    def unset_processor_affinity(self):
+        """unset_processor_affinity(mimo_sss_symbol_selector_sptr self)"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr_unset_processor_affinity(self)
+
+    def processor_affinity(self):
+        """processor_affinity(mimo_sss_symbol_selector_sptr self) -> std::vector< int,std::allocator< int > >"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr_processor_affinity(self)
+
+    def active_thread_priority(self):
+        """active_thread_priority(mimo_sss_symbol_selector_sptr self) -> int"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr_active_thread_priority(self)
+
+    def thread_priority(self):
+        """thread_priority(mimo_sss_symbol_selector_sptr self) -> int"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr_thread_priority(self)
+
+    def set_thread_priority(self, *args, **kwargs):
+        """set_thread_priority(mimo_sss_symbol_selector_sptr self, int priority) -> int"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr_set_thread_priority(self, *args, **kwargs)
+
+    def name(self):
+        """name(mimo_sss_symbol_selector_sptr self) -> std::string"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr_name(self)
+
+    def symbol_name(self):
+        """symbol_name(mimo_sss_symbol_selector_sptr self) -> std::string"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr_symbol_name(self)
+
+    def input_signature(self):
+        """input_signature(mimo_sss_symbol_selector_sptr self) -> io_signature_sptr"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr_input_signature(self)
+
+    def output_signature(self):
+        """output_signature(mimo_sss_symbol_selector_sptr self) -> io_signature_sptr"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr_output_signature(self)
+
+    def unique_id(self):
+        """unique_id(mimo_sss_symbol_selector_sptr self) -> long"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr_unique_id(self)
+
+    def to_basic_block(self):
+        """to_basic_block(mimo_sss_symbol_selector_sptr self) -> basic_block_sptr"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr_to_basic_block(self)
+
+    def check_topology(self, *args, **kwargs):
+        """check_topology(mimo_sss_symbol_selector_sptr self, int ninputs, int noutputs) -> bool"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr_check_topology(self, *args, **kwargs)
+
+    def alias(self):
+        """alias(mimo_sss_symbol_selector_sptr self) -> std::string"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr_alias(self)
+
+    def set_block_alias(self, *args, **kwargs):
+        """set_block_alias(mimo_sss_symbol_selector_sptr self, std::string name)"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr_set_block_alias(self, *args, **kwargs)
+
+    def _post(self, *args, **kwargs):
+        """_post(mimo_sss_symbol_selector_sptr self, swig_int_ptr which_port, swig_int_ptr msg)"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr__post(self, *args, **kwargs)
+
+    def message_ports_in(self):
+        """message_ports_in(mimo_sss_symbol_selector_sptr self) -> swig_int_ptr"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr_message_ports_in(self)
+
+    def message_ports_out(self):
+        """message_ports_out(mimo_sss_symbol_selector_sptr self) -> swig_int_ptr"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr_message_ports_out(self)
+
+    def message_subscribers(self, *args, **kwargs):
+        """message_subscribers(mimo_sss_symbol_selector_sptr self, swig_int_ptr which_port) -> swig_int_ptr"""
+        return _lte_swig.mimo_sss_symbol_selector_sptr_message_subscribers(self, *args, **kwargs)
+
+mimo_sss_symbol_selector_sptr_swigregister = _lte_swig.mimo_sss_symbol_selector_sptr_swigregister
+mimo_sss_symbol_selector_sptr_swigregister(mimo_sss_symbol_selector_sptr)
+
+mimo_sss_symbol_selector_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.name(), self.unique_id())
+mimo_sss_symbol_selector = mimo_sss_symbol_selector.make;
+
+class mimo_sss_calculator(object):
+    """<+description of block+>"""
+    thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+    def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined")
+    __repr__ = _swig_repr
+    def make(*args, **kwargs):
+        """
+        make(int fftl, int rxant) -> mimo_sss_calculator_sptr
+
+        Return a shared_ptr to a new instance of lte::mimo_sss_calculator.
+
+        To avoid accidental use of raw pointers, lte::mimo_sss_calculator's constructor is in a private implementation class. lte::mimo_sss_calculator::make is the public interface for creating new instances.
+
+        Params: (fftl, rxant)
+        """
+        return _lte_swig.mimo_sss_calculator_make(*args, **kwargs)
+
+    make = staticmethod(make)
+    __swig_destroy__ = _lte_swig.delete_mimo_sss_calculator
+    __del__ = lambda self : None;
+mimo_sss_calculator_swigregister = _lte_swig.mimo_sss_calculator_swigregister
+mimo_sss_calculator_swigregister(mimo_sss_calculator)
+
+def mimo_sss_calculator_make(*args, **kwargs):
+  """
+    mimo_sss_calculator_make(int fftl, int rxant) -> mimo_sss_calculator_sptr
+
+    Return a shared_ptr to a new instance of lte::mimo_sss_calculator.
+
+    To avoid accidental use of raw pointers, lte::mimo_sss_calculator's constructor is in a private implementation class. lte::mimo_sss_calculator::make is the public interface for creating new instances.
+
+    Params: (fftl, rxant)
+    """
+  return _lte_swig.mimo_sss_calculator_make(*args, **kwargs)
+
+class mimo_sss_calculator_sptr(object):
+    """Proxy of C++ boost::shared_ptr<(gr::lte::mimo_sss_calculator)> class"""
+    thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+    __repr__ = _swig_repr
+    def __init__(self, *args): 
+        """
+        __init__(boost::shared_ptr<(gr::lte::mimo_sss_calculator)> self) -> mimo_sss_calculator_sptr
+        __init__(boost::shared_ptr<(gr::lte::mimo_sss_calculator)> self, mimo_sss_calculator p) -> mimo_sss_calculator_sptr
+        """
+        this = _lte_swig.new_mimo_sss_calculator_sptr(*args)
+        try: self.this.append(this)
+        except: self.this = this
+    def __deref__(self):
+        """__deref__(mimo_sss_calculator_sptr self) -> mimo_sss_calculator"""
+        return _lte_swig.mimo_sss_calculator_sptr___deref__(self)
+
+    __swig_destroy__ = _lte_swig.delete_mimo_sss_calculator_sptr
+    __del__ = lambda self : None;
+    def make(self, *args, **kwargs):
+        """
+        make(mimo_sss_calculator_sptr self, int fftl, int rxant) -> mimo_sss_calculator_sptr
+
+        Return a shared_ptr to a new instance of lte::mimo_sss_calculator.
+
+        To avoid accidental use of raw pointers, lte::mimo_sss_calculator's constructor is in a private implementation class. lte::mimo_sss_calculator::make is the public interface for creating new instances.
+
+        Params: (fftl, rxant)
+        """
+        return _lte_swig.mimo_sss_calculator_sptr_make(self, *args, **kwargs)
+
+    def history(self):
+        """history(mimo_sss_calculator_sptr self) -> unsigned int"""
+        return _lte_swig.mimo_sss_calculator_sptr_history(self)
+
+    def declare_sample_delay(self, *args):
+        """
+        declare_sample_delay(mimo_sss_calculator_sptr self, int which, int delay)
+        declare_sample_delay(mimo_sss_calculator_sptr self, unsigned int delay)
+        """
+        return _lte_swig.mimo_sss_calculator_sptr_declare_sample_delay(self, *args)
+
+    def sample_delay(self, *args, **kwargs):
+        """sample_delay(mimo_sss_calculator_sptr self, int which) -> unsigned int"""
+        return _lte_swig.mimo_sss_calculator_sptr_sample_delay(self, *args, **kwargs)
+
+    def output_multiple(self):
+        """output_multiple(mimo_sss_calculator_sptr self) -> int"""
+        return _lte_swig.mimo_sss_calculator_sptr_output_multiple(self)
+
+    def relative_rate(self):
+        """relative_rate(mimo_sss_calculator_sptr self) -> double"""
+        return _lte_swig.mimo_sss_calculator_sptr_relative_rate(self)
+
+    def start(self):
+        """start(mimo_sss_calculator_sptr self) -> bool"""
+        return _lte_swig.mimo_sss_calculator_sptr_start(self)
+
+    def stop(self):
+        """stop(mimo_sss_calculator_sptr self) -> bool"""
+        return _lte_swig.mimo_sss_calculator_sptr_stop(self)
+
+    def nitems_read(self, *args, **kwargs):
+        """nitems_read(mimo_sss_calculator_sptr self, unsigned int which_input) -> uint64_t"""
+        return _lte_swig.mimo_sss_calculator_sptr_nitems_read(self, *args, **kwargs)
+
+    def nitems_written(self, *args, **kwargs):
+        """nitems_written(mimo_sss_calculator_sptr self, unsigned int which_output) -> uint64_t"""
+        return _lte_swig.mimo_sss_calculator_sptr_nitems_written(self, *args, **kwargs)
+
+    def max_noutput_items(self):
+        """max_noutput_items(mimo_sss_calculator_sptr self) -> int"""
+        return _lte_swig.mimo_sss_calculator_sptr_max_noutput_items(self)
+
+    def set_max_noutput_items(self, *args, **kwargs):
+        """set_max_noutput_items(mimo_sss_calculator_sptr self, int m)"""
+        return _lte_swig.mimo_sss_calculator_sptr_set_max_noutput_items(self, *args, **kwargs)
+
+    def unset_max_noutput_items(self):
+        """unset_max_noutput_items(mimo_sss_calculator_sptr self)"""
+        return _lte_swig.mimo_sss_calculator_sptr_unset_max_noutput_items(self)
+
+    def is_set_max_noutput_items(self):
+        """is_set_max_noutput_items(mimo_sss_calculator_sptr self) -> bool"""
+        return _lte_swig.mimo_sss_calculator_sptr_is_set_max_noutput_items(self)
+
+    def set_min_noutput_items(self, *args, **kwargs):
+        """set_min_noutput_items(mimo_sss_calculator_sptr self, int m)"""
+        return _lte_swig.mimo_sss_calculator_sptr_set_min_noutput_items(self, *args, **kwargs)
+
+    def min_noutput_items(self):
+        """min_noutput_items(mimo_sss_calculator_sptr self) -> int"""
+        return _lte_swig.mimo_sss_calculator_sptr_min_noutput_items(self)
+
+    def max_output_buffer(self, *args, **kwargs):
+        """max_output_buffer(mimo_sss_calculator_sptr self, int i) -> long"""
+        return _lte_swig.mimo_sss_calculator_sptr_max_output_buffer(self, *args, **kwargs)
+
+    def set_max_output_buffer(self, *args):
+        """
+        set_max_output_buffer(mimo_sss_calculator_sptr self, long max_output_buffer)
+        set_max_output_buffer(mimo_sss_calculator_sptr self, int port, long max_output_buffer)
+        """
+        return _lte_swig.mimo_sss_calculator_sptr_set_max_output_buffer(self, *args)
+
+    def min_output_buffer(self, *args, **kwargs):
+        """min_output_buffer(mimo_sss_calculator_sptr self, int i) -> long"""
+        return _lte_swig.mimo_sss_calculator_sptr_min_output_buffer(self, *args, **kwargs)
+
+    def set_min_output_buffer(self, *args):
+        """
+        set_min_output_buffer(mimo_sss_calculator_sptr self, long min_output_buffer)
+        set_min_output_buffer(mimo_sss_calculator_sptr self, int port, long min_output_buffer)
+        """
+        return _lte_swig.mimo_sss_calculator_sptr_set_min_output_buffer(self, *args)
+
+    def pc_noutput_items(self):
+        """pc_noutput_items(mimo_sss_calculator_sptr self) -> float"""
+        return _lte_swig.mimo_sss_calculator_sptr_pc_noutput_items(self)
+
+    def pc_noutput_items_avg(self):
+        """pc_noutput_items_avg(mimo_sss_calculator_sptr self) -> float"""
+        return _lte_swig.mimo_sss_calculator_sptr_pc_noutput_items_avg(self)
+
+    def pc_noutput_items_var(self):
+        """pc_noutput_items_var(mimo_sss_calculator_sptr self) -> float"""
+        return _lte_swig.mimo_sss_calculator_sptr_pc_noutput_items_var(self)
+
+    def pc_nproduced(self):
+        """pc_nproduced(mimo_sss_calculator_sptr self) -> float"""
+        return _lte_swig.mimo_sss_calculator_sptr_pc_nproduced(self)
+
+    def pc_nproduced_avg(self):
+        """pc_nproduced_avg(mimo_sss_calculator_sptr self) -> float"""
+        return _lte_swig.mimo_sss_calculator_sptr_pc_nproduced_avg(self)
+
+    def pc_nproduced_var(self):
+        """pc_nproduced_var(mimo_sss_calculator_sptr self) -> float"""
+        return _lte_swig.mimo_sss_calculator_sptr_pc_nproduced_var(self)
+
+    def pc_input_buffers_full(self, *args):
+        """
+        pc_input_buffers_full(mimo_sss_calculator_sptr self, int which) -> float
+        pc_input_buffers_full(mimo_sss_calculator_sptr self) -> pmt_vector_float
+        """
+        return _lte_swig.mimo_sss_calculator_sptr_pc_input_buffers_full(self, *args)
+
+    def pc_input_buffers_full_avg(self, *args):
+        """
+        pc_input_buffers_full_avg(mimo_sss_calculator_sptr self, int which) -> float
+        pc_input_buffers_full_avg(mimo_sss_calculator_sptr self) -> pmt_vector_float
+        """
+        return _lte_swig.mimo_sss_calculator_sptr_pc_input_buffers_full_avg(self, *args)
+
+    def pc_input_buffers_full_var(self, *args):
+        """
+        pc_input_buffers_full_var(mimo_sss_calculator_sptr self, int which) -> float
+        pc_input_buffers_full_var(mimo_sss_calculator_sptr self) -> pmt_vector_float
+        """
+        return _lte_swig.mimo_sss_calculator_sptr_pc_input_buffers_full_var(self, *args)
+
+    def pc_output_buffers_full(self, *args):
+        """
+        pc_output_buffers_full(mimo_sss_calculator_sptr self, int which) -> float
+        pc_output_buffers_full(mimo_sss_calculator_sptr self) -> pmt_vector_float
+        """
+        return _lte_swig.mimo_sss_calculator_sptr_pc_output_buffers_full(self, *args)
+
+    def pc_output_buffers_full_avg(self, *args):
+        """
+        pc_output_buffers_full_avg(mimo_sss_calculator_sptr self, int which) -> float
+        pc_output_buffers_full_avg(mimo_sss_calculator_sptr self) -> pmt_vector_float
+        """
+        return _lte_swig.mimo_sss_calculator_sptr_pc_output_buffers_full_avg(self, *args)
+
+    def pc_output_buffers_full_var(self, *args):
+        """
+        pc_output_buffers_full_var(mimo_sss_calculator_sptr self, int which) -> float
+        pc_output_buffers_full_var(mimo_sss_calculator_sptr self) -> pmt_vector_float
+        """
+        return _lte_swig.mimo_sss_calculator_sptr_pc_output_buffers_full_var(self, *args)
+
+    def pc_work_time(self):
+        """pc_work_time(mimo_sss_calculator_sptr self) -> float"""
+        return _lte_swig.mimo_sss_calculator_sptr_pc_work_time(self)
+
+    def pc_work_time_avg(self):
+        """pc_work_time_avg(mimo_sss_calculator_sptr self) -> float"""
+        return _lte_swig.mimo_sss_calculator_sptr_pc_work_time_avg(self)
+
+    def pc_work_time_var(self):
+        """pc_work_time_var(mimo_sss_calculator_sptr self) -> float"""
+        return _lte_swig.mimo_sss_calculator_sptr_pc_work_time_var(self)
+
+    def pc_work_time_total(self):
+        """pc_work_time_total(mimo_sss_calculator_sptr self) -> float"""
+        return _lte_swig.mimo_sss_calculator_sptr_pc_work_time_total(self)
+
+    def set_processor_affinity(self, *args, **kwargs):
+        """set_processor_affinity(mimo_sss_calculator_sptr self, std::vector< int,std::allocator< int > > const & mask)"""
+        return _lte_swig.mimo_sss_calculator_sptr_set_processor_affinity(self, *args, **kwargs)
+
+    def unset_processor_affinity(self):
+        """unset_processor_affinity(mimo_sss_calculator_sptr self)"""
+        return _lte_swig.mimo_sss_calculator_sptr_unset_processor_affinity(self)
+
+    def processor_affinity(self):
+        """processor_affinity(mimo_sss_calculator_sptr self) -> std::vector< int,std::allocator< int > >"""
+        return _lte_swig.mimo_sss_calculator_sptr_processor_affinity(self)
+
+    def active_thread_priority(self):
+        """active_thread_priority(mimo_sss_calculator_sptr self) -> int"""
+        return _lte_swig.mimo_sss_calculator_sptr_active_thread_priority(self)
+
+    def thread_priority(self):
+        """thread_priority(mimo_sss_calculator_sptr self) -> int"""
+        return _lte_swig.mimo_sss_calculator_sptr_thread_priority(self)
+
+    def set_thread_priority(self, *args, **kwargs):
+        """set_thread_priority(mimo_sss_calculator_sptr self, int priority) -> int"""
+        return _lte_swig.mimo_sss_calculator_sptr_set_thread_priority(self, *args, **kwargs)
+
+    def name(self):
+        """name(mimo_sss_calculator_sptr self) -> std::string"""
+        return _lte_swig.mimo_sss_calculator_sptr_name(self)
+
+    def symbol_name(self):
+        """symbol_name(mimo_sss_calculator_sptr self) -> std::string"""
+        return _lte_swig.mimo_sss_calculator_sptr_symbol_name(self)
+
+    def input_signature(self):
+        """input_signature(mimo_sss_calculator_sptr self) -> io_signature_sptr"""
+        return _lte_swig.mimo_sss_calculator_sptr_input_signature(self)
+
+    def output_signature(self):
+        """output_signature(mimo_sss_calculator_sptr self) -> io_signature_sptr"""
+        return _lte_swig.mimo_sss_calculator_sptr_output_signature(self)
+
+    def unique_id(self):
+        """unique_id(mimo_sss_calculator_sptr self) -> long"""
+        return _lte_swig.mimo_sss_calculator_sptr_unique_id(self)
+
+    def to_basic_block(self):
+        """to_basic_block(mimo_sss_calculator_sptr self) -> basic_block_sptr"""
+        return _lte_swig.mimo_sss_calculator_sptr_to_basic_block(self)
+
+    def check_topology(self, *args, **kwargs):
+        """check_topology(mimo_sss_calculator_sptr self, int ninputs, int noutputs) -> bool"""
+        return _lte_swig.mimo_sss_calculator_sptr_check_topology(self, *args, **kwargs)
+
+    def alias(self):
+        """alias(mimo_sss_calculator_sptr self) -> std::string"""
+        return _lte_swig.mimo_sss_calculator_sptr_alias(self)
+
+    def set_block_alias(self, *args, **kwargs):
+        """set_block_alias(mimo_sss_calculator_sptr self, std::string name)"""
+        return _lte_swig.mimo_sss_calculator_sptr_set_block_alias(self, *args, **kwargs)
+
+    def _post(self, *args, **kwargs):
+        """_post(mimo_sss_calculator_sptr self, swig_int_ptr which_port, swig_int_ptr msg)"""
+        return _lte_swig.mimo_sss_calculator_sptr__post(self, *args, **kwargs)
+
+    def message_ports_in(self):
+        """message_ports_in(mimo_sss_calculator_sptr self) -> swig_int_ptr"""
+        return _lte_swig.mimo_sss_calculator_sptr_message_ports_in(self)
+
+    def message_ports_out(self):
+        """message_ports_out(mimo_sss_calculator_sptr self) -> swig_int_ptr"""
+        return _lte_swig.mimo_sss_calculator_sptr_message_ports_out(self)
+
+    def message_subscribers(self, *args, **kwargs):
+        """message_subscribers(mimo_sss_calculator_sptr self, swig_int_ptr which_port) -> swig_int_ptr"""
+        return _lte_swig.mimo_sss_calculator_sptr_message_subscribers(self, *args, **kwargs)
+
+mimo_sss_calculator_sptr_swigregister = _lte_swig.mimo_sss_calculator_sptr_swigregister
+mimo_sss_calculator_sptr_swigregister(mimo_sss_calculator_sptr)
+
+mimo_sss_calculator_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.name(), self.unique_id())
+mimo_sss_calculator = mimo_sss_calculator.make;
+
+class mimo_sss_tagger(object):
+    """<+description of block+>"""
+    thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+    def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined")
+    __repr__ = _swig_repr
+    def make(*args, **kwargs):
+        """
+        make(int fftl, int rxant) -> mimo_sss_tagger_sptr
+
+        Return a shared_ptr to a new instance of lte::mimo_sss_tagger.
+
+        To avoid accidental use of raw pointers, lte::mimo_sss_tagger's constructor is in a private implementation class. lte::mimo_sss_tagger::make is the public interface for creating new instances.
+
+        Params: (fftl, rxant)
+        """
+        return _lte_swig.mimo_sss_tagger_make(*args, **kwargs)
+
+    make = staticmethod(make)
+    __swig_destroy__ = _lte_swig.delete_mimo_sss_tagger
+    __del__ = lambda self : None;
+mimo_sss_tagger_swigregister = _lte_swig.mimo_sss_tagger_swigregister
+mimo_sss_tagger_swigregister(mimo_sss_tagger)
+
+def mimo_sss_tagger_make(*args, **kwargs):
+  """
+    mimo_sss_tagger_make(int fftl, int rxant) -> mimo_sss_tagger_sptr
+
+    Return a shared_ptr to a new instance of lte::mimo_sss_tagger.
+
+    To avoid accidental use of raw pointers, lte::mimo_sss_tagger's constructor is in a private implementation class. lte::mimo_sss_tagger::make is the public interface for creating new instances.
+
+    Params: (fftl, rxant)
+    """
+  return _lte_swig.mimo_sss_tagger_make(*args, **kwargs)
+
+class mimo_sss_tagger_sptr(object):
+    """Proxy of C++ boost::shared_ptr<(gr::lte::mimo_sss_tagger)> class"""
+    thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+    __repr__ = _swig_repr
+    def __init__(self, *args): 
+        """
+        __init__(boost::shared_ptr<(gr::lte::mimo_sss_tagger)> self) -> mimo_sss_tagger_sptr
+        __init__(boost::shared_ptr<(gr::lte::mimo_sss_tagger)> self, mimo_sss_tagger p) -> mimo_sss_tagger_sptr
+        """
+        this = _lte_swig.new_mimo_sss_tagger_sptr(*args)
+        try: self.this.append(this)
+        except: self.this = this
+    def __deref__(self):
+        """__deref__(mimo_sss_tagger_sptr self) -> mimo_sss_tagger"""
+        return _lte_swig.mimo_sss_tagger_sptr___deref__(self)
+
+    __swig_destroy__ = _lte_swig.delete_mimo_sss_tagger_sptr
+    __del__ = lambda self : None;
+    def make(self, *args, **kwargs):
+        """
+        make(mimo_sss_tagger_sptr self, int fftl, int rxant) -> mimo_sss_tagger_sptr
+
+        Return a shared_ptr to a new instance of lte::mimo_sss_tagger.
+
+        To avoid accidental use of raw pointers, lte::mimo_sss_tagger's constructor is in a private implementation class. lte::mimo_sss_tagger::make is the public interface for creating new instances.
+
+        Params: (fftl, rxant)
+        """
+        return _lte_swig.mimo_sss_tagger_sptr_make(self, *args, **kwargs)
+
+    def history(self):
+        """history(mimo_sss_tagger_sptr self) -> unsigned int"""
+        return _lte_swig.mimo_sss_tagger_sptr_history(self)
+
+    def declare_sample_delay(self, *args):
+        """
+        declare_sample_delay(mimo_sss_tagger_sptr self, int which, int delay)
+        declare_sample_delay(mimo_sss_tagger_sptr self, unsigned int delay)
+        """
+        return _lte_swig.mimo_sss_tagger_sptr_declare_sample_delay(self, *args)
+
+    def sample_delay(self, *args, **kwargs):
+        """sample_delay(mimo_sss_tagger_sptr self, int which) -> unsigned int"""
+        return _lte_swig.mimo_sss_tagger_sptr_sample_delay(self, *args, **kwargs)
+
+    def output_multiple(self):
+        """output_multiple(mimo_sss_tagger_sptr self) -> int"""
+        return _lte_swig.mimo_sss_tagger_sptr_output_multiple(self)
+
+    def relative_rate(self):
+        """relative_rate(mimo_sss_tagger_sptr self) -> double"""
+        return _lte_swig.mimo_sss_tagger_sptr_relative_rate(self)
+
+    def start(self):
+        """start(mimo_sss_tagger_sptr self) -> bool"""
+        return _lte_swig.mimo_sss_tagger_sptr_start(self)
+
+    def stop(self):
+        """stop(mimo_sss_tagger_sptr self) -> bool"""
+        return _lte_swig.mimo_sss_tagger_sptr_stop(self)
+
+    def nitems_read(self, *args, **kwargs):
+        """nitems_read(mimo_sss_tagger_sptr self, unsigned int which_input) -> uint64_t"""
+        return _lte_swig.mimo_sss_tagger_sptr_nitems_read(self, *args, **kwargs)
+
+    def nitems_written(self, *args, **kwargs):
+        """nitems_written(mimo_sss_tagger_sptr self, unsigned int which_output) -> uint64_t"""
+        return _lte_swig.mimo_sss_tagger_sptr_nitems_written(self, *args, **kwargs)
+
+    def max_noutput_items(self):
+        """max_noutput_items(mimo_sss_tagger_sptr self) -> int"""
+        return _lte_swig.mimo_sss_tagger_sptr_max_noutput_items(self)
+
+    def set_max_noutput_items(self, *args, **kwargs):
+        """set_max_noutput_items(mimo_sss_tagger_sptr self, int m)"""
+        return _lte_swig.mimo_sss_tagger_sptr_set_max_noutput_items(self, *args, **kwargs)
+
+    def unset_max_noutput_items(self):
+        """unset_max_noutput_items(mimo_sss_tagger_sptr self)"""
+        return _lte_swig.mimo_sss_tagger_sptr_unset_max_noutput_items(self)
+
+    def is_set_max_noutput_items(self):
+        """is_set_max_noutput_items(mimo_sss_tagger_sptr self) -> bool"""
+        return _lte_swig.mimo_sss_tagger_sptr_is_set_max_noutput_items(self)
+
+    def set_min_noutput_items(self, *args, **kwargs):
+        """set_min_noutput_items(mimo_sss_tagger_sptr self, int m)"""
+        return _lte_swig.mimo_sss_tagger_sptr_set_min_noutput_items(self, *args, **kwargs)
+
+    def min_noutput_items(self):
+        """min_noutput_items(mimo_sss_tagger_sptr self) -> int"""
+        return _lte_swig.mimo_sss_tagger_sptr_min_noutput_items(self)
+
+    def max_output_buffer(self, *args, **kwargs):
+        """max_output_buffer(mimo_sss_tagger_sptr self, int i) -> long"""
+        return _lte_swig.mimo_sss_tagger_sptr_max_output_buffer(self, *args, **kwargs)
+
+    def set_max_output_buffer(self, *args):
+        """
+        set_max_output_buffer(mimo_sss_tagger_sptr self, long max_output_buffer)
+        set_max_output_buffer(mimo_sss_tagger_sptr self, int port, long max_output_buffer)
+        """
+        return _lte_swig.mimo_sss_tagger_sptr_set_max_output_buffer(self, *args)
+
+    def min_output_buffer(self, *args, **kwargs):
+        """min_output_buffer(mimo_sss_tagger_sptr self, int i) -> long"""
+        return _lte_swig.mimo_sss_tagger_sptr_min_output_buffer(self, *args, **kwargs)
+
+    def set_min_output_buffer(self, *args):
+        """
+        set_min_output_buffer(mimo_sss_tagger_sptr self, long min_output_buffer)
+        set_min_output_buffer(mimo_sss_tagger_sptr self, int port, long min_output_buffer)
+        """
+        return _lte_swig.mimo_sss_tagger_sptr_set_min_output_buffer(self, *args)
+
+    def pc_noutput_items(self):
+        """pc_noutput_items(mimo_sss_tagger_sptr self) -> float"""
+        return _lte_swig.mimo_sss_tagger_sptr_pc_noutput_items(self)
+
+    def pc_noutput_items_avg(self):
+        """pc_noutput_items_avg(mimo_sss_tagger_sptr self) -> float"""
+        return _lte_swig.mimo_sss_tagger_sptr_pc_noutput_items_avg(self)
+
+    def pc_noutput_items_var(self):
+        """pc_noutput_items_var(mimo_sss_tagger_sptr self) -> float"""
+        return _lte_swig.mimo_sss_tagger_sptr_pc_noutput_items_var(self)
+
+    def pc_nproduced(self):
+        """pc_nproduced(mimo_sss_tagger_sptr self) -> float"""
+        return _lte_swig.mimo_sss_tagger_sptr_pc_nproduced(self)
+
+    def pc_nproduced_avg(self):
+        """pc_nproduced_avg(mimo_sss_tagger_sptr self) -> float"""
+        return _lte_swig.mimo_sss_tagger_sptr_pc_nproduced_avg(self)
+
+    def pc_nproduced_var(self):
+        """pc_nproduced_var(mimo_sss_tagger_sptr self) -> float"""
+        return _lte_swig.mimo_sss_tagger_sptr_pc_nproduced_var(self)
+
+    def pc_input_buffers_full(self, *args):
+        """
+        pc_input_buffers_full(mimo_sss_tagger_sptr self, int which) -> float
+        pc_input_buffers_full(mimo_sss_tagger_sptr self) -> pmt_vector_float
+        """
+        return _lte_swig.mimo_sss_tagger_sptr_pc_input_buffers_full(self, *args)
+
+    def pc_input_buffers_full_avg(self, *args):
+        """
+        pc_input_buffers_full_avg(mimo_sss_tagger_sptr self, int which) -> float
+        pc_input_buffers_full_avg(mimo_sss_tagger_sptr self) -> pmt_vector_float
+        """
+        return _lte_swig.mimo_sss_tagger_sptr_pc_input_buffers_full_avg(self, *args)
+
+    def pc_input_buffers_full_var(self, *args):
+        """
+        pc_input_buffers_full_var(mimo_sss_tagger_sptr self, int which) -> float
+        pc_input_buffers_full_var(mimo_sss_tagger_sptr self) -> pmt_vector_float
+        """
+        return _lte_swig.mimo_sss_tagger_sptr_pc_input_buffers_full_var(self, *args)
+
+    def pc_output_buffers_full(self, *args):
+        """
+        pc_output_buffers_full(mimo_sss_tagger_sptr self, int which) -> float
+        pc_output_buffers_full(mimo_sss_tagger_sptr self) -> pmt_vector_float
+        """
+        return _lte_swig.mimo_sss_tagger_sptr_pc_output_buffers_full(self, *args)
+
+    def pc_output_buffers_full_avg(self, *args):
+        """
+        pc_output_buffers_full_avg(mimo_sss_tagger_sptr self, int which) -> float
+        pc_output_buffers_full_avg(mimo_sss_tagger_sptr self) -> pmt_vector_float
+        """
+        return _lte_swig.mimo_sss_tagger_sptr_pc_output_buffers_full_avg(self, *args)
+
+    def pc_output_buffers_full_var(self, *args):
+        """
+        pc_output_buffers_full_var(mimo_sss_tagger_sptr self, int which) -> float
+        pc_output_buffers_full_var(mimo_sss_tagger_sptr self) -> pmt_vector_float
+        """
+        return _lte_swig.mimo_sss_tagger_sptr_pc_output_buffers_full_var(self, *args)
+
+    def pc_work_time(self):
+        """pc_work_time(mimo_sss_tagger_sptr self) -> float"""
+        return _lte_swig.mimo_sss_tagger_sptr_pc_work_time(self)
+
+    def pc_work_time_avg(self):
+        """pc_work_time_avg(mimo_sss_tagger_sptr self) -> float"""
+        return _lte_swig.mimo_sss_tagger_sptr_pc_work_time_avg(self)
+
+    def pc_work_time_var(self):
+        """pc_work_time_var(mimo_sss_tagger_sptr self) -> float"""
+        return _lte_swig.mimo_sss_tagger_sptr_pc_work_time_var(self)
+
+    def pc_work_time_total(self):
+        """pc_work_time_total(mimo_sss_tagger_sptr self) -> float"""
+        return _lte_swig.mimo_sss_tagger_sptr_pc_work_time_total(self)
+
+    def set_processor_affinity(self, *args, **kwargs):
+        """set_processor_affinity(mimo_sss_tagger_sptr self, std::vector< int,std::allocator< int > > const & mask)"""
+        return _lte_swig.mimo_sss_tagger_sptr_set_processor_affinity(self, *args, **kwargs)
+
+    def unset_processor_affinity(self):
+        """unset_processor_affinity(mimo_sss_tagger_sptr self)"""
+        return _lte_swig.mimo_sss_tagger_sptr_unset_processor_affinity(self)
+
+    def processor_affinity(self):
+        """processor_affinity(mimo_sss_tagger_sptr self) -> std::vector< int,std::allocator< int > >"""
+        return _lte_swig.mimo_sss_tagger_sptr_processor_affinity(self)
+
+    def active_thread_priority(self):
+        """active_thread_priority(mimo_sss_tagger_sptr self) -> int"""
+        return _lte_swig.mimo_sss_tagger_sptr_active_thread_priority(self)
+
+    def thread_priority(self):
+        """thread_priority(mimo_sss_tagger_sptr self) -> int"""
+        return _lte_swig.mimo_sss_tagger_sptr_thread_priority(self)
+
+    def set_thread_priority(self, *args, **kwargs):
+        """set_thread_priority(mimo_sss_tagger_sptr self, int priority) -> int"""
+        return _lte_swig.mimo_sss_tagger_sptr_set_thread_priority(self, *args, **kwargs)
+
+    def name(self):
+        """name(mimo_sss_tagger_sptr self) -> std::string"""
+        return _lte_swig.mimo_sss_tagger_sptr_name(self)
+
+    def symbol_name(self):
+        """symbol_name(mimo_sss_tagger_sptr self) -> std::string"""
+        return _lte_swig.mimo_sss_tagger_sptr_symbol_name(self)
+
+    def input_signature(self):
+        """input_signature(mimo_sss_tagger_sptr self) -> io_signature_sptr"""
+        return _lte_swig.mimo_sss_tagger_sptr_input_signature(self)
+
+    def output_signature(self):
+        """output_signature(mimo_sss_tagger_sptr self) -> io_signature_sptr"""
+        return _lte_swig.mimo_sss_tagger_sptr_output_signature(self)
+
+    def unique_id(self):
+        """unique_id(mimo_sss_tagger_sptr self) -> long"""
+        return _lte_swig.mimo_sss_tagger_sptr_unique_id(self)
+
+    def to_basic_block(self):
+        """to_basic_block(mimo_sss_tagger_sptr self) -> basic_block_sptr"""
+        return _lte_swig.mimo_sss_tagger_sptr_to_basic_block(self)
+
+    def check_topology(self, *args, **kwargs):
+        """check_topology(mimo_sss_tagger_sptr self, int ninputs, int noutputs) -> bool"""
+        return _lte_swig.mimo_sss_tagger_sptr_check_topology(self, *args, **kwargs)
+
+    def alias(self):
+        """alias(mimo_sss_tagger_sptr self) -> std::string"""
+        return _lte_swig.mimo_sss_tagger_sptr_alias(self)
+
+    def set_block_alias(self, *args, **kwargs):
+        """set_block_alias(mimo_sss_tagger_sptr self, std::string name)"""
+        return _lte_swig.mimo_sss_tagger_sptr_set_block_alias(self, *args, **kwargs)
+
+    def _post(self, *args, **kwargs):
+        """_post(mimo_sss_tagger_sptr self, swig_int_ptr which_port, swig_int_ptr msg)"""
+        return _lte_swig.mimo_sss_tagger_sptr__post(self, *args, **kwargs)
+
+    def message_ports_in(self):
+        """message_ports_in(mimo_sss_tagger_sptr self) -> swig_int_ptr"""
+        return _lte_swig.mimo_sss_tagger_sptr_message_ports_in(self)
+
+    def message_ports_out(self):
+        """message_ports_out(mimo_sss_tagger_sptr self) -> swig_int_ptr"""
+        return _lte_swig.mimo_sss_tagger_sptr_message_ports_out(self)
+
+    def message_subscribers(self, *args, **kwargs):
+        """message_subscribers(mimo_sss_tagger_sptr self, swig_int_ptr which_port) -> swig_int_ptr"""
+        return _lte_swig.mimo_sss_tagger_sptr_message_subscribers(self, *args, **kwargs)
+
+mimo_sss_tagger_sptr_swigregister = _lte_swig.mimo_sss_tagger_sptr_swigregister
+mimo_sss_tagger_sptr_swigregister(mimo_sss_tagger_sptr)
+
+mimo_sss_tagger_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.name(), self.unique_id())
+mimo_sss_tagger = mimo_sss_tagger.make;
+
+class mimo_remove_cp(object):
+    """<+description of block+>"""
+    thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+    def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined")
+    __repr__ = _swig_repr
+    def make(*args, **kwargs):
+        """
+        make(int fflt, int rxant, std::string key) -> mimo_remove_cp_sptr
+
+        Return a shared_ptr to a new instance of lte::mimo_remove_cp.
+
+        To avoid accidental use of raw pointers, lte::mimo_remove_cp's constructor is in a private implementation class. lte::mimo_remove_cp::make is the public interface for creating new instances.
+
+        Params: (fflt, rxant, key)
+        """
+        return _lte_swig.mimo_remove_cp_make(*args, **kwargs)
+
+    make = staticmethod(make)
+    __swig_destroy__ = _lte_swig.delete_mimo_remove_cp
+    __del__ = lambda self : None;
+mimo_remove_cp_swigregister = _lte_swig.mimo_remove_cp_swigregister
+mimo_remove_cp_swigregister(mimo_remove_cp)
+
+def mimo_remove_cp_make(*args, **kwargs):
+  """
+    mimo_remove_cp_make(int fflt, int rxant, std::string key) -> mimo_remove_cp_sptr
+
+    Return a shared_ptr to a new instance of lte::mimo_remove_cp.
+
+    To avoid accidental use of raw pointers, lte::mimo_remove_cp's constructor is in a private implementation class. lte::mimo_remove_cp::make is the public interface for creating new instances.
+
+    Params: (fflt, rxant, key)
+    """
+  return _lte_swig.mimo_remove_cp_make(*args, **kwargs)
+
+class mimo_remove_cp_sptr(object):
+    """Proxy of C++ boost::shared_ptr<(gr::lte::mimo_remove_cp)> class"""
+    thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+    __repr__ = _swig_repr
+    def __init__(self, *args): 
+        """
+        __init__(boost::shared_ptr<(gr::lte::mimo_remove_cp)> self) -> mimo_remove_cp_sptr
+        __init__(boost::shared_ptr<(gr::lte::mimo_remove_cp)> self, mimo_remove_cp p) -> mimo_remove_cp_sptr
+        """
+        this = _lte_swig.new_mimo_remove_cp_sptr(*args)
+        try: self.this.append(this)
+        except: self.this = this
+    def __deref__(self):
+        """__deref__(mimo_remove_cp_sptr self) -> mimo_remove_cp"""
+        return _lte_swig.mimo_remove_cp_sptr___deref__(self)
+
+    __swig_destroy__ = _lte_swig.delete_mimo_remove_cp_sptr
+    __del__ = lambda self : None;
+    def make(self, *args, **kwargs):
+        """
+        make(mimo_remove_cp_sptr self, int fflt, int rxant, std::string key) -> mimo_remove_cp_sptr
+
+        Return a shared_ptr to a new instance of lte::mimo_remove_cp.
+
+        To avoid accidental use of raw pointers, lte::mimo_remove_cp's constructor is in a private implementation class. lte::mimo_remove_cp::make is the public interface for creating new instances.
+
+        Params: (fflt, rxant, key)
+        """
+        return _lte_swig.mimo_remove_cp_sptr_make(self, *args, **kwargs)
+
+    def history(self):
+        """history(mimo_remove_cp_sptr self) -> unsigned int"""
+        return _lte_swig.mimo_remove_cp_sptr_history(self)
+
+    def declare_sample_delay(self, *args):
+        """
+        declare_sample_delay(mimo_remove_cp_sptr self, int which, int delay)
+        declare_sample_delay(mimo_remove_cp_sptr self, unsigned int delay)
+        """
+        return _lte_swig.mimo_remove_cp_sptr_declare_sample_delay(self, *args)
+
+    def sample_delay(self, *args, **kwargs):
+        """sample_delay(mimo_remove_cp_sptr self, int which) -> unsigned int"""
+        return _lte_swig.mimo_remove_cp_sptr_sample_delay(self, *args, **kwargs)
+
+    def output_multiple(self):
+        """output_multiple(mimo_remove_cp_sptr self) -> int"""
+        return _lte_swig.mimo_remove_cp_sptr_output_multiple(self)
+
+    def relative_rate(self):
+        """relative_rate(mimo_remove_cp_sptr self) -> double"""
+        return _lte_swig.mimo_remove_cp_sptr_relative_rate(self)
+
+    def start(self):
+        """start(mimo_remove_cp_sptr self) -> bool"""
+        return _lte_swig.mimo_remove_cp_sptr_start(self)
+
+    def stop(self):
+        """stop(mimo_remove_cp_sptr self) -> bool"""
+        return _lte_swig.mimo_remove_cp_sptr_stop(self)
+
+    def nitems_read(self, *args, **kwargs):
+        """nitems_read(mimo_remove_cp_sptr self, unsigned int which_input) -> uint64_t"""
+        return _lte_swig.mimo_remove_cp_sptr_nitems_read(self, *args, **kwargs)
+
+    def nitems_written(self, *args, **kwargs):
+        """nitems_written(mimo_remove_cp_sptr self, unsigned int which_output) -> uint64_t"""
+        return _lte_swig.mimo_remove_cp_sptr_nitems_written(self, *args, **kwargs)
+
+    def max_noutput_items(self):
+        """max_noutput_items(mimo_remove_cp_sptr self) -> int"""
+        return _lte_swig.mimo_remove_cp_sptr_max_noutput_items(self)
+
+    def set_max_noutput_items(self, *args, **kwargs):
+        """set_max_noutput_items(mimo_remove_cp_sptr self, int m)"""
+        return _lte_swig.mimo_remove_cp_sptr_set_max_noutput_items(self, *args, **kwargs)
+
+    def unset_max_noutput_items(self):
+        """unset_max_noutput_items(mimo_remove_cp_sptr self)"""
+        return _lte_swig.mimo_remove_cp_sptr_unset_max_noutput_items(self)
+
+    def is_set_max_noutput_items(self):
+        """is_set_max_noutput_items(mimo_remove_cp_sptr self) -> bool"""
+        return _lte_swig.mimo_remove_cp_sptr_is_set_max_noutput_items(self)
+
+    def set_min_noutput_items(self, *args, **kwargs):
+        """set_min_noutput_items(mimo_remove_cp_sptr self, int m)"""
+        return _lte_swig.mimo_remove_cp_sptr_set_min_noutput_items(self, *args, **kwargs)
+
+    def min_noutput_items(self):
+        """min_noutput_items(mimo_remove_cp_sptr self) -> int"""
+        return _lte_swig.mimo_remove_cp_sptr_min_noutput_items(self)
+
+    def max_output_buffer(self, *args, **kwargs):
+        """max_output_buffer(mimo_remove_cp_sptr self, int i) -> long"""
+        return _lte_swig.mimo_remove_cp_sptr_max_output_buffer(self, *args, **kwargs)
+
+    def set_max_output_buffer(self, *args):
+        """
+        set_max_output_buffer(mimo_remove_cp_sptr self, long max_output_buffer)
+        set_max_output_buffer(mimo_remove_cp_sptr self, int port, long max_output_buffer)
+        """
+        return _lte_swig.mimo_remove_cp_sptr_set_max_output_buffer(self, *args)
+
+    def min_output_buffer(self, *args, **kwargs):
+        """min_output_buffer(mimo_remove_cp_sptr self, int i) -> long"""
+        return _lte_swig.mimo_remove_cp_sptr_min_output_buffer(self, *args, **kwargs)
+
+    def set_min_output_buffer(self, *args):
+        """
+        set_min_output_buffer(mimo_remove_cp_sptr self, long min_output_buffer)
+        set_min_output_buffer(mimo_remove_cp_sptr self, int port, long min_output_buffer)
+        """
+        return _lte_swig.mimo_remove_cp_sptr_set_min_output_buffer(self, *args)
+
+    def pc_noutput_items(self):
+        """pc_noutput_items(mimo_remove_cp_sptr self) -> float"""
+        return _lte_swig.mimo_remove_cp_sptr_pc_noutput_items(self)
+
+    def pc_noutput_items_avg(self):
+        """pc_noutput_items_avg(mimo_remove_cp_sptr self) -> float"""
+        return _lte_swig.mimo_remove_cp_sptr_pc_noutput_items_avg(self)
+
+    def pc_noutput_items_var(self):
+        """pc_noutput_items_var(mimo_remove_cp_sptr self) -> float"""
+        return _lte_swig.mimo_remove_cp_sptr_pc_noutput_items_var(self)
+
+    def pc_nproduced(self):
+        """pc_nproduced(mimo_remove_cp_sptr self) -> float"""
+        return _lte_swig.mimo_remove_cp_sptr_pc_nproduced(self)
+
+    def pc_nproduced_avg(self):
+        """pc_nproduced_avg(mimo_remove_cp_sptr self) -> float"""
+        return _lte_swig.mimo_remove_cp_sptr_pc_nproduced_avg(self)
+
+    def pc_nproduced_var(self):
+        """pc_nproduced_var(mimo_remove_cp_sptr self) -> float"""
+        return _lte_swig.mimo_remove_cp_sptr_pc_nproduced_var(self)
+
+    def pc_input_buffers_full(self, *args):
+        """
+        pc_input_buffers_full(mimo_remove_cp_sptr self, int which) -> float
+        pc_input_buffers_full(mimo_remove_cp_sptr self) -> pmt_vector_float
+        """
+        return _lte_swig.mimo_remove_cp_sptr_pc_input_buffers_full(self, *args)
+
+    def pc_input_buffers_full_avg(self, *args):
+        """
+        pc_input_buffers_full_avg(mimo_remove_cp_sptr self, int which) -> float
+        pc_input_buffers_full_avg(mimo_remove_cp_sptr self) -> pmt_vector_float
+        """
+        return _lte_swig.mimo_remove_cp_sptr_pc_input_buffers_full_avg(self, *args)
+
+    def pc_input_buffers_full_var(self, *args):
+        """
+        pc_input_buffers_full_var(mimo_remove_cp_sptr self, int which) -> float
+        pc_input_buffers_full_var(mimo_remove_cp_sptr self) -> pmt_vector_float
+        """
+        return _lte_swig.mimo_remove_cp_sptr_pc_input_buffers_full_var(self, *args)
+
+    def pc_output_buffers_full(self, *args):
+        """
+        pc_output_buffers_full(mimo_remove_cp_sptr self, int which) -> float
+        pc_output_buffers_full(mimo_remove_cp_sptr self) -> pmt_vector_float
+        """
+        return _lte_swig.mimo_remove_cp_sptr_pc_output_buffers_full(self, *args)
+
+    def pc_output_buffers_full_avg(self, *args):
+        """
+        pc_output_buffers_full_avg(mimo_remove_cp_sptr self, int which) -> float
+        pc_output_buffers_full_avg(mimo_remove_cp_sptr self) -> pmt_vector_float
+        """
+        return _lte_swig.mimo_remove_cp_sptr_pc_output_buffers_full_avg(self, *args)
+
+    def pc_output_buffers_full_var(self, *args):
+        """
+        pc_output_buffers_full_var(mimo_remove_cp_sptr self, int which) -> float
+        pc_output_buffers_full_var(mimo_remove_cp_sptr self) -> pmt_vector_float
+        """
+        return _lte_swig.mimo_remove_cp_sptr_pc_output_buffers_full_var(self, *args)
+
+    def pc_work_time(self):
+        """pc_work_time(mimo_remove_cp_sptr self) -> float"""
+        return _lte_swig.mimo_remove_cp_sptr_pc_work_time(self)
+
+    def pc_work_time_avg(self):
+        """pc_work_time_avg(mimo_remove_cp_sptr self) -> float"""
+        return _lte_swig.mimo_remove_cp_sptr_pc_work_time_avg(self)
+
+    def pc_work_time_var(self):
+        """pc_work_time_var(mimo_remove_cp_sptr self) -> float"""
+        return _lte_swig.mimo_remove_cp_sptr_pc_work_time_var(self)
+
+    def pc_work_time_total(self):
+        """pc_work_time_total(mimo_remove_cp_sptr self) -> float"""
+        return _lte_swig.mimo_remove_cp_sptr_pc_work_time_total(self)
+
+    def set_processor_affinity(self, *args, **kwargs):
+        """set_processor_affinity(mimo_remove_cp_sptr self, std::vector< int,std::allocator< int > > const & mask)"""
+        return _lte_swig.mimo_remove_cp_sptr_set_processor_affinity(self, *args, **kwargs)
+
+    def unset_processor_affinity(self):
+        """unset_processor_affinity(mimo_remove_cp_sptr self)"""
+        return _lte_swig.mimo_remove_cp_sptr_unset_processor_affinity(self)
+
+    def processor_affinity(self):
+        """processor_affinity(mimo_remove_cp_sptr self) -> std::vector< int,std::allocator< int > >"""
+        return _lte_swig.mimo_remove_cp_sptr_processor_affinity(self)
+
+    def active_thread_priority(self):
+        """active_thread_priority(mimo_remove_cp_sptr self) -> int"""
+        return _lte_swig.mimo_remove_cp_sptr_active_thread_priority(self)
+
+    def thread_priority(self):
+        """thread_priority(mimo_remove_cp_sptr self) -> int"""
+        return _lte_swig.mimo_remove_cp_sptr_thread_priority(self)
+
+    def set_thread_priority(self, *args, **kwargs):
+        """set_thread_priority(mimo_remove_cp_sptr self, int priority) -> int"""
+        return _lte_swig.mimo_remove_cp_sptr_set_thread_priority(self, *args, **kwargs)
+
+    def name(self):
+        """name(mimo_remove_cp_sptr self) -> std::string"""
+        return _lte_swig.mimo_remove_cp_sptr_name(self)
+
+    def symbol_name(self):
+        """symbol_name(mimo_remove_cp_sptr self) -> std::string"""
+        return _lte_swig.mimo_remove_cp_sptr_symbol_name(self)
+
+    def input_signature(self):
+        """input_signature(mimo_remove_cp_sptr self) -> io_signature_sptr"""
+        return _lte_swig.mimo_remove_cp_sptr_input_signature(self)
+
+    def output_signature(self):
+        """output_signature(mimo_remove_cp_sptr self) -> io_signature_sptr"""
+        return _lte_swig.mimo_remove_cp_sptr_output_signature(self)
+
+    def unique_id(self):
+        """unique_id(mimo_remove_cp_sptr self) -> long"""
+        return _lte_swig.mimo_remove_cp_sptr_unique_id(self)
+
+    def to_basic_block(self):
+        """to_basic_block(mimo_remove_cp_sptr self) -> basic_block_sptr"""
+        return _lte_swig.mimo_remove_cp_sptr_to_basic_block(self)
+
+    def check_topology(self, *args, **kwargs):
+        """check_topology(mimo_remove_cp_sptr self, int ninputs, int noutputs) -> bool"""
+        return _lte_swig.mimo_remove_cp_sptr_check_topology(self, *args, **kwargs)
+
+    def alias(self):
+        """alias(mimo_remove_cp_sptr self) -> std::string"""
+        return _lte_swig.mimo_remove_cp_sptr_alias(self)
+
+    def set_block_alias(self, *args, **kwargs):
+        """set_block_alias(mimo_remove_cp_sptr self, std::string name)"""
+        return _lte_swig.mimo_remove_cp_sptr_set_block_alias(self, *args, **kwargs)
+
+    def _post(self, *args, **kwargs):
+        """_post(mimo_remove_cp_sptr self, swig_int_ptr which_port, swig_int_ptr msg)"""
+        return _lte_swig.mimo_remove_cp_sptr__post(self, *args, **kwargs)
+
+    def message_ports_in(self):
+        """message_ports_in(mimo_remove_cp_sptr self) -> swig_int_ptr"""
+        return _lte_swig.mimo_remove_cp_sptr_message_ports_in(self)
+
+    def message_ports_out(self):
+        """message_ports_out(mimo_remove_cp_sptr self) -> swig_int_ptr"""
+        return _lte_swig.mimo_remove_cp_sptr_message_ports_out(self)
+
+    def message_subscribers(self, *args, **kwargs):
+        """message_subscribers(mimo_remove_cp_sptr self, swig_int_ptr which_port) -> swig_int_ptr"""
+        return _lte_swig.mimo_remove_cp_sptr_message_subscribers(self, *args, **kwargs)
+
+mimo_remove_cp_sptr_swigregister = _lte_swig.mimo_remove_cp_sptr_swigregister
+mimo_remove_cp_sptr_swigregister(mimo_remove_cp_sptr)
+
+mimo_remove_cp_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.name(), self.unique_id())
+mimo_remove_cp = mimo_remove_cp.make;
 
 
 

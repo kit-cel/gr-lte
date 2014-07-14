@@ -34,7 +34,7 @@ namespace gr {
     class sss_calculator_vcm_impl : public sss_calculator_vcm
     {
      private:
-        int d_N_id_2;z
+        int d_N_id_2;
         int d_cell_id;
         int d_fftl;
         int d_slotl;

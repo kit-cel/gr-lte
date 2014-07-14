@@ -16,15 +16,19 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/maier/gr-lte/include/lte/mimo_pss_coarse_sync.h" line="696" column="1" bodyfile="/home/maier/gr-lte/include/lte/mimo_pss_coarse_sync.h" bodystart="696" bodyend="-1"/>
+        <location file="/home/maier/gr-lte/include/lte/mimo_pss_coarse_sync.h" line="39" column="1" bodyfile="/home/maier/gr-lte/include/lte/mimo_pss_coarse_sync.h" bodystart="39" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-static-func">
-      <memberdef kind="function" id="classgr_1_1lte_1_1mimo__pss__coarse__sync_1ab02a3ac94ed20851813ad1dc88dfb4bd" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classgr_1_1lte_1_1mimo__pss__coarse__sync_1a588775602e4c47c991ecca099630603e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classgr_1_1lte_1_1mimo__pss__coarse__sync_1af796935a0b0be42d1ce81b61ff3b2082" kindref="member">sptr</ref></type>
         <definition>static sptr gr::lte::mimo_pss_coarse_sync::make</definition>
-        <argsstring>(int syncl, int rxant)</argsstring>
+        <argsstring>(int fftl, int syncl, int rxant)</argsstring>
         <name>make</name>
+        <param>
+          <type>int</type>
+          <declname>fftl</declname>
+        </param>
         <param>
           <type>int</type>
           <declname>syncl</declname>
@@ -36,10 +40,10 @@
         <briefdescription>
 <para>Return a shared_ptr to a new instance of <ref refid="classgr_1_1lte_1_1mimo__pss__coarse__sync" kindref="compound">lte::mimo_pss_coarse_sync</ref>. </para>        </briefdescription>
         <detaileddescription>
-<para>To avoid accidental use of raw pointers, <ref refid="classgr_1_1lte_1_1mimo__pss__coarse__sync" kindref="compound">lte::mimo_pss_coarse_sync</ref>&apos;s constructor is in a private implementation class. <ref refid="classgr_1_1lte_1_1mimo__pss__coarse__sync_1ab02a3ac94ed20851813ad1dc88dfb4bd" kindref="member">lte::mimo_pss_coarse_sync::make</ref> is the public interface for creating new instances. </para>        </detaileddescription>
+<para>To avoid accidental use of raw pointers, <ref refid="classgr_1_1lte_1_1mimo__pss__coarse__sync" kindref="compound">lte::mimo_pss_coarse_sync</ref>&apos;s constructor is in a private implementation class. <ref refid="classgr_1_1lte_1_1mimo__pss__coarse__sync_1a588775602e4c47c991ecca099630603e" kindref="member">lte::mimo_pss_coarse_sync::make</ref> is the public interface for creating new instances. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/maier/gr-lte/include/lte/mimo_pss_coarse_sync.h" line="706" column="1"/>
+        <location file="/home/maier/gr-lte/include/lte/mimo_pss_coarse_sync.h" line="49" column="1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -68,9 +72,9 @@
         <label>sync_block</label>
       </node>
     </collaborationgraph>
-    <location file="/home/maier/gr-lte/include/lte/mimo_pss_coarse_sync.h" line="694" column="1" bodyfile="/home/maier/gr-lte/include/lte/mimo_pss_coarse_sync.h" bodystart="693" bodyend="707"/>
+    <location file="/home/maier/gr-lte/include/lte/mimo_pss_coarse_sync.h" line="37" column="1" bodyfile="/home/maier/gr-lte/include/lte/mimo_pss_coarse_sync.h" bodystart="36" bodyend="50"/>
     <listofallmembers>
-      <member refid="classgr_1_1lte_1_1mimo__pss__coarse__sync_1ab02a3ac94ed20851813ad1dc88dfb4bd" prot="public" virt="non-virtual"><scope>gr::lte::mimo_pss_coarse_sync</scope><name>make</name></member>
+      <member refid="classgr_1_1lte_1_1mimo__pss__coarse__sync_1a588775602e4c47c991ecca099630603e" prot="public" virt="non-virtual"><scope>gr::lte::mimo_pss_coarse_sync</scope><name>make</name></member>
       <member refid="classgr_1_1lte_1_1mimo__pss__coarse__sync_1af796935a0b0be42d1ce81b61ff3b2082" prot="public" virt="non-virtual"><scope>gr::lte::mimo_pss_coarse_sync</scope><name>sptr</name></member>
     </listofallmembers>
   </compounddef>

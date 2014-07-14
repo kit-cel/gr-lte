@@ -52,24 +52,24 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="116">
+      <node id="132">
         <label>gr::lte::sync_frequency_c</label>
         <link refid="classgr_1_1lte_1_1sync__frequency__c"/>
-        <childnode refid="117" relation="public-inheritance">
+        <childnode refid="133" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="117">
+      <node id="133">
         <label>sync_block</label>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="118">
+      <node id="134">
         <label>gr::lte::sync_frequency_c</label>
         <link refid="classgr_1_1lte_1_1sync__frequency__c"/>
-        <childnode refid="119" relation="public-inheritance">
+        <childnode refid="135" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="119">
+      <node id="135">
         <label>sync_block</label>
       </node>
     </collaborationgraph>
