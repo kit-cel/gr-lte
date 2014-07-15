@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='ASCII'?>
 <flow_graph>
-  <timestamp>Mon Jul 14 23:12:19 2014</timestamp>
+  <timestamp>Tue Jul 15 15:16:18 2014</timestamp>
   <block>
     <key>options</key>
     <param>
@@ -171,45 +171,6 @@
     </param>
   </block>
   <block>
-    <key>lte_mimo_pss_freq_sync</key>
-    <param>
-      <key>id</key>
-      <value>lte_mimo_pss_freq_sync_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>fftl</key>
-      <value>fftlen</value>
-    </param>
-    <param>
-      <key>rxant</key>
-      <value>2</value>
-    </param>
-    <param>
-      <key>sig</key>
-      <value>"sync_ffofrac_sig"</value>
-    </param>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(932, 415)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
     <key>parameter</key>
     <param>
       <key>id</key>
@@ -288,38 +249,38 @@
     </param>
   </block>
   <block>
-    <key>pad_source</key>
+    <key>lte_mimo_pss_freq_sync</key>
     <param>
       <key>id</key>
-      <value>pad_source_0</value>
+      <value>lte_mimo_pss_freq_sync_0</value>
     </param>
     <param>
       <key>_enabled</key>
       <value>True</value>
     </param>
     <param>
-      <key>label</key>
-      <value>in</value>
+      <key>fftl</key>
+      <value>fftlen</value>
     </param>
     <param>
-      <key>type</key>
-      <value>complex</value>
+      <key>rxant</key>
+      <value>2</value>
     </param>
     <param>
-      <key>vlen</key>
-      <value>1</value>
+      <key>sig</key>
+      <value>"sync_ffofrac_sig"</value>
     </param>
     <param>
-      <key>num_streams</key>
-      <value>rxant</value>
+      <key>alias</key>
+      <value></value>
     </param>
     <param>
-      <key>optional</key>
-      <value>False</value>
+      <key>affinity</key>
+      <value></value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(127, 215)</value>
+      <value>(926, 358)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -405,7 +366,46 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(670, 292)</value>
+      <value>(639, 290)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>pad_source</key>
+    <param>
+      <key>id</key>
+      <value>pad_source_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>label</key>
+      <value>in</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>complex</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>num_streams</key>
+      <value>rxant</value>
+    </param>
+    <param>
+      <key>optional</key>
+      <value>False</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(127, 215)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -449,15 +449,15 @@
     <sink_key>1</sink_key>
   </connection>
   <connection>
-    <source_block_id>pad_source_0</source_block_id>
-    <sink_block_id>sync_ffofrac_multiply_xx_0</sink_block_id>
-    <source_key>1</source_key>
-    <sink_key>1</sink_key>
-  </connection>
-  <connection>
     <source_block_id>sync_ffofrac_multiply_xx_0</source_block_id>
     <sink_block_id>pad_sink_0</sink_block_id>
     <source_key>0</source_key>
+    <sink_key>1</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>pad_source_0</source_block_id>
+    <sink_block_id>sync_ffofrac_multiply_xx_0</sink_block_id>
+    <source_key>1</source_key>
     <sink_key>1</sink_key>
   </connection>
 </flow_graph>

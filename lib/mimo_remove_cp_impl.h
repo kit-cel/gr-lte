@@ -39,8 +39,8 @@ namespace gr {
 		int d_cpl;
 		int d_cpl0;
 		int d_slotl;
-		int d_symb;
-		int d_sym_num;
+		int d_symb;     //symbol number within slot
+		int d_sym_num;  //symbol number within frame
         int d_symbols_per_frame;
 		pmt::pmt_t d_key;
 		pmt::pmt_t d_tag_id;

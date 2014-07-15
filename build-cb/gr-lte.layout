@@ -1,94 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="all" />
-	<File name="../lib/mimo_sss_symbol_selector_impl.cc" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="../lib/channel_estimator_vcvc_impl.cc" open="1" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2112" topLine="98" />
-		</Cursor>
-	</File>
-	<File name="../lib/descrambler_vfvf_impl.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="976" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="../lib/mimo_remove_cp_impl.h" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1156" topLine="16" />
-		</Cursor>
-	</File>
-	<File name="../lib/pss_calculator_vcm_impl.cc" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="72" />
-		</Cursor>
-	</File>
-	<File name="../include/lte/mimo_remove_cp.h" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="933" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="../lib/mimo_pss_freq_sync_impl.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1385" topLine="6" />
-		</Cursor>
-	</File>
-	<File name="../lib/mimo_pss_coarse_sync_impl.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1232" topLine="18" />
-		</Cursor>
-	</File>
-	<File name="../lib/mimo_sss_calculator_impl.cc" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="5405" topLine="96" />
-		</Cursor>
-	</File>
-	<File name="../lib/mimo_pss_coarse_sync_impl.cc" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1302" topLine="18" />
-		</Cursor>
-	</File>
-	<File name="../lib/pss_tagger_cc_impl.cc" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="81" />
-		</Cursor>
-	</File>
-	<File name="../lib/sss_calculator_vcm_impl.cc" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="9513" topLine="122" />
-		</Cursor>
-	</File>
-	<File name="../lib/mimo_pss_fine_sync_impl.h" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1086" topLine="18" />
-		</Cursor>
-	</File>
-	<File name="../lib/mimo_pss_freq_sync_impl.cc" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2314" topLine="30" />
-		</Cursor>
-	</File>
-	<File name="../lib/mimo_remove_cp_impl.cc" open="1" top="1" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3579" topLine="91" />
-		</Cursor>
-	</File>
-	<File name="../lib/mimo_pss_tagger_impl.cc" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="../lib/mimo_pss_tagger_impl.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1122" topLine="24" />
-		</Cursor>
-	</File>
-	<File name="../lib/pss.cc" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1961" topLine="39" />
-		</Cursor>
-	</File>
-	<File name="../lib/sss_tagger_cc_impl.cc" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="5074" topLine="90" />
+			<Cursor1 position="0" topLine="58" />
 		</Cursor>
 	</File>
 	<File name="../lib/mimo_sss_tagger_impl.h" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -96,14 +11,79 @@
 			<Cursor1 position="1109" topLine="0" />
 		</Cursor>
 	</File>
+	<File name="../lib/mimo_pss_tagger_impl.cc" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="../lib/mimo_sss_symbol_selector_impl.cc" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2112" topLine="98" />
+		</Cursor>
+	</File>
+	<File name="../lib/mimo_remove_cp_impl.h" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1915" topLine="16" />
+		</Cursor>
+	</File>
+	<File name="../lib/mimo_sss_calculator_impl.cc" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="5405" topLine="96" />
+		</Cursor>
+	</File>
+	<File name="../lib/extract_subcarriers_vcvc_impl.cc" open="1" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="20" />
+		</Cursor>
+	</File>
+	<File name="../lib/sss_tagger_cc_impl.h" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1063" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="../lib/pss_symbol_selector_cvc_impl.cc" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3339" topLine="69" />
+		</Cursor>
+	</File>
+	<File name="../lib/mimo_pss_fine_sync_impl.cc" open="1" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="7124" topLine="228" />
+		</Cursor>
+	</File>
+	<File name="../lib/sync_frequency_c_impl.cc" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4912" topLine="18" />
+		</Cursor>
+	</File>
+	<File name="../lib/sss_calculator_vcm_impl.cc" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="9513" topLine="122" />
+		</Cursor>
+	</File>
+	<File name="../include/lte/mimo_remove_cp.h" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="933" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="../lib/sss_tagger_cc_impl.cc" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="5074" topLine="90" />
+		</Cursor>
+	</File>
+	<File name="../lib/mimo_remove_cp_impl.cc" open="1" top="1" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="7000" topLine="201" />
+		</Cursor>
+	</File>
 	<File name="../lib/mimo_sss_calculator_impl.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="1936" topLine="21" />
 		</Cursor>
 	</File>
-	<File name="../lib/mimo_sss_tagger_impl.cc" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="../lib/pss_calculator_vcm_impl.cc" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="0" topLine="0" />
+			<Cursor1 position="0" topLine="72" />
 		</Cursor>
 	</File>
 	<File name="../lib/sss_symbol_selector_cvc_impl.h" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -111,9 +91,54 @@
 			<Cursor1 position="1113" topLine="0" />
 		</Cursor>
 	</File>
+	<File name="../lib/sss_calculator_vcm_impl.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1171" topLine="22" />
+		</Cursor>
+	</File>
+	<File name="../lib/mimo_pss_fine_sync_impl.h" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1086" topLine="18" />
+		</Cursor>
+	</File>
 	<File name="../lib/sss_symbol_selector_cvc_impl.cc" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="2853" topLine="68" />
+		</Cursor>
+	</File>
+	<File name="../lib/pss.cc" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1961" topLine="39" />
+		</Cursor>
+	</File>
+	<File name="../lib/pss_tagger_cc_impl.cc" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="81" />
+		</Cursor>
+	</File>
+	<File name="../lib/descrambler_vfvf_impl.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="976" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="../lib/mimo_pss_coarse_sync_impl.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1232" topLine="18" />
+		</Cursor>
+	</File>
+	<File name="../lib/remove_cp_cvc_impl.h" open="1" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1010" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="../lib/mimo_pss_tagger_impl.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1122" topLine="24" />
+		</Cursor>
+	</File>
+	<File name="../lib/mimo_pss_freq_sync_impl.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1385" topLine="6" />
 		</Cursor>
 	</File>
 	<File name="../lib/mimo_sss_symbol_selector_impl.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -126,14 +151,14 @@
 			<Cursor1 position="0" topLine="12" />
 		</Cursor>
 	</File>
-	<File name="../lib/sss_tagger_cc_impl.h" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="../lib/remove_cp_cvc_impl.cc" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1063" topLine="0" />
+			<Cursor1 position="955" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="../lib/sss_calculator_vcm_impl.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="../lib/mimo_pss_freq_sync_impl.cc" open="1" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1171" topLine="22" />
+			<Cursor1 position="5384" topLine="69" />
 		</Cursor>
 	</File>
 	<File name="../lib/mimo_pss_coarse_control_impl.cc" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -141,29 +166,14 @@
 			<Cursor1 position="2594" topLine="37" />
 		</Cursor>
 	</File>
-	<File name="../lib/pss_symbol_selector_cvc_impl.cc" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="../lib/mimo_sss_tagger_impl.cc" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="3339" topLine="69" />
+			<Cursor1 position="3358" topLine="77" />
 		</Cursor>
 	</File>
-	<File name="../lib/mimo_pss_fine_sync_impl.cc" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="../lib/mimo_pss_coarse_sync_impl.cc" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="5122" topLine="151" />
-		</Cursor>
-	</File>
-	<File name="../lib/sync_frequency_c_impl.cc" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="4912" topLine="18" />
-		</Cursor>
-	</File>
-	<File name="../lib/remove_cp_cvc_impl.cc" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="955" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="../lib/remove_cp_cvc_impl.h" open="1" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1010" topLine="0" />
+			<Cursor1 position="1302" topLine="51" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

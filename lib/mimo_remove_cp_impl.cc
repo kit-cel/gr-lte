@@ -128,11 +128,12 @@ namespace gr {
         }
         for(int i = 0 ; i < size ; i++ ){
             if(size > 0 && pmt::to_long(v[i].value) == 0 ){
-                if( (v[i].offset)%(20*d_slotl) != d_frame_start ){
-                    printf("%s OUT of sync!\n", name().c_str() );
-                    d_found_frame_start = false;
-                    return 0;
-                }
+//                if( (v[i].offset)%(20*d_slotl) != d_frame_start ){
+//                    printf("%s OUT of sync!\n", name().c_str() );
+//                    d_found_frame_start = false;
+//                    return 0;
+//                }
+               d_frame_start = (v[i].offset)%(20*d_slotl);
             }
         }
 
@@ -216,18 +217,23 @@ namespace gr {
                                     const gr_vector_const_void_star &input_items,
                                     int noutput_items)
 	{
+        int vector_byte_size = sizeof(gr_complex)*d_fftl;
+        int syml0 = d_cpl0 + d_fftl;
+        int syml1 = d_cpl + d_fftl;
+        long consumed_items = 0;
+        int symb;
+
         for(int rx=0; rx<d_rxant; rx++)
         {
+            symb=d_symb;
             gr_complex *out = (gr_complex*) output_items[rx];
-            const gr_complex *in = (const gr_complex *) input_items[0];
+            const gr_complex *in = (const gr_complex *) input_items[rx];
+            consumed_items = 0;
 
-            long consumed_items = 0;
-            int vector_byte_size = sizeof(gr_complex)*d_fftl;
-            int syml0 = d_cpl0 + d_fftl;
-            int syml1 = d_cpl + d_fftl;
+
 
             for (int i = 0 ; i < noutput_items ; i++){
-                if(d_symb == 0){ // 0. symbol in each LTE slot is longer than the rest
+                if(symb == 0){ // 0. symbol in each LTE slot is longer than the rest
                     memcpy(out, in+d_cpl0, vector_byte_size);
                     consumed_items += syml0;
                     in += syml0;
@@ -238,10 +244,12 @@ namespace gr {
                     in += syml1;
                 }
                 out += d_fftl;
-                d_symb =(d_symb+1)%7;
+                symb =(symb+1)%7;
             }
-            return consumed_items;
+
         }
+        d_symb=symb;
+        return consumed_items;
 	}
 
 	void

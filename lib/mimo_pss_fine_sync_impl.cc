@@ -238,7 +238,7 @@ mimo_pss_fine_sync_impl::work(int noutput_items,
                 }
 
 
-                printf("PSS-tracking: old_pos:%i\told_val:%f\tnew_pos:%i\tnew_val:%f\n", d_fine_pos, d_corr_val, fine_pos, val);
+                //printf("PSS-tracking: old_pos:%i\told_val:%f\tnew_pos:%i\tnew_val:%f\n", d_fine_pos, d_corr_val, fine_pos, val);
                 d_fine_pos=fine_pos;
                 d_corr_val=val;
                 d_half_frame_start=calc_half_frame_start(fine_pos);

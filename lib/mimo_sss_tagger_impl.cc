@@ -49,7 +49,7 @@ namespace gr {
                 d_slotl(7*fftl+6*d_cpl+d_cpl0),
                 d_framel(20*d_slotl),
                 d_offset_0(0),
-                d_frame_start(0),
+                d_frame_start(-1),
                 d_slot_num(41)
     {
         set_tag_propagation_policy(TPP_DONT);
@@ -102,7 +102,7 @@ namespace gr {
         }
 
         // as long as frame start is unknown add dummy tags, so freq estimate can work!
-        if(d_frame_start == 0){
+        if(d_frame_start == -1){
             for (int i = 0 ; i < noutput_items ; i++){
                 if( (nin+i)%d_slotl == d_offset_0 ){ //removed abs
                     //printf("%s\tslot_num = %i\tabs_pos = %ld\tframe_start = %ld\n", name().c_str() ,d_slot_num, nitems_read(0)+i ,d_frame_start);
