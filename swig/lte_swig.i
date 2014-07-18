@@ -43,6 +43,10 @@
 #include "lte/mimo_sss_calculator.h"
 #include "lte/mimo_sss_tagger.h"
 #include "lte/mimo_remove_cp.h"
+#include "lte/mimo_extract_subcarriers.h"
+#include "lte/mimo_channel_estimator.h"
+#include "lte/mimo_pbch_demux.h"
+#include "lte/mimo_pre_decoder.h"
 %}
 
 
@@ -117,3 +121,11 @@ GR_SWIG_BLOCK_MAGIC2(lte, mimo_sss_calculator);
 GR_SWIG_BLOCK_MAGIC2(lte, mimo_sss_tagger);
 %include "lte/mimo_remove_cp.h"
 GR_SWIG_BLOCK_MAGIC2(lte, mimo_remove_cp);
+%include "lte/mimo_extract_subcarriers.h"
+GR_SWIG_BLOCK_MAGIC2(lte, mimo_extract_subcarriers);
+%include "lte/mimo_channel_estimator.h"
+GR_SWIG_BLOCK_MAGIC2(lte, mimo_channel_estimator);
+%include "lte/mimo_pbch_demux.h"
+GR_SWIG_BLOCK_MAGIC2(lte, mimo_pbch_demux);
+%include "lte/mimo_pre_decoder.h"
+GR_SWIG_BLOCK_MAGIC2(lte, mimo_pre_decoder);

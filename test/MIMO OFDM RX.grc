@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='ASCII'?>
 <flow_graph>
-  <timestamp>Tue Jul 15 21:13:07 2014</timestamp>
+  <timestamp>Wed Jul 16 14:11:00 2014</timestamp>
   <block>
     <key>options</key>
     <param>
@@ -221,6 +221,143 @@
     </param>
   </block>
   <block>
+    <key>lte_mimo_remove_cp</key>
+    <param>
+      <key>id</key>
+      <value>lte_mimo_remove_cp_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>fftl</key>
+      <value>fftlen</value>
+    </param>
+    <param>
+      <key>rxant</key>
+      <value>rxant</value>
+    </param>
+    <param>
+      <key>key</key>
+      <value>ofdm_key</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(209, 274)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>pad_source</key>
+    <param>
+      <key>id</key>
+      <value>pad_source_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>label</key>
+      <value>in</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>complex</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>num_streams</key>
+      <value>2</value>
+    </param>
+    <param>
+      <key>optional</key>
+      <value>False</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(31, 274)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>blocks_tag_debug</key>
+    <param>
+      <key>id</key>
+      <value>blocks_tag_debug_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>False</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>complex</value>
+    </param>
+    <param>
+      <key>name</key>
+      <value></value>
+    </param>
+    <param>
+      <key>filter</key>
+      <value>""</value>
+    </param>
+    <param>
+      <key>num_inputs</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>display</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(269, 477)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
     <key>fft_vxx</key>
     <param>
       <key>id</key>
@@ -272,132 +409,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(430, 275)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>pad_sink</key>
-    <param>
-      <key>id</key>
-      <value>pad_sink_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>label</key>
-      <value>out</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>complex</value>
-    </param>
-    <param>
-      <key>vlen</key>
-      <value>12*N_rb_dl</value>
-    </param>
-    <param>
-      <key>num_streams</key>
-      <value>2</value>
-    </param>
-    <param>
-      <key>optional</key>
-      <value>False</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(914, 271)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>pad_source</key>
-    <param>
-      <key>id</key>
-      <value>pad_source_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>label</key>
-      <value>in</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>complex</value>
-    </param>
-    <param>
-      <key>vlen</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>num_streams</key>
-      <value>2</value>
-    </param>
-    <param>
-      <key>optional</key>
-      <value>False</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(31, 274)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>lte_mimo_remove_cp</key>
-    <param>
-      <key>id</key>
-      <value>lte_mimo_remove_cp_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>fftl</key>
-      <value>fftlen</value>
-    </param>
-    <param>
-      <key>rxant</key>
-      <value>rxant</value>
-    </param>
-    <param>
-      <key>key</key>
-      <value>ofdm_key</value>
-    </param>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>maxoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(209, 274)</value>
+      <value>(428, 272)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -456,7 +468,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(430, 236)</value>
+      <value>(428, 238)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -464,22 +476,26 @@
     </param>
   </block>
   <block>
-    <key>lte_extract_subcarriers_vcvc</key>
+    <key>lte_mimo_extract_subcarriers</key>
     <param>
       <key>id</key>
-      <value>lte_extract_subcarriers_vcvc_0</value>
+      <value>lte_mimo_extract_subcarriers_0</value>
     </param>
     <param>
       <key>_enabled</key>
       <value>True</value>
     </param>
     <param>
-      <key>N_rb_dl</key>
-      <value>N_rb_dl</value>
-    </param>
-    <param>
       <key>fftl</key>
       <value>fftlen</value>
+    </param>
+    <param>
+      <key>rxant</key>
+      <value>rxant</value>
+    </param>
+    <param>
+      <key>N_rb_dl</key>
+      <value>N_rb_dl</value>
     </param>
     <param>
       <key>alias</key>
@@ -499,7 +515,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(681, 259)</value>
+      <value>(686, 274)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -507,93 +523,38 @@
     </param>
   </block>
   <block>
-    <key>lte_extract_subcarriers_vcvc</key>
+    <key>pad_sink</key>
     <param>
       <key>id</key>
-      <value>lte_extract_subcarriers_vcvc_0_0</value>
+      <value>pad_sink_0</value>
     </param>
     <param>
       <key>_enabled</key>
       <value>True</value>
     </param>
     <param>
-      <key>N_rb_dl</key>
-      <value>N_rb_dl</value>
-    </param>
-    <param>
-      <key>fftl</key>
-      <value>fftlen</value>
-    </param>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>maxoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(680, 299)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>blocks_tag_debug</key>
-    <param>
-      <key>id</key>
-      <value>blocks_tag_debug_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>False</value>
+      <key>label</key>
+      <value>out</value>
     </param>
     <param>
       <key>type</key>
       <value>complex</value>
     </param>
     <param>
-      <key>name</key>
-      <value></value>
+      <key>vlen</key>
+      <value>12*N_rb_dl*rxant</value>
     </param>
     <param>
-      <key>filter</key>
-      <value>""</value>
-    </param>
-    <param>
-      <key>num_inputs</key>
+      <key>num_streams</key>
       <value>1</value>
     </param>
     <param>
-      <key>vlen</key>
-      <value>600</value>
-    </param>
-    <param>
-      <key>display</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
+      <key>optional</key>
+      <value>False</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(269, 477)</value>
+      <value>(940, 279)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -625,27 +586,27 @@
     <sink_key>0</sink_key>
   </connection>
   <connection>
+    <source_block_id>pad_source_0</source_block_id>
+    <sink_block_id>blocks_tag_debug_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
     <source_block_id>ofdm_fft_vxx_0</source_block_id>
-    <sink_block_id>lte_extract_subcarriers_vcvc_0</sink_block_id>
+    <sink_block_id>lte_mimo_extract_subcarriers_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
     <source_block_id>ofdm_fft_vxx_0_0</source_block_id>
-    <sink_block_id>lte_extract_subcarriers_vcvc_0_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_extract_subcarriers_vcvc_0</source_block_id>
-    <sink_block_id>pad_sink_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_extract_subcarriers_vcvc_0_0</source_block_id>
-    <sink_block_id>pad_sink_0</sink_block_id>
+    <sink_block_id>lte_mimo_extract_subcarriers_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>1</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_mimo_extract_subcarriers_0</source_block_id>
+    <sink_block_id>pad_sink_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
   </connection>
 </flow_graph>

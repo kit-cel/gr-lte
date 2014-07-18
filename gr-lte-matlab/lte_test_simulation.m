@@ -9,7 +9,7 @@ rmc.NCellID=113;
 rmc.PDSCH.TxScheme='TxDiversity';
 rmc.CyclicPrefix='Normal';
 rmc.DuplexMode='FDD';
-rmc.TotSubframes=10*50;
+rmc.TotSubframes=10*2;
 rmc.NFrame=650;
 waveconfig=lteRMCDL(rmc);
 

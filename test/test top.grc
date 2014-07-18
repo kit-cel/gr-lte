@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='ASCII'?>
 <flow_graph>
-  <timestamp>Tue Jul 15 22:04:17 2014</timestamp>
+  <timestamp>Thu Jul 17 00:27:56 2014</timestamp>
   <block>
     <key>options</key>
     <param>
@@ -227,130 +227,6 @@
     </param>
   </block>
   <block>
-    <key>variable</key>
-    <param>
-      <key>id</key>
-      <value>vlen</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>240</value>
-    </param>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(672, 653)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>variable</key>
-    <param>
-      <key>id</key>
-      <value>pbch_descr_key</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>"descr_part"</value>
-    </param>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(853, 652)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>variable</key>
-    <param>
-      <key>id</key>
-      <value>style</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>"tx_diversity"</value>
-    </param>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(742, 652)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>blocks_null_sink</key>
-    <param>
-      <key>id</key>
-      <value>blocks_null_sink_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>complex</value>
-    </param>
-    <param>
-      <key>vlen</key>
-      <value>600</value>
-    </param>
-    <param>
-      <key>num_inputs</key>
-      <value>2</value>
-    </param>
-    <param>
-      <key>bus_conns</key>
-      <value>[[0,],]</value>
-    </param>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(4, 420)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>270</value>
-    </param>
-  </block>
-  <block>
     <key>lte_mimo_pss_based_frey_sync</key>
     <param>
       <key>id</key>
@@ -438,6 +314,104 @@
     <param>
       <key>_coordinate</key>
       <value>(475, 147)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>blocks_file_source</key>
+    <param>
+      <key>id</key>
+      <value>blocks_file_source_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>file</key>
+      <value>/home/maier/Schreibtisch/lte200framesFadingChannelOWN2Mul_fOff2000.dat</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>complex</value>
+    </param>
+    <param>
+      <key>repeat</key>
+      <value>False</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>2</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(231, 139)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>blocks_skiphead</key>
+    <param>
+      <key>id</key>
+      <value>blocks_skiphead_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>complex</value>
+    </param>
+    <param>
+      <key>num_items</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>2</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(694, 155)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -539,124 +513,14 @@
     </param>
   </block>
   <block>
-    <key>blocks_skiphead</key>
+    <key>decode_pbch_37</key>
     <param>
       <key>id</key>
-      <value>blocks_skiphead_0</value>
+      <value>pbch_decode_pbch_37_0</value>
     </param>
     <param>
       <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>complex</value>
-    </param>
-    <param>
-      <key>num_items</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>vlen</key>
-      <value>2</value>
-    </param>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>maxoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(694, 155)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>blocks_file_source</key>
-    <param>
-      <key>id</key>
-      <value>blocks_file_source_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>file</key>
-      <value>/home/maier/Schreibtisch/lte200framesFadingChannelOWN2Mul_fOff2000.dat</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>complex</value>
-    </param>
-    <param>
-      <key>repeat</key>
       <value>False</value>
-    </param>
-    <param>
-      <key>vlen</key>
-      <value>2</value>
-    </param>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>maxoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(231, 139)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>lte_mimo_ofdm_rx</key>
-    <param>
-      <key>id</key>
-      <value>lte_mimo_ofdm_rx_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>rxant</key>
-      <value>rxant</value>
-    </param>
-    <param>
-      <key>fftlen</key>
-      <value>fftl</value>
-    </param>
-    <param>
-      <key>ofdm_key</key>
-      <value>slot</value>
     </param>
     <param>
       <key>N_rb_dl</key>
@@ -680,42 +544,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(192, 284)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>180</value>
-    </param>
-  </block>
-  <block>
-    <key>lte_mib_unpack_vbm</key>
-    <param>
-      <key>id</key>
-      <value>MIB</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>maxoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(1048, 398)</value>
+      <value>(543, 422)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -730,7 +559,7 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>True</value>
+      <value>False</value>
     </param>
     <param>
       <key>alias</key>
@@ -758,26 +587,14 @@
     </param>
   </block>
   <block>
-    <key>lte_estimator_hier</key>
+    <key>lte_mib_unpack_vbm</key>
     <param>
       <key>id</key>
-      <value>ofdm_estimator_lte_estimator_hier_0</value>
+      <value>MIB</value>
     </param>
     <param>
       <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>initial_id</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>estimator_key</key>
-      <value>"slot"</value>
-    </param>
-    <param>
-      <key>N_rb_dl</key>
-      <value>50</value>
+      <value>False</value>
     </param>
     <param>
       <key>alias</key>
@@ -797,7 +614,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(225, 454)</value>
+      <value>(1048, 398)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -805,38 +622,30 @@
     </param>
   </block>
   <block>
-    <key>blocks_tag_debug</key>
+    <key>blocks_null_sink</key>
     <param>
       <key>id</key>
-      <value>blocks_tag_debug_0</value>
+      <value>blocks_null_sink_0_0</value>
     </param>
     <param>
       <key>_enabled</key>
-      <value>False</value>
+      <value>True</value>
     </param>
     <param>
       <key>type</key>
       <value>complex</value>
     </param>
     <param>
-      <key>name</key>
-      <value></value>
-    </param>
-    <param>
-      <key>filter</key>
-      <value>""</value>
+      <key>vlen</key>
+      <value>600*2</value>
     </param>
     <param>
       <key>num_inputs</key>
       <value>1</value>
     </param>
     <param>
-      <key>vlen</key>
-      <value>600</value>
-    </param>
-    <param>
-      <key>display</key>
-      <value>True</value>
+      <key>bus_conns</key>
+      <value>[[0,],]</value>
     </param>
     <param>
       <key>alias</key>
@@ -848,11 +657,11 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(180, 592)</value>
+      <value>(17, 230)</value>
     </param>
     <param>
       <key>_rotation</key>
-      <value>0</value>
+      <value>180</value>
     </param>
   </block>
   <block>
@@ -891,7 +700,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(447, 261)</value>
+      <value>(451, 263)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -899,14 +708,26 @@
     </param>
   </block>
   <block>
-    <key>decode_pbch_37</key>
+    <key>lte_mimo_ofdm_rx</key>
     <param>
       <key>id</key>
-      <value>pbch_decode_pbch_37_0</value>
+      <value>lte_mimo_ofdm_rx_0</value>
     </param>
     <param>
       <key>_enabled</key>
       <value>True</value>
+    </param>
+    <param>
+      <key>rxant</key>
+      <value>2</value>
+    </param>
+    <param>
+      <key>fftlen</key>
+      <value>1024</value>
+    </param>
+    <param>
+      <key>ofdm_key</key>
+      <value>slot</value>
     </param>
     <param>
       <key>N_rb_dl</key>
@@ -930,7 +751,105 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(543, 422)</value>
+      <value>(210, 286)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>180</value>
+    </param>
+  </block>
+  <block>
+    <key>blocks_tag_debug</key>
+    <param>
+      <key>id</key>
+      <value>blocks_tag_debug_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>False</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>complex</value>
+    </param>
+    <param>
+      <key>name</key>
+      <value></value>
+    </param>
+    <param>
+      <key>filter</key>
+      <value>""</value>
+    </param>
+    <param>
+      <key>num_inputs</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>1200</value>
+    </param>
+    <param>
+      <key>display</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(83, 716)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>lte_estimator_hier</key>
+    <param>
+      <key>id</key>
+      <value>ofdm_estimator_lte_estimator_hier_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>False</value>
+    </param>
+    <param>
+      <key>estimator_key</key>
+      <value>"slot"</value>
+    </param>
+    <param>
+      <key>N_rb_dl</key>
+      <value>50</value>
+    </param>
+    <param>
+      <key>initial_id</key>
+      <value>113</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(225, 454)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -938,66 +857,6 @@
     </param>
   </block>
   <connection>
-    <source_block_id>lte_mimo_ofdm_rx_0</source_block_id>
-    <sink_block_id>blocks_null_sink_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>1</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_mimo_ofdm_rx_0</source_block_id>
-    <sink_block_id>blocks_null_sink_0</sink_block_id>
-    <source_key>1</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>ofdm_estimator_lte_estimator_hier_0</source_block_id>
-    <sink_block_id>pbch_decode_pbch_37_0</sink_block_id>
-    <source_key>1</source_key>
-    <sink_key>2</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>ofdm_estimator_lte_estimator_hier_0</source_block_id>
-    <sink_block_id>pbch_decode_pbch_37_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>1</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>pbch_decode_pbch_37_0</source_block_id>
-    <sink_block_id>bch_decode_bch_hier_gr37_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>bch_decode_bch_hier_gr37_0</source_block_id>
-    <sink_block_id>MIB</sink_block_id>
-    <source_key>1</source_key>
-    <sink_key>1</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>bch_decode_bch_hier_gr37_0</source_block_id>
-    <sink_block_id>MIB</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_mimo_sss_sync_0</source_block_id>
-    <sink_block_id>pbch_decode_pbch_37_0</sink_block_id>
-    <source_key>cell_id</source_key>
-    <sink_key>cell_id</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_mimo_sss_sync_0</source_block_id>
-    <sink_block_id>lte_mimo_ofdm_rx_0</sink_block_id>
-    <source_key>1</source_key>
-    <sink_key>1</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_mimo_sss_sync_0</source_block_id>
-    <sink_block_id>lte_mimo_ofdm_rx_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
     <source_block_id>lte_mimo_pss_sync_0</source_block_id>
     <sink_block_id>lte_mimo_pss_based_frey_sync_0</sink_block_id>
     <source_key>0</source_key>
@@ -1020,12 +879,6 @@
     <sink_block_id>lte_mimo_sss_sync_0</sink_block_id>
     <source_key>1</source_key>
     <sink_key>1</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_mimo_sss_sync_0</source_block_id>
-    <sink_block_id>ofdm_estimator_lte_estimator_hier_0</sink_block_id>
-    <source_key>cell_id</source_key>
-    <sink_key>cell_id</sink_key>
   </connection>
   <connection>
     <source_block_id>blocks_file_source_0</source_block_id>
@@ -1040,12 +893,6 @@
     <sink_key>1</sink_key>
   </connection>
   <connection>
-    <source_block_id>blocks_vector_to_streams_0</source_block_id>
-    <sink_block_id>lte_mimo_pss_sync_0</sink_block_id>
-    <source_key>1</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
     <source_block_id>blocks_throttle_0</source_block_id>
     <sink_block_id>blocks_skiphead_0</sink_block_id>
     <source_key>0</source_key>
@@ -1058,20 +905,74 @@
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>lte_mimo_ofdm_rx_0</source_block_id>
+    <source_block_id>lte_mimo_sss_sync_0</source_block_id>
     <sink_block_id>ofdm_estimator_lte_estimator_hier_0</sink_block_id>
+    <source_key>cell_id</source_key>
+    <sink_key>cell_id</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_mimo_sss_sync_0</source_block_id>
+    <sink_block_id>lte_mimo_ofdm_rx_0</sink_block_id>
+    <source_key>1</source_key>
+    <sink_key>1</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_mimo_sss_sync_0</source_block_id>
+    <sink_block_id>lte_mimo_ofdm_rx_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>lte_mimo_ofdm_rx_0</source_block_id>
+    <source_block_id>blocks_vector_to_streams_0</source_block_id>
+    <sink_block_id>lte_mimo_pss_sync_0</sink_block_id>
+    <source_key>1</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_mimo_sss_sync_0</source_block_id>
     <sink_block_id>pbch_decode_pbch_37_0</sink_block_id>
+    <source_key>cell_id</source_key>
+    <sink_key>cell_id</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>bch_decode_bch_hier_gr37_0</source_block_id>
+    <sink_block_id>MIB</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>bch_decode_bch_hier_gr37_0</source_block_id>
+    <sink_block_id>MIB</sink_block_id>
+    <source_key>1</source_key>
+    <sink_key>1</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>pbch_decode_pbch_37_0</source_block_id>
+    <sink_block_id>bch_decode_bch_hier_gr37_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>ofdm_estimator_lte_estimator_hier_0</source_block_id>
+    <sink_block_id>pbch_decode_pbch_37_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>1</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>ofdm_estimator_lte_estimator_hier_0</source_block_id>
+    <sink_block_id>pbch_decode_pbch_37_0</sink_block_id>
+    <source_key>1</source_key>
+    <sink_key>2</sink_key>
   </connection>
   <connection>
     <source_block_id>lte_mimo_ofdm_rx_0</source_block_id>
     <sink_block_id>blocks_tag_debug_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_mimo_ofdm_rx_0</source_block_id>
+    <sink_block_id>blocks_null_sink_0_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>

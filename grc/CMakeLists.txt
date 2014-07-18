@@ -53,6 +53,10 @@ install(FILES
     lte_mimo_sss_symbol_selector.xml
     lte_mimo_sss_calculator.xml
     lte_mimo_sss_tagger.xml
-    lte_mimo_remove_cp.xml DESTINATION share/gnuradio/grc/blocks    
+    lte_mimo_remove_cp.xml
+    lte_mimo_extract_subcarriers.xml
+    lte_mimo_channel_estimator.xml
+    lte_mimo_pbch_demux.xml
+    lte_mimo_pre_decoder.xml DESTINATION share/gnuradio/grc/blocks    
    
 )

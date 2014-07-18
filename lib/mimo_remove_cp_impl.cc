@@ -133,6 +133,8 @@ namespace gr {
 //                    d_found_frame_start = false;
 //                    return 0;
 //                }
+
+                //TODO: sync to frame start
                d_frame_start = (v[i].offset)%(20*d_slotl);
             }
         }

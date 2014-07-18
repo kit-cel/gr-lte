@@ -34,6 +34,10 @@
 /usr/local/include/lte/mimo_sss_calculator.h
 /usr/local/include/lte/mimo_sss_tagger.h
 /usr/local/include/lte/mimo_remove_cp.h
+/usr/local/include/lte/mimo_extract_subcarriers.h
+/usr/local/include/lte/mimo_channel_estimator.h
+/usr/local/include/lte/mimo_pbch_demux.h
+/usr/local/include/lte/mimo_pre_decoder.h
 /usr/local/lib/libgnuradio-lte.so
 /usr/local/lib/python2.7/dist-packages/lte/_lte_swig.so
 /usr/local/lib/python2.7/dist-packages/lte/lte_swig.py
@@ -96,6 +100,10 @@
 /usr/local/share/gnuradio/grc/blocks/lte_mimo_sss_calculator.xml
 /usr/local/share/gnuradio/grc/blocks/lte_mimo_sss_tagger.xml
 /usr/local/share/gnuradio/grc/blocks/lte_mimo_remove_cp.xml
+/usr/local/share/gnuradio/grc/blocks/lte_mimo_extract_subcarriers.xml
+/usr/local/share/gnuradio/grc/blocks/lte_mimo_channel_estimator.xml
+/usr/local/share/gnuradio/grc/blocks/lte_mimo_pbch_demux.xml
+/usr/local/share/gnuradio/grc/blocks/lte_mimo_pre_decoder.xml
 /usr/local/share/doc/gr-lte/xml/bch__crc__check__ant__chooser__bb__impl_8h.xml
 /usr/local/share/doc/gr-lte/xml/compound.xsd
 /usr/local/share/doc/gr-lte/xml/mimo__remove__cp_8h.xml

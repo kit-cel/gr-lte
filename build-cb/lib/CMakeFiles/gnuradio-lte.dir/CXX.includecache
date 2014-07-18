@@ -10,24 +10,32 @@
 gnuradio/attributes.h
 -
 
-../include/lte/mimo_remove_cp.h
+../include/lte/mimo_channel_estimator.h
 lte/api.h
 -
-gnuradio/block.h
+gnuradio/sync_block.h
 -
 
-/home/maier/gr-lte/lib/mimo_remove_cp_impl.cc
+/home/maier/gr-lte/lib/mimo_channel_estimator_impl.cc
 config.h
 /home/maier/gr-lte/lib/config.h
 gnuradio/io_signature.h
 -
-mimo_remove_cp_impl.h
-/home/maier/gr-lte/lib/mimo_remove_cp_impl.h
+mimo_channel_estimator_impl.h
+/home/maier/gr-lte/lib/mimo_channel_estimator_impl.h
+fftw3.h
+-
+volk/volk.h
+-
+cmath
+-
 cstdio
 -
+string
+-
 
-/home/maier/gr-lte/lib/mimo_remove_cp_impl.h
-lte/mimo_remove_cp.h
+/home/maier/gr-lte/lib/mimo_channel_estimator_impl.h
+lte/mimo_channel_estimator.h
 -
 
 /usr/local/include/gnuradio/api.h
@@ -236,6 +244,12 @@ gnuradio/api.h
 boost/shared_ptr.hpp
 -
 
+/usr/local/include/gnuradio/sync_block.h
+gnuradio/api.h
+-
+gnuradio/block.h
+-
+
 /usr/local/include/gnuradio/tags.h
 gnuradio/api.h
 -
@@ -302,5 +316,51 @@ pmt/pmt_sugar.h
 
 /usr/local/include/pmt/pmt_sugar.h
 gnuradio/messages/msg_accepter.h
+-
+
+/usr/local/include/volk/volk.h
+volk/volk_typedefs.h
+-
+volk/volk_config_fixed.h
+-
+volk/volk_common.h
+-
+volk/volk_complex.h
+-
+volk/volk_malloc.h
+-
+stdlib.h
+-
+stdbool.h
+-
+
+/usr/local/include/volk/volk_common.h
+inttypes.h
+-
+xmmintrin.h
+-
+emmintrin.h
+-
+
+/usr/local/include/volk/volk_complex.h
+complex
+-
+stdint.h
+-
+complex.h
+-
+
+/usr/local/include/volk/volk_config_fixed.h
+
+/usr/local/include/volk/volk_malloc.h
+volk/volk_common.h
+-
+stdlib.h
+-
+
+/usr/local/include/volk/volk_typedefs.h
+inttypes.h
+-
+volk/volk_complex.h
 -
 

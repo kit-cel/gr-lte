@@ -44,7 +44,7 @@ namespace gr {
      */
     mimo_sss_calculator_impl::mimo_sss_calculator_impl(int fftl, int rxant)
       : gr::sync_block("mimo_sss_calculator",
-              gr::io_signature::make(1, 8, sizeof(gr_complex)*72),
+              gr::io_signature::make(1, 1, sizeof(gr_complex)*72*rxant),
               gr::io_signature::make(0, 0, 0)),
                 d_fftl(fftl),
                 d_rxant(rxant),
@@ -130,6 +130,8 @@ namespace gr {
 			  gr_vector_const_void_star &input_items,
 			  gr_vector_void_star &output_items)
     {
+        gr_complex* in = (gr_complex*) input_items[0];
+
         if(d_is_locked){
             return noutput_items;
         }
@@ -143,17 +145,19 @@ namespace gr {
 
         // extract the 2 half sss symbols which are interleaved differently by their position within a frame.
         gr_complex** even = new gr_complex*[d_rxant];
-        gr_complex** odd = new gr_complex*[d_rxant];
+        gr_complex** odd  = new gr_complex*[d_rxant];
 
         for(int rx=0; rx<d_rxant; rx++)
         {
             even[rx] = new gr_complex[31];
             odd[rx] = new gr_complex[31];
-            for(int i = 0; i < 31 ; i++)
-            {
-                gr_complex* in = (gr_complex*) input_items[rx];
-                even[rx][i] = in[5 + 2 * i + 0];
-                odd[rx][i]  = in[5 + 2 * i + 1];
+            for(int i = 0; i < 31 ; i++){
+
+//                even[rx][i] = in[5 + 2*i + 0];
+//                odd[rx][i]  = in[5 + 2*i + 1];
+
+                  even[rx][i] = in[5 + 2*i + 0 + 72*rx];
+                  odd[rx][i]  = in[5 + 2*i + 1 + 72*rx];
             }
         }
 

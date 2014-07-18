@@ -37,3 +37,7 @@ ADD_TEST(qa_mimo_sss_symbol_selector "/bin/sh" "/home/maier/gr-lte/build-cb/pyth
 ADD_TEST(qa_mimo_sss_calculator "/bin/sh" "/home/maier/gr-lte/build-cb/python/qa_mimo_sss_calculator_test.sh")
 ADD_TEST(qa_mimo_sss_tagger "/bin/sh" "/home/maier/gr-lte/build-cb/python/qa_mimo_sss_tagger_test.sh")
 ADD_TEST(qa_mimo_remove_cp "/bin/sh" "/home/maier/gr-lte/build-cb/python/qa_mimo_remove_cp_test.sh")
+ADD_TEST(qa_mimo_extract_subcarriers "/bin/sh" "/home/maier/gr-lte/build-cb/python/qa_mimo_extract_subcarriers_test.sh")
+ADD_TEST(qa_mimo_channel_estimator "/bin/sh" "/home/maier/gr-lte/build-cb/python/qa_mimo_channel_estimator_test.sh")
+ADD_TEST(qa_mimo_pbch_demux "/bin/sh" "/home/maier/gr-lte/build-cb/python/qa_mimo_pbch_demux_test.sh")
+ADD_TEST(qa_mimo_pre_decoder "/bin/sh" "/home/maier/gr-lte/build-cb/python/qa_mimo_pre_decoder_test.sh")

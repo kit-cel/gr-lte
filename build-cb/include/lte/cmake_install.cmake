@@ -70,6 +70,10 @@ IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
     "/home/maier/gr-lte/include/lte/mimo_sss_calculator.h"
     "/home/maier/gr-lte/include/lte/mimo_sss_tagger.h"
     "/home/maier/gr-lte/include/lte/mimo_remove_cp.h"
+    "/home/maier/gr-lte/include/lte/mimo_extract_subcarriers.h"
+    "/home/maier/gr-lte/include/lte/mimo_channel_estimator.h"
+    "/home/maier/gr-lte/include/lte/mimo_pbch_demux.h"
+    "/home/maier/gr-lte/include/lte/mimo_pre_decoder.h"
     )
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 

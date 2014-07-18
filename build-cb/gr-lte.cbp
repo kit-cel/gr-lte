@@ -417,7 +417,7 @@
 			</Target>
 		</Build>
 		<ExtraCommands>
-			<Add after="echo foobar | sudo -S make install" />
+			<Add after="echo foobar | sudo -S make -j 2 install" />
 		</ExtraCommands>
 		<Unit filename="../../../../usr/local/lib/cmake/gnuradio/CMakeParseArgumentsCopy.cmake">
 			<Option virtualFolder="CMake Files/../../../usr/local/lib/cmake/gnuradio/" />
@@ -479,6 +479,8 @@
 		<Unit filename="../include/lte/extract_subcarriers_vcvc.h" />
 		<Unit filename="../include/lte/layer_demapper_vcvc.h" />
 		<Unit filename="../include/lte/mib_unpack_vbm.h" />
+		<Unit filename="../include/lte/mimo_channel_estimator.h" />
+		<Unit filename="../include/lte/mimo_extract_subcarriers.h" />
 		<Unit filename="../include/lte/mimo_pss_coarse_control.h" />
 		<Unit filename="../include/lte/mimo_pss_coarse_sync.h" />
 		<Unit filename="../include/lte/mimo_pss_fine_sync.h" />
@@ -524,6 +526,14 @@
 		<Unit filename="../lib/layer_demapper_vcvc_impl.h" />
 		<Unit filename="../lib/mib_unpack_vbm_impl.cc" />
 		<Unit filename="../lib/mib_unpack_vbm_impl.h" />
+		<Unit filename="../lib/mimo_channel_estimator_impl.cc" />
+		<Unit filename="../lib/mimo_channel_estimator_impl.h" />
+		<Unit filename="../lib/mimo_extract_subcarriers_impl.cc" />
+		<Unit filename="../lib/mimo_extract_subcarriers_impl.h" />
+		<Unit filename="../lib/mimo_pbch_demux_impl.cc" />
+		<Unit filename="../lib/mimo_pbch_demux_impl.h" />
+		<Unit filename="../lib/mimo_pre_decoder_impl.cc" />
+		<Unit filename="../lib/mimo_pre_decoder_impl.h" />
 		<Unit filename="../lib/mimo_pss_coarse_control_impl.cc" />
 		<Unit filename="../lib/mimo_pss_coarse_control_impl.h" />
 		<Unit filename="../lib/mimo_pss_coarse_sync_impl.cc" />

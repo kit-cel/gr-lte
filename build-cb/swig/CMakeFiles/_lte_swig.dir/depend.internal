@@ -11,6 +11,10 @@ swig/CMakeFiles/_lte_swig.dir/lte_swigPYTHON_wrap.cxx.o
  ../include/lte/extract_subcarriers_vcvc.h
  ../include/lte/layer_demapper_vcvc.h
  ../include/lte/mib_unpack_vbm.h
+ ../include/lte/mimo_channel_estimator.h
+ ../include/lte/mimo_extract_subcarriers.h
+ ../include/lte/mimo_pbch_demux.h
+ ../include/lte/mimo_pre_decoder.h
  ../include/lte/mimo_pss_coarse_control.h
  ../include/lte/mimo_pss_coarse_sync.h
  ../include/lte/mimo_pss_fine_sync.h
