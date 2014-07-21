@@ -67,8 +67,8 @@ namespace gr {
             const gr_complex *in = (const gr_complex *) input_items[rx];
 
             for (int i = 0; i < noutput_items; i++){
-                memcpy(out+(rx*12*d_N_rb_dl), in+(d_fftl-(6*d_N_rb_dl)), h_byte_tones_num );
-                memcpy(out+(6*d_N_rb_dl)+(rx*12*d_N_rb_dl), in+1, h_byte_tones_num);
+                memcpy(out+              (rx*12*d_N_rb_dl), in+(d_fftl-(6*d_N_rb_dl)), h_byte_tones_num );
+                memcpy(out+(6*d_N_rb_dl)+(rx*12*d_N_rb_dl), in+1,                      h_byte_tones_num );
 
                 in  += d_fftl;
                 out += 12 * d_N_rb_dl * d_rxant;

@@ -25,7 +25,6 @@
 #include <gnuradio/io_signature.h>
 #include "mimo_channel_estimator_impl.h"
 
-#include <fftw3.h>
 #include <volk/volk.h>
 #include <cmath>
 #include <cstdio>
@@ -482,12 +481,13 @@ namespace gr {
 	{
 		d_pilot_symbols.clear();
 		d_pilot_symbols.reserve(n_frame_syms);
+		int alig = volk_get_alignment();
 
 		for( int i = 0; i < n_frame_syms; i++) {
 			// aligned arrays for each symbol.
 			//printf("set_pilot_sym %i\n", i);
 
-			d_pilot_symbols.push_back( (gr_complex*)fftwf_malloc(sizeof(gr_complex) * max_pilots) );
+			d_pilot_symbols.push_back( (gr_complex*)volk_malloc(sizeof(gr_complex) * max_pilots, alig) );
 			memcpy(d_pilot_symbols[i], &pilot_symbols[i][0], sizeof(gr_complex) * pilot_symbols[i].size() );
 		}
 	}
@@ -505,20 +505,21 @@ namespace gr {
 	inline void
 	mimo_channel_estimator_impl::init_pilot_dependend_volk_vectors(int max_pilots)
 	{
-
-		d_rx_rs = (gr_complex*)fftwf_malloc(sizeof(gr_complex) * max_pilots);
-		d_diff_rx_rs = (gr_complex*)fftwf_malloc(sizeof(gr_complex) * max_pilots);
-		d_diff_mag = (float*)fftwf_malloc(sizeof(float) * max_pilots);
-		d_diff_phase = (float*)fftwf_malloc(sizeof(float) * max_pilots);
+        int alig = volk_get_alignment();
+		d_rx_rs = (gr_complex*)volk_malloc(sizeof(gr_complex) * max_pilots, alig);
+		d_diff_rx_rs = (gr_complex*)volk_malloc(sizeof(gr_complex) * max_pilots, alig);
+		d_diff_mag = (float*)volk_malloc(sizeof(float) * max_pilots, alig);
+		d_diff_phase = (float*)volk_malloc(sizeof(float) * max_pilots, alig);
 	}
 
 	inline void
 	mimo_channel_estimator_impl::init_subcarrier_dependend_volk_vectors(int subcarriers)
 	{
-		d_diff_vector = (float*)fftwf_malloc(sizeof(float) * subcarriers);
-		d_div_vector = (float*)fftwf_malloc(sizeof(float) * subcarriers);
-		d_rx_vec = (gr_complex*)fftwf_malloc(sizeof(gr_complex) * subcarriers);
-		d_phase_bound_vector = (float*)fftwf_malloc(sizeof(float) * subcarriers);
+        int alig = volk_get_alignment();
+		d_diff_vector = (float*)volk_malloc(sizeof(float) * subcarriers, alig);
+		d_div_vector = (float*)volk_malloc(sizeof(float) * subcarriers, alig);
+		d_rx_vec = (gr_complex*)volk_malloc(sizeof(gr_complex) * subcarriers, alig);
+		d_phase_bound_vector = (float*)volk_malloc(sizeof(float) * subcarriers, alig);
 	}
 
 	inline void
@@ -529,8 +530,7 @@ namespace gr {
 		d_mag_estimates.clear();
 		d_phase_estimates.clear();
 		//printf("capacity\test = %i\tmag = %i\tphase = %i\n", int(d_estimates.capacity()), int(d_mag_estimates.capacity()), int(d_phase_estimates.capacity()) );
-
-
+        int alig = volk_get_alignment();
 
         for(int rx=0; rx<d_rxant; rx++){
             d_estimates.push_back(std::vector< gr_complex* > ());
@@ -542,9 +542,9 @@ namespace gr {
             d_phase_estimates[rx].reserve(n_frame_syms);
 
             for(int i = 0; i < n_frame_syms; i++) {
-                d_estimates[rx].push_back( (gr_complex*)fftwf_malloc(sizeof(gr_complex) * subcarriers) );
-                d_mag_estimates[rx].push_back( (float*)fftwf_malloc(sizeof(float) * subcarriers) );
-                d_phase_estimates[rx].push_back( (float*)fftwf_malloc(sizeof(float) * subcarriers) );
+                d_estimates[rx].push_back( (gr_complex*)volk_malloc(sizeof(gr_complex) * subcarriers, alig) );
+                d_mag_estimates[rx].push_back( (float*)volk_malloc(sizeof(float) * subcarriers, alig) );
+                d_phase_estimates[rx].push_back( (float*)volk_malloc(sizeof(float) * subcarriers, alig) );
             }
 
 		}

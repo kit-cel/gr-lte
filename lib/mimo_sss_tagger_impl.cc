@@ -101,7 +101,7 @@ namespace gr {
             }
         }
 
-        // as long as frame start is unknown add dummy tags, so freq estimate can work!
+        // as long as frame start is unknown add dummy tags
         if(d_frame_start == -1){
             for (int i = 0 ; i < noutput_items ; i++){
                 if( (nin+i)%d_slotl == d_offset_0 ){ //removed abs

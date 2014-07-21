@@ -27,7 +27,6 @@
 
 #include <cstdio>
 #include <cmath>
-#include <fftw3.h>
 #include <volk/volk.h>
 
 namespace gr {
@@ -64,6 +63,17 @@ namespace gr {
      */
     mimo_pre_decoder_impl::~mimo_pre_decoder_impl()
     {
+        volk_free(d_h0);
+        volk_free(d_h1);
+        volk_free(d_r0);
+        volk_free(d_r1);
+
+        volk_free(d_out);
+        volk_free(d_out0);
+        volk_free(d_out1);
+
+        volk_free(d_mult0);
+        volk_free(d_mult1);
     }
 
     int
@@ -76,8 +86,8 @@ namespace gr {
 		gr_complex *out = (gr_complex *) output_items[0];
 
 		if (d_N_ant == 1){
-            memset(out, 0, sizeof(gr_complex)*d_vlen);
 			for(int i = 0; i < noutput_items; i++){
+                memset(out, 0, sizeof(gr_complex)*d_vlen);
                 for(int rx=0; rx<d_rxant; rx++){
                     decode_1_ant(d_out, in, ce0, d_vlen);
                     volk_32f_x2_add_32f_a((float*) out, (float*) out, (float*) d_out, d_vlen*2);
@@ -85,7 +95,6 @@ namespace gr {
                     in  += d_vlen;
                     ce0 += d_vlen;
 				}
-				//TODO: needed??
 				volk_32fc_s32fc_multiply_32fc_a(out, out, gr_complex(1.0/d_rxant,0), d_vlen);
 				out += d_vlen;
 			}
@@ -93,9 +102,10 @@ namespace gr {
 		else if(d_N_ant == 2){
 			const gr_complex *ce1 = (const gr_complex *) input_items[2];      //channel estimate ant port 1
 			for(int i = 0; i < noutput_items; i++){
-                 memset(out, 0, sizeof(gr_complex)*d_vlen);
+                memset(out, 0, sizeof(gr_complex)*d_vlen);
 
 				for(int rx=0; rx<d_rxant; rx++){
+
                     prepare_2_ant_vectors(d_h0, d_h1, d_r0, d_r1, in, ce0, ce1, d_vlen);
                     decode_2_ant(d_out0, d_out1, d_h0, d_h1, d_r0, d_r1, d_vlen/2);
                     combine_output(d_out, d_out0, d_out1, d_vlen);
@@ -105,11 +115,11 @@ namespace gr {
                     ce0 += d_vlen;
                     ce1 += d_vlen;
 				}
-                //TODO: needed??
 				volk_32fc_s32fc_multiply_32fc_a(out, out, gr_complex(1.0/d_rxant,0), d_vlen);
 				out += d_vlen;
 			}
 		}
+
 
 		// Tell runtime system how many output items we produced.
 		return noutput_items;
@@ -119,10 +129,10 @@ namespace gr {
 	mimo_pre_decoder_impl::decode_1_ant(gr_complex* out,
 									   const gr_complex* rx,
 									   const gr_complex* h,
-									    int len)
+                                       int len)
 	{
 		for(int i = 0 ; i < len ; i++ ){
-			*(out+i) += rx[i]/h[i];
+			*(out+i) = rx[i]/h[i];
 		}
 	}
 
@@ -239,17 +249,19 @@ namespace gr {
 	void
 	mimo_pre_decoder_impl::setup_volk_vectors(int len)
 	{
-		d_h0 = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*d_vlen/2);
-		d_h1 = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*d_vlen/2);
-		d_r0 = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*d_vlen/2);
-		d_r1 = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*d_vlen/2);
+        int alig = volk_get_alignment();
 
-		d_out = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*d_vlen);
-		d_out0 = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*d_vlen/2);
-		d_out1 = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*d_vlen/2);
+		d_h0 = (gr_complex*)volk_malloc(sizeof(gr_complex)*d_vlen/2, alig);
+		d_h1 = (gr_complex*)volk_malloc(sizeof(gr_complex)*d_vlen/2, alig);
+		d_r0 = (gr_complex*)volk_malloc(sizeof(gr_complex)*d_vlen/2, alig);
+		d_r1 = (gr_complex*)volk_malloc(sizeof(gr_complex)*d_vlen/2, alig);
 
-		d_mult0 = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*d_vlen/2);
-		d_mult1 = (gr_complex*)fftwf_malloc(sizeof(gr_complex)*d_vlen/2);
+		d_out = (gr_complex*)volk_malloc(sizeof(gr_complex)*d_vlen, alig);
+		d_out0 = (gr_complex*)volk_malloc(sizeof(gr_complex)*d_vlen/2, alig);
+		d_out1 = (gr_complex*)volk_malloc(sizeof(gr_complex)*d_vlen/2, alig);
+
+		d_mult0 = (gr_complex*)volk_malloc(sizeof(gr_complex)*d_vlen/2, alig);
+		d_mult1 = (gr_complex*)volk_malloc(sizeof(gr_complex)*d_vlen/2, alig);
 	}
 
 

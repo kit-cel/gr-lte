@@ -25,6 +25,8 @@
 #include <gnuradio/io_signature.h>
 #include "mimo_pbch_demux_impl.h"
 
+#include <cstdio>
+
 namespace gr {
   namespace lte {
 
@@ -49,6 +51,7 @@ namespace gr {
     {
         message_port_register_in(pmt::mp("cell_id"));
 		set_msg_handler(pmt::mp("cell_id"), boost::bind(&mimo_pbch_demux_impl::set_cell_id_msg, this, _1));
+
     }
 
     /*
@@ -64,6 +67,7 @@ namespace gr {
         for(int i = 0 ; i < ninput_items_required.size() ; i++){
 			ninput_items_required[0] = noutput_items;
 		}
+
     }
 
     int
@@ -85,7 +89,7 @@ namespace gr {
 			return 0;
 		}
 
-		// set noutput_items to zero. if output is produced, noutput_items is incremented.
+		//set noutput_items to zero. if output is produced, noutput_items is incremented.
 		noutput_items = 0;
 
 		int cell_id_mod3 = d_cell_id%3;
@@ -161,24 +165,27 @@ namespace gr {
 	mimo_pbch_demux_impl::extract_pbch_values(gr_complex* out,
 												const gr_complex* in)
 	{
+
+
 		int cell_id_mod3 = d_cell_id%3;
 		int n_carriers = 12*d_N_rb_dl;
+		int n_pbch4 = 240;
 		int pbch_pos = (n_carriers/2)-(72/2);
 		int idx = 0;
 		for (int c = 0 ; c < 72 ; c++ ) {
 			if ( cell_id_mod3 != c%3 ){
                 for(int rx=0; rx<d_rxant; rx++){
-                    out[idx   +rx*240] = in[pbch_pos+c           +rx*240];
-                    out[idx+48+rx*240] = in[pbch_pos+c+n_carriers+rx*240];
+                    out[idx   +rx*n_pbch4] = in[pbch_pos+c                  +rx*n_carriers];
+                    out[idx+48+rx*n_pbch4] = in[pbch_pos+c+n_carriers*d_rxant+rx*n_carriers];
 				}
 				idx++;
 			}
 		}
 		for(int rx=0; rx<d_rxant; rx++){
             //Copy PBCH values on symbol 9
-            memcpy(out+96   +rx*240, in+2*n_carriers+pbch_pos+rx*240, 72*sizeof(gr_complex) );
+            memcpy(out+96   +rx*n_pbch4, in+2*n_carriers*d_rxant+pbch_pos+rx*n_carriers, 72*sizeof(gr_complex) );
             //Copy PBCH values on symbol 10
-            memcpy(out+96+72+rx*240, in+3*n_carriers+pbch_pos+rx*240, 72*sizeof(gr_complex) );
+            memcpy(out+96+72+rx*n_pbch4, in+3*n_carriers*d_rxant+pbch_pos+rx*n_carriers, 72*sizeof(gr_complex) );
 		}
 	}
 

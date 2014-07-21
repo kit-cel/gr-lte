@@ -3,7 +3,7 @@
 # Gnuradio Python Flow Graph
 # Title: LTE_test
 # Author: Johannes Demel
-# Generated: Thu Jul  3 23:20:03 2014
+# Generated: Sun Jul 20 22:33:21 2014
 ##################################################
 
 execfile("/home/maier/.grc_gnuradio/decode_bch_hier_gr37.py")
@@ -76,7 +76,7 @@ class lte_top_block(gr.top_block, Qt.QWidget):
         self.sync_lte_cp_freq_sync_0 = lte_cp_freq_sync(
             fftlen=fftlen,
         )
-        self.pre_blocks_file_source_0 = blocks.file_source(gr.sizeof_gr_complex*1, "/home/maier/gqrx_20140703_211737_795999999_4000000_fc.raw", True)
+        self.pre_blocks_file_source_0 = blocks.file_source(gr.sizeof_gr_complex*1, "/home/maier/Schreibtisch/lte200framesFadingChannelOWN2Mul_fOff2000.dat", True)
         self.pbch_decode_pbch_37_0 = decode_pbch_37(
             N_rb_dl=N_rb_dl,
         )
@@ -92,6 +92,7 @@ class lte_top_block(gr.top_block, Qt.QWidget):
         )
         self.blocks_throttle_0 = blocks.throttle(gr.sizeof_gr_complex*1, samp_rate,True)
         (self.blocks_throttle_0).set_min_output_buffer(5000)
+        self.blocks_skiphead_1 = blocks.skiphead(gr.sizeof_gr_complex*600, 2)
         self.blocks_ctrlport_monitor_performance_0 = not True or monitor("gr-perf-monitorx")
         self.bch_decode_bch_hier_gr37_0 = decode_bch_hier_gr37()
         self.MIB = lte.mib_unpack_vbm("MIB")
@@ -99,19 +100,20 @@ class lte_top_block(gr.top_block, Qt.QWidget):
         ##################################################
         # Connections
         ##################################################
-        self.connect((self.bch_decode_bch_hier_gr37_0, 0), (self.MIB, 0))
-        self.connect((self.bch_decode_bch_hier_gr37_0, 1), (self.MIB, 1))
-        self.connect((self.pbch_decode_pbch_37_0, 0), (self.bch_decode_bch_hier_gr37_0, 0))
-        self.connect((self.ofdm_estimator_lte_estimator_hier_0, 0), (self.pbch_decode_pbch_37_0, 1))
-        self.connect((self.ofdm_lte_ofdm_hier_0, 0), (self.pbch_decode_pbch_37_0, 0))
-        self.connect((self.ofdm_estimator_lte_estimator_hier_0, 1), (self.pbch_decode_pbch_37_0, 2))
         self.connect((self.sync_lte_pss_sync_37_0, 0), (self.sync_lte_cp_freq_sync_0, 0))
-        self.connect((self.ofdm_lte_ofdm_hier_0, 0), (self.ofdm_estimator_lte_estimator_hier_0, 0))
         self.connect((self.sync_lte_cp_freq_sync_0, 0), (self.sync_lte_sss_sync_hier_0, 0))
         self.connect((self.sync_lte_sss_sync_hier_0, 0), (self.ofdm_lte_ofdm_hier_0, 0))
         self.connect((self.blocks_throttle_0, 0), (self.sync_lte_rough_symbol_sync_cc_0, 0))
         self.connect((self.sync_lte_rough_symbol_sync_cc_0, 0), (self.sync_lte_pss_sync_37_0, 0))
         self.connect((self.pre_blocks_file_source_0, 0), (self.blocks_throttle_0, 0))
+        self.connect((self.bch_decode_bch_hier_gr37_0, 0), (self.MIB, 0))
+        self.connect((self.bch_decode_bch_hier_gr37_0, 1), (self.MIB, 1))
+        self.connect((self.pbch_decode_pbch_37_0, 0), (self.bch_decode_bch_hier_gr37_0, 0))
+        self.connect((self.ofdm_estimator_lte_estimator_hier_0, 0), (self.pbch_decode_pbch_37_0, 1))
+        self.connect((self.ofdm_estimator_lte_estimator_hier_0, 1), (self.pbch_decode_pbch_37_0, 2))
+        self.connect((self.ofdm_lte_ofdm_hier_0, 0), (self.blocks_skiphead_1, 0))
+        self.connect((self.blocks_skiphead_1, 0), (self.pbch_decode_pbch_37_0, 0))
+        self.connect((self.blocks_skiphead_1, 0), (self.ofdm_estimator_lte_estimator_hier_0, 0))
 
         ##################################################
         # Asynch Message Connections
@@ -165,8 +167,8 @@ class lte_top_block(gr.top_block, Qt.QWidget):
 
     def set_N_rb_dl(self, N_rb_dl):
         self.N_rb_dl = N_rb_dl
-        self.pbch_decode_pbch_37_0.set_N_rb_dl(self.N_rb_dl)
         self.sync_lte_sss_sync_hier_0.set_N_rb_dl(self.N_rb_dl)
+        self.pbch_decode_pbch_37_0.set_N_rb_dl(self.N_rb_dl)
 
 if __name__ == '__main__':
     import ctypes
