@@ -50,7 +50,8 @@ namespace gr {
 
 		long copy_samples_from_in_to_out(gr_vector_void_star &output_items,
                             const gr_vector_const_void_star &input_items,
-                            int noutput_items);
+                            int noutput_items,
+                            int sync_delay);
 		//void add_tags_to_vectors(int noutput_items, int sym_num, int symbols_per_frame);
         void add_tags_to_vectors(int noutput_items);
 		long get_frame_start(std::vector <gr::tag_t> v);

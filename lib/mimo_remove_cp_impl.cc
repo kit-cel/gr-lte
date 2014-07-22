@@ -73,7 +73,7 @@ namespace gr {
     {
         unsigned ninputs = ninput_items_required.size();
 		for (unsigned i = 0; i < ninputs; i++)
-			ninput_items_required[i] = ( d_fftl + d_cpl0 ) * noutput_items;
+			ninput_items_required[i] = ( d_fftl + d_cpl0 ) * noutput_items+4;
     }
 
 
@@ -126,29 +126,49 @@ namespace gr {
                 return 0;
             }
         }
+
+
+        //the following section syncs directly to new frame start if the delay is only 1 or 2 samples(tracking in time sync)
+        int sync_delay=0;
         for(int i = 0 ; i < size ; i++ ){
             if(size > 0 && pmt::to_long(v[i].value) == 0 ){
-//                if( (v[i].offset)%(20*d_slotl) != d_frame_start ){
-//                    printf("%s OUT of sync!\n", name().c_str() );
-//                    d_found_frame_start = false;
-//                    return 0;
-//                }
+                    int halffl = 20*d_slotl;
+                    int frame_start = v[i].offset % halffl;
+                    if( frame_start != d_frame_start )
+                    {
 
-                //TODO: sync to frame start
-               d_frame_start = (v[i].offset)%(20*d_slotl);
+                        if ( frame_start == (d_frame_start-1+halffl)%halffl ){
+                            sync_delay=-1;
+                        }
+                        else if( frame_start == (d_frame_start-2+halffl)%halffl ){
+                            sync_delay=-2;
+                        }
+                        else if( frame_start == (d_frame_start+1)%halffl ){
+                            sync_delay=1;
+                        }
+                        else if( frame_start == (d_frame_start+2)%halffl ){
+                            sync_delay=2;
+                        }
+                        else{
+                            printf("%s OUT of sync!\n", name().c_str() );
+                            d_found_frame_start = false;
+                            return 0;   //resync to frame start
+                        }
+                  }
+                    d_frame_start=frame_start;
             }
         }
 
 
         // Copy the samples of interest from input to output buffer
-        long consumed_items = copy_samples_from_in_to_out(output_items, input_items, noutput_items);
+        long consumed_items = copy_samples_from_in_to_out(output_items, input_items, noutput_items, sync_delay);
 
         // add item tags. Item tags for each vector/OFDM symbol.
         add_tags_to_vectors(noutput_items);
 
         // Tell runtime system how many input items we consumed on
         // each input stream.
-        consume_each (consumed_items);
+        consume_each (consumed_items + sync_delay);
         // Tell runtime system how many output items we produced.
         return noutput_items;
     }
@@ -217,7 +237,8 @@ namespace gr {
     long
 	mimo_remove_cp_impl::copy_samples_from_in_to_out(gr_vector_void_star &output_items,
                                     const gr_vector_const_void_star &input_items,
-                                    int noutput_items)
+                                    int noutput_items,
+                                    int sync_delay)
 	{
         int vector_byte_size = sizeof(gr_complex)*d_fftl;
         int syml0 = d_cpl0 + d_fftl;
@@ -232,7 +253,7 @@ namespace gr {
             const gr_complex *in = (const gr_complex *) input_items[rx];
             consumed_items = 0;
 
-
+            in = in + sync_delay;
 
             for (int i = 0 ; i < noutput_items ; i++){
                 if(symb == 0){ // 0. symbol in each LTE slot is longer than the rest
@@ -241,7 +262,7 @@ namespace gr {
                     in += syml0;
                 }
                 else{
-                    memcpy(out, in+d_cpl,vector_byte_size);
+                    memcpy(out, in+d_cpl, vector_byte_size);
                     consumed_items += syml1;
                     in += syml1;
                 }

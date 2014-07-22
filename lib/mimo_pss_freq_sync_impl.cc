@@ -182,13 +182,13 @@ mimo_pss_freq_sync_impl::calc_freq_off()
     freq=15000*freq/((float)d_rxant*M_PI);
 
     //bigger steps when starting
-    float a=1.0/d_f_count;
+    float a=0.5/d_f_count;
     a=a<0.01 ? 0.01 : a;
 
     d_f_est = d_f_est + (a * freq);
 
     (*d_sig).set_frequency((-1)*double(d_f_est) );
-    //printf("FREQ SYNC: estimate=%f, new freq-compensate: %f\n", freq, d_f_est);
+  //  printf("FREQ SYNC: estimate=%f, new freq-compensate: %f\n", freq, d_f_est);
 }
 
 

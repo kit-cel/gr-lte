@@ -175,7 +175,7 @@ namespace gr {
 		for (int c = 0 ; c < 72 ; c++ ) {
 			if ( cell_id_mod3 != c%3 ){
                 for(int rx=0; rx<d_rxant; rx++){
-                    out[idx   +rx*n_pbch4] = in[pbch_pos+c                  +rx*n_carriers];
+                    out[idx   +rx*n_pbch4] = in[pbch_pos+c                   +rx*n_carriers];
                     out[idx+48+rx*n_pbch4] = in[pbch_pos+c+n_carriers*d_rxant+rx*n_carriers];
 				}
 				idx++;

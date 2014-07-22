@@ -171,7 +171,7 @@ mimo_pss_fine_sync_impl::work(int noutput_items,
         {
             //do first fine sync
 
-            int search_int=d_decim; //search intervall for correlation maximum
+            int search_int=d_decim*2; //search intervall for correlation maximum
 
             //position of pss is saved as modulo value
             //-->search intervall can be within 2 following half frame lengths (rare case)
@@ -203,28 +203,25 @@ mimo_pss_fine_sync_impl::work(int noutput_items,
         //do tracking after block is locked, 3 correlations around center
         else
         {
-
-
             if((d_fine_pos-1+d_halffl)%d_halffl==mod_pos)
             {
-                d_corr_val=d_corr_val*0.99;
-                d_val_early=diff_corr2(input_items, d_pssX_t, d_fftl, i);
-            }
-            else if (d_fine_pos==mod_pos)
-            {
-                d_val_prompt=diff_corr2(input_items, d_pssX_t, d_fftl, i);
-            }
-            else if ((d_fine_pos+1)%d_halffl==mod_pos)
-            {
+                if(noutput_items-i<d_fftl)
+                    return 0;
+
                 int fine_pos;
-                d_val_late=diff_corr2(input_items, d_pssX_t, d_fftl, i);
+
+                d_corr_val   = d_corr_val*0.95;
+                d_val_early  = diff_corr2(input_items, d_pssX_t, d_fftl, i);
+                d_val_prompt = diff_corr2(input_items, d_pssX_t, d_fftl, i+1);
+                d_val_late   = diff_corr2(input_items, d_pssX_t, d_fftl, i+2);
+
                 val=d_corr_val;
                 fine_pos=d_fine_pos;
 
                 if(d_val_early>val)
                 {
                     val=d_val_early;
-                    fine_pos=(d_fine_pos-1+d_halffl)%d_halffl;
+                    fine_pos=d_fine_pos-1;
                 }
                 if(d_val_prompt>val)
                 {
@@ -234,18 +231,22 @@ mimo_pss_fine_sync_impl::work(int noutput_items,
                 if(d_val_late>val)
                 {
                     val=d_val_late;
-                    fine_pos=(d_fine_pos+1)%d_halffl;
+                    fine_pos=d_fine_pos+1;
                 }
 
 
-                //printf("PSS-tracking: old_pos:%i\told_val:%f\tnew_pos:%i\tnew_val:%f\n", d_fine_pos, d_corr_val, fine_pos, val);
-                d_fine_pos=fine_pos;
+//                printf("---------------\n");
+//                printf("PSS-tracking: early:%f\n", d_val_early);
+//                printf("PSS-tracking: prompt:%f\n", d_val_prompt);
+//                printf("PSS-tracking: late:%f\n", d_val_late);
+//                printf("PSS-tracking: old_pos:%i\told_val:%f\tnew_pos:%i\tnew_val:%f\n", d_fine_pos, d_corr_val, fine_pos, val);
+
+                d_fine_pos=(fine_pos+d_halffl)%d_halffl;
                 d_corr_val=val;
                 d_half_frame_start=calc_half_frame_start(fine_pos);
                 message_port_pub(d_port_half_frame, pmt::from_long((long)d_half_frame_start));
                 //step over next samples until next pss occurs
                 d_step=d_halffl-noutput_items;
-                //TODO: exact stepping to avoid if clauses
             }
         }
     }
