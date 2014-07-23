@@ -51,24 +51,24 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="34">
+      <node id="50">
         <label>gr::lte::mimo_pss_coarse_sync</label>
         <link refid="classgr_1_1lte_1_1mimo__pss__coarse__sync"/>
-        <childnode refid="35" relation="public-inheritance">
+        <childnode refid="51" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="35">
+      <node id="51">
         <label>sync_block</label>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="36">
+      <node id="52">
         <label>gr::lte::mimo_pss_coarse_sync</label>
         <link refid="classgr_1_1lte_1_1mimo__pss__coarse__sync"/>
-        <childnode refid="37" relation="public-inheritance">
+        <childnode refid="53" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="37">
+      <node id="53">
         <label>sync_block</label>
       </node>
     </collaborationgraph>

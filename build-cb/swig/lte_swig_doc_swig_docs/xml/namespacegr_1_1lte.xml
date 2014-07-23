@@ -10,6 +10,10 @@
     <innerclass refid="classgr_1_1lte_1_1extract__subcarriers__vcvc" prot="public">gr::lte::extract_subcarriers_vcvc</innerclass>
     <innerclass refid="classgr_1_1lte_1_1layer__demapper__vcvc" prot="public">gr::lte::layer_demapper_vcvc</innerclass>
     <innerclass refid="classgr_1_1lte_1_1mib__unpack__vbm" prot="public">gr::lte::mib_unpack_vbm</innerclass>
+    <innerclass refid="classgr_1_1lte_1_1mimo__channel__estimator" prot="public">gr::lte::mimo_channel_estimator</innerclass>
+    <innerclass refid="classgr_1_1lte_1_1mimo__extract__subcarriers" prot="public">gr::lte::mimo_extract_subcarriers</innerclass>
+    <innerclass refid="classgr_1_1lte_1_1mimo__pbch__demux" prot="public">gr::lte::mimo_pbch_demux</innerclass>
+    <innerclass refid="classgr_1_1lte_1_1mimo__pre__decoder" prot="public">gr::lte::mimo_pre_decoder</innerclass>
     <innerclass refid="classgr_1_1lte_1_1mimo__pss__coarse__control" prot="public">gr::lte::mimo_pss_coarse_control</innerclass>
     <innerclass refid="classgr_1_1lte_1_1mimo__pss__coarse__sync" prot="public">gr::lte::mimo_pss_coarse_sync</innerclass>
     <innerclass refid="classgr_1_1lte_1_1mimo__pss__fine__sync" prot="public">gr::lte::mimo_pss_fine_sync</innerclass>

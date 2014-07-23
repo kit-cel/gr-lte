@@ -11,6 +11,10 @@
     <innerfile refid="extract__subcarriers__vcvc_8h">extract_subcarriers_vcvc.h</innerfile>
     <innerfile refid="layer__demapper__vcvc_8h">layer_demapper_vcvc.h</innerfile>
     <innerfile refid="mib__unpack__vbm_8h">mib_unpack_vbm.h</innerfile>
+    <innerfile refid="mimo__channel__estimator_8h">mimo_channel_estimator.h</innerfile>
+    <innerfile refid="mimo__extract__subcarriers_8h">mimo_extract_subcarriers.h</innerfile>
+    <innerfile refid="mimo__pbch__demux_8h">mimo_pbch_demux.h</innerfile>
+    <innerfile refid="mimo__pre__decoder_8h">mimo_pre_decoder.h</innerfile>
     <innerfile refid="mimo__pss__coarse__control_8h">mimo_pss_coarse_control.h</innerfile>
     <innerfile refid="mimo__pss__coarse__sync_8h">mimo_pss_coarse_sync.h</innerfile>
     <innerfile refid="mimo__pss__fine__sync_8h">mimo_pss_fine_sync.h</innerfile>

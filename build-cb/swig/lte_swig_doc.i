@@ -112,6 +112,38 @@ To avoid accidental use of raw pointers, lte::mib_unpack_vbm's constructor is in
 
 Params: (name)"
 
+%feature("docstring") gr::lte::mimo_channel_estimator "<+description of block+>"
+
+%feature("docstring") gr::lte::mimo_channel_estimator::make "Return a shared_ptr to a new instance of lte::mimo_channel_estimator.
+
+To avoid accidental use of raw pointers, lte::mimo_channel_estimator's constructor is in a private implementation class. lte::mimo_channel_estimator::make is the public interface for creating new instances.
+
+Params: (rxant, subcarriers, tag_key, msg_buf_name, pilot_carriers, pilot_symbols)"
+
+%feature("docstring") gr::lte::mimo_extract_subcarriers "<+description of block+>"
+
+%feature("docstring") gr::lte::mimo_extract_subcarriers::make "Return a shared_ptr to a new instance of lte::mimo_extract_subcarriers.
+
+To avoid accidental use of raw pointers, lte::mimo_extract_subcarriers's constructor is in a private implementation class. lte::mimo_extract_subcarriers::make is the public interface for creating new instances.
+
+Params: (N_rb_dl, fftl, rxant)"
+
+%feature("docstring") gr::lte::mimo_pbch_demux "<+description of block+>"
+
+%feature("docstring") gr::lte::mimo_pbch_demux::make "Return a shared_ptr to a new instance of lte::mimo_pbch_demux.
+
+To avoid accidental use of raw pointers, lte::mimo_pbch_demux's constructor is in a private implementation class. lte::mimo_pbch_demux::make is the public interface for creating new instances.
+
+Params: (N_rb_dl, rxant)"
+
+%feature("docstring") gr::lte::mimo_pre_decoder "<+description of block+>"
+
+%feature("docstring") gr::lte::mimo_pre_decoder::make "Return a shared_ptr to a new instance of lte::mimo_pre_decoder.
+
+To avoid accidental use of raw pointers, lte::mimo_pre_decoder's constructor is in a private implementation class. lte::mimo_pre_decoder::make is the public interface for creating new instances.
+
+Params: (rxant, N_ant, vlen, style)"
+
 %feature("docstring") gr::lte::mimo_pss_coarse_control "<+description of block+>"
 
 %feature("docstring") gr::lte::mimo_pss_coarse_control::make "Return a shared_ptr to a new instance of lte::mimo_pss_coarse_control.

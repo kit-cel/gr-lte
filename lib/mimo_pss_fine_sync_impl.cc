@@ -131,7 +131,7 @@ mimo_pss_fine_sync_impl::forecast (int noutput_items, gr_vector_int &ninput_item
 {
     unsigned ninputs = ninput_items_required.size ();
     for (unsigned i = 0; i < ninputs; i++)
-        ninput_items_required[i] = noutput_items+d_fftl;
+        ninput_items_required[i] = noutput_items+d_fftl+3;
 }
 
 
@@ -196,7 +196,7 @@ mimo_pss_fine_sync_impl::work(int noutput_items,
                 d_is_locked=true;
                 message_port_pub(d_port_lock, pmt::PMT_T);
                 message_port_pub(d_port_half_frame, pmt::from_long((long)d_half_frame_start));
-                printf("fine timing is locked, now tracking\n");
+                printf("fine timing is locked to mod pss_pos:%i\n now tracking\n", d_fine_pos);
                 break;
             }
         }
@@ -205,8 +205,8 @@ mimo_pss_fine_sync_impl::work(int noutput_items,
         {
             if((d_fine_pos-1+d_halffl)%d_halffl==mod_pos)
             {
-                if(noutput_items-i<d_fftl)
-                    return 0;
+//                if(noutput_items-i<d_fftl)
+//                    return 0;
 
                 int fine_pos;
 
@@ -239,7 +239,7 @@ mimo_pss_fine_sync_impl::work(int noutput_items,
 //                printf("PSS-tracking: early:%f\n", d_val_early);
 //                printf("PSS-tracking: prompt:%f\n", d_val_prompt);
 //                printf("PSS-tracking: late:%f\n", d_val_late);
-//                printf("PSS-tracking: old_pos:%i\told_val:%f\tnew_pos:%i\tnew_val:%f\n", d_fine_pos, d_corr_val, fine_pos, val);
+                printf("PSS-tracking: old_pos:%i\told_val:%f\tnew_pos:%i\tnew_val:%f\n", d_fine_pos, d_corr_val, fine_pos, val);
 
                 d_fine_pos=(fine_pos+d_halffl)%d_halffl;
                 d_corr_val=val;
@@ -247,6 +247,7 @@ mimo_pss_fine_sync_impl::work(int noutput_items,
                 message_port_pub(d_port_half_frame, pmt::from_long((long)d_half_frame_start));
                 //step over next samples until next pss occurs
                 d_step=d_halffl-noutput_items;
+                break;
             }
         }
     }

@@ -87,36 +87,28 @@ namespace gr {
 
 		if (d_N_ant == 1){
 			for(int i = 0; i < noutput_items; i++){
-                memset(out, 0, sizeof(gr_complex)*d_vlen);
-                for(int rx=0; rx<d_rxant; rx++){
-                    decode_1_ant(d_out, in, ce0, d_vlen);
-                    volk_32f_x2_add_32f_a((float*) out, (float*) out, (float*) d_out, d_vlen*2);
-
-                    in  += d_vlen;
-                    ce0 += d_vlen;
-				}
-				volk_32fc_s32fc_multiply_32fc_a(out, out, gr_complex(1.0/d_rxant,0), d_vlen);
+                decode_1_ant(out, in, ce0, d_vlen);
+				in  += d_vlen * d_rxant;
+				ce0 += d_vlen * d_rxant;
 				out += d_vlen;
 			}
 		}
 		else if(d_N_ant == 2){
 			const gr_complex *ce1 = (const gr_complex *) input_items[2];      //channel estimate ant port 1
 			for(int i = 0; i < noutput_items; i++){
-                memset(out, 0, sizeof(gr_complex)*d_vlen);
+//                memset(out, 0, sizeof(gr_complex)*d_vlen);
 
-				for(int rx=0; rx<d_rxant; rx++){
+//                prepare_2_ant_vectors(d_h0, d_h1, d_r0, d_r1, in, ce0, ce1, d_vlen);
+                decode_2_ant(d_out0, d_out1, d_h0, d_h1, d_r0, d_r1, in, ce0, ce1, d_vlen);
+                combine_output(out, d_out0, d_out1, d_vlen);
+//                    volk_32f_x2_add_32f_a((float*) out, (float*) out, (float*) d_out, d_vlen*2);
 
-                    prepare_2_ant_vectors(d_h0, d_h1, d_r0, d_r1, in, ce0, ce1, d_vlen);
-                    decode_2_ant(d_out0, d_out1, d_h0, d_h1, d_r0, d_r1, d_vlen/2);
-                    combine_output(d_out, d_out0, d_out1, d_vlen);
-                    volk_32f_x2_add_32f_a((float*) out, (float*) out, (float*) d_out, d_vlen*2);
+                in  += d_vlen * d_rxant;
+                ce0 += d_vlen * d_rxant;
+                ce1 += d_vlen * d_rxant;
+                out += d_vlen;
+//				volk_32fc_s32fc_multiply_32fc_a(out, out, gr_complex(1.0/d_rxant,0), d_vlen);
 
-                    in += d_vlen;
-                    ce0 += d_vlen;
-                    ce1 += d_vlen;
-				}
-				volk_32fc_s32fc_multiply_32fc_a(out, out, gr_complex(1.0/d_rxant,0), d_vlen);
-				out += d_vlen;
 			}
 		}
 
@@ -131,17 +123,46 @@ namespace gr {
 									   const gr_complex* h,
                                        int len)
 	{
-		for(int i = 0 ; i < len ; i++ ){
-			*(out+i) = rx[i]/h[i];
+        /*
+            RX
+            r_ant0 = h0 x0
+            r_ant1 = h1 x0
+
+            estimate
+            e_x0 = (h0* r_ant0 + h1* r_ant1) / (|h0|² + |h1|²)
+
+        */
+        //binary representation of 0.0 is 0b0;
+        memset(d_mag, 0, sizeof(float)*len);
+        memset(out, 0, sizeof(gr_complex)*len);
+
+        for(int i=0; i<d_rxant; i++){
+
+            volk_32fc_x2_multiply_conjugate_32fc_a(d_out, rx, h, len);
+            volk_32f_x2_add_32f_a((float*) out, (float*) out, (float*) d_out, len*2);
+
+            volk_32fc_magnitude_squared_32f_a(d_mag_h, h, len);
+            volk_32f_x2_add_32f_a(d_mag, d_mag, d_mag_h, len);
+
+            rx  += len;
+            h += len;
 		}
-	}
+
+		//invert sum of squared channel coeffs
+		for(int i=0; i<len; i++){
+            d_mag[i] = 1.0/d_mag[i];
+		}
+
+		volk_32fc_32f_multiply_32fc_a(out, out, d_mag, len);
+
+    }
 
 	void
 	mimo_pre_decoder_impl::prepare_2_ant_vectors(gr_complex* h0,
-												gr_complex* h1,
-												gr_complex* r0,
-												gr_complex* r1,
-												const gr_complex* rx,
+                                                gr_complex* h1,
+                                                gr_complex* r0,
+                                                gr_complex* r1,
+                                                const gr_complex* rx,
 												const gr_complex* ce0,
 												const gr_complex* ce1,
 												int len)
@@ -156,42 +177,78 @@ namespace gr {
 
 	void
 	mimo_pre_decoder_impl::decode_2_ant(gr_complex* out0,
-									   gr_complex* out1,
-									   gr_complex* h0,
-									   gr_complex* h1,
-									   gr_complex* r0,
-									   gr_complex* r1,
-									   int len)
+                                        gr_complex* out1,
+                                        gr_complex* h0,
+                                        gr_complex* h1,
+                                        gr_complex* r0,
+                                        gr_complex* r1,
+                                        const gr_complex* rx,
+                                        const gr_complex* ce0,
+                                        const gr_complex* ce1,
+                                        int len)
 	{
 		/*
 		alamouti Coding
-            freq0  freq1
-		ant0  x0    x1
-		ant1 -x1*   x0*
+                freq0  freq1
+		tx_ant0  x0    x1
+		tx_ant1 -x1*   x0*
 
-		RX
-		r0 = h0 x0 - x1* h1
-		r1 = h0 x1 + h1 x0*
+		RX_antX
+		r_antX_f0 = h0_X x0 - h1_X x1*
+		r_antX_f1 = h0_X x1 + h1_X x0*
 
 		estimate
-		e_x0 = h0* r0 + h1 r1*
-		e_x1 = h0* r1 - h1 r0*
+		e_x0 = ( SUM_X (h0_X* r_antX_f0 + h1_X r_antX_f1*) ) / SUM_X(|h0_X|²+|h1_X|²)
+		e_x1 = ( SUM_x (h0_X* r_antX_f1 - h1_X r_antX_f0*) ) / SUM_X(|h0_X|²+|h1_X|²)
 		*/
 
-		// e_x0
-		volk_32fc_x2_multiply_conjugate_32fc_a(d_mult0, r0, h0, len);
-		volk_32fc_x2_multiply_conjugate_32fc_a(d_mult1, h1, r1, len);
-		volk_32f_x2_add_32f_a( (float*)out0, (float*)d_mult0, (float*)d_mult1, 2*len);
+		int len2 = len/2;
 
-		//e_x1
-		volk_32fc_x2_multiply_conjugate_32fc_a(d_mult0, r1, h0, len);
-		volk_32fc_x2_multiply_conjugate_32fc_a(d_mult1, h1, r0, len);
-		volk_32f_x2_subtract_32f_a( (float*)out1, (float*)d_mult0, (float*)d_mult1, 2*len);
+        //binary representation of 0.0 is 0b0;
+        memset(d_mag, 0, sizeof(float)*len2);
+        memset(out0, 0, sizeof(gr_complex)*len2);
+        memset(out1, 0, sizeof(gr_complex)*len2);
 
-		// Do correct scaling!
-		gr_complex divsqrt2 = gr_complex(1.0/std::sqrt(2),0);
-		volk_32fc_s32fc_multiply_32fc_a(out0, out0, divsqrt2, len);
-		volk_32fc_s32fc_multiply_32fc_a(out1, out1, divsqrt2, len);
+        for(int i=0; i<d_rxant; i++){
+
+            prepare_2_ant_vectors(h0, h1, r0, r1, rx, ce0, ce1, len);
+
+            // e_x0, layer0
+            volk_32fc_x2_multiply_conjugate_32fc_a(d_mult0, r0, h0, len2);
+            volk_32fc_x2_multiply_conjugate_32fc_a(d_mult1, h1, r1, len2);
+            volk_32f_x2_add_32f_a( (float*)d_mult0, (float*)d_mult0, (float*)d_mult1, 2*len2);
+            volk_32f_x2_add_32f_a( (float*)out0,    (float*)out0,    (float*)d_mult0, 2*len2);
+
+            //e_x1, layer1
+            volk_32fc_x2_multiply_conjugate_32fc_a(d_mult0, r1, h0, len2);
+            volk_32fc_x2_multiply_conjugate_32fc_a(d_mult1, h1, r0, len2);
+            volk_32f_x2_subtract_32f_a( (float*)d_mult0, (float*)d_mult0, (float*)d_mult1, 2*len2);
+            volk_32f_x2_add_32f_a( (float*)out1,    (float*)out1,    (float*)d_mult0, 2*len2);
+
+            //sum of squared channel coeffs
+            volk_32fc_magnitude_squared_32f_a(d_mag_h, h0, len2);
+            volk_32f_x2_add_32f_a(d_mag, d_mag, d_mag_h, len2);
+            volk_32fc_magnitude_squared_32f_a(d_mag_h, h1, len2);
+            volk_32f_x2_add_32f_a(d_mag, d_mag, d_mag_h, len2);
+
+            rx += len;
+            ce0 += len;
+            ce1 += len;
+
+        }
+
+        //invert sum of squared channel coeffs and divide
+		for(int i=0; i<len/2; i++){
+            d_mag[i] = 1.0/d_mag[i];
+		}
+		//divide by sum of channel coeffs
+		volk_32fc_32f_multiply_32fc_a(out0, out0, d_mag, len/2);
+		volk_32fc_32f_multiply_32fc_a(out1, out1, d_mag, len/2);
+
+        // Do correct scaling
+        gr_complex divsqrt2 = gr_complex(std::sqrt(2),0);
+        volk_32fc_s32fc_multiply_32fc_a(out0, out0, divsqrt2, len/2);
+        volk_32fc_s32fc_multiply_32fc_a(out1, out1, divsqrt2, len/2);
 	}
 
 	void
@@ -251,17 +308,22 @@ namespace gr {
 	{
         int alig = volk_get_alignment();
 
-		d_h0 = (gr_complex*)volk_malloc(sizeof(gr_complex)*d_vlen/2, alig);
-		d_h1 = (gr_complex*)volk_malloc(sizeof(gr_complex)*d_vlen/2, alig);
-		d_r0 = (gr_complex*)volk_malloc(sizeof(gr_complex)*d_vlen/2, alig);
-		d_r1 = (gr_complex*)volk_malloc(sizeof(gr_complex)*d_vlen/2, alig);
+		d_mag_h = (float*)volk_malloc(sizeof(float)*len, alig);
+		d_mag   = (float*)volk_malloc(sizeof(float)*len, alig);
+		d_out   = (gr_complex*)volk_malloc(sizeof(gr_complex)*len, alig);
 
-		d_out = (gr_complex*)volk_malloc(sizeof(gr_complex)*d_vlen, alig);
-		d_out0 = (gr_complex*)volk_malloc(sizeof(gr_complex)*d_vlen/2, alig);
-		d_out1 = (gr_complex*)volk_malloc(sizeof(gr_complex)*d_vlen/2, alig);
+		d_h0 = (gr_complex*)volk_malloc(sizeof(gr_complex)*len/2, alig);
+		d_h1 = (gr_complex*)volk_malloc(sizeof(gr_complex)*len/2, alig);
+		d_r0 = (gr_complex*)volk_malloc(sizeof(gr_complex)*len/2, alig);
+		d_r1 = (gr_complex*)volk_malloc(sizeof(gr_complex)*len/2, alig);
 
-		d_mult0 = (gr_complex*)volk_malloc(sizeof(gr_complex)*d_vlen/2, alig);
-		d_mult1 = (gr_complex*)volk_malloc(sizeof(gr_complex)*d_vlen/2, alig);
+		d_out0 = (gr_complex*)volk_malloc(sizeof(gr_complex)*len/2, alig);
+		d_out1 = (gr_complex*)volk_malloc(sizeof(gr_complex)*len/2, alig);
+
+		d_mult0 = (gr_complex*)volk_malloc(sizeof(gr_complex)*len/2, alig);
+		d_mult1 = (gr_complex*)volk_malloc(sizeof(gr_complex)*len/2, alig);
+
+
 	}
 
 

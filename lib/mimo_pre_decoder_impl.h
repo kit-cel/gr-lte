@@ -39,21 +39,24 @@ namespace gr {
 		void decode_1_ant(gr_complex* out, const gr_complex* rx, const gr_complex* h, int len);
 
 		void prepare_2_ant_vectors(gr_complex* h0,
-										  gr_complex* h1,
-										  gr_complex* r0,
-										  gr_complex* r1,
-										  const gr_complex* rx,
-										  const gr_complex* ce0,
-										  const gr_complex* ce1,
-										  int len);
+                                            gr_complex* h1,
+                                            gr_complex* r0,
+                                            gr_complex* r1,
+                                            const gr_complex* rx,
+                                            const gr_complex* ce0,
+                                            const gr_complex* ce1,
+                                            int len);
 
 		void decode_2_ant(gr_complex* out0,
-								 gr_complex* out1,
-								 gr_complex* h0,
-								 gr_complex* h1,
-								 gr_complex* r0,
-								 gr_complex* r1,
-								 int len);
+								gr_complex* out1,
+								gr_complex* h0,
+								gr_complex* h1,
+								gr_complex* r0,
+								gr_complex* r1,
+                                const gr_complex* rx,
+                                const gr_complex* ce0,
+                                const gr_complex* ce1,
+								int len);
 
 		void combine_output(gr_complex* out,
 								   gr_complex* out0,
@@ -69,6 +72,8 @@ namespace gr {
 		gr_complex* d_out1;
 		gr_complex* d_mult0;
 		gr_complex* d_mult1;
+		float*      d_mag;
+		float*      d_mag_h;
 		void setup_volk_vectors(int len);
 
      public:

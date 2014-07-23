@@ -48,24 +48,24 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="125">
+      <node id="141">
         <label>sync_block</label>
       </node>
-      <node id="124">
+      <node id="140">
         <label>gr::lte::sss_tagger_cc</label>
         <link refid="classgr_1_1lte_1_1sss__tagger__cc"/>
-        <childnode refid="125" relation="public-inheritance">
+        <childnode refid="141" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="127">
+      <node id="143">
         <label>sync_block</label>
       </node>
-      <node id="126">
+      <node id="142">
         <label>gr::lte::sss_tagger_cc</label>
         <link refid="classgr_1_1lte_1_1sss__tagger__cc"/>
-        <childnode refid="127" relation="public-inheritance">
+        <childnode refid="143" relation="public-inheritance">
         </childnode>
       </node>
     </collaborationgraph>

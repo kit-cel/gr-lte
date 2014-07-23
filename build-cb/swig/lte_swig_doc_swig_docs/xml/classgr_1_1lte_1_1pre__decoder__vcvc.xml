@@ -140,24 +140,24 @@
 </parameterlist>
 </para>    </detaileddescription>
     <inheritancegraph>
-      <node id="82">
+      <node id="98">
         <label>gr::lte::pre_decoder_vcvc</label>
         <link refid="classgr_1_1lte_1_1pre__decoder__vcvc"/>
-        <childnode refid="83" relation="public-inheritance">
+        <childnode refid="99" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="83">
+      <node id="99">
         <label>sync_block</label>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="84">
+      <node id="100">
         <label>gr::lte::pre_decoder_vcvc</label>
         <link refid="classgr_1_1lte_1_1pre__decoder__vcvc"/>
-        <childnode refid="85" relation="public-inheritance">
+        <childnode refid="101" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="85">
+      <node id="101">
         <label>sync_block</label>
       </node>
     </collaborationgraph>

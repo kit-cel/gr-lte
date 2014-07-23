@@ -67,24 +67,24 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="66">
+      <node id="82">
         <label>gr::lte::pbch_demux_vcvc</label>
         <link refid="classgr_1_1lte_1_1pbch__demux__vcvc"/>
-        <childnode refid="67" relation="public-inheritance">
+        <childnode refid="83" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="67">
+      <node id="83">
         <label>block</label>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="68">
+      <node id="84">
         <label>gr::lte::pbch_demux_vcvc</label>
         <link refid="classgr_1_1lte_1_1pbch__demux__vcvc"/>
-        <childnode refid="69" relation="public-inheritance">
+        <childnode refid="85" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="69">
+      <node id="85">
         <label>block</label>
       </node>
     </collaborationgraph>

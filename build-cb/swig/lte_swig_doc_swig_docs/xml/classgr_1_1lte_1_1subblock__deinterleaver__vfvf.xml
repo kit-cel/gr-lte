@@ -52,24 +52,24 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="128">
+      <node id="144">
         <label>gr::lte::subblock_deinterleaver_vfvf</label>
         <link refid="classgr_1_1lte_1_1subblock__deinterleaver__vfvf"/>
-        <childnode refid="129" relation="public-inheritance">
+        <childnode refid="145" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="129">
+      <node id="145">
         <label>sync_block</label>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="130">
+      <node id="146">
         <label>gr::lte::subblock_deinterleaver_vfvf</label>
         <link refid="classgr_1_1lte_1_1subblock__deinterleaver__vfvf"/>
-        <childnode refid="131" relation="public-inheritance">
+        <childnode refid="147" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="131">
+      <node id="147">
         <label>sync_block</label>
       </node>
     </collaborationgraph>

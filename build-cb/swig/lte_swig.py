@@ -10949,12 +10949,20 @@ mimo_remove_cp_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.name(),
 mimo_remove_cp = mimo_remove_cp.make;
 
 class mimo_extract_subcarriers(object):
-    """Proxy of C++ gr::lte::mimo_extract_subcarriers class"""
+    """<+description of block+>"""
     thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined")
     __repr__ = _swig_repr
     def make(*args, **kwargs):
-        """make(int N_rb_dl, int fftl, int rxant) -> mimo_extract_subcarriers_sptr"""
+        """
+        make(int N_rb_dl, int fftl, int rxant) -> mimo_extract_subcarriers_sptr
+
+        Return a shared_ptr to a new instance of lte::mimo_extract_subcarriers.
+
+        To avoid accidental use of raw pointers, lte::mimo_extract_subcarriers's constructor is in a private implementation class. lte::mimo_extract_subcarriers::make is the public interface for creating new instances.
+
+        Params: (N_rb_dl, fftl, rxant)
+        """
         return _lte_swig.mimo_extract_subcarriers_make(*args, **kwargs)
 
     make = staticmethod(make)
@@ -10964,7 +10972,15 @@ mimo_extract_subcarriers_swigregister = _lte_swig.mimo_extract_subcarriers_swigr
 mimo_extract_subcarriers_swigregister(mimo_extract_subcarriers)
 
 def mimo_extract_subcarriers_make(*args, **kwargs):
-  """mimo_extract_subcarriers_make(int N_rb_dl, int fftl, int rxant) -> mimo_extract_subcarriers_sptr"""
+  """
+    mimo_extract_subcarriers_make(int N_rb_dl, int fftl, int rxant) -> mimo_extract_subcarriers_sptr
+
+    Return a shared_ptr to a new instance of lte::mimo_extract_subcarriers.
+
+    To avoid accidental use of raw pointers, lte::mimo_extract_subcarriers's constructor is in a private implementation class. lte::mimo_extract_subcarriers::make is the public interface for creating new instances.
+
+    Params: (N_rb_dl, fftl, rxant)
+    """
   return _lte_swig.mimo_extract_subcarriers_make(*args, **kwargs)
 
 class mimo_extract_subcarriers_sptr(object):
@@ -10986,7 +11002,15 @@ class mimo_extract_subcarriers_sptr(object):
     __swig_destroy__ = _lte_swig.delete_mimo_extract_subcarriers_sptr
     __del__ = lambda self : None;
     def make(self, *args, **kwargs):
-        """make(mimo_extract_subcarriers_sptr self, int N_rb_dl, int fftl, int rxant) -> mimo_extract_subcarriers_sptr"""
+        """
+        make(mimo_extract_subcarriers_sptr self, int N_rb_dl, int fftl, int rxant) -> mimo_extract_subcarriers_sptr
+
+        Return a shared_ptr to a new instance of lte::mimo_extract_subcarriers.
+
+        To avoid accidental use of raw pointers, lte::mimo_extract_subcarriers's constructor is in a private implementation class. lte::mimo_extract_subcarriers::make is the public interface for creating new instances.
+
+        Params: (N_rb_dl, fftl, rxant)
+        """
         return _lte_swig.mimo_extract_subcarriers_sptr_make(self, *args, **kwargs)
 
     def history(self):
@@ -11239,7 +11263,7 @@ mimo_extract_subcarriers_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (se
 mimo_extract_subcarriers = mimo_extract_subcarriers.make;
 
 class mimo_channel_estimator(object):
-    """Proxy of C++ gr::lte::mimo_channel_estimator class"""
+    """<+description of block+>"""
     thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined")
     __repr__ = _swig_repr
@@ -11247,6 +11271,12 @@ class mimo_channel_estimator(object):
         """
         make(int rxant, int subcarriers, std::string tag_key, std::string msg_buf_name, std::vector< std::vector< int,std::allocator< int > >,std::allocator< std::vector< int,std::allocator< int > > > > const & pilot_carriers, 
             gr_vector_vector_complexf pilot_symbols) -> mimo_channel_estimator_sptr
+
+        Return a shared_ptr to a new instance of lte::mimo_channel_estimator.
+
+        To avoid accidental use of raw pointers, lte::mimo_channel_estimator's constructor is in a private implementation class. lte::mimo_channel_estimator::make is the public interface for creating new instances.
+
+        Params: (rxant, subcarriers, tag_key, msg_buf_name, pilot_carriers, pilot_symbols)
         """
         return _lte_swig.mimo_channel_estimator_make(*args, **kwargs)
 
@@ -11260,6 +11290,12 @@ def mimo_channel_estimator_make(*args, **kwargs):
   """
     mimo_channel_estimator_make(int rxant, int subcarriers, std::string tag_key, std::string msg_buf_name, std::vector< std::vector< int,std::allocator< int > >,std::allocator< std::vector< int,std::allocator< int > > > > const & pilot_carriers, 
         gr_vector_vector_complexf pilot_symbols) -> mimo_channel_estimator_sptr
+
+    Return a shared_ptr to a new instance of lte::mimo_channel_estimator.
+
+    To avoid accidental use of raw pointers, lte::mimo_channel_estimator's constructor is in a private implementation class. lte::mimo_channel_estimator::make is the public interface for creating new instances.
+
+    Params: (rxant, subcarriers, tag_key, msg_buf_name, pilot_carriers, pilot_symbols)
     """
   return _lte_swig.mimo_channel_estimator_make(*args, **kwargs)
 
@@ -11285,6 +11321,12 @@ class mimo_channel_estimator_sptr(object):
         """
         make(mimo_channel_estimator_sptr self, int rxant, int subcarriers, std::string tag_key, std::string msg_buf_name, std::vector< std::vector< int,std::allocator< int > >,std::allocator< std::vector< int,std::allocator< int > > > > const & pilot_carriers, 
             gr_vector_vector_complexf pilot_symbols) -> mimo_channel_estimator_sptr
+
+        Return a shared_ptr to a new instance of lte::mimo_channel_estimator.
+
+        To avoid accidental use of raw pointers, lte::mimo_channel_estimator's constructor is in a private implementation class. lte::mimo_channel_estimator::make is the public interface for creating new instances.
+
+        Params: (rxant, subcarriers, tag_key, msg_buf_name, pilot_carriers, pilot_symbols)
         """
         return _lte_swig.mimo_channel_estimator_sptr_make(self, *args, **kwargs)
 
@@ -11538,12 +11580,20 @@ mimo_channel_estimator_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self
 mimo_channel_estimator = mimo_channel_estimator.make;
 
 class mimo_pbch_demux(object):
-    """Proxy of C++ gr::lte::mimo_pbch_demux class"""
+    """<+description of block+>"""
     thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined")
     __repr__ = _swig_repr
     def make(*args, **kwargs):
-        """make(int N_rb_dl, int rxant) -> mimo_pbch_demux_sptr"""
+        """
+        make(int N_rb_dl, int rxant) -> mimo_pbch_demux_sptr
+
+        Return a shared_ptr to a new instance of lte::mimo_pbch_demux.
+
+        To avoid accidental use of raw pointers, lte::mimo_pbch_demux's constructor is in a private implementation class. lte::mimo_pbch_demux::make is the public interface for creating new instances.
+
+        Params: (N_rb_dl, rxant)
+        """
         return _lte_swig.mimo_pbch_demux_make(*args, **kwargs)
 
     make = staticmethod(make)
@@ -11553,7 +11603,15 @@ mimo_pbch_demux_swigregister = _lte_swig.mimo_pbch_demux_swigregister
 mimo_pbch_demux_swigregister(mimo_pbch_demux)
 
 def mimo_pbch_demux_make(*args, **kwargs):
-  """mimo_pbch_demux_make(int N_rb_dl, int rxant) -> mimo_pbch_demux_sptr"""
+  """
+    mimo_pbch_demux_make(int N_rb_dl, int rxant) -> mimo_pbch_demux_sptr
+
+    Return a shared_ptr to a new instance of lte::mimo_pbch_demux.
+
+    To avoid accidental use of raw pointers, lte::mimo_pbch_demux's constructor is in a private implementation class. lte::mimo_pbch_demux::make is the public interface for creating new instances.
+
+    Params: (N_rb_dl, rxant)
+    """
   return _lte_swig.mimo_pbch_demux_make(*args, **kwargs)
 
 class mimo_pbch_demux_sptr(object):
@@ -11575,7 +11633,15 @@ class mimo_pbch_demux_sptr(object):
     __swig_destroy__ = _lte_swig.delete_mimo_pbch_demux_sptr
     __del__ = lambda self : None;
     def make(self, *args, **kwargs):
-        """make(mimo_pbch_demux_sptr self, int N_rb_dl, int rxant) -> mimo_pbch_demux_sptr"""
+        """
+        make(mimo_pbch_demux_sptr self, int N_rb_dl, int rxant) -> mimo_pbch_demux_sptr
+
+        Return a shared_ptr to a new instance of lte::mimo_pbch_demux.
+
+        To avoid accidental use of raw pointers, lte::mimo_pbch_demux's constructor is in a private implementation class. lte::mimo_pbch_demux::make is the public interface for creating new instances.
+
+        Params: (N_rb_dl, rxant)
+        """
         return _lte_swig.mimo_pbch_demux_sptr_make(self, *args, **kwargs)
 
     def history(self):
@@ -11828,12 +11894,20 @@ mimo_pbch_demux_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.name()
 mimo_pbch_demux = mimo_pbch_demux.make;
 
 class mimo_pre_decoder(object):
-    """Proxy of C++ gr::lte::mimo_pre_decoder class"""
+    """<+description of block+>"""
     thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined")
     __repr__ = _swig_repr
     def make(*args, **kwargs):
-        """make(int rxant, int N_ant, int vlen, std::string style) -> mimo_pre_decoder_sptr"""
+        """
+        make(int rxant, int N_ant, int vlen, std::string style) -> mimo_pre_decoder_sptr
+
+        Return a shared_ptr to a new instance of lte::mimo_pre_decoder.
+
+        To avoid accidental use of raw pointers, lte::mimo_pre_decoder's constructor is in a private implementation class. lte::mimo_pre_decoder::make is the public interface for creating new instances.
+
+        Params: (rxant, N_ant, vlen, style)
+        """
         return _lte_swig.mimo_pre_decoder_make(*args, **kwargs)
 
     make = staticmethod(make)
@@ -11843,7 +11917,15 @@ mimo_pre_decoder_swigregister = _lte_swig.mimo_pre_decoder_swigregister
 mimo_pre_decoder_swigregister(mimo_pre_decoder)
 
 def mimo_pre_decoder_make(*args, **kwargs):
-  """mimo_pre_decoder_make(int rxant, int N_ant, int vlen, std::string style) -> mimo_pre_decoder_sptr"""
+  """
+    mimo_pre_decoder_make(int rxant, int N_ant, int vlen, std::string style) -> mimo_pre_decoder_sptr
+
+    Return a shared_ptr to a new instance of lte::mimo_pre_decoder.
+
+    To avoid accidental use of raw pointers, lte::mimo_pre_decoder's constructor is in a private implementation class. lte::mimo_pre_decoder::make is the public interface for creating new instances.
+
+    Params: (rxant, N_ant, vlen, style)
+    """
   return _lte_swig.mimo_pre_decoder_make(*args, **kwargs)
 
 class mimo_pre_decoder_sptr(object):
@@ -11865,7 +11947,15 @@ class mimo_pre_decoder_sptr(object):
     __swig_destroy__ = _lte_swig.delete_mimo_pre_decoder_sptr
     __del__ = lambda self : None;
     def make(self, *args, **kwargs):
-        """make(mimo_pre_decoder_sptr self, int rxant, int N_ant, int vlen, std::string style) -> mimo_pre_decoder_sptr"""
+        """
+        make(mimo_pre_decoder_sptr self, int rxant, int N_ant, int vlen, std::string style) -> mimo_pre_decoder_sptr
+
+        Return a shared_ptr to a new instance of lte::mimo_pre_decoder.
+
+        To avoid accidental use of raw pointers, lte::mimo_pre_decoder's constructor is in a private implementation class. lte::mimo_pre_decoder::make is the public interface for creating new instances.
+
+        Params: (rxant, N_ant, vlen, style)
+        """
         return _lte_swig.mimo_pre_decoder_sptr_make(self, *args, **kwargs)
 
     def history(self):

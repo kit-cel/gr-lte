@@ -48,24 +48,24 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="88">
+      <node id="104">
         <label>gr::lte::pss_calculator_vcm</label>
         <link refid="classgr_1_1lte_1_1pss__calculator__vcm"/>
-        <childnode refid="89" relation="public-inheritance">
+        <childnode refid="105" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="89">
+      <node id="105">
         <label>sync_block</label>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="90">
+      <node id="106">
         <label>gr::lte::pss_calculator_vcm</label>
         <link refid="classgr_1_1lte_1_1pss__calculator__vcm"/>
-        <childnode refid="91" relation="public-inheritance">
+        <childnode refid="107" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="91">
+      <node id="107">
         <label>sync_block</label>
       </node>
     </collaborationgraph>

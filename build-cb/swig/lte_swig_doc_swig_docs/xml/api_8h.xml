@@ -11,6 +11,10 @@
     <includedby refid="extract__subcarriers__vcvc_8h" local="no">/home/maier/gr-lte/include/lte/extract_subcarriers_vcvc.h</includedby>
     <includedby refid="layer__demapper__vcvc_8h" local="no">/home/maier/gr-lte/include/lte/layer_demapper_vcvc.h</includedby>
     <includedby refid="mib__unpack__vbm_8h" local="no">/home/maier/gr-lte/include/lte/mib_unpack_vbm.h</includedby>
+    <includedby refid="mimo__channel__estimator_8h" local="no">/home/maier/gr-lte/include/lte/mimo_channel_estimator.h</includedby>
+    <includedby refid="mimo__extract__subcarriers_8h" local="no">/home/maier/gr-lte/include/lte/mimo_extract_subcarriers.h</includedby>
+    <includedby refid="mimo__pbch__demux_8h" local="no">/home/maier/gr-lte/include/lte/mimo_pbch_demux.h</includedby>
+    <includedby refid="mimo__pre__decoder_8h" local="no">/home/maier/gr-lte/include/lte/mimo_pre_decoder.h</includedby>
     <includedby refid="mimo__pss__coarse__control_8h" local="no">/home/maier/gr-lte/include/lte/mimo_pss_coarse_control.h</includedby>
     <includedby refid="mimo__pss__coarse__sync_8h" local="no">/home/maier/gr-lte/include/lte/mimo_pss_coarse_sync.h</includedby>
     <includedby refid="mimo__pss__fine__sync_8h" local="no">/home/maier/gr-lte/include/lte/mimo_pss_fine_sync.h</includedby>
@@ -54,19 +58,23 @@
         <label>/home/maier/gr-lte/include/lte/layer_demapper_vcvc.h</label>
         <link refid="layer__demapper__vcvc_8h"/>
       </node>
-      <node id="33">
+      <node id="37">
         <label>/home/maier/gr-lte/include/lte/sss_calculator_vcm.h</label>
         <link refid="sss__calculator__vcm_8h"/>
       </node>
-      <node id="34">
+      <node id="14">
+        <label>/home/maier/gr-lte/include/lte/mimo_pre_decoder.h</label>
+        <link refid="mimo__pre__decoder_8h"/>
+      </node>
+      <node id="38">
         <label>/home/maier/gr-lte/include/lte/sss_symbol_selector_cvc.h</label>
         <link refid="sss__symbol__selector__cvc_8h"/>
       </node>
-      <node id="22">
+      <node id="26">
         <label>/home/maier/gr-lte/include/lte/pcfich_demux_vcvc.h</label>
         <link refid="pcfich__demux__vcvc_8h"/>
       </node>
-      <node id="12">
+      <node id="16">
         <label>/home/maier/gr-lte/include/lte/mimo_pss_coarse_sync.h</label>
         <link refid="mimo__pss__coarse__sync_8h"/>
       </node>
@@ -74,11 +82,11 @@
         <label>/home/maier/gr-lte/include/lte/correlator.h</label>
         <link refid="correlator_8h"/>
       </node>
-      <node id="31">
+      <node id="35">
         <label>/home/maier/gr-lte/include/lte/repeat_message_source_vf.h</label>
         <link refid="repeat__message__source__vf_8h"/>
       </node>
-      <node id="32">
+      <node id="36">
         <label>/home/maier/gr-lte/include/lte/rough_symbol_sync_cc.h</label>
         <link refid="rough__symbol__sync__cc_8h"/>
       </node>
@@ -86,63 +94,71 @@
         <label>/home/maier/gr-lte/include/lte/mib_unpack_vbm.h</label>
         <link refid="mib__unpack__vbm_8h"/>
       </node>
-      <node id="19">
+      <node id="23">
         <label>/home/maier/gr-lte/include/lte/mimo_sss_tagger.h</label>
         <link refid="mimo__sss__tagger_8h"/>
       </node>
-      <node id="29">
+      <node id="33">
         <label>/home/maier/gr-lte/include/lte/qpsk_soft_demod_vcvf.h</label>
         <link refid="qpsk__soft__demod__vcvf_8h"/>
       </node>
-      <node id="11">
+      <node id="15">
         <label>/home/maier/gr-lte/include/lte/mimo_pss_coarse_control.h</label>
         <link refid="mimo__pss__coarse__control_8h"/>
       </node>
-      <node id="18">
+      <node id="22">
         <label>/home/maier/gr-lte/include/lte/mimo_sss_symbol_selector.h</label>
         <link refid="mimo__sss__symbol__selector_8h"/>
       </node>
-      <node id="28">
+      <node id="32">
         <label>/home/maier/gr-lte/include/lte/pss_tagger_cc.h</label>
         <link refid="pss__tagger__cc_8h"/>
-        <childnode refid="26" relation="include">
+        <childnode refid="30" relation="include">
         </childnode>
       </node>
-      <node id="37">
+      <node id="41">
         <label>/home/maier/gr-lte/include/lte/sync_frequency_c.h</label>
         <link refid="sync__frequency__c_8h"/>
       </node>
-      <node id="20">
+      <node id="24">
         <label>/home/maier/gr-lte/include/lte/pbch_demux_vcvc.h</label>
         <link refid="pbch__demux__vcvc_8h"/>
       </node>
-      <node id="15">
+      <node id="19">
         <label>/home/maier/gr-lte/include/lte/mimo_pss_tagger.h</label>
         <link refid="mimo__pss__tagger_8h"/>
       </node>
-      <node id="24">
+      <node id="28">
         <label>/home/maier/gr-lte/include/lte/pre_decoder_vcvc.h</label>
         <link refid="pre__decoder__vcvc_8h"/>
       </node>
-      <node id="27">
+      <node id="31">
         <label>/home/maier/gr-lte/include/lte/pss_symbol_selector_cvc.h</label>
         <link refid="pss__symbol__selector__cvc_8h"/>
-        <childnode refid="26" relation="include">
+        <childnode refid="30" relation="include">
         </childnode>
       </node>
       <node id="3">
         <label>/home/maier/gr-lte/include/lte/bch_crc_check_ant_chooser_bb.h</label>
         <link refid="bch__crc__check__ant__chooser__bb_8h"/>
       </node>
-      <node id="23">
+      <node id="13">
+        <label>/home/maier/gr-lte/include/lte/mimo_pbch_demux.h</label>
+        <link refid="mimo__pbch__demux_8h"/>
+      </node>
+      <node id="27">
         <label>/home/maier/gr-lte/include/lte/pcfich_unpack_vfm.h</label>
         <link refid="pcfich__unpack__vfm_8h"/>
       </node>
-      <node id="35">
+      <node id="11">
+        <label>/home/maier/gr-lte/include/lte/mimo_channel_estimator.h</label>
+        <link refid="mimo__channel__estimator_8h"/>
+      </node>
+      <node id="39">
         <label>/home/maier/gr-lte/include/lte/sss_tagger_cc.h</label>
         <link refid="sss__tagger__cc_8h"/>
       </node>
-      <node id="21">
+      <node id="25">
         <label>/home/maier/gr-lte/include/lte/pbch_descrambler_vfvf.h</label>
         <link refid="pbch__descrambler__vfvf_8h"/>
       </node>
@@ -150,15 +166,15 @@
         <label>/home/maier/gr-lte/include/lte/channel_estimator_vcvc.h</label>
         <link refid="channel__estimator__vcvc_8h"/>
       </node>
-      <node id="14">
+      <node id="18">
         <label>/home/maier/gr-lte/include/lte/mimo_pss_freq_sync.h</label>
         <link refid="mimo__pss__freq__sync_8h"/>
       </node>
-      <node id="17">
+      <node id="21">
         <label>/home/maier/gr-lte/include/lte/mimo_sss_calculator.h</label>
         <link refid="mimo__sss__calculator_8h"/>
       </node>
-      <node id="30">
+      <node id="34">
         <label>/home/maier/gr-lte/include/lte/remove_cp_cvc.h</label>
         <link refid="remove__cp__cvc_8h"/>
       </node>
@@ -235,16 +251,24 @@
         </childnode>
         <childnode refid="37" relation="include">
         </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
       </node>
-      <node id="25">
+      <node id="29">
         <label>/home/maier/gr-lte/include/lte/pss.h</label>
         <link refid="pss_8h"/>
       </node>
-      <node id="26">
+      <node id="30">
         <label>/home/maier/gr-lte/include/lte/pss_calculator_vcm.h</label>
         <link refid="pss__calculator__vcm_8h"/>
       </node>
-      <node id="13">
+      <node id="17">
         <label>/home/maier/gr-lte/include/lte/mimo_pss_fine_sync.h</label>
         <link refid="mimo__pss__fine__sync_8h"/>
       </node>
@@ -252,11 +276,15 @@
         <label>/home/maier/gr-lte/include/lte/extract_subcarriers_vcvc.h</label>
         <link refid="extract__subcarriers__vcvc_8h"/>
       </node>
-      <node id="16">
+      <node id="20">
         <label>/home/maier/gr-lte/include/lte/mimo_remove_cp.h</label>
         <link refid="mimo__remove__cp_8h"/>
       </node>
-      <node id="36">
+      <node id="12">
+        <label>/home/maier/gr-lte/include/lte/mimo_extract_subcarriers.h</label>
+        <link refid="mimo__extract__subcarriers_8h"/>
+      </node>
+      <node id="40">
         <label>/home/maier/gr-lte/include/lte/subblock_deinterleaver_vfvf.h</label>
         <link refid="subblock__deinterleaver__vfvf_8h"/>
       </node>

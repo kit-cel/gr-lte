@@ -54,6 +54,22 @@
     <member refid="classgr_1_1lte_1_1mib__unpack__vbm_1ae0f517df279c469f17cafb7b3c33311f" kind="typedef"><name>sptr</name></member>
     <member refid="classgr_1_1lte_1_1mib__unpack__vbm_1a9a3674b79bfe6673be1fbef93ad8366f" kind="function"><name>make</name></member>
   </compound>
+  <compound refid="classgr_1_1lte_1_1mimo__channel__estimator" kind="class"><name>gr::lte::mimo_channel_estimator</name>
+    <member refid="classgr_1_1lte_1_1mimo__channel__estimator_1ab72097570610e709a29502d41ea47f31" kind="typedef"><name>sptr</name></member>
+    <member refid="classgr_1_1lte_1_1mimo__channel__estimator_1aa5cbc7d4cb2febe75d7912c1fdbb156b" kind="function"><name>make</name></member>
+  </compound>
+  <compound refid="classgr_1_1lte_1_1mimo__extract__subcarriers" kind="class"><name>gr::lte::mimo_extract_subcarriers</name>
+    <member refid="classgr_1_1lte_1_1mimo__extract__subcarriers_1a4e6ef3d20c78b62f279fcb5492e5c15e" kind="typedef"><name>sptr</name></member>
+    <member refid="classgr_1_1lte_1_1mimo__extract__subcarriers_1a2ba7b9ae78020573ce7407094280b219" kind="function"><name>make</name></member>
+  </compound>
+  <compound refid="classgr_1_1lte_1_1mimo__pbch__demux" kind="class"><name>gr::lte::mimo_pbch_demux</name>
+    <member refid="classgr_1_1lte_1_1mimo__pbch__demux_1a039687ab4b8ae9207634c9f3b9e3ca08" kind="typedef"><name>sptr</name></member>
+    <member refid="classgr_1_1lte_1_1mimo__pbch__demux_1a4e9ae3ce9571fbb71da2549ddddb24ae" kind="function"><name>make</name></member>
+  </compound>
+  <compound refid="classgr_1_1lte_1_1mimo__pre__decoder" kind="class"><name>gr::lte::mimo_pre_decoder</name>
+    <member refid="classgr_1_1lte_1_1mimo__pre__decoder_1ac72fad2f2bbc9cd1165b04631988f1d6" kind="typedef"><name>sptr</name></member>
+    <member refid="classgr_1_1lte_1_1mimo__pre__decoder_1a3939876007098e5f0de0047817872c82" kind="function"><name>make</name></member>
+  </compound>
   <compound refid="classgr_1_1lte_1_1mimo__pss__coarse__control" kind="class"><name>gr::lte::mimo_pss_coarse_control</name>
     <member refid="classgr_1_1lte_1_1mimo__pss__coarse__control_1a0517f7ab7c9df707e996a627f5397067" kind="typedef"><name>sptr</name></member>
     <member refid="classgr_1_1lte_1_1mimo__pss__coarse__control_1a0013197bcd714d3d290d468a05daaf9d" kind="function"><name>make</name></member>
@@ -207,6 +223,14 @@
   <compound refid="layer__demapper__vcvc_8h" kind="file"><name>layer_demapper_vcvc.h</name>
   </compound>
   <compound refid="mib__unpack__vbm_8h" kind="file"><name>mib_unpack_vbm.h</name>
+  </compound>
+  <compound refid="mimo__channel__estimator_8h" kind="file"><name>mimo_channel_estimator.h</name>
+  </compound>
+  <compound refid="mimo__extract__subcarriers_8h" kind="file"><name>mimo_extract_subcarriers.h</name>
+  </compound>
+  <compound refid="mimo__pbch__demux_8h" kind="file"><name>mimo_pbch_demux.h</name>
+  </compound>
+  <compound refid="mimo__pre__decoder_8h" kind="file"><name>mimo_pre_decoder.h</name>
   </compound>
   <compound refid="mimo__pss__coarse__control_8h" kind="file"><name>mimo_pss_coarse_control.h</name>
   </compound>

@@ -155,7 +155,7 @@ mimo_pss_freq_sync_impl::mult_memcpy(gr_complex** &out,
                                      int out_pos,
                                      int in_pos,
                                      int multi,
-                                     size_t n)
+                                     int n)
 {
     for(int i=0; i<multi; i++)
         memcpy(out[i]+out_pos, (gr_complex*)in[i]+in_pos, n*sizeof(gr_complex));
@@ -166,20 +166,32 @@ mimo_pss_freq_sync_impl::mult_memcpy(gr_complex** &out,
 void
 mimo_pss_freq_sync_impl::calc_freq_off()
 {
-    gr_complex tmp_a;
-    gr_complex tmp_b;
+    gr_complex psscorr_a;
+    gr_complex psscorr_b;
+    gr_complex psscorr;
+
+    gr_complex pss_power;
+    float pss_power_abs;
+    float sum_power = 0;
+
     float freq=0;
 
     //TODO: maybe add higher signal levels proportional
     for(int i=0; i<d_rxant; i++)
     {
-        volk_32fc_x2_dot_prod_32fc(&tmp_a, d_buf_pss[i],          d_pssX,          d_fftl/2);
-        volk_32fc_x2_dot_prod_32fc(&tmp_b, d_buf_pss[i]+d_fftl/2, d_pssX+d_fftl/2, d_fftl/2);
-        tmp_a = conj(tmp_a) * tmp_b;
-        freq+=arg(tmp_a);
+        volk_32fc_x2_dot_prod_32fc(&psscorr_a, d_buf_pss[i],          d_pssX,          d_fftl/2);
+        volk_32fc_x2_dot_prod_32fc(&psscorr_b, d_buf_pss[i]+d_fftl/2, d_pssX+d_fftl/2, d_fftl/2);
+        psscorr = conj(psscorr_a) * psscorr_b;
+
+        //add frequency estimate proportional to power of pss²
+        volk_32fc_x2_dot_prod_32fc(&pss_power, d_buf_pss[i], d_buf_pss[i], d_fftl);
+        printf( "POWER ant%i: %f\n", i, abs(pss_power*pss_power) );
+        pss_power_abs = abs( pss_power * pss_power );
+        sum_power += pss_power_abs;
+        freq += pss_power_abs * arg( psscorr );
     }
     d_f_count++;
-    freq=15000*freq/((float)d_rxant*M_PI);
+    freq=15000.0*freq/(M_PI * sum_power);
 
     //bigger steps when starting
     float a=0.5/d_f_count;
@@ -188,7 +200,7 @@ mimo_pss_freq_sync_impl::calc_freq_off()
     d_f_est = d_f_est + (a * freq);
 
     (*d_sig).set_frequency((-1)*double(d_f_est) );
-  //  printf("FREQ SYNC: estimate=%f, new freq-compensate: %f\n", freq, d_f_est);
+    printf("FREQ SYNC: estimate=%f, new freq-compensate: %f\n", freq, d_f_est);
 }
 
 

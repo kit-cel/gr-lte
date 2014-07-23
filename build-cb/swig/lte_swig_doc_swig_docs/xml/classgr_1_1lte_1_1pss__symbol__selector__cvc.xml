@@ -48,24 +48,24 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="92">
+      <node id="108">
         <label>gr::lte::pss_symbol_selector_cvc</label>
         <link refid="classgr_1_1lte_1_1pss__symbol__selector__cvc"/>
-        <childnode refid="93" relation="public-inheritance">
+        <childnode refid="109" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="93">
+      <node id="109">
         <label>gr::block</label>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="94">
+      <node id="110">
         <label>gr::lte::pss_symbol_selector_cvc</label>
         <link refid="classgr_1_1lte_1_1pss__symbol__selector__cvc"/>
-        <childnode refid="95" relation="public-inheritance">
+        <childnode refid="111" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="95">
+      <node id="111">
         <label>gr::block</label>
       </node>
     </collaborationgraph>

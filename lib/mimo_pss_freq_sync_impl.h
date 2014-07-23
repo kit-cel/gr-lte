@@ -46,7 +46,7 @@ namespace gr {
        void mult_memcpy(gr_complex** &out,
                 const gr_vector_const_void_star &in,
                 int out_pos, int in_pos,
-                int multi, size_t n);
+                int multi, int n);
        void calc_freq_off();
 
 

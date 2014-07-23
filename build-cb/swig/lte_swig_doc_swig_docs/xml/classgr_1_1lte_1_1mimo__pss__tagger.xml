@@ -43,24 +43,24 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="47">
+      <node id="63">
         <label>sync_block</label>
       </node>
-      <node id="46">
+      <node id="62">
         <label>gr::lte::mimo_pss_tagger</label>
         <link refid="classgr_1_1lte_1_1mimo__pss__tagger"/>
-        <childnode refid="47" relation="public-inheritance">
+        <childnode refid="63" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="49">
+      <node id="65">
         <label>sync_block</label>
       </node>
-      <node id="48">
+      <node id="64">
         <label>gr::lte::mimo_pss_tagger</label>
         <link refid="classgr_1_1lte_1_1mimo__pss__tagger"/>
-        <childnode refid="49" relation="public-inheritance">
+        <childnode refid="65" relation="public-inheritance">
         </childnode>
       </node>
     </collaborationgraph>

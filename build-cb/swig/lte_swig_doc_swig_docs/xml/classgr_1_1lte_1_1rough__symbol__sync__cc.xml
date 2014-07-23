@@ -52,24 +52,24 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="112">
+      <node id="128">
         <label>gr::lte::rough_symbol_sync_cc</label>
         <link refid="classgr_1_1lte_1_1rough__symbol__sync__cc"/>
-        <childnode refid="113" relation="public-inheritance">
+        <childnode refid="129" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="113">
+      <node id="129">
         <label>sync_block</label>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="114">
+      <node id="130">
         <label>gr::lte::rough_symbol_sync_cc</label>
         <link refid="classgr_1_1lte_1_1rough__symbol__sync__cc"/>
-        <childnode refid="115" relation="public-inheritance">
+        <childnode refid="131" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="115">
+      <node id="131">
         <label>sync_block</label>
       </node>
     </collaborationgraph>

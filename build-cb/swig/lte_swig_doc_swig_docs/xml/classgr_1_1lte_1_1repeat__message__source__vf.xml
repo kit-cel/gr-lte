@@ -48,24 +48,24 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="109">
+      <node id="125">
         <label>sync_block</label>
       </node>
-      <node id="108">
+      <node id="124">
         <label>gr::lte::repeat_message_source_vf</label>
         <link refid="classgr_1_1lte_1_1repeat__message__source__vf"/>
-        <childnode refid="109" relation="public-inheritance">
+        <childnode refid="125" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="111">
+      <node id="127">
         <label>sync_block</label>
       </node>
-      <node id="110">
+      <node id="126">
         <label>gr::lte::repeat_message_source_vf</label>
         <link refid="classgr_1_1lte_1_1repeat__message__source__vf"/>
-        <childnode refid="111" relation="public-inheritance">
+        <childnode refid="127" relation="public-inheritance">
         </childnode>
       </node>
     </collaborationgraph>
