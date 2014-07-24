@@ -205,12 +205,9 @@ mimo_pss_fine_sync_impl::work(int noutput_items,
         {
             if((d_fine_pos-1+d_halffl)%d_halffl==mod_pos)
             {
-//                if(noutput_items-i<d_fftl)
-//                    return 0;
-
                 int fine_pos;
 
-                d_corr_val   = d_corr_val*0.95;
+                d_corr_val   = d_corr_val*0.80;
                 d_val_early  = diff_corr2(input_items, d_pssX_t, d_fftl, i);
                 d_val_prompt = diff_corr2(input_items, d_pssX_t, d_fftl, i+1);
                 d_val_late   = diff_corr2(input_items, d_pssX_t, d_fftl, i+2);
@@ -233,7 +230,6 @@ mimo_pss_fine_sync_impl::work(int noutput_items,
                     val=d_val_late;
                     fine_pos=d_fine_pos+1;
                 }
-
 
 //                printf("---------------\n");
 //                printf("PSS-tracking: early:%f\n", d_val_early);

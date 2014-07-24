@@ -65,7 +65,7 @@ mimo_pss_freq_sync_impl::mimo_pss_freq_sync_impl(int fftl, int rxant, boost::sha
 
     d_buf_pss = new gr_complex* [rxant];
     for(int i=0; i<d_rxant; i++)
-        d_buf_pss[i] = (gr_complex*) volk_malloc(sizeof(gr_complex)*d_fftl,alig);
+        d_buf_pss[i] = (gr_complex*) volk_malloc(sizeof(gr_complex)*d_fftl, alig);
 
     //set_max_noutput_items(fftl*75);   work call for maximum one pss
 
@@ -176,16 +176,16 @@ mimo_pss_freq_sync_impl::calc_freq_off()
 
     float freq=0;
 
-    //TODO: maybe add higher signal levels proportional
+
     for(int i=0; i<d_rxant; i++)
     {
         volk_32fc_x2_dot_prod_32fc(&psscorr_a, d_buf_pss[i],          d_pssX,          d_fftl/2);
         volk_32fc_x2_dot_prod_32fc(&psscorr_b, d_buf_pss[i]+d_fftl/2, d_pssX+d_fftl/2, d_fftl/2);
         psscorr = conj(psscorr_a) * psscorr_b;
 
-        //add frequency estimate proportional to power of pss²
+        //add frequency estimate proportional to power of pss
         volk_32fc_x2_dot_prod_32fc(&pss_power, d_buf_pss[i], d_buf_pss[i], d_fftl);
-        printf( "POWER ant%i: %f\n", i, abs(pss_power*pss_power) );
+        //printf( "POWER ant%i: %e\n", i, abs(pss_power*pss_power) );
         pss_power_abs = abs( pss_power * pss_power );
         sum_power += pss_power_abs;
         freq += pss_power_abs * arg( psscorr );

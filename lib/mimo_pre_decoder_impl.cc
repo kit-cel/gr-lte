@@ -237,18 +237,17 @@ namespace gr {
 
         }
 
+        float sqrt2 = std::sqrt(2);
+
         //invert sum of squared channel coeffs and divide
 		for(int i=0; i<len/2; i++){
-            d_mag[i] = 1.0/d_mag[i];
+            d_mag[i] = sqrt2/d_mag[i];    //sqrt(2) because of scaling
 		}
 		//divide by sum of channel coeffs
-		volk_32fc_32f_multiply_32fc_a(out0, out0, d_mag, len/2);
-		volk_32fc_32f_multiply_32fc_a(out1, out1, d_mag, len/2);
+		volk_32fc_32f_multiply_32fc_a(out0, out0, d_mag, len2);
+		volk_32fc_32f_multiply_32fc_a(out1, out1, d_mag, len2);
 
-        // Do correct scaling
-        gr_complex divsqrt2 = gr_complex(std::sqrt(2),0);
-        volk_32fc_s32fc_multiply_32fc_a(out0, out0, divsqrt2, len/2);
-        volk_32fc_s32fc_multiply_32fc_a(out1, out1, divsqrt2, len/2);
+
 	}
 
 	void

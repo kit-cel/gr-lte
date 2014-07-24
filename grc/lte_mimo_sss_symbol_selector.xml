@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <block>
-  <name>mimo_sss_symbol_selector</name>
+  <name>MIMO SSS symbol selector</name>
   <key>lte_mimo_sss_symbol_selector</key>
   <category>lte</category>
   <import>import lte</import>

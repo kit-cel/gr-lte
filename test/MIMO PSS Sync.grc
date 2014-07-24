@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='ASCII'?>
 <flow_graph>
-  <timestamp>Mon Jul 21 03:20:04 2014</timestamp>
+  <timestamp>Thu Jul 24 01:36:40 2014</timestamp>
   <block>
     <key>options</key>
     <param>
@@ -76,7 +76,7 @@
     </param>
     <param>
       <key>value</key>
-      <value>filter.optfir.low_pass(1, fftlen*15e3, 472.5e3, 540e3, 0.2, 40)</value>
+      <value>filter.optfir.low_pass(1, fftlen*15e3, 472.5e3, 960e3, 0.2, 40)</value>
     </param>
     <param>
       <key>alias</key>
