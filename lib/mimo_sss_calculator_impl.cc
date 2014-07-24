@@ -219,7 +219,7 @@ namespace gr {
             c1[i] = d_cX[ (i+d_N_id_2+3)%31 ];
         }
 
-        gr_complex** s0m0 = new gr_complex*[rxant];
+        gr_complex** s0m0 = new gr_complex* [rxant];
         for(int rx=0; rx<rxant; rx++){
             s0m0[rx] = new gr_complex[31];
             for (int i = 0 ; i < 31 ; i++){

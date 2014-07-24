@@ -96,18 +96,14 @@ namespace gr {
 		else if(d_N_ant == 2){
 			const gr_complex *ce1 = (const gr_complex *) input_items[2];      //channel estimate ant port 1
 			for(int i = 0; i < noutput_items; i++){
-//                memset(out, 0, sizeof(gr_complex)*d_vlen);
 
-//                prepare_2_ant_vectors(d_h0, d_h1, d_r0, d_r1, in, ce0, ce1, d_vlen);
                 decode_2_ant(d_out0, d_out1, d_h0, d_h1, d_r0, d_r1, in, ce0, ce1, d_vlen);
                 combine_output(out, d_out0, d_out1, d_vlen);
-//                    volk_32f_x2_add_32f_a((float*) out, (float*) out, (float*) d_out, d_vlen*2);
 
                 in  += d_vlen * d_rxant;
                 ce0 += d_vlen * d_rxant;
                 ce1 += d_vlen * d_rxant;
                 out += d_vlen;
-//				volk_32fc_s32fc_multiply_32fc_a(out, out, gr_complex(1.0/d_rxant,0), d_vlen);
 
 			}
 		}

@@ -194,7 +194,7 @@ mimo_pss_freq_sync_impl::calc_freq_off()
     freq=15000.0*freq/(M_PI * sum_power);
 
     //bigger steps when starting
-    float a=0.5/d_f_count;
+    float a=0.8/d_f_count;
     a=a<0.01 ? 0.01 : a;
 
     d_f_est = d_f_est + (a * freq);

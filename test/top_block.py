@@ -2,7 +2,7 @@
 ##################################################
 # Gnuradio Python Flow Graph
 # Title: Top Block
-# Generated: Thu Jul 24 02:43:27 2014
+# Generated: Thu Jul 24 16:52:36 2014
 ##################################################
 
 execfile("/home/maier/.grc_gnuradio/decode_bch_hier_gr37.py")
@@ -58,23 +58,22 @@ class top_block(gr.top_block, Qt.QWidget):
         self.style = style = "tx_diversity"
         self.samp_rate = samp_rate = fftl*15e3
         self.rxant = rxant = 2
-        self.pbch_descr_key = pbch_descr_key = "descr_part"
         self.frame_key = frame_key = "slot"
         self.N_rb_dl = N_rb_dl = 50
 
         ##################################################
         # Blocks
         ##################################################
-        self.qtgui_const_sink_x_0_0_1_0 = qtgui.const_sink_c(
+        self.qtgui_const_sink_x_1 = qtgui.const_sink_c(
         	2048, #size
         	"", #name
         	1 #number of inputs
         )
-        self.qtgui_const_sink_x_0_0_1_0.set_update_time(0.10)
-        self.qtgui_const_sink_x_0_0_1_0.set_y_axis(-2, 2)
-        self.qtgui_const_sink_x_0_0_1_0.set_x_axis(-2, 2)
-        self.qtgui_const_sink_x_0_0_1_0.set_trigger_mode(qtgui.TRIG_MODE_FREE, qtgui.TRIG_SLOPE_POS, 0.0, 0, "")
-        self.qtgui_const_sink_x_0_0_1_0.enable_autoscale(False)
+        self.qtgui_const_sink_x_1.set_update_time(0.10)
+        self.qtgui_const_sink_x_1.set_y_axis(-2, 2)
+        self.qtgui_const_sink_x_1.set_x_axis(-2, 2)
+        self.qtgui_const_sink_x_1.set_trigger_mode(qtgui.TRIG_MODE_FREE, qtgui.TRIG_SLOPE_POS, 0.0, 0, "")
+        self.qtgui_const_sink_x_1.enable_autoscale(False)
         
         labels = ["", "", "", "", "",
                   "", "", "", "", ""]
@@ -90,27 +89,27 @@ class top_block(gr.top_block, Qt.QWidget):
                   1.0, 1.0, 1.0, 1.0, 1.0]
         for i in xrange(1):
             if len(labels[i]) == 0:
-                self.qtgui_const_sink_x_0_0_1_0.set_line_label(i, "Data {0}".format(i))
+                self.qtgui_const_sink_x_1.set_line_label(i, "Data {0}".format(i))
             else:
-                self.qtgui_const_sink_x_0_0_1_0.set_line_label(i, labels[i])
-            self.qtgui_const_sink_x_0_0_1_0.set_line_width(i, widths[i])
-            self.qtgui_const_sink_x_0_0_1_0.set_line_color(i, colors[i])
-            self.qtgui_const_sink_x_0_0_1_0.set_line_style(i, styles[i])
-            self.qtgui_const_sink_x_0_0_1_0.set_line_marker(i, markers[i])
-            self.qtgui_const_sink_x_0_0_1_0.set_line_alpha(i, alphas[i])
+                self.qtgui_const_sink_x_1.set_line_label(i, labels[i])
+            self.qtgui_const_sink_x_1.set_line_width(i, widths[i])
+            self.qtgui_const_sink_x_1.set_line_color(i, colors[i])
+            self.qtgui_const_sink_x_1.set_line_style(i, styles[i])
+            self.qtgui_const_sink_x_1.set_line_marker(i, markers[i])
+            self.qtgui_const_sink_x_1.set_line_alpha(i, alphas[i])
         
-        self._qtgui_const_sink_x_0_0_1_0_win = sip.wrapinstance(self.qtgui_const_sink_x_0_0_1_0.pyqwidget(), Qt.QWidget)
-        self.top_layout.addWidget(self._qtgui_const_sink_x_0_0_1_0_win)
-        self.qtgui_const_sink_x_0_0_1 = qtgui.const_sink_c(
+        self._qtgui_const_sink_x_1_win = sip.wrapinstance(self.qtgui_const_sink_x_1.pyqwidget(), Qt.QWidget)
+        self.top_layout.addWidget(self._qtgui_const_sink_x_1_win)
+        self.qtgui_const_sink_x0 = qtgui.const_sink_c(
         	2048, #size
         	"", #name
         	1 #number of inputs
         )
-        self.qtgui_const_sink_x_0_0_1.set_update_time(0.10)
-        self.qtgui_const_sink_x_0_0_1.set_y_axis(-2, 2)
-        self.qtgui_const_sink_x_0_0_1.set_x_axis(-2, 2)
-        self.qtgui_const_sink_x_0_0_1.set_trigger_mode(qtgui.TRIG_MODE_FREE, qtgui.TRIG_SLOPE_POS, 0.0, 0, "")
-        self.qtgui_const_sink_x_0_0_1.enable_autoscale(False)
+        self.qtgui_const_sink_x0.set_update_time(0.10)
+        self.qtgui_const_sink_x0.set_y_axis(-2, 2)
+        self.qtgui_const_sink_x0.set_x_axis(-2, 2)
+        self.qtgui_const_sink_x0.set_trigger_mode(qtgui.TRIG_MODE_FREE, qtgui.TRIG_SLOPE_POS, 0.0, 0, "")
+        self.qtgui_const_sink_x0.enable_autoscale(False)
         
         labels = ["", "", "", "", "",
                   "", "", "", "", ""]
@@ -126,17 +125,17 @@ class top_block(gr.top_block, Qt.QWidget):
                   1.0, 1.0, 1.0, 1.0, 1.0]
         for i in xrange(1):
             if len(labels[i]) == 0:
-                self.qtgui_const_sink_x_0_0_1.set_line_label(i, "Data {0}".format(i))
+                self.qtgui_const_sink_x0.set_line_label(i, "Data {0}".format(i))
             else:
-                self.qtgui_const_sink_x_0_0_1.set_line_label(i, labels[i])
-            self.qtgui_const_sink_x_0_0_1.set_line_width(i, widths[i])
-            self.qtgui_const_sink_x_0_0_1.set_line_color(i, colors[i])
-            self.qtgui_const_sink_x_0_0_1.set_line_style(i, styles[i])
-            self.qtgui_const_sink_x_0_0_1.set_line_marker(i, markers[i])
-            self.qtgui_const_sink_x_0_0_1.set_line_alpha(i, alphas[i])
+                self.qtgui_const_sink_x0.set_line_label(i, labels[i])
+            self.qtgui_const_sink_x0.set_line_width(i, widths[i])
+            self.qtgui_const_sink_x0.set_line_color(i, colors[i])
+            self.qtgui_const_sink_x0.set_line_style(i, styles[i])
+            self.qtgui_const_sink_x0.set_line_marker(i, markers[i])
+            self.qtgui_const_sink_x0.set_line_alpha(i, alphas[i])
         
-        self._qtgui_const_sink_x_0_0_1_win = sip.wrapinstance(self.qtgui_const_sink_x_0_0_1.pyqwidget(), Qt.QWidget)
-        self.top_layout.addWidget(self._qtgui_const_sink_x_0_0_1_win)
+        self._qtgui_const_sink_x0_win = sip.wrapinstance(self.qtgui_const_sink_x0.pyqwidget(), Qt.QWidget)
+        self.top_layout.addWidget(self._qtgui_const_sink_x0_win)
         self.pbch_layer_demapper_vcvc_1 = lte.layer_demapper_vcvc(2, vlen, style, "pbch_layer_demapper_vcvc_1")
         self.pbch_layer_demapper_vcvc_0 = lte.layer_demapper_vcvc(1, vlen, style, "pbch_layer_demapper_vcvc_0")
         self.lte_mimo_sss_sync_0 = lte_mimo_sss_sync(
@@ -174,15 +173,15 @@ class top_block(gr.top_block, Qt.QWidget):
             rxant=rxant,
         )
         self.blocks_vector_to_streams_0 = blocks.vector_to_streams(gr.sizeof_gr_complex*1, 2)
-        self.blocks_vector_to_stream_0_0_1_0 = blocks.vector_to_stream(gr.sizeof_gr_complex*1, 480)
-        self.blocks_vector_to_stream_0_0_1 = blocks.vector_to_stream(gr.sizeof_gr_complex*1, 240)
+        self.blocks_vector_to_stream_0_0_1_0 = blocks.vector_to_stream(gr.sizeof_gr_complex*1, 240)
+        self.blocks_vector_to_stream_0_0_1 = blocks.vector_to_stream(gr.sizeof_gr_complex*1, 480)
         self.blocks_throttle_0 = blocks.throttle(gr.sizeof_gr_complex*2, samp_rate,True)
         self.blocks_null_sink_2 = blocks.null_sink(gr.sizeof_gr_complex*1)
         self.blocks_null_sink_0_0 = blocks.null_sink(gr.sizeof_gr_complex*240)
         self.blocks_null_sink_0 = blocks.null_sink(gr.sizeof_gr_complex*240)
         self.blocks_multiply_const_vxx_0_0 = blocks.multiply_const_vcc((1, ))
         self.blocks_multiply_const_vxx_0 = blocks.multiply_const_vcc((1, ))
-        self.blocks_file_source_0 = blocks.file_source(gr.sizeof_gr_complex*2, "/home/maier/Schreibtisch/2txant_2constphase_30db_16qam.dat", True)
+        self.blocks_file_source_0 = blocks.file_source(gr.sizeof_gr_complex*2, "/home/maier/Schreibtisch/lte test files/lte10framesFadingChannelETU_fOff2000_id113_30db.dat", True)
         self.bch_decode_bch_hier_gr37_0 = decode_bch_hier_gr37()
         self.MIB = lte.mib_unpack_vbm("MIB")
 
@@ -191,7 +190,24 @@ class top_block(gr.top_block, Qt.QWidget):
         ##################################################
         self.connect((self.lte_mimo_sss_sync_0, 0), (self.lte_mimo_ofdm_rx_0, 0))
         self.connect((self.lte_mimo_sss_sync_0, 1), (self.lte_mimo_ofdm_rx_0, 1))
+        self.connect((self.lte_mimo_decode_pbch_0, 0), (self.bch_decode_bch_hier_gr37_0, 0))
+        self.connect((self.bch_decode_bch_hier_gr37_0, 1), (self.MIB, 1))
+        self.connect((self.lte_mimo_estimator_0, 0), (self.lte_mimo_decode_pbch_0, 1))
+        self.connect((self.bch_decode_bch_hier_gr37_0, 0), (self.MIB, 0))
+        self.connect((self.lte_mimo_ofdm_rx_0, 0), (self.lte_mimo_decode_pbch_0, 0))
+        self.connect((self.lte_mimo_ofdm_rx_0, 0), (self.lte_mimo_estimator_0, 0))
+        self.connect((self.lte_mimo_pss_sync_0, 0), (self.lte_mimo_pss_based_frey_sync_0, 0))
+        self.connect((self.lte_mimo_pss_sync_0, 1), (self.lte_mimo_pss_based_frey_sync_0, 1))
+        self.connect((self.lte_mimo_estimator_0, 1), (self.lte_mimo_decode_pbch_0, 2))
+        self.connect((self.blocks_multiply_const_vxx_0, 0), (self.lte_mimo_pss_sync_0, 1))
+        self.connect((self.blocks_multiply_const_vxx_0_0, 0), (self.lte_mimo_pss_sync_0, 0))
+        self.connect((self.blocks_file_source_0, 0), (self.blocks_throttle_0, 0))
+        self.connect((self.blocks_throttle_0, 0), (self.blocks_vector_to_streams_0, 0))
+        self.connect((self.blocks_vector_to_streams_0, 0), (self.blocks_multiply_const_vxx_0_0, 0))
+        self.connect((self.blocks_vector_to_streams_0, 0), (self.blocks_null_sink_2, 0))
+        self.connect((self.blocks_vector_to_streams_0, 1), (self.blocks_multiply_const_vxx_0, 0))
         self.connect((self.lte_mimo_pss_based_frey_sync_0, 1), (self.lte_mimo_sss_sync_0, 1))
+        self.connect((self.blocks_vector_to_stream_0_0_1_0, 0), (self.qtgui_const_sink_x_1, 0))
         self.connect((self.lte_mimo_estimator_0, 0), (self.lte_mimo_pbch_demux_0_0, 0))
         self.connect((self.lte_mimo_pre_decoder_0, 0), (self.pbch_layer_demapper_vcvc_0, 0))
         self.connect((self.lte_mimo_pbch_demux_0_0, 0), (self.lte_mimo_pre_decoder_0_0, 1))
@@ -203,35 +219,18 @@ class top_block(gr.top_block, Qt.QWidget):
         self.connect((self.lte_mimo_estimator_0, 1), (self.lte_mimo_pbch_demux_0_1, 0))
         self.connect((self.pbch_layer_demapper_vcvc_1, 0), (self.blocks_null_sink_0_0, 0))
         self.connect((self.pbch_layer_demapper_vcvc_0, 0), (self.blocks_null_sink_0, 0))
-        self.connect((self.lte_mimo_decode_pbch_0, 0), (self.bch_decode_bch_hier_gr37_0, 0))
-        self.connect((self.bch_decode_bch_hier_gr37_0, 1), (self.MIB, 1))
-        self.connect((self.lte_mimo_estimator_0, 0), (self.lte_mimo_decode_pbch_0, 1))
-        self.connect((self.bch_decode_bch_hier_gr37_0, 0), (self.MIB, 0))
-        self.connect((self.lte_mimo_ofdm_rx_0, 0), (self.lte_mimo_decode_pbch_0, 0))
         self.connect((self.lte_mimo_ofdm_rx_0, 0), (self.lte_mimo_pbch_demux_0, 0))
-        self.connect((self.lte_mimo_ofdm_rx_0, 0), (self.lte_mimo_estimator_0, 0))
-        self.connect((self.lte_mimo_pss_sync_0, 0), (self.lte_mimo_pss_based_frey_sync_0, 0))
-        self.connect((self.lte_mimo_pss_sync_0, 1), (self.lte_mimo_pss_based_frey_sync_0, 1))
+        self.connect((self.lte_mimo_pbch_demux_0_0, 0), (self.blocks_vector_to_stream_0_0_1, 0))
+        self.connect((self.lte_mimo_pre_decoder_0_0, 0), (self.blocks_vector_to_stream_0_0_1_0, 0))
+        self.connect((self.blocks_vector_to_stream_0_0_1, 0), (self.qtgui_const_sink_x0, 0))
         self.connect((self.lte_mimo_pss_based_frey_sync_0, 0), (self.lte_mimo_sss_sync_0, 0))
-        self.connect((self.blocks_vector_to_stream_0_0_1, 0), (self.qtgui_const_sink_x_0_0_1, 0))
-        self.connect((self.blocks_vector_to_stream_0_0_1_0, 0), (self.qtgui_const_sink_x_0_0_1_0, 0))
-        self.connect((self.lte_mimo_pbch_demux_0_0, 0), (self.blocks_vector_to_stream_0_0_1_0, 0))
-        self.connect((self.lte_mimo_pre_decoder_0_0, 0), (self.blocks_vector_to_stream_0_0_1, 0))
-        self.connect((self.lte_mimo_estimator_0, 1), (self.lte_mimo_decode_pbch_0, 2))
-        self.connect((self.blocks_throttle_0, 0), (self.blocks_vector_to_streams_0, 0))
-        self.connect((self.blocks_file_source_0, 0), (self.blocks_throttle_0, 0))
-        self.connect((self.blocks_multiply_const_vxx_0, 0), (self.lte_mimo_pss_sync_0, 1))
-        self.connect((self.blocks_vector_to_streams_0, 0), (self.blocks_multiply_const_vxx_0_0, 0))
-        self.connect((self.blocks_multiply_const_vxx_0_0, 0), (self.lte_mimo_pss_sync_0, 0))
-        self.connect((self.blocks_vector_to_streams_0, 1), (self.blocks_multiply_const_vxx_0, 0))
-        self.connect((self.blocks_vector_to_streams_0, 0), (self.blocks_null_sink_2, 0))
 
         ##################################################
         # Asynch Message Connections
         ##################################################
         self.msg_connect(self.lte_mimo_sss_sync_0, "cell_id", self.lte_mimo_decode_pbch_0, "cell_id")
-        self.msg_connect(self.lte_mimo_sss_sync_0, "cell_id", self.lte_mimo_pbch_demux_0, "cell_id")
         self.msg_connect(self.lte_mimo_sss_sync_0, "cell_id", self.lte_mimo_estimator_0, "cell_id")
+        self.msg_connect(self.lte_mimo_sss_sync_0, "cell_id", self.lte_mimo_pbch_demux_0, "cell_id")
         self.msg_connect(self.lte_mimo_sss_sync_0, "cell_id", self.lte_mimo_pbch_demux_0_0, "cell_id")
         self.msg_connect(self.lte_mimo_sss_sync_0, "cell_id", self.lte_mimo_pbch_demux_0_1, "cell_id")
 
@@ -247,8 +246,8 @@ class top_block(gr.top_block, Qt.QWidget):
         self.fftl = fftl
         self.set_samp_rate(self.fftl*15e3)
         self.lte_mimo_pss_sync_0.set_fftlen(self.fftl)
-        self.lte_mimo_sss_sync_0.set_fftlen(self.fftl)
         self.lte_mimo_ofdm_rx_0.set_fftlen(self.fftl)
+        self.lte_mimo_sss_sync_0.set_fftlen(self.fftl)
         self.lte_mimo_pss_based_frey_sync_0.set_fftlen(self.fftl)
 
     def get_vlen(self):
@@ -276,33 +275,27 @@ class top_block(gr.top_block, Qt.QWidget):
     def set_rxant(self, rxant):
         self.rxant = rxant
         self.lte_mimo_pss_sync_0.set_rxant(self.rxant)
-        self.lte_mimo_ofdm_rx_0.set_rxant(self.rxant)
-        self.lte_mimo_decode_pbch_0.set_rxant(self.rxant)
         self.lte_mimo_estimator_0.set_rxant(self.rxant)
+        self.lte_mimo_decode_pbch_0.set_rxant(self.rxant)
+        self.lte_mimo_ofdm_rx_0.set_rxant(self.rxant)
         self.lte_mimo_pss_based_frey_sync_0.set_rxant(self.rxant)
-
-    def get_pbch_descr_key(self):
-        return self.pbch_descr_key
-
-    def set_pbch_descr_key(self, pbch_descr_key):
-        self.pbch_descr_key = pbch_descr_key
 
     def get_frame_key(self):
         return self.frame_key
 
     def set_frame_key(self, frame_key):
         self.frame_key = frame_key
-        self.lte_mimo_ofdm_rx_0.set_ofdm_key(self.frame_key)
         self.lte_mimo_estimator_0.set_estimator_key(self.frame_key)
+        self.lte_mimo_ofdm_rx_0.set_ofdm_key(self.frame_key)
 
     def get_N_rb_dl(self):
         return self.N_rb_dl
 
     def set_N_rb_dl(self, N_rb_dl):
         self.N_rb_dl = N_rb_dl
-        self.lte_mimo_ofdm_rx_0.set_N_rb_dl(self.N_rb_dl)
-        self.lte_mimo_decode_pbch_0.set_N_rb_dl(self.N_rb_dl)
         self.lte_mimo_estimator_0.set_N_rb_dl(self.N_rb_dl)
+        self.lte_mimo_decode_pbch_0.set_N_rb_dl(self.N_rb_dl)
+        self.lte_mimo_ofdm_rx_0.set_N_rb_dl(self.N_rb_dl)
 
 if __name__ == '__main__':
     import ctypes

@@ -502,6 +502,8 @@ lib/CMakeFiles/gnuradio-lte.dir/mimo_pss_fine_sync_impl.cc.o
  /usr/local/include/gnuradio/basic_block.h
  /usr/local/include/gnuradio/block.h
  /usr/local/include/gnuradio/block_registry.h
+ /usr/local/include/gnuradio/filter/api.h
+ /usr/local/include/gnuradio/filter/fir_filter.h
  /usr/local/include/gnuradio/gr_complex.h
  /usr/local/include/gnuradio/io_signature.h
  /usr/local/include/gnuradio/logger.h

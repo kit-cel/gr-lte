@@ -10,40 +10,28 @@
 gnuradio/attributes.h
 -
 
-../include/lte/mimo_pss_fine_sync.h
+../include/lte/mimo_sss_calculator.h
 lte/api.h
 -
 gnuradio/sync_block.h
 -
 
-../include/lte/pss.h
-lte/api.h
--
-cmath
--
-fftw3.h
--
-cstring
--
-
-/home/maier/gr-lte/lib/mimo_pss_fine_sync_impl.cc
+/home/maier/gr-lte/lib/mimo_sss_calculator_impl.cc
 config.h
 /home/maier/gr-lte/lib/config.h
 gnuradio/io_signature.h
 -
-mimo_pss_fine_sync_impl.h
-/home/maier/gr-lte/lib/mimo_pss_fine_sync_impl.h
-cstdio
--
-cmath
--
+mimo_sss_calculator_impl.h
+/home/maier/gr-lte/lib/mimo_sss_calculator_impl.h
 volk/volk.h
 -
-lte/pss.h
-/home/maier/gr-lte/lib/lte/pss.h
+cstdio
+-
+boost/multi_array.hpp
+-
 
-/home/maier/gr-lte/lib/mimo_pss_fine_sync_impl.h
-lte/mimo_pss_fine_sync.h
+/home/maier/gr-lte/lib/mimo_sss_calculator_impl.h
+lte/mimo_sss_calculator.h
 -
 
 /usr/local/include/gnuradio/api.h

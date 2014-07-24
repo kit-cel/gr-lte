@@ -1,6 +1,6 @@
 /* -*- c++ -*- */
 /*
- * Copyright 2013 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
+ * Copyright 2014 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
  *
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,6 +29,8 @@
 #include <cmath>
 #include <volk/volk.h>
 #include "lte/pss.h"
+
+#include <gnuradio/filter/fir_filter.h>
 
 namespace gr
 {
@@ -89,6 +91,9 @@ mimo_pss_fine_sync_impl::mimo_pss_fine_sync_impl(int fftl, int rxant, int grpdel
     d_port_lock= pmt::string_to_symbol("lock");
     message_port_register_out(d_port_lock);
 
+
+//    std::vector< float > taps (5,6 );
+//    filter::kernel::fir_filter_ccf* firfi = new filter::kernel::fir_filter_ccf(1, taps);
 }
 
 
