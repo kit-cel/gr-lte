@@ -36,6 +36,7 @@ namespace gr {
         int d_slotl;
         int d_framel;
         int d_slot_num;
+        int d_n_rb_dl;
         uint64_t d_offset_0;
         pmt::pmt_t d_key;
         pmt::pmt_t d_tag_id;
@@ -45,7 +46,7 @@ namespace gr {
         void handle_msg_frame_start(pmt::pmt_t msg);
 
      public:
-      mimo_sss_tagger_impl(int fftl, int rxant);
+      mimo_sss_tagger_impl(int fftl, int rxant, int n_rb_dl);
       ~mimo_sss_tagger_impl();
 
       // Where all the action really happens

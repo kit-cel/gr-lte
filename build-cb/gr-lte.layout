@@ -1,159 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="all" />
-	<File name="../lib/sync_frequency_c_impl.cc" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="../lib/mimo_sss_calculator_impl.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="4912" topLine="18" />
+			<Cursor1 position="1936" topLine="21" />
 		</Cursor>
 	</File>
-	<File name="../lib/mimo_extract_subcarriers_impl.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="../lib/mimo_pbch_demux_impl.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1209" topLine="0" />
+			<Cursor1 position="1134" topLine="26" />
 		</Cursor>
 	</File>
-	<File name="../lib/sss_symbol_selector_cvc_impl.cc" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="../lib/mimo_channel_estimator_impl.cc" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2853" topLine="68" />
-		</Cursor>
-	</File>
-	<File name="../lib/pss_calculator_vcm_impl.cc" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="72" />
-		</Cursor>
-	</File>
-	<File name="../lib/mimo_remove_cp_impl.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1438" topLine="16" />
-		</Cursor>
-	</File>
-	<File name="../lib/channel_estimator_vcvc_impl.cc" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1737" topLine="481" />
-		</Cursor>
-	</File>
-	<File name="../lib/mimo_pss_tagger_impl.cc" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3337" topLine="80" />
-		</Cursor>
-	</File>
-	<File name="../lib/mimo_pre_decoder_impl.cc" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="8158" topLine="200" />
-		</Cursor>
-	</File>
-	<File name="../lib/mimo_pss_fine_sync_impl.h" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1086" topLine="18" />
-		</Cursor>
-	</File>
-	<File name="../lib/sss_calculator_vcm_impl.cc" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="9513" topLine="122" />
-		</Cursor>
-	</File>
-	<File name="../grc/CMakeLists.txt" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="12" />
-		</Cursor>
-	</File>
-	<File name="../lib/pbch_demux_vcvc_impl.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1073" topLine="1" />
-		</Cursor>
-	</File>
-	<File name="../lib/mimo_channel_estimator_impl.cc" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2117" topLine="34" />
-		</Cursor>
-	</File>
-	<File name="../lib/mimo_sss_calculator_impl.cc" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="4901" topLine="56" />
-		</Cursor>
-	</File>
-	<File name="../lib/mimo_remove_cp_impl.cc" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2576" topLine="68" />
-		</Cursor>
-	</File>
-	<File name="../lib/mimo_sss_symbol_selector_impl.cc" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2112" topLine="63" />
-		</Cursor>
-	</File>
-	<File name="../lib/channel_estimator_vcvc_impl.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="5308" topLine="32" />
-		</Cursor>
-	</File>
-	<File name="../lib/extract_subcarriers_vcvc_impl.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1118" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="../lib/pss_tagger_cc_impl.cc" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="81" />
-		</Cursor>
-	</File>
-	<File name="../lib/mimo_sss_symbol_selector_impl.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1154" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="../include/lte/mimo_channel_estimator.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1344" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="../lib/remove_cp_cvc_impl.h" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1010" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="../lib/pss.cc" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1961" topLine="56" />
-		</Cursor>
-	</File>
-	<File name="../lib/mimo_pss_freq_sync_impl.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1554" topLine="6" />
-		</Cursor>
-	</File>
-	<File name="../lib/mimo_extract_subcarriers_impl.cc" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2519" topLine="22" />
-		</Cursor>
-	</File>
-	<File name="../lib/sss_symbol_selector_cvc_impl.h" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1113" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="../lib/descrambler_vfvf_impl.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="976" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="../lib/sss_tagger_cc_impl.cc" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="5074" topLine="90" />
-		</Cursor>
-	</File>
-	<File name="../lib/mimo_sss_tagger_impl.h" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1109" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="../lib/mimo_pss_fine_sync_impl.cc" open="1" top="1" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="6162" topLine="193" />
-		</Cursor>
-	</File>
-	<File name="../include/lte/mimo_remove_cp.h" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="933" topLine="0" />
+			<Cursor1 position="1505" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="../lib/pbch_demux_vcvc_impl.cc" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -161,44 +21,39 @@
 			<Cursor1 position="2390" topLine="59" />
 		</Cursor>
 	</File>
-	<File name="../lib/mimo_pbch_demux_impl.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="../lib/mimo_extract_subcarriers_impl.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1134" topLine="3" />
+			<Cursor1 position="1209" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="../lib/remove_cp_cvc_impl.cc" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="../lib/mimo_sss_calculator_impl.cc" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="955" topLine="0" />
+			<Cursor1 position="4351" topLine="139" />
 		</Cursor>
 	</File>
-	<File name="../lib/mimo_pbch_demux_impl.cc" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="../lib/mimo_pss_tagger_impl.cc" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="4627" topLine="89" />
+			<Cursor1 position="3402" topLine="72" />
 		</Cursor>
 	</File>
-	<File name="../lib/mimo_pss_coarse_sync_impl.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="../lib/mimo_sss_tagger_impl.cc" open="1" top="1" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1232" topLine="17" />
+			<Cursor1 position="2769" topLine="73" />
 		</Cursor>
 	</File>
-	<File name="../lib/mimo_pss_freq_sync_impl.cc" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="../lib/mimo_pre_decoder_impl.cc" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="5651" topLine="154" />
+			<Cursor1 position="1758" topLine="195" />
+		</Cursor>
+	</File>
+	<File name="../lib/mimo_pss_fine_sync_impl.h" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1086" topLine="18" />
 		</Cursor>
 	</File>
 	<File name="../lib/mimo_pss_coarse_control_impl.cc" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2594" topLine="37" />
-		</Cursor>
-	</File>
-	<File name="../lib/mimo_pss_tagger_impl.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1122" topLine="24" />
-		</Cursor>
-	</File>
-	<File name="../lib/extract_subcarriers_vcvc_impl.cc" open="0" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1118" topLine="18" />
+			<Cursor1 position="38" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="../lib/sss_calculator_vcm_impl.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -206,39 +61,39 @@
 			<Cursor1 position="1171" topLine="22" />
 		</Cursor>
 	</File>
-	<File name="../lib/layer_demapper_vcvc_impl.cc" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="../lib/mimo_remove_cp_impl.cc" open="1" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2546" topLine="57" />
+			<Cursor1 position="3126" topLine="117" />
 		</Cursor>
 	</File>
-	<File name="../lib/mimo_pss_coarse_sync_impl.cc" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="../lib/sss_symbol_selector_cvc_impl.cc" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="0" topLine="0" />
+			<Cursor1 position="2853" topLine="68" />
 		</Cursor>
 	</File>
-	<File name="../include/lte/channel_estimator_vcvc.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="../lib/channel_estimator_vcvc_impl.cc" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="773" topLine="0" />
+			<Cursor1 position="1737" topLine="481" />
 		</Cursor>
 	</File>
-	<File name="../lib/pre_decoder_vcvc_impl.cc" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="../grc/CMakeLists.txt" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="3660" topLine="129" />
+			<Cursor1 position="0" topLine="12" />
 		</Cursor>
 	</File>
-	<File name="../lib/mimo_sss_calculator_impl.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="../include/lte/mimo_sss_tagger.h" open="1" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1936" topLine="21" />
+			<Cursor1 position="37732" topLine="685" />
 		</Cursor>
 	</File>
-	<File name="../lib/pre_decoder_vcvc_impl.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="../lib/mimo_sss_symbol_selector_impl.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2339" topLine="0" />
+			<Cursor1 position="1214" topLine="27" />
 		</Cursor>
 	</File>
-	<File name="../lib/mimo_channel_estimator_impl.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="../lib/sss_calculator_vcm_impl.cc" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1607" topLine="30" />
+			<Cursor1 position="9513" topLine="122" />
 		</Cursor>
 	</File>
 	<File name="../lib/mimo_pre_decoder_impl.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -246,9 +101,39 @@
 			<Cursor1 position="1738" topLine="34" />
 		</Cursor>
 	</File>
-	<File name="../lib/pss_symbol_selector_cvc_impl.cc" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="../lib/sync_frequency_c_impl.cc" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="3339" topLine="69" />
+			<Cursor1 position="4912" topLine="18" />
+		</Cursor>
+	</File>
+	<File name="../lib/mimo_sss_symbol_selector_impl.cc" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1148" topLine="50" />
+		</Cursor>
+	</File>
+	<File name="../lib/layer_demapper_vcvc_impl.cc" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2546" topLine="57" />
+		</Cursor>
+	</File>
+	<File name="../lib/mimo_pss_freq_sync_impl.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1554" topLine="6" />
+		</Cursor>
+	</File>
+	<File name="../lib/extract_subcarriers_vcvc_impl.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1118" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="../lib/pbch_demux_vcvc_impl.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1073" topLine="1" />
+		</Cursor>
+	</File>
+	<File name="../lib/mimo_pbch_demux_impl.cc" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="876" topLine="62" />
 		</Cursor>
 	</File>
 	<File name="../lib/sss_tagger_cc_impl.h" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -256,9 +141,139 @@
 			<Cursor1 position="1063" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="../lib/mimo_sss_tagger_impl.cc" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="../lib/mimo_sss_tagger_impl.h" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1928" topLine="71" />
+			<Cursor1 position="1526" topLine="34" />
+		</Cursor>
+	</File>
+	<File name="../lib/pss_tagger_cc_impl.cc" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="81" />
+		</Cursor>
+	</File>
+	<File name="../lib/pss_calculator_vcm_impl.cc" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="72" />
+		</Cursor>
+	</File>
+	<File name="../lib/mimo_channel_estimator_impl.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1607" topLine="30" />
+		</Cursor>
+	</File>
+	<File name="../lib/pre_decoder_vcvc_impl.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2339" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="../lib/sss_symbol_selector_cvc_impl.h" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1113" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="../lib/mimo_pss_coarse_sync_impl.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1232" topLine="17" />
+		</Cursor>
+	</File>
+	<File name="../lib/remove_cp_cvc_impl.h" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1010" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="../lib/mimo_pss_freq_sync_impl.cc" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="5630" topLine="173" />
+		</Cursor>
+	</File>
+	<File name="../lib/channel_estimator_vcvc_impl.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="5308" topLine="32" />
+		</Cursor>
+	</File>
+	<File name="../lib/pss_symbol_selector_cvc_impl.cc" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3339" topLine="69" />
+		</Cursor>
+	</File>
+	<File name="../lib/mimo_pss_fine_sync_impl.cc" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="7410" topLine="248" />
+		</Cursor>
+	</File>
+	<File name="../lib/extract_subcarriers_vcvc_impl.cc" open="0" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1118" topLine="18" />
+		</Cursor>
+	</File>
+	<File name="../lib/mimo_pss_tagger_impl.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1122" topLine="24" />
+		</Cursor>
+	</File>
+	<File name="../include/lte/mimo_channel_estimator.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1344" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="../include/lte/pbch_demux_vcvc.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="30" />
+		</Cursor>
+	</File>
+	<File name="../lib/mimo_remove_cp_impl.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1659" topLine="40" />
+		</Cursor>
+	</File>
+	<File name="../lib/mimo_pss_coarse_sync_impl.cc" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="../lib/pre_decoder_vcvc_impl.cc" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3660" topLine="129" />
+		</Cursor>
+	</File>
+	<File name="../include/lte/channel_estimator_vcvc.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="773" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="../lib/sss_tagger_cc_impl.cc" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="5074" topLine="90" />
+		</Cursor>
+	</File>
+	<File name="../include/lte/mimo_sss_symbol_selector.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="37908" topLine="685" />
+		</Cursor>
+	</File>
+	<File name="../lib/pss.cc" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1961" topLine="56" />
+		</Cursor>
+	</File>
+	<File name="../lib/mimo_extract_subcarriers_impl.cc" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2519" topLine="56" />
+		</Cursor>
+	</File>
+	<File name="../lib/descrambler_vfvf_impl.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="976" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="../lib/remove_cp_cvc_impl.cc" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="955" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="../include/lte/mimo_remove_cp.h" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="933" topLine="0" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

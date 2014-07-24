@@ -29,16 +29,16 @@ namespace gr {
   namespace lte {
 
     mimo_sss_tagger::sptr
-    mimo_sss_tagger::make(int fftl, int rxant)
+    mimo_sss_tagger::make(int fftl, int rxant, int n_rb_dl)
     {
       return gnuradio::get_initial_sptr
-        (new mimo_sss_tagger_impl(fftl, rxant));
+        (new mimo_sss_tagger_impl(fftl, rxant, n_rb_dl));
     }
 
     /*
      * The private constructor
      */
-    mimo_sss_tagger_impl::mimo_sss_tagger_impl(int fftl, int rxant)
+    mimo_sss_tagger_impl::mimo_sss_tagger_impl(int fftl, int rxant, int n_rb_dl)
       : gr::sync_block("mimo_sss_tagger",
               gr::io_signature::make( 1, 8, sizeof(gr_complex)),
               gr::io_signature::make( 1, 8, sizeof(gr_complex))),
@@ -50,7 +50,8 @@ namespace gr {
                 d_framel(20*d_slotl),
                 d_offset_0(0),
                 d_frame_start(-1),
-                d_slot_num(41)
+                d_slot_num(41),
+                d_n_rb_dl(n_rb_dl)
     {
         set_tag_propagation_policy(TPP_DONT);
         d_key = pmt::string_to_symbol("slot");
@@ -84,7 +85,7 @@ namespace gr {
 
         //This block does not change data. It just adds new itemtags!
         for(int i=0; i<d_rxant; i++)
-            memcpy(output_items[i],input_items[i],sizeof(gr_complex)*noutput_items);
+            memcpy(output_items[i],input_items[i],sizeof(gr_complex)*d_n_rb_dl*12*d_rxant);
 
         long nin = nitems_read(0);
 

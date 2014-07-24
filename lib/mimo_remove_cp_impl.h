@@ -46,7 +46,7 @@ namespace gr {
 		pmt::pmt_t d_tag_id;
 		long d_work_call;
 		bool d_found_frame_start;
-		long d_frame_start;
+		long d_half_frame_start;
 
 		long copy_samples_from_in_to_out(gr_vector_void_star &output_items,
                             const gr_vector_const_void_star &input_items,
@@ -54,9 +54,9 @@ namespace gr {
                             int sync_delay);
 		//void add_tags_to_vectors(int noutput_items, int sym_num, int symbols_per_frame);
         void add_tags_to_vectors(int noutput_items);
-		long get_frame_start(std::vector <gr::tag_t> v);
-        sym_info get_sym_num_info(long frame_start, long nitems_read, int symbols_per_frame );
-        int leading_items_to_dump(int slot_items, int slot_sym);
+//		long get_frame_start(std::vector <gr::tag_t> v);
+//        sym_info get_sym_num_info(long frame_start, long nitems_read, int symbols_per_frame );
+//        int leading_items_to_dump(int slot_items, int slot_sym);
 
 
      public:

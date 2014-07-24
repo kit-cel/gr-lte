@@ -100,11 +100,11 @@
   </compound>
   <compound refid="classgr_1_1lte_1_1mimo__sss__symbol__selector" kind="class"><name>gr::lte::mimo_sss_symbol_selector</name>
     <member refid="classgr_1_1lte_1_1mimo__sss__symbol__selector_1af6a30d186ce650d6e9f62f138444ac5a" kind="typedef"><name>sptr</name></member>
-    <member refid="classgr_1_1lte_1_1mimo__sss__symbol__selector_1a9eaf03f128851cad240b2347202f89a9" kind="function"><name>make</name></member>
+    <member refid="classgr_1_1lte_1_1mimo__sss__symbol__selector_1a27d88d3e70157a5da78a86dd7636a8f7" kind="function"><name>make</name></member>
   </compound>
   <compound refid="classgr_1_1lte_1_1mimo__sss__tagger" kind="class"><name>gr::lte::mimo_sss_tagger</name>
     <member refid="classgr_1_1lte_1_1mimo__sss__tagger_1af237d29247791ff652ca5b9ae633404d" kind="typedef"><name>sptr</name></member>
-    <member refid="classgr_1_1lte_1_1mimo__sss__tagger_1af7a839e16ac86bec0fc7cbf571f0e55d" kind="function"><name>make</name></member>
+    <member refid="classgr_1_1lte_1_1mimo__sss__tagger_1ad6f6391975de858651e244c67afb4c64" kind="function"><name>make</name></member>
   </compound>
   <compound refid="classgr_1_1lte_1_1pbch__demux__vcvc" kind="class"><name>gr::lte::pbch_demux_vcvc</name>
     <member refid="classgr_1_1lte_1_1pbch__demux__vcvc_1a3b53526422e58c9c234e610a5863dab5" kind="typedef"><name>sptr</name></member>

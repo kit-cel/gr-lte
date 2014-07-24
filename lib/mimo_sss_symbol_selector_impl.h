@@ -37,6 +37,7 @@ namespace gr {
         int d_slot_num;
         int d_sym_num;
         int d_N_id_2;
+        int d_n_rb_dl;
         uint64_t d_abs_pos;
         uint64_t d_offset;
         pmt::pmt_t d_key;
@@ -44,7 +45,7 @@ namespace gr {
         pmt::pmt_t d_tag_id;
 
      public:
-      mimo_sss_symbol_selector_impl(int fftl, int rxant);
+      mimo_sss_symbol_selector_impl(int fftl, int rxant, int n_rb_dl);
       ~mimo_sss_symbol_selector_impl();
 
       // Where all the action really happens

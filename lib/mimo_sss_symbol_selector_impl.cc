@@ -29,16 +29,16 @@ namespace gr {
   namespace lte {
 
     mimo_sss_symbol_selector::sptr
-    mimo_sss_symbol_selector::make(int fftl, int rxant)
+    mimo_sss_symbol_selector::make(int fftl, int rxant, int n_rb_dl)
     {
       return gnuradio::get_initial_sptr
-        (new mimo_sss_symbol_selector_impl(fftl, rxant));
+        (new mimo_sss_symbol_selector_impl(fftl, rxant, n_rb_dl));
     }
 
     /*
      * The private constructor
      */
-    mimo_sss_symbol_selector_impl::mimo_sss_symbol_selector_impl(int fftl, int rxant)
+    mimo_sss_symbol_selector_impl::mimo_sss_symbol_selector_impl(int fftl, int rxant, int n_rb_dl)
       : gr::block("mimo_sss_symbol_selector",
               gr::io_signature::make(1, 8, sizeof(gr_complex)),
               gr::io_signature::make(1, 8, sizeof(gr_complex)* fftl)),
@@ -51,7 +51,8 @@ namespace gr {
                 d_sym_num(0),
                 d_abs_pos(0),
                 d_offset(0),
-                d_N_id_2(-1)
+                d_N_id_2(-1),
+                d_n_rb_dl(n_rb_dl)
     {
         set_relative_rate(1.0/double(d_fftl+d_cpl0));
         //printf("rel_rate = %f\n",relative_rate());

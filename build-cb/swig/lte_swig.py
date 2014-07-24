@@ -9699,13 +9699,13 @@ class mimo_sss_symbol_selector(object):
     __repr__ = _swig_repr
     def make(*args, **kwargs):
         """
-        make(int fftl, int rxant) -> mimo_sss_symbol_selector_sptr
+        make(int fftl, int rxant, int n_rb_dl) -> mimo_sss_symbol_selector_sptr
 
         Return a shared_ptr to a new instance of lte::mimo_sss_symbol_selector.
 
         To avoid accidental use of raw pointers, lte::mimo_sss_symbol_selector's constructor is in a private implementation class. lte::mimo_sss_symbol_selector::make is the public interface for creating new instances.
 
-        Params: (fftl, rxant)
+        Params: (fftl, rxant, n_rb_dl)
         """
         return _lte_swig.mimo_sss_symbol_selector_make(*args, **kwargs)
 
@@ -9717,13 +9717,13 @@ mimo_sss_symbol_selector_swigregister(mimo_sss_symbol_selector)
 
 def mimo_sss_symbol_selector_make(*args, **kwargs):
   """
-    mimo_sss_symbol_selector_make(int fftl, int rxant) -> mimo_sss_symbol_selector_sptr
+    mimo_sss_symbol_selector_make(int fftl, int rxant, int n_rb_dl) -> mimo_sss_symbol_selector_sptr
 
     Return a shared_ptr to a new instance of lte::mimo_sss_symbol_selector.
 
     To avoid accidental use of raw pointers, lte::mimo_sss_symbol_selector's constructor is in a private implementation class. lte::mimo_sss_symbol_selector::make is the public interface for creating new instances.
 
-    Params: (fftl, rxant)
+    Params: (fftl, rxant, n_rb_dl)
     """
   return _lte_swig.mimo_sss_symbol_selector_make(*args, **kwargs)
 
@@ -9747,13 +9747,13 @@ class mimo_sss_symbol_selector_sptr(object):
     __del__ = lambda self : None;
     def make(self, *args, **kwargs):
         """
-        make(mimo_sss_symbol_selector_sptr self, int fftl, int rxant) -> mimo_sss_symbol_selector_sptr
+        make(mimo_sss_symbol_selector_sptr self, int fftl, int rxant, int n_rb_dl) -> mimo_sss_symbol_selector_sptr
 
         Return a shared_ptr to a new instance of lte::mimo_sss_symbol_selector.
 
         To avoid accidental use of raw pointers, lte::mimo_sss_symbol_selector's constructor is in a private implementation class. lte::mimo_sss_symbol_selector::make is the public interface for creating new instances.
 
-        Params: (fftl, rxant)
+        Params: (fftl, rxant, n_rb_dl)
         """
         return _lte_swig.mimo_sss_symbol_selector_sptr_make(self, *args, **kwargs)
 
@@ -10327,13 +10327,13 @@ class mimo_sss_tagger(object):
     __repr__ = _swig_repr
     def make(*args, **kwargs):
         """
-        make(int fftl, int rxant) -> mimo_sss_tagger_sptr
+        make(int fftl, int rxant, int n_rb_dl) -> mimo_sss_tagger_sptr
 
         Return a shared_ptr to a new instance of lte::mimo_sss_tagger.
 
         To avoid accidental use of raw pointers, lte::mimo_sss_tagger's constructor is in a private implementation class. lte::mimo_sss_tagger::make is the public interface for creating new instances.
 
-        Params: (fftl, rxant)
+        Params: (fftl, rxant, n_rb_dl)
         """
         return _lte_swig.mimo_sss_tagger_make(*args, **kwargs)
 
@@ -10345,13 +10345,13 @@ mimo_sss_tagger_swigregister(mimo_sss_tagger)
 
 def mimo_sss_tagger_make(*args, **kwargs):
   """
-    mimo_sss_tagger_make(int fftl, int rxant) -> mimo_sss_tagger_sptr
+    mimo_sss_tagger_make(int fftl, int rxant, int n_rb_dl) -> mimo_sss_tagger_sptr
 
     Return a shared_ptr to a new instance of lte::mimo_sss_tagger.
 
     To avoid accidental use of raw pointers, lte::mimo_sss_tagger's constructor is in a private implementation class. lte::mimo_sss_tagger::make is the public interface for creating new instances.
 
-    Params: (fftl, rxant)
+    Params: (fftl, rxant, n_rb_dl)
     """
   return _lte_swig.mimo_sss_tagger_make(*args, **kwargs)
 
@@ -10375,13 +10375,13 @@ class mimo_sss_tagger_sptr(object):
     __del__ = lambda self : None;
     def make(self, *args, **kwargs):
         """
-        make(mimo_sss_tagger_sptr self, int fftl, int rxant) -> mimo_sss_tagger_sptr
+        make(mimo_sss_tagger_sptr self, int fftl, int rxant, int n_rb_dl) -> mimo_sss_tagger_sptr
 
         Return a shared_ptr to a new instance of lte::mimo_sss_tagger.
 
         To avoid accidental use of raw pointers, lte::mimo_sss_tagger's constructor is in a private implementation class. lte::mimo_sss_tagger::make is the public interface for creating new instances.
 
-        Params: (fftl, rxant)
+        Params: (fftl, rxant, n_rb_dl)
         """
         return _lte_swig.mimo_sss_tagger_sptr_make(self, *args, **kwargs)
 
