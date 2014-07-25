@@ -40,6 +40,7 @@ namespace gr {
         int d_frame_start;
 
         void handle_msg_frame_start(pmt::pmt_t msg);
+        int get_sym_num(std::vector<gr::tag_t> v);
 
      public:
       mimo_sss_tagger_impl(int fftl, int rxant, int n_rb_dl);

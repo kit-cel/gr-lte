@@ -25,6 +25,8 @@
 #include <gnuradio/io_signature.h>
 #include "mimo_sss_tagger_impl.h"
 
+#include <cstdio>
+
 namespace gr {
   namespace lte {
 
@@ -44,7 +46,6 @@ namespace gr {
               gr::io_signature::make( 1, 8, sizeof(gr_complex) * n_rb_dl * 12 * rxant)),
                 d_fftl(fftl),
                 d_rxant(rxant),
-
                 d_frame_start(-1),
                 d_sym_num(-1),
                 d_n_rb_dl(n_rb_dl)
@@ -85,6 +86,17 @@ namespace gr {
         //no tags if there is no sync
         if(d_frame_start == -1)
             return noutput_items;
+
+        std::vector <gr::tag_t> v;
+        get_tags_in_range(v,0, nitems_read(0), nitems_read(0)+noutput_items, d_key);
+        int halff_sym_num = get_sym_num(v);
+
+        if(halff_sym_num == 0){
+            printf("d_frame_start=%i\td_symnum=%i\t\n", d_frame_start, d_sym_num);
+            d_frame_start = ( d_frame_start - (140 - d_sym_num)%70 + 140)%140;
+            d_sym_num = d_sym_num >= 70 ? 0 : 70;
+            printf("d_frame_start=%i\td_symnum=%i\t\n", d_frame_start, d_sym_num);
+        }
 
 
         long nin = nitems_read(0);
@@ -152,20 +164,20 @@ namespace gr {
         return noutput_items;
     }
 
-//    int
-//	pbch_demux_vcvc_impl::get_sym_num(std::vector<gr::tag_t> v)
-//	{
-//		int sym_num = 0;
-//		if(v.size() > 0){
-//			int value = int(pmt::to_long(v[0].value) );
-//			int rel_offset = v[0].offset - nitems_read(0);
-//			sym_num = (value+70-rel_offset)%70;
-//		}
-//		else{
-//			sym_num = d_sym_num;
-//		}
-//		return sym_num;
-//	}
+    int
+	mimo_sss_tagger_impl::get_sym_num(std::vector<gr::tag_t> v)
+	{
+		int sym_num = 0;
+		if(v.size() > 0){
+			int value = int(pmt::to_long(v[0].value) );
+			int rel_offset = v[0].offset - nitems_read(0);
+			sym_num = (value+70-rel_offset)%70;
+		}
+		else{
+			sym_num = d_sym_num;
+		}
+		return sym_num;
+     }
 
   } /* namespace lte */
 } /* namespace gr */

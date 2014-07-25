@@ -99,7 +99,7 @@ namespace gr {
 
 
         for (int i = 0; i < noutput_items; i++){
-            printf("symnum: %i\n", d_sym_num);
+            //printf("symnum: %i\n", d_sym_num);
             if(d_sym_num == 5){
                 for(int rx=0; rx<d_rxant; rx++){
                     memcpy(out, in + sss_pos, sizeof(gr_complex) * 72 );

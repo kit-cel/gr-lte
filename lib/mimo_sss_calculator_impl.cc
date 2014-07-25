@@ -180,7 +180,6 @@ namespace gr {
             get_tags_in_range(v_off,0, nitems_read(0), nitems_read(0)+1, d_key_offset);
             if (v_off.size() > 0){
                 offset = pmt::to_long(v_off[0].value);
-                printf("offset sss calc:%li", offset);
             }
 
             d_sss_pos = info.pos;
@@ -195,7 +194,7 @@ namespace gr {
             d_unchanged_id++;
             if(d_unchanged_id > 2){
 //                printf("\n%s locked to frame_start = %ld\tabs_pos = %ld\tcell_id = %i\n\n", name().c_str(), d_frame_start, offset, d_cell_id );,3
-                printf("\n%s locked to frame_start = %i\tcell_id = %i\n\n", name().c_str(), d_frame_start, d_cell_id );
+                printf("\n%s locked to frame_start = %li\tcell_id = %i\n\n", name().c_str(), d_frame_start, d_cell_id );
                 publish_frame_start(d_frame_start);
                 publish_cell_id(d_cell_id);
                 d_is_locked = true;
