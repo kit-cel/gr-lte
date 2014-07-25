@@ -46,7 +46,6 @@ namespace gr {
               gr::io_signature::make(2, 2, sizeof(gr_complex))),
               d_control(false)
     {
-        printf("control");
         message_port_register_in(pmt::mp("control"));
         set_msg_handler(pmt::mp("control"), boost::bind(&mimo_pss_coarse_control_impl::handle_msg_control, this, _1));
 

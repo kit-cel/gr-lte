@@ -278,8 +278,10 @@ namespace gr {
 	void
     mimo_remove_cp_impl::add_tags_to_vectors(int noutput_items)
     {
+        //set ofdm symbol number within a half frame
         for (int i = 0 ; i < noutput_items ; i++){
             if(d_sym_num%7 == 0){
+
                 add_item_tag(0,nitems_written(0)+i,d_key, pmt::from_long(d_sym_num),d_tag_id);
             }
             d_sym_num=(d_sym_num+1)%70;

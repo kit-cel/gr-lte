@@ -10,22 +10,24 @@
 gnuradio/attributes.h
 -
 
-../include/lte/mimo_sss_tagger.h
+../include/lte/mimo_sss_symbol_selector.h
 lte/api.h
 -
-gnuradio/sync_block.h
+gnuradio/block.h
 -
 
-/home/maier/gr-lte/lib/mimo_sss_tagger_impl.cc
+/home/maier/gr-lte/lib/mimo_sss_symbol_selector_impl.cc
 config.h
 /home/maier/gr-lte/lib/config.h
 gnuradio/io_signature.h
 -
-mimo_sss_tagger_impl.h
-/home/maier/gr-lte/lib/mimo_sss_tagger_impl.h
+mimo_sss_symbol_selector_impl.h
+/home/maier/gr-lte/lib/mimo_sss_symbol_selector_impl.h
+cstdio
+-
 
-/home/maier/gr-lte/lib/mimo_sss_tagger_impl.h
-lte/mimo_sss_tagger.h
+/home/maier/gr-lte/lib/mimo_sss_symbol_selector_impl.h
+lte/mimo_sss_symbol_selector.h
 -
 
 /usr/local/include/gnuradio/api.h
@@ -232,12 +234,6 @@ gnuradio/types.h
 gnuradio/api.h
 -
 boost/shared_ptr.hpp
--
-
-/usr/local/include/gnuradio/sync_block.h
-gnuradio/api.h
--
-gnuradio/block.h
 -
 
 /usr/local/include/gnuradio/tags.h

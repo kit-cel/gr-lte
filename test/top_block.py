@@ -2,7 +2,7 @@
 ##################################################
 # Gnuradio Python Flow Graph
 # Title: Top Block
-# Generated: Thu Jul 24 17:37:38 2014
+# Generated: Fri Jul 25 05:14:39 2014
 ##################################################
 
 execfile("/home/maier/.grc_gnuradio/lte_mimo_ofdm_rx.py")
@@ -15,6 +15,7 @@ from gnuradio import gr
 from gnuradio.eng_option import eng_option
 from gnuradio.filter import firdes
 from optparse import OptionParser
+import lte
 import sys
 
 class top_block(gr.top_block, Qt.QWidget):
@@ -55,10 +56,12 @@ class top_block(gr.top_block, Qt.QWidget):
         ##################################################
         # Blocks
         ##################################################
+        self.lte_mimo_sss_symbol_selector_0 = lte.mimo_sss_symbol_selector(fftl, rxant, N_rb_dl)
+        self.lte_mimo_sss_calculator_0 = lte.mimo_sss_calculator(fftl, rxant)
         self.lte_mimo_pss_sync_0 = lte_mimo_pss_sync(
-            fftlen=fftl,
-            rxant=rxant,
-            synclen=10,
+            fftlen=1024,
+            rxant=2,
+            synclen=4,
         )
         self.lte_mimo_pss_based_frey_sync_0 = lte_mimo_pss_based_frey_sync(
             fftlen=fftl,
@@ -72,28 +75,36 @@ class top_block(gr.top_block, Qt.QWidget):
         )
         self.blocks_vector_to_streams_0 = blocks.vector_to_streams(gr.sizeof_gr_complex*1, 2)
         self.blocks_throttle_0 = blocks.throttle(gr.sizeof_gr_complex*2, samp_rate,True)
-        self.blocks_tag_debug_0 = blocks.tag_debug(gr.sizeof_gr_complex*1200, "", ""); self.blocks_tag_debug_0.set_display(True)
         self.blocks_null_sink_2 = blocks.null_sink(gr.sizeof_gr_complex*1)
         self.blocks_multiply_const_vxx_0_0 = blocks.multiply_const_vcc((1, ))
         self.blocks_multiply_const_vxx_0 = blocks.multiply_const_vcc((1, ))
-        self.blocks_file_source_0 = blocks.file_source(gr.sizeof_gr_complex*2, "/home/maier/Schreibtisch/lte test files/lte10framesFadingChannelETU_fOff2000_id113_30db.dat", True)
+        self.blocks_message_debug_0_0 = blocks.message_debug()
+        self.blocks_message_debug_0 = blocks.message_debug()
+        self.blocks_file_source_0 = blocks.file_source(gr.sizeof_gr_complex*2, "/home/maier/Schreibtisch/2txant_2constphase_30db_16qam.dat", True)
 
         ##################################################
         # Connections
         ##################################################
-        self.connect((self.lte_mimo_pss_sync_0, 0), (self.lte_mimo_pss_based_frey_sync_0, 0))
-        self.connect((self.blocks_multiply_const_vxx_0, 0), (self.lte_mimo_pss_sync_0, 1))
-        self.connect((self.blocks_multiply_const_vxx_0_0, 0), (self.lte_mimo_pss_sync_0, 0))
         self.connect((self.blocks_file_source_0, 0), (self.blocks_throttle_0, 0))
         self.connect((self.blocks_throttle_0, 0), (self.blocks_vector_to_streams_0, 0))
         self.connect((self.blocks_vector_to_streams_0, 0), (self.blocks_multiply_const_vxx_0_0, 0))
         self.connect((self.blocks_vector_to_streams_0, 0), (self.blocks_null_sink_2, 0))
         self.connect((self.blocks_vector_to_streams_0, 1), (self.blocks_multiply_const_vxx_0, 0))
-        self.connect((self.lte_mimo_pss_sync_0, 1), (self.lte_mimo_pss_based_frey_sync_0, 1))
-        self.connect((self.lte_mimo_pss_based_frey_sync_0, 1), (self.lte_mimo_ofdm_rx_0, 1))
         self.connect((self.lte_mimo_pss_based_frey_sync_0, 0), (self.lte_mimo_ofdm_rx_0, 0))
-        self.connect((self.lte_mimo_ofdm_rx_0, 0), (self.blocks_tag_debug_0, 0))
+        self.connect((self.lte_mimo_pss_sync_0, 0), (self.lte_mimo_pss_based_frey_sync_0, 0))
+        self.connect((self.lte_mimo_pss_sync_0, 1), (self.lte_mimo_pss_based_frey_sync_0, 1))
+        self.connect((self.blocks_multiply_const_vxx_0, 0), (self.lte_mimo_pss_sync_0, 1))
+        self.connect((self.blocks_multiply_const_vxx_0_0, 0), (self.lte_mimo_pss_sync_0, 0))
+        self.connect((self.lte_mimo_pss_based_frey_sync_0, 1), (self.lte_mimo_ofdm_rx_0, 1))
+        self.connect((self.lte_mimo_sss_symbol_selector_0, 0), (self.lte_mimo_sss_calculator_0, 0))
+        self.connect((self.lte_mimo_ofdm_rx_0, 0), (self.lte_mimo_sss_symbol_selector_0, 0))
 
+        ##################################################
+        # Asynch Message Connections
+        ##################################################
+        self.msg_connect(self.lte_mimo_pss_sync_0, "sector_id", self.lte_mimo_sss_calculator_0, "sector_id")
+        self.msg_connect(self.lte_mimo_sss_calculator_0, "frame_start", self.blocks_message_debug_0_0, "print")
+        self.msg_connect(self.lte_mimo_sss_calculator_0, "cell_id", self.blocks_message_debug_0, "print")
 
     def closeEvent(self, event):
         self.settings = Qt.QSettings("GNU Radio", "top_block")
@@ -106,7 +117,6 @@ class top_block(gr.top_block, Qt.QWidget):
     def set_fftl(self, fftl):
         self.fftl = fftl
         self.set_samp_rate(self.fftl*15e3)
-        self.lte_mimo_pss_sync_0.set_fftlen(self.fftl)
         self.lte_mimo_pss_based_frey_sync_0.set_fftlen(self.fftl)
         self.lte_mimo_ofdm_rx_0.set_fftlen(self.fftl)
 
@@ -122,7 +132,6 @@ class top_block(gr.top_block, Qt.QWidget):
 
     def set_rxant(self, rxant):
         self.rxant = rxant
-        self.lte_mimo_pss_sync_0.set_rxant(self.rxant)
         self.lte_mimo_pss_based_frey_sync_0.set_rxant(self.rxant)
         self.lte_mimo_ofdm_rx_0.set_rxant(self.rxant)
 

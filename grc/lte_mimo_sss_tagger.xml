@@ -34,7 +34,7 @@
   <sink>
     <name>in</name>
     <type>complex</type>
-    <vlen>$rxant*12*N_rb_dl</vlen>
+    <vlen>$rxant*12*$N_rb_dl</vlen>
   </sink>
   <sink>
     <name>frame_start</name>
@@ -49,6 +49,6 @@
   <source>
     <name>out</name>
     <type>complex</type>
-    <vlen>$rxant*12*N_rb_dl</vlen>
+    <vlen>$rxant*12*$N_rb_dl</vlen>
   </source>
 </block>

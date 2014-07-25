@@ -31,18 +31,14 @@ namespace gr {
      private:
         int d_fftl;
         int d_rxant;
-        int d_cpl;
-        int d_cpl0;
-        int d_slotl;
         int d_framel;
-        int d_slot_num;
+        int d_sym_num;
         int d_n_rb_dl;
         uint64_t d_offset_0;
         pmt::pmt_t d_key;
         pmt::pmt_t d_tag_id;
-        long d_frame_start;
+        int d_frame_start;
 
-        void set_frame_start(long frame_start);
         void handle_msg_frame_start(pmt::pmt_t msg);
 
      public:

@@ -53,18 +53,22 @@ namespace gr {
                 d_max_val_new(0.0),
                 d_max_val_old(0.0),
                 d_N_id_2(-1),
+                d_offset(0),
                 d_sss_pos(0),
                 d_frame_start(0),
                 d_is_locked(false),
                 d_unchanged_id(0)
     {
-        d_key_id = pmt::string_to_symbol("N_id_2");
-        d_key_offset = pmt::string_to_symbol("offset_marker");
+        d_key_offset = pmt::string_to_symbol("offset");
+//        d_key_offset = pmt::string_to_symbol("offset_marker");
         // Get needed message ports!
         d_port_cell_id = pmt::string_to_symbol("cell_id");
         message_port_register_out(d_port_cell_id);
         d_port_frame_start = pmt::string_to_symbol("frame_start");
         message_port_register_out(d_port_frame_start);
+
+        message_port_register_in(pmt::mp("sector_id"));
+		set_msg_handler(pmt::mp("sector_id"), boost::bind(&mimo_sss_calculator_impl::msg_set_sector_id, this, _1));
 
         //initialize d_cX
         char cX_x[31] = {0};
@@ -118,6 +122,12 @@ namespace gr {
 
     }
 
+
+    void
+    mimo_sss_calculator_impl::msg_set_sector_id(pmt::pmt_t msg){
+        d_N_id_2 = int(pmt::to_long(msg));
+    }
+
     /*
      * Our virtual destructor.
      */
@@ -136,11 +146,11 @@ namespace gr {
             return noutput_items;
         }
 
-        std::vector <gr::tag_t> v_id;
-        get_tags_in_range(v_id, 0, nitems_read(0), nitems_read(0)+1, d_key_id);
-        if (v_id.size() > 0){
-            d_N_id_2 = int(pmt::to_long(v_id[0].value));
-        }
+//        std::vector <gr::tag_t> v_id;
+//        get_tags_in_range(v_id, 0, nitems_read(0), nitems_read(0)+1, d_key_offset);
+//        if (v_id.size() > 0){
+//            d_ = int(pmt::to_long(v_id[0].value));
+//        }
         if(d_N_id_2 < 0){return 1;}
 
         // extract the 2 half sss symbols which are interleaved differently by their position within a frame.
@@ -167,21 +177,25 @@ namespace gr {
         if(d_max_val_new > d_max_val_old*0.8){
             long offset = 0;
             std::vector <gr::tag_t> v_off;
-            get_tags_in_range(v_off,0,nitems_read(0),nitems_read(0)+1,d_key_offset);
+            get_tags_in_range(v_off,0, nitems_read(0), nitems_read(0)+1, d_key_offset);
             if (v_off.size() > 0){
                 offset = pmt::to_long(v_off[0].value);
+                printf("offset sss calc:%li", offset);
             }
 
             d_sss_pos = info.pos;
 
-            if(d_sss_pos == 5){offset += (10*d_slotl);}
-            d_frame_start = offset%(20*d_slotl);
+            if(d_sss_pos == 5){
+                offset += 70;
+            }
+            d_frame_start = offset%140;
 
             d_cell_id = 3 * info.N_id_1 + d_N_id_2;
 
             d_unchanged_id++;
             if(d_unchanged_id > 2){
-                printf("\n%s locked to frame_start = %ld\tabs_pos = %ld\tcell_id = %i\n\n", name().c_str(), d_frame_start, offset, d_cell_id );
+//                printf("\n%s locked to frame_start = %ld\tabs_pos = %ld\tcell_id = %i\n\n", name().c_str(), d_frame_start, offset, d_cell_id );,3
+                printf("\n%s locked to frame_start = %i\tcell_id = %i\n\n", name().c_str(), d_frame_start, d_cell_id );
                 publish_frame_start(d_frame_start);
                 publish_cell_id(d_cell_id);
                 d_is_locked = true;
@@ -358,7 +372,7 @@ namespace gr {
     void
     mimo_sss_calculator_impl::publish_frame_start(long frame_start)
     {
-        printf("%s\t\tpublish_frame_start %ld\n", name().c_str(), frame_start );
+//        printf("%s\t\tpublish_frame_start %ld\n", name().c_str(), frame_start );
         pmt::pmt_t msg = pmt::from_long(frame_start) ;
         message_port_pub( d_port_frame_start, msg );
     }
