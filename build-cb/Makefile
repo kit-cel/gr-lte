@@ -38,9 +38,6 @@ RM = /usr/bin/cmake -E remove -f
 # Escaping for special characters.
 EQUALS = =
 
-# The program to use to edit the cache.
-CMAKE_EDIT_COMMAND = /usr/bin/cmake-gui
-
 # The top-level source directory on which CMake was run.
 CMAKE_SOURCE_DIR = /home/maier/gr-lte
 
@@ -52,8 +49,8 @@ CMAKE_BINARY_DIR = /home/maier/gr-lte/build-cb
 
 # Special rule for the target edit_cache
 edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/usr/bin/cmake-gui -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running interactive CMake command-line interface..."
+	/usr/bin/cmake -i .
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -81,6 +78,16 @@ install/local: preinstall
 # Special rule for the target install/local
 install/local/fast: install/local
 .PHONY : install/local/fast
+
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: install/strip
+.PHONY : install/strip/fast
 
 # Special rule for the target list_install_components
 list_install_components:
@@ -168,11 +175,6 @@ gnuradio-lte/fast:
 	$(MAKE) -f lib/CMakeFiles/gnuradio-lte.dir/build.make lib/CMakeFiles/gnuradio-lte.dir/build
 .PHONY : gnuradio-lte/fast
 
-# Manual pre-install relink rule for target.
-gnuradio-lte/preinstall:
-	$(MAKE) -f lib/CMakeFiles/gnuradio-lte.dir/build.make lib/CMakeFiles/gnuradio-lte.dir/preinstall
-.PHONY : gnuradio-lte/preinstall
-
 #=============================================================================
 # Target rules for targets named test-lte
 
@@ -198,24 +200,6 @@ _lte_swig: cmake_check_build_system
 _lte_swig/fast:
 	$(MAKE) -f swig/CMakeFiles/_lte_swig.dir/build.make swig/CMakeFiles/_lte_swig.dir/build
 .PHONY : _lte_swig/fast
-
-# Manual pre-install relink rule for target.
-_lte_swig/preinstall:
-	$(MAKE) -f swig/CMakeFiles/_lte_swig.dir/build.make swig/CMakeFiles/_lte_swig.dir/preinstall
-.PHONY : _lte_swig/preinstall
-
-#=============================================================================
-# Target rules for targets named _lte_swig_doc_tag
-
-# Build rule for target.
-_lte_swig_doc_tag: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 _lte_swig_doc_tag
-.PHONY : _lte_swig_doc_tag
-
-# fast build rule for target.
-_lte_swig_doc_tag/fast:
-	$(MAKE) -f swig/CMakeFiles/_lte_swig_doc_tag.dir/build.make swig/CMakeFiles/_lte_swig_doc_tag.dir/build
-.PHONY : _lte_swig_doc_tag/fast
 
 #=============================================================================
 # Target rules for targets named _lte_swig_swig_tag
@@ -282,19 +266,6 @@ pygen_apps_9a6dd/fast:
 	$(MAKE) -f apps/CMakeFiles/pygen_apps_9a6dd.dir/build.make apps/CMakeFiles/pygen_apps_9a6dd.dir/build
 .PHONY : pygen_apps_9a6dd/fast
 
-#=============================================================================
-# Target rules for targets named doxygen_target
-
-# Build rule for target.
-doxygen_target: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 doxygen_target
-.PHONY : doxygen_target
-
-# fast build rule for target.
-doxygen_target/fast:
-	$(MAKE) -f docs/doxygen/CMakeFiles/doxygen_target.dir/build.make docs/doxygen/CMakeFiles/doxygen_target.dir/build
-.PHONY : doxygen_target/fast
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -304,6 +275,7 @@ help:
 	@echo "... edit_cache"
 	@echo "... install"
 	@echo "... install/local"
+	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... test"
@@ -311,13 +283,11 @@ help:
 	@echo "... gnuradio-lte"
 	@echo "... test-lte"
 	@echo "... _lte_swig"
-	@echo "... _lte_swig_doc_tag"
 	@echo "... _lte_swig_swig_tag"
 	@echo "... lte_swig_swig_doc"
 	@echo "... pygen_swig_9a719"
 	@echo "... pygen_python_bc9c3"
 	@echo "... pygen_apps_9a6dd"
-	@echo "... doxygen_target"
 .PHONY : help
 
 

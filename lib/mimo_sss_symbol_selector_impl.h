@@ -29,23 +29,22 @@ namespace gr {
     class mimo_sss_symbol_selector_impl : public mimo_sss_symbol_selector
     {
      private:
+        int d_fftl;
         int d_rxant;
         int d_cpl;
         int d_cpl0;
         int d_slotl;
         int d_slot_num;
         int d_sym_num;
-        int d_n_rb_dl;
+        int d_N_id_2;
         uint64_t d_abs_pos;
         uint64_t d_offset;
-        pmt::pmt_t d_key_offset;
+        pmt::pmt_t d_key;
         pmt::pmt_t d_id_key;
         pmt::pmt_t d_tag_id;
 
-        int get_sym_num(std::vector<gr::tag_t> v);
-
      public:
-      mimo_sss_symbol_selector_impl(int rxant, int n_rb_dl);
+      mimo_sss_symbol_selector_impl(int fftl, int rxant);
       ~mimo_sss_symbol_selector_impl();
 
       // Where all the action really happens

@@ -33,7 +33,7 @@ class mimo_pss_coarse_sync_impl : public mimo_pss_coarse_sync
 {
 private:
     static const int d_CORRL=64;
-    static const int d_TIME_HYPO=d_CORRL*75;  //(70 FFT + 5cp)
+    static const int d_TIME_HYPO=d_CORRL*75;
 
 
     int d_syncl;
@@ -42,8 +42,6 @@ private:
     int d_work_call;
     int d_posmax;
     float d_max;
-
-    std::vector< gr_complex* > d_buffer;
 
     //filter::kernel::fir_filter_ccf *d_fir;
 
@@ -59,16 +57,10 @@ private:
     gr_complex d_pss012_t[d_CORRL];
     gr_complex* d_a;
     float d_result[d_TIME_HYPO];
-    int d_saved_items;
 
     void prepare_corr_vecs();
 
-<<<<<<< HEAD
     int calc_N_id_2(std::vector< gr_complex* > &buffer, int &mpos);
-=======
-    int calc_N_id_2(std::vector< gr_complex*> &buffer, int mpos);
-
->>>>>>> d727002c3bfe194f5c58acee58739203bcd99b3c
     float diff_corr(const gr_complex* x,const gr_complex* y, int len);
 
 

@@ -56,9 +56,7 @@ mimo_pss_coarse_sync_impl::mimo_pss_coarse_sync_impl(int fftl, int syncl, int rx
     d_rxant(rxant),
     d_work_call(0),
     d_posmax(0),
-    d_max(0.0),
-    d_N_id_2(-1)
-
+    d_max(0)
 {
     //int decim = fftl/d_CORRL;
 	//std::vector< float > tapsd(10,4);
@@ -67,25 +65,16 @@ mimo_pss_coarse_sync_impl::mimo_pss_coarse_sync_impl(int fftl, int syncl, int rx
 
 
     //make sure that there are enough input items for
-    //a 64 point correalation at position 4800 (index=4799)
+    //a 128 point correalation at position 9600 (index=9599)
     set_output_multiple(d_TIME_HYPO+d_CORRL-1);
 
     size_t alig = volk_get_alignment();
     d_a = (gr_complex*)volk_malloc(sizeof(gr_complex)*4,alig);
 
-<<<<<<< HEAD
     for(int rx=0; rx<d_rxant; rx++){
         gr_complex* p = (gr_complex*) volk_malloc(sizeof(gr_complex)*d_TIME_HYPO*syncl+d_CORRL-1, alig);
         d_buffer.push_back(p);
     }
-=======
-
-    for(int rx=0; rx<d_rxant; rx++){
-        gr_complex* po = (gr_complex*)volk_malloc(sizeof(gr_complex)*d_syncl*d_TIME_HYPO+d_CORRL-1, alig);
-        d_buffer.push_back(po);
-    }
-
->>>>>>> d727002c3bfe194f5c58acee58739203bcd99b3c
     d_port_N_id_2 = pmt::string_to_symbol("N_id_2");
     message_port_register_out(d_port_N_id_2);
     d_port_coarse_pos = pmt::string_to_symbol("coarse_pos");
@@ -104,9 +93,6 @@ mimo_pss_coarse_sync_impl::mimo_pss_coarse_sync_impl(int fftl, int syncl, int rx
  */
 mimo_pss_coarse_sync_impl::~mimo_pss_coarse_sync_impl()
 {
-    for(int rx=0; rx<d_rxant; rx++){
-        volk_free( d_buffer[rx] );
-    }
     volk_free(d_a);
 }
 
@@ -120,11 +106,6 @@ mimo_pss_coarse_sync_impl::work(int noutput_items,
     if(d_work_call==d_syncl)
         return noutput_items;
 
-    //copy input to buffer for later N_id_2 calculation
-    for(int rx=0; rx<d_rxant; rx++){
-        gr_complex* bufrx=d_buffer[rx] + d_TIME_HYPO*d_work_call;
-        memcpy(bufrx, input_items[rx], sizeof(gr_complex) * d_TIME_HYPO );
-    }
 
     for(int rx=0; rx<d_rxant; rx++){
         memcpy(d_buffer[rx]+d_work_call*d_TIME_HYPO, input_items[rx], sizeof(gr_complex)*(d_TIME_HYPO+d_CORRL-1));
@@ -135,12 +116,8 @@ mimo_pss_coarse_sync_impl::work(int noutput_items,
     for(int d = 0; d < d_TIME_HYPO; d++)
     {
         for(int rx=0; rx<d_rxant; rx++){
-<<<<<<< HEAD
             const gr_complex* in = (gr_complex*) input_items[rx];
             d_result[d] += diff_corr(in+d, d_pss012_t, d_CORRL);
-=======
-            d_result[d] += diff_corr((gr_complex*)input_items[rx]+d, d_pss012_t, d_CORRL);
->>>>>>> d727002c3bfe194f5c58acee58739203bcd99b3c
         }
 
         if(d_result[d]>d_max)
@@ -178,11 +155,7 @@ mimo_pss_coarse_sync_impl::work(int noutput_items,
 
 
 int
-<<<<<<< HEAD
 mimo_pss_coarse_sync_impl::calc_N_id_2(std::vector< gr_complex* > &buffer,  int &mpos)
-=======
-mimo_pss_coarse_sync_impl::calc_N_id_2(std::vector< gr_complex* > &buffer, int mpos)
->>>>>>> d727002c3bfe194f5c58acee58739203bcd99b3c
 {
 
     float max0=0;
@@ -191,7 +164,6 @@ mimo_pss_coarse_sync_impl::calc_N_id_2(std::vector< gr_complex* > &buffer, int m
 
     for(int i=0; i<d_syncl; i++){
         for(int rx=0; rx<d_rxant; rx++){
-<<<<<<< HEAD
             gr_complex* pss = buffer[rx]+mpos+i*d_TIME_HYPO;
             max0+=diff_corr(pss, d_pss0_t, d_CORRL);
             max1+=diff_corr(pss, d_pss1_t, d_CORRL);
@@ -200,13 +172,6 @@ mimo_pss_coarse_sync_impl::calc_N_id_2(std::vector< gr_complex* > &buffer, int m
     }
 
     printf("max0:%f\tmax1:%f\tmax2:%f\t\n", max0, max1, max2);
-=======
-            max0+=diff_corr(buffer[rx]+mpos+d_TIME_HYPO*i, d_pss0_t, d_CORRL);
-            max1+=diff_corr(buffer[rx]+mpos+d_TIME_HYPO*i, d_pss1_t, d_CORRL);
-            max2+=diff_corr(buffer[rx]+mpos+d_TIME_HYPO*i, d_pss2_t, d_CORRL);
-        }
-    }
->>>>>>> d727002c3bfe194f5c58acee58739203bcd99b3c
 
     int id=0;
     float max=max0;
@@ -244,10 +209,6 @@ mimo_pss_coarse_sync_impl::prepare_corr_vecs()
 
 }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> d727002c3bfe194f5c58acee58739203bcd99b3c
 //calculate differential correlation, 4parts, returns absolute value
 float
 mimo_pss_coarse_sync_impl::diff_corr(const gr_complex* x,const gr_complex* y, int len)

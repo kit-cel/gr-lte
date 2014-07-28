@@ -96,20 +96,12 @@ def high_res_timer_epoch():
   """high_res_timer_epoch() -> gr::high_res_timer_type"""
   return _lte_swig.high_res_timer_epoch()
 class mib_unpack_vbm(object):
-    """Block unpacks MIB and publishes the parameters as messages."""
+    """Proxy of C++ gr::lte::mib_unpack_vbm class"""
     thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined")
     __repr__ = _swig_repr
     def make(name="mib_unpack_vbm"):
-        """
-        make(std::string name="mib_unpack_vbm") -> mib_unpack_vbm_sptr
-
-        Return a shared_ptr to a new instance of lte::mib_unpack_vbm.
-
-        To avoid accidental use of raw pointers, lte::mib_unpack_vbm's constructor is in a private implementation class. lte::mib_unpack_vbm::make is the public interface for creating new instances.
-
-        Params: (name)
-        """
+        """make(std::string name="mib_unpack_vbm") -> mib_unpack_vbm_sptr"""
         return _lte_swig.mib_unpack_vbm_make(name)
 
     make = staticmethod(make)
@@ -119,15 +111,7 @@ mib_unpack_vbm_swigregister = _lte_swig.mib_unpack_vbm_swigregister
 mib_unpack_vbm_swigregister(mib_unpack_vbm)
 
 def mib_unpack_vbm_make(name="mib_unpack_vbm"):
-  """
-    mib_unpack_vbm_make(std::string name="mib_unpack_vbm") -> mib_unpack_vbm_sptr
-
-    Return a shared_ptr to a new instance of lte::mib_unpack_vbm.
-
-    To avoid accidental use of raw pointers, lte::mib_unpack_vbm's constructor is in a private implementation class. lte::mib_unpack_vbm::make is the public interface for creating new instances.
-
-    Params: (name)
-    """
+  """mib_unpack_vbm_make(std::string name="mib_unpack_vbm") -> mib_unpack_vbm_sptr"""
   return _lte_swig.mib_unpack_vbm_make(name)
 
 class mib_unpack_vbm_sptr(object):
@@ -149,15 +133,7 @@ class mib_unpack_vbm_sptr(object):
     __swig_destroy__ = _lte_swig.delete_mib_unpack_vbm_sptr
     __del__ = lambda self : None;
     def make(self, name="mib_unpack_vbm"):
-        """
-        make(mib_unpack_vbm_sptr self, std::string name="mib_unpack_vbm") -> mib_unpack_vbm_sptr
-
-        Return a shared_ptr to a new instance of lte::mib_unpack_vbm.
-
-        To avoid accidental use of raw pointers, lte::mib_unpack_vbm's constructor is in a private implementation class. lte::mib_unpack_vbm::make is the public interface for creating new instances.
-
-        Params: (name)
-        """
+        """make(mib_unpack_vbm_sptr self, std::string name="mib_unpack_vbm") -> mib_unpack_vbm_sptr"""
         return _lte_swig.mib_unpack_vbm_sptr_make(self, name)
 
     def history(self):
@@ -410,20 +386,12 @@ mib_unpack_vbm_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.name(),
 mib_unpack_vbm = mib_unpack_vbm.make;
 
 class crc_check_vbvb(object):
-    """Calculate CRC and check if it is equal to received CRC."""
+    """Proxy of C++ gr::lte::crc_check_vbvb class"""
     thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined")
     __repr__ = _swig_repr
     def make(*args, **kwargs):
-        """
-        make(int data_len, int final_xor, std::string name="crc_check_vbvb") -> crc_check_vbvb_sptr
-
-        Return a shared_ptr to a new instance of lte::crc_check_vbvb.
-
-        To avoid accidental use of raw pointers, lte::crc_check_vbvb's constructor is in a private implementation class. lte::crc_check_vbvb::make is the public interface for creating new instances.
-
-        Params: (data_len, final_xor, name)
-        """
+        """make(int data_len, int final_xor, std::string name="crc_check_vbvb") -> crc_check_vbvb_sptr"""
         return _lte_swig.crc_check_vbvb_make(*args, **kwargs)
 
     make = staticmethod(make)
@@ -433,15 +401,7 @@ crc_check_vbvb_swigregister = _lte_swig.crc_check_vbvb_swigregister
 crc_check_vbvb_swigregister(crc_check_vbvb)
 
 def crc_check_vbvb_make(*args, **kwargs):
-  """
-    crc_check_vbvb_make(int data_len, int final_xor, std::string name="crc_check_vbvb") -> crc_check_vbvb_sptr
-
-    Return a shared_ptr to a new instance of lte::crc_check_vbvb.
-
-    To avoid accidental use of raw pointers, lte::crc_check_vbvb's constructor is in a private implementation class. lte::crc_check_vbvb::make is the public interface for creating new instances.
-
-    Params: (data_len, final_xor, name)
-    """
+  """crc_check_vbvb_make(int data_len, int final_xor, std::string name="crc_check_vbvb") -> crc_check_vbvb_sptr"""
   return _lte_swig.crc_check_vbvb_make(*args, **kwargs)
 
 class crc_check_vbvb_sptr(object):
@@ -463,15 +423,7 @@ class crc_check_vbvb_sptr(object):
     __swig_destroy__ = _lte_swig.delete_crc_check_vbvb_sptr
     __del__ = lambda self : None;
     def make(self, *args, **kwargs):
-        """
-        make(crc_check_vbvb_sptr self, int data_len, int final_xor, std::string name="crc_check_vbvb") -> crc_check_vbvb_sptr
-
-        Return a shared_ptr to a new instance of lte::crc_check_vbvb.
-
-        To avoid accidental use of raw pointers, lte::crc_check_vbvb's constructor is in a private implementation class. lte::crc_check_vbvb::make is the public interface for creating new instances.
-
-        Params: (data_len, final_xor, name)
-        """
+        """make(crc_check_vbvb_sptr self, int data_len, int final_xor, std::string name="crc_check_vbvb") -> crc_check_vbvb_sptr"""
         return _lte_swig.crc_check_vbvb_sptr_make(self, *args, **kwargs)
 
     def history(self):
@@ -724,20 +676,12 @@ crc_check_vbvb_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.name(),
 crc_check_vbvb = crc_check_vbvb.make;
 
 class bch_crc_check_ant_chooser_bb(object):
-    """Depending on the results of the CRC block return number of antennas detected."""
+    """Proxy of C++ gr::lte::bch_crc_check_ant_chooser_bb class"""
     thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined")
     __repr__ = _swig_repr
     def make(name="bch_crc_check_ant_chooser_bb"):
-        """
-        make(std::string name="bch_crc_check_ant_chooser_bb") -> bch_crc_check_ant_chooser_bb_sptr
-
-        Return a shared_ptr to a new instance of lte::bch_crc_check_ant_chooser_bb.
-
-        To avoid accidental use of raw pointers, lte::bch_crc_check_ant_chooser_bb's constructor is in a private implementation class. lte::bch_crc_check_ant_chooser_bb::make is the public interface for creating new instances.
-
-        Params: (name)
-        """
+        """make(std::string name="bch_crc_check_ant_chooser_bb") -> bch_crc_check_ant_chooser_bb_sptr"""
         return _lte_swig.bch_crc_check_ant_chooser_bb_make(name)
 
     make = staticmethod(make)
@@ -747,15 +691,7 @@ bch_crc_check_ant_chooser_bb_swigregister = _lte_swig.bch_crc_check_ant_chooser_
 bch_crc_check_ant_chooser_bb_swigregister(bch_crc_check_ant_chooser_bb)
 
 def bch_crc_check_ant_chooser_bb_make(name="bch_crc_check_ant_chooser_bb"):
-  """
-    bch_crc_check_ant_chooser_bb_make(std::string name="bch_crc_check_ant_chooser_bb") -> bch_crc_check_ant_chooser_bb_sptr
-
-    Return a shared_ptr to a new instance of lte::bch_crc_check_ant_chooser_bb.
-
-    To avoid accidental use of raw pointers, lte::bch_crc_check_ant_chooser_bb's constructor is in a private implementation class. lte::bch_crc_check_ant_chooser_bb::make is the public interface for creating new instances.
-
-    Params: (name)
-    """
+  """bch_crc_check_ant_chooser_bb_make(std::string name="bch_crc_check_ant_chooser_bb") -> bch_crc_check_ant_chooser_bb_sptr"""
   return _lte_swig.bch_crc_check_ant_chooser_bb_make(name)
 
 class bch_crc_check_ant_chooser_bb_sptr(object):
@@ -777,15 +713,7 @@ class bch_crc_check_ant_chooser_bb_sptr(object):
     __swig_destroy__ = _lte_swig.delete_bch_crc_check_ant_chooser_bb_sptr
     __del__ = lambda self : None;
     def make(self, name="bch_crc_check_ant_chooser_bb"):
-        """
-        make(bch_crc_check_ant_chooser_bb_sptr self, std::string name="bch_crc_check_ant_chooser_bb") -> bch_crc_check_ant_chooser_bb_sptr
-
-        Return a shared_ptr to a new instance of lte::bch_crc_check_ant_chooser_bb.
-
-        To avoid accidental use of raw pointers, lte::bch_crc_check_ant_chooser_bb's constructor is in a private implementation class. lte::bch_crc_check_ant_chooser_bb::make is the public interface for creating new instances.
-
-        Params: (name)
-        """
+        """make(bch_crc_check_ant_chooser_bb_sptr self, std::string name="bch_crc_check_ant_chooser_bb") -> bch_crc_check_ant_chooser_bb_sptr"""
         return _lte_swig.bch_crc_check_ant_chooser_bb_sptr_make(self, name)
 
     def history(self):
@@ -1038,20 +966,12 @@ bch_crc_check_ant_chooser_bb_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" %
 bch_crc_check_ant_chooser_bb = bch_crc_check_ant_chooser_bb.make;
 
 class subblock_deinterleaver_vfvf(object):
-    """Deinterleave groups of items according to LTE subblock interleaver."""
+    """Proxy of C++ gr::lte::subblock_deinterleaver_vfvf class"""
     thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined")
     __repr__ = _swig_repr
     def make(*args, **kwargs):
-        """
-        make(int num_groups, int items_per_group, std::string name="subblock_deinterleaver_vfvf") -> subblock_deinterleaver_vfvf_sptr
-
-        Return a shared_ptr to a new instance of lte::subblock_deinterleaver_vfvf.
-
-        To avoid accidental use of raw pointers, lte::subblock_deinterleaver_vfvf's constructor is in a private implementation class. lte::subblock_deinterleaver_vfvf::make is the public interface for creating new instances.
-
-        Params: (num_groups, items_per_group, name)
-        """
+        """make(int num_groups, int items_per_group, std::string name="subblock_deinterleaver_vfvf") -> subblock_deinterleaver_vfvf_sptr"""
         return _lte_swig.subblock_deinterleaver_vfvf_make(*args, **kwargs)
 
     make = staticmethod(make)
@@ -1061,15 +981,7 @@ subblock_deinterleaver_vfvf_swigregister = _lte_swig.subblock_deinterleaver_vfvf
 subblock_deinterleaver_vfvf_swigregister(subblock_deinterleaver_vfvf)
 
 def subblock_deinterleaver_vfvf_make(*args, **kwargs):
-  """
-    subblock_deinterleaver_vfvf_make(int num_groups, int items_per_group, std::string name="subblock_deinterleaver_vfvf") -> subblock_deinterleaver_vfvf_sptr
-
-    Return a shared_ptr to a new instance of lte::subblock_deinterleaver_vfvf.
-
-    To avoid accidental use of raw pointers, lte::subblock_deinterleaver_vfvf's constructor is in a private implementation class. lte::subblock_deinterleaver_vfvf::make is the public interface for creating new instances.
-
-    Params: (num_groups, items_per_group, name)
-    """
+  """subblock_deinterleaver_vfvf_make(int num_groups, int items_per_group, std::string name="subblock_deinterleaver_vfvf") -> subblock_deinterleaver_vfvf_sptr"""
   return _lte_swig.subblock_deinterleaver_vfvf_make(*args, **kwargs)
 
 class subblock_deinterleaver_vfvf_sptr(object):
@@ -1091,15 +1003,7 @@ class subblock_deinterleaver_vfvf_sptr(object):
     __swig_destroy__ = _lte_swig.delete_subblock_deinterleaver_vfvf_sptr
     __del__ = lambda self : None;
     def make(self, *args, **kwargs):
-        """
-        make(subblock_deinterleaver_vfvf_sptr self, int num_groups, int items_per_group, std::string name="subblock_deinterleaver_vfvf") -> subblock_deinterleaver_vfvf_sptr
-
-        Return a shared_ptr to a new instance of lte::subblock_deinterleaver_vfvf.
-
-        To avoid accidental use of raw pointers, lte::subblock_deinterleaver_vfvf's constructor is in a private implementation class. lte::subblock_deinterleaver_vfvf::make is the public interface for creating new instances.
-
-        Params: (num_groups, items_per_group, name)
-        """
+        """make(subblock_deinterleaver_vfvf_sptr self, int num_groups, int items_per_group, std::string name="subblock_deinterleaver_vfvf") -> subblock_deinterleaver_vfvf_sptr"""
         return _lte_swig.subblock_deinterleaver_vfvf_sptr_make(self, *args, **kwargs)
 
     def history(self):
@@ -1352,41 +1256,21 @@ subblock_deinterleaver_vfvf_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % 
 subblock_deinterleaver_vfvf = subblock_deinterleaver_vfvf.make;
 
 class pbch_descrambler_vfvf(object):
-    """
-    Block performs descrambling of PBCH with the given Cell ID
-
-    Cell ID is passed to block via message port on runtime.
-    """
+    """Proxy of C++ gr::lte::pbch_descrambler_vfvf class"""
     thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
     def make(*args, **kwargs):
-        """
-        make(std::string key) -> pbch_descrambler_vfvf_sptr
-
-        Return a shared_ptr to a new instance of lte::pbch_descrambler_vfvf.
-
-        To avoid accidental use of raw pointers, lte::pbch_descrambler_vfvf's constructor is in a private implementation class. lte::pbch_descrambler_vfvf::make is the public interface for creating new instances.
-
-        Params: (key)
-        """
+        """make(std::string key) -> pbch_descrambler_vfvf_sptr"""
         return _lte_swig.pbch_descrambler_vfvf_make(*args, **kwargs)
 
     make = staticmethod(make)
     def set_cell_id(self, *args, **kwargs):
-        """
-        set_cell_id(pbch_descrambler_vfvf self, int id)
-
-        Params: (id)
-        """
+        """set_cell_id(pbch_descrambler_vfvf self, int id)"""
         return _lte_swig.pbch_descrambler_vfvf_set_cell_id(self, *args, **kwargs)
 
     def pn_sequence(self):
-        """
-        pn_sequence(pbch_descrambler_vfvf self) -> std::vector< int,std::allocator< int > >
-
-        Params: (NONE)
-        """
+        """pn_sequence(pbch_descrambler_vfvf self) -> std::vector< int,std::allocator< int > >"""
         return _lte_swig.pbch_descrambler_vfvf_pn_sequence(self)
 
     __swig_destroy__ = _lte_swig.delete_pbch_descrambler_vfvf
@@ -1395,15 +1279,7 @@ pbch_descrambler_vfvf_swigregister = _lte_swig.pbch_descrambler_vfvf_swigregiste
 pbch_descrambler_vfvf_swigregister(pbch_descrambler_vfvf)
 
 def pbch_descrambler_vfvf_make(*args, **kwargs):
-  """
-    pbch_descrambler_vfvf_make(std::string key) -> pbch_descrambler_vfvf_sptr
-
-    Return a shared_ptr to a new instance of lte::pbch_descrambler_vfvf.
-
-    To avoid accidental use of raw pointers, lte::pbch_descrambler_vfvf's constructor is in a private implementation class. lte::pbch_descrambler_vfvf::make is the public interface for creating new instances.
-
-    Params: (key)
-    """
+  """pbch_descrambler_vfvf_make(std::string key) -> pbch_descrambler_vfvf_sptr"""
   return _lte_swig.pbch_descrambler_vfvf_make(*args, **kwargs)
 
 class pbch_descrambler_vfvf_sptr(object):
@@ -1425,31 +1301,15 @@ class pbch_descrambler_vfvf_sptr(object):
     __swig_destroy__ = _lte_swig.delete_pbch_descrambler_vfvf_sptr
     __del__ = lambda self : None;
     def make(self, *args, **kwargs):
-        """
-        make(pbch_descrambler_vfvf_sptr self, std::string key) -> pbch_descrambler_vfvf_sptr
-
-        Return a shared_ptr to a new instance of lte::pbch_descrambler_vfvf.
-
-        To avoid accidental use of raw pointers, lte::pbch_descrambler_vfvf's constructor is in a private implementation class. lte::pbch_descrambler_vfvf::make is the public interface for creating new instances.
-
-        Params: (key)
-        """
+        """make(pbch_descrambler_vfvf_sptr self, std::string key) -> pbch_descrambler_vfvf_sptr"""
         return _lte_swig.pbch_descrambler_vfvf_sptr_make(self, *args, **kwargs)
 
     def set_cell_id(self, *args, **kwargs):
-        """
-        set_cell_id(pbch_descrambler_vfvf_sptr self, int id)
-
-        Params: (id)
-        """
+        """set_cell_id(pbch_descrambler_vfvf_sptr self, int id)"""
         return _lte_swig.pbch_descrambler_vfvf_sptr_set_cell_id(self, *args, **kwargs)
 
     def pn_sequence(self):
-        """
-        pn_sequence(pbch_descrambler_vfvf_sptr self) -> std::vector< int,std::allocator< int > >
-
-        Params: (NONE)
-        """
+        """pn_sequence(pbch_descrambler_vfvf_sptr self) -> std::vector< int,std::allocator< int > >"""
         return _lte_swig.pbch_descrambler_vfvf_sptr_pn_sequence(self)
 
     def history(self):
@@ -1702,20 +1562,12 @@ pbch_descrambler_vfvf_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.
 pbch_descrambler_vfvf = pbch_descrambler_vfvf.make;
 
 class repeat_message_source_vf(object):
-    """Repeat Vector in message infinitely."""
+    """Proxy of C++ gr::lte::repeat_message_source_vf class"""
     thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined")
     __repr__ = _swig_repr
     def make(*args, **kwargs):
-        """
-        make(int vector_len, std::string name="repeat_message_source_vf") -> repeat_message_source_vf_sptr
-
-        Return a shared_ptr to a new instance of lte::repeat_message_source_vf.
-
-        To avoid accidental use of raw pointers, lte::repeat_message_source_vf's constructor is in a private implementation class. lte::repeat_message_source_vf::make is the public interface for creating new instances.
-
-        Params: (vector_len, name)
-        """
+        """make(int vector_len, std::string name="repeat_message_source_vf") -> repeat_message_source_vf_sptr"""
         return _lte_swig.repeat_message_source_vf_make(*args, **kwargs)
 
     make = staticmethod(make)
@@ -1725,15 +1577,7 @@ repeat_message_source_vf_swigregister = _lte_swig.repeat_message_source_vf_swigr
 repeat_message_source_vf_swigregister(repeat_message_source_vf)
 
 def repeat_message_source_vf_make(*args, **kwargs):
-  """
-    repeat_message_source_vf_make(int vector_len, std::string name="repeat_message_source_vf") -> repeat_message_source_vf_sptr
-
-    Return a shared_ptr to a new instance of lte::repeat_message_source_vf.
-
-    To avoid accidental use of raw pointers, lte::repeat_message_source_vf's constructor is in a private implementation class. lte::repeat_message_source_vf::make is the public interface for creating new instances.
-
-    Params: (vector_len, name)
-    """
+  """repeat_message_source_vf_make(int vector_len, std::string name="repeat_message_source_vf") -> repeat_message_source_vf_sptr"""
   return _lte_swig.repeat_message_source_vf_make(*args, **kwargs)
 
 class repeat_message_source_vf_sptr(object):
@@ -1755,15 +1599,7 @@ class repeat_message_source_vf_sptr(object):
     __swig_destroy__ = _lte_swig.delete_repeat_message_source_vf_sptr
     __del__ = lambda self : None;
     def make(self, *args, **kwargs):
-        """
-        make(repeat_message_source_vf_sptr self, int vector_len, std::string name="repeat_message_source_vf") -> repeat_message_source_vf_sptr
-
-        Return a shared_ptr to a new instance of lte::repeat_message_source_vf.
-
-        To avoid accidental use of raw pointers, lte::repeat_message_source_vf's constructor is in a private implementation class. lte::repeat_message_source_vf::make is the public interface for creating new instances.
-
-        Params: (vector_len, name)
-        """
+        """make(repeat_message_source_vf_sptr self, int vector_len, std::string name="repeat_message_source_vf") -> repeat_message_source_vf_sptr"""
         return _lte_swig.repeat_message_source_vf_sptr_make(self, *args, **kwargs)
 
     def history(self):
@@ -2016,20 +1852,12 @@ repeat_message_source_vf_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (se
 repeat_message_source_vf = repeat_message_source_vf.make;
 
 class qpsk_soft_demod_vcvf(object):
-    """QPSK soft demodulation. 1. item == real, 2. item == imaginary."""
+    """Proxy of C++ gr::lte::qpsk_soft_demod_vcvf class"""
     thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined")
     __repr__ = _swig_repr
     def make(*args, **kwargs):
-        """
-        make(int vlen, std::string name="qpsk_soft_demod_vcvf") -> qpsk_soft_demod_vcvf_sptr
-
-        Return a shared_ptr to a new instance of lte::qpsk_soft_demod_vcvf.
-
-        To avoid accidental use of raw pointers, lte::qpsk_soft_demod_vcvf's constructor is in a private implementation class. lte::qpsk_soft_demod_vcvf::make is the public interface for creating new instances.
-
-        Params: (vlen, name)
-        """
+        """make(int vlen, std::string name="qpsk_soft_demod_vcvf") -> qpsk_soft_demod_vcvf_sptr"""
         return _lte_swig.qpsk_soft_demod_vcvf_make(*args, **kwargs)
 
     make = staticmethod(make)
@@ -2039,15 +1867,7 @@ qpsk_soft_demod_vcvf_swigregister = _lte_swig.qpsk_soft_demod_vcvf_swigregister
 qpsk_soft_demod_vcvf_swigregister(qpsk_soft_demod_vcvf)
 
 def qpsk_soft_demod_vcvf_make(*args, **kwargs):
-  """
-    qpsk_soft_demod_vcvf_make(int vlen, std::string name="qpsk_soft_demod_vcvf") -> qpsk_soft_demod_vcvf_sptr
-
-    Return a shared_ptr to a new instance of lte::qpsk_soft_demod_vcvf.
-
-    To avoid accidental use of raw pointers, lte::qpsk_soft_demod_vcvf's constructor is in a private implementation class. lte::qpsk_soft_demod_vcvf::make is the public interface for creating new instances.
-
-    Params: (vlen, name)
-    """
+  """qpsk_soft_demod_vcvf_make(int vlen, std::string name="qpsk_soft_demod_vcvf") -> qpsk_soft_demod_vcvf_sptr"""
   return _lte_swig.qpsk_soft_demod_vcvf_make(*args, **kwargs)
 
 class qpsk_soft_demod_vcvf_sptr(object):
@@ -2069,15 +1889,7 @@ class qpsk_soft_demod_vcvf_sptr(object):
     __swig_destroy__ = _lte_swig.delete_qpsk_soft_demod_vcvf_sptr
     __del__ = lambda self : None;
     def make(self, *args, **kwargs):
-        """
-        make(qpsk_soft_demod_vcvf_sptr self, int vlen, std::string name="qpsk_soft_demod_vcvf") -> qpsk_soft_demod_vcvf_sptr
-
-        Return a shared_ptr to a new instance of lte::qpsk_soft_demod_vcvf.
-
-        To avoid accidental use of raw pointers, lte::qpsk_soft_demod_vcvf's constructor is in a private implementation class. lte::qpsk_soft_demod_vcvf::make is the public interface for creating new instances.
-
-        Params: (vlen, name)
-        """
+        """make(qpsk_soft_demod_vcvf_sptr self, int vlen, std::string name="qpsk_soft_demod_vcvf") -> qpsk_soft_demod_vcvf_sptr"""
         return _lte_swig.qpsk_soft_demod_vcvf_sptr_make(self, *args, **kwargs)
 
     def history(self):
@@ -2330,53 +2142,29 @@ qpsk_soft_demod_vcvf_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.n
 qpsk_soft_demod_vcvf = qpsk_soft_demod_vcvf.make;
 
 class layer_demapper_vcvc(object):
-    """Layer Demapper."""
+    """Proxy of C++ gr::lte::layer_demapper_vcvc class"""
     thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
     def make(*args, **kwargs):
-        """
-        make(int N_ant, int vlen, std::string style, std::string name="layer_demapper_vcvc") -> layer_demapper_vcvc_sptr
-
-        Return a shared_ptr to a new instance of lte::layer_demapper_vcvc.
-
-        To avoid accidental use of raw pointers, lte::layer_demapper_vcvc's constructor is in a private implementation class. lte::layer_demapper_vcvc::make is the public interface for creating new instances.
-
-        Params: (N_ant, vlen, style, name)
-        """
+        """make(int N_ant, int vlen, std::string style, std::string name="layer_demapper_vcvc") -> layer_demapper_vcvc_sptr"""
         return _lte_swig.layer_demapper_vcvc_make(*args, **kwargs)
 
     make = staticmethod(make)
     def set_N_ant(self, *args, **kwargs):
-        """
-        set_N_ant(layer_demapper_vcvc self, int N_ant)
-
-        Params: (N_ant)
-        """
+        """set_N_ant(layer_demapper_vcvc self, int N_ant)"""
         return _lte_swig.layer_demapper_vcvc_set_N_ant(self, *args, **kwargs)
 
     def get_N_ant(self):
-        """
-        get_N_ant(layer_demapper_vcvc self) -> int
-
-        Params: (NONE)
-        """
+        """get_N_ant(layer_demapper_vcvc self) -> int"""
         return _lte_swig.layer_demapper_vcvc_get_N_ant(self)
 
     def set_decoding_style(self, *args, **kwargs):
-        """
-        set_decoding_style(layer_demapper_vcvc self, std::string style)
-
-        Params: (style)
-        """
+        """set_decoding_style(layer_demapper_vcvc self, std::string style)"""
         return _lte_swig.layer_demapper_vcvc_set_decoding_style(self, *args, **kwargs)
 
     def get_decoding_style(self):
-        """
-        get_decoding_style(layer_demapper_vcvc self) -> std::string
-
-        Params: (NONE)
-        """
+        """get_decoding_style(layer_demapper_vcvc self) -> std::string"""
         return _lte_swig.layer_demapper_vcvc_get_decoding_style(self)
 
     __swig_destroy__ = _lte_swig.delete_layer_demapper_vcvc
@@ -2385,15 +2173,7 @@ layer_demapper_vcvc_swigregister = _lte_swig.layer_demapper_vcvc_swigregister
 layer_demapper_vcvc_swigregister(layer_demapper_vcvc)
 
 def layer_demapper_vcvc_make(*args, **kwargs):
-  """
-    layer_demapper_vcvc_make(int N_ant, int vlen, std::string style, std::string name="layer_demapper_vcvc") -> layer_demapper_vcvc_sptr
-
-    Return a shared_ptr to a new instance of lte::layer_demapper_vcvc.
-
-    To avoid accidental use of raw pointers, lte::layer_demapper_vcvc's constructor is in a private implementation class. lte::layer_demapper_vcvc::make is the public interface for creating new instances.
-
-    Params: (N_ant, vlen, style, name)
-    """
+  """layer_demapper_vcvc_make(int N_ant, int vlen, std::string style, std::string name="layer_demapper_vcvc") -> layer_demapper_vcvc_sptr"""
   return _lte_swig.layer_demapper_vcvc_make(*args, **kwargs)
 
 class layer_demapper_vcvc_sptr(object):
@@ -2415,47 +2195,23 @@ class layer_demapper_vcvc_sptr(object):
     __swig_destroy__ = _lte_swig.delete_layer_demapper_vcvc_sptr
     __del__ = lambda self : None;
     def make(self, *args, **kwargs):
-        """
-        make(layer_demapper_vcvc_sptr self, int N_ant, int vlen, std::string style, std::string name="layer_demapper_vcvc") -> layer_demapper_vcvc_sptr
-
-        Return a shared_ptr to a new instance of lte::layer_demapper_vcvc.
-
-        To avoid accidental use of raw pointers, lte::layer_demapper_vcvc's constructor is in a private implementation class. lte::layer_demapper_vcvc::make is the public interface for creating new instances.
-
-        Params: (N_ant, vlen, style, name)
-        """
+        """make(layer_demapper_vcvc_sptr self, int N_ant, int vlen, std::string style, std::string name="layer_demapper_vcvc") -> layer_demapper_vcvc_sptr"""
         return _lte_swig.layer_demapper_vcvc_sptr_make(self, *args, **kwargs)
 
     def set_N_ant(self, *args, **kwargs):
-        """
-        set_N_ant(layer_demapper_vcvc_sptr self, int N_ant)
-
-        Params: (N_ant)
-        """
+        """set_N_ant(layer_demapper_vcvc_sptr self, int N_ant)"""
         return _lte_swig.layer_demapper_vcvc_sptr_set_N_ant(self, *args, **kwargs)
 
     def get_N_ant(self):
-        """
-        get_N_ant(layer_demapper_vcvc_sptr self) -> int
-
-        Params: (NONE)
-        """
+        """get_N_ant(layer_demapper_vcvc_sptr self) -> int"""
         return _lte_swig.layer_demapper_vcvc_sptr_get_N_ant(self)
 
     def set_decoding_style(self, *args, **kwargs):
-        """
-        set_decoding_style(layer_demapper_vcvc_sptr self, std::string style)
-
-        Params: (style)
-        """
+        """set_decoding_style(layer_demapper_vcvc_sptr self, std::string style)"""
         return _lte_swig.layer_demapper_vcvc_sptr_set_decoding_style(self, *args, **kwargs)
 
     def get_decoding_style(self):
-        """
-        get_decoding_style(layer_demapper_vcvc_sptr self) -> std::string
-
-        Params: (NONE)
-        """
+        """get_decoding_style(layer_demapper_vcvc_sptr self) -> std::string"""
         return _lte_swig.layer_demapper_vcvc_sptr_get_decoding_style(self)
 
     def history(self):
@@ -2708,53 +2464,29 @@ layer_demapper_vcvc_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.na
 layer_demapper_vcvc = layer_demapper_vcvc.make;
 
 class pre_decoder_vcvc(object):
-    """Pre Decoder for LTE."""
+    """Proxy of C++ gr::lte::pre_decoder_vcvc class"""
     thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
     def make(*args, **kwargs):
-        """
-        make(int N_ant, int vlen, std::string style, std::string name="pre_decoder_vcvc") -> pre_decoder_vcvc_sptr
-
-        Return a shared_ptr to a new instance of lte::pre_decoder_vcvc.
-
-        To avoid accidental use of raw pointers, lte::pre_decoder_vcvc's constructor is in a private implementation class. lte::pre_decoder_vcvc::make is the public interface for creating new instances.
-
-        Params: (N_ant, vlen, style, name)
-        """
+        """make(int N_ant, int vlen, std::string style, std::string name="pre_decoder_vcvc") -> pre_decoder_vcvc_sptr"""
         return _lte_swig.pre_decoder_vcvc_make(*args, **kwargs)
 
     make = staticmethod(make)
     def set_N_ant(self, *args, **kwargs):
-        """
-        set_N_ant(pre_decoder_vcvc self, int N_ant)
-
-        Params: (N_ant)
-        """
+        """set_N_ant(pre_decoder_vcvc self, int N_ant)"""
         return _lte_swig.pre_decoder_vcvc_set_N_ant(self, *args, **kwargs)
 
     def get_N_ant(self):
-        """
-        get_N_ant(pre_decoder_vcvc self) -> int
-
-        Params: (NONE)
-        """
+        """get_N_ant(pre_decoder_vcvc self) -> int"""
         return _lte_swig.pre_decoder_vcvc_get_N_ant(self)
 
     def set_decoding_style(self, *args, **kwargs):
-        """
-        set_decoding_style(pre_decoder_vcvc self, std::string style)
-
-        Params: (style)
-        """
+        """set_decoding_style(pre_decoder_vcvc self, std::string style)"""
         return _lte_swig.pre_decoder_vcvc_set_decoding_style(self, *args, **kwargs)
 
     def get_decoding_style(self):
-        """
-        get_decoding_style(pre_decoder_vcvc self) -> std::string
-
-        Params: (NONE)
-        """
+        """get_decoding_style(pre_decoder_vcvc self) -> std::string"""
         return _lte_swig.pre_decoder_vcvc_get_decoding_style(self)
 
     __swig_destroy__ = _lte_swig.delete_pre_decoder_vcvc
@@ -2763,15 +2495,7 @@ pre_decoder_vcvc_swigregister = _lte_swig.pre_decoder_vcvc_swigregister
 pre_decoder_vcvc_swigregister(pre_decoder_vcvc)
 
 def pre_decoder_vcvc_make(*args, **kwargs):
-  """
-    pre_decoder_vcvc_make(int N_ant, int vlen, std::string style, std::string name="pre_decoder_vcvc") -> pre_decoder_vcvc_sptr
-
-    Return a shared_ptr to a new instance of lte::pre_decoder_vcvc.
-
-    To avoid accidental use of raw pointers, lte::pre_decoder_vcvc's constructor is in a private implementation class. lte::pre_decoder_vcvc::make is the public interface for creating new instances.
-
-    Params: (N_ant, vlen, style, name)
-    """
+  """pre_decoder_vcvc_make(int N_ant, int vlen, std::string style, std::string name="pre_decoder_vcvc") -> pre_decoder_vcvc_sptr"""
   return _lte_swig.pre_decoder_vcvc_make(*args, **kwargs)
 
 class pre_decoder_vcvc_sptr(object):
@@ -2793,47 +2517,23 @@ class pre_decoder_vcvc_sptr(object):
     __swig_destroy__ = _lte_swig.delete_pre_decoder_vcvc_sptr
     __del__ = lambda self : None;
     def make(self, *args, **kwargs):
-        """
-        make(pre_decoder_vcvc_sptr self, int N_ant, int vlen, std::string style, std::string name="pre_decoder_vcvc") -> pre_decoder_vcvc_sptr
-
-        Return a shared_ptr to a new instance of lte::pre_decoder_vcvc.
-
-        To avoid accidental use of raw pointers, lte::pre_decoder_vcvc's constructor is in a private implementation class. lte::pre_decoder_vcvc::make is the public interface for creating new instances.
-
-        Params: (N_ant, vlen, style, name)
-        """
+        """make(pre_decoder_vcvc_sptr self, int N_ant, int vlen, std::string style, std::string name="pre_decoder_vcvc") -> pre_decoder_vcvc_sptr"""
         return _lte_swig.pre_decoder_vcvc_sptr_make(self, *args, **kwargs)
 
     def set_N_ant(self, *args, **kwargs):
-        """
-        set_N_ant(pre_decoder_vcvc_sptr self, int N_ant)
-
-        Params: (N_ant)
-        """
+        """set_N_ant(pre_decoder_vcvc_sptr self, int N_ant)"""
         return _lte_swig.pre_decoder_vcvc_sptr_set_N_ant(self, *args, **kwargs)
 
     def get_N_ant(self):
-        """
-        get_N_ant(pre_decoder_vcvc_sptr self) -> int
-
-        Params: (NONE)
-        """
+        """get_N_ant(pre_decoder_vcvc_sptr self) -> int"""
         return _lte_swig.pre_decoder_vcvc_sptr_get_N_ant(self)
 
     def set_decoding_style(self, *args, **kwargs):
-        """
-        set_decoding_style(pre_decoder_vcvc_sptr self, std::string style)
-
-        Params: (style)
-        """
+        """set_decoding_style(pre_decoder_vcvc_sptr self, std::string style)"""
         return _lte_swig.pre_decoder_vcvc_sptr_set_decoding_style(self, *args, **kwargs)
 
     def get_decoding_style(self):
-        """
-        get_decoding_style(pre_decoder_vcvc_sptr self) -> std::string
-
-        Params: (NONE)
-        """
+        """get_decoding_style(pre_decoder_vcvc_sptr self) -> std::string"""
         return _lte_swig.pre_decoder_vcvc_sptr_get_decoding_style(self)
 
     def history(self):
@@ -3086,29 +2786,17 @@ pre_decoder_vcvc_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.name(
 pre_decoder_vcvc = pre_decoder_vcvc.make;
 
 class pbch_demux_vcvc(object):
-    """Demultiplex PBCH data from resource grid."""
+    """Proxy of C++ gr::lte::pbch_demux_vcvc class"""
     thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
     def make(*args, **kwargs):
-        """
-        make(int N_rb_dl, std::string name="pbch_demux_vcvc") -> pbch_demux_vcvc_sptr
-
-        Return a shared_ptr to a new instance of lte::pbch_demux_vcvc.
-
-        To avoid accidental use of raw pointers, lte::pbch_demux_vcvc's constructor is in a private implementation class. lte::pbch_demux_vcvc::make is the public interface for creating new instances.
-
-        Params: (N_rb_dl, name)
-        """
+        """make(int N_rb_dl, std::string name="pbch_demux_vcvc") -> pbch_demux_vcvc_sptr"""
         return _lte_swig.pbch_demux_vcvc_make(*args, **kwargs)
 
     make = staticmethod(make)
     def set_cell_id(self, *args, **kwargs):
-        """
-        set_cell_id(pbch_demux_vcvc self, int id)
-
-        Params: (id)
-        """
+        """set_cell_id(pbch_demux_vcvc self, int id)"""
         return _lte_swig.pbch_demux_vcvc_set_cell_id(self, *args, **kwargs)
 
     __swig_destroy__ = _lte_swig.delete_pbch_demux_vcvc
@@ -3117,15 +2805,7 @@ pbch_demux_vcvc_swigregister = _lte_swig.pbch_demux_vcvc_swigregister
 pbch_demux_vcvc_swigregister(pbch_demux_vcvc)
 
 def pbch_demux_vcvc_make(*args, **kwargs):
-  """
-    pbch_demux_vcvc_make(int N_rb_dl, std::string name="pbch_demux_vcvc") -> pbch_demux_vcvc_sptr
-
-    Return a shared_ptr to a new instance of lte::pbch_demux_vcvc.
-
-    To avoid accidental use of raw pointers, lte::pbch_demux_vcvc's constructor is in a private implementation class. lte::pbch_demux_vcvc::make is the public interface for creating new instances.
-
-    Params: (N_rb_dl, name)
-    """
+  """pbch_demux_vcvc_make(int N_rb_dl, std::string name="pbch_demux_vcvc") -> pbch_demux_vcvc_sptr"""
   return _lte_swig.pbch_demux_vcvc_make(*args, **kwargs)
 
 class pbch_demux_vcvc_sptr(object):
@@ -3147,23 +2827,11 @@ class pbch_demux_vcvc_sptr(object):
     __swig_destroy__ = _lte_swig.delete_pbch_demux_vcvc_sptr
     __del__ = lambda self : None;
     def make(self, *args, **kwargs):
-        """
-        make(pbch_demux_vcvc_sptr self, int N_rb_dl, std::string name="pbch_demux_vcvc") -> pbch_demux_vcvc_sptr
-
-        Return a shared_ptr to a new instance of lte::pbch_demux_vcvc.
-
-        To avoid accidental use of raw pointers, lte::pbch_demux_vcvc's constructor is in a private implementation class. lte::pbch_demux_vcvc::make is the public interface for creating new instances.
-
-        Params: (N_rb_dl, name)
-        """
+        """make(pbch_demux_vcvc_sptr self, int N_rb_dl, std::string name="pbch_demux_vcvc") -> pbch_demux_vcvc_sptr"""
         return _lte_swig.pbch_demux_vcvc_sptr_make(self, *args, **kwargs)
 
     def set_cell_id(self, *args, **kwargs):
-        """
-        set_cell_id(pbch_demux_vcvc_sptr self, int id)
-
-        Params: (id)
-        """
+        """set_cell_id(pbch_demux_vcvc_sptr self, int id)"""
         return _lte_swig.pbch_demux_vcvc_sptr_set_cell_id(self, *args, **kwargs)
 
     def history(self):
@@ -3416,7 +3084,7 @@ pbch_demux_vcvc_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.name()
 pbch_demux_vcvc = pbch_demux_vcvc.make;
 
 class channel_estimator_vcvc(object):
-    """Channel Estimator for OFDM."""
+    """Proxy of C++ gr::lte::channel_estimator_vcvc class"""
     thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
@@ -3425,12 +3093,6 @@ class channel_estimator_vcvc(object):
         make(int subcarriers, std::string tag_key, std::string msg_buf_name, std::vector< std::vector< int,std::allocator< int > >,std::allocator< std::vector< int,std::allocator< int > > > > const & pilot_carriers, 
             gr_vector_vector_complexf pilot_symbols, 
             std::string name="channel_estimator_vcvc") -> channel_estimator_vcvc_sptr
-
-        Return a shared_ptr to a new instance of lte::channel_estimator_vcvc.
-
-        To avoid accidental use of raw pointers, lte::channel_estimator_vcvc's constructor is in a private implementation class. lte::channel_estimator_vcvc::make is the public interface for creating new instances.
-
-        Params: (subcarriers, tag_key, msg_buf_name, pilot_carriers, pilot_symbols, name)
         """
         return _lte_swig.channel_estimator_vcvc_make(*args, **kwargs)
 
@@ -3439,17 +3101,11 @@ class channel_estimator_vcvc(object):
         """
         set_pilot_map(channel_estimator_vcvc self, std::vector< std::vector< int,std::allocator< int > >,std::allocator< std::vector< int,std::allocator< int > > > > const & pilot_carriers, 
             gr_vector_vector_complexf pilot_symbols)
-
-        Params: (pilot_carriers, pilot_symbols)
         """
         return _lte_swig.channel_estimator_vcvc_set_pilot_map(self, *args, **kwargs)
 
     def get_pilot_carriers(self):
-        """
-        get_pilot_carriers(channel_estimator_vcvc self) -> std::vector< std::vector< int,std::allocator< int > >,std::allocator< std::vector< int,std::allocator< int > > > >
-
-        Params: (NONE)
-        """
+        """get_pilot_carriers(channel_estimator_vcvc self) -> std::vector< std::vector< int,std::allocator< int > >,std::allocator< std::vector< int,std::allocator< int > > > >"""
         return _lte_swig.channel_estimator_vcvc_get_pilot_carriers(self)
 
     __swig_destroy__ = _lte_swig.delete_channel_estimator_vcvc
@@ -3462,12 +3118,6 @@ def channel_estimator_vcvc_make(*args, **kwargs):
     channel_estimator_vcvc_make(int subcarriers, std::string tag_key, std::string msg_buf_name, std::vector< std::vector< int,std::allocator< int > >,std::allocator< std::vector< int,std::allocator< int > > > > const & pilot_carriers, 
         gr_vector_vector_complexf pilot_symbols, 
         std::string name="channel_estimator_vcvc") -> channel_estimator_vcvc_sptr
-
-    Return a shared_ptr to a new instance of lte::channel_estimator_vcvc.
-
-    To avoid accidental use of raw pointers, lte::channel_estimator_vcvc's constructor is in a private implementation class. lte::channel_estimator_vcvc::make is the public interface for creating new instances.
-
-    Params: (subcarriers, tag_key, msg_buf_name, pilot_carriers, pilot_symbols, name)
     """
   return _lte_swig.channel_estimator_vcvc_make(*args, **kwargs)
 
@@ -3494,12 +3144,6 @@ class channel_estimator_vcvc_sptr(object):
         make(channel_estimator_vcvc_sptr self, int subcarriers, std::string tag_key, std::string msg_buf_name, std::vector< std::vector< int,std::allocator< int > >,std::allocator< std::vector< int,std::allocator< int > > > > const & pilot_carriers, 
             gr_vector_vector_complexf pilot_symbols, 
             std::string name="channel_estimator_vcvc") -> channel_estimator_vcvc_sptr
-
-        Return a shared_ptr to a new instance of lte::channel_estimator_vcvc.
-
-        To avoid accidental use of raw pointers, lte::channel_estimator_vcvc's constructor is in a private implementation class. lte::channel_estimator_vcvc::make is the public interface for creating new instances.
-
-        Params: (subcarriers, tag_key, msg_buf_name, pilot_carriers, pilot_symbols, name)
         """
         return _lte_swig.channel_estimator_vcvc_sptr_make(self, *args, **kwargs)
 
@@ -3507,17 +3151,11 @@ class channel_estimator_vcvc_sptr(object):
         """
         set_pilot_map(channel_estimator_vcvc_sptr self, std::vector< std::vector< int,std::allocator< int > >,std::allocator< std::vector< int,std::allocator< int > > > > const & pilot_carriers, 
             gr_vector_vector_complexf pilot_symbols)
-
-        Params: (pilot_carriers, pilot_symbols)
         """
         return _lte_swig.channel_estimator_vcvc_sptr_set_pilot_map(self, *args, **kwargs)
 
     def get_pilot_carriers(self):
-        """
-        get_pilot_carriers(channel_estimator_vcvc_sptr self) -> std::vector< std::vector< int,std::allocator< int > >,std::allocator< std::vector< int,std::allocator< int > > > >
-
-        Params: (NONE)
-        """
+        """get_pilot_carriers(channel_estimator_vcvc_sptr self) -> std::vector< std::vector< int,std::allocator< int > >,std::allocator< std::vector< int,std::allocator< int > > > >"""
         return _lte_swig.channel_estimator_vcvc_sptr_get_pilot_carriers(self)
 
     def history(self):
@@ -3770,20 +3408,12 @@ channel_estimator_vcvc_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self
 channel_estimator_vcvc = channel_estimator_vcvc.make;
 
 class extract_subcarriers_vcvc(object):
-    """Extract occupied subcarriers in frequency domain."""
+    """Proxy of C++ gr::lte::extract_subcarriers_vcvc class"""
     thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined")
     __repr__ = _swig_repr
     def make(*args, **kwargs):
-        """
-        make(int N_rb_dl, int fftl, std::string name="extract_subcarriers_vcvc") -> extract_subcarriers_vcvc_sptr
-
-        Return a shared_ptr to a new instance of lte::extract_subcarriers_vcvc.
-
-        To avoid accidental use of raw pointers, lte::extract_subcarriers_vcvc's constructor is in a private implementation class. lte::extract_subcarriers_vcvc::make is the public interface for creating new instances.
-
-        Params: (N_rb_dl, fftl, name)
-        """
+        """make(int N_rb_dl, int fftl, std::string name="extract_subcarriers_vcvc") -> extract_subcarriers_vcvc_sptr"""
         return _lte_swig.extract_subcarriers_vcvc_make(*args, **kwargs)
 
     make = staticmethod(make)
@@ -3793,15 +3423,7 @@ extract_subcarriers_vcvc_swigregister = _lte_swig.extract_subcarriers_vcvc_swigr
 extract_subcarriers_vcvc_swigregister(extract_subcarriers_vcvc)
 
 def extract_subcarriers_vcvc_make(*args, **kwargs):
-  """
-    extract_subcarriers_vcvc_make(int N_rb_dl, int fftl, std::string name="extract_subcarriers_vcvc") -> extract_subcarriers_vcvc_sptr
-
-    Return a shared_ptr to a new instance of lte::extract_subcarriers_vcvc.
-
-    To avoid accidental use of raw pointers, lte::extract_subcarriers_vcvc's constructor is in a private implementation class. lte::extract_subcarriers_vcvc::make is the public interface for creating new instances.
-
-    Params: (N_rb_dl, fftl, name)
-    """
+  """extract_subcarriers_vcvc_make(int N_rb_dl, int fftl, std::string name="extract_subcarriers_vcvc") -> extract_subcarriers_vcvc_sptr"""
   return _lte_swig.extract_subcarriers_vcvc_make(*args, **kwargs)
 
 class extract_subcarriers_vcvc_sptr(object):
@@ -3823,15 +3445,7 @@ class extract_subcarriers_vcvc_sptr(object):
     __swig_destroy__ = _lte_swig.delete_extract_subcarriers_vcvc_sptr
     __del__ = lambda self : None;
     def make(self, *args, **kwargs):
-        """
-        make(extract_subcarriers_vcvc_sptr self, int N_rb_dl, int fftl, std::string name="extract_subcarriers_vcvc") -> extract_subcarriers_vcvc_sptr
-
-        Return a shared_ptr to a new instance of lte::extract_subcarriers_vcvc.
-
-        To avoid accidental use of raw pointers, lte::extract_subcarriers_vcvc's constructor is in a private implementation class. lte::extract_subcarriers_vcvc::make is the public interface for creating new instances.
-
-        Params: (N_rb_dl, fftl, name)
-        """
+        """make(extract_subcarriers_vcvc_sptr self, int N_rb_dl, int fftl, std::string name="extract_subcarriers_vcvc") -> extract_subcarriers_vcvc_sptr"""
         return _lte_swig.extract_subcarriers_vcvc_sptr_make(self, *args, **kwargs)
 
     def history(self):
@@ -4084,20 +3698,12 @@ extract_subcarriers_vcvc_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (se
 extract_subcarriers_vcvc = extract_subcarriers_vcvc.make;
 
 class remove_cp_cvc(object):
-    """Remove LTE specific CP from stream and output OFDM symbol vectors in time domain."""
+    """Proxy of C++ gr::lte::remove_cp_cvc class"""
     thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined")
     __repr__ = _swig_repr
     def make(*args, **kwargs):
-        """
-        make(int fftl, std::string key, std::string name="remove_cp_cvc") -> remove_cp_cvc_sptr
-
-        Return a shared_ptr to a new instance of lte::remove_cp_cvc.
-
-        To avoid accidental use of raw pointers, lte::remove_cp_cvc's constructor is in a private implementation class. lte::remove_cp_cvc::make is the public interface for creating new instances.
-
-        Params: (fftl, key, name)
-        """
+        """make(int fftl, std::string key, std::string name="remove_cp_cvc") -> remove_cp_cvc_sptr"""
         return _lte_swig.remove_cp_cvc_make(*args, **kwargs)
 
     make = staticmethod(make)
@@ -4107,15 +3713,7 @@ remove_cp_cvc_swigregister = _lte_swig.remove_cp_cvc_swigregister
 remove_cp_cvc_swigregister(remove_cp_cvc)
 
 def remove_cp_cvc_make(*args, **kwargs):
-  """
-    remove_cp_cvc_make(int fftl, std::string key, std::string name="remove_cp_cvc") -> remove_cp_cvc_sptr
-
-    Return a shared_ptr to a new instance of lte::remove_cp_cvc.
-
-    To avoid accidental use of raw pointers, lte::remove_cp_cvc's constructor is in a private implementation class. lte::remove_cp_cvc::make is the public interface for creating new instances.
-
-    Params: (fftl, key, name)
-    """
+  """remove_cp_cvc_make(int fftl, std::string key, std::string name="remove_cp_cvc") -> remove_cp_cvc_sptr"""
   return _lte_swig.remove_cp_cvc_make(*args, **kwargs)
 
 class remove_cp_cvc_sptr(object):
@@ -4137,15 +3735,7 @@ class remove_cp_cvc_sptr(object):
     __swig_destroy__ = _lte_swig.delete_remove_cp_cvc_sptr
     __del__ = lambda self : None;
     def make(self, *args, **kwargs):
-        """
-        make(remove_cp_cvc_sptr self, int fftl, std::string key, std::string name="remove_cp_cvc") -> remove_cp_cvc_sptr
-
-        Return a shared_ptr to a new instance of lte::remove_cp_cvc.
-
-        To avoid accidental use of raw pointers, lte::remove_cp_cvc's constructor is in a private implementation class. lte::remove_cp_cvc::make is the public interface for creating new instances.
-
-        Params: (fftl, key, name)
-        """
+        """make(remove_cp_cvc_sptr self, int fftl, std::string key, std::string name="remove_cp_cvc") -> remove_cp_cvc_sptr"""
         return _lte_swig.remove_cp_cvc_sptr_make(self, *args, **kwargs)
 
     def history(self):
@@ -4398,37 +3988,21 @@ remove_cp_cvc_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.name(), 
 remove_cp_cvc = remove_cp_cvc.make;
 
 class sss_calculator_vcm(object):
-    """Detect SSS in symbol."""
+    """Proxy of C++ gr::lte::sss_calculator_vcm class"""
     thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
     def make(*args, **kwargs):
-        """
-        make(int fftl, std::string key_id, std::string key_offset, std::string name="sss_calculator_vcm") -> sss_calculator_vcm_sptr
-
-        Return a shared_ptr to a new instance of lte::sss_calculator_vcm.
-
-        To avoid accidental use of raw pointers, lte::sss_calculator_vcm's constructor is in a private implementation class. lte::sss_calculator_vcm::make is the public interface for creating new instances.
-
-        Params: (fftl, key_id, key_offset, name)
-        """
+        """make(int fftl, std::string key_id, std::string key_offset, std::string name="sss_calculator_vcm") -> sss_calculator_vcm_sptr"""
         return _lte_swig.sss_calculator_vcm_make(*args, **kwargs)
 
     make = staticmethod(make)
     def get_cell_id(self):
-        """
-        get_cell_id(sss_calculator_vcm self) -> int
-
-        Params: (NONE)
-        """
+        """get_cell_id(sss_calculator_vcm self) -> int"""
         return _lte_swig.sss_calculator_vcm_get_cell_id(self)
 
     def get_frame_start(self):
-        """
-        get_frame_start(sss_calculator_vcm self) -> long
-
-        Params: (NONE)
-        """
+        """get_frame_start(sss_calculator_vcm self) -> long"""
         return _lte_swig.sss_calculator_vcm_get_frame_start(self)
 
     __swig_destroy__ = _lte_swig.delete_sss_calculator_vcm
@@ -4437,15 +4011,7 @@ sss_calculator_vcm_swigregister = _lte_swig.sss_calculator_vcm_swigregister
 sss_calculator_vcm_swigregister(sss_calculator_vcm)
 
 def sss_calculator_vcm_make(*args, **kwargs):
-  """
-    sss_calculator_vcm_make(int fftl, std::string key_id, std::string key_offset, std::string name="sss_calculator_vcm") -> sss_calculator_vcm_sptr
-
-    Return a shared_ptr to a new instance of lte::sss_calculator_vcm.
-
-    To avoid accidental use of raw pointers, lte::sss_calculator_vcm's constructor is in a private implementation class. lte::sss_calculator_vcm::make is the public interface for creating new instances.
-
-    Params: (fftl, key_id, key_offset, name)
-    """
+  """sss_calculator_vcm_make(int fftl, std::string key_id, std::string key_offset, std::string name="sss_calculator_vcm") -> sss_calculator_vcm_sptr"""
   return _lte_swig.sss_calculator_vcm_make(*args, **kwargs)
 
 class sss_calculator_vcm_sptr(object):
@@ -4467,31 +4033,15 @@ class sss_calculator_vcm_sptr(object):
     __swig_destroy__ = _lte_swig.delete_sss_calculator_vcm_sptr
     __del__ = lambda self : None;
     def make(self, *args, **kwargs):
-        """
-        make(sss_calculator_vcm_sptr self, int fftl, std::string key_id, std::string key_offset, std::string name="sss_calculator_vcm") -> sss_calculator_vcm_sptr
-
-        Return a shared_ptr to a new instance of lte::sss_calculator_vcm.
-
-        To avoid accidental use of raw pointers, lte::sss_calculator_vcm's constructor is in a private implementation class. lte::sss_calculator_vcm::make is the public interface for creating new instances.
-
-        Params: (fftl, key_id, key_offset, name)
-        """
+        """make(sss_calculator_vcm_sptr self, int fftl, std::string key_id, std::string key_offset, std::string name="sss_calculator_vcm") -> sss_calculator_vcm_sptr"""
         return _lte_swig.sss_calculator_vcm_sptr_make(self, *args, **kwargs)
 
     def get_cell_id(self):
-        """
-        get_cell_id(sss_calculator_vcm_sptr self) -> int
-
-        Params: (NONE)
-        """
+        """get_cell_id(sss_calculator_vcm_sptr self) -> int"""
         return _lte_swig.sss_calculator_vcm_sptr_get_cell_id(self)
 
     def get_frame_start(self):
-        """
-        get_frame_start(sss_calculator_vcm_sptr self) -> long
-
-        Params: (NONE)
-        """
+        """get_frame_start(sss_calculator_vcm_sptr self) -> long"""
         return _lte_swig.sss_calculator_vcm_sptr_get_frame_start(self)
 
     def history(self):
@@ -4744,36 +4294,20 @@ sss_calculator_vcm_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.nam
 sss_calculator_vcm = sss_calculator_vcm.make;
 
 class pcfich_unpack_vfm(object):
-    """Unpack CFI and publish it on output message port."""
+    """Proxy of C++ gr::lte::pcfich_unpack_vfm class"""
     thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
     def activate_debug_mode(self, *args, **kwargs):
-        """
-        activate_debug_mode(pcfich_unpack_vfm self, bool ena)
-
-        Params: (ena)
-        """
+        """activate_debug_mode(pcfich_unpack_vfm self, bool ena)"""
         return _lte_swig.pcfich_unpack_vfm_activate_debug_mode(self, *args, **kwargs)
 
     def cfi_results(self):
-        """
-        cfi_results(pcfich_unpack_vfm self) -> std::vector< int,std::allocator< int > >
-
-        Params: (NONE)
-        """
+        """cfi_results(pcfich_unpack_vfm self) -> std::vector< int,std::allocator< int > >"""
         return _lte_swig.pcfich_unpack_vfm_cfi_results(self)
 
     def make(*args, **kwargs):
-        """
-        make(std::string key, std::string msg_buf_name, std::string name="pcfich_unpack_vfm") -> pcfich_unpack_vfm_sptr
-
-        Return a shared_ptr to a new instance of lte::pcfich_unpack_vfm.
-
-        To avoid accidental use of raw pointers, lte::pcfich_unpack_vfm's constructor is in a private implementation class. lte::pcfich_unpack_vfm::make is the public interface for creating new instances.
-
-        Params: (key, msg_buf_name, name)
-        """
+        """make(std::string key, std::string msg_buf_name, std::string name="pcfich_unpack_vfm") -> pcfich_unpack_vfm_sptr"""
         return _lte_swig.pcfich_unpack_vfm_make(*args, **kwargs)
 
     make = staticmethod(make)
@@ -4783,15 +4317,7 @@ pcfich_unpack_vfm_swigregister = _lte_swig.pcfich_unpack_vfm_swigregister
 pcfich_unpack_vfm_swigregister(pcfich_unpack_vfm)
 
 def pcfich_unpack_vfm_make(*args, **kwargs):
-  """
-    pcfich_unpack_vfm_make(std::string key, std::string msg_buf_name, std::string name="pcfich_unpack_vfm") -> pcfich_unpack_vfm_sptr
-
-    Return a shared_ptr to a new instance of lte::pcfich_unpack_vfm.
-
-    To avoid accidental use of raw pointers, lte::pcfich_unpack_vfm's constructor is in a private implementation class. lte::pcfich_unpack_vfm::make is the public interface for creating new instances.
-
-    Params: (key, msg_buf_name, name)
-    """
+  """pcfich_unpack_vfm_make(std::string key, std::string msg_buf_name, std::string name="pcfich_unpack_vfm") -> pcfich_unpack_vfm_sptr"""
   return _lte_swig.pcfich_unpack_vfm_make(*args, **kwargs)
 
 class pcfich_unpack_vfm_sptr(object):
@@ -4813,31 +4339,15 @@ class pcfich_unpack_vfm_sptr(object):
     __swig_destroy__ = _lte_swig.delete_pcfich_unpack_vfm_sptr
     __del__ = lambda self : None;
     def activate_debug_mode(self, *args, **kwargs):
-        """
-        activate_debug_mode(pcfich_unpack_vfm_sptr self, bool ena)
-
-        Params: (ena)
-        """
+        """activate_debug_mode(pcfich_unpack_vfm_sptr self, bool ena)"""
         return _lte_swig.pcfich_unpack_vfm_sptr_activate_debug_mode(self, *args, **kwargs)
 
     def cfi_results(self):
-        """
-        cfi_results(pcfich_unpack_vfm_sptr self) -> std::vector< int,std::allocator< int > >
-
-        Params: (NONE)
-        """
+        """cfi_results(pcfich_unpack_vfm_sptr self) -> std::vector< int,std::allocator< int > >"""
         return _lte_swig.pcfich_unpack_vfm_sptr_cfi_results(self)
 
     def make(self, *args, **kwargs):
-        """
-        make(pcfich_unpack_vfm_sptr self, std::string key, std::string msg_buf_name, std::string name="pcfich_unpack_vfm") -> pcfich_unpack_vfm_sptr
-
-        Return a shared_ptr to a new instance of lte::pcfich_unpack_vfm.
-
-        To avoid accidental use of raw pointers, lte::pcfich_unpack_vfm's constructor is in a private implementation class. lte::pcfich_unpack_vfm::make is the public interface for creating new instances.
-
-        Params: (key, msg_buf_name, name)
-        """
+        """make(pcfich_unpack_vfm_sptr self, std::string key, std::string msg_buf_name, std::string name="pcfich_unpack_vfm") -> pcfich_unpack_vfm_sptr"""
         return _lte_swig.pcfich_unpack_vfm_sptr_make(self, *args, **kwargs)
 
     def history(self):
@@ -5090,20 +4600,12 @@ pcfich_unpack_vfm_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.name
 pcfich_unpack_vfm = pcfich_unpack_vfm.make;
 
 class rough_symbol_sync_cc(object):
-    """CP based rough sync to OFDM symbols."""
+    """Proxy of C++ gr::lte::rough_symbol_sync_cc class"""
     thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined")
     __repr__ = _swig_repr
     def make(*args, **kwargs):
-        """
-        make(int fftl, int vlen, std::string name="rough_symbol_sync_cc") -> rough_symbol_sync_cc_sptr
-
-        Return a shared_ptr to a new instance of lte::rough_symbol_sync_cc.
-
-        To avoid accidental use of raw pointers, lte::rough_symbol_sync_cc's constructor is in a private implementation class. lte::rough_symbol_sync_cc::make is the public interface for creating new instances.
-
-        Params: (fftl, vlen, name)
-        """
+        """make(int fftl, int vlen, std::string name="rough_symbol_sync_cc") -> rough_symbol_sync_cc_sptr"""
         return _lte_swig.rough_symbol_sync_cc_make(*args, **kwargs)
 
     make = staticmethod(make)
@@ -5113,15 +4615,7 @@ rough_symbol_sync_cc_swigregister = _lte_swig.rough_symbol_sync_cc_swigregister
 rough_symbol_sync_cc_swigregister(rough_symbol_sync_cc)
 
 def rough_symbol_sync_cc_make(*args, **kwargs):
-  """
-    rough_symbol_sync_cc_make(int fftl, int vlen, std::string name="rough_symbol_sync_cc") -> rough_symbol_sync_cc_sptr
-
-    Return a shared_ptr to a new instance of lte::rough_symbol_sync_cc.
-
-    To avoid accidental use of raw pointers, lte::rough_symbol_sync_cc's constructor is in a private implementation class. lte::rough_symbol_sync_cc::make is the public interface for creating new instances.
-
-    Params: (fftl, vlen, name)
-    """
+  """rough_symbol_sync_cc_make(int fftl, int vlen, std::string name="rough_symbol_sync_cc") -> rough_symbol_sync_cc_sptr"""
   return _lte_swig.rough_symbol_sync_cc_make(*args, **kwargs)
 
 class rough_symbol_sync_cc_sptr(object):
@@ -5143,15 +4637,7 @@ class rough_symbol_sync_cc_sptr(object):
     __swig_destroy__ = _lte_swig.delete_rough_symbol_sync_cc_sptr
     __del__ = lambda self : None;
     def make(self, *args, **kwargs):
-        """
-        make(rough_symbol_sync_cc_sptr self, int fftl, int vlen, std::string name="rough_symbol_sync_cc") -> rough_symbol_sync_cc_sptr
-
-        Return a shared_ptr to a new instance of lte::rough_symbol_sync_cc.
-
-        To avoid accidental use of raw pointers, lte::rough_symbol_sync_cc's constructor is in a private implementation class. lte::rough_symbol_sync_cc::make is the public interface for creating new instances.
-
-        Params: (fftl, vlen, name)
-        """
+        """make(rough_symbol_sync_cc_sptr self, int fftl, int vlen, std::string name="rough_symbol_sync_cc") -> rough_symbol_sync_cc_sptr"""
         return _lte_swig.rough_symbol_sync_cc_sptr_make(self, *args, **kwargs)
 
     def history(self):
@@ -5404,20 +4890,12 @@ rough_symbol_sync_cc_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.n
 rough_symbol_sync_cc = rough_symbol_sync_cc.make;
 
 class pss_symbol_selector_cvc(object):
-    """Extract symbols where PSS is assumed."""
+    """Proxy of C++ gr::lte::pss_symbol_selector_cvc class"""
     thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined")
     __repr__ = _swig_repr
     def make(*args, **kwargs):
-        """
-        make(int fftl, std::string name="pss_symbol_selector_cvc") -> pss_symbol_selector_cvc_sptr
-
-        Return a shared_ptr to a new instance of lte::pss_symbol_selector_cvc.
-
-        To avoid accidental use of raw pointers, lte::pss_symbol_selector_cvc's constructor is in a private implementation class. lte::pss_symbol_selector_cvc::make is the public interface for creating new instances.
-
-        Params: (fftl, name)
-        """
+        """make(int fftl, std::string name="pss_symbol_selector_cvc") -> pss_symbol_selector_cvc_sptr"""
         return _lte_swig.pss_symbol_selector_cvc_make(*args, **kwargs)
 
     make = staticmethod(make)
@@ -5427,15 +4905,7 @@ pss_symbol_selector_cvc_swigregister = _lte_swig.pss_symbol_selector_cvc_swigreg
 pss_symbol_selector_cvc_swigregister(pss_symbol_selector_cvc)
 
 def pss_symbol_selector_cvc_make(*args, **kwargs):
-  """
-    pss_symbol_selector_cvc_make(int fftl, std::string name="pss_symbol_selector_cvc") -> pss_symbol_selector_cvc_sptr
-
-    Return a shared_ptr to a new instance of lte::pss_symbol_selector_cvc.
-
-    To avoid accidental use of raw pointers, lte::pss_symbol_selector_cvc's constructor is in a private implementation class. lte::pss_symbol_selector_cvc::make is the public interface for creating new instances.
-
-    Params: (fftl, name)
-    """
+  """pss_symbol_selector_cvc_make(int fftl, std::string name="pss_symbol_selector_cvc") -> pss_symbol_selector_cvc_sptr"""
   return _lte_swig.pss_symbol_selector_cvc_make(*args, **kwargs)
 
 class pss_symbol_selector_cvc_sptr(object):
@@ -5457,15 +4927,7 @@ class pss_symbol_selector_cvc_sptr(object):
     __swig_destroy__ = _lte_swig.delete_pss_symbol_selector_cvc_sptr
     __del__ = lambda self : None;
     def make(self, *args, **kwargs):
-        """
-        make(pss_symbol_selector_cvc_sptr self, int fftl, std::string name="pss_symbol_selector_cvc") -> pss_symbol_selector_cvc_sptr
-
-        Return a shared_ptr to a new instance of lte::pss_symbol_selector_cvc.
-
-        To avoid accidental use of raw pointers, lte::pss_symbol_selector_cvc's constructor is in a private implementation class. lte::pss_symbol_selector_cvc::make is the public interface for creating new instances.
-
-        Params: (fftl, name)
-        """
+        """make(pss_symbol_selector_cvc_sptr self, int fftl, std::string name="pss_symbol_selector_cvc") -> pss_symbol_selector_cvc_sptr"""
         return _lte_swig.pss_symbol_selector_cvc_sptr_make(self, *args, **kwargs)
 
     def history(self):
@@ -5718,20 +5180,12 @@ pss_symbol_selector_cvc_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (sel
 pss_symbol_selector_cvc = pss_symbol_selector_cvc.make;
 
 class pss_calculator_vcm(object):
-    """<+description of block+>"""
+    """Proxy of C++ gr::lte::pss_calculator_vcm class"""
     thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined")
     __repr__ = _swig_repr
     def make(*args, **kwargs):
-        """
-        make(int fftl, std::string name="pss_calculator_vcm") -> pss_calculator_vcm_sptr
-
-        Return a shared_ptr to a new instance of lte::pss_calculator_vcm.
-
-        To avoid accidental use of raw pointers, lte::pss_calculator_vcm's constructor is in a private implementation class. lte::pss_calculator_vcm::make is the public interface for creating new instances.
-
-        Params: (fftl, name)
-        """
+        """make(int fftl, std::string name="pss_calculator_vcm") -> pss_calculator_vcm_sptr"""
         return _lte_swig.pss_calculator_vcm_make(*args, **kwargs)
 
     make = staticmethod(make)
@@ -5741,15 +5195,7 @@ pss_calculator_vcm_swigregister = _lte_swig.pss_calculator_vcm_swigregister
 pss_calculator_vcm_swigregister(pss_calculator_vcm)
 
 def pss_calculator_vcm_make(*args, **kwargs):
-  """
-    pss_calculator_vcm_make(int fftl, std::string name="pss_calculator_vcm") -> pss_calculator_vcm_sptr
-
-    Return a shared_ptr to a new instance of lte::pss_calculator_vcm.
-
-    To avoid accidental use of raw pointers, lte::pss_calculator_vcm's constructor is in a private implementation class. lte::pss_calculator_vcm::make is the public interface for creating new instances.
-
-    Params: (fftl, name)
-    """
+  """pss_calculator_vcm_make(int fftl, std::string name="pss_calculator_vcm") -> pss_calculator_vcm_sptr"""
   return _lte_swig.pss_calculator_vcm_make(*args, **kwargs)
 
 class pss_calculator_vcm_sptr(object):
@@ -5771,15 +5217,7 @@ class pss_calculator_vcm_sptr(object):
     __swig_destroy__ = _lte_swig.delete_pss_calculator_vcm_sptr
     __del__ = lambda self : None;
     def make(self, *args, **kwargs):
-        """
-        make(pss_calculator_vcm_sptr self, int fftl, std::string name="pss_calculator_vcm") -> pss_calculator_vcm_sptr
-
-        Return a shared_ptr to a new instance of lte::pss_calculator_vcm.
-
-        To avoid accidental use of raw pointers, lte::pss_calculator_vcm's constructor is in a private implementation class. lte::pss_calculator_vcm::make is the public interface for creating new instances.
-
-        Params: (fftl, name)
-        """
+        """make(pss_calculator_vcm_sptr self, int fftl, std::string name="pss_calculator_vcm") -> pss_calculator_vcm_sptr"""
         return _lte_swig.pss_calculator_vcm_sptr_make(self, *args, **kwargs)
 
     def history(self):
@@ -6032,53 +5470,29 @@ pss_calculator_vcm_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.nam
 pss_calculator_vcm = pss_calculator_vcm.make;
 
 class pss_tagger_cc(object):
-    """<+description of block+>"""
+    """Proxy of C++ gr::lte::pss_tagger_cc class"""
     thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
     def make(*args, **kwargs):
-        """
-        make(int fftl, std::string name="pss_tagger_cc") -> pss_tagger_cc_sptr
-
-        Return a shared_ptr to a new instance of lte::pss_tagger_cc.
-
-        To avoid accidental use of raw pointers, lte::pss_tagger_cc's constructor is in a private implementation class. lte::pss_tagger_cc::make is the public interface for creating new instances.
-
-        Params: (fftl, name)
-        """
+        """make(int fftl, std::string name="pss_tagger_cc") -> pss_tagger_cc_sptr"""
         return _lte_swig.pss_tagger_cc_make(*args, **kwargs)
 
     make = staticmethod(make)
     def set_half_frame_start(self, *args, **kwargs):
-        """
-        set_half_frame_start(pss_tagger_cc self, int start)
-
-        Params: (start)
-        """
+        """set_half_frame_start(pss_tagger_cc self, int start)"""
         return _lte_swig.pss_tagger_cc_set_half_frame_start(self, *args, **kwargs)
 
     def set_N_id_2(self, *args, **kwargs):
-        """
-        set_N_id_2(pss_tagger_cc self, int nid2)
-
-        Params: (nid2)
-        """
+        """set_N_id_2(pss_tagger_cc self, int nid2)"""
         return _lte_swig.pss_tagger_cc_set_N_id_2(self, *args, **kwargs)
 
     def lock(self):
-        """
-        lock(pss_tagger_cc self)
-
-        Params: (NONE)
-        """
+        """lock(pss_tagger_cc self)"""
         return _lte_swig.pss_tagger_cc_lock(self)
 
     def unlock(self):
-        """
-        unlock(pss_tagger_cc self)
-
-        Params: (NONE)
-        """
+        """unlock(pss_tagger_cc self)"""
         return _lte_swig.pss_tagger_cc_unlock(self)
 
     __swig_destroy__ = _lte_swig.delete_pss_tagger_cc
@@ -6087,15 +5501,7 @@ pss_tagger_cc_swigregister = _lte_swig.pss_tagger_cc_swigregister
 pss_tagger_cc_swigregister(pss_tagger_cc)
 
 def pss_tagger_cc_make(*args, **kwargs):
-  """
-    pss_tagger_cc_make(int fftl, std::string name="pss_tagger_cc") -> pss_tagger_cc_sptr
-
-    Return a shared_ptr to a new instance of lte::pss_tagger_cc.
-
-    To avoid accidental use of raw pointers, lte::pss_tagger_cc's constructor is in a private implementation class. lte::pss_tagger_cc::make is the public interface for creating new instances.
-
-    Params: (fftl, name)
-    """
+  """pss_tagger_cc_make(int fftl, std::string name="pss_tagger_cc") -> pss_tagger_cc_sptr"""
   return _lte_swig.pss_tagger_cc_make(*args, **kwargs)
 
 class pss_tagger_cc_sptr(object):
@@ -6117,47 +5523,23 @@ class pss_tagger_cc_sptr(object):
     __swig_destroy__ = _lte_swig.delete_pss_tagger_cc_sptr
     __del__ = lambda self : None;
     def make(self, *args, **kwargs):
-        """
-        make(pss_tagger_cc_sptr self, int fftl, std::string name="pss_tagger_cc") -> pss_tagger_cc_sptr
-
-        Return a shared_ptr to a new instance of lte::pss_tagger_cc.
-
-        To avoid accidental use of raw pointers, lte::pss_tagger_cc's constructor is in a private implementation class. lte::pss_tagger_cc::make is the public interface for creating new instances.
-
-        Params: (fftl, name)
-        """
+        """make(pss_tagger_cc_sptr self, int fftl, std::string name="pss_tagger_cc") -> pss_tagger_cc_sptr"""
         return _lte_swig.pss_tagger_cc_sptr_make(self, *args, **kwargs)
 
     def set_half_frame_start(self, *args, **kwargs):
-        """
-        set_half_frame_start(pss_tagger_cc_sptr self, int start)
-
-        Params: (start)
-        """
+        """set_half_frame_start(pss_tagger_cc_sptr self, int start)"""
         return _lte_swig.pss_tagger_cc_sptr_set_half_frame_start(self, *args, **kwargs)
 
     def set_N_id_2(self, *args, **kwargs):
-        """
-        set_N_id_2(pss_tagger_cc_sptr self, int nid2)
-
-        Params: (nid2)
-        """
+        """set_N_id_2(pss_tagger_cc_sptr self, int nid2)"""
         return _lte_swig.pss_tagger_cc_sptr_set_N_id_2(self, *args, **kwargs)
 
     def lock(self):
-        """
-        lock(pss_tagger_cc_sptr self)
-
-        Params: (NONE)
-        """
+        """lock(pss_tagger_cc_sptr self)"""
         return _lte_swig.pss_tagger_cc_sptr_lock(self)
 
     def unlock(self):
-        """
-        unlock(pss_tagger_cc_sptr self)
-
-        Params: (NONE)
-        """
+        """unlock(pss_tagger_cc_sptr self)"""
         return _lte_swig.pss_tagger_cc_sptr_unlock(self)
 
     def history(self):
@@ -6410,54 +5792,34 @@ pss_tagger_cc_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.name(), 
 pss_tagger_cc = pss_tagger_cc.make;
 
 class correlator(object):
-    """This is a helper class to provide Fast Correlation using FFTW3f."""
+    """Proxy of C++ gr::lte::correlator class"""
     thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     __repr__ = _swig_repr
     def __init__(self, *args, **kwargs): 
-        """
-        __init__(gr::lte::correlator self, gr_complex * in1, gr_complex * in2, gr_complex * out, int len) -> correlator
-
-        Params: (in1, in2, out, len)
-        """
+        """__init__(gr::lte::correlator self, gr_complex * in1, gr_complex * in2, gr_complex * out, int len) -> correlator"""
         this = _lte_swig.new_correlator(*args, **kwargs)
         try: self.this.append(this)
         except: self.this = this
     __swig_destroy__ = _lte_swig.delete_correlator
     __del__ = lambda self : None;
     def execute(self):
-        """
-        execute(correlator self)
-
-        Params: (NONE)
-        """
+        """execute(correlator self)"""
         return _lte_swig.correlator_execute(self)
 
     def get_maximum(self, *args, **kwargs):
-        """
-        get_maximum(correlator self, int & pos, float & max)
-
-        Params: (pos, max)
-        """
+        """get_maximum(correlator self, int & pos, float & max)"""
         return _lte_swig.correlator_get_maximum(self, *args, **kwargs)
 
 correlator_swigregister = _lte_swig.correlator_swigregister
 correlator_swigregister(correlator)
 
 class sss_symbol_selector_cvc(object):
-    """<+description of block+>"""
+    """Proxy of C++ gr::lte::sss_symbol_selector_cvc class"""
     thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined")
     __repr__ = _swig_repr
     def make(*args, **kwargs):
-        """
-        make(int fftl, std::string name="sss_symbol_selector_cvc") -> sss_symbol_selector_cvc_sptr
-
-        Return a shared_ptr to a new instance of lte::sss_symbol_selector_cvc.
-
-        To avoid accidental use of raw pointers, lte::sss_symbol_selector_cvc's constructor is in a private implementation class. lte::sss_symbol_selector_cvc::make is the public interface for creating new instances.
-
-        Params: (fftl, name)
-        """
+        """make(int fftl, std::string name="sss_symbol_selector_cvc") -> sss_symbol_selector_cvc_sptr"""
         return _lte_swig.sss_symbol_selector_cvc_make(*args, **kwargs)
 
     make = staticmethod(make)
@@ -6467,15 +5829,7 @@ sss_symbol_selector_cvc_swigregister = _lte_swig.sss_symbol_selector_cvc_swigreg
 sss_symbol_selector_cvc_swigregister(sss_symbol_selector_cvc)
 
 def sss_symbol_selector_cvc_make(*args, **kwargs):
-  """
-    sss_symbol_selector_cvc_make(int fftl, std::string name="sss_symbol_selector_cvc") -> sss_symbol_selector_cvc_sptr
-
-    Return a shared_ptr to a new instance of lte::sss_symbol_selector_cvc.
-
-    To avoid accidental use of raw pointers, lte::sss_symbol_selector_cvc's constructor is in a private implementation class. lte::sss_symbol_selector_cvc::make is the public interface for creating new instances.
-
-    Params: (fftl, name)
-    """
+  """sss_symbol_selector_cvc_make(int fftl, std::string name="sss_symbol_selector_cvc") -> sss_symbol_selector_cvc_sptr"""
   return _lte_swig.sss_symbol_selector_cvc_make(*args, **kwargs)
 
 class sss_symbol_selector_cvc_sptr(object):
@@ -6497,15 +5851,7 @@ class sss_symbol_selector_cvc_sptr(object):
     __swig_destroy__ = _lte_swig.delete_sss_symbol_selector_cvc_sptr
     __del__ = lambda self : None;
     def make(self, *args, **kwargs):
-        """
-        make(sss_symbol_selector_cvc_sptr self, int fftl, std::string name="sss_symbol_selector_cvc") -> sss_symbol_selector_cvc_sptr
-
-        Return a shared_ptr to a new instance of lte::sss_symbol_selector_cvc.
-
-        To avoid accidental use of raw pointers, lte::sss_symbol_selector_cvc's constructor is in a private implementation class. lte::sss_symbol_selector_cvc::make is the public interface for creating new instances.
-
-        Params: (fftl, name)
-        """
+        """make(sss_symbol_selector_cvc_sptr self, int fftl, std::string name="sss_symbol_selector_cvc") -> sss_symbol_selector_cvc_sptr"""
         return _lte_swig.sss_symbol_selector_cvc_sptr_make(self, *args, **kwargs)
 
     def history(self):
@@ -6758,20 +6104,12 @@ sss_symbol_selector_cvc_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (sel
 sss_symbol_selector_cvc = sss_symbol_selector_cvc.make;
 
 class sss_tagger_cc(object):
-    """<+description of block+>"""
+    """Proxy of C++ gr::lte::sss_tagger_cc class"""
     thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined")
     __repr__ = _swig_repr
     def make(*args, **kwargs):
-        """
-        make(int fftl, std::string name="sss_tagger_cc") -> sss_tagger_cc_sptr
-
-        Return a shared_ptr to a new instance of lte::sss_tagger_cc.
-
-        To avoid accidental use of raw pointers, lte::sss_tagger_cc's constructor is in a private implementation class. lte::sss_tagger_cc::make is the public interface for creating new instances.
-
-        Params: (fftl, name)
-        """
+        """make(int fftl, std::string name="sss_tagger_cc") -> sss_tagger_cc_sptr"""
         return _lte_swig.sss_tagger_cc_make(*args, **kwargs)
 
     make = staticmethod(make)
@@ -6781,15 +6119,7 @@ sss_tagger_cc_swigregister = _lte_swig.sss_tagger_cc_swigregister
 sss_tagger_cc_swigregister(sss_tagger_cc)
 
 def sss_tagger_cc_make(*args, **kwargs):
-  """
-    sss_tagger_cc_make(int fftl, std::string name="sss_tagger_cc") -> sss_tagger_cc_sptr
-
-    Return a shared_ptr to a new instance of lte::sss_tagger_cc.
-
-    To avoid accidental use of raw pointers, lte::sss_tagger_cc's constructor is in a private implementation class. lte::sss_tagger_cc::make is the public interface for creating new instances.
-
-    Params: (fftl, name)
-    """
+  """sss_tagger_cc_make(int fftl, std::string name="sss_tagger_cc") -> sss_tagger_cc_sptr"""
   return _lte_swig.sss_tagger_cc_make(*args, **kwargs)
 
 class sss_tagger_cc_sptr(object):
@@ -6811,15 +6141,7 @@ class sss_tagger_cc_sptr(object):
     __swig_destroy__ = _lte_swig.delete_sss_tagger_cc_sptr
     __del__ = lambda self : None;
     def make(self, *args, **kwargs):
-        """
-        make(sss_tagger_cc_sptr self, int fftl, std::string name="sss_tagger_cc") -> sss_tagger_cc_sptr
-
-        Return a shared_ptr to a new instance of lte::sss_tagger_cc.
-
-        To avoid accidental use of raw pointers, lte::sss_tagger_cc's constructor is in a private implementation class. lte::sss_tagger_cc::make is the public interface for creating new instances.
-
-        Params: (fftl, name)
-        """
+        """make(sss_tagger_cc_sptr self, int fftl, std::string name="sss_tagger_cc") -> sss_tagger_cc_sptr"""
         return _lte_swig.sss_tagger_cc_sptr_make(self, *args, **kwargs)
 
     def history(self):
@@ -7072,24 +6394,12 @@ sss_tagger_cc_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.name(), 
 sss_tagger_cc = sss_tagger_cc.make;
 
 class sync_frequency_c(object):
-    """
-    Calculate fractional frequency offset
-
-    This block calculates FFO by correlating CPs and sets the frequency of a signal source block.
-    """
+    """Proxy of C++ gr::lte::sync_frequency_c class"""
     thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined")
     __repr__ = _swig_repr
     def make(*args, **kwargs):
-        """
-        make(boost::shared_ptr< gr::analog::sig_source_c > & sig, int fftl, std::string name="sync_frequency_c") -> sync_frequency_c_sptr
-
-        Return a shared_ptr to a new instance of lte::sync_frequency_c.
-
-        To avoid accidental use of raw pointers, lte::sync_frequency_c's constructor is in a private implementation class. lte::sync_frequency_c::make is the public interface for creating new instances.
-
-        Params: (sig, fftl, name)
-        """
+        """make(boost::shared_ptr< gr::analog::sig_source_c > & sig, int fftl, std::string name="sync_frequency_c") -> sync_frequency_c_sptr"""
         return _lte_swig.sync_frequency_c_make(*args, **kwargs)
 
     make = staticmethod(make)
@@ -7099,15 +6409,7 @@ sync_frequency_c_swigregister = _lte_swig.sync_frequency_c_swigregister
 sync_frequency_c_swigregister(sync_frequency_c)
 
 def sync_frequency_c_make(*args, **kwargs):
-  """
-    sync_frequency_c_make(boost::shared_ptr< gr::analog::sig_source_c > & sig, int fftl, std::string name="sync_frequency_c") -> sync_frequency_c_sptr
-
-    Return a shared_ptr to a new instance of lte::sync_frequency_c.
-
-    To avoid accidental use of raw pointers, lte::sync_frequency_c's constructor is in a private implementation class. lte::sync_frequency_c::make is the public interface for creating new instances.
-
-    Params: (sig, fftl, name)
-    """
+  """sync_frequency_c_make(boost::shared_ptr< gr::analog::sig_source_c > & sig, int fftl, std::string name="sync_frequency_c") -> sync_frequency_c_sptr"""
   return _lte_swig.sync_frequency_c_make(*args, **kwargs)
 
 class sync_frequency_c_sptr(object):
@@ -7129,15 +6431,7 @@ class sync_frequency_c_sptr(object):
     __swig_destroy__ = _lte_swig.delete_sync_frequency_c_sptr
     __del__ = lambda self : None;
     def make(self, *args, **kwargs):
-        """
-        make(sync_frequency_c_sptr self, boost::shared_ptr< gr::analog::sig_source_c > & sig, int fftl, std::string name="sync_frequency_c") -> sync_frequency_c_sptr
-
-        Return a shared_ptr to a new instance of lte::sync_frequency_c.
-
-        To avoid accidental use of raw pointers, lte::sync_frequency_c's constructor is in a private implementation class. lte::sync_frequency_c::make is the public interface for creating new instances.
-
-        Params: (sig, fftl, name)
-        """
+        """make(sync_frequency_c_sptr self, boost::shared_ptr< gr::analog::sig_source_c > & sig, int fftl, std::string name="sync_frequency_c") -> sync_frequency_c_sptr"""
         return _lte_swig.sync_frequency_c_sptr_make(self, *args, **kwargs)
 
     def history(self):
@@ -7390,32 +6684,16 @@ sync_frequency_c_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.name(
 sync_frequency_c = sync_frequency_c.make;
 
 class descrambler_vfvf(object):
-    """
-    LTE Descrambler
-
-    Scrambling sequences are setable on runtime and chosen upon tag reception.
-    """
+    """Proxy of C++ gr::lte::descrambler_vfvf class"""
     thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
     def set_descr_seqs(self, *args, **kwargs):
-        """
-        set_descr_seqs(descrambler_vfvf self, std::vector< std::vector< float,std::allocator< float > >,std::allocator< std::vector< float,std::allocator< float > > > > seqs)
-
-        Params: (seqs)
-        """
+        """set_descr_seqs(descrambler_vfvf self, std::vector< std::vector< float,std::allocator< float > >,std::allocator< std::vector< float,std::allocator< float > > > > seqs)"""
         return _lte_swig.descrambler_vfvf_set_descr_seqs(self, *args, **kwargs)
 
     def make(*args, **kwargs):
-        """
-        make(std::string tag_key, std::string msg_buf_name, int len, std::string name="descrambler_vfvf") -> descrambler_vfvf_sptr
-
-        Return a shared_ptr to a new instance of lte::descrambler_vfvf.
-
-        To avoid accidental use of raw pointers, lte::descrambler_vfvf's constructor is in a private implementation class. lte::descrambler_vfvf::make is the public interface for creating new instances.
-
-        Params: (tag_key, msg_buf_name, len, name)
-        """
+        """make(std::string tag_key, std::string msg_buf_name, int len, std::string name="descrambler_vfvf") -> descrambler_vfvf_sptr"""
         return _lte_swig.descrambler_vfvf_make(*args, **kwargs)
 
     make = staticmethod(make)
@@ -7425,15 +6703,7 @@ descrambler_vfvf_swigregister = _lte_swig.descrambler_vfvf_swigregister
 descrambler_vfvf_swigregister(descrambler_vfvf)
 
 def descrambler_vfvf_make(*args, **kwargs):
-  """
-    descrambler_vfvf_make(std::string tag_key, std::string msg_buf_name, int len, std::string name="descrambler_vfvf") -> descrambler_vfvf_sptr
-
-    Return a shared_ptr to a new instance of lte::descrambler_vfvf.
-
-    To avoid accidental use of raw pointers, lte::descrambler_vfvf's constructor is in a private implementation class. lte::descrambler_vfvf::make is the public interface for creating new instances.
-
-    Params: (tag_key, msg_buf_name, len, name)
-    """
+  """descrambler_vfvf_make(std::string tag_key, std::string msg_buf_name, int len, std::string name="descrambler_vfvf") -> descrambler_vfvf_sptr"""
   return _lte_swig.descrambler_vfvf_make(*args, **kwargs)
 
 class descrambler_vfvf_sptr(object):
@@ -7455,23 +6725,11 @@ class descrambler_vfvf_sptr(object):
     __swig_destroy__ = _lte_swig.delete_descrambler_vfvf_sptr
     __del__ = lambda self : None;
     def set_descr_seqs(self, *args, **kwargs):
-        """
-        set_descr_seqs(descrambler_vfvf_sptr self, std::vector< std::vector< float,std::allocator< float > >,std::allocator< std::vector< float,std::allocator< float > > > > seqs)
-
-        Params: (seqs)
-        """
+        """set_descr_seqs(descrambler_vfvf_sptr self, std::vector< std::vector< float,std::allocator< float > >,std::allocator< std::vector< float,std::allocator< float > > > > seqs)"""
         return _lte_swig.descrambler_vfvf_sptr_set_descr_seqs(self, *args, **kwargs)
 
     def make(self, *args, **kwargs):
-        """
-        make(descrambler_vfvf_sptr self, std::string tag_key, std::string msg_buf_name, int len, std::string name="descrambler_vfvf") -> descrambler_vfvf_sptr
-
-        Return a shared_ptr to a new instance of lte::descrambler_vfvf.
-
-        To avoid accidental use of raw pointers, lte::descrambler_vfvf's constructor is in a private implementation class. lte::descrambler_vfvf::make is the public interface for creating new instances.
-
-        Params: (tag_key, msg_buf_name, len, name)
-        """
+        """make(descrambler_vfvf_sptr self, std::string tag_key, std::string msg_buf_name, int len, std::string name="descrambler_vfvf") -> descrambler_vfvf_sptr"""
         return _lte_swig.descrambler_vfvf_sptr_make(self, *args, **kwargs)
 
     def history(self):
@@ -7724,28 +6982,16 @@ descrambler_vfvf_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.name(
 descrambler_vfvf = descrambler_vfvf.make;
 
 class pcfich_demux_vcvc(object):
-    """Demux PCFICH from resource grid."""
+    """Proxy of C++ gr::lte::pcfich_demux_vcvc class"""
     thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
     def set_cell_id(self, *args, **kwargs):
-        """
-        set_cell_id(pcfich_demux_vcvc self, int id)
-
-        Params: (id)
-        """
+        """set_cell_id(pcfich_demux_vcvc self, int id)"""
         return _lte_swig.pcfich_demux_vcvc_set_cell_id(self, *args, **kwargs)
 
     def make(*args, **kwargs):
-        """
-        make(int N_rb_dl, std::string key, std::string out_key, std::string msg_buf_name, std::string name="pcfich_demux_vcvc") -> pcfich_demux_vcvc_sptr
-
-        Return a shared_ptr to a new instance of lte::pcfich_demux_vcvc.
-
-        To avoid accidental use of raw pointers, lte::pcfich_demux_vcvc's constructor is in a private implementation class. lte::pcfich_demux_vcvc::make is the public interface for creating new instances.
-
-        Params: (N_rb_dl, key, out_key, msg_buf_name, name)
-        """
+        """make(int N_rb_dl, std::string key, std::string out_key, std::string msg_buf_name, std::string name="pcfich_demux_vcvc") -> pcfich_demux_vcvc_sptr"""
         return _lte_swig.pcfich_demux_vcvc_make(*args, **kwargs)
 
     make = staticmethod(make)
@@ -7755,15 +7001,7 @@ pcfich_demux_vcvc_swigregister = _lte_swig.pcfich_demux_vcvc_swigregister
 pcfich_demux_vcvc_swigregister(pcfich_demux_vcvc)
 
 def pcfich_demux_vcvc_make(*args, **kwargs):
-  """
-    pcfich_demux_vcvc_make(int N_rb_dl, std::string key, std::string out_key, std::string msg_buf_name, std::string name="pcfich_demux_vcvc") -> pcfich_demux_vcvc_sptr
-
-    Return a shared_ptr to a new instance of lte::pcfich_demux_vcvc.
-
-    To avoid accidental use of raw pointers, lte::pcfich_demux_vcvc's constructor is in a private implementation class. lte::pcfich_demux_vcvc::make is the public interface for creating new instances.
-
-    Params: (N_rb_dl, key, out_key, msg_buf_name, name)
-    """
+  """pcfich_demux_vcvc_make(int N_rb_dl, std::string key, std::string out_key, std::string msg_buf_name, std::string name="pcfich_demux_vcvc") -> pcfich_demux_vcvc_sptr"""
   return _lte_swig.pcfich_demux_vcvc_make(*args, **kwargs)
 
 class pcfich_demux_vcvc_sptr(object):
@@ -7785,23 +7023,11 @@ class pcfich_demux_vcvc_sptr(object):
     __swig_destroy__ = _lte_swig.delete_pcfich_demux_vcvc_sptr
     __del__ = lambda self : None;
     def set_cell_id(self, *args, **kwargs):
-        """
-        set_cell_id(pcfich_demux_vcvc_sptr self, int id)
-
-        Params: (id)
-        """
+        """set_cell_id(pcfich_demux_vcvc_sptr self, int id)"""
         return _lte_swig.pcfich_demux_vcvc_sptr_set_cell_id(self, *args, **kwargs)
 
     def make(self, *args, **kwargs):
-        """
-        make(pcfich_demux_vcvc_sptr self, int N_rb_dl, std::string key, std::string out_key, std::string msg_buf_name, std::string name="pcfich_demux_vcvc") -> pcfich_demux_vcvc_sptr
-
-        Return a shared_ptr to a new instance of lte::pcfich_demux_vcvc.
-
-        To avoid accidental use of raw pointers, lte::pcfich_demux_vcvc's constructor is in a private implementation class. lte::pcfich_demux_vcvc::make is the public interface for creating new instances.
-
-        Params: (N_rb_dl, key, out_key, msg_buf_name, name)
-        """
+        """make(pcfich_demux_vcvc_sptr self, int N_rb_dl, std::string key, std::string out_key, std::string msg_buf_name, std::string name="pcfich_demux_vcvc") -> pcfich_demux_vcvc_sptr"""
         return _lte_swig.pcfich_demux_vcvc_sptr_make(self, *args, **kwargs)
 
     def history(self):
@@ -8054,20 +7280,12 @@ pcfich_demux_vcvc_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.name
 pcfich_demux_vcvc = pcfich_demux_vcvc.make;
 
 class mimo_pss_coarse_sync(object):
-    """<+description of block+>"""
+    """Proxy of C++ gr::lte::mimo_pss_coarse_sync class"""
     thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined")
     __repr__ = _swig_repr
     def make(*args, **kwargs):
-        """
-        make(int fftl, int syncl, int rxant) -> mimo_pss_coarse_sync_sptr
-
-        Return a shared_ptr to a new instance of lte::mimo_pss_coarse_sync.
-
-        To avoid accidental use of raw pointers, lte::mimo_pss_coarse_sync's constructor is in a private implementation class. lte::mimo_pss_coarse_sync::make is the public interface for creating new instances.
-
-        Params: (fftl, syncl, rxant)
-        """
+        """make(int fftl, int syncl, int rxant) -> mimo_pss_coarse_sync_sptr"""
         return _lte_swig.mimo_pss_coarse_sync_make(*args, **kwargs)
 
     make = staticmethod(make)
@@ -8077,15 +7295,7 @@ mimo_pss_coarse_sync_swigregister = _lte_swig.mimo_pss_coarse_sync_swigregister
 mimo_pss_coarse_sync_swigregister(mimo_pss_coarse_sync)
 
 def mimo_pss_coarse_sync_make(*args, **kwargs):
-  """
-    mimo_pss_coarse_sync_make(int fftl, int syncl, int rxant) -> mimo_pss_coarse_sync_sptr
-
-    Return a shared_ptr to a new instance of lte::mimo_pss_coarse_sync.
-
-    To avoid accidental use of raw pointers, lte::mimo_pss_coarse_sync's constructor is in a private implementation class. lte::mimo_pss_coarse_sync::make is the public interface for creating new instances.
-
-    Params: (fftl, syncl, rxant)
-    """
+  """mimo_pss_coarse_sync_make(int fftl, int syncl, int rxant) -> mimo_pss_coarse_sync_sptr"""
   return _lte_swig.mimo_pss_coarse_sync_make(*args, **kwargs)
 
 class mimo_pss_coarse_sync_sptr(object):
@@ -8107,15 +7317,7 @@ class mimo_pss_coarse_sync_sptr(object):
     __swig_destroy__ = _lte_swig.delete_mimo_pss_coarse_sync_sptr
     __del__ = lambda self : None;
     def make(self, *args, **kwargs):
-        """
-        make(mimo_pss_coarse_sync_sptr self, int fftl, int syncl, int rxant) -> mimo_pss_coarse_sync_sptr
-
-        Return a shared_ptr to a new instance of lte::mimo_pss_coarse_sync.
-
-        To avoid accidental use of raw pointers, lte::mimo_pss_coarse_sync's constructor is in a private implementation class. lte::mimo_pss_coarse_sync::make is the public interface for creating new instances.
-
-        Params: (fftl, syncl, rxant)
-        """
+        """make(mimo_pss_coarse_sync_sptr self, int fftl, int syncl, int rxant) -> mimo_pss_coarse_sync_sptr"""
         return _lte_swig.mimo_pss_coarse_sync_sptr_make(self, *args, **kwargs)
 
     def history(self):
@@ -8368,20 +7570,12 @@ mimo_pss_coarse_sync_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.n
 mimo_pss_coarse_sync = mimo_pss_coarse_sync.make;
 
 class mimo_pss_fine_sync(object):
-    """<+description of block+>"""
+    """Proxy of C++ gr::lte::mimo_pss_fine_sync class"""
     thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined")
     __repr__ = _swig_repr
     def make(*args, **kwargs):
-        """
-        make(int fftl, int rxant, int grpdelay) -> mimo_pss_fine_sync_sptr
-
-        Return a shared_ptr to a new instance of lte::mimo_pss_fine_sync.
-
-        To avoid accidental use of raw pointers, lte::mimo_pss_fine_sync's constructor is in a private implementation class. lte::mimo_pss_fine_sync::make is the public interface for creating new instances.
-
-        Params: (fftl, rxant, grpdelay)
-        """
+        """make(int fftl, int rxant, int grpdelay) -> mimo_pss_fine_sync_sptr"""
         return _lte_swig.mimo_pss_fine_sync_make(*args, **kwargs)
 
     make = staticmethod(make)
@@ -8391,15 +7585,7 @@ mimo_pss_fine_sync_swigregister = _lte_swig.mimo_pss_fine_sync_swigregister
 mimo_pss_fine_sync_swigregister(mimo_pss_fine_sync)
 
 def mimo_pss_fine_sync_make(*args, **kwargs):
-  """
-    mimo_pss_fine_sync_make(int fftl, int rxant, int grpdelay) -> mimo_pss_fine_sync_sptr
-
-    Return a shared_ptr to a new instance of lte::mimo_pss_fine_sync.
-
-    To avoid accidental use of raw pointers, lte::mimo_pss_fine_sync's constructor is in a private implementation class. lte::mimo_pss_fine_sync::make is the public interface for creating new instances.
-
-    Params: (fftl, rxant, grpdelay)
-    """
+  """mimo_pss_fine_sync_make(int fftl, int rxant, int grpdelay) -> mimo_pss_fine_sync_sptr"""
   return _lte_swig.mimo_pss_fine_sync_make(*args, **kwargs)
 
 class mimo_pss_fine_sync_sptr(object):
@@ -8421,15 +7607,7 @@ class mimo_pss_fine_sync_sptr(object):
     __swig_destroy__ = _lte_swig.delete_mimo_pss_fine_sync_sptr
     __del__ = lambda self : None;
     def make(self, *args, **kwargs):
-        """
-        make(mimo_pss_fine_sync_sptr self, int fftl, int rxant, int grpdelay) -> mimo_pss_fine_sync_sptr
-
-        Return a shared_ptr to a new instance of lte::mimo_pss_fine_sync.
-
-        To avoid accidental use of raw pointers, lte::mimo_pss_fine_sync's constructor is in a private implementation class. lte::mimo_pss_fine_sync::make is the public interface for creating new instances.
-
-        Params: (fftl, rxant, grpdelay)
-        """
+        """make(mimo_pss_fine_sync_sptr self, int fftl, int rxant, int grpdelay) -> mimo_pss_fine_sync_sptr"""
         return _lte_swig.mimo_pss_fine_sync_sptr_make(self, *args, **kwargs)
 
     def history(self):
@@ -8682,20 +7860,12 @@ mimo_pss_fine_sync_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.nam
 mimo_pss_fine_sync = mimo_pss_fine_sync.make;
 
 class mimo_pss_tagger(object):
-    """<+description of block+>"""
+    """Proxy of C++ gr::lte::mimo_pss_tagger class"""
     thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined")
     __repr__ = _swig_repr
     def make(*args, **kwargs):
-        """
-        make(int fftl) -> mimo_pss_tagger_sptr
-
-        Return a shared_ptr to a new instance of lte::mimo_pss_tagger.
-
-        To avoid accidental use of raw pointers, lte::mimo_pss_tagger's constructor is in a private implementation class. lte::mimo_pss_tagger::make is the public interface for creating new instances.
-
-        Params: (fftl)
-        """
+        """make(int fftl) -> mimo_pss_tagger_sptr"""
         return _lte_swig.mimo_pss_tagger_make(*args, **kwargs)
 
     make = staticmethod(make)
@@ -8705,15 +7875,7 @@ mimo_pss_tagger_swigregister = _lte_swig.mimo_pss_tagger_swigregister
 mimo_pss_tagger_swigregister(mimo_pss_tagger)
 
 def mimo_pss_tagger_make(*args, **kwargs):
-  """
-    mimo_pss_tagger_make(int fftl) -> mimo_pss_tagger_sptr
-
-    Return a shared_ptr to a new instance of lte::mimo_pss_tagger.
-
-    To avoid accidental use of raw pointers, lte::mimo_pss_tagger's constructor is in a private implementation class. lte::mimo_pss_tagger::make is the public interface for creating new instances.
-
-    Params: (fftl)
-    """
+  """mimo_pss_tagger_make(int fftl) -> mimo_pss_tagger_sptr"""
   return _lte_swig.mimo_pss_tagger_make(*args, **kwargs)
 
 class mimo_pss_tagger_sptr(object):
@@ -8735,15 +7897,7 @@ class mimo_pss_tagger_sptr(object):
     __swig_destroy__ = _lte_swig.delete_mimo_pss_tagger_sptr
     __del__ = lambda self : None;
     def make(self, *args, **kwargs):
-        """
-        make(mimo_pss_tagger_sptr self, int fftl) -> mimo_pss_tagger_sptr
-
-        Return a shared_ptr to a new instance of lte::mimo_pss_tagger.
-
-        To avoid accidental use of raw pointers, lte::mimo_pss_tagger's constructor is in a private implementation class. lte::mimo_pss_tagger::make is the public interface for creating new instances.
-
-        Params: (fftl)
-        """
+        """make(mimo_pss_tagger_sptr self, int fftl) -> mimo_pss_tagger_sptr"""
         return _lte_swig.mimo_pss_tagger_sptr_make(self, *args, **kwargs)
 
     def history(self):
@@ -8996,20 +8150,12 @@ mimo_pss_tagger_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.name()
 mimo_pss_tagger = mimo_pss_tagger.make;
 
 class mimo_pss_coarse_control(object):
-    """<+description of block+>"""
+    """Proxy of C++ gr::lte::mimo_pss_coarse_control class"""
     thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined")
     __repr__ = _swig_repr
     def make(*args, **kwargs):
-        """
-        make(int rxant) -> mimo_pss_coarse_control_sptr
-
-        Return a shared_ptr to a new instance of lte::mimo_pss_coarse_control.
-
-        To avoid accidental use of raw pointers, lte::mimo_pss_coarse_control's constructor is in a private implementation class. lte::mimo_pss_coarse_control::make is the public interface for creating new instances.
-
-        Params: (rxant)
-        """
+        """make(int rxant) -> mimo_pss_coarse_control_sptr"""
         return _lte_swig.mimo_pss_coarse_control_make(*args, **kwargs)
 
     make = staticmethod(make)
@@ -9019,15 +8165,7 @@ mimo_pss_coarse_control_swigregister = _lte_swig.mimo_pss_coarse_control_swigreg
 mimo_pss_coarse_control_swigregister(mimo_pss_coarse_control)
 
 def mimo_pss_coarse_control_make(*args, **kwargs):
-  """
-    mimo_pss_coarse_control_make(int rxant) -> mimo_pss_coarse_control_sptr
-
-    Return a shared_ptr to a new instance of lte::mimo_pss_coarse_control.
-
-    To avoid accidental use of raw pointers, lte::mimo_pss_coarse_control's constructor is in a private implementation class. lte::mimo_pss_coarse_control::make is the public interface for creating new instances.
-
-    Params: (rxant)
-    """
+  """mimo_pss_coarse_control_make(int rxant) -> mimo_pss_coarse_control_sptr"""
   return _lte_swig.mimo_pss_coarse_control_make(*args, **kwargs)
 
 class mimo_pss_coarse_control_sptr(object):
@@ -9049,15 +8187,7 @@ class mimo_pss_coarse_control_sptr(object):
     __swig_destroy__ = _lte_swig.delete_mimo_pss_coarse_control_sptr
     __del__ = lambda self : None;
     def make(self, *args, **kwargs):
-        """
-        make(mimo_pss_coarse_control_sptr self, int rxant) -> mimo_pss_coarse_control_sptr
-
-        Return a shared_ptr to a new instance of lte::mimo_pss_coarse_control.
-
-        To avoid accidental use of raw pointers, lte::mimo_pss_coarse_control's constructor is in a private implementation class. lte::mimo_pss_coarse_control::make is the public interface for creating new instances.
-
-        Params: (rxant)
-        """
+        """make(mimo_pss_coarse_control_sptr self, int rxant) -> mimo_pss_coarse_control_sptr"""
         return _lte_swig.mimo_pss_coarse_control_sptr_make(self, *args, **kwargs)
 
     def history(self):
@@ -9310,44 +8440,28 @@ mimo_pss_coarse_control_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (sel
 mimo_pss_coarse_control = mimo_pss_coarse_control.make;
 
 class pss(object):
-    """helper class for pss blocks"""
+    """Proxy of C++ gr::lte::pss class"""
     thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     __repr__ = _swig_repr
     def __init__(self): 
-        """
-        __init__(gr::lte::pss self) -> pss
-
-        Params: (NONE)
-        """
+        """__init__(gr::lte::pss self) -> pss"""
         this = _lte_swig.new_pss()
         try: self.this.append(this)
         except: self.this = this
     __swig_destroy__ = _lte_swig.delete_pss
     __del__ = lambda self : None;
     def gen_pss_t(*args, **kwargs):
-        """
-        gen_pss_t(gr_complex * zc_t, int cell_id, int len)
-
-        Params: (zc_t, cell_id, len)
-        """
+        """gen_pss_t(gr_complex * zc_t, int cell_id, int len)"""
         return _lte_swig.pss_gen_pss_t(*args, **kwargs)
 
     gen_pss_t = staticmethod(gen_pss_t)
     def gen_conj_pss_t(*args, **kwargs):
-        """
-        gen_conj_pss_t(gr_complex * zc_t, int cell_id, int len)
-
-        Params: (zc_t, cell_id, len)
-        """
+        """gen_conj_pss_t(gr_complex * zc_t, int cell_id, int len)"""
         return _lte_swig.pss_gen_conj_pss_t(*args, **kwargs)
 
     gen_conj_pss_t = staticmethod(gen_conj_pss_t)
     def zc(*args, **kwargs):
-        """
-        zc(gr_complex * zc, int cell_id)
-
-        Params: (zc, cell_id)
-        """
+        """zc(gr_complex * zc, int cell_id)"""
         return _lte_swig.pss_zc(*args, **kwargs)
 
     zc = staticmethod(zc)
@@ -9355,44 +8469,24 @@ pss_swigregister = _lte_swig.pss_swigregister
 pss_swigregister(pss)
 
 def pss_gen_pss_t(*args, **kwargs):
-  """
-    pss_gen_pss_t(gr_complex * zc_t, int cell_id, int len)
-
-    Params: (zc_t, cell_id, len)
-    """
+  """pss_gen_pss_t(gr_complex * zc_t, int cell_id, int len)"""
   return _lte_swig.pss_gen_pss_t(*args, **kwargs)
 
 def pss_gen_conj_pss_t(*args, **kwargs):
-  """
-    pss_gen_conj_pss_t(gr_complex * zc_t, int cell_id, int len)
-
-    Params: (zc_t, cell_id, len)
-    """
+  """pss_gen_conj_pss_t(gr_complex * zc_t, int cell_id, int len)"""
   return _lte_swig.pss_gen_conj_pss_t(*args, **kwargs)
 
 def pss_zc(*args, **kwargs):
-  """
-    pss_zc(gr_complex * zc, int cell_id)
-
-    Params: (zc, cell_id)
-    """
+  """pss_zc(gr_complex * zc, int cell_id)"""
   return _lte_swig.pss_zc(*args, **kwargs)
 
 class mimo_pss_freq_sync(object):
-    """<+description of block+>"""
+    """Proxy of C++ gr::lte::mimo_pss_freq_sync class"""
     thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined")
     __repr__ = _swig_repr
     def make(*args, **kwargs):
-        """
-        make(int fftl, int rxant, boost::shared_ptr< gr::analog::sig_source_c > & sig) -> mimo_pss_freq_sync_sptr
-
-        Return a shared_ptr to a new instance of lte::mimo_pss_freq_sync.
-
-        To avoid accidental use of raw pointers, lte::mimo_pss_freq_sync's constructor is in a private implementation class. lte::mimo_pss_freq_sync::make is the public interface for creating new instances.
-
-        Params: (fftl, rxant, sig)
-        """
+        """make(int fftl, int rxant, boost::shared_ptr< gr::analog::sig_source_c > & sig) -> mimo_pss_freq_sync_sptr"""
         return _lte_swig.mimo_pss_freq_sync_make(*args, **kwargs)
 
     make = staticmethod(make)
@@ -9402,15 +8496,7 @@ mimo_pss_freq_sync_swigregister = _lte_swig.mimo_pss_freq_sync_swigregister
 mimo_pss_freq_sync_swigregister(mimo_pss_freq_sync)
 
 def mimo_pss_freq_sync_make(*args, **kwargs):
-  """
-    mimo_pss_freq_sync_make(int fftl, int rxant, boost::shared_ptr< gr::analog::sig_source_c > & sig) -> mimo_pss_freq_sync_sptr
-
-    Return a shared_ptr to a new instance of lte::mimo_pss_freq_sync.
-
-    To avoid accidental use of raw pointers, lte::mimo_pss_freq_sync's constructor is in a private implementation class. lte::mimo_pss_freq_sync::make is the public interface for creating new instances.
-
-    Params: (fftl, rxant, sig)
-    """
+  """mimo_pss_freq_sync_make(int fftl, int rxant, boost::shared_ptr< gr::analog::sig_source_c > & sig) -> mimo_pss_freq_sync_sptr"""
   return _lte_swig.mimo_pss_freq_sync_make(*args, **kwargs)
 
 class mimo_pss_freq_sync_sptr(object):
@@ -9432,15 +8518,7 @@ class mimo_pss_freq_sync_sptr(object):
     __swig_destroy__ = _lte_swig.delete_mimo_pss_freq_sync_sptr
     __del__ = lambda self : None;
     def make(self, *args, **kwargs):
-        """
-        make(mimo_pss_freq_sync_sptr self, int fftl, int rxant, boost::shared_ptr< gr::analog::sig_source_c > & sig) -> mimo_pss_freq_sync_sptr
-
-        Return a shared_ptr to a new instance of lte::mimo_pss_freq_sync.
-
-        To avoid accidental use of raw pointers, lte::mimo_pss_freq_sync's constructor is in a private implementation class. lte::mimo_pss_freq_sync::make is the public interface for creating new instances.
-
-        Params: (fftl, rxant, sig)
-        """
+        """make(mimo_pss_freq_sync_sptr self, int fftl, int rxant, boost::shared_ptr< gr::analog::sig_source_c > & sig) -> mimo_pss_freq_sync_sptr"""
         return _lte_swig.mimo_pss_freq_sync_sptr_make(self, *args, **kwargs)
 
     def history(self):
@@ -9693,20 +8771,12 @@ mimo_pss_freq_sync_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.nam
 mimo_pss_freq_sync = mimo_pss_freq_sync.make;
 
 class mimo_sss_symbol_selector(object):
-    """<+description of block+>"""
+    """Proxy of C++ gr::lte::mimo_sss_symbol_selector class"""
     thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined")
     __repr__ = _swig_repr
     def make(*args, **kwargs):
-        """
-        make(int rxant, int n_rb_dl) -> mimo_sss_symbol_selector_sptr
-
-        Return a shared_ptr to a new instance of lte::mimo_sss_symbol_selector.
-
-        To avoid accidental use of raw pointers, lte::mimo_sss_symbol_selector's constructor is in a private implementation class. lte::mimo_sss_symbol_selector::make is the public interface for creating new instances.
-
-        Params: (rxant, n_rb_dl)
-        """
+        """make(int fftl, int rxant) -> mimo_sss_symbol_selector_sptr"""
         return _lte_swig.mimo_sss_symbol_selector_make(*args, **kwargs)
 
     make = staticmethod(make)
@@ -9716,15 +8786,7 @@ mimo_sss_symbol_selector_swigregister = _lte_swig.mimo_sss_symbol_selector_swigr
 mimo_sss_symbol_selector_swigregister(mimo_sss_symbol_selector)
 
 def mimo_sss_symbol_selector_make(*args, **kwargs):
-  """
-    mimo_sss_symbol_selector_make(int rxant, int n_rb_dl) -> mimo_sss_symbol_selector_sptr
-
-    Return a shared_ptr to a new instance of lte::mimo_sss_symbol_selector.
-
-    To avoid accidental use of raw pointers, lte::mimo_sss_symbol_selector's constructor is in a private implementation class. lte::mimo_sss_symbol_selector::make is the public interface for creating new instances.
-
-    Params: (rxant, n_rb_dl)
-    """
+  """mimo_sss_symbol_selector_make(int fftl, int rxant) -> mimo_sss_symbol_selector_sptr"""
   return _lte_swig.mimo_sss_symbol_selector_make(*args, **kwargs)
 
 class mimo_sss_symbol_selector_sptr(object):
@@ -9746,15 +8808,7 @@ class mimo_sss_symbol_selector_sptr(object):
     __swig_destroy__ = _lte_swig.delete_mimo_sss_symbol_selector_sptr
     __del__ = lambda self : None;
     def make(self, *args, **kwargs):
-        """
-        make(mimo_sss_symbol_selector_sptr self, int rxant, int n_rb_dl) -> mimo_sss_symbol_selector_sptr
-
-        Return a shared_ptr to a new instance of lte::mimo_sss_symbol_selector.
-
-        To avoid accidental use of raw pointers, lte::mimo_sss_symbol_selector's constructor is in a private implementation class. lte::mimo_sss_symbol_selector::make is the public interface for creating new instances.
-
-        Params: (rxant, n_rb_dl)
-        """
+        """make(mimo_sss_symbol_selector_sptr self, int fftl, int rxant) -> mimo_sss_symbol_selector_sptr"""
         return _lte_swig.mimo_sss_symbol_selector_sptr_make(self, *args, **kwargs)
 
     def history(self):
@@ -10007,20 +9061,12 @@ mimo_sss_symbol_selector_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (se
 mimo_sss_symbol_selector = mimo_sss_symbol_selector.make;
 
 class mimo_sss_calculator(object):
-    """<+description of block+>"""
+    """Proxy of C++ gr::lte::mimo_sss_calculator class"""
     thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined")
     __repr__ = _swig_repr
     def make(*args, **kwargs):
-        """
-        make(int rxant) -> mimo_sss_calculator_sptr
-
-        Return a shared_ptr to a new instance of lte::mimo_sss_calculator.
-
-        To avoid accidental use of raw pointers, lte::mimo_sss_calculator's constructor is in a private implementation class. lte::mimo_sss_calculator::make is the public interface for creating new instances.
-
-        Params: (rxant)
-        """
+        """make(int fftl, int rxant) -> mimo_sss_calculator_sptr"""
         return _lte_swig.mimo_sss_calculator_make(*args, **kwargs)
 
     make = staticmethod(make)
@@ -10030,15 +9076,7 @@ mimo_sss_calculator_swigregister = _lte_swig.mimo_sss_calculator_swigregister
 mimo_sss_calculator_swigregister(mimo_sss_calculator)
 
 def mimo_sss_calculator_make(*args, **kwargs):
-  """
-    mimo_sss_calculator_make(int rxant) -> mimo_sss_calculator_sptr
-
-    Return a shared_ptr to a new instance of lte::mimo_sss_calculator.
-
-    To avoid accidental use of raw pointers, lte::mimo_sss_calculator's constructor is in a private implementation class. lte::mimo_sss_calculator::make is the public interface for creating new instances.
-
-    Params: (rxant)
-    """
+  """mimo_sss_calculator_make(int fftl, int rxant) -> mimo_sss_calculator_sptr"""
   return _lte_swig.mimo_sss_calculator_make(*args, **kwargs)
 
 class mimo_sss_calculator_sptr(object):
@@ -10060,15 +9098,7 @@ class mimo_sss_calculator_sptr(object):
     __swig_destroy__ = _lte_swig.delete_mimo_sss_calculator_sptr
     __del__ = lambda self : None;
     def make(self, *args, **kwargs):
-        """
-        make(mimo_sss_calculator_sptr self, int rxant) -> mimo_sss_calculator_sptr
-
-        Return a shared_ptr to a new instance of lte::mimo_sss_calculator.
-
-        To avoid accidental use of raw pointers, lte::mimo_sss_calculator's constructor is in a private implementation class. lte::mimo_sss_calculator::make is the public interface for creating new instances.
-
-        Params: (rxant)
-        """
+        """make(mimo_sss_calculator_sptr self, int fftl, int rxant) -> mimo_sss_calculator_sptr"""
         return _lte_swig.mimo_sss_calculator_sptr_make(self, *args, **kwargs)
 
     def history(self):
@@ -10321,20 +9351,12 @@ mimo_sss_calculator_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.na
 mimo_sss_calculator = mimo_sss_calculator.make;
 
 class mimo_sss_tagger(object):
-    """<+description of block+>"""
+    """Proxy of C++ gr::lte::mimo_sss_tagger class"""
     thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined")
     __repr__ = _swig_repr
     def make(*args, **kwargs):
-        """
-        make(int rxant, int n_rb_dl) -> mimo_sss_tagger_sptr
-
-        Return a shared_ptr to a new instance of lte::mimo_sss_tagger.
-
-        To avoid accidental use of raw pointers, lte::mimo_sss_tagger's constructor is in a private implementation class. lte::mimo_sss_tagger::make is the public interface for creating new instances.
-
-        Params: (rxant, n_rb_dl)
-        """
+        """make(int fftl, int rxant) -> mimo_sss_tagger_sptr"""
         return _lte_swig.mimo_sss_tagger_make(*args, **kwargs)
 
     make = staticmethod(make)
@@ -10344,15 +9366,7 @@ mimo_sss_tagger_swigregister = _lte_swig.mimo_sss_tagger_swigregister
 mimo_sss_tagger_swigregister(mimo_sss_tagger)
 
 def mimo_sss_tagger_make(*args, **kwargs):
-  """
-    mimo_sss_tagger_make(int rxant, int n_rb_dl) -> mimo_sss_tagger_sptr
-
-    Return a shared_ptr to a new instance of lte::mimo_sss_tagger.
-
-    To avoid accidental use of raw pointers, lte::mimo_sss_tagger's constructor is in a private implementation class. lte::mimo_sss_tagger::make is the public interface for creating new instances.
-
-    Params: (rxant, n_rb_dl)
-    """
+  """mimo_sss_tagger_make(int fftl, int rxant) -> mimo_sss_tagger_sptr"""
   return _lte_swig.mimo_sss_tagger_make(*args, **kwargs)
 
 class mimo_sss_tagger_sptr(object):
@@ -10374,15 +9388,7 @@ class mimo_sss_tagger_sptr(object):
     __swig_destroy__ = _lte_swig.delete_mimo_sss_tagger_sptr
     __del__ = lambda self : None;
     def make(self, *args, **kwargs):
-        """
-        make(mimo_sss_tagger_sptr self, int rxant, int n_rb_dl) -> mimo_sss_tagger_sptr
-
-        Return a shared_ptr to a new instance of lte::mimo_sss_tagger.
-
-        To avoid accidental use of raw pointers, lte::mimo_sss_tagger's constructor is in a private implementation class. lte::mimo_sss_tagger::make is the public interface for creating new instances.
-
-        Params: (rxant, n_rb_dl)
-        """
+        """make(mimo_sss_tagger_sptr self, int fftl, int rxant) -> mimo_sss_tagger_sptr"""
         return _lte_swig.mimo_sss_tagger_sptr_make(self, *args, **kwargs)
 
     def history(self):
@@ -10635,20 +9641,12 @@ mimo_sss_tagger_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.name()
 mimo_sss_tagger = mimo_sss_tagger.make;
 
 class mimo_remove_cp(object):
-    """<+description of block+>"""
+    """Proxy of C++ gr::lte::mimo_remove_cp class"""
     thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined")
     __repr__ = _swig_repr
     def make(*args, **kwargs):
-        """
-        make(int fflt, int rxant, std::string key) -> mimo_remove_cp_sptr
-
-        Return a shared_ptr to a new instance of lte::mimo_remove_cp.
-
-        To avoid accidental use of raw pointers, lte::mimo_remove_cp's constructor is in a private implementation class. lte::mimo_remove_cp::make is the public interface for creating new instances.
-
-        Params: (fflt, rxant, key)
-        """
+        """make(int fflt, int rxant, std::string key) -> mimo_remove_cp_sptr"""
         return _lte_swig.mimo_remove_cp_make(*args, **kwargs)
 
     make = staticmethod(make)
@@ -10658,15 +9656,7 @@ mimo_remove_cp_swigregister = _lte_swig.mimo_remove_cp_swigregister
 mimo_remove_cp_swigregister(mimo_remove_cp)
 
 def mimo_remove_cp_make(*args, **kwargs):
-  """
-    mimo_remove_cp_make(int fflt, int rxant, std::string key) -> mimo_remove_cp_sptr
-
-    Return a shared_ptr to a new instance of lte::mimo_remove_cp.
-
-    To avoid accidental use of raw pointers, lte::mimo_remove_cp's constructor is in a private implementation class. lte::mimo_remove_cp::make is the public interface for creating new instances.
-
-    Params: (fflt, rxant, key)
-    """
+  """mimo_remove_cp_make(int fflt, int rxant, std::string key) -> mimo_remove_cp_sptr"""
   return _lte_swig.mimo_remove_cp_make(*args, **kwargs)
 
 class mimo_remove_cp_sptr(object):
@@ -10688,15 +9678,7 @@ class mimo_remove_cp_sptr(object):
     __swig_destroy__ = _lte_swig.delete_mimo_remove_cp_sptr
     __del__ = lambda self : None;
     def make(self, *args, **kwargs):
-        """
-        make(mimo_remove_cp_sptr self, int fflt, int rxant, std::string key) -> mimo_remove_cp_sptr
-
-        Return a shared_ptr to a new instance of lte::mimo_remove_cp.
-
-        To avoid accidental use of raw pointers, lte::mimo_remove_cp's constructor is in a private implementation class. lte::mimo_remove_cp::make is the public interface for creating new instances.
-
-        Params: (fflt, rxant, key)
-        """
+        """make(mimo_remove_cp_sptr self, int fflt, int rxant, std::string key) -> mimo_remove_cp_sptr"""
         return _lte_swig.mimo_remove_cp_sptr_make(self, *args, **kwargs)
 
     def history(self):
@@ -10949,20 +9931,12 @@ mimo_remove_cp_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.name(),
 mimo_remove_cp = mimo_remove_cp.make;
 
 class mimo_extract_subcarriers(object):
-    """<+description of block+>"""
+    """Proxy of C++ gr::lte::mimo_extract_subcarriers class"""
     thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined")
     __repr__ = _swig_repr
     def make(*args, **kwargs):
-        """
-        make(int N_rb_dl, int fftl, int rxant) -> mimo_extract_subcarriers_sptr
-
-        Return a shared_ptr to a new instance of lte::mimo_extract_subcarriers.
-
-        To avoid accidental use of raw pointers, lte::mimo_extract_subcarriers's constructor is in a private implementation class. lte::mimo_extract_subcarriers::make is the public interface for creating new instances.
-
-        Params: (N_rb_dl, fftl, rxant)
-        """
+        """make(int N_rb_dl, int fftl, int rxant) -> mimo_extract_subcarriers_sptr"""
         return _lte_swig.mimo_extract_subcarriers_make(*args, **kwargs)
 
     make = staticmethod(make)
@@ -10972,15 +9946,7 @@ mimo_extract_subcarriers_swigregister = _lte_swig.mimo_extract_subcarriers_swigr
 mimo_extract_subcarriers_swigregister(mimo_extract_subcarriers)
 
 def mimo_extract_subcarriers_make(*args, **kwargs):
-  """
-    mimo_extract_subcarriers_make(int N_rb_dl, int fftl, int rxant) -> mimo_extract_subcarriers_sptr
-
-    Return a shared_ptr to a new instance of lte::mimo_extract_subcarriers.
-
-    To avoid accidental use of raw pointers, lte::mimo_extract_subcarriers's constructor is in a private implementation class. lte::mimo_extract_subcarriers::make is the public interface for creating new instances.
-
-    Params: (N_rb_dl, fftl, rxant)
-    """
+  """mimo_extract_subcarriers_make(int N_rb_dl, int fftl, int rxant) -> mimo_extract_subcarriers_sptr"""
   return _lte_swig.mimo_extract_subcarriers_make(*args, **kwargs)
 
 class mimo_extract_subcarriers_sptr(object):
@@ -11002,15 +9968,7 @@ class mimo_extract_subcarriers_sptr(object):
     __swig_destroy__ = _lte_swig.delete_mimo_extract_subcarriers_sptr
     __del__ = lambda self : None;
     def make(self, *args, **kwargs):
-        """
-        make(mimo_extract_subcarriers_sptr self, int N_rb_dl, int fftl, int rxant) -> mimo_extract_subcarriers_sptr
-
-        Return a shared_ptr to a new instance of lte::mimo_extract_subcarriers.
-
-        To avoid accidental use of raw pointers, lte::mimo_extract_subcarriers's constructor is in a private implementation class. lte::mimo_extract_subcarriers::make is the public interface for creating new instances.
-
-        Params: (N_rb_dl, fftl, rxant)
-        """
+        """make(mimo_extract_subcarriers_sptr self, int N_rb_dl, int fftl, int rxant) -> mimo_extract_subcarriers_sptr"""
         return _lte_swig.mimo_extract_subcarriers_sptr_make(self, *args, **kwargs)
 
     def history(self):
@@ -11263,7 +10221,7 @@ mimo_extract_subcarriers_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (se
 mimo_extract_subcarriers = mimo_extract_subcarriers.make;
 
 class mimo_channel_estimator(object):
-    """<+description of block+>"""
+    """Proxy of C++ gr::lte::mimo_channel_estimator class"""
     thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined")
     __repr__ = _swig_repr
@@ -11271,12 +10229,6 @@ class mimo_channel_estimator(object):
         """
         make(int rxant, int subcarriers, std::string tag_key, std::string msg_buf_name, std::vector< std::vector< int,std::allocator< int > >,std::allocator< std::vector< int,std::allocator< int > > > > const & pilot_carriers, 
             gr_vector_vector_complexf pilot_symbols) -> mimo_channel_estimator_sptr
-
-        Return a shared_ptr to a new instance of lte::mimo_channel_estimator.
-
-        To avoid accidental use of raw pointers, lte::mimo_channel_estimator's constructor is in a private implementation class. lte::mimo_channel_estimator::make is the public interface for creating new instances.
-
-        Params: (rxant, subcarriers, tag_key, msg_buf_name, pilot_carriers, pilot_symbols)
         """
         return _lte_swig.mimo_channel_estimator_make(*args, **kwargs)
 
@@ -11290,12 +10242,6 @@ def mimo_channel_estimator_make(*args, **kwargs):
   """
     mimo_channel_estimator_make(int rxant, int subcarriers, std::string tag_key, std::string msg_buf_name, std::vector< std::vector< int,std::allocator< int > >,std::allocator< std::vector< int,std::allocator< int > > > > const & pilot_carriers, 
         gr_vector_vector_complexf pilot_symbols) -> mimo_channel_estimator_sptr
-
-    Return a shared_ptr to a new instance of lte::mimo_channel_estimator.
-
-    To avoid accidental use of raw pointers, lte::mimo_channel_estimator's constructor is in a private implementation class. lte::mimo_channel_estimator::make is the public interface for creating new instances.
-
-    Params: (rxant, subcarriers, tag_key, msg_buf_name, pilot_carriers, pilot_symbols)
     """
   return _lte_swig.mimo_channel_estimator_make(*args, **kwargs)
 
@@ -11321,12 +10267,6 @@ class mimo_channel_estimator_sptr(object):
         """
         make(mimo_channel_estimator_sptr self, int rxant, int subcarriers, std::string tag_key, std::string msg_buf_name, std::vector< std::vector< int,std::allocator< int > >,std::allocator< std::vector< int,std::allocator< int > > > > const & pilot_carriers, 
             gr_vector_vector_complexf pilot_symbols) -> mimo_channel_estimator_sptr
-
-        Return a shared_ptr to a new instance of lte::mimo_channel_estimator.
-
-        To avoid accidental use of raw pointers, lte::mimo_channel_estimator's constructor is in a private implementation class. lte::mimo_channel_estimator::make is the public interface for creating new instances.
-
-        Params: (rxant, subcarriers, tag_key, msg_buf_name, pilot_carriers, pilot_symbols)
         """
         return _lte_swig.mimo_channel_estimator_sptr_make(self, *args, **kwargs)
 
@@ -11580,20 +10520,12 @@ mimo_channel_estimator_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self
 mimo_channel_estimator = mimo_channel_estimator.make;
 
 class mimo_pbch_demux(object):
-    """<+description of block+>"""
+    """Proxy of C++ gr::lte::mimo_pbch_demux class"""
     thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined")
     __repr__ = _swig_repr
     def make(*args, **kwargs):
-        """
-        make(int N_rb_dl, int rxant) -> mimo_pbch_demux_sptr
-
-        Return a shared_ptr to a new instance of lte::mimo_pbch_demux.
-
-        To avoid accidental use of raw pointers, lte::mimo_pbch_demux's constructor is in a private implementation class. lte::mimo_pbch_demux::make is the public interface for creating new instances.
-
-        Params: (N_rb_dl, rxant)
-        """
+        """make(int N_rb_dl, int rxant) -> mimo_pbch_demux_sptr"""
         return _lte_swig.mimo_pbch_demux_make(*args, **kwargs)
 
     make = staticmethod(make)
@@ -11603,15 +10535,7 @@ mimo_pbch_demux_swigregister = _lte_swig.mimo_pbch_demux_swigregister
 mimo_pbch_demux_swigregister(mimo_pbch_demux)
 
 def mimo_pbch_demux_make(*args, **kwargs):
-  """
-    mimo_pbch_demux_make(int N_rb_dl, int rxant) -> mimo_pbch_demux_sptr
-
-    Return a shared_ptr to a new instance of lte::mimo_pbch_demux.
-
-    To avoid accidental use of raw pointers, lte::mimo_pbch_demux's constructor is in a private implementation class. lte::mimo_pbch_demux::make is the public interface for creating new instances.
-
-    Params: (N_rb_dl, rxant)
-    """
+  """mimo_pbch_demux_make(int N_rb_dl, int rxant) -> mimo_pbch_demux_sptr"""
   return _lte_swig.mimo_pbch_demux_make(*args, **kwargs)
 
 class mimo_pbch_demux_sptr(object):
@@ -11633,15 +10557,7 @@ class mimo_pbch_demux_sptr(object):
     __swig_destroy__ = _lte_swig.delete_mimo_pbch_demux_sptr
     __del__ = lambda self : None;
     def make(self, *args, **kwargs):
-        """
-        make(mimo_pbch_demux_sptr self, int N_rb_dl, int rxant) -> mimo_pbch_demux_sptr
-
-        Return a shared_ptr to a new instance of lte::mimo_pbch_demux.
-
-        To avoid accidental use of raw pointers, lte::mimo_pbch_demux's constructor is in a private implementation class. lte::mimo_pbch_demux::make is the public interface for creating new instances.
-
-        Params: (N_rb_dl, rxant)
-        """
+        """make(mimo_pbch_demux_sptr self, int N_rb_dl, int rxant) -> mimo_pbch_demux_sptr"""
         return _lte_swig.mimo_pbch_demux_sptr_make(self, *args, **kwargs)
 
     def history(self):
@@ -11894,20 +10810,12 @@ mimo_pbch_demux_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.name()
 mimo_pbch_demux = mimo_pbch_demux.make;
 
 class mimo_pre_decoder(object):
-    """<+description of block+>"""
+    """Proxy of C++ gr::lte::mimo_pre_decoder class"""
     thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined")
     __repr__ = _swig_repr
     def make(*args, **kwargs):
-        """
-        make(int rxant, int N_ant, int vlen, std::string style) -> mimo_pre_decoder_sptr
-
-        Return a shared_ptr to a new instance of lte::mimo_pre_decoder.
-
-        To avoid accidental use of raw pointers, lte::mimo_pre_decoder's constructor is in a private implementation class. lte::mimo_pre_decoder::make is the public interface for creating new instances.
-
-        Params: (rxant, N_ant, vlen, style)
-        """
+        """make(int rxant, int N_ant, int vlen, std::string style) -> mimo_pre_decoder_sptr"""
         return _lte_swig.mimo_pre_decoder_make(*args, **kwargs)
 
     make = staticmethod(make)
@@ -11917,15 +10825,7 @@ mimo_pre_decoder_swigregister = _lte_swig.mimo_pre_decoder_swigregister
 mimo_pre_decoder_swigregister(mimo_pre_decoder)
 
 def mimo_pre_decoder_make(*args, **kwargs):
-  """
-    mimo_pre_decoder_make(int rxant, int N_ant, int vlen, std::string style) -> mimo_pre_decoder_sptr
-
-    Return a shared_ptr to a new instance of lte::mimo_pre_decoder.
-
-    To avoid accidental use of raw pointers, lte::mimo_pre_decoder's constructor is in a private implementation class. lte::mimo_pre_decoder::make is the public interface for creating new instances.
-
-    Params: (rxant, N_ant, vlen, style)
-    """
+  """mimo_pre_decoder_make(int rxant, int N_ant, int vlen, std::string style) -> mimo_pre_decoder_sptr"""
   return _lte_swig.mimo_pre_decoder_make(*args, **kwargs)
 
 class mimo_pre_decoder_sptr(object):
@@ -11947,15 +10847,7 @@ class mimo_pre_decoder_sptr(object):
     __swig_destroy__ = _lte_swig.delete_mimo_pre_decoder_sptr
     __del__ = lambda self : None;
     def make(self, *args, **kwargs):
-        """
-        make(mimo_pre_decoder_sptr self, int rxant, int N_ant, int vlen, std::string style) -> mimo_pre_decoder_sptr
-
-        Return a shared_ptr to a new instance of lte::mimo_pre_decoder.
-
-        To avoid accidental use of raw pointers, lte::mimo_pre_decoder's constructor is in a private implementation class. lte::mimo_pre_decoder::make is the public interface for creating new instances.
-
-        Params: (rxant, N_ant, vlen, style)
-        """
+        """make(mimo_pre_decoder_sptr self, int rxant, int N_ant, int vlen, std::string style) -> mimo_pre_decoder_sptr"""
         return _lte_swig.mimo_pre_decoder_sptr_make(self, *args, **kwargs)
 
     def history(self):

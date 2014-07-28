@@ -34,9 +34,6 @@ RM = /usr/bin/cmake -E remove -f
 # Escaping for special characters.
 EQUALS = =
 
-# The program to use to edit the cache.
-CMAKE_EDIT_COMMAND = /usr/bin/cmake-gui
-
 # The top-level source directory on which CMake was run.
 CMAKE_SOURCE_DIR = /home/maier/gr-lte
 
@@ -101,31 +98,18 @@ swig/lte_swigPYTHON_wrap.cxx: ../swig/lte_swig.i
 
 swig/lte_swig.py: swig/lte_swigPYTHON_wrap.cxx
 
-swig/lte_swig_doc.i: swig/lte_swig_doc_swig_docs/xml/index.xml
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/maier/gr-lte/build-cb/CMakeFiles $(CMAKE_PROGRESS_4)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating python docstrings for lte_swig_doc"
-	cd /home/maier/gr-lte/docs/doxygen && /usr/bin/python2 -B /home/maier/gr-lte/docs/doxygen/swig_doc.py /home/maier/gr-lte/build-cb/swig/lte_swig_doc_swig_docs/xml /home/maier/gr-lte/build-cb/swig/lte_swig_doc.i
-
 swig/lte_swig.tag: swig/_lte_swig_swig_tag
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/maier/gr-lte/build-cb/CMakeFiles $(CMAKE_PROGRESS_5)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/maier/gr-lte/build-cb/CMakeFiles $(CMAKE_PROGRESS_4)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating lte_swig.tag"
 	cd /home/maier/gr-lte/build-cb/swig && ./_lte_swig_swig_tag
 	cd /home/maier/gr-lte/build-cb/swig && /usr/bin/cmake -E touch /home/maier/gr-lte/build-cb/swig/lte_swig.tag
-
-swig/lte_swig_doc_swig_docs/xml/index.xml: swig/_lte_swig_doc_tag
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/maier/gr-lte/build-cb/CMakeFiles $(CMAKE_PROGRESS_6)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating doxygen xml for lte_swig_doc docs"
-	cd /home/maier/gr-lte/build-cb/swig && ./_lte_swig_doc_tag
-	cd /home/maier/gr-lte/build-cb/swig && /usr/bin/doxygen /home/maier/gr-lte/build-cb/swig/lte_swig_doc_swig_docs/Doxyfile
 
 pygen_swig_9a719: swig/CMakeFiles/pygen_swig_9a719
 pygen_swig_9a719: swig/lte_swig.pyc
 pygen_swig_9a719: swig/lte_swig.pyo
 pygen_swig_9a719: swig/lte_swigPYTHON_wrap.cxx
 pygen_swig_9a719: swig/lte_swig.py
-pygen_swig_9a719: swig/lte_swig_doc.i
 pygen_swig_9a719: swig/lte_swig.tag
-pygen_swig_9a719: swig/lte_swig_doc_swig_docs/xml/index.xml
 pygen_swig_9a719: swig/CMakeFiles/pygen_swig_9a719.dir/build.make
 .PHONY : pygen_swig_9a719
 

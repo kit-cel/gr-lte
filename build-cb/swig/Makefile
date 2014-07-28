@@ -38,9 +38,6 @@ RM = /usr/bin/cmake -E remove -f
 # Escaping for special characters.
 EQUALS = =
 
-# The program to use to edit the cache.
-CMAKE_EDIT_COMMAND = /usr/bin/cmake-gui
-
 # The top-level source directory on which CMake was run.
 CMAKE_SOURCE_DIR = /home/maier/gr-lte
 
@@ -52,8 +49,8 @@ CMAKE_BINARY_DIR = /home/maier/gr-lte/build-cb
 
 # Special rule for the target edit_cache
 edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/usr/bin/cmake-gui -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running interactive CMake command-line interface..."
+	/usr/bin/cmake -i .
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -81,6 +78,16 @@ install/local: preinstall
 # Special rule for the target install/local
 install/local/fast: install/local
 .PHONY : install/local/fast
+
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: install/strip
+.PHONY : install/strip/fast
 
 # Special rule for the target list_install_components
 list_install_components:
@@ -156,25 +163,6 @@ _lte_swig/fast:
 	cd /home/maier/gr-lte/build-cb && $(MAKE) -f swig/CMakeFiles/_lte_swig.dir/build.make swig/CMakeFiles/_lte_swig.dir/build
 .PHONY : _lte_swig/fast
 
-# Manual pre-install relink rule for target.
-_lte_swig/preinstall:
-	cd /home/maier/gr-lte/build-cb && $(MAKE) -f CMakeFiles/Makefile2 swig/CMakeFiles/_lte_swig.dir/preinstall
-.PHONY : _lte_swig/preinstall
-
-# Convenience name for target.
-swig/CMakeFiles/_lte_swig_doc_tag.dir/rule:
-	cd /home/maier/gr-lte/build-cb && $(MAKE) -f CMakeFiles/Makefile2 swig/CMakeFiles/_lte_swig_doc_tag.dir/rule
-.PHONY : swig/CMakeFiles/_lte_swig_doc_tag.dir/rule
-
-# Convenience name for target.
-_lte_swig_doc_tag: swig/CMakeFiles/_lte_swig_doc_tag.dir/rule
-.PHONY : _lte_swig_doc_tag
-
-# fast build rule for target.
-_lte_swig_doc_tag/fast:
-	cd /home/maier/gr-lte/build-cb && $(MAKE) -f swig/CMakeFiles/_lte_swig_doc_tag.dir/build.make swig/CMakeFiles/_lte_swig_doc_tag.dir/build
-.PHONY : _lte_swig_doc_tag/fast
-
 # Convenience name for target.
 swig/CMakeFiles/_lte_swig_swig_tag.dir/rule:
 	cd /home/maier/gr-lte/build-cb && $(MAKE) -f CMakeFiles/Makefile2 swig/CMakeFiles/_lte_swig_swig_tag.dir/rule
@@ -216,30 +204,6 @@ pygen_swig_9a719: swig/CMakeFiles/pygen_swig_9a719.dir/rule
 pygen_swig_9a719/fast:
 	cd /home/maier/gr-lte/build-cb && $(MAKE) -f swig/CMakeFiles/pygen_swig_9a719.dir/build.make swig/CMakeFiles/pygen_swig_9a719.dir/build
 .PHONY : pygen_swig_9a719/fast
-
-_lte_swig_doc_tag.o: _lte_swig_doc_tag.cpp.o
-.PHONY : _lte_swig_doc_tag.o
-
-# target to build an object file
-_lte_swig_doc_tag.cpp.o:
-	cd /home/maier/gr-lte/build-cb && $(MAKE) -f swig/CMakeFiles/_lte_swig_doc_tag.dir/build.make swig/CMakeFiles/_lte_swig_doc_tag.dir/_lte_swig_doc_tag.cpp.o
-.PHONY : _lte_swig_doc_tag.cpp.o
-
-_lte_swig_doc_tag.i: _lte_swig_doc_tag.cpp.i
-.PHONY : _lte_swig_doc_tag.i
-
-# target to preprocess a source file
-_lte_swig_doc_tag.cpp.i:
-	cd /home/maier/gr-lte/build-cb && $(MAKE) -f swig/CMakeFiles/_lte_swig_doc_tag.dir/build.make swig/CMakeFiles/_lte_swig_doc_tag.dir/_lte_swig_doc_tag.cpp.i
-.PHONY : _lte_swig_doc_tag.cpp.i
-
-_lte_swig_doc_tag.s: _lte_swig_doc_tag.cpp.s
-.PHONY : _lte_swig_doc_tag.s
-
-# target to generate assembly for a file
-_lte_swig_doc_tag.cpp.s:
-	cd /home/maier/gr-lte/build-cb && $(MAKE) -f swig/CMakeFiles/_lte_swig_doc_tag.dir/build.make swig/CMakeFiles/_lte_swig_doc_tag.dir/_lte_swig_doc_tag.cpp.s
-.PHONY : _lte_swig_doc_tag.cpp.s
 
 _lte_swig_swig_tag.o: _lte_swig_swig_tag.cpp.o
 .PHONY : _lte_swig_swig_tag.o
@@ -296,19 +260,16 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... _lte_swig"
-	@echo "... _lte_swig_doc_tag"
 	@echo "... _lte_swig_swig_tag"
 	@echo "... edit_cache"
 	@echo "... install"
 	@echo "... install/local"
+	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... lte_swig_swig_doc"
 	@echo "... pygen_swig_9a719"
 	@echo "... rebuild_cache"
 	@echo "... test"
-	@echo "... _lte_swig_doc_tag.o"
-	@echo "... _lte_swig_doc_tag.i"
-	@echo "... _lte_swig_doc_tag.s"
 	@echo "... _lte_swig_swig_tag.o"
 	@echo "... _lte_swig_swig_tag.i"
 	@echo "... _lte_swig_swig_tag.s"

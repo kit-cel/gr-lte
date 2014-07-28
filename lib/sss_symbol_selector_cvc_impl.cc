@@ -1,17 +1,17 @@
 /* -*- c++ -*- */
-/*
+/* 
  * Copyright 2013 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
- *
+ * 
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 3, or (at your option)
  * any later version.
- *
+ * 
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with this software; see the file COPYING.  If not, write to
  * the Free Software Foundation, Inc., 51 Franklin Street,
@@ -84,7 +84,7 @@ namespace gr {
     {
         const gr_complex *in = (const gr_complex *) input_items[0];
         gr_complex *out = (gr_complex *) output_items[0];
-
+      
         //printf("work! nitems_read+ninput_items = %ld\t", nitems_read(0) + ninput_items[0]);
         std::vector <gr::tag_t> v_id;
         get_tags_in_range(v_id,0,nitems_read(0),nitems_read(0)+ninput_items[0],d_id_key);
@@ -93,29 +93,29 @@ namespace gr {
             long id_off = v_id[0].offset;
             //printf("%s found N_id_2 = %i\t id_off = %ld\n",name().c_str(), d_N_id_2, id_off);
         }
-
-        pmt::pmt_t slot_key=pmt::string_to_symbol("slot");
+        
+        pmt::pmt_t slot_key=pmt::string_to_symbol("slot");  
         std::vector <gr::tag_t> v;
         get_tags_in_range(v,0,nitems_read(0),nitems_read(0)+ninput_items[0],slot_key);
         if (v.size() > 0){
-
+            
             long value = pmt::to_long(v[0].value);
             //printf("%s tag: found\tvalue = %ld\toffset = %ld\n",name().c_str(),value,v[0].offset );
             if(value == 0){
                 d_offset = v[0].offset;
                 d_abs_pos = v[0].offset+5*d_fftl+5*d_cpl+d_cpl0; // points at the exact beginning of a SSS symbol.
                 //printf("\n%s tag: d_abs_pos = %ld\n",name().c_str(), d_abs_pos);
-
+            
             }
         }
-
+            
         if(d_abs_pos >= nitems_read(0) && d_N_id_2 >= 0 ){
             //printf("found:  d_abs_pos = %ld >= %ld = nitems_read\n", d_abs_pos, nitems_read(0) );
 
-
+        
             if(d_abs_pos+d_fftl < nitems_read(0)+ninput_items[0]){
                 //printf("\nPRODUCE real output!\tdiff = %ld\tpos = %ld\n\n",d_abs_pos-nitems_read(0), d_abs_pos);
-
+                
                 memcpy(out,in+(d_abs_pos-nitems_read(0) ),sizeof(gr_complex)*d_fftl);
                 add_item_tag(0,nitems_written(0),d_key   , pmt::from_long( d_offset ),d_tag_id);
                 add_item_tag(0,nitems_written(0),d_id_key, pmt::from_long( d_N_id_2 ),d_tag_id);
@@ -129,11 +129,11 @@ namespace gr {
                     consume_each(ninput_items[0]);
                 }
                 else{
-                    consume_each( diff );
+                    consume_each( diff );  
                 }
                 return 0;
             }
-
+            
         }
         else{
             //printf("missed: d_abs_pos = %ld  < %ld = nitems_read\n", d_abs_pos, nitems_read(0) );

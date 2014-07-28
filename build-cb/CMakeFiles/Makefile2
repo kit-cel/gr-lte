@@ -46,9 +46,6 @@ RM = /usr/bin/cmake -E remove -f
 # Escaping for special characters.
 EQUALS = =
 
-# The program to use to edit the cache.
-CMAKE_EDIT_COMMAND = /usr/bin/cmake-gui
-
 # The top-level source directory on which CMake was run.
 CMAKE_SOURCE_DIR = /home/maier/gr-lte
 
@@ -115,7 +112,7 @@ lib/clean: lib/CMakeFiles/test-lte.dir/clean
 .PHONY : lib/clean
 
 # Convenience name for "preinstall" pass in the directory.
-lib/preinstall: lib/CMakeFiles/gnuradio-lte.dir/preinstall
+lib/preinstall:
 .PHONY : lib/preinstall
 
 #=============================================================================
@@ -125,7 +122,7 @@ lib/preinstall: lib/CMakeFiles/gnuradio-lte.dir/preinstall
 lib/CMakeFiles/gnuradio-lte.dir/all:
 	$(MAKE) -f lib/CMakeFiles/gnuradio-lte.dir/build.make lib/CMakeFiles/gnuradio-lte.dir/depend
 	$(MAKE) -f lib/CMakeFiles/gnuradio-lte.dir/build.make lib/CMakeFiles/gnuradio-lte.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/maier/gr-lte/build-cb/CMakeFiles  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/maier/gr-lte/build-cb/CMakeFiles  5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43
 	@echo "Built target gnuradio-lte"
 .PHONY : lib/CMakeFiles/gnuradio-lte.dir/all
 
@@ -144,15 +141,6 @@ lib/CMakeFiles/gnuradio-lte.dir/rule: cmake_check_build_system
 gnuradio-lte: lib/CMakeFiles/gnuradio-lte.dir/rule
 .PHONY : gnuradio-lte
 
-# Pre-install relink rule for target.
-lib/CMakeFiles/gnuradio-lte.dir/preinstall:
-	$(MAKE) -f lib/CMakeFiles/gnuradio-lte.dir/build.make lib/CMakeFiles/gnuradio-lte.dir/preinstall
-.PHONY : lib/CMakeFiles/gnuradio-lte.dir/preinstall
-
-# Prepare target for install.
-preinstall: lib/CMakeFiles/gnuradio-lte.dir/preinstall
-.PHONY : preinstall
-
 # clean rule for target.
 lib/CMakeFiles/gnuradio-lte.dir/clean:
 	$(MAKE) -f lib/CMakeFiles/gnuradio-lte.dir/build.make lib/CMakeFiles/gnuradio-lte.dir/clean
@@ -169,7 +157,7 @@ clean: lib/CMakeFiles/gnuradio-lte.dir/clean
 lib/CMakeFiles/test-lte.dir/all: lib/CMakeFiles/gnuradio-lte.dir/all
 	$(MAKE) -f lib/CMakeFiles/test-lte.dir/build.make lib/CMakeFiles/test-lte.dir/depend
 	$(MAKE) -f lib/CMakeFiles/test-lte.dir/build.make lib/CMakeFiles/test-lte.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/maier/gr-lte/build-cb/CMakeFiles  58 59
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/maier/gr-lte/build-cb/CMakeFiles  50 51
 	@echo "Built target test-lte"
 .PHONY : lib/CMakeFiles/test-lte.dir/all
 
@@ -202,21 +190,19 @@ clean: lib/CMakeFiles/test-lte.dir/clean
 
 # Convenience name for "all" pass in the directory.
 swig/all: swig/CMakeFiles/_lte_swig.dir/all
-swig/all: swig/CMakeFiles/_lte_swig_doc_tag.dir/all
 swig/all: swig/CMakeFiles/_lte_swig_swig_tag.dir/all
 swig/all: swig/CMakeFiles/pygen_swig_9a719.dir/all
 .PHONY : swig/all
 
 # Convenience name for "clean" pass in the directory.
 swig/clean: swig/CMakeFiles/_lte_swig.dir/clean
-swig/clean: swig/CMakeFiles/_lte_swig_doc_tag.dir/clean
 swig/clean: swig/CMakeFiles/_lte_swig_swig_tag.dir/clean
 swig/clean: swig/CMakeFiles/lte_swig_swig_doc.dir/clean
 swig/clean: swig/CMakeFiles/pygen_swig_9a719.dir/clean
 .PHONY : swig/clean
 
 # Convenience name for "preinstall" pass in the directory.
-swig/preinstall: swig/CMakeFiles/_lte_swig.dir/preinstall
+swig/preinstall:
 .PHONY : swig/preinstall
 
 #=============================================================================
@@ -225,10 +211,9 @@ swig/preinstall: swig/CMakeFiles/_lte_swig.dir/preinstall
 # All Build rule for target.
 swig/CMakeFiles/_lte_swig.dir/all: lib/CMakeFiles/gnuradio-lte.dir/all
 swig/CMakeFiles/_lte_swig.dir/all: swig/CMakeFiles/_lte_swig_swig_tag.dir/all
-swig/CMakeFiles/_lte_swig.dir/all: swig/CMakeFiles/_lte_swig_doc_tag.dir/all
 	$(MAKE) -f swig/CMakeFiles/_lte_swig.dir/build.make swig/CMakeFiles/_lte_swig.dir/depend
 	$(MAKE) -f swig/CMakeFiles/_lte_swig.dir/build.make swig/CMakeFiles/_lte_swig.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/maier/gr-lte/build-cb/CMakeFiles  1 2 3 4 5
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/maier/gr-lte/build-cb/CMakeFiles  1 2 3
 	@echo "Built target _lte_swig"
 .PHONY : swig/CMakeFiles/_lte_swig.dir/all
 
@@ -238,7 +223,7 @@ all: swig/CMakeFiles/_lte_swig.dir/all
 
 # Build rule for subdir invocation for target.
 swig/CMakeFiles/_lte_swig.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/maier/gr-lte/build-cb/CMakeFiles 48
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/maier/gr-lte/build-cb/CMakeFiles 43
 	$(MAKE) -f CMakeFiles/Makefile2 swig/CMakeFiles/_lte_swig.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/maier/gr-lte/build-cb/CMakeFiles 0
 .PHONY : swig/CMakeFiles/_lte_swig.dir/rule
@@ -246,15 +231,6 @@ swig/CMakeFiles/_lte_swig.dir/rule: cmake_check_build_system
 # Convenience name for target.
 _lte_swig: swig/CMakeFiles/_lte_swig.dir/rule
 .PHONY : _lte_swig
-
-# Pre-install relink rule for target.
-swig/CMakeFiles/_lte_swig.dir/preinstall:
-	$(MAKE) -f swig/CMakeFiles/_lte_swig.dir/build.make swig/CMakeFiles/_lte_swig.dir/preinstall
-.PHONY : swig/CMakeFiles/_lte_swig.dir/preinstall
-
-# Prepare target for install.
-preinstall: swig/CMakeFiles/_lte_swig.dir/preinstall
-.PHONY : preinstall
 
 # clean rule for target.
 swig/CMakeFiles/_lte_swig.dir/clean:
@@ -266,48 +242,13 @@ clean: swig/CMakeFiles/_lte_swig.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target swig/CMakeFiles/_lte_swig_doc_tag.dir
-
-# All Build rule for target.
-swig/CMakeFiles/_lte_swig_doc_tag.dir/all:
-	$(MAKE) -f swig/CMakeFiles/_lte_swig_doc_tag.dir/build.make swig/CMakeFiles/_lte_swig_doc_tag.dir/depend
-	$(MAKE) -f swig/CMakeFiles/_lte_swig_doc_tag.dir/build.make swig/CMakeFiles/_lte_swig_doc_tag.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/maier/gr-lte/build-cb/CMakeFiles  6
-	@echo "Built target _lte_swig_doc_tag"
-.PHONY : swig/CMakeFiles/_lte_swig_doc_tag.dir/all
-
-# Include target in all.
-all: swig/CMakeFiles/_lte_swig_doc_tag.dir/all
-.PHONY : all
-
-# Build rule for subdir invocation for target.
-swig/CMakeFiles/_lte_swig_doc_tag.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/maier/gr-lte/build-cb/CMakeFiles 1
-	$(MAKE) -f CMakeFiles/Makefile2 swig/CMakeFiles/_lte_swig_doc_tag.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/maier/gr-lte/build-cb/CMakeFiles 0
-.PHONY : swig/CMakeFiles/_lte_swig_doc_tag.dir/rule
-
-# Convenience name for target.
-_lte_swig_doc_tag: swig/CMakeFiles/_lte_swig_doc_tag.dir/rule
-.PHONY : _lte_swig_doc_tag
-
-# clean rule for target.
-swig/CMakeFiles/_lte_swig_doc_tag.dir/clean:
-	$(MAKE) -f swig/CMakeFiles/_lte_swig_doc_tag.dir/build.make swig/CMakeFiles/_lte_swig_doc_tag.dir/clean
-.PHONY : swig/CMakeFiles/_lte_swig_doc_tag.dir/clean
-
-# clean rule for target.
-clean: swig/CMakeFiles/_lte_swig_doc_tag.dir/clean
-.PHONY : clean
-
-#=============================================================================
 # Target rules for target swig/CMakeFiles/_lte_swig_swig_tag.dir
 
 # All Build rule for target.
 swig/CMakeFiles/_lte_swig_swig_tag.dir/all: swig/CMakeFiles/lte_swig_swig_doc.dir/all
 	$(MAKE) -f swig/CMakeFiles/_lte_swig_swig_tag.dir/build.make swig/CMakeFiles/_lte_swig_swig_tag.dir/depend
 	$(MAKE) -f swig/CMakeFiles/_lte_swig_swig_tag.dir/build.make swig/CMakeFiles/_lte_swig_swig_tag.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/maier/gr-lte/build-cb/CMakeFiles  7
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/maier/gr-lte/build-cb/CMakeFiles  4
 	@echo "Built target _lte_swig_swig_tag"
 .PHONY : swig/CMakeFiles/_lte_swig_swig_tag.dir/all
 
@@ -317,7 +258,7 @@ all: swig/CMakeFiles/_lte_swig_swig_tag.dir/all
 
 # Build rule for subdir invocation for target.
 swig/CMakeFiles/_lte_swig_swig_tag.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/maier/gr-lte/build-cb/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/maier/gr-lte/build-cb/CMakeFiles 1
 	$(MAKE) -f CMakeFiles/Makefile2 swig/CMakeFiles/_lte_swig_swig_tag.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/maier/gr-lte/build-cb/CMakeFiles 0
 .PHONY : swig/CMakeFiles/_lte_swig_swig_tag.dir/rule
@@ -339,16 +280,16 @@ clean: swig/CMakeFiles/_lte_swig_swig_tag.dir/clean
 # Target rules for target swig/CMakeFiles/lte_swig_swig_doc.dir
 
 # All Build rule for target.
-swig/CMakeFiles/lte_swig_swig_doc.dir/all: swig/CMakeFiles/_lte_swig_doc_tag.dir/all
+swig/CMakeFiles/lte_swig_swig_doc.dir/all:
 	$(MAKE) -f swig/CMakeFiles/lte_swig_swig_doc.dir/build.make swig/CMakeFiles/lte_swig_swig_doc.dir/depend
 	$(MAKE) -f swig/CMakeFiles/lte_swig_swig_doc.dir/build.make swig/CMakeFiles/lte_swig_swig_doc.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/maier/gr-lte/build-cb/CMakeFiles  48 49
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/maier/gr-lte/build-cb/CMakeFiles 
 	@echo "Built target lte_swig_swig_doc"
 .PHONY : swig/CMakeFiles/lte_swig_swig_doc.dir/all
 
 # Build rule for subdir invocation for target.
 swig/CMakeFiles/lte_swig_swig_doc.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/maier/gr-lte/build-cb/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/maier/gr-lte/build-cb/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 swig/CMakeFiles/lte_swig_swig_doc.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/maier/gr-lte/build-cb/CMakeFiles 0
 .PHONY : swig/CMakeFiles/lte_swig_swig_doc.dir/rule
@@ -371,10 +312,9 @@ clean: swig/CMakeFiles/lte_swig_swig_doc.dir/clean
 
 # All Build rule for target.
 swig/CMakeFiles/pygen_swig_9a719.dir/all: swig/CMakeFiles/_lte_swig_swig_tag.dir/all
-swig/CMakeFiles/pygen_swig_9a719.dir/all: swig/CMakeFiles/_lte_swig_doc_tag.dir/all
 	$(MAKE) -f swig/CMakeFiles/pygen_swig_9a719.dir/build.make swig/CMakeFiles/pygen_swig_9a719.dir/depend
 	$(MAKE) -f swig/CMakeFiles/pygen_swig_9a719.dir/build.make swig/CMakeFiles/pygen_swig_9a719.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/maier/gr-lte/build-cb/CMakeFiles  52 53 54 55 56 57
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/maier/gr-lte/build-cb/CMakeFiles  46 47 48 49
 	@echo "Built target pygen_swig_9a719"
 .PHONY : swig/CMakeFiles/pygen_swig_9a719.dir/all
 
@@ -384,7 +324,7 @@ all: swig/CMakeFiles/pygen_swig_9a719.dir/all
 
 # Build rule for subdir invocation for target.
 swig/CMakeFiles/pygen_swig_9a719.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/maier/gr-lte/build-cb/CMakeFiles 10
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/maier/gr-lte/build-cb/CMakeFiles 5
 	$(MAKE) -f CMakeFiles/Makefile2 swig/CMakeFiles/pygen_swig_9a719.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/maier/gr-lte/build-cb/CMakeFiles 0
 .PHONY : swig/CMakeFiles/pygen_swig_9a719.dir/rule
@@ -424,7 +364,7 @@ python/preinstall:
 python/CMakeFiles/pygen_python_bc9c3.dir/all:
 	$(MAKE) -f python/CMakeFiles/pygen_python_bc9c3.dir/build.make python/CMakeFiles/pygen_python_bc9c3.dir/depend
 	$(MAKE) -f python/CMakeFiles/pygen_python_bc9c3.dir/build.make python/CMakeFiles/pygen_python_bc9c3.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/maier/gr-lte/build-cb/CMakeFiles  50 51
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/maier/gr-lte/build-cb/CMakeFiles  44 45
 	@echo "Built target pygen_python_bc9c3"
 .PHONY : python/CMakeFiles/pygen_python_bc9c3.dir/all
 
@@ -521,66 +461,16 @@ clean: apps/CMakeFiles/pygen_apps_9a6dd.dir/clean
 # Directory level rules for directory docs
 
 # Convenience name for "all" pass in the directory.
-docs/all: docs/doxygen/all
+docs/all:
 .PHONY : docs/all
 
 # Convenience name for "clean" pass in the directory.
-docs/clean: docs/doxygen/clean
+docs/clean:
 .PHONY : docs/clean
 
 # Convenience name for "preinstall" pass in the directory.
-docs/preinstall: docs/doxygen/preinstall
+docs/preinstall:
 .PHONY : docs/preinstall
-
-#=============================================================================
-# Directory level rules for directory docs/doxygen
-
-# Convenience name for "all" pass in the directory.
-docs/doxygen/all: docs/doxygen/CMakeFiles/doxygen_target.dir/all
-.PHONY : docs/doxygen/all
-
-# Convenience name for "clean" pass in the directory.
-docs/doxygen/clean: docs/doxygen/CMakeFiles/doxygen_target.dir/clean
-.PHONY : docs/doxygen/clean
-
-# Convenience name for "preinstall" pass in the directory.
-docs/doxygen/preinstall:
-.PHONY : docs/doxygen/preinstall
-
-#=============================================================================
-# Target rules for target docs/doxygen/CMakeFiles/doxygen_target.dir
-
-# All Build rule for target.
-docs/doxygen/CMakeFiles/doxygen_target.dir/all:
-	$(MAKE) -f docs/doxygen/CMakeFiles/doxygen_target.dir/build.make docs/doxygen/CMakeFiles/doxygen_target.dir/depend
-	$(MAKE) -f docs/doxygen/CMakeFiles/doxygen_target.dir/build.make docs/doxygen/CMakeFiles/doxygen_target.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/maier/gr-lte/build-cb/CMakeFiles  8
-	@echo "Built target doxygen_target"
-.PHONY : docs/doxygen/CMakeFiles/doxygen_target.dir/all
-
-# Include target in all.
-all: docs/doxygen/CMakeFiles/doxygen_target.dir/all
-.PHONY : all
-
-# Build rule for subdir invocation for target.
-docs/doxygen/CMakeFiles/doxygen_target.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/maier/gr-lte/build-cb/CMakeFiles 1
-	$(MAKE) -f CMakeFiles/Makefile2 docs/doxygen/CMakeFiles/doxygen_target.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/maier/gr-lte/build-cb/CMakeFiles 0
-.PHONY : docs/doxygen/CMakeFiles/doxygen_target.dir/rule
-
-# Convenience name for target.
-doxygen_target: docs/doxygen/CMakeFiles/doxygen_target.dir/rule
-.PHONY : doxygen_target
-
-# clean rule for target.
-docs/doxygen/CMakeFiles/doxygen_target.dir/clean:
-	$(MAKE) -f docs/doxygen/CMakeFiles/doxygen_target.dir/build.make docs/doxygen/CMakeFiles/doxygen_target.dir/clean
-.PHONY : docs/doxygen/CMakeFiles/doxygen_target.dir/clean
-
-# clean rule for target.
-clean: docs/doxygen/CMakeFiles/doxygen_target.dir/clean
-.PHONY : clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.
