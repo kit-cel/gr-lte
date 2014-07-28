@@ -200,7 +200,7 @@ mimo_pss_freq_sync_impl::calc_freq_off()
     d_f_est = d_f_est + (a * freq);
 
     (*d_sig).set_frequency((-1)*double(d_f_est) );
-    //printf("FREQ SYNC: estimate=%f, new freq-compensate: %f\n", freq, d_f_est);
+    printf("FREQ SYNC: estimate=%f, new freq-compensate: %f\n", freq, d_f_est);
 }
 
 

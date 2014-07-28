@@ -703,7 +703,7 @@ namespace gr {
        * class. lte::mimo_sss_symbol_selector::make is the public interface for
        * creating new instances.
        */
-      static sptr make(int fftl, int rxant, int n_rb_dl);
+      static sptr make(int rxant, int n_rb_dl);
     };
 
   } // namespace lte

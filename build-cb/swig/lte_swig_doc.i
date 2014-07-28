@@ -198,7 +198,7 @@ Params: (fflt, rxant, key)"
 
 To avoid accidental use of raw pointers, lte::mimo_sss_calculator's constructor is in a private implementation class. lte::mimo_sss_calculator::make is the public interface for creating new instances.
 
-Params: (fftl, rxant)"
+Params: (rxant)"
 
 %feature("docstring") gr::lte::mimo_sss_symbol_selector "<+description of block+>"
 
@@ -206,7 +206,7 @@ Params: (fftl, rxant)"
 
 To avoid accidental use of raw pointers, lte::mimo_sss_symbol_selector's constructor is in a private implementation class. lte::mimo_sss_symbol_selector::make is the public interface for creating new instances.
 
-Params: (fftl, rxant, n_rb_dl)"
+Params: (rxant, n_rb_dl)"
 
 %feature("docstring") gr::lte::mimo_sss_tagger "<+description of block+>"
 
@@ -214,7 +214,7 @@ Params: (fftl, rxant, n_rb_dl)"
 
 To avoid accidental use of raw pointers, lte::mimo_sss_tagger's constructor is in a private implementation class. lte::mimo_sss_tagger::make is the public interface for creating new instances.
 
-Params: (fftl, rxant, n_rb_dl)"
+Params: (rxant, n_rb_dl)"
 
 %feature("docstring") gr::lte::pbch_demux_vcvc "Demultiplex PBCH data from resource grid."
 

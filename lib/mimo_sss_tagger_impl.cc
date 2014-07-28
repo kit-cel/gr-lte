@@ -31,20 +31,19 @@ namespace gr {
   namespace lte {
 
     mimo_sss_tagger::sptr
-    mimo_sss_tagger::make(int fftl, int rxant, int n_rb_dl)
+    mimo_sss_tagger::make(int rxant, int n_rb_dl)
     {
       return gnuradio::get_initial_sptr
-        (new mimo_sss_tagger_impl(fftl, rxant, n_rb_dl));
+        (new mimo_sss_tagger_impl(rxant, n_rb_dl));
     }
 
     /*
      * The private constructor
      */
-    mimo_sss_tagger_impl::mimo_sss_tagger_impl(int fftl, int rxant, int n_rb_dl)
+    mimo_sss_tagger_impl::mimo_sss_tagger_impl(int rxant, int n_rb_dl)
       : gr::sync_block("mimo_sss_tagger",
               gr::io_signature::make( 1, 8, sizeof(gr_complex) * n_rb_dl * 12 * rxant),
               gr::io_signature::make( 1, 8, sizeof(gr_complex) * n_rb_dl * 12 * rxant)),
-                d_fftl(fftl),
                 d_rxant(rxant),
                 d_frame_start(-1),
                 d_sym_num(-1),
@@ -87,19 +86,23 @@ namespace gr {
         if(d_frame_start == -1)
             return noutput_items;
 
-        std::vector <gr::tag_t> v;
-        get_tags_in_range(v,0, nitems_read(0), nitems_read(0)+noutput_items, d_key);
-        int halff_sym_num = get_sym_num(v);
+//        std::vector <gr::tag_t> v;
+//        get_tags_in_range(v,0, nitems_read(0), nitems_read(0)+noutput_items, d_key);
+//        int halff_sym_num = get_sym_num(v);
 
-        if(halff_sym_num == 0){
-            printf("d_frame_start=%i\td_symnum=%i\t\n", d_frame_start, d_sym_num);
-            d_frame_start = ( d_frame_start - (140 - d_sym_num)%70 + 140)%140;
-            d_sym_num = d_sym_num >= 70 ? 0 : 70;
-            printf("d_frame_start=%i\td_symnum=%i\t\n", d_frame_start, d_sym_num);
-        }
+//        if(halff_sym_num == 0){
+//            printf("d_frame_start=%i\td_symnum=%i\t\n", d_frame_start, d_sym_num);
+//            d_frame_start = ( d_frame_start - (140 - d_sym_num)%70 + 140)%140;
+//            d_sym_num = d_sym_num >= 70 ? 0 : 70;
+//            printf("d_frame_start=%i\td_symnum=%i\t\n", d_frame_start, d_sym_num);
+//        }
+
 
 
         long nin = nitems_read(0);
+
+        d_sym_num = (int)(nin - d_frame_start + 140) % 140;
+
 
         for(int i=0; i < noutput_items; i++){
             if(nin+i == d_frame_start){

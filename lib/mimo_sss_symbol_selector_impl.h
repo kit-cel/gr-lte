@@ -29,7 +29,6 @@ namespace gr {
     class mimo_sss_symbol_selector_impl : public mimo_sss_symbol_selector
     {
      private:
-        int d_fftl;
         int d_rxant;
         int d_cpl;
         int d_cpl0;
@@ -46,7 +45,7 @@ namespace gr {
         int get_sym_num(std::vector<gr::tag_t> v);
 
      public:
-      mimo_sss_symbol_selector_impl(int fftl, int rxant, int n_rb_dl);
+      mimo_sss_symbol_selector_impl(int rxant, int n_rb_dl);
       ~mimo_sss_symbol_selector_impl();
 
       // Where all the action really happens

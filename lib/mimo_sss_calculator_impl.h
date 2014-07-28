@@ -37,7 +37,6 @@ namespace gr {
      private:
         int d_N_id_2;
         int d_cell_id;
-        int d_fftl;
         int d_rxant;
         int d_slotl;
         char d_cX[31];
@@ -70,7 +69,7 @@ namespace gr {
         void msg_set_sector_id(pmt::pmt_t msg);
 
      public:
-      mimo_sss_calculator_impl(int fftl, int rxant);
+      mimo_sss_calculator_impl(int rxant);
       ~mimo_sss_calculator_impl();
 
       // Where all the action really happens

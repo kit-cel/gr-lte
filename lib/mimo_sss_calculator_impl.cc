@@ -33,22 +33,20 @@ namespace gr {
   namespace lte {
 
     mimo_sss_calculator::sptr
-    mimo_sss_calculator::make(int fftl, int rxant)
+    mimo_sss_calculator::make(int rxant)
     {
       return gnuradio::get_initial_sptr
-        (new mimo_sss_calculator_impl(fftl, rxant));
+        (new mimo_sss_calculator_impl(rxant));
     }
 
     /*
      * The private constructor
      */
-    mimo_sss_calculator_impl::mimo_sss_calculator_impl(int fftl, int rxant)
+    mimo_sss_calculator_impl::mimo_sss_calculator_impl(int rxant)
       : gr::sync_block("mimo_sss_calculator",
               gr::io_signature::make(1, 1, sizeof(gr_complex)*72*rxant),
               gr::io_signature::make(0, 0, 0)),
-                d_fftl(fftl),
                 d_rxant(rxant),
-                d_slotl(7*fftl+6*(144*fftl/2048)+(160*fftl/2048) ),
                 d_cell_id(-1),
                 d_max_val_new(0.0),
                 d_max_val_old(0.0),
@@ -162,10 +160,6 @@ namespace gr {
             even[rx] = new gr_complex[31];
             odd[rx] = new gr_complex[31];
             for(int i = 0; i < 31 ; i++){
-
-//                even[rx][i] = in[5 + 2*i + 0];
-//                odd[rx][i]  = in[5 + 2*i + 1];
-
                   even[rx][i] = in[5 + 2*i + 0 + 72*rx];
                   odd[rx][i]  = in[5 + 2*i + 1 + 72*rx];
             }
@@ -187,7 +181,7 @@ namespace gr {
             if(d_sss_pos == 5){
                 offset += 70;
             }
-            d_frame_start = offset%140;
+            d_frame_start = (offset-5+140) % 140;
 
             d_cell_id = 3 * info.N_id_1 + d_N_id_2;
 
