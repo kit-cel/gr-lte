@@ -96,15 +96,15 @@
   </compound>
   <compound refid="classgr_1_1lte_1_1mimo__sss__calculator" kind="class"><name>gr::lte::mimo_sss_calculator</name>
     <member refid="classgr_1_1lte_1_1mimo__sss__calculator_1a6ce3b702ada77225257fcd76f24b49eb" kind="typedef"><name>sptr</name></member>
-    <member refid="classgr_1_1lte_1_1mimo__sss__calculator_1a0d6218c1f3357f340d8c3bd49b713459" kind="function"><name>make</name></member>
+    <member refid="classgr_1_1lte_1_1mimo__sss__calculator_1ac45ef5c50d0682383570a865c7ed4a04" kind="function"><name>make</name></member>
   </compound>
   <compound refid="classgr_1_1lte_1_1mimo__sss__symbol__selector" kind="class"><name>gr::lte::mimo_sss_symbol_selector</name>
     <member refid="classgr_1_1lte_1_1mimo__sss__symbol__selector_1af6a30d186ce650d6e9f62f138444ac5a" kind="typedef"><name>sptr</name></member>
-    <member refid="classgr_1_1lte_1_1mimo__sss__symbol__selector_1a9eaf03f128851cad240b2347202f89a9" kind="function"><name>make</name></member>
+    <member refid="classgr_1_1lte_1_1mimo__sss__symbol__selector_1afe24dff51038c5fe584c4cec19e5c667" kind="function"><name>make</name></member>
   </compound>
   <compound refid="classgr_1_1lte_1_1mimo__sss__tagger" kind="class"><name>gr::lte::mimo_sss_tagger</name>
     <member refid="classgr_1_1lte_1_1mimo__sss__tagger_1af237d29247791ff652ca5b9ae633404d" kind="typedef"><name>sptr</name></member>
-    <member refid="classgr_1_1lte_1_1mimo__sss__tagger_1af7a839e16ac86bec0fc7cbf571f0e55d" kind="function"><name>make</name></member>
+    <member refid="classgr_1_1lte_1_1mimo__sss__tagger_1aae330b08208a831c3e3b6fd34d8d2c5c" kind="function"><name>make</name></member>
   </compound>
   <compound refid="classgr_1_1lte_1_1pbch__demux__vcvc" kind="class"><name>gr::lte::pbch_demux_vcvc</name>
     <member refid="classgr_1_1lte_1_1pbch__demux__vcvc_1a3b53526422e58c9c234e610a5863dab5" kind="typedef"><name>sptr</name></member>

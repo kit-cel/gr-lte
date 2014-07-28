@@ -33,9 +33,6 @@ namespace gr {
 		int d_N_rb_dl;
 		int d_sym_num;
 		int d_rxant;
-		gr_complex* d_pbch_symbs;
-		gr_complex* d_pbch_ce1_symbs;
-		gr_complex* d_pbch_ce2_symbs;
 
 		int calculate_n_process_items(gr_vector_int ninput_items, int noutput_items);
 		void extract_pbch_values(gr_complex* out, const gr_complex* in);

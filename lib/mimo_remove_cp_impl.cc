@@ -50,10 +50,10 @@ namespace gr {
 			  d_cpl0((160*fftl)/2048),
 			  d_slotl(7*fftl+6*d_cpl+d_cpl0),
 			  d_symb(0),
-			  d_sym_num(0),
+			  d_sym_num(-1),
 			  d_work_call(0),
 			  d_found_frame_start(false),
-			  d_frame_start(0),
+			  d_half_frame_start(-1),
               d_symbols_per_frame(140)
     {
 		d_key=pmt::string_to_symbol(key);
@@ -85,25 +85,25 @@ namespace gr {
     {
         d_work_call++;
 
-        // the following section removes the samples before the first frame start.
+        // the following section removes the samples before the half first frame start.
         std::vector <gr::tag_t> v;
-        get_tags_in_range(v,0,nitems_read(0),nitems_read(0)+noutput_items*(d_fftl+d_cpl0) );
+        get_tags_in_range(v,0,nitems_read(0),nitems_read(0)+noutput_items*(d_fftl+d_cpl0), d_key );
         int size = v.size();
         if(!d_found_frame_start){
             for(int i = 0 ; i < size ; i++ ){
                 long value = pmt::to_long(v[i].value);
                 if(value == 0){
                     //std::string key = pmt::pmt_symbol_to_string(v[0].key);
-                    //printf("%s found frame start offset = %li\trange = %i\tkey = %s\n",name().c_str(), v[0].offset,noutput_items*(fftl+cpl0),key.c_str() );
+                    //printf("%s found half frame start offset = %li\trange = %i\tkey = %s\n",name().c_str(), v[0].offset,noutput_items*(fftl+cpl0),key.c_str() );
                     int delay = int(v[i].offset-nitems_read(0) );
-                    d_frame_start = (v[i].offset);
+                    d_half_frame_start = (v[i].offset);
                     printf("\n%s\n",name().c_str() );
                     //printf("nitems_read = %li\n",nitems_read(0) );
                     //printf("delay       = %i\n",delay);
                     //printf("a+b         = %li\n",nitems_read(0)+delay );
-                    printf("frame_start = %ld\n",d_frame_start);
-                    d_frame_start = d_frame_start%(20*d_slotl);
-                    printf("mod start   = %ld\n\n",d_frame_start);
+                    printf("half_frame_start = %ld\n",d_half_frame_start);
+                    d_half_frame_start = d_half_frame_start%(10*d_slotl);
+                    printf("mod start   = %ld\n\n",d_half_frame_start);
                     d_sym_num = 0;
                     d_symb = 0;
                     d_found_frame_start = true;
@@ -128,34 +128,34 @@ namespace gr {
         }
 
 
-        //the following section syncs directly to new frame start if the delay is only 1 or 2 samples(tracking in time sync)
+        //the following section syncs directly to new half frame start if the delay is only 1 or 2 samples(tracking in time sync)
         int sync_delay=0;
         for(int i = 0 ; i < size ; i++ ){
             if(size > 0 && pmt::to_long(v[i].value) == 0 ){
-                    int halffl = 20*d_slotl;
-                    int frame_start = v[i].offset % halffl;
-                    if( frame_start != d_frame_start )
+                    int halffl = 10*d_slotl;
+                    int half_frame_start = v[i].offset % halffl;
+                    if( half_frame_start != d_half_frame_start )
                     {
 
-                        if ( frame_start == (d_frame_start-1+halffl)%halffl ){
+                        if ( half_frame_start == (d_half_frame_start-1+halffl)%halffl ){
                             sync_delay=-1;
                         }
-                        else if( frame_start == (d_frame_start-2+halffl)%halffl ){
-                            sync_delay=-2;
-                        }
-                        else if( frame_start == (d_frame_start+1)%halffl ){
+//                        else if( frame_start == (d_frame_start-2+halffl)%halffl ){
+//                            sync_delay=-2;
+//                        }
+                        else if( half_frame_start == (d_half_frame_start+1)%halffl ){
                             sync_delay=1;
                         }
-                        else if( frame_start == (d_frame_start+2)%halffl ){
-                            sync_delay=2;
-                        }
+//                        else if( frame_start == (d_frame_start+2)%halffl ){
+//                            sync_delay=2;
+//                        }
                         else{
                             printf("%s OUT of sync!\n", name().c_str() );
                             d_found_frame_start = false;
                             return 0;   //resync to frame start
                         }
                   }
-                    d_frame_start=frame_start;
+                    d_half_frame_start=half_frame_start;
             }
         }
 
@@ -174,65 +174,6 @@ namespace gr {
     }
 
 
-
-
-    long
-    mimo_remove_cp_impl::get_frame_start(std::vector <gr::tag_t> v)
-    {
-		long frame_start = d_frame_start;
-		if(v.size() > 0){
-			gr::tag_t tag = v.back();
-			long value = pmt::to_long(tag.value);
-			int slots = value / 7;
-			int items = slots * d_slotl;
-			if(value % 7 != 0){
-				items += d_cpl0 + (value % 7) * (d_cpl + d_fftl);
-			}
-			frame_start = (tag.offset + 20 * d_slotl - items) % (20 * d_slotl);
-            printf("frame_start = %ld\tworl_call = %ld\n", frame_start, d_work_call);
-		}
-		return frame_start;
-	}
-
-	sym_info
-	mimo_remove_cp_impl::get_sym_num_info(long frame_start, long nitems_read, int symbols_per_frame )
-	{
-		sym_info info;
-        int spf = symbols_per_frame / 7;
-        int frame_items = (nitems_read + spf * d_slotl - frame_start) % (spf * d_slotl);
-		int slots = frame_items / d_slotl;
-		int syms_in_slot = (frame_items % d_slotl) / (d_fftl + d_cpl);
-        info.num = slots * 7 + syms_in_slot;
-        info.dump = leading_items_to_dump(frame_items % d_slotl, info.num % 7);
-        return info;
-	}
-
-    int
-    mimo_remove_cp_impl::leading_items_to_dump(int slot_items, int slot_sym)
-    {
-        int dump = 0;
-        if(slot_items == 0){ // is aligned!
-            dump = 0;
-        }
-        else if(slot_items < d_fftl + d_cpl0){
-            dump = d_fftl + d_cpl0 - slot_items;
-        }
-        else{
-            int sym_items = (slot_items - d_fftl - d_cpl0) % (d_fftl + d_cpl);
-            if(sym_items == 0){
-                dump = 0;
-            }
-            else{
-                dump = d_fftl + d_cpl - sym_items;
-            }
-        }
-
-
-        //~ if(items != 0) {return items; }
-        printf("%i: slot_items = %i\tdump = %i\n", slot_sym, slot_items, dump);
-        return dump;
-
-    }
 
     long
 	mimo_remove_cp_impl::copy_samples_from_in_to_out(gr_vector_void_star &output_items,
@@ -278,11 +219,13 @@ namespace gr {
 	void
     mimo_remove_cp_impl::add_tags_to_vectors(int noutput_items)
     {
+        //set ofdm symbol number within a half frame
         for (int i = 0 ; i < noutput_items ; i++){
             if(d_sym_num%7 == 0){
+
                 add_item_tag(0,nitems_written(0)+i,d_key, pmt::from_long(d_sym_num),d_tag_id);
             }
-            d_sym_num=(d_sym_num+1)%140;
+            d_sym_num=(d_sym_num+1)%70;
         }
     }
 

@@ -37,7 +37,6 @@ namespace gr {
      private:
         int d_N_id_2;
         int d_cell_id;
-        int d_fftl;
         int d_rxant;
         int d_slotl;
         char d_cX[31];
@@ -47,16 +46,14 @@ namespace gr {
         int d_v_m1[168];
         float d_max_val_new;
         float d_max_val_old;
+        long d_offset;
         int d_sss_pos;
         long d_frame_start;
         bool d_is_locked;
         int d_unchanged_id;
 
-
-
         pmt::pmt_t d_key_id;
         pmt::pmt_t d_key_offset;
-
 
         // calculation functions!
         int calc_m(gr_complex **s0m0, int rxant);
@@ -69,9 +66,10 @@ namespace gr {
         pmt::pmt_t d_port_frame_start;
         void publish_cell_id(int cell_id);
         void publish_frame_start(long frame_start);
+        void msg_set_sector_id(pmt::pmt_t msg);
 
      public:
-      mimo_sss_calculator_impl(int fftl, int rxant);
+      mimo_sss_calculator_impl(int rxant);
       ~mimo_sss_calculator_impl();
 
       // Where all the action really happens

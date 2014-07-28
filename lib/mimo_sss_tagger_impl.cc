@@ -25,32 +25,29 @@
 #include <gnuradio/io_signature.h>
 #include "mimo_sss_tagger_impl.h"
 
+#include <cstdio>
+
 namespace gr {
   namespace lte {
 
     mimo_sss_tagger::sptr
-    mimo_sss_tagger::make(int fftl, int rxant)
+    mimo_sss_tagger::make(int rxant, int n_rb_dl)
     {
       return gnuradio::get_initial_sptr
-        (new mimo_sss_tagger_impl(fftl, rxant));
+        (new mimo_sss_tagger_impl(rxant, n_rb_dl));
     }
 
     /*
      * The private constructor
      */
-    mimo_sss_tagger_impl::mimo_sss_tagger_impl(int fftl, int rxant)
+    mimo_sss_tagger_impl::mimo_sss_tagger_impl(int rxant, int n_rb_dl)
       : gr::sync_block("mimo_sss_tagger",
-              gr::io_signature::make( 1, 8, sizeof(gr_complex)),
-              gr::io_signature::make( 1, 8, sizeof(gr_complex))),
-                d_fftl(fftl),
+              gr::io_signature::make( 1, 8, sizeof(gr_complex) * n_rb_dl * 12 * rxant),
+              gr::io_signature::make( 1, 8, sizeof(gr_complex) * n_rb_dl * 12 * rxant)),
                 d_rxant(rxant),
-                d_cpl(144*fftl/2048),
-                d_cpl0(160*fftl/2048),
-                d_slotl(7*fftl+6*d_cpl+d_cpl0),
-                d_framel(20*d_slotl),
-                d_offset_0(0),
                 d_frame_start(-1),
-                d_slot_num(41)
+                d_sym_num(-1),
+                d_n_rb_dl(n_rb_dl)
     {
         set_tag_propagation_policy(TPP_DONT);
         d_key = pmt::string_to_symbol("slot");
@@ -72,7 +69,7 @@ namespace gr {
     void
     mimo_sss_tagger_impl::handle_msg_frame_start(pmt::pmt_t msg)
     {
-        set_frame_start(pmt::to_long(msg) );
+        d_frame_start = int( pmt::to_long(msg) );
     }
 
 
@@ -83,68 +80,107 @@ namespace gr {
     {
 
         //This block does not change data. It just adds new itemtags!
-        for(int i=0; i<d_rxant; i++)
-            memcpy(output_items[i],input_items[i],sizeof(gr_complex)*noutput_items);
+        memcpy(output_items[0],input_items[0],sizeof(gr_complex)*d_n_rb_dl*12*d_rxant*noutput_items);
+
+        //no tags if there is no sync
+        if(d_frame_start == -1)
+            return noutput_items;
+
+//        std::vector <gr::tag_t> v;
+//        get_tags_in_range(v,0, nitems_read(0), nitems_read(0)+noutput_items, d_key);
+//        int halff_sym_num = get_sym_num(v);
+
+//        if(halff_sym_num == 0){
+//            printf("d_frame_start=%i\td_symnum=%i\t\n", d_frame_start, d_sym_num);
+//            d_frame_start = ( d_frame_start - (140 - d_sym_num)%70 + 140)%140;
+//            d_sym_num = d_sym_num >= 70 ? 0 : 70;
+//            printf("d_frame_start=%i\td_symnum=%i\t\n", d_frame_start, d_sym_num);
+//        }
+
+
 
         long nin = nitems_read(0);
 
+        d_sym_num = (int)(nin - d_frame_start + 140) % 140;
 
-        std::vector <gr::tag_t> v;
-        get_tags_in_range(v,0,nin,nin+noutput_items);
-        if (v.size() > 0){
-            //printf("\n\n\n%s tag: found\tvalue = %ld\toffset = %ld\n",name().c_str(),half_frame_slot,v[0].offset );
-            long offset_mod = (v[0].offset)%d_slotl;
-            if(offset_mod != d_offset_0){
-                d_offset_0 = offset_mod;
-                //printf("%s\toffset = %ld changed\tabs_pos = %ld\n", name().c_str(), d_offset_0, v[0].offset);
 
+        for(int i=0; i < noutput_items; i++){
+            if(nin+i == d_frame_start){
+                d_sym_num = 0;
             }
+            if(d_sym_num % 7 == 0){
+                add_item_tag(0,nin+i,d_key, pmt::from_long( d_sym_num ),d_tag_id);
+             }
+             d_sym_num = (d_sym_num+1)%140;
         }
 
-        // as long as frame start is unknown add dummy tags
-        if(d_frame_start == -1){
-            for (int i = 0 ; i < noutput_items ; i++){
-                if( (nin+i)%d_slotl == d_offset_0 ){ //removed abs
-                    //printf("%s\tslot_num = %i\tabs_pos = %ld\tframe_start = %ld\n", name().c_str() ,d_slot_num, nitems_read(0)+i ,d_frame_start);
-                    add_item_tag(0,nin+i,d_key, pmt::from_long( d_slot_num ),d_tag_id);
-                }
-            }
-            return noutput_items;
-        } //wait till first value found!
+        return noutput_items;
 
 
-        //This loop adds new tags to the stream.
-        for (int i = 0 ; i < noutput_items ; i++){
-            if( (nin+i)%d_slotl == d_offset_0 ){ //removed abs
-                if((nin+i)%d_framel == d_frame_start ){ // removed abs
-                    //printf("%s\toffset = %ld\tframe_start = %ld\tabs_pos = %ld\n", name().c_str(), d_offset_0, d_frame_start, nitems_read(0)+i);
-                    d_slot_num = 0;
-                }
+//        std::vector <gr::tag_t> v;
+//        get_tags_in_range(v,0,nin,nin+noutput_items);
+//        if(v.size() > 0)
+//
+//
+////			int value = int(pmt::to_long(v[0].value) );
+////			int rel_offset = v[0].offset - nitems_read(0);
+////			int sym_num = (value+70-rel_offset)%70;
+//        }
 
-                //printf("%s\tslot_num = %i\tabs_pos = %ld\tframe_start = %ld\n", name().c_str() ,d_slot_num, nitems_read(0)+i ,d_frame_start);
-                add_item_tag(0,nin+i,d_key, pmt::from_long( d_slot_num ),d_tag_id);
-                if(i+d_slotl < noutput_items){
-                    i += (d_slotl-1);
-                }
-                else{
-                    i+=(noutput_items-i-1);
-                }
-
-                // prepare values for next iteration.
-                d_slot_num = (d_slot_num + 1) % 20;
-
-            }
-        }
+//
+//        // as long as frame start is unknown add dummy tags
+//        if(d_frame_start == -1){
+//            for (int i = 0 ; i < noutput_items ; i++){
+//                if( (nin+i)%d_slotl == d_offset_0 ){ //removed abs
+//                    //printf("%s\tslot_num = %i\tabs_pos = %ld\tframe_start = %ld\n", name().c_str() ,d_slot_num, nitems_read(0)+i ,d_frame_start);
+//                    add_item_tag(0,nin+i,d_key, pmt::from_long( d_slot_num ),d_tag_id);
+//                }
+//            }
+//            return noutput_items;
+//        } //wait till first value found!
+//
+//
+//        //This loop adds new tags to the stream.
+//        for (int i = 0 ; i < noutput_items ; i++){
+//            if( (nin+i)%d_slotl == d_offset_0 ){ //removed abs
+//                if((nin+i)%d_framel == d_frame_start ){ // removed abs
+//                    //printf("%s\toffset = %ld\tframe_start = %ld\tabs_pos = %ld\n", name().c_str(), d_offset_0, d_frame_start, nitems_read(0)+i);
+//                    d_slot_num = 0;
+//                }
+//
+//                //printf("%s\tslot_num = %i\tabs_pos = %ld\tframe_start = %ld\n", name().c_str() ,d_slot_num, nitems_read(0)+i ,d_frame_start);
+//                add_item_tag(0,nin+i,d_key, pmt::from_long( d_slot_num ),d_tag_id);
+//                if(i+d_slotl < noutput_items){
+//                    i += (d_slotl-1);
+//                }
+//                else{
+//                    i+=(noutput_items-i-1);
+//                }
+//
+//                // prepare values for next iteration.
+//                d_slot_num = (d_slot_num + 1) % 20;
+//
+//            }
+//        }
 
         // Tell runtime system how many output items we produced.
         return noutput_items;
     }
 
-    void
-    mimo_sss_tagger_impl::set_frame_start(long frame_start)
-    {
-        d_frame_start = frame_start;
-    }
+    int
+	mimo_sss_tagger_impl::get_sym_num(std::vector<gr::tag_t> v)
+	{
+		int sym_num = 0;
+		if(v.size() > 0){
+			int value = int(pmt::to_long(v[0].value) );
+			int rel_offset = v[0].offset - nitems_read(0);
+			sym_num = (value+70-rel_offset)%70;
+		}
+		else{
+			sym_num = d_sym_num;
+		}
+		return sym_num;
+     }
 
   } /* namespace lte */
 } /* namespace gr */

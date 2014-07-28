@@ -51,7 +51,7 @@ mimo_pss_tagger_impl::mimo_pss_tagger_impl(int fftl)
     d_cpl0(160*fftl/2048),
     d_slotl(7*fftl+6*d_cpl+d_cpl0),
     d_halffl(10*d_slotl),
-    d_half_frame_start(0),
+    d_half_frame_start(-1),
     d_N_id_2(-1),
     d_slot_num(-1),
     d_is_locked(false)
@@ -108,8 +108,15 @@ mimo_pss_tagger_impl::work(int noutput_items,
         memcpy(out, in, sizeof(gr_complex)*noutput_items);
     }
 
+    //no tags if there is no sync yet
+    if(d_half_frame_start == -1){
+        return noutput_items;
+    }
+
     long nir = nitems_read(0);
     int offset = d_half_frame_start%d_slotl;
+
+
 
     for (int i = 0 ; i < noutput_items; i++)
     {
@@ -127,15 +134,23 @@ mimo_pss_tagger_impl::work(int noutput_items,
                 }
             }
 
+<<<<<<< HEAD
             if(d_slot_num != -1){
+=======
+            if (d_slot_num != -1){
+>>>>>>> d727002c3bfe194f5c58acee58739203bcd99b3c
                 //printf("%s\tslot_num = %i\tabs_pos = %ld\n",name().c_str(),d_slot_num,nitems_read(0)+i );
                 //set a tag with the slotnumber within a half frame at the start of a slot
                 add_item_tag(0,nir+i,d_slot_key, pmt::from_long(d_slot_num),d_tag_id);
                 d_slot_num = (d_slot_num+1)%10;
             }
+<<<<<<< HEAD
 
 
             //step over nex samples
+=======
+            //step over next samples
+>>>>>>> d727002c3bfe194f5c58acee58739203bcd99b3c
             if(i+d_slotl < noutput_items)
             {
                 i += (d_slotl-1);
