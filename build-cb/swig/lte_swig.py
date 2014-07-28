@@ -9000,17 +9000,17 @@ class mimo_pss_coarse_control(object):
     thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined")
     __repr__ = _swig_repr
-    def make():
+    def make(*args, **kwargs):
         """
-        make() -> mimo_pss_coarse_control_sptr
+        make(int rxant) -> mimo_pss_coarse_control_sptr
 
         Return a shared_ptr to a new instance of lte::mimo_pss_coarse_control.
 
         To avoid accidental use of raw pointers, lte::mimo_pss_coarse_control's constructor is in a private implementation class. lte::mimo_pss_coarse_control::make is the public interface for creating new instances.
 
-        Params: (NONE)
+        Params: (rxant)
         """
-        return _lte_swig.mimo_pss_coarse_control_make()
+        return _lte_swig.mimo_pss_coarse_control_make(*args, **kwargs)
 
     make = staticmethod(make)
     __swig_destroy__ = _lte_swig.delete_mimo_pss_coarse_control
@@ -9018,17 +9018,17 @@ class mimo_pss_coarse_control(object):
 mimo_pss_coarse_control_swigregister = _lte_swig.mimo_pss_coarse_control_swigregister
 mimo_pss_coarse_control_swigregister(mimo_pss_coarse_control)
 
-def mimo_pss_coarse_control_make():
+def mimo_pss_coarse_control_make(*args, **kwargs):
   """
-    mimo_pss_coarse_control_make() -> mimo_pss_coarse_control_sptr
+    mimo_pss_coarse_control_make(int rxant) -> mimo_pss_coarse_control_sptr
 
     Return a shared_ptr to a new instance of lte::mimo_pss_coarse_control.
 
     To avoid accidental use of raw pointers, lte::mimo_pss_coarse_control's constructor is in a private implementation class. lte::mimo_pss_coarse_control::make is the public interface for creating new instances.
 
-    Params: (NONE)
+    Params: (rxant)
     """
-  return _lte_swig.mimo_pss_coarse_control_make()
+  return _lte_swig.mimo_pss_coarse_control_make(*args, **kwargs)
 
 class mimo_pss_coarse_control_sptr(object):
     """Proxy of C++ boost::shared_ptr<(gr::lte::mimo_pss_coarse_control)> class"""
@@ -9048,17 +9048,17 @@ class mimo_pss_coarse_control_sptr(object):
 
     __swig_destroy__ = _lte_swig.delete_mimo_pss_coarse_control_sptr
     __del__ = lambda self : None;
-    def make(self):
+    def make(self, *args, **kwargs):
         """
-        make(mimo_pss_coarse_control_sptr self) -> mimo_pss_coarse_control_sptr
+        make(mimo_pss_coarse_control_sptr self, int rxant) -> mimo_pss_coarse_control_sptr
 
         Return a shared_ptr to a new instance of lte::mimo_pss_coarse_control.
 
         To avoid accidental use of raw pointers, lte::mimo_pss_coarse_control's constructor is in a private implementation class. lte::mimo_pss_coarse_control::make is the public interface for creating new instances.
 
-        Params: (NONE)
+        Params: (rxant)
         """
-        return _lte_swig.mimo_pss_coarse_control_sptr_make(self)
+        return _lte_swig.mimo_pss_coarse_control_sptr_make(self, *args, **kwargs)
 
     def history(self):
         """history(mimo_pss_coarse_control_sptr self) -> unsigned int"""

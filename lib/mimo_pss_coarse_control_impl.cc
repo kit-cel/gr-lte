@@ -31,20 +31,21 @@ namespace gr {
   namespace lte {
 
     mimo_pss_coarse_control::sptr
-    mimo_pss_coarse_control::make()
+    mimo_pss_coarse_control::make(int rxant)
     {
       return gnuradio::get_initial_sptr
-        (new mimo_pss_coarse_control_impl());
+        (new mimo_pss_coarse_control_impl(rxant));
     }
 
     /*
      * The private constructor
      */
-    mimo_pss_coarse_control_impl::mimo_pss_coarse_control_impl()
+    mimo_pss_coarse_control_impl::mimo_pss_coarse_control_impl(int rxant)
       : gr::block("mimo_pss_coarse_control",
-              gr::io_signature::make(2, 2, sizeof(gr_complex)),
-              gr::io_signature::make(2, 2, sizeof(gr_complex))),
-              d_control(false)
+              gr::io_signature::make(1, 8, sizeof(gr_complex)),
+              gr::io_signature::make(1, 8, sizeof(gr_complex))),
+              d_control(false),
+              d_rxant(rxant)
     {
         printf("control");
         message_port_register_in(pmt::mp("control"));
@@ -78,16 +79,14 @@ namespace gr {
                    gr_vector_void_star &output_items)
 
     {
-        const gr_complex *in1 = (const gr_complex *) input_items[0];
-        const gr_complex *in2 = (const gr_complex *) input_items[1];
-        gr_complex *out1 = (gr_complex *) output_items[0];
-        gr_complex *out2 = (gr_complex *) output_items[1];
-
-        consume_each(noutput_items);
+         consume_each(noutput_items);
 
         if(!d_control){
-            memcpy(out1, in1, sizeof(gr_complex)*noutput_items);
-            memcpy(out2, in2, sizeof(gr_complex)*noutput_items);
+            for(int rx=0; rx<d_rxant; rx++){
+                const gr_complex* in = (gr_complex*) input_items[rx];
+                gr_complex* out = (gr_complex*) output_items[rx];
+                memcpy(out, in, sizeof(gr_complex)*noutput_items);
+            }
             return noutput_items;
         }
 

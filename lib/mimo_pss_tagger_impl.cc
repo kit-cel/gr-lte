@@ -53,7 +53,7 @@ mimo_pss_tagger_impl::mimo_pss_tagger_impl(int fftl)
     d_halffl(10*d_slotl),
     d_half_frame_start(0),
     d_N_id_2(-1),
-    d_slot_num(0),
+    d_slot_num(-1),
     d_is_locked(false)
 {
     d_slot_key=pmt::string_to_symbol("slot");
@@ -127,10 +127,13 @@ mimo_pss_tagger_impl::work(int noutput_items,
                 }
             }
 
-            //printf("%s\tslot_num = %i\tabs_pos = %ld\n",name().c_str(),d_slot_num,nitems_read(0)+i );
-            //set a tag with the slotnumber within a half frame at the start of a slot
-            add_item_tag(0,nir+i,d_slot_key, pmt::from_long(d_slot_num),d_tag_id);
-            d_slot_num = (d_slot_num+1)%10;
+            if(d_slot_num != -1){
+                //printf("%s\tslot_num = %i\tabs_pos = %ld\n",name().c_str(),d_slot_num,nitems_read(0)+i );
+                //set a tag with the slotnumber within a half frame at the start of a slot
+                add_item_tag(0,nir+i,d_slot_key, pmt::from_long(d_slot_num),d_tag_id);
+                d_slot_num = (d_slot_num+1)%10;
+            }
+
 
             //step over nex samples
             if(i+d_slotl < noutput_items)

@@ -16,22 +16,26 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/maier/gr-lte/include/lte/mimo_pss_coarse_control.h" line="696" column="1" bodyfile="/home/maier/gr-lte/include/lte/mimo_pss_coarse_control.h" bodystart="696" bodyend="-1"/>
+        <location file="/home/maier/gr-lte/include/lte/mimo_pss_coarse_control.h" line="38" column="1" bodyfile="/home/maier/gr-lte/include/lte/mimo_pss_coarse_control.h" bodystart="38" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-static-func">
-      <memberdef kind="function" id="classgr_1_1lte_1_1mimo__pss__coarse__control_1a0013197bcd714d3d290d468a05daaf9d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classgr_1_1lte_1_1mimo__pss__coarse__control_1adb1a4a878b1ba5c066aed1eb3fb5b2ef" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classgr_1_1lte_1_1mimo__pss__coarse__control_1a0517f7ab7c9df707e996a627f5397067" kindref="member">sptr</ref></type>
         <definition>static sptr gr::lte::mimo_pss_coarse_control::make</definition>
-        <argsstring>()</argsstring>
+        <argsstring>(int rxant)</argsstring>
         <name>make</name>
+        <param>
+          <type>int</type>
+          <declname>rxant</declname>
+        </param>
         <briefdescription>
 <para>Return a shared_ptr to a new instance of <ref refid="classgr_1_1lte_1_1mimo__pss__coarse__control" kindref="compound">lte::mimo_pss_coarse_control</ref>. </para>        </briefdescription>
         <detaileddescription>
-<para>To avoid accidental use of raw pointers, <ref refid="classgr_1_1lte_1_1mimo__pss__coarse__control" kindref="compound">lte::mimo_pss_coarse_control</ref>&apos;s constructor is in a private implementation class. <ref refid="classgr_1_1lte_1_1mimo__pss__coarse__control_1a0013197bcd714d3d290d468a05daaf9d" kindref="member">lte::mimo_pss_coarse_control::make</ref> is the public interface for creating new instances. </para>        </detaileddescription>
+<para>To avoid accidental use of raw pointers, <ref refid="classgr_1_1lte_1_1mimo__pss__coarse__control" kindref="compound">lte::mimo_pss_coarse_control</ref>&apos;s constructor is in a private implementation class. <ref refid="classgr_1_1lte_1_1mimo__pss__coarse__control_1adb1a4a878b1ba5c066aed1eb3fb5b2ef" kindref="member">lte::mimo_pss_coarse_control::make</ref> is the public interface for creating new instances. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/maier/gr-lte/include/lte/mimo_pss_coarse_control.h" line="706" column="1"/>
+        <location file="/home/maier/gr-lte/include/lte/mimo_pss_coarse_control.h" line="48" column="1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -60,9 +64,9 @@
         <label>block</label>
       </node>
     </collaborationgraph>
-    <location file="/home/maier/gr-lte/include/lte/mimo_pss_coarse_control.h" line="694" column="1" bodyfile="/home/maier/gr-lte/include/lte/mimo_pss_coarse_control.h" bodystart="693" bodyend="707"/>
+    <location file="/home/maier/gr-lte/include/lte/mimo_pss_coarse_control.h" line="36" column="1" bodyfile="/home/maier/gr-lte/include/lte/mimo_pss_coarse_control.h" bodystart="35" bodyend="49"/>
     <listofallmembers>
-      <member refid="classgr_1_1lte_1_1mimo__pss__coarse__control_1a0013197bcd714d3d290d468a05daaf9d" prot="public" virt="non-virtual"><scope>gr::lte::mimo_pss_coarse_control</scope><name>make</name></member>
+      <member refid="classgr_1_1lte_1_1mimo__pss__coarse__control_1adb1a4a878b1ba5c066aed1eb3fb5b2ef" prot="public" virt="non-virtual"><scope>gr::lte::mimo_pss_coarse_control</scope><name>make</name></member>
       <member refid="classgr_1_1lte_1_1mimo__pss__coarse__control_1a0517f7ab7c9df707e996a627f5397067" prot="public" virt="non-virtual"><scope>gr::lte::mimo_pss_coarse_control</scope><name>sptr</name></member>
     </listofallmembers>
   </compounddef>

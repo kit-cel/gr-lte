@@ -72,7 +72,7 @@
   </compound>
   <compound refid="classgr_1_1lte_1_1mimo__pss__coarse__control" kind="class"><name>gr::lte::mimo_pss_coarse_control</name>
     <member refid="classgr_1_1lte_1_1mimo__pss__coarse__control_1a0517f7ab7c9df707e996a627f5397067" kind="typedef"><name>sptr</name></member>
-    <member refid="classgr_1_1lte_1_1mimo__pss__coarse__control_1a0013197bcd714d3d290d468a05daaf9d" kind="function"><name>make</name></member>
+    <member refid="classgr_1_1lte_1_1mimo__pss__coarse__control_1adb1a4a878b1ba5c066aed1eb3fb5b2ef" kind="function"><name>make</name></member>
   </compound>
   <compound refid="classgr_1_1lte_1_1mimo__pss__coarse__sync" kind="class"><name>gr::lte::mimo_pss_coarse_sync</name>
     <member refid="classgr_1_1lte_1_1mimo__pss__coarse__sync_1af796935a0b0be42d1ce81b61ff3b2082" kind="typedef"><name>sptr</name></member>

@@ -4,12 +4,18 @@
   <key>lte_mimo_pss_coarse_control</key>
   <category>lte</category>
   <import>import lte</import>
-  <make>lte.mimo_pss_coarse_control()</make>
+  <make>lte.mimo_pss_coarse_control($rxant)</make>
   <!-- Make one 'param' node for every Parameter you want settable from the GUI.
        Sub-nodes:
        * name
        * key (makes the value accessible as $keyname, e.g. in the make node)
        * type -->
+
+  <param>
+    <name>RX antennas</name>
+    <key>rxant</key>
+    <type>int</type>
+  </param>
 
 
   <!-- Make one 'sink' node per input. Sub-nodes:
@@ -18,13 +24,10 @@
        * vlen
        * optional (set to 1 for optional inputs) -->
   <sink>
-    <name>in1</name>
+    <name>in</name>
     <type>complex</type>
+    <nports>$rxant</nports>
   </sink>  
-  <sink>
-    <name>in2</name>
-    <type>complex</type>
-  </sink>
   <sink>
     <name>control</name>
     <type>message</type>

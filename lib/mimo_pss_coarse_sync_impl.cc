@@ -71,6 +71,10 @@ mimo_pss_coarse_sync_impl::mimo_pss_coarse_sync_impl(int fftl, int syncl, int rx
     size_t alig = volk_get_alignment();
     d_a = (gr_complex*)volk_malloc(sizeof(gr_complex)*4,alig);
 
+    for(int rx=0; rx<d_rxant; rx++){
+        gr_complex* p = (gr_complex*) volk_malloc(sizeof(gr_complex)*d_TIME_HYPO*syncl+d_CORRL-1, alig);
+        d_buffer.push_back(p);
+    }
     d_port_N_id_2 = pmt::string_to_symbol("N_id_2");
     message_port_register_out(d_port_N_id_2);
     d_port_coarse_pos = pmt::string_to_symbol("coarse_pos");
@@ -103,12 +107,18 @@ mimo_pss_coarse_sync_impl::work(int noutput_items,
         return noutput_items;
 
 
+    for(int rx=0; rx<d_rxant; rx++){
+        memcpy(d_buffer[rx]+d_work_call*d_TIME_HYPO, input_items[rx], sizeof(gr_complex)*(d_TIME_HYPO+d_CORRL-1));
+    }
+
     //printf("---BEGIN coarse timing---\n");
 
     for(int d = 0; d < d_TIME_HYPO; d++)
     {
-        //TODO use aligned vectors, faster?, memcpy(tmp, in,...)
-        d_result[d] += diff_corr2(input_items, d_pss012_t, d_CORRL, d);
+        for(int rx=0; rx<d_rxant; rx++){
+            const gr_complex* in = (gr_complex*) input_items[rx];
+            d_result[d] += diff_corr(in+d, d_pss012_t, d_CORRL);
+        }
 
         if(d_result[d]>d_max)
         {
@@ -126,8 +136,7 @@ mimo_pss_coarse_sync_impl::work(int noutput_items,
         return d_TIME_HYPO;
 
     //obtain N_id_2 after coarse timinig sync
-    //for now only last received vector is used,
-    d_N_id_2 = calc_N_id_2(input_items, d_posmax);
+    d_N_id_2 = calc_N_id_2(d_buffer, d_posmax);
 
     //publish results
     message_port_pub(d_port_N_id_2, pmt::from_long((long)d_N_id_2));
@@ -146,17 +155,23 @@ mimo_pss_coarse_sync_impl::work(int noutput_items,
 
 
 int
-mimo_pss_coarse_sync_impl::calc_N_id_2(const gr_vector_const_void_star &in, const int &mpos)
+mimo_pss_coarse_sync_impl::calc_N_id_2(std::vector< gr_complex* > &buffer,  int &mpos)
 {
 
-    float max0;
-    max0=diff_corr2(in, d_pss0_t, d_CORRL, mpos);
+    float max0=0;
+    float max1=0;
+    float max2=0;
 
-    float max1;
-    max1=diff_corr2(in, d_pss1_t, d_CORRL, mpos);
+    for(int i=0; i<d_syncl; i++){
+        for(int rx=0; rx<d_rxant; rx++){
+            gr_complex* pss = buffer[rx]+mpos+i*d_TIME_HYPO;
+            max0+=diff_corr(pss, d_pss0_t, d_CORRL);
+            max1+=diff_corr(pss, d_pss1_t, d_CORRL);
+            max2+=diff_corr(pss, d_pss2_t, d_CORRL);
+        }
+    }
 
-    float max2;
-    max2=diff_corr2(in, d_pss2_t, d_CORRL, mpos);
+    printf("max0:%f\tmax1:%f\tmax2:%f\t\n", max0, max1, max2);
 
     int id=0;
     float max=max0;
@@ -193,20 +208,6 @@ mimo_pss_coarse_sync_impl::prepare_corr_vecs()
 
 
 }
-
-
-
-
-//differential correlation for n streams
-float
-mimo_pss_coarse_sync_impl::diff_corr2(const gr_vector_const_void_star &in, const gr_complex* y, int len, int cpos)
-{
-    float val=0;
-    for(int rx=0; rx<d_rxant; rx++)
-        val+=diff_corr((gr_complex*) in[rx]+cpos, y, len);
-    return val;
-}
-
 
 //calculate differential correlation, 4parts, returns absolute value
 float

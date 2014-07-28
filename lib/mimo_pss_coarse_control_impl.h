@@ -30,11 +30,11 @@ namespace gr {
     {
      private:
       bool d_control;
-
+      int d_rxant;
       void handle_msg_control(pmt::pmt_t msg);
 
      public:
-      mimo_pss_coarse_control_impl();
+      mimo_pss_coarse_control_impl(int rxant);
       ~mimo_pss_coarse_control_impl();
 
 

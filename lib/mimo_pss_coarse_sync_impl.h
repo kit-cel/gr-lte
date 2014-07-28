@@ -45,6 +45,8 @@ private:
 
     //filter::kernel::fir_filter_ccf *d_fir;
 
+    std::vector< gr_complex* > d_buffer;
+
     pmt::pmt_t d_port_coarse_pos;
     pmt::pmt_t d_port_N_id_2;
     pmt::pmt_t d_port_control;
@@ -58,9 +60,7 @@ private:
 
     void prepare_corr_vecs();
 
-    float diff_corr2(const gr_vector_const_void_star &in, const gr_complex* y, int len, int cpos);
-    int calc_N_id_2(const gr_vector_const_void_star &in, const int &mpos);
-
+    int calc_N_id_2(std::vector< gr_complex* > &buffer, int &mpos);
     float diff_corr(const gr_complex* x,const gr_complex* y, int len);
 
 

@@ -150,7 +150,7 @@ Params: (rxant, N_ant, vlen, style)"
 
 To avoid accidental use of raw pointers, lte::mimo_pss_coarse_control's constructor is in a private implementation class. lte::mimo_pss_coarse_control::make is the public interface for creating new instances.
 
-Params: (NONE)"
+Params: (rxant)"
 
 %feature("docstring") gr::lte::mimo_pss_coarse_sync "<+description of block+>"
 

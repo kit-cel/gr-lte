@@ -10,28 +10,24 @@
 gnuradio/attributes.h
 -
 
-../include/lte/mimo_sss_calculator.h
+../include/lte/mimo_pss_coarse_control.h
 lte/api.h
 -
 gnuradio/sync_block.h
 -
 
-/home/maier/gr-lte/lib/mimo_sss_calculator_impl.cc
+/home/maier/gr-lte/lib/mimo_pss_coarse_control_impl.cc
 config.h
 /home/maier/gr-lte/lib/config.h
 gnuradio/io_signature.h
 -
-mimo_sss_calculator_impl.h
-/home/maier/gr-lte/lib/mimo_sss_calculator_impl.h
-volk/volk.h
--
+mimo_pss_coarse_control_impl.h
+/home/maier/gr-lte/lib/mimo_pss_coarse_control_impl.h
 cstdio
 -
-boost/multi_array.hpp
--
 
-/home/maier/gr-lte/lib/mimo_sss_calculator_impl.h
-lte/mimo_sss_calculator.h
+/home/maier/gr-lte/lib/mimo_pss_coarse_control_impl.h
+lte/mimo_pss_coarse_control.h
 -
 
 /usr/local/include/gnuradio/api.h
@@ -312,51 +308,5 @@ pmt/pmt_sugar.h
 
 /usr/local/include/pmt/pmt_sugar.h
 gnuradio/messages/msg_accepter.h
--
-
-/usr/local/include/volk/volk.h
-volk/volk_typedefs.h
--
-volk/volk_config_fixed.h
--
-volk/volk_common.h
--
-volk/volk_complex.h
--
-volk/volk_malloc.h
--
-stdlib.h
--
-stdbool.h
--
-
-/usr/local/include/volk/volk_common.h
-inttypes.h
--
-xmmintrin.h
--
-emmintrin.h
--
-
-/usr/local/include/volk/volk_complex.h
-complex
--
-stdint.h
--
-complex.h
--
-
-/usr/local/include/volk/volk_config_fixed.h
-
-/usr/local/include/volk/volk_malloc.h
-volk/volk_common.h
--
-stdlib.h
--
-
-/usr/local/include/volk/volk_typedefs.h
-inttypes.h
--
-volk/volk_complex.h
 -
 
