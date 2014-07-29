@@ -47,7 +47,7 @@ namespace gr {
               d_control(false),
               d_rxant(rxant)
     {
-        printf("control");
+
         message_port_register_in(pmt::mp("control"));
         set_msg_handler(pmt::mp("control"), boost::bind(&mimo_pss_coarse_control_impl::handle_msg_control, this, _1));
 

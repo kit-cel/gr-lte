@@ -72,7 +72,7 @@ mimo_pss_coarse_sync_impl::mimo_pss_coarse_sync_impl(int fftl, int syncl, int rx
     d_a = (gr_complex*)volk_malloc(sizeof(gr_complex)*4,alig);
 
     for(int rx=0; rx<d_rxant; rx++){
-        gr_complex* p = (gr_complex*) volk_malloc(sizeof(gr_complex)*d_TIME_HYPO*syncl+d_CORRL-1, alig);
+        gr_complex* p = (gr_complex*) volk_malloc(sizeof(gr_complex)*(d_TIME_HYPO*syncl+d_CORRL-1), alig);
         d_buffer.push_back(p);
     }
     d_port_N_id_2 = pmt::string_to_symbol("N_id_2");

@@ -64,6 +64,7 @@ namespace gr {
         sss_info get_sss_info(gr_complex** &even, gr_complex** &odd, int N_id_2, int rxant);
         gr_complex corr(gr_complex *x,gr_complex *y, int len);
         void xcorr(std::vector<float> &v, gr_complex **x,gr_complex *y, int len, int rxant);
+        void msg_set_N_id_2(pmt::pmt_t msg);
 
         pmt::pmt_t d_port_cell_id;
         pmt::pmt_t d_port_frame_start;
@@ -71,7 +72,7 @@ namespace gr {
         void publish_frame_start(long frame_start);
 
      public:
-      mimo_sss_calculator_impl(int fftl, int rxant);
+      mimo_sss_calculator_impl(int rxant);
       ~mimo_sss_calculator_impl();
 
       // Where all the action really happens

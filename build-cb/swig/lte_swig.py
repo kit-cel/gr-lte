@@ -9066,7 +9066,7 @@ class mimo_sss_calculator(object):
     def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined")
     __repr__ = _swig_repr
     def make(*args, **kwargs):
-        """make(int fftl, int rxant) -> mimo_sss_calculator_sptr"""
+        """make(int rxant) -> mimo_sss_calculator_sptr"""
         return _lte_swig.mimo_sss_calculator_make(*args, **kwargs)
 
     make = staticmethod(make)
@@ -9076,7 +9076,7 @@ mimo_sss_calculator_swigregister = _lte_swig.mimo_sss_calculator_swigregister
 mimo_sss_calculator_swigregister(mimo_sss_calculator)
 
 def mimo_sss_calculator_make(*args, **kwargs):
-  """mimo_sss_calculator_make(int fftl, int rxant) -> mimo_sss_calculator_sptr"""
+  """mimo_sss_calculator_make(int rxant) -> mimo_sss_calculator_sptr"""
   return _lte_swig.mimo_sss_calculator_make(*args, **kwargs)
 
 class mimo_sss_calculator_sptr(object):
@@ -9098,7 +9098,7 @@ class mimo_sss_calculator_sptr(object):
     __swig_destroy__ = _lte_swig.delete_mimo_sss_calculator_sptr
     __del__ = lambda self : None;
     def make(self, *args, **kwargs):
-        """make(mimo_sss_calculator_sptr self, int fftl, int rxant) -> mimo_sss_calculator_sptr"""
+        """make(mimo_sss_calculator_sptr self, int rxant) -> mimo_sss_calculator_sptr"""
         return _lte_swig.mimo_sss_calculator_sptr_make(self, *args, **kwargs)
 
     def history(self):
