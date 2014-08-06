@@ -46,7 +46,7 @@ namespace gr {
               gr::io_signature::make( 1, 1, sizeof(gr_complex) * 240 * rxant)),
               d_cell_id(-1),
 			  d_N_rb_dl(N_rb_dl),
-			  d_sym_num(0),
+			  d_sym_num(-1),
 			  d_rxant(rxant)
     {
         message_port_register_in(pmt::mp("cell_id"));
@@ -83,11 +83,13 @@ namespace gr {
 		int ninitems = calculate_n_process_items(ninput_items, noutput_items);
 		//~ printf("this is a demux with %i items \n", ninitems);
 
-		// No data is processed as long as the cell_id is not available
-		if(d_cell_id < 0){
-			//~ consume_each(ninitems);
-			return 0;
-		}
+        //the following section is commented because it causes gnuradio-failure (?)
+
+//		// No data is processed as long as the cell_id is not available
+//		if(d_cell_id < 0){
+//			//consume_each(ninitems);
+//			return 0;
+//		}
 
 		//set noutput_items to zero. if output is produced, noutput_items is incremented.
 		noutput_items = 0;
@@ -114,7 +116,9 @@ namespace gr {
 			}
 
 			// update work values for next symbol
-			sym_num = (sym_num+1)%140;
+			if(sym_num != -1){
+                sym_num = (sym_num+1)%140;
+            }
 			in += n_carriers * d_rxant;
 		}
 

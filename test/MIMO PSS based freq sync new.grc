@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='ASCII'?>
 <flow_graph>
-  <timestamp>Thu Jul 24 16:41:28 2014</timestamp>
+  <timestamp>Wed Aug  6 20:01:39 2014</timestamp>
   <block>
     <key>options</key>
     <param>
@@ -315,6 +315,45 @@
     </param>
   </block>
   <block>
+    <key>lte_mimo_pss_freq_sync</key>
+    <param>
+      <key>id</key>
+      <value>lte_mimo_pss_freq_sync_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>fftl</key>
+      <value>fftlen</value>
+    </param>
+    <param>
+      <key>rxant</key>
+      <value>rxant</value>
+    </param>
+    <param>
+      <key>sig</key>
+      <value>"sync_ffofrac_sig"</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(592, 475)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>180</value>
+    </param>
+  </block>
+  <block>
     <key>analog_sig_source_x</key>
     <param>
       <key>id</key>
@@ -366,50 +405,11 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(271, 347)</value>
+      <value>(270, 347)</value>
     </param>
     <param>
       <key>_rotation</key>
       <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>lte_mimo_pss_freq_sync</key>
-    <param>
-      <key>id</key>
-      <value>lte_mimo_pss_freq_sync_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>fftl</key>
-      <value>fftlen</value>
-    </param>
-    <param>
-      <key>rxant</key>
-      <value>2</value>
-    </param>
-    <param>
-      <key>sig</key>
-      <value>"sync_ffofrac_sig"</value>
-    </param>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(592, 475)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>180</value>
     </param>
   </block>
   <connection>

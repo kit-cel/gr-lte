@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='ASCII'?>
 <flow_graph>
-  <timestamp>Sun Jul 20 23:18:06 2014</timestamp>
+  <timestamp>Wed Aug  6 20:02:20 2014</timestamp>
   <block>
     <key>options</key>
     <param>
@@ -221,53 +221,6 @@
     </param>
   </block>
   <block>
-    <key>lte_mimo_remove_cp</key>
-    <param>
-      <key>id</key>
-      <value>lte_mimo_remove_cp_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>fftl</key>
-      <value>fftlen</value>
-    </param>
-    <param>
-      <key>rxant</key>
-      <value>rxant</value>
-    </param>
-    <param>
-      <key>key</key>
-      <value>ofdm_key</value>
-    </param>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>maxoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(209, 274)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
     <key>pad_source</key>
     <param>
       <key>id</key>
@@ -418,6 +371,53 @@
     <param>
       <key>_coordinate</key>
       <value>(428, 238)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>lte_mimo_remove_cp</key>
+    <param>
+      <key>id</key>
+      <value>lte_mimo_remove_cp_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>fftl</key>
+      <value>fftlen</value>
+    </param>
+    <param>
+      <key>rxant</key>
+      <value>rxant</value>
+    </param>
+    <param>
+      <key>key</key>
+      <value>ofdm_key</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(209, 274)</value>
     </param>
     <param>
       <key>_rotation</key>
