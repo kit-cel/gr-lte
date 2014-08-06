@@ -44,7 +44,7 @@ namespace gr {
      */
     mimo_pre_decoder_impl::mimo_pre_decoder_impl(int rxant, int N_ant, int vlen, std::string style)
       : gr::sync_block("mimo_pre_decoder",
-              gr::io_signature::make( 2, 3, sizeof(gr_complex) * vlen * rxant),
+              gr::io_signature::make( 2, 5, sizeof(gr_complex) * vlen * rxant),
               gr::io_signature::make( 1, 1, sizeof(gr_complex) * vlen)),
               d_vlen(vlen),
               d_rxant(rxant)
