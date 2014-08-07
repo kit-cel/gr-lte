@@ -140,16 +140,35 @@ def frame_map_rs_symbols(frame, N_rb_dl, cell_id, Ncp, p):
             for sym in range(len(rs_pos_frame[i])):
                 frame[i][rs_pos_frame[i][sym]] = rs_val_frame[i][sym]
     return frame
-
+  
+  
 def frame_pilot_value_and_position(N_rb_dl, cell_id, Ncp, p):
     rs_pos_frame = []
     rs_val_frame = []
+    Ndlsymb = 7;
     for ns in range(20):
-        sym0 = symbol_pilot_value_and_position(N_rb_dl, ns, 0, cell_id, Ncp, p)
-        sym4 = symbol_pilot_value_and_position(N_rb_dl, ns, 4, cell_id, Ncp, p)
-        rs_pos_frame.extend([sym0[0], [], [], [], sym4[0], [], [] ])
-        rs_val_frame.extend([sym0[1], [], [], [], sym4[1], [], [] ])
+        sym1 = symbol_pilot_value_and_position(N_rb_dl, ns, 1, cell_id, Ncp, p)
+        if p == 0 or p == 1:
+            sym0 = symbol_pilot_value_and_position(N_rb_dl, ns, 0, cell_id, Ncp, p)
+            sym4 = symbol_pilot_value_and_position(N_rb_dl, ns, 4, cell_id, Ncp, p)
+            rs_pos_frame.extend([sym0[0], [], [], [], sym4[0], [], []])
+            rs_val_frame.extend([sym0[1], [], [], [], sym4[1], [], []])
+        if p == 2 or p == 3:
+            sym1 = symbol_pilot_value_and_position(N_rb_dl, ns, 1, cell_id, Ncp, p)
+            rs_pos_frame.extend([[], sym1[0], [], [], [], [], []])
+            rs_val_frame.extend([[], sym1[1], [], [], [], [], []])
     return [rs_pos_frame, rs_val_frame]
+      
+      
+#def frame_pilot_value_and_position(N_rb_dl, cell_id, Ncp, p):
+#    rs_pos_frame = []
+#    rs_val_frame = []
+#    for ns in range(20):
+#        sym0 = symbol_pilot_value_and_position(N_rb_dl, ns, 0, cell_id, Ncp, p)
+#        sym4 = symbol_pilot_value_and_position(N_rb_dl, ns, 4, cell_id, Ncp, p)
+#        rs_pos_frame.extend([sym0[0], [], [], [], sym4[0], [], [] ])
+#        rs_val_frame.extend([sym0[1], [], [], [], sym4[1], [], [] ])
+#    return [rs_pos_frame, rs_val_frame]
 
 def symbol_pilot_value_and_position(N_rb_dl, ns, l, cell_id, Ncp, p):
     N_RB_MAX = 110

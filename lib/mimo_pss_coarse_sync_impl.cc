@@ -58,14 +58,9 @@ mimo_pss_coarse_sync_impl::mimo_pss_coarse_sync_impl(int fftl, int syncl, int rx
     d_posmax(0),
     d_max(0)
 {
-    //int decim = fftl/d_CORRL;
-	//std::vector< float > tapsd(10,4);
-	//d_fir = new filter::kernel::fir_filter_ccf(1, tapsd);
-    //d_fir = new filter::kernel::fir_filter_ccf(decim, taps);
-
 
     //make sure that there are enough input items for
-    //a 128 point correalation at position 9600 (index=9599)
+    //a 64 point correalation at position 4800 (index=4799)
     set_output_multiple(d_TIME_HYPO+d_CORRL-1);
 
     size_t alig = volk_get_alignment();
@@ -171,7 +166,7 @@ mimo_pss_coarse_sync_impl::calc_N_id_2(std::vector< gr_complex* > &buffer,  int 
         }
     }
 
-    printf("max0:%f\tmax1:%f\tmax2:%f\t\n", max0, max1, max2);
+    printf("Nid2 correlation values: id0:%f\tid1:%f\tid2:%f\t\n", max0, max1, max2);
 
     int id=0;
     float max=max0;
@@ -198,14 +193,10 @@ mimo_pss_coarse_sync_impl::prepare_corr_vecs()
     pss::gen_conj_pss_t(d_pss1_t, 1, d_CORRL);
     pss::gen_conj_pss_t(d_pss2_t, 2, d_CORRL);
 
-    //add pss' for correlation
-    for(int i=0; i<d_CORRL; i++)
-    {
+    //add pss for correlation
+    for(int i=0; i<d_CORRL; i++){
         d_pss012_t[i]=d_pss0_t[i]+d_pss1_t[i]+d_pss2_t[i];
     }
-
-
-
 
 }
 
@@ -213,11 +204,10 @@ mimo_pss_coarse_sync_impl::prepare_corr_vecs()
 float
 mimo_pss_coarse_sync_impl::diff_corr(const gr_complex* x,const gr_complex* y, int len)
 {
-    volk_32fc_x2_dot_prod_32fc(d_a,   x,         y,         len/4);
-    volk_32fc_x2_dot_prod_32fc(d_a+1, x+len/4*1, y+len/4*1, len/4);
-    volk_32fc_x2_dot_prod_32fc(d_a+2, x+len/4*2, y+len/4*2, len/4);
-    volk_32fc_x2_dot_prod_32fc(d_a+3, x+len/4*3, y+len/4*3, len/4);
-
+    int len4 = len/4;
+    for(int i=0; i<4; i++){
+        volk_32fc_x2_dot_prod_32fc(d_a+i, x+len4*i, y+len4*i, len4);
+    }
     return abs(d_a[0]*conj(d_a[1]) + d_a[1]*conj(d_a[2]) + d_a[2]*conj(d_a[3]));
 }
 

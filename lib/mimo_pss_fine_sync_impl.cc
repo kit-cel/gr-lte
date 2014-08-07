@@ -136,7 +136,7 @@ mimo_pss_fine_sync_impl::forecast (int noutput_items, gr_vector_int &ninput_item
 {
     unsigned ninputs = ninput_items_required.size ();
     for (unsigned i = 0; i < ninputs; i++)
-        ninput_items_required[i] = noutput_items+d_fftl+3;
+        ninput_items_required[i] = noutput_items+d_fftl+1;  //+1 for tracking
 }
 
 
@@ -236,17 +236,13 @@ mimo_pss_fine_sync_impl::work(int noutput_items,
                     fine_pos=d_fine_pos+1;
                 }
 
-//                printf("---------------\n");
-//                printf("PSS-tracking: early:%f\n", d_val_early);
-//                printf("PSS-tracking: prompt:%f\n", d_val_prompt);
-//                printf("PSS-tracking: late:%f\n", d_val_late);
                 //printf("PSS-tracking: old_pos:%i\told_val:%f\tnew_pos:%i\tnew_val:%f\n", d_fine_pos, d_corr_val, fine_pos, val);
 
                 d_fine_pos=(fine_pos+d_halffl)%d_halffl;
                 d_corr_val=val;
                 d_half_frame_start=calc_half_frame_start(fine_pos);
                 message_port_pub(d_port_half_frame, pmt::from_long((long)d_half_frame_start));
-                //step over next samples until next pss occurs
+                //step over several samples until next pss occurs
                 d_step=d_halffl-noutput_items;
                 break;
             }
@@ -279,11 +275,10 @@ mimo_pss_fine_sync_impl::diff_corr2(const gr_vector_const_void_star in, const gr
 float
 mimo_pss_fine_sync_impl::diff_corr(const gr_complex* x,const gr_complex* y, int len)
 {
-    volk_32fc_x2_dot_prod_32fc(d_a,   x,         y,         len/4);
-    volk_32fc_x2_dot_prod_32fc(d_a+1, x+len/4*1, y+len/4*1, len/4);
-    volk_32fc_x2_dot_prod_32fc(d_a+2, x+len/4*2, y+len/4*2, len/4);
-    volk_32fc_x2_dot_prod_32fc(d_a+3, x+len/4*3, y+len/4*3, len/4);
-
+    int len4 = len/4;
+    for(int i=0; i<4; i++){
+        volk_32fc_x2_dot_prod_32fc(d_a+i, x+len4*i, y+len4*i, len4);
+    }
     return abs(d_a[0]*conj(d_a[1]) + d_a[1]*conj(d_a[2]) + d_a[2]*conj(d_a[3]));
 }
 

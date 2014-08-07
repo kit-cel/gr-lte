@@ -417,7 +417,7 @@
 			</Target>
 		</Build>
 		<ExtraCommands>
-			<Add after="echo foobar | sudo -S make install -j 2" />
+			<Add after="echo foobar | sudo -S make install -j 4" />
 		</ExtraCommands>
 		<Unit filename="../../../../usr/local/lib/cmake/gnuradio/CMakeParseArgumentsCopy.cmake">
 			<Option virtualFolder="CMake Files/../../../usr/local/lib/cmake/gnuradio/" />

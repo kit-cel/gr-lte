@@ -74,7 +74,7 @@ def calc_v(ns, l, p):
     elif p == 2:
         v = 3*(ns%2)
     elif p==3:
-        v = 3*3*(ns%2)
+        v = 3+3*(ns%2)
     return v
 
 def map_sync_to_symbol(symbol, sync, N_rb_dl):

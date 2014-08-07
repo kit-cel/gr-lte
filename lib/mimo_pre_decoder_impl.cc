@@ -107,6 +107,21 @@ namespace gr {
 
 			}
 		}
+		else if(d_N_ant == 4){
+            const gr_complex *ce1 = (const gr_complex *) input_items[2];      //channel estimate ant port 1
+            const gr_complex *ce2 = (const gr_complex *) input_items[3];      //channel estimate ant port 2
+            const gr_complex *ce3 = (const gr_complex *) input_items[4];      //channel estimate ant port 3
+            for(int i = 0; i < noutput_items; i++){
+                decode_2_ant(d_out0, d_out1, d_h0, d_h1, d_r0, d_r1, in, ce0, ce1, d_vlen);
+                combine_output(out, d_out0, d_out1, d_vlen);
+
+                in  += d_vlen * d_rxant;
+                ce0 += d_vlen * d_rxant;
+                ce1 += d_vlen * d_rxant;
+                out += d_vlen;
+            }
+		}
+
 
 
 		// Tell runtime system how many output items we produced.
