@@ -25,11 +25,18 @@ import numpy as np
 def frame_pilot_value_and_position(N_rb_dl, cell_id, Ncp, p):
     rs_pos_frame = []
     rs_val_frame = []
+    Ndlsymb = 7;
     for ns in range(20):
-        sym0 = symbol_pilot_value_and_position(N_rb_dl, ns, 0, cell_id, Ncp, p)
-        sym4 = symbol_pilot_value_and_position(N_rb_dl, ns, 4, cell_id, Ncp, p)
-        rs_pos_frame.extend([sym0[0], [], [], [], sym4[0], [], []])
-        rs_val_frame.extend([sym0[1], [], [], [], sym4[1], [], []])
+        sym1 = symbol_pilot_value_and_position(N_rb_dl, ns, 1, cell_id, Ncp, p)
+        if p == 0 or p == 1:
+            sym0 = symbol_pilot_value_and_position(N_rb_dl, ns, 0, cell_id, Ncp, p)
+            sym4 = symbol_pilot_value_and_position(N_rb_dl, ns, 4, cell_id, Ncp, p)
+            rs_pos_frame.extend([sym0[0], [], [], [], sym4[0], [], []])
+            rs_val_frame.extend([sym0[1], [], [], [], sym4[1], [], []])
+        if p == 2 or p == 3:
+            sym1 = symbol_pilot_value_and_position(N_rb_dl, ns, 1, cell_id, Ncp, p)
+            rs_pos_frame.extend([[], sym1[0], [], [], [], [], []])
+            rs_val_frame.extend([[], sym1[1], [], [], [], [], []])
     return [rs_pos_frame, rs_val_frame]
 
 
@@ -88,7 +95,7 @@ def calc_v(ns, l, p):
     elif p == 2:
         v = 3 * (ns % 2)
     elif p == 3:
-        v = 3 * 3 * (ns % 2)
+        v = 3 + 3 * (ns % 2)
     return v
 
 

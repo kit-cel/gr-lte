@@ -83,7 +83,7 @@ namespace gr {
 		int ninitems = calculate_n_process_items(ninput_items, noutput_items);
 		//~ printf("this is a demux with %i items \n", ninitems);
 
-        //the following section is commented because it causes gnuradio-failure (?)
+        //the following section is commented because it causes gnuradio-failure (to much items in pipe?)
 
 //		// No data is processed as long as the cell_id is not available
 //		if(d_cell_id < 0){

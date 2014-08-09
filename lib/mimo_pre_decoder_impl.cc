@@ -85,6 +85,7 @@ namespace gr {
 		const gr_complex *ce0 = (const gr_complex *) input_items[1];    //channel estimate ant port 0
 		gr_complex *out = (gr_complex *) output_items[0];
 
+
 		if (d_N_ant == 1){
 			for(int i = 0; i < noutput_items; i++){
                 decode_1_ant(out, in, ce0, d_vlen);
@@ -112,12 +113,16 @@ namespace gr {
             const gr_complex *ce2 = (const gr_complex *) input_items[3];      //channel estimate ant port 2
             const gr_complex *ce3 = (const gr_complex *) input_items[4];      //channel estimate ant port 3
             for(int i = 0; i < noutput_items; i++){
-                decode_2_ant(d_out0, d_out1, d_h0, d_h1, d_r0, d_r1, in, ce0, ce1, d_vlen);
-                combine_output(out, d_out0, d_out1, d_vlen);
+                decode_4_ant(d_out0, d_out1, d_out2, d_out3, d_h0, d_h1, d_r0, d_r1, d_rx0,
+                                        d_ce0, d_ce1, d_ce2, d_ce3, in, ce0, ce1, ce2, ce3, d_vlen);
+                combine_output(out,          d_out0, d_out1, d_vlen/2);
+                combine_output(out+d_vlen/2, d_out2, d_out3, d_vlen/2);
 
                 in  += d_vlen * d_rxant;
                 ce0 += d_vlen * d_rxant;
                 ce1 += d_vlen * d_rxant;
+                ce2 += d_vlen * d_rxant;
+                ce3 += d_vlen * d_rxant;
                 out += d_vlen;
             }
 		}
@@ -210,7 +215,7 @@ namespace gr {
 
 		estimate
 		e_x0 = ( SUM_X (h0_X* r_antX_f0 + h1_X r_antX_f1*) ) / SUM_X(|h0_X|²+|h1_X|²)
-		e_x1 = ( SUM_x (h0_X* r_antX_f1 - h1_X r_antX_f0*) ) / SUM_X(|h0_X|²+|h1_X|²)
+		e_x1 = ( SUM_X (h0_X* r_antX_f1 - h1_X r_antX_f0*) ) / SUM_X(|h0_X|²+|h1_X|²)
 		*/
 
 		int len2 = len/2;
@@ -260,6 +265,84 @@ namespace gr {
 
 
 	}
+
+	void
+	mimo_pre_decoder_impl::prepare_4_ant_vectors(gr_complex* rx0,
+                                                const gr_complex* rx,
+												int len)
+	{
+        for(int i=0; i<d_rxant; i++){
+            for(int n = 0; n < len/2; n++){
+                rx0[2*n]   =  rx[4*n];
+                rx0[2*n+1] =  rx[4*n+1];
+            }
+            rx0+=len;
+            rx+=len*2;
+		}
+	}
+
+
+    void
+	mimo_pre_decoder_impl::decode_4_ant(gr_complex* out0,
+                                        gr_complex* out1,
+                                        gr_complex* out2,
+                                        gr_complex* out3,
+                                        gr_complex* h0,
+                                        gr_complex* h1,
+                                        gr_complex* r0,
+                                        gr_complex* r1,
+                                        gr_complex* rx_buf,
+                                        gr_complex* ce0_buf,
+                                        gr_complex* ce1_buf,
+                                        gr_complex* ce2_buf,
+                                        gr_complex* ce3_buf,
+                                        const gr_complex* rx,
+                                        const gr_complex* ce0,
+                                        const gr_complex* ce1,
+                                        const gr_complex* ce2,
+                                        const gr_complex* ce3,
+                                        int len)
+    {
+
+        /*
+		alamouti Coding
+                freq0  freq1  freq2  freq3
+		tx_ant0  x0     x1     0      0
+		tx_ant1  0      0      x2     x3
+		tx_ant2 -x1*    x0*    0      0
+		tx_ant3  0      0      -x3*   x2*
+
+		RX_antX
+		r_antX_f0 = h0_X x0 - h2_X x1*
+		r_antX_f1 = h0_X x1 + h2_X x0*
+
+		r_antX_f2 = h1_X x2 - h3_X x3*
+		r_antX_f3 = h1_X x3 + h3_X x2*
+
+		estimate
+		e_x0 = ( SUM_X (h0_X* r_antX_f0 + h2_X r_antX_f1*) ) / SUM_X(|h0_X|²+|h2_X|²)
+		e_x1 = ( SUM_x (h0_X* r_antX_f1 - h2_X r_antX_f0*) ) / SUM_X(|h0_X|²+|h2_X|²)
+
+		e_x2 = ( SUM_X (h1_X* r_antX_f2 + h3_X r_antX_f3*) ) / SUM_X(|h1_X|²+|h3_X|²)
+		e_x3 = ( SUM_x (h1_X* r_antX_f3 - h3_X r_antX_f2*) ) / SUM_X(|h1_X|²+|h3_X|²)
+
+		decoding can be seperated in the 2 antenna decoding scheme
+		*/
+
+		int len2 = len/2;
+
+		//first copy the relevant samples to a buffer, so the input can be interpreted as the 2tx antenna scheme
+		prepare_4_ant_vectors(rx_buf, rx, len2);
+		prepare_4_ant_vectors(ce0_buf, ce0, len2);
+		prepare_4_ant_vectors(ce2_buf, ce2, len2);
+        decode_2_ant(out0, out1, h0, h1, r0, r1, rx_buf, ce0_buf, ce2_buf, len2);
+
+        prepare_4_ant_vectors(rx_buf, rx+2, len2);
+		prepare_4_ant_vectors(ce1_buf, ce1, len2);
+		prepare_4_ant_vectors(ce3_buf, ce3, len2);
+        decode_2_ant(out2, out3, h0, h1, r0, r1, rx_buf, ce1_buf, ce3_buf, len2);
+
+    }
 
 	void
 	mimo_pre_decoder_impl::combine_output(gr_complex* out,
@@ -317,22 +400,36 @@ namespace gr {
 	mimo_pre_decoder_impl::setup_volk_vectors(int len)
 	{
         int alig = volk_get_alignment();
+        int len2 = len/2;
 
 		d_mag_h = (float*)volk_malloc(sizeof(float)*len, alig);
 		d_mag   = (float*)volk_malloc(sizeof(float)*len, alig);
 		d_out   = (gr_complex*)volk_malloc(sizeof(gr_complex)*len, alig);
 
-		d_h0 = (gr_complex*)volk_malloc(sizeof(gr_complex)*len/2, alig);
-		d_h1 = (gr_complex*)volk_malloc(sizeof(gr_complex)*len/2, alig);
-		d_r0 = (gr_complex*)volk_malloc(sizeof(gr_complex)*len/2, alig);
-		d_r1 = (gr_complex*)volk_malloc(sizeof(gr_complex)*len/2, alig);
+		d_h0 = (gr_complex*)volk_malloc(sizeof(gr_complex)*len2, alig);
+		d_h1 = (gr_complex*)volk_malloc(sizeof(gr_complex)*len2, alig);
+		d_r0 = (gr_complex*)volk_malloc(sizeof(gr_complex)*len2, alig);
+		d_r1 = (gr_complex*)volk_malloc(sizeof(gr_complex)*len2, alig);
 
-		d_out0 = (gr_complex*)volk_malloc(sizeof(gr_complex)*len/2, alig);
-		d_out1 = (gr_complex*)volk_malloc(sizeof(gr_complex)*len/2, alig);
+        //output buffer for 2 and 4 tx antennas scheme
+		d_out0 = (gr_complex*)volk_malloc(sizeof(gr_complex)*len2, alig);
+		d_out1 = (gr_complex*)volk_malloc(sizeof(gr_complex)*len2, alig);
 
-		d_mult0 = (gr_complex*)volk_malloc(sizeof(gr_complex)*len/2, alig);
-		d_mult1 = (gr_complex*)volk_malloc(sizeof(gr_complex)*len/2, alig);
+		//output buffer for 4 tx antennas scheme
+		d_out2 = (gr_complex*)volk_malloc(sizeof(gr_complex)*len2/2, alig);
+		d_out3 = (gr_complex*)volk_malloc(sizeof(gr_complex)*len2/2, alig);
 
+        //calculation buffer
+		d_mult0 = (gr_complex*)volk_malloc(sizeof(gr_complex)*len2, alig);
+		d_mult1 = (gr_complex*)volk_malloc(sizeof(gr_complex)*len2, alig);
+
+
+        //input buffer for 4 tx antenna scheme
+        d_rx0 = (gr_complex*)volk_malloc(sizeof(gr_complex)*len2*d_rxant, alig);
+        d_ce0 = (gr_complex*)volk_malloc(sizeof(gr_complex)*len2*d_rxant, alig);
+        d_ce1 = (gr_complex*)volk_malloc(sizeof(gr_complex)*len2*d_rxant, alig);
+        d_ce2 = (gr_complex*)volk_malloc(sizeof(gr_complex)*len2*d_rxant, alig);
+        d_ce3 = (gr_complex*)volk_malloc(sizeof(gr_complex)*len2*d_rxant, alig);
 
 	}
 

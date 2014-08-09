@@ -58,6 +58,31 @@ namespace gr {
                                 const gr_complex* ce1,
 								int len);
 
+		void prepare_4_ant_vectors(gr_complex* rx0,
+                                        const gr_complex* rx,
+                                        int len);
+
+
+        void decode_4_ant(gr_complex* out0,
+								gr_complex* out1,
+								gr_complex* out2,
+								gr_complex* out3,
+								gr_complex* h0,
+								gr_complex* h1,
+								gr_complex* r0,
+								gr_complex* r1,
+                                gr_complex* rx_buf,
+                                gr_complex* ce0_buf,
+                                gr_complex* ce1_buf,
+                                gr_complex* ce2_buf,
+                                gr_complex* ce3_buf,
+                                const gr_complex* rx,
+                                const gr_complex* ce0,
+                                const gr_complex* ce1,
+                                const gr_complex* ce2,
+                                const gr_complex* ce3,
+								int len);
+
 		void combine_output(gr_complex* out,
 								   gr_complex* out0,
 								   gr_complex* out1,
@@ -70,8 +95,17 @@ namespace gr {
 		gr_complex* d_out;
 		gr_complex* d_out0;
 		gr_complex* d_out1;
+		gr_complex* d_out2;
+		gr_complex* d_out3;
 		gr_complex* d_mult0;
 		gr_complex* d_mult1;
+
+		gr_complex* d_rx0;
+		gr_complex* d_ce0;
+		gr_complex* d_ce1;
+		gr_complex* d_ce2;
+		gr_complex* d_ce3;
+
 		float*      d_mag;
 		float*      d_mag_h;
 		void setup_volk_vectors(int len);

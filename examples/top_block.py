@@ -2,7 +2,7 @@
 ##################################################
 # Gnuradio Python Flow Graph
 # Title: Top Block
-# Generated: Fri Aug  8 01:02:20 2014
+# Generated: Fri Aug  8 18:11:26 2014
 ##################################################
 
 execfile("/home/maier/.grc_gnuradio/decode_bch_hier_gr37.py")
@@ -12,6 +12,7 @@ execfile("/home/maier/.grc_gnuradio/lte_mimo_ofdm_rx.py")
 execfile("/home/maier/.grc_gnuradio/lte_mimo_pss_based_frey_sync.py")
 execfile("/home/maier/.grc_gnuradio/lte_mimo_pss_sync.py")
 execfile("/home/maier/.grc_gnuradio/lte_mimo_sss_sync.py")
+from PyQt4 import Qt
 from gnuradio import blocks
 from gnuradio import eng_notation
 from gnuradio import filter
@@ -20,11 +21,34 @@ from gnuradio.eng_option import eng_option
 from gnuradio.filter import firdes
 from optparse import OptionParser
 import lte
+import sys
 
-class top_block(gr.top_block):
+from distutils.version import StrictVersion
+class top_block(gr.top_block, Qt.QWidget):
 
     def __init__(self):
         gr.top_block.__init__(self, "Top Block")
+        Qt.QWidget.__init__(self)
+        self.setWindowTitle("Top Block")
+        try:
+             self.setWindowIcon(Qt.QIcon.fromTheme('gnuradio-grc'))
+        except:
+             pass
+        self.top_scroll_layout = Qt.QVBoxLayout()
+        self.setLayout(self.top_scroll_layout)
+        self.top_scroll = Qt.QScrollArea()
+        self.top_scroll.setFrameStyle(Qt.QFrame.NoFrame)
+        self.top_scroll_layout.addWidget(self.top_scroll)
+        self.top_scroll.setWidgetResizable(True)
+        self.top_widget = Qt.QWidget()
+        self.top_scroll.setWidget(self.top_widget)
+        self.top_layout = Qt.QVBoxLayout(self.top_widget)
+        self.top_grid_layout = Qt.QGridLayout()
+        self.top_layout.addLayout(self.top_grid_layout)
+
+        self.settings = Qt.QSettings("GNU Radio", "top_block")
+        self.restoreGeometry(self.settings.value("geometry").toByteArray())
+
 
         ##################################################
         # Variables
@@ -73,7 +97,7 @@ class top_block(gr.top_block):
         self.lte_mimo_estimator_0 = lte_mimo_estimator(
             estimator_key=frame_key,
             N_rb_dl=N_rb_dl,
-            initial_id=215,
+            initial_id=2,
             rxant=rxant,
         )
         self.lte_mimo_decode_pbch_0 = lte_mimo_decode_pbch(
@@ -115,6 +139,10 @@ class top_block(gr.top_block):
         self.msg_connect(self.lte_mimo_sss_sync_0, "cell_id", self.lte_mimo_decode_pbch_0, "cell_id")
         self.msg_connect(self.lte_mimo_pss_sync_0, "N_id_2", self.lte_mimo_sss_sync_0, "N_id_2")
 
+    def closeEvent(self, event):
+        self.settings = Qt.QSettings("GNU Radio", "top_block")
+        self.settings.setValue("geometry", self.saveGeometry())
+        event.accept()
 
     def get_fftl(self):
         return self.fftl
@@ -139,11 +167,11 @@ class top_block(gr.top_block):
     def set_rxant(self, rxant):
         self.rxant = rxant
         self.lte_mimo_pss_sync_0.set_rxant(self.rxant)
-        self.lte_mimo_decode_pbch_0.set_rxant(self.rxant)
-        self.lte_mimo_estimator_0.set_rxant(self.rxant)
         self.lte_mimo_pss_based_frey_sync_0.set_rxant(self.rxant)
         self.lte_mimo_ofdm_rx_0.set_rxant(self.rxant)
         self.lte_mimo_sss_sync_0.set_rxant(self.rxant)
+        self.lte_mimo_estimator_0.set_rxant(self.rxant)
+        self.lte_mimo_decode_pbch_0.set_rxant(self.rxant)
 
     def get_resampler(self):
         return self.resampler
@@ -156,24 +184,39 @@ class top_block(gr.top_block):
 
     def set_frame_key(self, frame_key):
         self.frame_key = frame_key
-        self.lte_mimo_estimator_0.set_estimator_key(self.frame_key)
         self.lte_mimo_ofdm_rx_0.set_ofdm_key(self.frame_key)
+        self.lte_mimo_estimator_0.set_estimator_key(self.frame_key)
 
     def get_N_rb_dl(self):
         return self.N_rb_dl
 
     def set_N_rb_dl(self, N_rb_dl):
         self.N_rb_dl = N_rb_dl
-        self.lte_mimo_decode_pbch_0.set_N_rb_dl(self.N_rb_dl)
-        self.lte_mimo_estimator_0.set_N_rb_dl(self.N_rb_dl)
         self.lte_mimo_ofdm_rx_0.set_N_rb_dl(self.N_rb_dl)
         self.lte_mimo_sss_sync_0.set_N_rb_dl(self.N_rb_dl)
+        self.lte_mimo_estimator_0.set_N_rb_dl(self.N_rb_dl)
+        self.lte_mimo_decode_pbch_0.set_N_rb_dl(self.N_rb_dl)
 
 if __name__ == '__main__':
+    import ctypes
+    import sys
+    if sys.platform.startswith('linux'):
+        try:
+            x11 = ctypes.cdll.LoadLibrary('libX11.so')
+            x11.XInitThreads()
+        except:
+            print "Warning: failed to XInitThreads()"
     parser = OptionParser(option_class=eng_option, usage="%prog: [options]")
     (options, args) = parser.parse_args()
+    if(StrictVersion(Qt.qVersion()) >= StrictVersion("4.5.0")):
+        Qt.QApplication.setGraphicsSystem(gr.prefs().get_string('qtgui','style','raster'))
+    qapp = Qt.QApplication(sys.argv)
     tb = top_block()
     tb.start()
-    raw_input('Press Enter to quit: ')
-    tb.stop()
-    tb.wait()
+    tb.show()
+    def quitting():
+        tb.stop()
+        tb.wait()
+    qapp.connect(qapp, Qt.SIGNAL("aboutToQuit()"), quitting)
+    qapp.exec_()
+    tb = None #to clean up Qt widgets
