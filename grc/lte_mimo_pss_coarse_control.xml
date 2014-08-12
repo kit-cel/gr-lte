@@ -39,11 +39,8 @@
        * vlen
        * optional (set to 1 for optional inputs) -->
   <source>
-    <name>out1</name>
+    <name>out</name>
     <type>complex</type>
-  </source>
-  <source>
-    <name>out2</name>
-    <type>complex</type>
+    <nports>$rxant</nports>
   </source>
 </block>
