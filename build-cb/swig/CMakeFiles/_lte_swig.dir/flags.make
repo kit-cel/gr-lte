@@ -6,3 +6,5 @@ CXX_FLAGS = -O3 -DNDEBUG -fPIC -I/home/maier/gr-lte/lib -I/home/maier/gr-lte/inc
 
 CXX_DEFINES = -D_lte_swig_EXPORTS
 
+# Custom flags: swig/CMakeFiles/_lte_swig.dir/lte_swigPYTHON_wrap.cxx.o_FLAGS = -Wno-unused-but-set-variable
+

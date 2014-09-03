@@ -49,65 +49,23 @@ include swig/CMakeFiles/_lte_swig.dir/progress.make
 # Include the compile flags for this target's objects.
 include swig/CMakeFiles/_lte_swig.dir/flags.make
 
-swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/tagged_stream_block.i
-swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/gnuradio.i
-swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/realtime.i
-swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/block.i
-swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/block_detail.i
-swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/constants.i
-swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/sync_block.i
-swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/gr_shared_ptr.i
-swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/block_gateway.i
-swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/sync_interpolator.i
-swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/gr_types.i
-swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/basic_block.i
-swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/gr_ctrlport.i
-swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/io_signature.i
-swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/top_block.i
-swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/gr_extras.i
-swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/message.i
-swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/tags.i
-swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/msg_handler.i
-swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/runtime_swig.i
-swig/lte_swigPYTHON_wrap.cxx: swig/lte_swig_doc.i
-swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/msg_queue.i
-swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/buffer.i
-swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/gr_swig_block_magic.i
-swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/hier_block2.i
-swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/runtime_swig_doc.i
-swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/feval.i
-swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/sync_decimator.i
-swig/lte_swigPYTHON_wrap.cxx: ../swig/lte_swig.i
-swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/gr_logger.i
-swig/lte_swigPYTHON_wrap.cxx: /usr/local/include/gnuradio/swig/prefs.i
-swig/lte_swigPYTHON_wrap.cxx: swig/lte_swig.tag
-swig/lte_swigPYTHON_wrap.cxx: ../swig/lte_swig.i
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/maier/gr-lte/build-cb/CMakeFiles $(CMAKE_PROGRESS_1)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Swig source"
-	cd /home/maier/gr-lte/build-cb/swig && /usr/bin/cmake -E make_directory /home/maier/gr-lte/build-cb/swig
-	cd /home/maier/gr-lte/build-cb/swig && /usr/bin/swig2.0 -python -fvirtual -modern -keyword -w511 -module lte_swig -I/home/maier/gr-lte/build-cb/swig -I/home/maier/gr-lte/swig -I/usr/local/include/gnuradio/swig -I/usr/include/python2.7 -I/usr/include/python2.7 -I/usr/include/x86_64-linux-gnu/python2.7 -outdir /home/maier/gr-lte/build-cb/swig -c++ -I/home/maier/gr-lte/lib -I/home/maier/gr-lte/include -I/home/maier/gr-lte/build-cb/lib -I/home/maier/gr-lte/build-cb/include -I/usr/include -I/usr/include -I/usr/local/include -I/home/maier/gr-lte/build-cb/swig -I/home/maier/gr-lte/swig -I/usr/local/include/gnuradio/swig -I/usr/include/python2.7 -I/usr/include/python2.7 -I/usr/include/x86_64-linux-gnu/python2.7 -o /home/maier/gr-lte/build-cb/swig/lte_swigPYTHON_wrap.cxx /home/maier/gr-lte/swig/lte_swig.i
+swig/lte_swigPYTHON_wrap.cxx: swig/lte_swig_swig_2d0df
 
-swig/lte_swig.py: swig/lte_swigPYTHON_wrap.cxx
-
-swig/lte_swig.tag: swig/_lte_swig_swig_tag
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/maier/gr-lte/build-cb/CMakeFiles $(CMAKE_PROGRESS_2)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating lte_swig.tag"
-	cd /home/maier/gr-lte/build-cb/swig && ./_lte_swig_swig_tag
-	cd /home/maier/gr-lte/build-cb/swig && /usr/bin/cmake -E touch /home/maier/gr-lte/build-cb/swig/lte_swig.tag
+swig/lte_swig.py: swig/lte_swig_swig_2d0df
 
 swig/CMakeFiles/_lte_swig.dir/lte_swigPYTHON_wrap.cxx.o: swig/CMakeFiles/_lte_swig.dir/flags.make
 swig/CMakeFiles/_lte_swig.dir/lte_swigPYTHON_wrap.cxx.o: swig/lte_swigPYTHON_wrap.cxx
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/maier/gr-lte/build-cb/CMakeFiles $(CMAKE_PROGRESS_3)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/maier/gr-lte/build-cb/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object swig/CMakeFiles/_lte_swig.dir/lte_swigPYTHON_wrap.cxx.o"
-	cd /home/maier/gr-lte/build-cb/swig && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/_lte_swig.dir/lte_swigPYTHON_wrap.cxx.o -c /home/maier/gr-lte/build-cb/swig/lte_swigPYTHON_wrap.cxx
+	cd /home/maier/gr-lte/build-cb/swig && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -Wno-unused-but-set-variable -o CMakeFiles/_lte_swig.dir/lte_swigPYTHON_wrap.cxx.o -c /home/maier/gr-lte/build-cb/swig/lte_swigPYTHON_wrap.cxx
 
 swig/CMakeFiles/_lte_swig.dir/lte_swigPYTHON_wrap.cxx.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/_lte_swig.dir/lte_swigPYTHON_wrap.cxx.i"
-	cd /home/maier/gr-lte/build-cb/swig && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/maier/gr-lte/build-cb/swig/lte_swigPYTHON_wrap.cxx > CMakeFiles/_lte_swig.dir/lte_swigPYTHON_wrap.cxx.i
+	cd /home/maier/gr-lte/build-cb/swig && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -Wno-unused-but-set-variable -E /home/maier/gr-lte/build-cb/swig/lte_swigPYTHON_wrap.cxx > CMakeFiles/_lte_swig.dir/lte_swigPYTHON_wrap.cxx.i
 
 swig/CMakeFiles/_lte_swig.dir/lte_swigPYTHON_wrap.cxx.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/_lte_swig.dir/lte_swigPYTHON_wrap.cxx.s"
-	cd /home/maier/gr-lte/build-cb/swig && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/maier/gr-lte/build-cb/swig/lte_swigPYTHON_wrap.cxx -o CMakeFiles/_lte_swig.dir/lte_swigPYTHON_wrap.cxx.s
+	cd /home/maier/gr-lte/build-cb/swig && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -Wno-unused-but-set-variable -S /home/maier/gr-lte/build-cb/swig/lte_swigPYTHON_wrap.cxx -o CMakeFiles/_lte_swig.dir/lte_swigPYTHON_wrap.cxx.s
 
 swig/CMakeFiles/_lte_swig.dir/lte_swigPYTHON_wrap.cxx.o.requires:
 .PHONY : swig/CMakeFiles/_lte_swig.dir/lte_swigPYTHON_wrap.cxx.o.requires
@@ -151,7 +109,6 @@ swig/CMakeFiles/_lte_swig.dir/clean:
 
 swig/CMakeFiles/_lte_swig.dir/depend: swig/lte_swigPYTHON_wrap.cxx
 swig/CMakeFiles/_lte_swig.dir/depend: swig/lte_swig.py
-swig/CMakeFiles/_lte_swig.dir/depend: swig/lte_swig.tag
 	cd /home/maier/gr-lte/build-cb && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/maier/gr-lte /home/maier/gr-lte/swig /home/maier/gr-lte/build-cb /home/maier/gr-lte/build-cb/swig /home/maier/gr-lte/build-cb/swig/CMakeFiles/_lte_swig.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : swig/CMakeFiles/_lte_swig.dir/depend
 

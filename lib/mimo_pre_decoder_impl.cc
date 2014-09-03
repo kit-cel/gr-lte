@@ -184,11 +184,17 @@ namespace gr {
 												int len)
 	{
 		for(int n = 0; n < len/2; n++){
-			h0[n] = ce0[2*n];           //assume adjacent carriers are fading similiar
-			h1[n] = ce1[2*n];
+			//h0[n] = ce0[2*n];           //assume adjacent carriers are fading similiar
+			//h1[n] = ce1[2*n];
+
+			h0[n] = (ce0[2*n]+ce0[2*n+1]);
+			h1[n] = (ce1[2*n]+ce1[2*n+1]);
+
 			r0[n] = rx[2*n];
 			r1[n] = rx[2*n+1];
 		}
+        volk_32f_s32f_multiply_32f((float*)h0, (float*)h0, 1/2.0, len/2*2);
+        volk_32f_s32f_multiply_32f((float*)h1, (float*)h1, 1/2.0, len/2*2);
 	}
 
 	void
