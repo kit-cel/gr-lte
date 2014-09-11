@@ -46,7 +46,7 @@ namespace gr {
        * class. lte::mimo_pss_coarse_sync::make is the public interface for
        * creating new instances.
        */
-      static sptr make(int fftl, int syncl, int rxant);
+      static sptr make(int syncl, int rxant);
     };
 
   } // namespace lte

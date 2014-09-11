@@ -65,7 +65,7 @@ private:
 
 
 public:
-    mimo_pss_coarse_sync_impl(int fftl, int syncl, int rxant);
+    mimo_pss_coarse_sync_impl(int syncl, int rxant);
     ~mimo_pss_coarse_sync_impl();
 
     // Where all the action really happens

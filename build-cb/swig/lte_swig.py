@@ -7285,7 +7285,7 @@ class mimo_pss_coarse_sync(object):
     def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined")
     __repr__ = _swig_repr
     def make(*args, **kwargs):
-        """make(int fftl, int syncl, int rxant) -> mimo_pss_coarse_sync_sptr"""
+        """make(int syncl, int rxant) -> mimo_pss_coarse_sync_sptr"""
         return _lte_swig.mimo_pss_coarse_sync_make(*args, **kwargs)
 
     make = staticmethod(make)
@@ -7295,7 +7295,7 @@ mimo_pss_coarse_sync_swigregister = _lte_swig.mimo_pss_coarse_sync_swigregister
 mimo_pss_coarse_sync_swigregister(mimo_pss_coarse_sync)
 
 def mimo_pss_coarse_sync_make(*args, **kwargs):
-  """mimo_pss_coarse_sync_make(int fftl, int syncl, int rxant) -> mimo_pss_coarse_sync_sptr"""
+  """mimo_pss_coarse_sync_make(int syncl, int rxant) -> mimo_pss_coarse_sync_sptr"""
   return _lte_swig.mimo_pss_coarse_sync_make(*args, **kwargs)
 
 class mimo_pss_coarse_sync_sptr(object):
@@ -7317,7 +7317,7 @@ class mimo_pss_coarse_sync_sptr(object):
     __swig_destroy__ = _lte_swig.delete_mimo_pss_coarse_sync_sptr
     __del__ = lambda self : None;
     def make(self, *args, **kwargs):
-        """make(mimo_pss_coarse_sync_sptr self, int fftl, int syncl, int rxant) -> mimo_pss_coarse_sync_sptr"""
+        """make(mimo_pss_coarse_sync_sptr self, int syncl, int rxant) -> mimo_pss_coarse_sync_sptr"""
         return _lte_swig.mimo_pss_coarse_sync_sptr_make(self, *args, **kwargs)
 
     def history(self):

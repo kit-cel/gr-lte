@@ -39,16 +39,16 @@ namespace lte
 {
 
 mimo_pss_coarse_sync::sptr
-mimo_pss_coarse_sync::make(int fftl, int syncl, int rxant)
+mimo_pss_coarse_sync::make(int syncl, int rxant)
 {
     return gnuradio::get_initial_sptr
-           (new mimo_pss_coarse_sync_impl(fftl, syncl, rxant));
+           (new mimo_pss_coarse_sync_impl(syncl, rxant));
 }
 
 /*
  * The private constructor
  */
-mimo_pss_coarse_sync_impl::mimo_pss_coarse_sync_impl(int fftl, int syncl, int rxant)
+mimo_pss_coarse_sync_impl::mimo_pss_coarse_sync_impl(int syncl, int rxant)
     : gr::sync_block("mimo_pss_coarse_sync",
                      gr::io_signature::make(1, 8, sizeof(gr_complex)),
                      gr::io_signature::make(0, 0, 0)),
