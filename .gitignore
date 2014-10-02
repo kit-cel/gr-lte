@@ -2,4 +2,8 @@ build/
 *~
 *.pyc
 .idea/
-
+callgrind*
+python_matlab*
+tests/
+callgrind_february/
+valgrind-perf-run.sh

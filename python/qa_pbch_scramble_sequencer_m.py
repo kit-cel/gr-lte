@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+# !/usr/bin/env python
 # -*- coding: utf-8 -*-
 # 
 # Copyright 2013 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
@@ -22,17 +22,17 @@
 from gnuradio import gr, gr_unittest
 from pbch_scramble_sequencer_m import pbch_scramble_sequencer_m
 
-class qa_pbch_scramble_sequencer_m (gr_unittest.TestCase):
 
-    def setUp (self):
-        self.tb = gr.top_block ()
+class qa_pbch_scramble_sequencer_m(gr_unittest.TestCase):
+    def setUp(self):
+        self.tb = gr.top_block()
 
-    def tearDown (self):
+    def tearDown(self):
         self.tb = None
 
-    def test_001_t (self):
+    def test_001_t(self):
         # set up fg
-        self.tb.run ()
+        self.tb.run()
         # check data
 
 

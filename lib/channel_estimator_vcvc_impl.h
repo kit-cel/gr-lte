@@ -22,6 +22,7 @@
 #define INCLUDED_LTE_CHANNEL_ESTIMATOR_VCVC_IMPL_H
 
 #include <lte/channel_estimator_vcvc.h>
+#include <boost/thread/mutex.hpp>
 
 namespace gr {
   namespace lte {
@@ -29,11 +30,13 @@ namespace gr {
     class channel_estimator_vcvc_impl : public channel_estimator_vcvc
     {
      private:
+        boost::mutex d_mutex;
 		static const gr_complex d_C_I;
 		int d_subcarriers;
 		int d_n_frame_syms;
 		int d_last_calced_sym;
 		int d_work_call;
+		int d_nop_count;
 		pmt::pmt_t d_key;
 		pmt::pmt_t d_msg_buf;
 

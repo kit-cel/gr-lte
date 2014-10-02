@@ -47,6 +47,7 @@ namespace gr {
 		cell_state_information d_state_info;
 		int d_SFN;
 		int d_unchanged_decodings;
+		int d_sfn_counter;
 
 		pmt::pmt_t d_port_N_ant;
 		pmt::pmt_t d_port_N_rb_dl;
