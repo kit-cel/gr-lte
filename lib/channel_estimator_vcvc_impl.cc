@@ -85,22 +85,20 @@ namespace gr {
         const gr_complex *in = (const gr_complex *) input_items[0];
         gr_complex *out = (gr_complex *) output_items[0];
 
-        boost::mutex::scoped_lock lock(d_mutex);
+
 //        printf("%s work call = %lu\n", name().c_str(), d_work_call);
         d_work_call++;
 
-	//	int num_msgs = nmsgs(d_msg_buf);
-	//    if(num_msgs > 0){
-	//        printf("num_msgs = %i\n", num_msgs);
-	//        pmt::pmt_t msg = delete_head_blocking(d_msg_buf);
-	//        handle_msg(msg);
-	//    }
+//		std::vector <gr::tag_t> v_b;
+		get_tags_in_range(d_tags_v, 0, nitems_read(0), nitems_read(0)+noutput_items, d_key);
+		int first_sym = get_sym_num_from_tags(d_tags_v);
 
-		std::vector <gr::tag_t> v_b;
-		get_tags_in_range(v_b, 0, nitems_read(0), nitems_read(0)+noutput_items, d_key);
-		int first_sym = get_sym_num_from_tags(v_b);
+		int processed_items = 0;
+		{
+		    boost::mutex::scoped_lock lock(d_mutex);
+		    processed_items = calculate_channel_estimates(in, first_sym, noutput_items);
+		}
 
-		int processed_items = calculate_channel_estimates(in, first_sym, noutput_items);
 		copy_estimates_to_out_buf(out, first_sym, processed_items);
 
 		// Tell runtime system how many output items we produced.
@@ -112,7 +110,7 @@ namespace gr {
     }
     
 	inline int
-	channel_estimator_vcvc_impl::get_sym_num_from_tags(std::vector <gr::tag_t> v_b)
+	channel_estimator_vcvc_impl::get_sym_num_from_tags(const std::vector <gr::tag_t>& v_b)
 	{
 		int sym_num = -1;
 		for(int i = 0; i < v_b.size() ; i++) {

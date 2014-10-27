@@ -32,6 +32,7 @@ namespace gr {
 		int d_N_ant;
 		int d_vlen;
 		std::string d_style;
+		int d_sample_count;
 
 		void handle_msg(pmt::pmt_t msg);
 

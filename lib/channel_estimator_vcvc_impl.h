@@ -39,6 +39,7 @@ namespace gr {
 		int d_nop_count;
 		pmt::pmt_t d_key;
 		pmt::pmt_t d_msg_buf;
+		std::vector<gr::tag_t> d_tags_v;
 
 		inline void handle_msg(pmt::pmt_t msg);
 		inline void msg_extract_poss(std::vector<std::vector<int> > &pilot_carriers, pmt::pmt_t poss);
@@ -62,7 +63,7 @@ namespace gr {
 		inline int get_nsyms_in_frame(const std::vector<std::vector<int> > &pilot_carriers);
 
 		// These methods are resposnible for control and data moves
-		inline int get_sym_num_from_tags(std::vector <gr::tag_t> v_b);
+		inline int get_sym_num_from_tags(const std::vector <gr::tag_t>& v_b);
 		inline void copy_estimates_to_out_buf(gr_complex* out, int sym_num, int processed_items);
 
 		// This method does all the estimation work

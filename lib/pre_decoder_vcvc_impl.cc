@@ -47,7 +47,8 @@ namespace gr {
       : gr::sync_block(name,
               gr::io_signature::make( 2, 3, sizeof(gr_complex) * vlen),
               gr::io_signature::make( 1, 1, sizeof(gr_complex) * vlen)),
-              d_vlen(vlen)
+              d_vlen(vlen),
+              d_sample_count(0)
     {
 	    set_N_ant(N_ant);
 		set_decoding_style(style);
@@ -85,6 +86,7 @@ namespace gr {
 		else if(d_N_ant == 2){
 			const gr_complex *in3 = (const gr_complex *) input_items[2];
 			for(int i = 0; i < noutput_items; i++){
+			    //printf("%s sample = %i\n", name().c_str(), d_sample_count++);
 				prepare_2_ant_vectors(d_h0, d_h1, d_r0, d_r1, in1, in2, in3, d_vlen);
 				decode_2_ant(d_out0, d_out1, d_h0, d_h1, d_r0, d_r1, d_vlen/2);
 				combine_output(out, d_out0, d_out1, d_vlen);
