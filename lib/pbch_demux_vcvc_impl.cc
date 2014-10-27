@@ -84,25 +84,22 @@ namespace gr {
 
 		// No data is processed as long as the cell_id is not available
 		if(d_cell_id < 0){
-			//~ consume_each(ninitems);
 			return 0;
 		}
 
 		// set noutput_items to zero. if output is produced, noutput_items is incremented.
 		noutput_items = 0;
 
-		int cell_id_mod3 = d_cell_id%3;
-		int n_carriers = 12*d_N_rb_dl;
-
 		//Read tags for updated sym_num
-		std::vector<gr::tag_t> v;
-		get_tags_in_range(v,0,nitems_read(0),nitems_read(0)+ninitems);
-		int sym_num = get_sym_num(v);
+//		std::vector<gr::tag_t> v;
+		get_tags_in_range(d_tags_v, 0, nitems_read(0), nitems_read(0)+ninitems);
+		int sym_num = get_sym_num(d_tags_v);
 
+		int n_carriers = 12 * d_N_rb_dl;
 		//This loop searches for the REs with the PBCH and copies them to the output stream.
 		for (int i = 0 ; i < ninitems ; i++ ) {
-			if(sym_num==7){
-				if (ninitems-i < 4){
+			if(sym_num==7){ // found position of first PBCH values in frame.
+				if (ninitems-i < 4){ // make sure whole PBCH is available.
 					ninitems = i;
 					break;
 				}
@@ -111,7 +108,6 @@ namespace gr {
 				noutput_items++;
 				out += 240;
 			}
-
 			// update work values for next symbol
 			sym_num = (sym_num+1)%140;
 			in += n_carriers;
@@ -144,7 +140,7 @@ namespace gr {
 	}
 
 	int
-	pbch_demux_vcvc_impl::calculate_n_process_items(gr_vector_int ninput_items, int noutput_items)
+	pbch_demux_vcvc_impl::calculate_n_process_items(const gr_vector_int& ninput_items, const int noutput_items)
 	{
 		// get smallest number of input items
 		int n_inputs = ninput_items.size();
@@ -182,7 +178,7 @@ namespace gr {
 	}
 
 	int
-	pbch_demux_vcvc_impl::get_sym_num(std::vector<gr::tag_t> v)
+	pbch_demux_vcvc_impl::get_sym_num(const std::vector<gr::tag_t>& v)
 	{
 		int sym_num = 0;
 		if(v.size() > 0){

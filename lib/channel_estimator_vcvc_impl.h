@@ -22,6 +22,7 @@
 #define INCLUDED_LTE_CHANNEL_ESTIMATOR_VCVC_IMPL_H
 
 #include <lte/channel_estimator_vcvc.h>
+#include <boost/thread/mutex.hpp>
 
 namespace gr {
   namespace lte {
@@ -29,13 +30,16 @@ namespace gr {
     class channel_estimator_vcvc_impl : public channel_estimator_vcvc
     {
      private:
+        boost::mutex d_mutex;
 		static const gr_complex d_C_I;
 		int d_subcarriers;
 		int d_n_frame_syms;
 		int d_last_calced_sym;
 		int d_work_call;
+		int d_nop_count;
 		pmt::pmt_t d_key;
 		pmt::pmt_t d_msg_buf;
+		std::vector<gr::tag_t> d_tags_v;
 
 		inline void handle_msg(pmt::pmt_t msg);
 		inline void msg_extract_poss(std::vector<std::vector<int> > &pilot_carriers, pmt::pmt_t poss);
@@ -59,7 +63,7 @@ namespace gr {
 		inline int get_nsyms_in_frame(const std::vector<std::vector<int> > &pilot_carriers);
 
 		// These methods are resposnible for control and data moves
-		inline int get_sym_num_from_tags(std::vector <gr::tag_t> v_b);
+		inline int get_sym_num_from_tags(const std::vector <gr::tag_t>& v_b);
 		inline void copy_estimates_to_out_buf(gr_complex* out, int sym_num, int processed_items);
 
 		// This method does all the estimation work

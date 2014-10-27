@@ -132,12 +132,12 @@ namespace gr {
         printf("%s received msg", name().c_str());
         std::vector<std::vector<float> > seqs;
         for(int i = 0; i < pmt::length(msg); i++){
-            printf("vector num = %i of %lu\n", i, pmt::length(msg));
+//            printf("vector num = %i of %lu\n", i, pmt::length(msg));
             pmt::pmt_t pmt_vec = pmt::vector_ref(msg, i);
             std::vector<float> vec;
             for(int e = 0; e < pmt::length(pmt_vec); e++){
                 float elem = (float)pmt::to_double(pmt::vector_ref(pmt_vec, e));
-                printf("ns = %i, e = %i, val = %f\n", i, e, elem);
+//                printf("ns = %i, e = %i, val = %f\n", i, e, elem);
                 vec.push_back(/*pmt::f32vector_ref(pmt_vec, e)*/ elem);
             }
             seqs.push_back(vec);

@@ -59,7 +59,9 @@ namespace gr {
 		d_state_info.N_ant = 0;
 		d_state_info.N_rb_dl = 0;
 		d_state_info.phich_duration = -1;
-		d_state_info.phich_resources = -1.0f;				
+		d_state_info.phich_resources = -1.0f;
+
+		d_sfn_counter = 0;
 	}
 
     /*
@@ -104,7 +106,8 @@ namespace gr {
 		d_SFN = sfn;
 
         if(diff > 0){
-            GR_LOG_INFO(d_logger, boost::format("SFN = %i\tdiff = %i\t%s") % d_SFN % diff % d_state_info.get_values_string().c_str());
+            GR_LOG_INFO(d_logger, boost::format("SFN = %i\tdiff = %i\t%s (%i)") % d_SFN % diff % d_state_info.get_values_string().c_str() % d_sfn_counter);
+            d_sfn_counter++;
             send_sfn();
         }
     }

@@ -58,8 +58,9 @@ namespace gr {
               gr::io_signature::make( 1, 1, sizeof(gr_complex) * subcarriers),
               gr::io_signature::make( 1, 1, sizeof(gr_complex) * subcarriers)),
         d_subcarriers(subcarriers),
-		d_last_calced_sym(-1),
-		d_work_call(0)   
+		d_last_calced_sym(0),
+		d_work_call(0),
+		d_nop_count(0)
     {
 		d_key = pmt::string_to_symbol(tag_key); // specify key of tag.
 		d_msg_buf = pmt::mp(msg_buf_name);
@@ -84,28 +85,32 @@ namespace gr {
         const gr_complex *in = (const gr_complex *) input_items[0];
         gr_complex *out = (gr_complex *) output_items[0];
 
-            //d_work_call++;
 
-	//	int num_msgs = nmsgs(d_msg_buf);
-	//    if(num_msgs > 0){
-	//        printf("num_msgs = %i\n", num_msgs);
-	//        pmt::pmt_t msg = delete_head_blocking(d_msg_buf);
-	//        handle_msg(msg);
-	//    }
+//        printf("%s work call = %lu\n", name().c_str(), d_work_call);
+        d_work_call++;
 
-		std::vector <gr::tag_t> v_b;
-		get_tags_in_range(v_b, 0, nitems_read(0), nitems_read(0)+noutput_items, d_key);
-		int first_sym = get_sym_num_from_tags(v_b);
+//		std::vector <gr::tag_t> v_b;
+		get_tags_in_range(d_tags_v, 0, nitems_read(0), nitems_read(0)+noutput_items, d_key);
+		int first_sym = get_sym_num_from_tags(d_tags_v);
 
-		int processed_items = calculate_channel_estimates(in, first_sym, noutput_items);
+		int processed_items = 0;
+		{
+		    boost::mutex::scoped_lock lock(d_mutex);
+		    processed_items = calculate_channel_estimates(in, first_sym, noutput_items);
+		}
+
 		copy_estimates_to_out_buf(out, first_sym, processed_items);
 
 		// Tell runtime system how many output items we produced.
+		if(d_nop_count > 10000){ // prevent looping on too small buffers infinitely.
+		    d_nop_count = 0;
+		    return noutput_items;
+		}
 		return processed_items;
     }
     
 	inline int
-	channel_estimator_vcvc_impl::get_sym_num_from_tags(std::vector <gr::tag_t> v_b)
+	channel_estimator_vcvc_impl::get_sym_num_from_tags(const std::vector <gr::tag_t>& v_b)
 	{
 		int sym_num = -1;
 		for(int i = 0; i < v_b.size() ; i++) {
@@ -141,6 +146,13 @@ namespace gr {
 	{
 		int last_sym = get_last_processable_sym(first_sym, nitems);
 		int processable_items = get_processable_items(first_sym, nitems);
+		if(processable_items < 1){ // short cut. nothing to do for this work call.
+		    //printf("%s NO ITEMS TO PROCESS! count = %i\n", name().c_str(), d_nop_count);
+		    d_nop_count++;
+		    return processable_items;
+		}
+		d_nop_count = 0;
+//		printf("d_last_calced_sym = %i\n", d_last_calced_sym);
 		int last_calced_sym = d_last_calced_sym;
 		//printf("first_sym = %i\tlast_sym = %i\tprocessable_items = %i\tlast_calced = %i\n", first_sym, last_sym, processable_items, last_calced_sym);
 		calculate_ofdm_symbols_with_pilots(in_rx, first_sym, processable_items);
@@ -334,7 +346,7 @@ namespace gr {
 	void inline
 	channel_estimator_vcvc_impl::phase_bound_between_vectors(float* first, float* last)
 	{
-		volk_32f_x2_subtract_32f_a(d_phase_bound_vector, last, first, d_subcarriers);
+	    volk_32f_x2_subtract_32f_a(d_phase_bound_vector, last, first, d_subcarriers);
 		for(int i = 0; i < d_subcarriers; i++) {
 			if( *(d_phase_bound_vector+i) >  M_PI) {
 				*(last+i) -= 2*M_PI;
@@ -398,7 +410,7 @@ namespace gr {
 	{
 		pmt::pmt_t poss = pmt::nth(0, msg);
 		pmt::pmt_t vals = pmt::nth(1, msg);
-
+//		printf("%s received new MAP!!!\n", name().c_str() );
 		std::vector<std::vector<int> > pilot_carriers;
 		std::vector<std::vector<gr_complex> > pilot_symbols;
 		msg_extract_poss(pilot_carriers, poss);
@@ -448,7 +460,8 @@ namespace gr {
 	channel_estimator_vcvc_impl::set_pilot_map(const std::vector<std::vector<int> > &pilot_carriers,
 			const std::vector<std::vector<gr_complex> > &pilot_symbols)
 	{
-		//printf("%s\tset_pilot_map BEGIN\n", name().c_str() );
+		boost::mutex::scoped_lock lock(d_mutex);
+//	    printf("%s\tset_pilot_map BEGIN %ix%i\n", name().c_str(), pilot_carriers.size(), pilot_carriers[0].size() );
 		int n_frame_syms = get_nsyms_in_frame(pilot_carriers);
 		int max_pilots = get_max_pilot_number(pilot_carriers);
 
@@ -457,7 +470,7 @@ namespace gr {
 
 		d_n_frame_syms = n_frame_syms;
 		d_pilot_carriers = pilot_carriers;
-		//printf("set_pilot_map END\n");
+//		printf("%s\tset_pilot_map END\n", name().c_str());
 	}
 
 	inline int

@@ -35,10 +35,12 @@ namespace gr {
 		gr_complex* d_pbch_symbs;
 		gr_complex* d_pbch_ce1_symbs;
 		gr_complex* d_pbch_ce2_symbs;
+		// reallocating a new vector on every call-to-work seems to generate a large overhead.
+		std::vector<gr::tag_t> d_tags_v;
 
-		int calculate_n_process_items(gr_vector_int ninput_items, int noutput_items);
+		int calculate_n_process_items(const gr_vector_int& ninput_items, const int noutput_items);
 		void extract_pbch_values(gr_complex* out, const gr_complex* in);
-		int get_sym_num(std::vector<gr::tag_t> v);
+		int get_sym_num(const std::vector<gr::tag_t>& v);
 		
 		void set_cell_id_msg(pmt::pmt_t msg);
 

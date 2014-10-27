@@ -84,7 +84,7 @@ namespace gr {
         for (int m = 0 ; m < v.size() ; m++){
             int offset = int((v[m].offset)%slotl);
             if( offset != d_offset){
-                printf("%s\tASYNC!\tnew offset = %i\told offset = %i\tsamp_num = %i\n", name().c_str(), offset, d_offset, samp_num);
+//                printf("%s\tASYNC!\tnew offset = %i\told offset = %i\tsamp_num = %i\n", name().c_str(), offset, d_offset, samp_num);
                 d_offset = offset;
                 samp_num = slotl-( (v[m].offset-nitems_read(0))%slotl ) ;
             }

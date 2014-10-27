@@ -32,12 +32,13 @@ from encode_pdcch import *
 import lte_phy
 
 # This is a function to help test setup
-def get_tag_list(data_len,  value_range, tag_key, srcid):
+def get_tag_list(data_len, value_range, tag_key, srcid):
     tag_list = []
     for i in range(data_len):
         tag = generate_tag(tag_key, srcid, i % value_range, i)
         tag_list.append(tag)
     return tag_list
+
 
 def generate_tag(tag_key, srcid, value, offset):
     tag = gr.tag_t()
@@ -47,9 +48,11 @@ def generate_tag(tag_key, srcid, value, offset):
     tag.offset = offset
     return tag
 
+
 def cmpl_str(val):
     #return '%+03f%+03fj' %(val.real, val.imag)
     return '{0.real:+.4f} {0.imag:+.4f}j'.format(val)
+
 
 def nrz_hard_decode(data):
     res = []
@@ -60,17 +63,18 @@ def nrz_hard_decode(data):
             res.append(1)
     return res
 
+
 def generate_frame(pbch, N_rb_dl, cell_id, sfn, N_ant):
     cfi = 2
     N_g = 1
     Ncp = 1
-    n_carriers = 12*N_rb_dl
-#    frame = np.zeros((N_ant,140,n_carriers),dtype=np.complex)
-#    pcfich = encode_pcfich(2, cell_id, 0, N_ant)
-#    for p in range(N_ant):
-#        frame[p] = map_pbch_to_frame_layer(frame[p], pbch[p], cell_id, sfn, p)
-#        frame[p] = frame_map_rs_symbols(frame[p], N_rb_dl, cell_id, Ncp, p)
-#        frame[p] = map_pcfich_to_frame(frame[p], pcfich[p], N_rb_dl, cell_id, p)
+    n_carriers = 12 * N_rb_dl
+    #    frame = np.zeros((N_ant,140,n_carriers),dtype=np.complex)
+    #    pcfich = encode_pcfich(2, cell_id, 0, N_ant)
+    #    for p in range(N_ant):
+    #        frame[p] = map_pbch_to_frame_layer(frame[p], pbch[p], cell_id, sfn, p)
+    #        frame[p] = frame_map_rs_symbols(frame[p], N_rb_dl, cell_id, Ncp, p)
+    #        frame[p] = map_pcfich_to_frame(frame[p], pcfich[p], N_rb_dl, cell_id, p)
 
     frame = []
     for i in range(N_ant):
@@ -80,8 +84,8 @@ def generate_frame(pbch, N_rb_dl, cell_id, sfn, N_ant):
         pdcchs = get_all_pdcchs(N_CCE)
         n_groups = get_n_phich_groups(N_g, N_rb_dl)
         hi = []
-        for i in range(8*n_groups):
-            hi.append(i%2)
+        for i in range(8 * n_groups):
+            hi.append(i % 2)
         subframe = generate_subframe(pdcchs, hi, N_rb_dl, cell_id, N_ant, N_g, n_sub, cfi)
         for ant in range(N_ant):
             frame[ant].extend(subframe[ant])
@@ -90,13 +94,14 @@ def generate_frame(pbch, N_rb_dl, cell_id, sfn, N_ant):
         frame[p] = frame_map_rs_symbols(frame[p], N_rb_dl, cell_id, Ncp, p)
     return np.array(frame)
 
+
 def generate_subframe(pdcch_data, hi, N_rb_dl, cell_id, N_ant, N_g, n_sub, cfi):
     cfi_syms = cfi
     if N_rb_dl < 10:
         cfi_syms = cfi_syms + 1
     ns = n_sub * 2
     n_carriers = 12 * N_rb_dl
-    subframe = np.zeros((N_ant,14,n_carriers),dtype=np.complex)
+    subframe = np.zeros((N_ant, 14, n_carriers), dtype=np.complex)
     pcfich = encode_pcfich(cfi, cell_id, ns, N_ant)
     style = "tx_diversity"
     cp_len = "normal"
@@ -110,6 +115,7 @@ def generate_subframe(pdcch_data, hi, N_rb_dl, cell_id, N_ant, N_g, n_sub, cfi):
         subframe[p][0:cfi_syms] = map_pdcch_to_symbols(subframe[p][0:cfi_syms], pdcch[p], N_rb_dl, cell_id, N_g, cfi)
     return subframe
 
+
 def generate_stream_frame(frame, N_ant):
     if N_ant == 1:
         return frame.flatten()
@@ -121,17 +127,19 @@ def generate_stream_frame(frame, N_ant):
             combined.append(frame0[i] + frame1[i])
         return combined
 
+
 def rs_symbol_mapper(ofdm_symbol, N_rb_dl, ns, l, cell_id, Ncp, p):
     #print "rs_symbol_mapper\t" + str(p) + "\t" + str(ns) + "\t" + str(l)
     rs_seq = rs_generator(ns, l, cell_id, Ncp)
     N_RB_MAX = 110
     offset = calc_offset(ns, l, cell_id, p)
-    for m in range(2*N_rb_dl):
-        mx = m +N_RB_MAX-N_rb_dl
-        k = 6*m + offset
+    for m in range(2 * N_rb_dl):
+        mx = m + N_RB_MAX - N_rb_dl
+        k = 6 * m + offset
         ofdm_symbol[k] = rs_seq[mx]
 
     return ofdm_symbol
+
 
 def frame_map_rs_symbols(frame, N_rb_dl, cell_id, Ncp, p):
     [rs_pos_frame, rs_val_frame] = frame_pilot_value_and_position(N_rb_dl, cell_id, Ncp, p)
@@ -140,8 +148,8 @@ def frame_map_rs_symbols(frame, N_rb_dl, cell_id, Ncp, p):
             for sym in range(len(rs_pos_frame[i])):
                 frame[i][rs_pos_frame[i][sym]] = rs_val_frame[i][sym]
     return frame
-  
-  
+
+
 def frame_pilot_value_and_position(N_rb_dl, cell_id, Ncp, p):
     rs_pos_frame = []
     rs_val_frame = []
@@ -174,13 +182,15 @@ def symbol_pilot_value_and_position(N_rb_dl, ns, l, cell_id, Ncp, p):
     N_RB_MAX = 110
     rs_seq = rs_generator(ns, l, cell_id, Ncp)
     offset = calc_offset(ns, l, cell_id, p)
-    rs_sym_pos = range(offset, 12*N_rb_dl, 6)
-    rs_sym_val = rs_seq[N_RB_MAX-N_rb_dl:N_RB_MAX+N_rb_dl]
+    rs_sym_pos = range(offset, 12 * N_rb_dl, 6)
+    rs_sym_val = rs_seq[N_RB_MAX - N_rb_dl:N_RB_MAX + N_rb_dl]
     return [rs_sym_pos, rs_sym_val]
 
+
 def calc_offset(ns, l, cell_id, p):
-    v = calc_v(ns, l,  p)
-    return ( v + (cell_id%6) )%6
+    v = calc_v(ns, l, p)
+    return ( v + (cell_id % 6) ) % 6
+
 
 def calc_v(ns, l, p):
     v = 0
@@ -193,32 +203,34 @@ def calc_v(ns, l, p):
     elif p == 1 and l != 0:
         v = 0
     elif p == 2:
-        v = 3*(ns%2)
-    elif p==3:
-        v = 3+3*(ns%2)
+        v = 3 * (ns % 2)
+    elif p == 3:
+        v = 3 + 3 * (ns % 2)
     return v
 
+
 def map_pbch_to_frame_layer(frame, pbch, cell_id, sfn, ant):
-    sfn_mod4 = sfn%4
-    cell_id_mod3 = cell_id%3
-    pbch_part = pbch[240*sfn_mod4:240*(sfn_mod4+1)]
+    sfn_mod4 = sfn % 4
+    cell_id_mod3 = cell_id % 3
+    pbch_part = pbch[240 * sfn_mod4:240 * (sfn_mod4 + 1)]
     n_carriers = np.shape(frame)[1]
-    pbch_pos = (n_carriers/2)-(72/2)
+    pbch_pos = (n_carriers / 2) - (72 / 2)
     pbch_element = 0
     for i in range(72):
-        if i%3 != cell_id_mod3:
-            frame[7][i+pbch_pos]=pbch_part[pbch_element]
-            frame[8][i+pbch_pos]=pbch_part[pbch_element+48]
-            pbch_element = pbch_element+1
-        frame[9][i+pbch_pos]=pbch_part[i+2*48]
-        frame[10][i+pbch_pos]=pbch_part[i+2*48+72]
+        if i % 3 != cell_id_mod3:
+            frame[7][i + pbch_pos] = pbch_part[pbch_element]
+            frame[8][i + pbch_pos] = pbch_part[pbch_element + 48]
+            pbch_element = pbch_element + 1
+        frame[9][i + pbch_pos] = pbch_part[i + 2 * 48]
+        frame[10][i + pbch_pos] = pbch_part[i + 2 * 48 + 72]
 
     return frame
+
 
 def map_pcfich_to_frame(frame, pcfich, N_rb_dl, cell_id, ant):
     #print "tadada map pcfich " + str(ant)
     for i in range(len(frame)):
-        if i%14 == 0:
+        if i % 14 == 0:
             frame[i] = map_pcfich_to_symbol(frame[i], pcfich, N_rb_dl, cell_id, ant)
     return frame
 
@@ -226,40 +238,44 @@ def map_pcfich_to_frame(frame, pcfich, N_rb_dl, cell_id, ant):
 def map_pcfich_to_symbol(symbol, pcfich, N_rb_dl, cell_id, ant):
     reg_pos = calculate_pcfich_reg_pos(N_rb_dl, cell_id)
     for i in range(len(reg_pos)):
-        cfi_part = pcfich[4*i:4*(i+1)]
+        cfi_part = pcfich[4 * i:4 * (i + 1)]
         symbol = map_reg(symbol, cfi_part, reg_pos[i], cell_id, True)
     return symbol
 
+
 def calculate_pcfich_pos(N_rb_dl, cell_id):
-    cell_id_mod3 = cell_id%3
+    cell_id_mod3 = cell_id % 3
     pcfich_pos = []
     reg_pos = calculate_pcfich_reg_pos(N_rb_dl, cell_id)
     for n in range(len(reg_pos)):
         k = reg_pos[n]
         for i in range(6):
-            if i%3 != cell_id_mod3:
-                pcfich_pos.append(k+i)
+            if i % 3 != cell_id_mod3:
+                pcfich_pos.append(k + i)
     return pcfich_pos
 
+
 def calculate_pcfich_reg_pos(N_rb_dl, cell_id):
-    N_sc_rb = 12 # number of subcarriers per resource block
-    k_mean = (N_sc_rb/2) * (cell_id%(2*N_rb_dl))
+    N_sc_rb = 12  # number of subcarriers per resource block
+    k_mean = (N_sc_rb / 2) * (cell_id % (2 * N_rb_dl))
     regs = 4
     pcfich_pos = []
     for n in range(regs):
-        k = int( (k_mean + (N_sc_rb/2) * math.floor(n*N_rb_dl/2))%(N_rb_dl*N_sc_rb) )
+        k = int((k_mean + (N_sc_rb / 2) * math.floor(n * N_rb_dl / 2)) % (N_rb_dl * N_sc_rb))
         pcfich_pos.append(k)
     return pcfich_pos
+
 
 def get_free_reg_pos(N_rb_dl, cell_id):
     cfi_reg = calculate_pcfich_reg_pos(N_rb_dl, cell_id)
     nreg = 2 * N_rb_dl
     res = []
     for i in range(nreg):
-        pos = i*6
-        if not(pos in cfi_reg):
+        pos = i * 6
+        if not (pos in cfi_reg):
             res.append(pos)
     return res
+
 
 def get_occupied_regs(N_rb_dl, cell_id, N_g):
     cfi_reg = calculate_pcfich_reg_pos(N_rb_dl, cell_id)
@@ -268,24 +284,26 @@ def get_occupied_regs(N_rb_dl, cell_id, N_g):
     occ = occ.extend(hi_reg)
     return cfi_reg
 
+
 def get_pdcch_reg_pos(N_rb_dl, cell_id, N_g, cfi):
     occ = get_occupied_regs(N_rb_dl, cell_id, N_g)
     if N_rb_dl < 10:
         cfi = cfi + 1
     m = 0
     res = []
-    for k in range(12*N_rb_dl):
+    for k in range(12 * N_rb_dl):
         for l in range(cfi):
             #print "{0}\t{1}\t{2}".format(m, k, l)
-            if l > 0 and k%4 ==0:
-                 res.append([k, l])
-                 #print "{0}\t{1}\t{2}".format(m, k, l)
-                 m = m + 1
-            elif l == 0 and k%6 == 0 and k not in occ:
-                 res.append([k, l])
-                 #print "{0}\t{1}\t{2}".format(m, k, l)
-                 m = m + 1
+            if l > 0 and k % 4 == 0:
+                res.append([k, l])
+                #print "{0}\t{1}\t{2}".format(m, k, l)
+                m = m + 1
+            elif l == 0 and k % 6 == 0 and k not in occ:
+                res.append([k, l])
+                #print "{0}\t{1}\t{2}".format(m, k, l)
+                m = m + 1
     return res
+
 
 def map_pdcch_to_symbols(symbols, pdcch, N_rb_dl, cell_id, N_g, cfi):
     pos = get_pdcch_reg_pos(N_rb_dl, cell_id, N_g, cfi)
@@ -295,6 +313,7 @@ def map_pdcch_to_symbols(symbols, pdcch, N_rb_dl, cell_id, N_g, cfi):
         symbols[pos[i][1]] = map_reg(symbols[pos[i][1]], pdcch[i], pos[i][0], cell_id, not pos[i][1])
     return symbols
 
+
 def get_phich_pos(N_rb_dl, cell_id, N_g):
     n_phich_groups = get_n_phich_groups(N_g, N_rb_dl)
     free_reg = get_free_reg_pos(N_rb_dl, cell_id)
@@ -302,7 +321,7 @@ def get_phich_pos(N_rb_dl, cell_id, N_g):
     phich_pos = []
     for m in range(n_phich_groups):
         for i in range(3):
-            l = 0 # time domain index, other values possible but ignored
+            l = 0  # time domain index, other values possible but ignored
             n = 1
             ni = get_freq_domain_index(cell_id, n_free_reg, m, i)
             k = free_reg[ni]
@@ -310,33 +329,36 @@ def get_phich_pos(N_rb_dl, cell_id, N_g):
             # print "{0}\t{1}\t{2}".format(m, i, k)
     return phich_pos
 
+
 def map_phich_to_symbol(symbol, phich, N_rb_dl, cell_id, N_g):
     phich_pos = get_phich_pos(N_rb_dl, cell_id, N_g)
     for i in range(len(phich_pos)):
-        reg = phich[i*4:4*(i+1)]
+        reg = phich[i * 4:4 * (i + 1)]
         symbol = map_reg(symbol, reg, phich_pos[i], cell_id, True)
     return symbol
 
+
 def map_reg(symbol, reg, index, cell_id, has_rs_syms):
-    cell_id_mod3 = cell_id%3
+    cell_id_mod3 = cell_id % 3
     if has_rs_syms == True:
         reg_num = 0
         for i in range(6):
-            if (index + i)%3 != cell_id_mod3:
-                symbol[index+i] = reg[reg_num]
+            if (index + i) % 3 != cell_id_mod3:
+                symbol[index + i] = reg[reg_num]
                 reg_num = reg_num + 1
     else:
         for i in range(4):
             symbol[index + i] = reg[i]
     return symbol
 
+
 def get_freq_domain_index(cell_id, n_free_reg, m, i):
-    n0 = n_free_reg # where does this value come from?
+    n0 = n_free_reg  # where does this value come from?
     stp0 = int(cell_id) * int(n_free_reg) / n0
     stp1 = m
-    stp2 = i * n_free_reg/3
+    stp2 = i * n_free_reg / 3
     stp = stp0 + stp1 + stp2
-    ni = int(stp)%n_free_reg
+    ni = int(stp) % n_free_reg
     #print "{0} + {1} + {2} = {3}\t\t{4}".format(stp0, stp1, stp2, stp, ni)
     return ni
 
@@ -423,6 +445,10 @@ def main():
     fftl = 2048
     
 
+    trollframe = lte_phy.generate_phy_frame(cell_id, N_rb_dl, N_ant)
+    for ant in [1, 2, 4]:
+        frame = lte_phy.generate_phy_frame(cell_id, N_rb_dl, ant)
+        print np.shape(frame)
 
     frames = generate_frames(cell_id, N_rb_dl, N_ant, 20, sfn)    
     ts = generate_ofdm_symbols(frames, N_rb_dl, N_ant, fftl)
@@ -511,12 +537,6 @@ def main():
 #        N_CCE = get_n_cce_available(N_ant, N_rb_dl, cfi, N_g)
 #        pos = get_pdcch_reg_pos(N_rb_dl, cell_id, N_g, cfi)
 #        print "{0}\t{1}\t{2}".format(N_CCE, N_CCE*9, np.shape(pos))
-
-
-#    print "this is the END"
-
-
-
 
 
 if __name__ == "__main__":
