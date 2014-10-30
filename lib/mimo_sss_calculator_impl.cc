@@ -137,17 +137,18 @@ namespace gr {
 			  gr_vector_const_void_star &input_items,
 			  gr_vector_void_star &output_items)
     {
-        gr_complex* in = (gr_complex*) input_items[0];
+        const gr_complex* in = (const gr_complex*) input_items[0];
 
-        if(d_is_locked){
+        if(d_is_locked){ // we're already done.
             return noutput_items;
         }
 
-        if(d_N_id_2 < 0){return 1;}
+        if(d_N_id_2 < 0){return 1;} // can't start yet
 
         // extract the 2 half sss symbols which are interleaved differently by their position within a frame.
         gr_complex** even = new gr_complex*[d_rxant];
         gr_complex** odd  = new gr_complex*[d_rxant];
+
 
         for(int rx=0; rx<d_rxant; rx++)
         {
@@ -161,7 +162,15 @@ namespace gr {
         }
 
         sss_info info = get_sss_info(even, odd, d_N_id_2, d_rxant);
-        if(info.N_id_1 < 0){return 1;}
+        //delete used arrays
+        for(int rx=0; rx<d_rxant; rx++){
+            delete[] even[rx];
+            delete[] odd[rx];
+        }
+        delete[] even;
+        delete[] odd;
+
+        if(info.N_id_1 < 0){return 1;} // couldn't find valid SSS symbol.
 
         if(d_max_val_new > d_max_val_old*0.8){
             long offset = 0;
@@ -194,24 +203,14 @@ namespace gr {
             else{d_sss_pos = 0;}
         }
 
-
         d_max_val_old = d_max_val_new;
-
-
-        //delete used arrays
-        for(int rx=0; rx<d_rxant; rx++){
-            delete[] even[rx];
-            delete[] odd[rx];
-        }
-        delete[] even;
-        delete[] odd;
 
         // Tell runtime system how many output items we produced.
         return 1;
     }
 
     sss_info
-    mimo_sss_calculator_impl::get_sss_info(gr_complex** &even, gr_complex** &odd, int N_id_2, int rxant)
+    mimo_sss_calculator_impl::get_sss_info(gr_complex** even, gr_complex** odd, int N_id_2, int rxant)
     {
         sss_info info;
         // next 2 sequences depend on N_id_2
@@ -281,45 +280,46 @@ namespace gr {
     mimo_sss_calculator_impl::calc_m(gr_complex **s0m0, int rxant)
     {
         int mX = -1;
-        int N = 62;
+        const int N = 62;
 
-
-        gr_complex** s0 = new gr_complex*[rxant];
-        for(int i=0; i<rxant; i++){
-            s0[i] = new gr_complex[62];
-            memcpy(s0[i], s0m0[i], sizeof(gr_complex) * 31);
+        const int ncorr_vals = 2 * N - 1;
+        std::vector<float> x_vec(ncorr_vals, 0.0f);
+        std::vector<float> tmp;
+        for(int rx = 0; rx < rxant; rx++){
+          xcorr(tmp, s0m0[rx], d_sref, N);
+          for(int i = 0 ; i < x_vec.size(); i++){
+            x_vec[i] += tmp[i];
+          }
         }
 
-        gr_complex sr[62] = {0};
-        memcpy(sr, d_sref, sizeof(gr_complex) * 62);
-
-        std::vector<float> x_vec;
-        xcorr(x_vec, s0, sr, N, rxant);
-
-        float max = 0;
-        int pos = -1;
-        for (int i = 0 ; i < 2*N-1 ; i++){
-            float mag = x_vec[i];
-            if (max < mag){
-                max = mag;
-                pos = i;
-            }
-        }
+        int pos = max_element_position(x_vec);
+        float max = x_vec[pos];
 
         mX = abs(pos-31-31);
 
         d_max_val_new = (d_max_val_new + max)/2;
-        for(int rx=0; rx<rxant; rx++){
-           delete s0[rx];
-        }
-        delete[] s0;
 
         return mX;
     }
 
+    int
+    mimo_sss_calculator_impl::max_element_position(const std::vector<float> &v)
+    {
+      float max = 0;
+      int pos = -1;
+      for (int i = 0 ; i < v.size() ; i++){
+          float mag = v[i];
+          if (max < mag){
+              max = mag;
+              pos = i;
+          }
+      }
+      return pos;
+    }
+
     // simple correlation between 2 arrays. returns complex value.
     gr_complex
-    mimo_sss_calculator_impl::corr(gr_complex *x,gr_complex *y, int len)
+    mimo_sss_calculator_impl::corr(const gr_complex *x, const gr_complex *y, int len)
     {
         gr_complex val = 0;
         for(int i = 0 ; i < len ; i++){
@@ -330,24 +330,24 @@ namespace gr {
 
     // be careful! input arrays must have the same size!
     void
-    mimo_sss_calculator_impl::xcorr(std::vector<float> &v, gr_complex **x,gr_complex *y, int len, int rxant)
+    mimo_sss_calculator_impl::xcorr(std::vector<float> &v, const gr_complex *x,
+                                    const gr_complex *y, int len)
     {
-        int N = len;
-        float val;
+      int N = len;
+      int ncorr_vals = 2 * N - 1;
+      if(v.size() > 0){
+        v.clear();
+      }
+      v.resize(ncorr_vals, 0.0f);
 
-        for (int i = 0 ; i < 2 * N - 1 ; i++){
-            val=0;
-            if(i < N){
-                for(int rx=0; rx<rxant; rx++)
-                    val += abs(corr(x[rx]+(N-1-i),y,i+1));
-                v.push_back(val);
-            }
-            else{
-                for(int rx=0; rx<rxant; rx++)
-                    val += abs(corr(x[rx],y+(i-N),2*N-1-i));
-                v.push_back(val);
-            }
+      for(int i = 0; i < ncorr_vals; i++){
+        if(i < N){
+          v[i] += abs(corr(x + (N - 1 - i), y, i + 1));
         }
+        else{
+          v[i] += abs(corr(x, y + (i - N), 2 * N - 1 - i));
+        }
+      }
     }
 
     void

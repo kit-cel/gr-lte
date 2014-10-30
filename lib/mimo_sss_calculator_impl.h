@@ -61,9 +61,10 @@ namespace gr {
         // calculation functions!
         int calc_m(gr_complex **s0m0, int rxant);
         int get_N_id_1(int m0, int m1);
-        sss_info get_sss_info(gr_complex** &even, gr_complex** &odd, int N_id_2, int rxant);
-        gr_complex corr(gr_complex *x,gr_complex *y, int len);
-        void xcorr(std::vector<float> &v, gr_complex **x,gr_complex *y, int len, int rxant);
+        sss_info get_sss_info(gr_complex** even, gr_complex** odd, int N_id_2, int rxant);
+        gr_complex corr(const gr_complex *x, const gr_complex *y, int len);
+        void xcorr(std::vector<float> &v, const gr_complex *x, const gr_complex *y, int len);
+        int max_element_position(const std::vector<float> &v);
         void msg_set_N_id_2(pmt::pmt_t msg);
 
         pmt::pmt_t d_port_cell_id;

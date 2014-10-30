@@ -577,6 +577,76 @@
     </param>
   </block>
   <block>
+    <key>decode_bch_hier_gr37</key>
+    <param>
+      <key>id</key>
+      <value>bch_decode_bch_hier_gr37_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(624, 480)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>lte_mib_unpack_vbm</key>
+    <param>
+      <key>id</key>
+      <value>MIB</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(776, 432)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
     <key>lte_mimo_ofdm_rx</key>
     <param>
       <key>id</key>
@@ -765,14 +835,26 @@
     </param>
   </block>
   <block>
-    <key>decode_bch_hier_gr37</key>
+    <key>blocks_streams_to_vector</key>
     <param>
       <key>id</key>
-      <value>bch_decode_bch_hier_gr37_0</value>
+      <value>blocks_streams_to_vector_0_0</value>
     </param>
     <param>
       <key>_enabled</key>
       <value>True</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>complex</value>
+    </param>
+    <param>
+      <key>num_streams</key>
+      <value>2</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>12 * N_rb_dl</value>
     </param>
     <param>
       <key>alias</key>
@@ -792,54 +874,13 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(624, 480)</value>
+      <value>(288, 312)</value>
     </param>
     <param>
       <key>_rotation</key>
-      <value>0</value>
+      <value>180</value>
     </param>
   </block>
-  <block>
-    <key>lte_mib_unpack_vbm</key>
-    <param>
-      <key>id</key>
-      <value>MIB</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>maxoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(776, 432)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <connection>
-    <source_block_id>lte_mimo_sss_sync_0</source_block_id>
-    <sink_block_id>lte_mimo_estimator_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
   <connection>
     <source_block_id>lte_mimo_sss_sync_0</source_block_id>
     <sink_block_id>lte_mimo_estimator_0</sink_block_id>
@@ -961,12 +1002,6 @@
     <sink_key>2</sink_key>
   </connection>
   <connection>
-    <source_block_id>lte_mimo_sss_sync_0</source_block_id>
-    <sink_block_id>lte_mimo_decode_pbch_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
     <source_block_id>bch_decode_bch_hier_gr37_0</source_block_id>
     <sink_block_id>MIB</sink_block_id>
     <source_key>1</source_key>
@@ -975,6 +1010,30 @@
   <connection>
     <source_block_id>bch_decode_bch_hier_gr37_0</source_block_id>
     <sink_block_id>MIB</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_mimo_sss_sync_0</source_block_id>
+    <sink_block_id>blocks_streams_to_vector_0_0</sink_block_id>
+    <source_key>1</source_key>
+    <sink_key>1</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_mimo_sss_sync_0</source_block_id>
+    <sink_block_id>blocks_streams_to_vector_0_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>blocks_streams_to_vector_0_0</source_block_id>
+    <sink_block_id>lte_mimo_estimator_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>blocks_streams_to_vector_0_0</source_block_id>
+    <sink_block_id>lte_mimo_decode_pbch_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>

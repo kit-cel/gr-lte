@@ -4,7 +4,7 @@
 # Title: MIMO TOP FLOW
 # Author: Kristian Maier, Johannes Demel
 # Description: LTE decoding up to 2 tx antennas
-# Generated: Tue Oct 28 12:11:34 2014
+# Generated: Thu Oct 30 12:01:22 2014
 ##################################################
 
 execfile("/home/johannes/.grc_gnuradio/decode_bch_hier_gr37.py")
@@ -71,6 +71,7 @@ class MIMO_TOP_FLOW(gr.top_block):
         )
         self.blocks_vector_to_streams_0 = blocks.vector_to_streams(gr.sizeof_gr_complex*1, 2)
         self.blocks_throttle_0 = blocks.throttle(gr.sizeof_gr_complex*2, samp_rate,True)
+        self.blocks_streams_to_vector_0_0 = blocks.streams_to_vector(gr.sizeof_gr_complex*12 * N_rb_dl, 2)
         self.blocks_file_source_0 = blocks.file_source(gr.sizeof_gr_complex*2, "/home/johannes/src/gr-lte/tests/lte_test_data_RX2_NRBDL6.dat", True)
         self.bch_decode_bch_hier_gr37_0 = decode_bch_hier_gr37()
         self.MIB = lte.mib_unpack_vbm("MIB")
@@ -78,7 +79,6 @@ class MIMO_TOP_FLOW(gr.top_block):
         ##################################################
         # Connections
         ##################################################
-        self.connect((self.lte_mimo_sss_sync_0, 0), (self.lte_mimo_estimator_0, 0))
         self.connect((self.lte_mimo_pss_sync_0, 1), (self.lte_mimo_pss_based_frey_sync_0, 1))
         self.connect((self.lte_mimo_pss_sync_0, 0), (self.lte_mimo_pss_based_frey_sync_0, 0))
         self.connect((self.lte_mimo_pss_based_frey_sync_0, 0), (self.lte_mimo_ofdm_rx_0, 0))
@@ -92,9 +92,12 @@ class MIMO_TOP_FLOW(gr.top_block):
         self.connect((self.lte_mimo_decode_pbch_0, 0), (self.bch_decode_bch_hier_gr37_0, 0))
         self.connect((self.lte_mimo_estimator_0, 0), (self.lte_mimo_decode_pbch_0, 1))
         self.connect((self.lte_mimo_estimator_0, 1), (self.lte_mimo_decode_pbch_0, 2))
-        self.connect((self.lte_mimo_sss_sync_0, 0), (self.lte_mimo_decode_pbch_0, 0))
         self.connect((self.bch_decode_bch_hier_gr37_0, 1), (self.MIB, 1))
         self.connect((self.bch_decode_bch_hier_gr37_0, 0), (self.MIB, 0))
+        self.connect((self.lte_mimo_sss_sync_0, 1), (self.blocks_streams_to_vector_0_0, 1))
+        self.connect((self.lte_mimo_sss_sync_0, 0), (self.blocks_streams_to_vector_0_0, 0))
+        self.connect((self.blocks_streams_to_vector_0_0, 0), (self.lte_mimo_estimator_0, 0))
+        self.connect((self.blocks_streams_to_vector_0_0, 0), (self.lte_mimo_decode_pbch_0, 0))
 
         ##################################################
         # Asynch Message Connections
@@ -129,9 +132,9 @@ class MIMO_TOP_FLOW(gr.top_block):
         self.lte_mimo_pss_based_frey_sync_0.set_rxant(self.rxant)
         self.lte_mimo_pss_sync_0.set_rxant(self.rxant)
         self.lte_mimo_ofdm_rx_0.set_rxant(self.rxant)
-        self.lte_mimo_sss_sync_0.set_rxant(self.rxant)
         self.lte_mimo_estimator_0.set_rxant(self.rxant)
         self.lte_mimo_decode_pbch_0.set_rxant(self.rxant)
+        self.lte_mimo_sss_sync_0.set_rxant(self.rxant)
 
     def get_resampler(self):
         return self.resampler
@@ -153,9 +156,9 @@ class MIMO_TOP_FLOW(gr.top_block):
     def set_N_rb_dl(self, N_rb_dl):
         self.N_rb_dl = N_rb_dl
         self.lte_mimo_ofdm_rx_0.set_N_rb_dl(self.N_rb_dl)
-        self.lte_mimo_sss_sync_0.set_N_rb_dl(self.N_rb_dl)
         self.lte_mimo_estimator_0.set_N_rb_dl(self.N_rb_dl)
         self.lte_mimo_decode_pbch_0.set_N_rb_dl(self.N_rb_dl)
+        self.lte_mimo_sss_sync_0.set_N_rb_dl(self.N_rb_dl)
 
 if __name__ == '__main__':
     parser = OptionParser(option_class=eng_option, usage="%prog: [options]")
