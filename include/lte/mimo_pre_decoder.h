@@ -686,14 +686,23 @@ namespace gr {
   namespace lte {
 
     /*!
-     * \brief <+description of block+>
+     * \brief Pre Decoder for LTE
      * \ingroup lte
+     * \param N_ant initial antenna setup. for now: 1 or 2 antennas
+     * \param vlen length of the input/output vector
+     * \param style decoding style as given by LTE standard. Only transmit diversity is supported
+     * Block takes in vectors and channel estimates. Output is decoded according to Alamouti or standard zero-forcing depending on antenna configuration
      *
      */
     class LTE_API mimo_pre_decoder : virtual public gr::sync_block
     {
      public:
       typedef boost::shared_ptr<mimo_pre_decoder> sptr;
+
+      virtual void set_N_ant(int N_ant) = 0;
+      virtual int get_N_ant() = 0;
+      virtual void set_decoding_style(std::string style) = 0;
+      virtual std::string get_decoding_style() = 0;
 
       /*!
        * \brief Return a shared_ptr to a new instance of lte::mimo_pre_decoder.

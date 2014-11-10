@@ -57,7 +57,6 @@ install(FILES
     mimo_sss_calculator.h
     mimo_sss_tagger.h
     mimo_remove_cp.h
-    mimo_extract_subcarriers.h
     mimo_channel_estimator.h
     mimo_pbch_demux.h
     mimo_pre_decoder.h DESTINATION include/lte
