@@ -4,7 +4,7 @@
 # Title: MIMO TOP FLOW
 # Author: Kristian Maier, Johannes Demel
 # Description: LTE decoding up to 2 tx antennas
-# Generated: Wed Nov  5 11:43:48 2014
+# Generated: Mon Nov 10 15:08:54 2014
 ##################################################
 
 execfile("/home/johannes/.grc_gnuradio/decode_bch_hier_gr37.py")
@@ -131,10 +131,10 @@ class MIMO_TOP_FLOW(gr.top_block):
         self.rxant = rxant
         self.lte_mimo_pss_based_frey_sync_0.set_rxant(self.rxant)
         self.lte_mimo_pss_sync_0.set_rxant(self.rxant)
+        self.lte_mimo_ofdm_rx_0.set_rxant(self.rxant)
         self.lte_mimo_sss_sync_0.set_rxant(self.rxant)
         self.lte_mimo_estimator_0.set_rxant(self.rxant)
         self.lte_mimo_decode_pbch_0.set_rxant(self.rxant)
-        self.lte_mimo_ofdm_rx_0.set_rxant(self.rxant)
 
     def get_resampler(self):
         return self.resampler
@@ -147,18 +147,18 @@ class MIMO_TOP_FLOW(gr.top_block):
 
     def set_frame_key(self, frame_key):
         self.frame_key = frame_key
-        self.lte_mimo_estimator_0.set_estimator_key(self.frame_key)
         self.lte_mimo_ofdm_rx_0.set_ofdm_key(self.frame_key)
+        self.lte_mimo_estimator_0.set_estimator_key(self.frame_key)
 
     def get_N_rb_dl(self):
         return self.N_rb_dl
 
     def set_N_rb_dl(self, N_rb_dl):
         self.N_rb_dl = N_rb_dl
+        self.lte_mimo_ofdm_rx_0.set_N_rb_dl(self.N_rb_dl)
         self.lte_mimo_sss_sync_0.set_N_rb_dl(self.N_rb_dl)
         self.lte_mimo_estimator_0.set_N_rb_dl(self.N_rb_dl)
         self.lte_mimo_decode_pbch_0.set_N_rb_dl(self.N_rb_dl)
-        self.lte_mimo_ofdm_rx_0.set_N_rb_dl(self.N_rb_dl)
 
 if __name__ == '__main__':
     parser = OptionParser(option_class=eng_option, usage="%prog: [options]")
