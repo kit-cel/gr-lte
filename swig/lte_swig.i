@@ -45,7 +45,6 @@
 #include "lte/mimo_remove_cp.h"
 #include "lte/mimo_channel_estimator.h"
 #include "lte/mimo_pbch_demux.h"
-#include "lte/mimo_pre_decoder.h"
 %}
 
 
@@ -125,5 +124,3 @@ GR_SWIG_BLOCK_MAGIC2(lte, mimo_remove_cp);
 GR_SWIG_BLOCK_MAGIC2(lte, mimo_channel_estimator);
 %include "lte/mimo_pbch_demux.h"
 GR_SWIG_BLOCK_MAGIC2(lte, mimo_pbch_demux);
-%include "lte/mimo_pre_decoder.h"
-GR_SWIG_BLOCK_MAGIC2(lte, mimo_pre_decoder);
