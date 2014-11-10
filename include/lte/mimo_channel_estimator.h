@@ -50,7 +50,13 @@ namespace gr {
                     std::string msg_buf_name,
                     const std::vector<std::vector<int> > &pilot_carriers,
                     const std::vector<std::vector<gr_complex> > &pilot_symbols);
+      virtual void set_pilot_map(const std::vector<std::vector<int> > &pilot_carriers,
+                 const std::vector<std::vector<gr_complex> > &pilot_symbols) = 0;
+
+      virtual std::vector<std::vector<int> > get_pilot_carriers() = 0;
     };
+
+
 
   } // namespace lte
 } // namespace gr
