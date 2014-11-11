@@ -40,7 +40,7 @@ class qa_pre_decoder_vcvc(gr_unittest.TestCase):
         self.src2 = blocks.vector_source_c(intu2, False, vlen)
         self.src3 = blocks.vector_source_c(intu3, False, vlen)
 
-        self.pd = lte.pre_decoder_vcvc(N_ant, vlen, style)
+        self.pd = lte.pre_decoder_vcvc(1, N_ant, vlen, style)
 
         self.snk = blocks.vector_sink_c(vlen)
 
@@ -123,7 +123,7 @@ class qa_pre_decoder_vcvc(gr_unittest.TestCase):
         self.src1 = blocks.vector_source_c(data, False, vlen)
         self.src2 = blocks.vector_source_c(intu2, False, vlen)
         self.src3 = blocks.vector_source_c(intu3, False, vlen)
-        self.pd = lte.pre_decoder_vcvc(1, vlen, style)
+        self.pd = lte.pre_decoder_vcvc(1, 1, vlen, style)
         self.snk = blocks.vector_sink_c(vlen)
 
         # connect all blocks

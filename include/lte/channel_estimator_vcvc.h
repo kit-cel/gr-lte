@@ -18,7 +18,6 @@
  * Boston, MA 02110-1301, USA.
  */
 
-
 #ifndef INCLUDED_LTE_CHANNEL_ESTIMATOR_VCVC_H
 #define INCLUDED_LTE_CHANNEL_ESTIMATOR_VCVC_H
 
@@ -32,18 +31,18 @@ namespace gr {
      * \brief Channel Estimator for OFDM
      * \ingroup lte
      * \param subcarriers A value to determine the vector size and number of used subcarriers
-	 * \param tag_key A string value to set the name of the OFDM symbol number tag
-	 * \param msg_buf_name Name of the in message port to reset pilot carriers and pilot symbol values
-	 * \param pilot_carriers A vector of vectors of indices.
-	 *                      first vector has length max OFDM symbols per frame.
-	 *                      second vector contains indices of pilot carriers
-	 * \param pilot_symbols A vector of vectors with pilot symbol values
-	 *                      same as pilot_carriers but complex values.
+     * \param tag_key A string value to set the name of the OFDM symbol number tag
+     * \param msg_buf_name Name of the in message port to reset pilot carriers and pilot symbol values
+     * \param pilot_carriers A vector of vectors of indices.
+     *                      first vector has length max OFDM symbols per frame.
+     *                      second vector contains indices of pilot carriers
+     * \param pilot_symbols A vector of vectors with pilot symbol values
+     *                      same as pilot_carriers but complex values.
      *
      */
     class LTE_API channel_estimator_vcvc : virtual public gr::sync_block
     {
-     public:
+    public:
       typedef boost::shared_ptr<channel_estimator_vcvc> sptr;
 
       /*!
@@ -54,18 +53,21 @@ namespace gr {
        * class. lte::channel_estimator_vcvc::make is the public interface for
        * creating new instances.
        */
-      static sptr make(int subcarriers,
-						std::string tag_key,
-						std::string msg_buf_name,
-						const std::vector<std::vector<int> > &pilot_carriers,
-						const std::vector<std::vector<gr_complex> > &pilot_symbols,
-                        std::string name = "channel_estimator_vcvc");
-	
-	  virtual void set_pilot_map(const std::vector<std::vector<int> > &pilot_carriers,
-                       const std::vector<std::vector<gr_complex> > &pilot_symbols) = 0;
+      static sptr
+      make(int rxant, int subcarriers, std::string tag_key,
+           std::string msg_buf_name,
+           const std::vector<std::vector<int> > &pilot_carriers,
+           const std::vector<std::vector<gr_complex> > &pilot_symbols,
+           std::string name = "channel_estimator_vcvc");
 
-      virtual std::vector<std::vector<int> > get_pilot_carriers() = 0;
-	  
+      virtual void
+      set_pilot_map(
+          const std::vector<std::vector<int> > &pilot_carriers,
+          const std::vector<std::vector<gr_complex> > &pilot_symbols) = 0;
+
+      virtual std::vector<std::vector<int> >
+      get_pilot_carriers() = 0;
+
     };
 
   } // namespace lte

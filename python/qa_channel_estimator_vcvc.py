@@ -37,11 +37,14 @@ class qa_channel_estimator_vcvc (gr_unittest.TestCase):
         self.tag_key = tag_key = "symbol"
         self.msg_buf_name = msg_buf_name = "cell_id"
 
+        rxant = 1
+
         data = subcarriers * [1]
         pilot_carriers = [[1,2,3],[4,5,6]]
         pilot_symbols = [[1j,2j,3j],[4j,5j,6j]]
         self.src = blocks.vector_source_c(data, False, subcarriers)
-        self.estimator = lte.channel_estimator_vcvc(subcarriers,
+        self.estimator = lte.channel_estimator_vcvc(rxant,
+                                                    subcarriers,
                                                     tag_key,
                                                     msg_buf_name,
                                                     pilot_carriers,

@@ -1,4 +1,4 @@
-# !/usr/bin/env python
+#!/usr/bin/env python
 #
 # Copyright 2013 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
 #
@@ -21,6 +21,7 @@
 from gnuradio import gr
 import pmt
 import numpy as np
+import scipy.io
 import math
 from mib import *
 from encode_bch import *
@@ -152,13 +153,30 @@ def frame_map_rs_symbols(frame, N_rb_dl, cell_id, Ncp, p):
 def frame_pilot_value_and_position(N_rb_dl, cell_id, Ncp, p):
     rs_pos_frame = []
     rs_val_frame = []
+    Ndlsymb = 7;
     for ns in range(20):
-        sym0 = symbol_pilot_value_and_position(N_rb_dl, ns, 0, cell_id, Ncp, p)
-        sym4 = symbol_pilot_value_and_position(N_rb_dl, ns, 4, cell_id, Ncp, p)
-        rs_pos_frame.extend([sym0[0], [], [], [], sym4[0], [], []])
-        rs_val_frame.extend([sym0[1], [], [], [], sym4[1], [], []])
+        sym1 = symbol_pilot_value_and_position(N_rb_dl, ns, 1, cell_id, Ncp, p)
+        if p == 0 or p == 1:
+            sym0 = symbol_pilot_value_and_position(N_rb_dl, ns, 0, cell_id, Ncp, p)
+            sym4 = symbol_pilot_value_and_position(N_rb_dl, ns, 4, cell_id, Ncp, p)
+            rs_pos_frame.extend([sym0[0], [], [], [], sym4[0], [], []])
+            rs_val_frame.extend([sym0[1], [], [], [], sym4[1], [], []])
+        if p == 2 or p == 3:
+            sym1 = symbol_pilot_value_and_position(N_rb_dl, ns, 1, cell_id, Ncp, p)
+            rs_pos_frame.extend([[], sym1[0], [], [], [], [], []])
+            rs_val_frame.extend([[], sym1[1], [], [], [], [], []])
     return [rs_pos_frame, rs_val_frame]
-
+      
+      
+#def frame_pilot_value_and_position(N_rb_dl, cell_id, Ncp, p):
+#    rs_pos_frame = []
+#    rs_val_frame = []
+#    for ns in range(20):
+#        sym0 = symbol_pilot_value_and_position(N_rb_dl, ns, 0, cell_id, Ncp, p)
+#        sym4 = symbol_pilot_value_and_position(N_rb_dl, ns, 4, cell_id, Ncp, p)
+#        rs_pos_frame.extend([sym0[0], [], [], [], sym4[0], [], [] ])
+#        rs_val_frame.extend([sym0[1], [], [], [], sym4[1], [], [] ])
+#    return [rs_pos_frame, rs_val_frame]
 
 def symbol_pilot_value_and_position(N_rb_dl, ns, l, cell_id, Ncp, p):
     N_RB_MAX = 110
@@ -187,7 +205,7 @@ def calc_v(ns, l, p):
     elif p == 2:
         v = 3 * (ns % 2)
     elif p == 3:
-        v = 3 * 3 * (ns % 2)
+        v = 3 + 3 * (ns % 2)
     return v
 
 
@@ -345,94 +363,180 @@ def get_freq_domain_index(cell_id, n_free_reg, m, i):
     return ni
 
 
-def main():
-    cell_id = 124
-    N_ant = 1
-    style = "tx_diversity"
-    N_rb_dl = 50
-    sfn = 0
+def generate_frames(cell_id, N_rb_dl, N_ant, n_frames, start_sfn):	
     Ncp = 1
     N_g = 1
     cfi = 2
+
+    #indexing: frame_n, antenna port, ofdm_nr within frame, subcarrier
+    frames = []	
+
+
+    for i in range(n_frames):
+        sfn = (start_sfn+i) % 1024	
+        mib = pack_mib(N_rb_dl, 0, 1.0, sfn)
+        bch = encode_bch(mib, N_ant)
+        pbch = encode_pbch(bch, cell_id, N_ant, "tx_diversity")
+        #mainframe = lte_phy.generate_phy_frame(cell_id, N_rb_dl, N_ant)
+	mainframe = generate_frame(pbch, N_rb_dl, cell_id, sfn, N_ant)
+
+	for p in range(N_ant):
+	    mainframe[p] = map_pbch_to_frame_layer(mainframe[p], pbch[p], cell_id, sfn, p)
+
+	#sync signals here only on ant port 0
+        mainframe[0][5]  = lte_phy.map_sss_to_symbol(mainframe[0][5], N_rb_dl, cell_id, 0)
+        mainframe[0][6]  = lte_phy.map_pss_to_symbol(mainframe[0][6], N_rb_dl, cell_id%3 )
+        mainframe[0][75] = lte_phy.map_sss_to_symbol(mainframe[0][75], N_rb_dl, cell_id, 1)
+        mainframe[0][76] = lte_phy.map_pss_to_symbol(mainframe[0][76], N_rb_dl, cell_id%3 )
+
+	frames.append(mainframe);
+	
+    return frames
+
+
+def generate_ofdm_symbols(frames, N_rb_dl, N_ant, fftl):
+    cpl=144*(fftl/2048)
+    cpl0=160*(fftl/2048)
+   
+    stream = []
+
+    for p in range(N_ant):			
+	pos=0;        
+	temp=np.empty(len(frames)*20*(7*fftl+6*cpl+cpl0), dtype=np.complex64)
+        for n in range(len(frames)):
+	    print "start generating frame {0}".format(n)	
+	    for o in range(140):		
+                symbol = frames[n][p][o]
+
+                f_vec = np.zeros(fftl, dtype=np.complex64)
+                f_vec[1:12*N_rb_dl/2+1] = symbol[12*N_rb_dl/2:12*N_rb_dl]
+		f_vec[fftl-12*N_rb_dl/2:fftl] = symbol[0:12*N_rb_dl/2]		
+
+		t_vec=np.fft.ifft(f_vec, fftl)
+
+		if o%7 == 0:
+		    t_vec = cp_insert(t_vec, cpl0)
+		else:
+		    t_vec = cp_insert(t_vec, cpl)
+
+		temp[pos:pos+len(t_vec)]=t_vec
+		pos=pos+len(t_vec)
+		
+        stream.append(temp)
+    return stream
+
+
+
+def cp_insert(vec, cpl):
+    cp = vec[len(vec)-cpl:len(vec)]     
+    return np.append(cp,vec)
+
+
+
+def main():
+    cell_id = 110
+    N_ant = 2
+    style= "tx_diversity"
+    N_rb_dl = 50
+    sfn = 55
+    Ncp = 1
+    N_g = 1
+    cfi = 2
+    fftl = 2048
+    
 
     trollframe = lte_phy.generate_phy_frame(cell_id, N_rb_dl, N_ant)
     for ant in [1, 2, 4]:
         frame = lte_phy.generate_phy_frame(cell_id, N_rb_dl, ant)
         print np.shape(frame)
 
-    mib = pack_mib(50, 0, 1.0, 511)
-    bch = encode_bch(mib, N_ant)
-    pbch = encode_pbch(bch, cell_id, N_ant, style)
-    if N_ant == 1:
-        pbch = [pbch]
-    pn_seq = pn_generator(220, cell_id)
-    rs_seq = rs_generator(3, 4, cell_id, Ncp)
-    pcfich = encode_pcfich(2, cell_id, 4, N_ant)
-    N_CCE = get_n_cce_available(N_ant, N_rb_dl, cfi, N_g)
-    my_pdcchs = get_all_pdcchs(N_CCE)
-    ns = 0
-    # pdcch = encode_pdcch(my_pdcchs, N_rb_dl, N_ant, style, cfi, N_g, ns, cell_id)
-    # if N_ant == 1:
-    #     pdcch = [pdcch]
-    # org_frame = generate_frame(pbch, N_rb_dl, cell_id, sfn, N_ant)
-    #
-    # cfi_reg = calculate_pcfich_reg_pos(N_rb_dl, cell_id)
-    # free_reg = get_free_reg_pos(N_rb_dl, cell_id)
-    # n_phich_groups = get_n_phich_groups(N_g, N_rb_dl)
-    # phich_pos = get_phich_pos(N_rb_dl, cell_id, N_g)
-    #
-    # symbol = [0] * 12 * N_rb_dl
-    # phich = ["PHICH"] * 12 * n_phich_groups
-    # pcfi = ["CFI"] * 16
-    # symbol = map_pcfich_to_symbol(symbol, pcfi, N_rb_dl, cell_id, 0)
-    # symbol = map_phich_to_symbol(symbol, phich, N_rb_dl, cell_id, N_g)
-    # print "\n\noccupied"
-    # occ = get_occupied_regs(N_rb_dl, cell_id, N_g)
-    # pdcch_pos = get_pdcch_reg_pos(N_rb_dl, cell_id, N_g, cfi)
-    # symbols = org_frame[0][0:cfi]
-    # print np.shape(symbols)
-    # print np.shape(pdcch)
-    # map_pdcch_to_symbols(symbols, pdcch[0], N_rb_dl, cell_id, N_g, cfi)
-    # print "pdcch done"
-    #
-    # #    for i in range(len(symbol)):
-    # #        print "{0}\t{1}".format(i, symbol[i])
-    #
-    # #    n_sub = 0
-    # #    ns = 2* n_sub
-    # #    print np.shape(org_frame)
-    # #    stream = generate_stream_frame(org_frame, N_ant)
-    # #    print np.shape(stream)
-    #
-    #
-    # frame = []
-    # for i in range(N_ant):
-    #     frame.append([])
-    # for n_sub in range(10):
-    #     N_CCE = get_n_cce_available(N_ant, N_rb_dl, cfi, N_g)
-    #     pdcchs = get_all_pdcchs(N_CCE)
-    #     n_groups = get_n_phich_groups(N_g, N_rb_dl)
-    #     hi = []
-    #     for i in range(8 * n_groups):
-    #         hi.append(i % 2)
-    #     subframe = generate_subframe(pdcchs, hi, N_rb_dl, cell_id, N_ant, N_g, n_sub, cfi)
-    #     for ant in range(N_ant):
-    #         frame[ant].extend(subframe[ant])
-    # for p in range(N_ant):
-    #     frame[p] = map_pbch_to_frame_layer(frame[p], pbch[p], cell_id, sfn, p)
-    #     frame[p] = frame_map_rs_symbols(frame[p], N_rb_dl, cell_id, Ncp, p)
-    # print np.shape(frame)
-    # print np.shape(org_frame)
-    # #    for i in range(len(frame[0][0])):
-    # #        print "{0}\t{1}\t{2}".format(i, frame[0][0][i], org_frame[0][0][i])
-    # N_CCE = get_n_cce_available(N_ant, N_rb_dl, cfi, N_g)
-    # for i in range(len(N_rb_dl_lut)):
-    #     N_rb_dl = N_rb_dl_lut[i]
-    #     N_CCE = get_n_cce_available(N_ant, N_rb_dl, cfi, N_g)
-    #     pos = get_pdcch_reg_pos(N_rb_dl, cell_id, N_g, cfi)
-    #     print "{0}\t{1}\t{2}".format(N_CCE, N_CCE * 9, np.shape(pos))
-    #
-    # print "this is the END"
+    frames = generate_frames(cell_id, N_rb_dl, N_ant, 20, sfn)    
+    ts = generate_ofdm_symbols(frames, N_rb_dl, N_ant, fftl)
+    #scipy.io.savemat("testfile2", mdict={'ts': ts})
+    print np.shape(ts);
+
+
+#    for i in range(600):
+#        print frames[0][0][0][i]
+
+
+#    trollframe = lte_phy.generate_phy_frame(cell_id, N_rb_dl, N_ant)
+#    print np.shape(trollframe);
+
+
+#    mib = pack_mib(50,0,1.0, 511)
+#    bch = encode_bch(mib, N_ant)
+#    pbch = encode_pbch(bch, cell_id, N_ant, style)
+#    if N_ant == 1:
+#        pbch = [pbch]
+#    pn_seq = pn_generator(220, cell_id)
+#    rs_seq = rs_generator(3, 4, cell_id, Ncp)
+#    pcfich = encode_pcfich(2, cell_id, 4, N_ant)
+#    N_CCE = get_n_cce_available(N_ant, N_rb_dl, cfi, N_g)
+#    my_pdcchs = get_all_pdcchs(N_CCE)
+#    ns = 0
+#    pdcch = encode_pdcch(my_pdcchs, N_rb_dl, N_ant, style, cfi, N_g, ns, cell_id)
+#    if N_ant == 1:
+#        pdcch = [pdcch]
+#    org_frame = generate_frame(pbch, N_rb_dl, cell_id, sfn, N_ant)
+
+#    cfi_reg = calculate_pcfich_reg_pos(N_rb_dl, cell_id)
+#    free_reg = get_free_reg_pos(N_rb_dl, cell_id)
+#    n_phich_groups = get_n_phich_groups(N_g, N_rb_dl)
+#    phich_pos = get_phich_pos(N_rb_dl, cell_id, N_g)
+
+
+
+#    symbol = [0] * 12 * N_rb_dl
+#    phich = ["PHICH"] * 12 * n_phich_groups
+#    pcfi = ["CFI"] * 16
+#    symbol = map_pcfich_to_symbol(symbol, pcfi, N_rb_dl, cell_id, 0)
+#    symbol = map_phich_to_symbol(symbol, phich, N_rb_dl, cell_id, N_g)
+#    print "\n\noccupied"
+#    occ = get_occupied_regs(N_rb_dl, cell_id, N_g)
+#    pdcch_pos = get_pdcch_reg_pos(N_rb_dl, cell_id, N_g, cfi)
+#    symbols = org_frame[0][0:cfi]
+#    print np.shape(symbols)
+#    print np.shape(pdcch)
+#    map_pdcch_to_symbols(symbols, pdcch[0], N_rb_dl, cell_id, N_g, cfi)
+#    print "pdcch done"
+
+##    for i in range(len(symbol)):
+##        print "{0}\t{1}".format(i, symbol[i])
+
+##    n_sub = 0
+##    ns = 2* n_sub
+##    print np.shape(org_frame)
+##    stream = generate_stream_frame(org_frame, N_ant)
+##    print np.shape(stream)
+
+
+#    frame = []
+#    for i in range(N_ant):
+#        frame.append([])
+#    for n_sub in range(10):
+#        N_CCE = get_n_cce_available(N_ant, N_rb_dl, cfi, N_g)
+#        pdcchs = get_all_pdcchs(N_CCE)
+#        n_groups = get_n_phich_groups(N_g, N_rb_dl)
+#        hi = []
+#        for i in range(8*n_groups):
+#            hi.append(i%2)
+#        subframe = generate_subframe(pdcchs, hi, N_rb_dl, cell_id, N_ant, N_g, n_sub, cfi)
+#        for ant in range(N_ant):
+#            frame[ant].extend(subframe[ant])
+#    for p in range(N_ant):
+#        frame[p] = map_pbch_to_frame_layer(frame[p], pbch[p], cell_id, sfn, p)
+#        frame[p] = frame_map_rs_symbols(frame[p], N_rb_dl, cell_id, Ncp, p)
+#    print np.shape(frame)
+#    print np.shape(org_frame)
+##    for i in range(len(frame[0][0])):
+##        print "{0}\t{1}\t{2}".format(i, frame[0][0][i], org_frame[0][0][i])
+#    N_CCE = get_n_cce_available(N_ant, N_rb_dl, cfi, N_g)
+#    for i in range(len(N_rb_dl_lut)):
+#        N_rb_dl = N_rb_dl_lut[i]
+#        N_CCE = get_n_cce_available(N_ant, N_rb_dl, cfi, N_g)
+#        pos = get_pdcch_reg_pos(N_rb_dl, cell_id, N_g, cfi)
+#        print "{0}\t{1}\t{2}".format(N_CCE, N_CCE*9, np.shape(pos))
 
 
 if __name__ == "__main__":

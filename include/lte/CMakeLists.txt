@@ -46,5 +46,15 @@ install(FILES
     sss_tagger_cc.h
     sync_frequency_c.h
     descrambler_vfvf.h
-    pcfich_demux_vcvc.h DESTINATION include/lte
+    pcfich_demux_vcvc.h
+    mimo_pss_coarse_sync.h
+    mimo_pss_fine_sync.h
+    mimo_pss_tagger.h
+    mimo_pss_coarse_control.h
+    pss.h
+    mimo_pss_freq_sync.h
+    mimo_sss_symbol_selector.h
+    mimo_sss_calculator.h
+    mimo_sss_tagger.h
+    mimo_remove_cp.h DESTINATION include/lte
 )

@@ -1,17 +1,17 @@
 /* -*- c++ -*- */
-/* 
- * Copyright 2013 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
- * 
+/*
+ * Copyright 2014 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
+ *
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 3, or (at your option)
  * any later version.
- * 
+ *
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this software; see the file COPYING.  If not, write to
  * the Free Software Foundation, Inc., 51 Franklin Street,
@@ -32,23 +32,23 @@ namespace gr {
 		int d_cell_id;
 		int d_N_rb_dl;
 		int d_sym_num;
+		int d_rxant;
 		gr_complex* d_pbch_symbs;
 		gr_complex* d_pbch_ce1_symbs;
 		gr_complex* d_pbch_ce2_symbs;
-		// reallocating a new vector on every call-to-work seems to generate a large overhead.
-		std::vector<gr::tag_t> d_tags_v;
 
-		int calculate_n_process_items(const gr_vector_int& ninput_items, const int noutput_items);
+		int calculate_n_process_items(gr_vector_int ninput_items, int noutput_items);
 		void extract_pbch_values(gr_complex* out, const gr_complex* in);
-		int get_sym_num(const std::vector<gr::tag_t>& v);
-		
+		int get_sym_num(std::vector<gr::tag_t> &v);
+
 		void set_cell_id_msg(pmt::pmt_t msg);
 
      public:
-      pbch_demux_vcvc_impl(int N_rb_dl, std::string& name);
+      pbch_demux_vcvc_impl(int N_rb_dl, int rxant, std::string name);
       ~pbch_demux_vcvc_impl();
 
 	  void set_cell_id(int id);
+
       // Where all the action really happens
       void forecast (int noutput_items, gr_vector_int &ninput_items_required);
 

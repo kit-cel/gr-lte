@@ -3,7 +3,7 @@
 # Gnuradio Python Flow Graph
 # Title: LTE_test
 # Author: Johannes Demel
-# Generated: Sat Oct 11 18:42:03 2014
+# Generated: Tue Nov 11 12:01:13 2014
 ##################################################
 
 execfile("/home/johannes/.grc_gnuradio/decode_bch_hier_gr37.py")
@@ -44,7 +44,7 @@ class lte_top_block(gr.top_block):
             offset_key="offset_marker",
             fftlen=fftlen,
         )
-        self.sync_lte_rough_symbol_sync_cc_0 = lte.rough_symbol_sync_cc(fftlen, "sync_lte_rough_symbol_sync_cc_0")
+        self.sync_lte_rough_symbol_sync_cc_0 = lte.rough_symbol_sync_cc(fftlen, 1, "sync_lte_rough_symbol_sync_cc_0")
         self.sync_lte_pss_sync_37_0 = lte_pss_sync_37(
             fftlen=fftlen,
         )
@@ -56,16 +56,15 @@ class lte_top_block(gr.top_block):
             N_rb_dl=N_rb_dl,
         )
         self.ofdm_lte_ofdm_hier_0 = lte_ofdm_hier(
-            N_rb_dl=N_rb_dl,
             fftlen=fftlen,
             ofdm_key=frame_key,
+            N_rb_dl=N_rb_dl,
         )
         self.ofdm_estimator_lte_estimator_hier_0 = lte_estimator_hier(
             initial_id=124,
             estimator_key=frame_key,
             N_rb_dl=N_rb_dl,
         )
-        self.blocks_head_0_0 = blocks.head(gr.sizeof_gr_complex*1, int(samp_rate * 2))
         self.bch_decode_bch_hier_gr37_0 = decode_bch_hier_gr37()
         self.MIB = lte.mib_unpack_vbm("MIB")
 
@@ -77,14 +76,13 @@ class lte_top_block(gr.top_block):
         self.connect((self.sync_lte_cp_freq_sync_0, 0), (self.sync_lte_sss_sync_hier_0, 0))
         self.connect((self.sync_lte_sss_sync_hier_0, 0), (self.ofdm_lte_ofdm_hier_0, 0))
         self.connect((self.ofdm_lte_ofdm_hier_0, 0), (self.ofdm_estimator_lte_estimator_hier_0, 0))
-        self.connect((self.blocks_head_0_0, 0), (self.sync_lte_rough_symbol_sync_cc_0, 0))
-        self.connect((self.pre_blocks_file_source_0, 0), (self.blocks_head_0_0, 0))
         self.connect((self.ofdm_estimator_lte_estimator_hier_0, 0), (self.pbch_decode_pbch_37_0, 1))
         self.connect((self.ofdm_estimator_lte_estimator_hier_0, 1), (self.pbch_decode_pbch_37_0, 2))
         self.connect((self.ofdm_lte_ofdm_hier_0, 0), (self.pbch_decode_pbch_37_0, 0))
         self.connect((self.pbch_decode_pbch_37_0, 0), (self.bch_decode_bch_hier_gr37_0, 0))
         self.connect((self.bch_decode_bch_hier_gr37_0, 1), (self.MIB, 1))
         self.connect((self.bch_decode_bch_hier_gr37_0, 0), (self.MIB, 0))
+        self.connect((self.pre_blocks_file_source_0, 0), (self.sync_lte_rough_symbol_sync_cc_0, 0))
 
         ##################################################
         # Asynch Message Connections
@@ -101,15 +99,14 @@ class lte_top_block(gr.top_block):
         self.set_samp_rate((7*self.fftlen + 160* self.fftlen/2048 + 6 * (144 * self.fftlen/2048)) / 0.0005)
         self.sync_lte_pss_sync_37_0.set_fftlen(self.fftlen)
         self.sync_lte_cp_freq_sync_0.set_fftlen(max(256,self.fftlen))
-        self.ofdm_lte_ofdm_hier_0.set_fftlen(self.fftlen)
         self.sync_lte_sss_sync_hier_0.set_fftlen(self.fftlen)
+        self.ofdm_lte_ofdm_hier_0.set_fftlen(self.fftlen)
 
     def get_samp_rate(self):
         return self.samp_rate
 
     def set_samp_rate(self, samp_rate):
         self.samp_rate = samp_rate
-        self.blocks_head_0_0.set_length(int(self.samp_rate * 2))
 
     def get_pbch_descr_key(self):
         return self.pbch_descr_key
@@ -122,17 +119,17 @@ class lte_top_block(gr.top_block):
 
     def set_frame_key(self, frame_key):
         self.frame_key = frame_key
-        self.ofdm_estimator_lte_estimator_hier_0.set_estimator_key(self.frame_key)
         self.ofdm_lte_ofdm_hier_0.set_ofdm_key(self.frame_key)
+        self.ofdm_estimator_lte_estimator_hier_0.set_estimator_key(self.frame_key)
 
     def get_N_rb_dl(self):
         return self.N_rb_dl
 
     def set_N_rb_dl(self, N_rb_dl):
         self.N_rb_dl = N_rb_dl
-        self.ofdm_estimator_lte_estimator_hier_0.set_N_rb_dl(self.N_rb_dl)
-        self.ofdm_lte_ofdm_hier_0.set_N_rb_dl(self.N_rb_dl)
         self.sync_lte_sss_sync_hier_0.set_N_rb_dl(self.N_rb_dl)
+        self.ofdm_lte_ofdm_hier_0.set_N_rb_dl(self.N_rb_dl)
+        self.ofdm_estimator_lte_estimator_hier_0.set_N_rb_dl(self.N_rb_dl)
         self.pbch_decode_pbch_37_0.set_N_rb_dl(self.N_rb_dl)
 
 if __name__ == '__main__':

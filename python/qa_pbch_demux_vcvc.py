@@ -38,7 +38,7 @@ class qa_pbch_demux_vcvc (gr_unittest.TestCase):
         #self.src2 = blocks.vector_source_c( intu, False, n_carriers)
         #self.src3 = blocks.vector_source_c( intu, False, n_carriers)
 
-        self.demux = lte.pbch_demux_vcvc(N_rb_dl) # cell_id,
+        self.demux = lte.pbch_demux_vcvc(N_rb_dl, 1) # cell_id,
 
         self.snk1 = blocks.vector_sink_c(240)
         #self.snk2 = blocks.vector_sink_c(240)

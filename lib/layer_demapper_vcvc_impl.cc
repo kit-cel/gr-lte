@@ -1,17 +1,17 @@
 /* -*- c++ -*- */
-/* 
+/*
  * Copyright 2013 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
- * 
+ *
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 3, or (at your option)
  * any later version.
- * 
+ *
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this software; see the file COPYING.  If not, write to
  * the Free Software Foundation, Inc., 51 Franklin Street,
@@ -87,7 +87,7 @@ namespace gr {
         // Tell runtime system how many output items we produced.
         return noutput_items;
     }
-    
+
     void
 	layer_demapper_vcvc_impl::demap_1_ant(gr_complex* out, const gr_complex * in, int len)
 	{
@@ -115,6 +115,7 @@ namespace gr {
 			*(out+4*i+2) = in[i+2*len4];
 			*(out+4*i+3) = in[i+3*len4];
 		}
+
 	}
 
 	void

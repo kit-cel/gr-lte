@@ -33,6 +33,16 @@
 #include "lte/sync_frequency_c.h"
 #include "lte/descrambler_vfvf.h"
 #include "lte/pcfich_demux_vcvc.h"
+#include "lte/mimo_pss_coarse_sync.h"
+#include "lte/mimo_pss_fine_sync.h"
+#include "lte/mimo_pss_tagger.h"
+#include "lte/mimo_pss_coarse_control.h"
+#include "lte/pss.h"
+#include "lte/mimo_pss_freq_sync.h"
+#include "lte/mimo_sss_symbol_selector.h"
+#include "lte/mimo_sss_calculator.h"
+#include "lte/mimo_sss_tagger.h"
+#include "lte/mimo_remove_cp.h"
 %}
 
 
@@ -86,3 +96,24 @@ GR_SWIG_BLOCK_MAGIC2(lte, sync_frequency_c);
 GR_SWIG_BLOCK_MAGIC2(lte, descrambler_vfvf);
 %include "lte/pcfich_demux_vcvc.h"
 GR_SWIG_BLOCK_MAGIC2(lte, pcfich_demux_vcvc);
+%include "lte/mimo_pss_coarse_sync.h"
+GR_SWIG_BLOCK_MAGIC2(lte, mimo_pss_coarse_sync);
+%include "lte/mimo_pss_fine_sync.h"
+GR_SWIG_BLOCK_MAGIC2(lte, mimo_pss_fine_sync);
+
+%include "lte/mimo_pss_tagger.h"
+GR_SWIG_BLOCK_MAGIC2(lte, mimo_pss_tagger);
+%include "lte/mimo_pss_coarse_control.h"
+GR_SWIG_BLOCK_MAGIC2(lte, mimo_pss_coarse_control);
+%include "lte/pss.h"
+%include "lte/mimo_pss_freq_sync.h"
+GR_SWIG_BLOCK_MAGIC2(lte, mimo_pss_freq_sync);
+%include "lte/mimo_sss_symbol_selector.h"
+GR_SWIG_BLOCK_MAGIC2(lte, mimo_sss_symbol_selector);
+%include "lte/mimo_sss_calculator.h"
+GR_SWIG_BLOCK_MAGIC2(lte, mimo_sss_calculator);
+
+%include "lte/mimo_sss_tagger.h"
+GR_SWIG_BLOCK_MAGIC2(lte, mimo_sss_tagger);
+%include "lte/mimo_remove_cp.h"
+GR_SWIG_BLOCK_MAGIC2(lte, mimo_remove_cp);

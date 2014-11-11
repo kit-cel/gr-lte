@@ -44,5 +44,15 @@ install(FILES
     lte_sync_frequency_c.xml
     lte_descrambler_vfvf.xml
     lte_pcfich_scramble_sequencer_m.xml
-    lte_pcfich_demux_vcvc.xml DESTINATION share/gnuradio/grc/blocks
+    lte_pcfich_demux_vcvc.xml
+    lte_mimo_pss_coarse_sync.xml
+    lte_mimo_pss_fine_sync.xml
+    lte_mimo_pss_tagger.xml
+    lte_mimo_pss_coarse_control.xml
+    lte_mimo_pss_freq_sync.xml
+    lte_mimo_sss_symbol_selector.xml
+    lte_mimo_sss_calculator.xml
+    lte_mimo_sss_tagger.xml
+    lte_mimo_remove_cp.xml DESTINATION share/gnuradio/grc/blocks
+   
 )

@@ -39,9 +39,7 @@ class bch_viterbi_vfvb(gr.hier_block2):
         # viterbi decoder requires stream as input
         #self.vtos = blocks.vector_to_stream(1 * gr.sizeof_float, 120)
 
-        # self.vtss = blocks.vector_to_streams(1* gr.sizeof_float, 120, "bch_viterbi_vector_to_streams_0")
         self.vtss = blocks.vector_to_streams(1* gr.sizeof_float, 120)
-        #self.app = blocks.streams_to_stream(1* gr.sizeof_float, 138, "bch_viterbi_streams_to_stream_0")
         self.app = blocks.streams_to_stream(1* gr.sizeof_float, 138)
         self.connect(self, self.vtss)
         for i in range(18):
@@ -75,14 +73,11 @@ class bch_viterbi_vfvb(gr.hier_block2):
         # SK     = final state of the FSM (unknown in this example)
         # D      = dimensionality
         # TABLE  = constellation of the input symbols
-        # self.vit = trellis.viterbi_combined_fb(self.fsm, K, SO, SK, D, constellation, 200, "bch_viterbi_combined_fb_0")
         self.vit = trellis.viterbi_combined_fb(self.fsm, K, SO, SK, D, constellation, 200)
         self.connect(self.app, self.vit)
         # connect all streams which are crated yet        
         #self.connect(self,self.rpt,self.vtos,self.vit)
-        # self.keep = blocks.keep_m_in_n(gr.sizeof_char, 40, 46, 6, "bch_viterbi_keep_m_in_n_0")
         self.keep = blocks.keep_m_in_n(gr.sizeof_char, 40, 46, 6)
-        # self.tovec = blocks.stream_to_vector(1, 40, "bch_viterbi_stream_to_vector_0")
         self.tovec = blocks.stream_to_vector(1, 40)
         self.connect(self.vit, self.keep, self.tovec, self)
 

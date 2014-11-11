@@ -1,4 +1,4 @@
-# !/usr/bin/env python
+#!/usr/bin/env python
 #
 # Copyright 2013 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
 #
@@ -79,7 +79,7 @@ def calc_v(ns, l, p):
     elif p == 2:
         v = 3 * (ns % 2)
     elif p == 3:
-        v = 3 * 3 * (ns % 2)
+        v = 3 + 3 * (ns % 2)
     return v
 
 

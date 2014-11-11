@@ -46,7 +46,7 @@ namespace gr {
        * class. lte::rough_symbol_sync_cc::make is the public interface for
        * creating new instances.
        */
-      static sptr make(int fftl, std::string name = "rough_symbol_sync_cc");
+      static sptr make(int fftl, int vlen, std::string name = "rough_symbol_sync_cc");
     };
 
   } // namespace lte
