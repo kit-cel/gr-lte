@@ -16,6 +16,18 @@ Capabilities
 -------------
 *gr-lte* provides blocks to synchronize to a LTE downlink signal. It performs OFDM operation to operate in the frequency domain and provides a channel estimator. At this point physical LTE downlink channels can be extracted from the symbols and be processed. PBCH is fully implemented and decodes MIB. PCFICH is available too. Almost all code for PHICH is implemented and there is lots of code to bring PDCCH support. It is not yet possible to just plug it in, though. Eventually all channels shall be supported.
 
+Flowgraphs
+----------
+A lot of example flowgraphs are located in the examples folder. These include some hierarchical flowgraphs and the corresponding top-level flowgraphs. Two different algorithms for synchronization are available.
+
+- step-by-step synchronization
+    - starts with symbol sync, PSS, SSS
+    - for single RX antenna
+- direct PSS sync
+    - Syncs directly to PSS half-frames
+    - may use multiple RX antennas
+    - 2RX and 4RX flowgraphs available
+
 
 Requirements
 ------------

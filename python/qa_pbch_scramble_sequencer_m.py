@@ -20,8 +20,13 @@
 # 
 
 from gnuradio import gr, gr_unittest
-from pbch_scramble_sequencer_m import pbch_scramble_sequencer_m
+# from pbch_scramble_sequencer_m import pbch_scramble_sequencer_m
+import lte_swig as lte
 
+"""
+This test does essentially nothing but fails anyway. "python2 double free or corruption"
+Cause is unknown.
+"""
 
 class qa_pbch_scramble_sequencer_m(gr_unittest.TestCase):
     def setUp(self):
@@ -31,10 +36,11 @@ class qa_pbch_scramble_sequencer_m(gr_unittest.TestCase):
         self.tb = None
 
     def test_001_t(self):
+        print "test_001"
         # set up fg
         self.tb.run()
         # check data
 
 
 if __name__ == '__main__':
-    gr_unittest.run(qa_pbch_scramble_sequencer_m, "qa_pbch_scramble_sequencer_m.xml")
+    gr_unittest.run(qa_pbch_scramble_sequencer_m)
