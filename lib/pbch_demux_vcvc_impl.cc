@@ -1,17 +1,17 @@
 /* -*- c++ -*- */
-/* 
- * Copyright 2013 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
- * 
+/*
+ * Copyright 2014 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
+ *
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 3, or (at your option)
  * any later version.
- * 
+ *
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this software; see the file COPYING.  If not, write to
  * the Free Software Foundation, Inc., 51 Franklin Street,
@@ -31,27 +31,28 @@ namespace gr {
   namespace lte {
 
     pbch_demux_vcvc::sptr
-    pbch_demux_vcvc::make(int N_rb_dl, std::string name)
+    pbch_demux_vcvc::make(int N_rb_dl, int rxant, std::string name)
     {
       return gnuradio::get_initial_sptr
-        (new pbch_demux_vcvc_impl(N_rb_dl, name));
+        (new pbch_demux_vcvc_impl(N_rb_dl, rxant, name));
     }
 
     /*
      * The private constructor
      */
-    pbch_demux_vcvc_impl::pbch_demux_vcvc_impl(int N_rb_dl, std::string& name)
-      : gr::block(name,
-              gr::io_signature::make( 1, 1, sizeof(gr_complex) * 12 * N_rb_dl),
-              gr::io_signature::make( 1, 1, sizeof(gr_complex) * 240)),
+    pbch_demux_vcvc_impl::pbch_demux_vcvc_impl(int N_rb_dl, int rxant, std::string name)
+      : gr::block(name /* "mimo_pbch_demux" */,
+              gr::io_signature::make( 1, 1, sizeof(gr_complex) * 12 * N_rb_dl * rxant),
+              gr::io_signature::make( 1, 1, sizeof(gr_complex) * 240 * rxant)),
               d_cell_id(-1),
 			  d_N_rb_dl(N_rb_dl),
-			  d_sym_num(0)
+			  d_sym_num(-1),
+			  d_rxant(rxant)
     {
-		message_port_register_in(pmt::mp("cell_id"));
+        message_port_register_in(pmt::mp("cell_id"));
 		set_msg_handler(pmt::mp("cell_id"), boost::bind(&pbch_demux_vcvc_impl::set_cell_id_msg, this, _1));
 
-	}
+    }
 
     /*
      * Our virtual destructor.
@@ -66,7 +67,7 @@ namespace gr {
         for(int i = 0 ; i < ninput_items_required.size() ; i++){
 			ninput_items_required[0] = noutput_items;
 		}
-        /* <+forecast+> e.g. ninput_items_required[0] = noutput_items */
+
     }
 
     int
@@ -77,40 +78,48 @@ namespace gr {
     {
         const gr_complex *in = (const gr_complex *) input_items[0];
 		gr_complex *out = (gr_complex *) output_items[0];
-		
+
 		// get smallest number of input items
 		int ninitems = calculate_n_process_items(ninput_items, noutput_items);
 		//~ printf("this is a demux with %i items \n", ninitems);
 
-		// No data is processed as long as the cell_id is not available
-		if(d_cell_id < 0){
-			return 0;
-		}
+        //the following section is commented because it causes gnuradio-failure (to much items in pipe?)
 
-		// set noutput_items to zero. if output is produced, noutput_items is incremented.
+//		// No data is processed as long as the cell_id is not available
+//		if(d_cell_id < 0){
+//			//consume_each(ninitems);
+//			return 0;
+//		}
+
+		//set noutput_items to zero. if output is produced, noutput_items is incremented.
 		noutput_items = 0;
 
-		//Read tags for updated sym_num
-//		std::vector<gr::tag_t> v;
-		get_tags_in_range(d_tags_v, 0, nitems_read(0), nitems_read(0)+ninitems);
-		int sym_num = get_sym_num(d_tags_v);
+		int cell_id_mod3 = d_cell_id%3;
+		int n_carriers = 12*d_N_rb_dl;
 
-		int n_carriers = 12 * d_N_rb_dl;
+		//Read tags for updated sym_num
+		std::vector<gr::tag_t> v;
+		get_tags_in_range(v,0,nitems_read(0),nitems_read(0)+ninitems);
+		int sym_num = get_sym_num(v);
+
 		//This loop searches for the REs with the PBCH and copies them to the output stream.
 		for (int i = 0 ; i < ninitems ; i++ ) {
-			if(sym_num==7){ // found position of first PBCH values in frame.
-				if (ninitems-i < 4){ // make sure whole PBCH is available.
+			if(sym_num==7){
+				if (ninitems-i < 4){
 					ninitems = i;
 					break;
 				}
 				extract_pbch_values(out, in);
 
 				noutput_items++;
-				out += 240;
+				out += 240 * d_rxant;
 			}
+
 			// update work values for next symbol
-			sym_num = (sym_num+1)%140;
-			in += n_carriers;
+			if(sym_num != -1){
+                sym_num = (sym_num+1)%140;
+            }
+			in += n_carriers * d_rxant;
 		}
 
 		// update d_sym_num
@@ -121,7 +130,7 @@ namespace gr {
 		// Tell runtime system how many output items we produced.
 		return noutput_items;
     }
-    
+
 	void
 	pbch_demux_vcvc_impl::set_cell_id_msg(pmt::pmt_t msg)
 	{
@@ -140,7 +149,7 @@ namespace gr {
 	}
 
 	int
-	pbch_demux_vcvc_impl::calculate_n_process_items(const gr_vector_int& ninput_items, const int noutput_items)
+	pbch_demux_vcvc_impl::calculate_n_process_items(gr_vector_int ninput_items, int noutput_items)
 	{
 		// get smallest number of input items
 		int n_inputs = ninput_items.size();
@@ -160,25 +169,32 @@ namespace gr {
 	pbch_demux_vcvc_impl::extract_pbch_values(gr_complex* out,
 												const gr_complex* in)
 	{
+
+
 		int cell_id_mod3 = d_cell_id%3;
 		int n_carriers = 12*d_N_rb_dl;
+		int n_pbch4 = 240;
 		int pbch_pos = (n_carriers/2)-(72/2);
 		int idx = 0;
 		for (int c = 0 ; c < 72 ; c++ ) {
 			if ( cell_id_mod3 != c%3 ){
-				out[idx]    = in[pbch_pos+c];
-				out[idx+48] = in[pbch_pos+c+n_carriers];
+                for(int rx=0; rx<d_rxant; rx++){
+                    out[idx   +rx*n_pbch4] = in[pbch_pos+c                   +rx*n_carriers];
+                    out[idx+48+rx*n_pbch4] = in[pbch_pos+c+n_carriers*d_rxant+rx*n_carriers];
+				}
 				idx++;
 			}
 		}
-		//Copy PBCH values on symbol 9
-		memcpy(out+96, in+2*n_carriers+pbch_pos, 72*sizeof(gr_complex) );
-		//Copy PBCH values on symbol 10
-		memcpy(out+96+72, in+3*n_carriers+pbch_pos, 72*sizeof(gr_complex) );
+		for(int rx=0; rx<d_rxant; rx++){
+            //Copy PBCH values on symbol 9
+            memcpy(out+96   +rx*n_pbch4, in+2*n_carriers*d_rxant+pbch_pos+rx*n_carriers, 72*sizeof(gr_complex) );
+            //Copy PBCH values on symbol 10
+            memcpy(out+96+72+rx*n_pbch4, in+3*n_carriers*d_rxant+pbch_pos+rx*n_carriers, 72*sizeof(gr_complex) );
+		}
 	}
 
 	int
-	pbch_demux_vcvc_impl::get_sym_num(const std::vector<gr::tag_t>& v)
+	pbch_demux_vcvc_impl::get_sym_num(std::vector<gr::tag_t> &v)
 	{
 		int sym_num = 0;
 		if(v.size() > 0){
@@ -191,6 +207,8 @@ namespace gr {
 		}
 		return sym_num;
 	}
+
+
 
 
   } /* namespace lte */

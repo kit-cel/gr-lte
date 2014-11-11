@@ -43,7 +43,6 @@
 #include "lte/mimo_sss_calculator.h"
 #include "lte/mimo_sss_tagger.h"
 #include "lte/mimo_remove_cp.h"
-#include "lte/mimo_pbch_demux.h"
 %}
 
 
@@ -118,6 +117,3 @@ GR_SWIG_BLOCK_MAGIC2(lte, mimo_sss_calculator);
 GR_SWIG_BLOCK_MAGIC2(lte, mimo_sss_tagger);
 %include "lte/mimo_remove_cp.h"
 GR_SWIG_BLOCK_MAGIC2(lte, mimo_remove_cp);
-
-%include "lte/mimo_pbch_demux.h"
-GR_SWIG_BLOCK_MAGIC2(lte, mimo_pbch_demux);

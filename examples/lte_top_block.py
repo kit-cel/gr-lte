@@ -3,7 +3,7 @@
 # Gnuradio Python Flow Graph
 # Title: LTE_test
 # Author: Johannes Demel
-# Generated: Tue Nov 11 11:06:18 2014
+# Generated: Tue Nov 11 12:01:13 2014
 ##################################################
 
 execfile("/home/johannes/.grc_gnuradio/decode_bch_hier_gr37.py")
@@ -127,10 +127,10 @@ class lte_top_block(gr.top_block):
 
     def set_N_rb_dl(self, N_rb_dl):
         self.N_rb_dl = N_rb_dl
-        self.pbch_decode_pbch_37_0.set_N_rb_dl(self.N_rb_dl)
         self.sync_lte_sss_sync_hier_0.set_N_rb_dl(self.N_rb_dl)
         self.ofdm_lte_ofdm_hier_0.set_N_rb_dl(self.N_rb_dl)
         self.ofdm_estimator_lte_estimator_hier_0.set_N_rb_dl(self.N_rb_dl)
+        self.pbch_decode_pbch_37_0.set_N_rb_dl(self.N_rb_dl)
 
 if __name__ == '__main__':
     parser = OptionParser(option_class=eng_option, usage="%prog: [options]")

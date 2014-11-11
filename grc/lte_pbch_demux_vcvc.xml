@@ -4,12 +4,19 @@
   <key>lte_pbch_demux_vcvc</key>
   <category>lte</category>
   <import>import lte</import>
-  <make>lte.pbch_demux_vcvc($N_rb_dl, "$id")</make>
+  <make>lte.pbch_demux_vcvc($N_rb_dl, $rxant, "$id")</make>
   <!-- Make one 'param' node for every Parameter you want settable from the GUI.
        Sub-nodes:
        * name
        * key (makes the value accessible as $keyname, e.g. in the make node)
        * type -->
+  <param>
+    <name>RX antennas</name>
+    <key>rxant</key>
+      <value>1</value>
+    <type>int</type>
+  </param>
+
   <param>
     <name>resource blocks</name>
     <key>N_rb_dl</key>
@@ -24,7 +31,7 @@
   <sink>
     <name>in</name>
     <type>complex</type>
-    <vlen>12 * $N_rb_dl</vlen>
+    <vlen>12 * $N_rb_dl * $rxant</vlen>
   </sink>
 
   <sink>
@@ -41,6 +48,6 @@
   <source>
     <name>out</name>
     <type>complex</type>
-    <vlen>240</vlen>
+    <vlen>240 * $rxant</vlen>
   </source>
 </block>

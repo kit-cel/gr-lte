@@ -46,7 +46,7 @@ namespace gr {
        * class. lte::pbch_demux_vcvc::make is the public interface for
        * creating new instances.
        */
-      static sptr make(int N_rb_dl, std::string name = "pbch_demux_vcvc");
+      static sptr make(int N_rb_dl, int rxant, std::string name = "pbch_demux_vcvc");
       
       virtual void set_cell_id(int id) = 0;
     };

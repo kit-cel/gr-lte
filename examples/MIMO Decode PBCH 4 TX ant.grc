@@ -69,7 +69,7 @@
     <key>variable</key>
     <param>
       <key>id</key>
-      <value>pbch_descr_key</value>
+      <value>vlen</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -77,7 +77,7 @@
     </param>
     <param>
       <key>value</key>
-      <value>"descr_part"</value>
+      <value>240</value>
     </param>
     <param>
       <key>alias</key>
@@ -85,7 +85,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(576, 11)</value>
+      <value>(696, 11)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -123,7 +123,7 @@
     <key>variable</key>
     <param>
       <key>id</key>
-      <value>vlen</value>
+      <value>pbch_descr_key</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -131,7 +131,7 @@
     </param>
     <param>
       <key>value</key>
-      <value>240</value>
+      <value>"descr_part"</value>
     </param>
     <param>
       <key>alias</key>
@@ -139,7 +139,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(696, 11)</value>
+      <value>(576, 11)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -218,151 +218,6 @@
     <param>
       <key>_coordinate</key>
       <value>(320, 11)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>lte_layer_demapper_vcvc</key>
-    <param>
-      <key>id</key>
-      <value>pbch_layer_demapper_vcvc_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>N_ant</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>vlen</key>
-      <value>vlen</value>
-    </param>
-    <param>
-      <key>style</key>
-      <value>style</value>
-    </param>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>maxoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(752, 203)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>lte_pre_decoder_vcvc</key>
-    <param>
-      <key>id</key>
-      <value>lte_pre_decoder_vcvc_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>N_ant</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>vlen</key>
-      <value>vlen</value>
-    </param>
-    <param>
-      <key>style</key>
-      <value>style</value>
-    </param>
-    <param>
-      <key>rxant</key>
-      <value>2</value>
-    </param>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>maxoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(528, 176)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>lte_layer_demapper_vcvc</key>
-    <param>
-      <key>id</key>
-      <value>pbch_layer_demapper_vcvc_1</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>N_ant</key>
-      <value>2</value>
-    </param>
-    <param>
-      <key>vlen</key>
-      <value>vlen</value>
-    </param>
-    <param>
-      <key>style</key>
-      <value>style</value>
-    </param>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>maxoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(752, 331)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -499,30 +354,14 @@
     </param>
   </block>
   <block>
-    <key>lte_pre_decoder_vcvc</key>
+    <key>pbch_descrambler_37</key>
     <param>
       <key>id</key>
-      <value>lte_pre_decoder_vcvc_0_0</value>
+      <value>pbch_descrambler_37_0</value>
     </param>
     <param>
       <key>_enabled</key>
       <value>True</value>
-    </param>
-    <param>
-      <key>N_ant</key>
-      <value>2</value>
-    </param>
-    <param>
-      <key>vlen</key>
-      <value>vlen</value>
-    </param>
-    <param>
-      <key>style</key>
-      <value>style</value>
-    </param>
-    <param>
-      <key>rxant</key>
-      <value>2</value>
     </param>
     <param>
       <key>alias</key>
@@ -542,7 +381,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(528, 288)</value>
+      <value>(1256, 496)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -640,7 +479,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(528, 432)</value>
+      <value>(584, 432)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -648,24 +487,220 @@
     </param>
   </block>
   <block>
-    <key>lte_mimo_pbch_demux</key>
+    <key>lte_layer_demapper_vcvc</key>
     <param>
       <key>id</key>
-      <value>lte_mimo_pbch_demux_0_1_0</value>
+      <value>pbch_layer_demapper_vcvc_0</value>
     </param>
     <param>
       <key>_enabled</key>
       <value>True</value>
+    </param>
+    <param>
+      <key>N_ant</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>vlen</value>
+    </param>
+    <param>
+      <key>style</key>
+      <value>style</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(752, 219)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>lte_pre_decoder_vcvc</key>
+    <param>
+      <key>id</key>
+      <value>lte_pre_decoder_vcvc_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>N_ant</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>vlen</value>
+    </param>
+    <param>
+      <key>style</key>
+      <value>style</value>
+    </param>
+    <param>
+      <key>rxant</key>
+      <value>2</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(584, 192)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>lte_pre_decoder_vcvc</key>
+    <param>
+      <key>id</key>
+      <value>lte_pre_decoder_vcvc_0_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>N_ant</key>
+      <value>2</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>vlen</value>
+    </param>
+    <param>
+      <key>style</key>
+      <value>style</value>
+    </param>
+    <param>
+      <key>rxant</key>
+      <value>2</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(584, 296)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>lte_layer_demapper_vcvc</key>
+    <param>
+      <key>id</key>
+      <value>pbch_layer_demapper_vcvc_1</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>N_ant</key>
+      <value>2</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>vlen</value>
+    </param>
+    <param>
+      <key>style</key>
+      <value>style</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(752, 339)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>lte_pbch_demux_vcvc</key>
+    <param>
+      <key>id</key>
+      <value>lte_pbch_demux_vcvc_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>rxant</key>
+      <value>2</value>
     </param>
     <param>
       <key>N_rb_dl</key>
       <value>N_rb_dl</value>
     </param>
     <param>
-      <key>rxant</key>
-      <value>rxant</value>
-    </param>
-    <param>
       <key>alias</key>
       <value></value>
     </param>
@@ -683,85 +718,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(296, 544)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>lte_mimo_pbch_demux</key>
-    <param>
-      <key>id</key>
-      <value>lte_mimo_pbch_demux_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>N_rb_dl</key>
-      <value>N_rb_dl</value>
-    </param>
-    <param>
-      <key>rxant</key>
-      <value>rxant</value>
-    </param>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>maxoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(296, 160)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>pbch_descrambler_37</key>
-    <param>
-      <key>id</key>
-      <value>pbch_descrambler_37_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>maxoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(1256, 496)</value>
+      <value>(368, 176)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -800,210 +757,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(112, 147)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>pad_source</key>
-    <param>
-      <key>id</key>
-      <value>z_pad_source_cell_id</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>label</key>
-      <value>cell_id</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>message</value>
-    </param>
-    <param>
-      <key>vlen</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>num_streams</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>optional</key>
-      <value>False</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(136, 619)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>pad_source</key>
-    <param>
-      <key>id</key>
-      <value>pad_source_4</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>label</key>
-      <value>ant_p3_est</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>complex</value>
-    </param>
-    <param>
-      <key>vlen</key>
-      <value>12*N_rb_dl*rxant</value>
-    </param>
-    <param>
-      <key>num_streams</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>optional</key>
-      <value>False</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(112, 531)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>lte_mimo_pbch_demux</key>
-    <param>
-      <key>id</key>
-      <value>lte_mimo_pbch_demux_0_0_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>N_rb_dl</key>
-      <value>N_rb_dl</value>
-    </param>
-    <param>
-      <key>rxant</key>
-      <value>rxant</value>
-    </param>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>maxoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(296, 472)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>pad_source</key>
-    <param>
-      <key>id</key>
-      <value>pad_source_3</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>label</key>
-      <value>ant_p2_est</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>complex</value>
-    </param>
-    <param>
-      <key>vlen</key>
-      <value>12*N_rb_dl*rxant</value>
-    </param>
-    <param>
-      <key>num_streams</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>optional</key>
-      <value>False</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(112, 459)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>lte_mimo_pbch_demux</key>
-    <param>
-      <key>id</key>
-      <value>lte_mimo_pbch_demux_0_1</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>N_rb_dl</key>
-      <value>N_rb_dl</value>
-    </param>
-    <param>
-      <key>rxant</key>
-      <value>rxant</value>
-    </param>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>maxoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(296, 376)</value>
+      <value>(160, 163)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -1042,7 +796,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(112, 363)</value>
+      <value>(160, 331)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -1050,22 +804,61 @@
     </param>
   </block>
   <block>
-    <key>lte_mimo_pbch_demux</key>
+    <key>pad_source</key>
     <param>
       <key>id</key>
-      <value>lte_mimo_pbch_demux_0_0</value>
+      <value>z_pad_source_cell_id</value>
     </param>
     <param>
       <key>_enabled</key>
       <value>True</value>
     </param>
     <param>
-      <key>N_rb_dl</key>
-      <value>N_rb_dl</value>
+      <key>label</key>
+      <value>cell_id</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>message</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>num_streams</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>optional</key>
+      <value>False</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(160, 619)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>lte_pbch_demux_vcvc</key>
+    <param>
+      <key>id</key>
+      <value>lte_pbch_demux_vcvc_0_1</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
     </param>
     <param>
       <key>rxant</key>
-      <value>rxant</value>
+      <value>2</value>
+    </param>
+    <param>
+      <key>N_rb_dl</key>
+      <value>N_rb_dl</value>
     </param>
     <param>
       <key>alias</key>
@@ -1085,7 +878,171 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(296, 304)</value>
+      <value>(368, 472)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>lte_pbch_demux_vcvc</key>
+    <param>
+      <key>id</key>
+      <value>lte_pbch_demux_vcvc_0_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>rxant</key>
+      <value>2</value>
+    </param>
+    <param>
+      <key>N_rb_dl</key>
+      <value>N_rb_dl</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(368, 544)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>pad_source</key>
+    <param>
+      <key>id</key>
+      <value>pad_source_3</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>label</key>
+      <value>ant_p2_est</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>complex</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>12*N_rb_dl*rxant</value>
+    </param>
+    <param>
+      <key>num_streams</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>optional</key>
+      <value>False</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(160, 459)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>pad_source</key>
+    <param>
+      <key>id</key>
+      <value>pad_source_4</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>label</key>
+      <value>ant_p3_est</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>complex</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>12*N_rb_dl*rxant</value>
+    </param>
+    <param>
+      <key>num_streams</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>optional</key>
+      <value>False</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(160, 531)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>lte_pbch_demux_vcvc</key>
+    <param>
+      <key>id</key>
+      <value>lte_pbch_demux_vcvc_0_2</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>rxant</key>
+      <value>2</value>
+    </param>
+    <param>
+      <key>N_rb_dl</key>
+      <value>N_rb_dl</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(368, 344)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -1124,37 +1081,56 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(112, 291)</value>
+      <value>(160, 259)</value>
     </param>
     <param>
       <key>_rotation</key>
       <value>0</value>
     </param>
   </block>
-  <connection>
-    <source_block_id>z_pad_source_cell_id</source_block_id>
-    <sink_block_id>lte_mimo_pbch_demux_0_1_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>cell_id</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>z_pad_source_cell_id</source_block_id>
-    <sink_block_id>lte_mimo_pbch_demux_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>cell_id</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_pre_decoder_vcvc_0</source_block_id>
-    <sink_block_id>pbch_layer_demapper_vcvc_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_pre_decoder_vcvc_0_0</source_block_id>
-    <sink_block_id>pbch_layer_demapper_vcvc_1</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
+  <block>
+    <key>lte_pbch_demux_vcvc</key>
+    <param>
+      <key>id</key>
+      <value>lte_pbch_demux_vcvc_0_3</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>rxant</key>
+      <value>2</value>
+    </param>
+    <param>
+      <key>N_rb_dl</key>
+      <value>N_rb_dl</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(368, 272)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
   <connection>
     <source_block_id>pbch_blocks_interleave_0</source_block_id>
     <sink_block_id>pbch_qpsk_soft_demod_vcvf_0</sink_block_id>
@@ -1180,8 +1156,26 @@
     <sink_key>2</sink_key>
   </connection>
   <connection>
+    <source_block_id>lte_pre_decoder_vcvc_0_0_0</source_block_id>
+    <sink_block_id>pbch_layer_demapper_vcvc_1_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
     <source_block_id>pbch_layer_demapper_vcvc_0</source_block_id>
     <sink_block_id>pbch_blocks_interleave_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_pre_decoder_vcvc_0</source_block_id>
+    <sink_block_id>pbch_layer_demapper_vcvc_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_pre_decoder_vcvc_0_0</source_block_id>
+    <sink_block_id>pbch_layer_demapper_vcvc_1</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
@@ -1192,32 +1186,116 @@
     <sink_key>1</sink_key>
   </connection>
   <connection>
-    <source_block_id>lte_pre_decoder_vcvc_0_0_0</source_block_id>
-    <sink_block_id>pbch_layer_demapper_vcvc_1_0</sink_block_id>
+    <source_block_id>lte_pbch_demux_vcvc_0_3</source_block_id>
+    <sink_block_id>lte_pre_decoder_vcvc_0_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>1</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_pbch_demux_vcvc_0_3</source_block_id>
+    <sink_block_id>lte_pre_decoder_vcvc_0_0_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>1</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_pbch_demux_vcvc_0_2</source_block_id>
+    <sink_block_id>lte_pre_decoder_vcvc_0_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>2</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_pbch_demux_vcvc_0_2</source_block_id>
+    <sink_block_id>lte_pre_decoder_vcvc_0_0_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>2</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>pad_source_2</source_block_id>
+    <sink_block_id>lte_pbch_demux_vcvc_0_2</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>lte_mimo_pbch_demux_0_1_0</source_block_id>
-    <sink_block_id>lte_pre_decoder_vcvc_0_0_0</sink_block_id>
+    <source_block_id>z_pad_source_cell_id</source_block_id>
+    <sink_block_id>lte_pbch_demux_vcvc_0_3</sink_block_id>
     <source_key>0</source_key>
-    <sink_key>4</sink_key>
+    <sink_key>cell_id</sink_key>
   </connection>
   <connection>
-    <source_block_id>lte_mimo_pbch_demux_0</source_block_id>
+    <source_block_id>z_pad_source_cell_id</source_block_id>
+    <sink_block_id>lte_pbch_demux_vcvc_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>cell_id</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_pbch_demux_vcvc_0_3</source_block_id>
+    <sink_block_id>lte_pre_decoder_vcvc_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>1</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_pbch_demux_vcvc_0</source_block_id>
     <sink_block_id>lte_pre_decoder_vcvc_0_0_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>lte_mimo_pbch_demux_0</source_block_id>
+    <source_block_id>lte_pbch_demux_vcvc_0</source_block_id>
     <sink_block_id>lte_pre_decoder_vcvc_0_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>lte_mimo_pbch_demux_0</source_block_id>
+    <source_block_id>pad_source_0</source_block_id>
+    <sink_block_id>lte_pbch_demux_vcvc_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_pbch_demux_vcvc_0</source_block_id>
     <sink_block_id>lte_pre_decoder_vcvc_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>z_pad_source_cell_id</source_block_id>
+    <sink_block_id>lte_pbch_demux_vcvc_0_2</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>cell_id</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_pbch_demux_vcvc_0_1</source_block_id>
+    <sink_block_id>lte_pre_decoder_vcvc_0_0_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>3</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_pbch_demux_vcvc_0_0</source_block_id>
+    <sink_block_id>lte_pre_decoder_vcvc_0_0_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>4</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>z_pad_source_cell_id</source_block_id>
+    <sink_block_id>lte_pbch_demux_vcvc_0_1</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>cell_id</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>z_pad_source_cell_id</source_block_id>
+    <sink_block_id>lte_pbch_demux_vcvc_0_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>cell_id</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>pad_source_3</source_block_id>
+    <sink_block_id>lte_pbch_demux_vcvc_0_1</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>pad_source_4</source_block_id>
+    <sink_block_id>lte_pbch_demux_vcvc_0_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
@@ -1228,87 +1306,9 @@
     <sink_key>cell_id</sink_key>
   </connection>
   <connection>
-    <source_block_id>pad_source_0</source_block_id>
-    <sink_block_id>lte_mimo_pbch_demux_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>pad_source_4</source_block_id>
-    <sink_block_id>lte_mimo_pbch_demux_0_1_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>pad_source_3</source_block_id>
-    <sink_block_id>lte_mimo_pbch_demux_0_0_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>z_pad_source_cell_id</source_block_id>
-    <sink_block_id>lte_mimo_pbch_demux_0_0_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>cell_id</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_mimo_pbch_demux_0_0_0</source_block_id>
-    <sink_block_id>lte_pre_decoder_vcvc_0_0_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>3</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>z_pad_source_cell_id</source_block_id>
-    <sink_block_id>lte_mimo_pbch_demux_0_1</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>cell_id</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>pad_source_2</source_block_id>
-    <sink_block_id>lte_mimo_pbch_demux_0_1</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
     <source_block_id>pad_source_1</source_block_id>
-    <sink_block_id>lte_mimo_pbch_demux_0_0</sink_block_id>
+    <sink_block_id>lte_pbch_demux_vcvc_0_3</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_mimo_pbch_demux_0_0</source_block_id>
-    <sink_block_id>lte_pre_decoder_vcvc_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>1</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_mimo_pbch_demux_0_0</source_block_id>
-    <sink_block_id>lte_pre_decoder_vcvc_0_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>1</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_mimo_pbch_demux_0_1</source_block_id>
-    <sink_block_id>lte_pre_decoder_vcvc_0_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>2</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_mimo_pbch_demux_0_0</source_block_id>
-    <sink_block_id>lte_pre_decoder_vcvc_0_0_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>1</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_mimo_pbch_demux_0_1</source_block_id>
-    <sink_block_id>lte_pre_decoder_vcvc_0_0_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>2</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>z_pad_source_cell_id</source_block_id>
-    <sink_block_id>lte_mimo_pbch_demux_0_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>cell_id</sink_key>
   </connection>
 </flow_graph>
