@@ -76,7 +76,7 @@ namespace gr {
 
       // These methods are resposnible for control and data moves
       inline int
-      get_sym_num_from_tags(std::vector<gr::tag_t> v_b);
+      get_sym_num_from_tags(std::vector<gr::tag_t> &v_b);
       inline void
       copy_estimates_to_out_buf(gr_complex* out, int sym_num,
                                 int processed_items);
