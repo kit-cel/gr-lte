@@ -3,7 +3,7 @@
 # Gnuradio Python Flow Graph
 # Title: LTE_test
 # Author: Johannes Demel
-# Generated: Mon Nov 10 15:00:07 2014
+# Generated: Tue Nov 11 11:06:18 2014
 ##################################################
 
 execfile("/home/johannes/.grc_gnuradio/decode_bch_hier_gr37.py")
@@ -56,9 +56,9 @@ class lte_top_block(gr.top_block):
             N_rb_dl=N_rb_dl,
         )
         self.ofdm_lte_ofdm_hier_0 = lte_ofdm_hier(
-            N_rb_dl=N_rb_dl,
             fftlen=fftlen,
             ofdm_key=frame_key,
+            N_rb_dl=N_rb_dl,
         )
         self.ofdm_estimator_lte_estimator_hier_0 = lte_estimator_hier(
             initial_id=124,
@@ -98,9 +98,9 @@ class lte_top_block(gr.top_block):
         self.fftlen = fftlen
         self.set_samp_rate((7*self.fftlen + 160* self.fftlen/2048 + 6 * (144 * self.fftlen/2048)) / 0.0005)
         self.sync_lte_pss_sync_37_0.set_fftlen(self.fftlen)
-        self.ofdm_lte_ofdm_hier_0.set_fftlen(self.fftlen)
         self.sync_lte_cp_freq_sync_0.set_fftlen(max(256,self.fftlen))
         self.sync_lte_sss_sync_hier_0.set_fftlen(self.fftlen)
+        self.ofdm_lte_ofdm_hier_0.set_fftlen(self.fftlen)
 
     def get_samp_rate(self):
         return self.samp_rate
@@ -119,18 +119,18 @@ class lte_top_block(gr.top_block):
 
     def set_frame_key(self, frame_key):
         self.frame_key = frame_key
-        self.ofdm_estimator_lte_estimator_hier_0.set_estimator_key(self.frame_key)
         self.ofdm_lte_ofdm_hier_0.set_ofdm_key(self.frame_key)
+        self.ofdm_estimator_lte_estimator_hier_0.set_estimator_key(self.frame_key)
 
     def get_N_rb_dl(self):
         return self.N_rb_dl
 
     def set_N_rb_dl(self, N_rb_dl):
         self.N_rb_dl = N_rb_dl
-        self.ofdm_estimator_lte_estimator_hier_0.set_N_rb_dl(self.N_rb_dl)
-        self.ofdm_lte_ofdm_hier_0.set_N_rb_dl(self.N_rb_dl)
-        self.sync_lte_sss_sync_hier_0.set_N_rb_dl(self.N_rb_dl)
         self.pbch_decode_pbch_37_0.set_N_rb_dl(self.N_rb_dl)
+        self.sync_lte_sss_sync_hier_0.set_N_rb_dl(self.N_rb_dl)
+        self.ofdm_lte_ofdm_hier_0.set_N_rb_dl(self.N_rb_dl)
+        self.ofdm_estimator_lte_estimator_hier_0.set_N_rb_dl(self.N_rb_dl)
 
 if __name__ == '__main__':
     parser = OptionParser(option_class=eng_option, usage="%prog: [options]")

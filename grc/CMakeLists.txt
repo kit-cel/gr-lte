@@ -54,7 +54,6 @@ install(FILES
     lte_mimo_sss_calculator.xml
     lte_mimo_sss_tagger.xml
     lte_mimo_remove_cp.xml
-    lte_mimo_channel_estimator.xml
     lte_mimo_pbch_demux.xml DESTINATION share/gnuradio/grc/blocks
    
 )

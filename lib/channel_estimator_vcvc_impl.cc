@@ -1,17 +1,17 @@
 /* -*- c++ -*- */
-/* 
- * Copyright 2013 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
- * 
+/*
+ * Copyright 2014 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
+ *
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 3, or (at your option)
  * any later version.
- * 
+ *
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this software; see the file COPYING.  If not, write to
  * the Free Software Foundation, Inc., 51 Franklin Street,
@@ -25,7 +25,6 @@
 #include <gnuradio/io_signature.h>
 #include "channel_estimator_vcvc_impl.h"
 
-#include <fftw3.h>
 #include <volk/volk.h>
 #include <cmath>
 #include <cstdio>
@@ -35,32 +34,30 @@ namespace gr {
   namespace lte {
 
     channel_estimator_vcvc::sptr
-    channel_estimator_vcvc::make(int subcarriers,
+    channel_estimator_vcvc::make(int rxant, int subcarriers,
 		std::string tag_key,
 		std::string msg_buf_name,
 		const std::vector<std::vector<int> > &pilot_carriers,
-		const std::vector<std::vector<gr_complex> > &pilot_symbols,
-        std::string name)
+		const std::vector<std::vector<gr_complex> > &pilot_symbols, std::string name)
     {
       return gnuradio::get_initial_sptr
-        (new channel_estimator_vcvc_impl(name, subcarriers, tag_key, msg_buf_name, pilot_carriers, pilot_symbols));
+        (new channel_estimator_vcvc_impl(rxant, subcarriers, tag_key, msg_buf_name, pilot_carriers, pilot_symbols, name));
     }
 
     /*
      * The private constructor
      */
-    channel_estimator_vcvc_impl::channel_estimator_vcvc_impl(std::string& name, int subcarriers,
+    channel_estimator_vcvc_impl::channel_estimator_vcvc_impl(int rxant, int subcarriers,
 			std::string tag_key,
 			std::string msg_buf_name,
 			const std::vector<std::vector<int> > &pilot_carriers,
-			const std::vector<std::vector<gr_complex> > &pilot_symbols)
+			const std::vector<std::vector<gr_complex> > &pilot_symbols, std::string name)
       : gr::sync_block(name /*"channel_estimator_vcvc"*/,
-              gr::io_signature::make( 1, 1, sizeof(gr_complex) * subcarriers),
-              gr::io_signature::make( 1, 1, sizeof(gr_complex) * subcarriers)),
+              gr::io_signature::make( 1, 1, sizeof(gr_complex) * subcarriers * rxant),
+              gr::io_signature::make( 1, 1, sizeof(gr_complex) * subcarriers * rxant)),
         d_subcarriers(subcarriers),
-		d_last_calced_sym(0),
-		d_work_call(0),
-		d_nop_count(0)
+		d_last_calced_sym(-1),
+		d_rxant(rxant)
     {
 		d_key = pmt::string_to_symbol(tag_key); // specify key of tag.
 		d_msg_buf = pmt::mp(msg_buf_name);
@@ -86,31 +83,22 @@ namespace gr {
         gr_complex *out = (gr_complex *) output_items[0];
 
 
-//        printf("%s work call = %lu\n", name().c_str(), d_work_call);
-        d_work_call++;
+		std::vector <gr::tag_t> v_b;
+		get_tags_in_range(v_b, 0, nitems_read(0), nitems_read(0)+noutput_items, d_key);
+		int first_sym = get_sym_num_from_tags(v_b);
 
-//		std::vector <gr::tag_t> v_b;
-		get_tags_in_range(d_tags_v, 0, nitems_read(0), nitems_read(0)+noutput_items, d_key);
-		int first_sym = get_sym_num_from_tags(d_tags_v);
+        int processed_items;
 
-		int processed_items = 0;
-		{
-		    boost::mutex::scoped_lock lock(d_mutex);
-		    processed_items = calculate_channel_estimates(in, first_sym, noutput_items);
-		}
+        processed_items = calculate_channel_estimates(in, first_sym, noutput_items);
+        copy_estimates_to_out_buf(out, first_sym, processed_items);
 
-		copy_estimates_to_out_buf(out, first_sym, processed_items);
 
 		// Tell runtime system how many output items we produced.
-		if(d_nop_count > 10000){ // prevent looping on too small buffers infinitely.
-		    d_nop_count = 0;
-		    return noutput_items;
-		}
 		return processed_items;
     }
-    
+
 	inline int
-	channel_estimator_vcvc_impl::get_sym_num_from_tags(const std::vector <gr::tag_t>& v_b)
+	channel_estimator_vcvc_impl::get_sym_num_from_tags(std::vector <gr::tag_t> v_b)
 	{
 		int sym_num = -1;
 		for(int i = 0; i < v_b.size() ; i++) {
@@ -127,17 +115,21 @@ namespace gr {
 	inline void
 	channel_estimator_vcvc_impl::copy_estimates_to_out_buf(gr_complex* out, int sym_num, int processed_items)
 	{
-		for(int i = sym_num; i-sym_num < processed_items; i++) {
-			memcpy(out, d_estimates[i%d_n_frame_syms], sizeof(gr_complex) * d_subcarriers);
-			out += d_subcarriers;
+        gr_complex* outcpy;
+
+        for(int rx=0; rx<d_rxant; rx++){
+            outcpy=out;
+            for(int i = sym_num; i-sym_num < processed_items; i++) {
+                memcpy(outcpy+rx*d_subcarriers, d_estimates[rx][i%d_n_frame_syms], sizeof(gr_complex) * d_subcarriers);
+                outcpy += d_subcarriers*d_rxant;
 	//        printf("\nsym_num = %i\n", i);
 	//        for(int n = 0; n < d_subcarriers; n++){
 	//            //printf("%i\t%+1.2f %+1.2fj\t", n, rx_vec[n].real(), rx_vec[n].imag() );
 	//            //printf("mag = %+1.2f\tphase = %+1.2f\t", d_mag_estimates[i][n], d_phase_estimates[i][n] );
 	//            //printf("%+1.2f %+1.2fj\n", d_estimates[i][n].real(), d_estimates[i][n].imag() );
 	//        }
-		}
-
+            }
+        }
 
 	}
 
@@ -146,43 +138,37 @@ namespace gr {
 	{
 		int last_sym = get_last_processable_sym(first_sym, nitems);
 		int processable_items = get_processable_items(first_sym, nitems);
-		if(processable_items < 1){ // short cut. nothing to do for this work call.
-		    //printf("%s NO ITEMS TO PROCESS! count = %i\n", name().c_str(), d_nop_count);
-		    d_nop_count++;
-		    return processable_items;
-		}
-		d_nop_count = 0;
-//		printf("d_last_calced_sym = %i\n", d_last_calced_sym);
 		int last_calced_sym = d_last_calced_sym;
 		//printf("first_sym = %i\tlast_sym = %i\tprocessable_items = %i\tlast_calced = %i\n", first_sym, last_sym, processable_items, last_calced_sym);
-		calculate_ofdm_symbols_with_pilots(in_rx, first_sym, processable_items);
-		calculate_interpolated_ofdm_symbols(last_calced_sym, processable_items);
-		processed_items_to_complex(first_sym, processable_items);
-
+        for(int rx=0; rx<d_rxant; rx++){
+            calculate_ofdm_symbols_with_pilots(in_rx, first_sym, processable_items, rx);
+            calculate_interpolated_ofdm_symbols(last_calced_sym, processable_items, rx);
+            processed_items_to_complex(first_sym, processable_items, rx);
+        }
 		return processable_items;
 	}
 
 	inline void
-	channel_estimator_vcvc_impl::calculate_ofdm_symbols_with_pilots(const gr_complex* in_rx, int first_sym, int processable_items)
+	channel_estimator_vcvc_impl::calculate_ofdm_symbols_with_pilots(const gr_complex* in_rx, int first_sym, int processable_items, int rx)
 	{
 		int sym = first_sym;
 		for(int i = first_sym; i-first_sym <= processable_items; i++) {
 			sym = i%d_n_frame_syms;
 			if(d_pilot_carriers[sym].size() > 0) {
 				//printf("calc_ofdm_sym = %i\n", sym);
-				memcpy(d_rx_vec, in_rx+(i-first_sym)*d_subcarriers, sizeof(gr_complex)*d_subcarriers );
-				estimate_ofdm_symbol(d_mag_estimates[sym], d_phase_estimates[sym], d_rx_vec, d_pilot_carriers[sym], d_pilot_symbols[sym]);
+				memcpy(d_rx_vec, in_rx+((i-first_sym)*d_rxant+rx)*d_subcarriers, sizeof(gr_complex)*d_subcarriers );
+				estimate_ofdm_symbol(d_mag_estimates[rx][sym], d_phase_estimates[rx][sym], d_rx_vec, d_pilot_carriers[sym], d_pilot_symbols[sym]);
 				d_last_calced_sym = sym;
 			}
 		}
 	}
 
 	inline void
-	channel_estimator_vcvc_impl::calculate_interpolated_ofdm_symbols(int first_sym, int processable_items)
+	channel_estimator_vcvc_impl::calculate_interpolated_ofdm_symbols(int first_sym, int processable_items, int rx)
 	{
 		int current_sym = first_sym;
 		int next_sym = first_sym;
-		phase_bound_between_pilot_vectors(first_sym, processable_items);
+		phase_bound_between_pilot_vectors(first_sym, processable_items, rx);
 
 		for(int i = first_sym; i-first_sym < processable_items; i++) {
 			current_sym = i%d_n_frame_syms;
@@ -190,8 +176,8 @@ namespace gr {
 				for(int n = i+1 ; n-first_sym <= processable_items; n++ ) {
 					next_sym = n%d_n_frame_syms;
 					if(d_pilot_carriers[next_sym].size() > 0) {
-						interpolate_between_vectors(d_mag_estimates, current_sym, next_sym);
-						interpolate_between_vectors(d_phase_estimates, current_sym, next_sym);
+						interpolate_between_vectors(d_mag_estimates[rx], current_sym, next_sym);
+						interpolate_between_vectors(d_phase_estimates[rx], current_sym, next_sym);
 						//printf("interpolate between %i -- %i\n", current_sym, next_sym);
 						break;
 					}
@@ -201,13 +187,14 @@ namespace gr {
 	}
 
 	inline void
-	channel_estimator_vcvc_impl::processed_items_to_complex(int first_sym, int processed_items)
+	channel_estimator_vcvc_impl::processed_items_to_complex(int first_sym, int processed_items, int rx)
 	{
 		int sym = first_sym;
+
 		for(int i = first_sym; i-first_sym <=  processed_items; i++) {
 			sym = i%d_n_frame_syms;
 			//printf("mag_phase_to_complex\tsym = %i\n", sym);
-			vector_mag_phase_to_complex(d_estimates[sym], d_mag_estimates[sym], d_phase_estimates[sym], d_subcarriers);
+			vector_mag_phase_to_complex(d_estimates[rx][sym], d_mag_estimates[rx][sym], d_phase_estimates[rx][sym], d_subcarriers);
 		}
 	}
 
@@ -325,7 +312,7 @@ namespace gr {
 	}
 
 	void inline
-	channel_estimator_vcvc_impl::phase_bound_between_pilot_vectors(int first_sym, int processable_items)
+	channel_estimator_vcvc_impl::phase_bound_between_pilot_vectors(int first_sym, int processable_items, int rx)
 	{
 		int current_sym = first_sym;
 		int next_sym = first_sym;
@@ -335,7 +322,7 @@ namespace gr {
 				for(int c = current_sym; c-current_sym <= processable_items; c++){
 					next_sym = c%d_n_frame_syms;
 					if(d_pilot_carriers[next_sym].size() > 0){
-						phase_bound_between_vectors(d_phase_estimates[current_sym], d_phase_estimates[next_sym]);
+						phase_bound_between_vectors(d_phase_estimates[rx][current_sym], d_phase_estimates[rx][next_sym]);
 						break;
 					}
 				}
@@ -346,7 +333,7 @@ namespace gr {
 	void inline
 	channel_estimator_vcvc_impl::phase_bound_between_vectors(float* first, float* last)
 	{
-	    volk_32f_x2_subtract_32f_a(d_phase_bound_vector, last, first, d_subcarriers);
+		volk_32f_x2_subtract_32f_a(d_phase_bound_vector, last, first, d_subcarriers);
 		for(int i = 0; i < d_subcarriers; i++) {
 			if( *(d_phase_bound_vector+i) >  M_PI) {
 				*(last+i) -= 2*M_PI;
@@ -410,7 +397,7 @@ namespace gr {
 	{
 		pmt::pmt_t poss = pmt::nth(0, msg);
 		pmt::pmt_t vals = pmt::nth(1, msg);
-//		printf("%s received new MAP!!!\n", name().c_str() );
+
 		std::vector<std::vector<int> > pilot_carriers;
 		std::vector<std::vector<gr_complex> > pilot_symbols;
 		msg_extract_poss(pilot_carriers, poss);
@@ -457,20 +444,20 @@ namespace gr {
 
 
 	void
-	channel_estimator_vcvc_impl::set_pilot_map(const std::vector<std::vector<int> > &pilot_carriers,
+	channel_estimator_vcvc_impl::set_pilot_map(const std::vector< std::vector<int> > &pilot_carriers,
 			const std::vector<std::vector<gr_complex> > &pilot_symbols)
 	{
-		boost::mutex::scoped_lock lock(d_mutex);
-//	    printf("%s\tset_pilot_map BEGIN %ix%i\n", name().c_str(), pilot_carriers.size(), pilot_carriers[0].size() );
+		//printf("%s\tset_pilot_map BEGIN\n", name().c_str() );
 		int n_frame_syms = get_nsyms_in_frame(pilot_carriers);
 		int max_pilots = get_max_pilot_number(pilot_carriers);
-
 		init_pilot_symbol_arrays(pilot_symbols, n_frame_syms, max_pilots);
 		initialize_volk_vectors(max_pilots, d_subcarriers, n_frame_syms);
 
+
 		d_n_frame_syms = n_frame_syms;
 		d_pilot_carriers = pilot_carriers;
-//		printf("%s\tset_pilot_map END\n", name().c_str());
+		//printf("set_pilot_map END\n");
+
 	}
 
 	inline int
@@ -494,12 +481,13 @@ namespace gr {
 	{
 		d_pilot_symbols.clear();
 		d_pilot_symbols.reserve(n_frame_syms);
+		int alig = volk_get_alignment();
 
 		for( int i = 0; i < n_frame_syms; i++) {
 			// aligned arrays for each symbol.
 			//printf("set_pilot_sym %i\n", i);
 
-			d_pilot_symbols.push_back( (gr_complex*)fftwf_malloc(sizeof(gr_complex) * max_pilots) );
+			d_pilot_symbols.push_back( (gr_complex*)volk_malloc(sizeof(gr_complex) * max_pilots, alig) );
 			memcpy(d_pilot_symbols[i], &pilot_symbols[i][0], sizeof(gr_complex) * pilot_symbols[i].size() );
 		}
 	}
@@ -507,47 +495,62 @@ namespace gr {
 	inline void
 	channel_estimator_vcvc_impl::initialize_volk_vectors(int max_pilots, int subcarriers, int n_frame_syms)
 	{
-		//printf("%s\tinitialize VOLK vectors BEGIN\n", name().c_str() );
 
 		init_pilot_dependend_volk_vectors(max_pilots);
 		init_subcarrier_dependend_volk_vectors(subcarriers);
 		init_estimates_store_volk_vectors(subcarriers, n_frame_syms);
+
 	}
 
 	inline void
 	channel_estimator_vcvc_impl::init_pilot_dependend_volk_vectors(int max_pilots)
 	{
-		d_rx_rs = (gr_complex*)fftwf_malloc(sizeof(gr_complex) * max_pilots);
-		d_diff_rx_rs = (gr_complex*)fftwf_malloc(sizeof(gr_complex) * max_pilots);
-		d_diff_mag = (float*)fftwf_malloc(sizeof(float) * max_pilots);
-		d_diff_phase = (float*)fftwf_malloc(sizeof(float) * max_pilots);
+        int alig = volk_get_alignment();
+		d_rx_rs = (gr_complex*)volk_malloc(sizeof(gr_complex) * max_pilots, alig);
+		d_diff_rx_rs = (gr_complex*)volk_malloc(sizeof(gr_complex) * max_pilots, alig);
+		d_diff_mag = (float*)volk_malloc(sizeof(float) * max_pilots, alig);
+		d_diff_phase = (float*)volk_malloc(sizeof(float) * max_pilots, alig);
 	}
 
 	inline void
 	channel_estimator_vcvc_impl::init_subcarrier_dependend_volk_vectors(int subcarriers)
 	{
-		d_diff_vector = (float*)fftwf_malloc(sizeof(float) * subcarriers);
-		d_div_vector = (float*)fftwf_malloc(sizeof(float) * subcarriers);
-		d_rx_vec = (gr_complex*)fftwf_malloc(sizeof(gr_complex) * subcarriers);
-		d_phase_bound_vector = (float*)fftwf_malloc(sizeof(float) * subcarriers);
+        int alig = volk_get_alignment();
+		d_diff_vector = (float*)volk_malloc(sizeof(float) * subcarriers, alig);
+		d_div_vector = (float*)volk_malloc(sizeof(float) * subcarriers, alig);
+		d_rx_vec = (gr_complex*)volk_malloc(sizeof(gr_complex) * subcarriers, alig);
+		d_phase_bound_vector = (float*)volk_malloc(sizeof(float) * subcarriers, alig);
 	}
 
 	inline void
 	channel_estimator_vcvc_impl::init_estimates_store_volk_vectors(int subcarriers, int n_frame_syms)
 	{
+
 		d_estimates.clear();
 		d_mag_estimates.clear();
 		d_phase_estimates.clear();
 		//printf("capacity\test = %i\tmag = %i\tphase = %i\n", int(d_estimates.capacity()), int(d_mag_estimates.capacity()), int(d_phase_estimates.capacity()) );
-		d_estimates.reserve(n_frame_syms);
-		d_mag_estimates.reserve(n_frame_syms);
-		d_phase_estimates.reserve(n_frame_syms);
+        int alig = volk_get_alignment();
 
-		for(int i = 0; i < n_frame_syms; i++) {
-			d_estimates.push_back( (gr_complex*)fftwf_malloc(sizeof(gr_complex) * subcarriers) );
-			d_mag_estimates.push_back( (float*)fftwf_malloc(sizeof(float) * subcarriers) );
-			d_phase_estimates.push_back( (float*)fftwf_malloc(sizeof(float) * subcarriers) );
+        for(int rx=0; rx<d_rxant; rx++){
+            d_estimates.push_back(std::vector< gr_complex* > ());
+            d_mag_estimates.push_back(std::vector< float* > ());
+            d_phase_estimates.push_back(std::vector< float* > ());
+
+            d_estimates[rx].reserve(n_frame_syms);
+            d_mag_estimates[rx].reserve(n_frame_syms);
+            d_phase_estimates[rx].reserve(n_frame_syms);
+
+            for(int i = 0; i < n_frame_syms; i++) {
+                d_estimates[rx].push_back( (gr_complex*)volk_malloc(sizeof(gr_complex) * subcarriers, alig) );
+                d_mag_estimates[rx].push_back( (float*)volk_malloc(sizeof(float) * subcarriers, alig) );
+                d_phase_estimates[rx].push_back( (float*)volk_malloc(sizeof(float) * subcarriers, alig) );
+            }
+
 		}
+
+
+
 	}
 
 

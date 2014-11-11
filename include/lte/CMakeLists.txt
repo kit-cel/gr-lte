@@ -57,6 +57,5 @@ install(FILES
     mimo_sss_calculator.h
     mimo_sss_tagger.h
     mimo_remove_cp.h
-    mimo_channel_estimator.h
     mimo_pbch_demux.h DESTINATION include/lte
 )

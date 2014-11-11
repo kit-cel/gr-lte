@@ -78,5 +78,4 @@ GR_ADD_TEST(qa_mimo_sss_symbol_selector ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOU
 GR_ADD_TEST(qa_mimo_sss_calculator ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_mimo_sss_calculator.py)
 GR_ADD_TEST(qa_mimo_sss_tagger ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_mimo_sss_tagger.py)
 GR_ADD_TEST(qa_mimo_remove_cp ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_mimo_remove_cp.py)
-GR_ADD_TEST(qa_mimo_channel_estimator ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_mimo_channel_estimator.py)
 GR_ADD_TEST(qa_mimo_pbch_demux ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_mimo_pbch_demux.py)

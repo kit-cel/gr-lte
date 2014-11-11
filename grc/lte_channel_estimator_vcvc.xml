@@ -4,12 +4,19 @@
   <key>lte_channel_estimator_vcvc</key>
   <category>lte</category>
   <import>import lte</import>
-  <make>lte.channel_estimator_vcvc($subcarriers, $tag_key, "pilots", $pilot_carriers, $pilot_symbols, "$id")</make>
+  <make>lte.channel_estimator_vcvc($rxant, $subcarriers, $tag_key, "pilots", $pilot_carriers, $pilot_symbols, "$id")</make>
   <!-- Make one 'param' node for every Parameter you want settable from the GUI.
        Sub-nodes:
        * name
        * key (makes the value accessible as $keyname, e.g. in the make node)
        * type -->
+
+  <param>
+    <name>RX antennas</name>
+    <key>rxant</key>
+      <value>1</value>
+    <type>int</type>
+  </param>
 
   <param>
     <name>subcarriers</name>
@@ -43,7 +50,7 @@
   <sink>
     <name>in</name>
     <type>complex</type>
-    <vlen>$subcarriers</vlen>
+    <vlen>$subcarriers * $rxant</vlen>
   </sink>
   
   <sink>
@@ -60,6 +67,6 @@
   <source>
     <name>out</name>
     <type>complex</type>
-    <vlen>$subcarriers</vlen>
+    <vlen>$subcarriers * $rxant</vlen>
   </source>
 </block>

@@ -69,6 +69,33 @@
     <key>variable</key>
     <param>
       <key>id</key>
+      <value>mymap</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>lte.frame_pilot_value_and_position(N_rb_dl, initial_id, 1, 0)</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(224, 507)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>variable</key>
+    <param>
+      <key>id</key>
       <value>poss0</value>
     </param>
     <param>
@@ -85,7 +112,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(221, 550)</value>
+      <value>(112, 515)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -112,7 +139,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(221, 608)</value>
+      <value>(112, 571)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -139,7 +166,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(333, 611)</value>
+      <value>(224, 579)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -166,100 +193,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(311, 476)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>variable</key>
-    <param>
-      <key>id</key>
-      <value>mymap</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>lte.frame_pilot_value_and_position(N_rb_dl, initial_id, 1, 0)</value>
-    </param>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(328, 545)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>pad_source</key>
-    <param>
-      <key>id</key>
-      <value>cell_id</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>label</key>
-      <value>cell_id</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>message</value>
-    </param>
-    <param>
-      <key>vlen</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>num_streams</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>optional</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(25, 246)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>import</key>
-    <param>
-      <key>id</key>
-      <value>import_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>import</key>
-      <value>import lte</value>
-    </param>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(188, 501)</value>
+      <value>(208, 443)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -384,54 +318,26 @@
     </param>
   </block>
   <block>
-    <key>lte_mimo_channel_estimator</key>
+    <key>import</key>
     <param>
       <key>id</key>
-      <value>lte_mimo_channel_estimator_0</value>
+      <value>import_0</value>
     </param>
     <param>
       <key>_enabled</key>
       <value>True</value>
     </param>
     <param>
-      <key>subcarriers</key>
-      <value>12*N_rb_dl</value>
-    </param>
-    <param>
-      <key>rxant</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>tag_key</key>
-      <value>estimator_key</value>
-    </param>
-    <param>
-      <key>pilot_carriers</key>
-      <value>poss0</value>
-    </param>
-    <param>
-      <key>pilot_symbols</key>
-      <value>vals</value>
+      <key>import</key>
+      <value>import lte</value>
     </param>
     <param>
       <key>alias</key>
       <value></value>
     </param>
     <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>maxoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
       <key>_coordinate</key>
-      <value>(536, 155)</value>
+      <value>(80, 467)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -439,10 +345,10 @@
     </param>
   </block>
   <block>
-    <key>pad_sink</key>
+    <key>pad_source</key>
     <param>
       <key>id</key>
-      <value>pad_sink_0</value>
+      <value>cell_id</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -450,15 +356,15 @@
     </param>
     <param>
       <key>label</key>
-      <value>out0</value>
+      <value>cell_id</value>
     </param>
     <param>
       <key>type</key>
-      <value>complex</value>
+      <value>message</value>
     </param>
     <param>
       <key>vlen</key>
-      <value>12*N_rb_dl</value>
+      <value>1</value>
     </param>
     <param>
       <key>num_streams</key>
@@ -466,11 +372,11 @@
     </param>
     <param>
       <key>optional</key>
-      <value>False</value>
+      <value>True</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(792, 171)</value>
+      <value>(48, 259)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -509,7 +415,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(17, 155)</value>
+      <value>(32, 171)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -517,22 +423,22 @@
     </param>
   </block>
   <block>
-    <key>lte_mimo_channel_estimator</key>
+    <key>lte_channel_estimator_vcvc</key>
     <param>
       <key>id</key>
-      <value>lte_mimo_channel_estimator_0_0</value>
+      <value>lte_channel_estimator_vcvc_0_0</value>
     </param>
     <param>
       <key>_enabled</key>
       <value>True</value>
     </param>
     <param>
-      <key>subcarriers</key>
-      <value>12*N_rb_dl</value>
-    </param>
-    <param>
       <key>rxant</key>
       <value>1</value>
+    </param>
+    <param>
+      <key>subcarriers</key>
+      <value>12*N_rb_dl</value>
     </param>
     <param>
       <key>tag_key</key>
@@ -564,7 +470,46 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(536, 251)</value>
+      <value>(520, 275)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>pad_sink</key>
+    <param>
+      <key>id</key>
+      <value>pad_sink_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>label</key>
+      <value>out0</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>complex</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>12*N_rb_dl</value>
+    </param>
+    <param>
+      <key>num_streams</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>optional</key>
+      <value>False</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(736, 187)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -603,7 +548,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(792, 267)</value>
+      <value>(736, 299)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -646,7 +591,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(360, 283)</value>
+      <value>(352, 315)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -689,7 +634,62 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(360, 187)</value>
+      <value>(352, 203)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>lte_channel_estimator_vcvc</key>
+    <param>
+      <key>id</key>
+      <value>lte_channel_estimator_vcvc_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>rxant</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>subcarriers</key>
+      <value>12*N_rb_dl</value>
+    </param>
+    <param>
+      <key>tag_key</key>
+      <value>estimator_key</value>
+    </param>
+    <param>
+      <key>pilot_carriers</key>
+      <value>poss0</value>
+    </param>
+    <param>
+      <key>pilot_symbols</key>
+      <value>vals</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(520, 163)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -697,26 +697,14 @@
     </param>
   </block>
   <connection>
-    <source_block_id>lte_mimo_channel_estimator_0</source_block_id>
-    <sink_block_id>pad_sink_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lte_mimo_channel_estimator_0_0</source_block_id>
+    <source_block_id>lte_channel_estimator_vcvc_0_0</source_block_id>
     <sink_block_id>pad_sink_0_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>ain0</source_block_id>
-    <sink_block_id>lte_mimo_channel_estimator_0_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>ain0</source_block_id>
-    <sink_block_id>lte_mimo_channel_estimator_0</sink_block_id>
+    <source_block_id>lte_channel_estimator_vcvc_0</source_block_id>
+    <sink_block_id>pad_sink_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
@@ -727,21 +715,33 @@
     <sink_key>cell_id</sink_key>
   </connection>
   <connection>
+    <source_block_id>ofdm_estimator_lte_rs_map_generator_m_1</source_block_id>
+    <sink_block_id>lte_channel_estimator_vcvc_0_0</sink_block_id>
+    <source_key>pilots</source_key>
+    <sink_key>pilots</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>ain0</source_block_id>
+    <sink_block_id>lte_channel_estimator_vcvc_0_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>ofdm_estimator_lte_rs_map_generator_m_0</source_block_id>
+    <sink_block_id>lte_channel_estimator_vcvc_0</sink_block_id>
+    <source_key>pilots</source_key>
+    <sink_key>pilots</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>ain0</source_block_id>
+    <sink_block_id>lte_channel_estimator_vcvc_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
     <source_block_id>cell_id</source_block_id>
     <sink_block_id>ofdm_estimator_lte_rs_map_generator_m_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>cell_id</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>ofdm_estimator_lte_rs_map_generator_m_1</source_block_id>
-    <sink_block_id>lte_mimo_channel_estimator_0_0</sink_block_id>
-    <source_key>pilots</source_key>
-    <sink_key>pilots</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>ofdm_estimator_lte_rs_map_generator_m_0</source_block_id>
-    <sink_block_id>lte_mimo_channel_estimator_0</sink_block_id>
-    <source_key>pilots</source_key>
-    <sink_key>pilots</sink_key>
   </connection>
 </flow_graph>
