@@ -22,6 +22,7 @@ import numpy as np
 import lte_core
 import math
 
+
 # this function returns a frame with reference and sync symbols.
 # Can be used to be repeatedly for frames. Just put payload etc on it.
 def generate_phy_frame(cell_id, N_rb_dl, N_ant):
@@ -37,11 +38,14 @@ def generate_phy_frame(cell_id, N_rb_dl, N_ant):
 
 def generate_phy_frame_layer(ant, cell_id, N_rb_dl):
     Ncp = 1  # a value defined by LTE standard. Here never used different
-    frame = np.zeros((140, 12 * N_rb_dl), dtype=np.complex64)
-    for i in range(20):
-        frame[7 * i] = map_pilots_to_symbol(frame[7 * i], i, 0, ant, cell_id, N_rb_dl, Ncp)
-        frame[7 * i + 4] = map_pilots_to_symbol(frame[7 * i + 4], i, 4, ant, cell_id, N_rb_dl, Ncp)
-
+    frame = np.zeros((140, 12 * N_rb_dl), dtype=np.complex)
+    if ant == 0 or ant == 1:
+        for i in range(20):
+            frame[7 * i] = map_pilots_to_symbol(frame[7 * i], i, 0, ant, cell_id, N_rb_dl, Ncp)
+            frame[7 * i + 4] = map_pilots_to_symbol(frame[7 * i + 4], i, 4, ant, cell_id, N_rb_dl, Ncp)
+    elif ant == 2 or ant == 3:  # different position for layer 2 and 3
+        for i in range(20):
+            frame[7 * i + 1] = map_pilots_to_symbol(frame[7 * i + 1], i, 1, ant, cell_id, N_rb_dl, Ncp)
     return frame
 
 
@@ -63,7 +67,7 @@ def symbol_pilot_value_and_position(N_rb_dl, ns, l, cell_id, Ncp, p):
 
 def calc_offset(ns, l, cell_id, p):
     v = calc_v(ns, l, p)
-    return ( v + (cell_id % 6) ) % 6
+    return (v + (cell_id % 6)) % 6
 
 
 def calc_v(ns, l, p):
@@ -100,7 +104,7 @@ def get_pss(nid):
     u = nidu[nid]
     seq = np.zeros(63, dtype=np.complex64)
     for n in range(63):
-        ep = np.complex64(-1j * (math.pi * u * n * (n + 1) / 63.0 ))
+        ep = np.complex64(-1j * (math.pi * u * n * (n + 1) / 63.0))
         seq[n] = math.e ** ep
     return np.delete(seq, 31)
 
@@ -170,7 +174,7 @@ def get_sss(cell_id):
 
 def main():
     cell_id = 124
-    N_ant = 2
+    N_ant = 1
     N_rb_dl = 6
     style = "tx_diversity"
     frame = generate_phy_frame(cell_id, N_rb_dl, N_ant)

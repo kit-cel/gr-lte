@@ -4,7 +4,7 @@
 # Title: MIMO TOP FLOW
 # Author: Kristian Maier, Johannes Demel
 # Description: LTE decoding up to 2 tx antennas
-# Generated: Tue Nov 11 12:05:03 2014
+# Generated: Wed Nov 12 13:26:55 2014
 ##################################################
 
 execfile("/home/johannes/.grc_gnuradio/decode_bch_hier_gr37.py")
@@ -84,7 +84,6 @@ class MIMO_TOP_FLOW(gr.top_block):
         self.connect((self.lte_mimo_pss_based_frey_sync_0, 0), (self.lte_mimo_ofdm_rx_0, 0))
         self.connect((self.lte_mimo_pss_based_frey_sync_0, 1), (self.lte_mimo_ofdm_rx_0, 1))
         self.connect((self.blocks_throttle_0, 0), (self.blocks_vector_to_streams_0, 0))
-        self.connect((self.blocks_file_source_0, 0), (self.blocks_throttle_0, 0))
         self.connect((self.blocks_vector_to_streams_0, 0), (self.lte_mimo_pss_sync_0, 0))
         self.connect((self.blocks_vector_to_streams_0, 1), (self.lte_mimo_pss_sync_0, 1))
         self.connect((self.lte_mimo_ofdm_rx_0, 0), (self.lte_mimo_sss_sync_0, 0))
@@ -98,6 +97,7 @@ class MIMO_TOP_FLOW(gr.top_block):
         self.connect((self.lte_mimo_sss_sync_0, 0), (self.blocks_streams_to_vector_0_0, 0))
         self.connect((self.blocks_streams_to_vector_0_0, 0), (self.lte_mimo_estimator_0, 0))
         self.connect((self.blocks_streams_to_vector_0_0, 0), (self.lte_mimo_decode_pbch_0, 0))
+        self.connect((self.blocks_file_source_0, 0), (self.blocks_throttle_0, 0))
 
         ##################################################
         # Asynch Message Connections
