@@ -31,9 +31,9 @@ A lot of example flowgraphs are located in the examples folder. These include so
 
 Requirements
 ------------
-- GNU Radio 3.7
+- GNU Radio 3.7.6 or newer
+    - some bugs just got fixed in this new version and we take advantage of them.
     - all code was moved to GR 3.7 API.
-    - old code is not removed so far but should be regarded deprecated.
     
 - GR 3.6.5.1 (deprecated)
     - use commit tagged with 'gnuradio-v3.6.5.1'
@@ -51,6 +51,7 @@ Requirements
 
 Build/Install instructions for Linux
 ------------------------------------
+You can use PyBOMBS to install GNU Radio and gr-lte or use the instructions below.
 
 1. Get, build and install GNU Radio from <http://www.gnuradio.org>
 

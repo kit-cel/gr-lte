@@ -3,8 +3,19 @@
 # Gnuradio Python Flow Graph
 # Title: LTE_test
 # Author: Johannes Demel
-# Generated: Wed Nov 12 13:26:11 2014
+# Generated: Mon Apr 20 13:54:38 2015
 ##################################################
+
+# Call XInitThreads as the _very_ first thing.
+# After some Qt import, it's too late
+import ctypes
+import sys
+if sys.platform.startswith('linux'):
+    try:
+        x11 = ctypes.cdll.LoadLibrary('libX11.so')
+        x11.XInitThreads()
+    except:
+        print "Warning: failed to XInitThreads()"
 
 execfile("/home/johannes/.grc_gnuradio/decode_bch_hier_gr37.py")
 execfile("/home/johannes/.grc_gnuradio/decode_pbch_37.py")
@@ -13,6 +24,7 @@ execfile("/home/johannes/.grc_gnuradio/lte_estimator_hier.py")
 execfile("/home/johannes/.grc_gnuradio/lte_ofdm_hier.py")
 execfile("/home/johannes/.grc_gnuradio/lte_pss_sync_37.py")
 execfile("/home/johannes/.grc_gnuradio/lte_sss_sync_hier.py")
+from PyQt4 import Qt
 from gnuradio import blocks
 from gnuradio import eng_notation
 from gnuradio import gr
@@ -20,11 +32,34 @@ from gnuradio.eng_option import eng_option
 from gnuradio.filter import firdes
 from optparse import OptionParser
 import lte
+import sys
 
-class lte_top_block(gr.top_block):
+from distutils.version import StrictVersion
+class lte_top_block(gr.top_block, Qt.QWidget):
 
     def __init__(self):
         gr.top_block.__init__(self, "LTE_test")
+        Qt.QWidget.__init__(self)
+        self.setWindowTitle("LTE_test")
+        try:
+             self.setWindowIcon(Qt.QIcon.fromTheme('gnuradio-grc'))
+        except:
+             pass
+        self.top_scroll_layout = Qt.QVBoxLayout()
+        self.setLayout(self.top_scroll_layout)
+        self.top_scroll = Qt.QScrollArea()
+        self.top_scroll.setFrameStyle(Qt.QFrame.NoFrame)
+        self.top_scroll_layout.addWidget(self.top_scroll)
+        self.top_scroll.setWidgetResizable(True)
+        self.top_widget = Qt.QWidget()
+        self.top_scroll.setWidget(self.top_widget)
+        self.top_layout = Qt.QVBoxLayout(self.top_widget)
+        self.top_grid_layout = Qt.QGridLayout()
+        self.top_layout.addLayout(self.top_grid_layout)
+
+        self.settings = Qt.QSettings("GNU Radio", "lte_top_block")
+        self.restoreGeometry(self.settings.value("geometry").toByteArray())
+
 
         ##################################################
         # Variables
@@ -71,25 +106,25 @@ class lte_top_block(gr.top_block):
         ##################################################
         # Connections
         ##################################################
-        self.connect((self.sync_lte_pss_sync_37_0, 0), (self.sync_lte_cp_freq_sync_0, 0))
-        self.connect((self.sync_lte_rough_symbol_sync_cc_0, 0), (self.sync_lte_pss_sync_37_0, 0))
-        self.connect((self.sync_lte_cp_freq_sync_0, 0), (self.sync_lte_sss_sync_hier_0, 0))
-        self.connect((self.sync_lte_sss_sync_hier_0, 0), (self.ofdm_lte_ofdm_hier_0, 0))
-        self.connect((self.ofdm_lte_ofdm_hier_0, 0), (self.ofdm_estimator_lte_estimator_hier_0, 0))
-        self.connect((self.ofdm_estimator_lte_estimator_hier_0, 0), (self.pbch_decode_pbch_37_0, 1))
-        self.connect((self.ofdm_estimator_lte_estimator_hier_0, 1), (self.pbch_decode_pbch_37_0, 2))
-        self.connect((self.ofdm_lte_ofdm_hier_0, 0), (self.pbch_decode_pbch_37_0, 0))
-        self.connect((self.pbch_decode_pbch_37_0, 0), (self.bch_decode_bch_hier_gr37_0, 0))
-        self.connect((self.bch_decode_bch_hier_gr37_0, 1), (self.MIB, 1))
-        self.connect((self.bch_decode_bch_hier_gr37_0, 0), (self.MIB, 0))
-        self.connect((self.pre_blocks_file_source_0, 0), (self.sync_lte_rough_symbol_sync_cc_0, 0))
+        self.msg_connect((self.sync_lte_sss_sync_hier_0, 'cell_id'), (self.ofdm_estimator_lte_estimator_hier_0, 'cell_id'))    
+        self.msg_connect((self.sync_lte_sss_sync_hier_0, 'cell_id'), (self.pbch_decode_pbch_37_0, 'cell_id'))    
+        self.connect((self.bch_decode_bch_hier_gr37_0, 1), (self.MIB, 1))    
+        self.connect((self.bch_decode_bch_hier_gr37_0, 0), (self.MIB, 0))    
+        self.connect((self.ofdm_estimator_lte_estimator_hier_0, 0), (self.pbch_decode_pbch_37_0, 1))    
+        self.connect((self.ofdm_estimator_lte_estimator_hier_0, 1), (self.pbch_decode_pbch_37_0, 2))    
+        self.connect((self.ofdm_lte_ofdm_hier_0, 0), (self.ofdm_estimator_lte_estimator_hier_0, 0))    
+        self.connect((self.ofdm_lte_ofdm_hier_0, 0), (self.pbch_decode_pbch_37_0, 0))    
+        self.connect((self.pbch_decode_pbch_37_0, 0), (self.bch_decode_bch_hier_gr37_0, 0))    
+        self.connect((self.pre_blocks_file_source_0, 0), (self.sync_lte_rough_symbol_sync_cc_0, 0))    
+        self.connect((self.sync_lte_cp_freq_sync_0, 0), (self.sync_lte_sss_sync_hier_0, 0))    
+        self.connect((self.sync_lte_pss_sync_37_0, 0), (self.sync_lte_cp_freq_sync_0, 0))    
+        self.connect((self.sync_lte_rough_symbol_sync_cc_0, 0), (self.sync_lte_pss_sync_37_0, 0))    
+        self.connect((self.sync_lte_sss_sync_hier_0, 0), (self.ofdm_lte_ofdm_hier_0, 0))    
 
-        ##################################################
-        # Asynch Message Connections
-        ##################################################
-        self.msg_connect(self.sync_lte_sss_sync_hier_0, "cell_id", self.ofdm_estimator_lte_estimator_hier_0, "cell_id")
-        self.msg_connect(self.sync_lte_sss_sync_hier_0, "cell_id", self.pbch_decode_pbch_37_0, "cell_id")
-
+    def closeEvent(self, event):
+        self.settings = Qt.QSettings("GNU Radio", "lte_top_block")
+        self.settings.setValue("geometry", self.saveGeometry())
+        event.accept()
 
     def get_fftlen(self):
         return self.fftlen
@@ -129,14 +164,21 @@ class lte_top_block(gr.top_block):
         self.N_rb_dl = N_rb_dl
         self.sync_lte_sss_sync_hier_0.set_N_rb_dl(self.N_rb_dl)
         self.ofdm_lte_ofdm_hier_0.set_N_rb_dl(self.N_rb_dl)
-        self.ofdm_estimator_lte_estimator_hier_0.set_N_rb_dl(self.N_rb_dl)
         self.pbch_decode_pbch_37_0.set_N_rb_dl(self.N_rb_dl)
+        self.ofdm_estimator_lte_estimator_hier_0.set_N_rb_dl(self.N_rb_dl)
 
 if __name__ == '__main__':
     parser = OptionParser(option_class=eng_option, usage="%prog: [options]")
     (options, args) = parser.parse_args()
+    if(StrictVersion(Qt.qVersion()) >= StrictVersion("4.5.0")):
+        Qt.QApplication.setGraphicsSystem(gr.prefs().get_string('qtgui','style','raster'))
+    qapp = Qt.QApplication(sys.argv)
     tb = lte_top_block()
     tb.start()
-    raw_input('Press Enter to quit: ')
-    tb.stop()
-    tb.wait()
+    tb.show()
+    def quitting():
+        tb.stop()
+        tb.wait()
+    qapp.connect(qapp, Qt.SIGNAL("aboutToQuit()"), quitting)
+    qapp.exec_()
+    tb = None #to clean up Qt widgets
