@@ -61,7 +61,7 @@ private:
     void prepare_corr_vecs();
 
     int calc_N_id_2(std::vector< gr_complex* > &buffer, int &mpos);
-    float diff_corr(const gr_complex* x,const gr_complex* y, int len);
+    float diff_corr(const gr_complex* x, const gr_complex* y, int len);
 
 
 public:

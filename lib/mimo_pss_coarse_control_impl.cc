@@ -73,26 +73,24 @@ namespace gr {
     }
 
     int
-    mimo_pss_coarse_control_impl::general_work(int noutput_items,
-                   gr_vector_int &ninput_items,
-                   gr_vector_const_void_star &input_items,
-                   gr_vector_void_star &output_items)
+    mimo_pss_coarse_control_impl::general_work(int noutput_items, gr_vector_int &ninput_items,
+                                               gr_vector_const_void_star &input_items,
+                                               gr_vector_void_star &output_items)
 
     {
-         consume_each(noutput_items);
-
-        if(!d_control){
-            for(int rx=0; rx<d_rxant; rx++){
-                const gr_complex* in = (gr_complex*) input_items[rx];
-                gr_complex* out = (gr_complex*) output_items[rx];
-                memcpy(out, in, sizeof(gr_complex)*noutput_items);
-            }
-            return noutput_items;
+      const int consume_items = noutput_items;
+      if(!d_control){
+        for(int rx = 0; rx < d_rxant; rx++){
+          const gr_complex* in = (gr_complex*) input_items[rx];
+          gr_complex* out = (gr_complex*) output_items[rx];
+          memcpy(out, in, sizeof(gr_complex) * noutput_items);
         }
-
-        return 0;
-        // Tell runtime system how many output items we produced.
-
+      }
+      else{
+        noutput_items = 0;
+      }
+      consume_each(consume_items);
+      return noutput_items;
     }
 
   } /* namespace lte */
