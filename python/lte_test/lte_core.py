@@ -192,6 +192,10 @@ def get_ecp_length(fft_len):
     return int(160 * fft_len / 2048)
 
 
+def get_slot_length(fft_len):
+    return fft_len * 7 + get_ecp_length(fft_len) + 6 * get_cp_length(fft_len)
+
+
 def main():
     cell_id = 124
     N_ant = 2

@@ -173,19 +173,19 @@ def get_sss(cell_id):
     return [sss0, sss5]
 
 
-def lte_ofdm_mod_frame(frame, fft_size):
-    modded = np.fft.fft(frame, fft_size)
+def transform_to_time_domain(frame, fftlen):
+    return np.fft.fft(frame, fftlen)
 
-    print(np.shape(modded))
+
+def transform_to_stream_cp(time_domain_frame, fft_size):
     cp_length = lte_core.get_cp_length(fft_size)
     ecp_length = lte_core.get_ecp_length(fft_size)
-    dim = list(np.shape(modded)[0:-1])
+    dim = list(np.shape(time_domain_frame)[0:-1])
     dim[-1] = 140 *fft_size + (140 // 7) * ecp_length + (140 - (140 // 7)) * cp_length
     res = np.zeros(dim, dtype=complex)
-    for i, layer in enumerate(modded):
+    for i, layer in enumerate(time_domain_frame):
         pos = 0
         for j, symbol in enumerate(layer):
-            # print(i, j)
             if j % 7 == 0:
                 res[i, pos:pos+ (fft_size + ecp_length)] = np.pad(symbol, (ecp_length, 0), 'wrap')
                 pos += fft_size + ecp_length
@@ -195,10 +195,14 @@ def lte_ofdm_mod_frame(frame, fft_size):
     return res
 
 
+def lte_ofdm_mod_frame(frame, fft_size):
+    modded = transform_to_time_domain(frame, fft_size)
+    return transform_to_stream_cp(modded, fft_size)
+
+
 def get_mod_frame(cell_id, N_rb_dl, N_ant, fftlen):
     frame = generate_phy_frame(cell_id, N_rb_dl, N_ant)
     return lte_ofdm_mod_frame(frame, fftlen)
-
 
 
 def main():

@@ -50,6 +50,10 @@ def generate_tag(tag_key, srcid, value, offset):
     return tag
 
 
+def get_string_from_tag(tag):
+    return 'srcid=' + pmt.symbol_to_string(tag.srcid) + ', key=' + pmt.symbol_to_string(tag.key) + ', value=' + str(pmt.to_long(tag.value)) + ', offset=' + str(tag.offset)
+
+
 def cmpl_str(val):
     # return '%+03f%+03fj' %(val.real, val.imag)
     return '{0.real:+.4f} {0.imag:+.4f}j'.format(val)
