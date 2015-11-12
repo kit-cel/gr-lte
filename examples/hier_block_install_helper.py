@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-# Copyright 2014 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
+# Copyright 2014, 2015 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
 #
 # This is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,8 +22,9 @@
 import glob
 import subprocess
 
+
 def main():
-    for file in glob.glob("*.grc"):
+    for file in glob.glob("hier_blocks/*.grc"):
         proc = ["grcc", file]
         print proc
         try:

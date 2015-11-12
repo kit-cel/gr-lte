@@ -42,7 +42,7 @@
     </param>
     <param>
       <key>id</key>
-      <value>mimo_2tx_top_block</value>
+      <value>lte_top_block_mimo_2tx</value>
     </param>
     <param>
       <key>max_nouts</key>
@@ -74,7 +74,7 @@
     </param>
     <param>
       <key>title</key>
-      <value>MIMO TOP FLOW</value>
+      <value>LTE top level flowgraph MIMO 2TX</value>
     </param>
   </block>
   <block>
@@ -286,7 +286,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(776, 432)</value>
+      <value>(880, 417)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -295,45 +295,6 @@
     <param>
       <key>id</key>
       <value>MIB</value>
-    </param>
-    <param>
-      <key>maxoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>decode_bch_hier_gr37</key>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>comment</key>
-      <value></value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(624, 480)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>id</key>
-      <value>bch_decode_bch_hier_gr37_0</value>
     </param>
     <param>
       <key>maxoutbuf</key>
@@ -419,7 +380,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(288, 312)</value>
+      <value>(272, 313)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -427,7 +388,7 @@
     </param>
     <param>
       <key>id</key>
-      <value>blocks_streams_to_vector_0_0</value>
+      <value>blocks_streams_to_vector_sss_2tx</value>
     </param>
     <param>
       <key>type</key>
@@ -706,7 +667,7 @@
     </param>
   </block>
   <block>
-    <key>lte_mimo_decode_pbch</key>
+    <key>lte_bch_decoder</key>
     <param>
       <key>alias</key>
       <value></value>
@@ -725,7 +686,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(416, 448)</value>
+      <value>(744, 465)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -733,7 +694,7 @@
     </param>
     <param>
       <key>id</key>
-      <value>lte_mimo_decode_pbch_0</value>
+      <value>lte_bch_decoder_0</value>
     </param>
     <param>
       <key>maxoutbuf</key>
@@ -743,17 +704,9 @@
       <key>minoutbuf</key>
       <value>0</value>
     </param>
-    <param>
-      <key>rxant</key>
-      <value>rxant</value>
-    </param>
-    <param>
-      <key>N_rb_dl</key>
-      <value>N_rb_dl</value>
-    </param>
   </block>
   <block>
-    <key>lte_mimo_estimator</key>
+    <key>lte_channel_estimator_mimo_2tx</key>
     <param>
       <key>alias</key>
       <value></value>
@@ -772,7 +725,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(184, 467)</value>
+      <value>(248, 451)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -780,7 +733,7 @@
     </param>
     <param>
       <key>id</key>
-      <value>lte_mimo_estimator_0</value>
+      <value>lte_channel_estimator_mimo_2tx_0</value>
     </param>
     <param>
       <key>maxoutbuf</key>
@@ -796,11 +749,11 @@
     </param>
     <param>
       <key>estimator_key</key>
-      <value>frame_key</value>
+      <value>"slot"</value>
     </param>
     <param>
       <key>initial_id</key>
-      <value>2</value>
+      <value>111</value>
     </param>
     <param>
       <key>N_rb_dl</key>
@@ -808,7 +761,54 @@
     </param>
   </block>
   <block>
-    <key>lte_mimo_ofdm_rx</key>
+    <key>lte_cp_ffo_sync_mimo_2tx</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>fftlen</key>
+      <value>fftl</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(1104, 313)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>180</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>lte_cp_ffo_sync_mimo_2tx_0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>rxant</key>
+      <value>rxant</value>
+    </param>
+  </block>
+  <block>
+    <key>lte_ofdm_demodulator_mimo_2tx</key>
     <param>
       <key>alias</key>
       <value></value>
@@ -831,7 +831,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(648, 299)</value>
+      <value>(800, 299)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -839,7 +839,7 @@
     </param>
     <param>
       <key>id</key>
-      <value>lte_mimo_ofdm_rx_0</value>
+      <value>lte_ofdm_demodulator_mimo_2tx_0</value>
     </param>
     <param>
       <key>maxoutbuf</key>
@@ -855,7 +855,7 @@
     </param>
     <param>
       <key>ofdm_key</key>
-      <value>frame_key</value>
+      <value>"slot"</value>
     </param>
     <param>
       <key>N_rb_dl</key>
@@ -863,7 +863,7 @@
     </param>
   </block>
   <block>
-    <key>lte_mimo_pss_based_frey_sync</key>
+    <key>lte_pbch_decoder_mimo_2tx</key>
     <param>
       <key>alias</key>
       <value></value>
@@ -878,23 +878,19 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>fftlen</key>
-      <value>fftl</value>
+      <value>True</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(832, 312)</value>
+      <value>(536, 433)</value>
     </param>
     <param>
       <key>_rotation</key>
-      <value>180</value>
+      <value>0</value>
     </param>
     <param>
       <key>id</key>
-      <value>lte_mimo_pss_based_frey_sync_0</value>
+      <value>lte_pbch_decoder_mimo_2tx_0</value>
     </param>
     <param>
       <key>maxoutbuf</key>
@@ -908,9 +904,13 @@
       <key>rxant</key>
       <value>rxant</value>
     </param>
+    <param>
+      <key>N_rb_dl</key>
+      <value>N_rb_dl</value>
+    </param>
   </block>
   <block>
-    <key>lte_mimo_pss_sync</key>
+    <key>lte_pss_sync_direct_mimo_2tx</key>
     <param>
       <key>alias</key>
       <value></value>
@@ -933,7 +933,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(880, 144)</value>
+      <value>(880, 145)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -941,7 +941,7 @@
     </param>
     <param>
       <key>id</key>
-      <value>lte_mimo_pss_sync_0</value>
+      <value>lte_pss_sync_direct_mimo_2tx_0</value>
     </param>
     <param>
       <key>maxoutbuf</key>
@@ -961,7 +961,7 @@
     </param>
   </block>
   <block>
-    <key>lte_mimo_sss_sync</key>
+    <key>lte_sss_sync_freq_domain_mimo_2tx</key>
     <param>
       <key>alias</key>
       <value></value>
@@ -980,7 +980,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(464, 280)</value>
+      <value>(488, 281)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -988,7 +988,7 @@
     </param>
     <param>
       <key>id</key>
-      <value>lte_mimo_sss_sync_0</value>
+      <value>lte_sss_sync_freq_domain_mimo_2tx_0</value>
     </param>
     <param>
       <key>maxoutbuf</key>
@@ -1485,32 +1485,20 @@
     </param>
   </block>
   <connection>
-    <source_block_id>bch_decode_bch_hier_gr37_0</source_block_id>
-    <sink_block_id>MIB</sink_block_id>
-    <source_key>1</source_key>
-    <sink_key>1</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>bch_decode_bch_hier_gr37_0</source_block_id>
-    <sink_block_id>MIB</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
     <source_block_id>blocks_file_source_0</source_block_id>
     <sink_block_id>blocks_throttle_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>blocks_streams_to_vector_0_0</source_block_id>
-    <sink_block_id>lte_mimo_decode_pbch_0</sink_block_id>
+    <source_block_id>blocks_streams_to_vector_sss_2tx</source_block_id>
+    <sink_block_id>lte_channel_estimator_mimo_2tx_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>blocks_streams_to_vector_0_0</source_block_id>
-    <sink_block_id>lte_mimo_estimator_0</sink_block_id>
+    <source_block_id>blocks_streams_to_vector_sss_2tx</source_block_id>
+    <sink_block_id>lte_pbch_decoder_mimo_2tx_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
@@ -1522,21 +1510,15 @@
   </connection>
   <connection>
     <source_block_id>blocks_vector_source_x_0</source_block_id>
-    <sink_block_id>lte_mimo_pss_sync_0</sink_block_id>
+    <sink_block_id>lte_pss_sync_direct_mimo_2tx_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
     <source_block_id>blocks_vector_source_x_0_0</source_block_id>
-    <sink_block_id>lte_mimo_pss_sync_0</sink_block_id>
+    <sink_block_id>lte_pss_sync_direct_mimo_2tx_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>1</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>blocks_vector_to_streams_0</source_block_id>
-    <sink_block_id>lte_mimo_pss_sync_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
   </connection>
   <connection>
     <source_block_id>blocks_vector_to_streams_0</source_block_id>
@@ -1546,134 +1528,128 @@
   </connection>
   <connection>
     <source_block_id>blocks_vector_to_streams_0</source_block_id>
-    <sink_block_id>lte_mimo_pss_sync_0</sink_block_id>
-    <source_key>1</source_key>
-    <sink_key>1</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>blocks_vector_to_streams_0</source_block_id>
     <sink_block_id>rational_resampler_xxx_0_0</sink_block_id>
     <source_key>1</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>lte_mimo_decode_pbch_0</source_block_id>
-    <sink_block_id>bch_decode_bch_hier_gr37_0</sink_block_id>
+    <source_block_id>lte_bch_decoder_0</source_block_id>
+    <sink_block_id>MIB</sink_block_id>
+    <source_key>1</source_key>
+    <sink_key>1</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_bch_decoder_0</source_block_id>
+    <sink_block_id>MIB</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>lte_mimo_estimator_0</source_block_id>
-    <sink_block_id>lte_mimo_decode_pbch_0</sink_block_id>
+    <source_block_id>lte_channel_estimator_mimo_2tx_0</source_block_id>
+    <sink_block_id>lte_pbch_decoder_mimo_2tx_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>1</sink_key>
   </connection>
   <connection>
-    <source_block_id>lte_mimo_estimator_0</source_block_id>
-    <sink_block_id>lte_mimo_decode_pbch_0</sink_block_id>
+    <source_block_id>lte_channel_estimator_mimo_2tx_0</source_block_id>
+    <sink_block_id>lte_pbch_decoder_mimo_2tx_0</sink_block_id>
     <source_key>1</source_key>
     <sink_key>2</sink_key>
   </connection>
   <connection>
-    <source_block_id>lte_mimo_ofdm_rx_0</source_block_id>
-    <sink_block_id>lte_mimo_sss_sync_0</sink_block_id>
+    <source_block_id>lte_cp_ffo_sync_mimo_2tx_0</source_block_id>
+    <sink_block_id>lte_ofdm_demodulator_mimo_2tx_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>lte_mimo_ofdm_rx_0</source_block_id>
-    <sink_block_id>lte_mimo_sss_sync_0</sink_block_id>
+    <source_block_id>lte_cp_ffo_sync_mimo_2tx_0</source_block_id>
+    <sink_block_id>lte_ofdm_demodulator_mimo_2tx_0</sink_block_id>
     <source_key>1</source_key>
     <sink_key>1</sink_key>
   </connection>
   <connection>
-    <source_block_id>lte_mimo_pss_based_frey_sync_0</source_block_id>
-    <sink_block_id>lte_mimo_ofdm_rx_0</sink_block_id>
+    <source_block_id>lte_ofdm_demodulator_mimo_2tx_0</source_block_id>
+    <sink_block_id>lte_sss_sync_freq_domain_mimo_2tx_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>lte_mimo_pss_based_frey_sync_0</source_block_id>
-    <sink_block_id>lte_mimo_ofdm_rx_0</sink_block_id>
+    <source_block_id>lte_ofdm_demodulator_mimo_2tx_0</source_block_id>
+    <sink_block_id>lte_sss_sync_freq_domain_mimo_2tx_0</sink_block_id>
     <source_key>1</source_key>
     <sink_key>1</sink_key>
   </connection>
   <connection>
-    <source_block_id>lte_mimo_pss_sync_0</source_block_id>
-    <sink_block_id>lte_mimo_sss_sync_0</sink_block_id>
+    <source_block_id>lte_pbch_decoder_mimo_2tx_0</source_block_id>
+    <sink_block_id>lte_bch_decoder_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lte_pss_sync_direct_mimo_2tx_0</source_block_id>
+    <sink_block_id>lte_sss_sync_freq_domain_mimo_2tx_0</sink_block_id>
     <source_key>N_id_2</source_key>
     <sink_key>N_id_2</sink_key>
   </connection>
   <connection>
-    <source_block_id>lte_mimo_pss_sync_0</source_block_id>
-    <sink_block_id>lte_mimo_ofdm_rx_0</sink_block_id>
+    <source_block_id>lte_pss_sync_direct_mimo_2tx_0</source_block_id>
+    <sink_block_id>lte_cp_ffo_sync_mimo_2tx_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>lte_mimo_pss_sync_0</source_block_id>
-    <sink_block_id>lte_mimo_pss_based_frey_sync_0</sink_block_id>
+    <source_block_id>lte_pss_sync_direct_mimo_2tx_0</source_block_id>
+    <sink_block_id>lte_ofdm_demodulator_mimo_2tx_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>lte_mimo_pss_sync_0</source_block_id>
+    <source_block_id>lte_pss_sync_direct_mimo_2tx_0</source_block_id>
     <sink_block_id>qtgui_time_sink_x_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>lte_mimo_pss_sync_0</source_block_id>
-    <sink_block_id>lte_mimo_ofdm_rx_0</sink_block_id>
+    <source_block_id>lte_pss_sync_direct_mimo_2tx_0</source_block_id>
+    <sink_block_id>lte_cp_ffo_sync_mimo_2tx_0</sink_block_id>
     <source_key>1</source_key>
     <sink_key>1</sink_key>
   </connection>
   <connection>
-    <source_block_id>lte_mimo_pss_sync_0</source_block_id>
-    <sink_block_id>lte_mimo_pss_based_frey_sync_0</sink_block_id>
+    <source_block_id>lte_pss_sync_direct_mimo_2tx_0</source_block_id>
+    <sink_block_id>lte_ofdm_demodulator_mimo_2tx_0</sink_block_id>
     <source_key>1</source_key>
     <sink_key>1</sink_key>
   </connection>
   <connection>
-    <source_block_id>lte_mimo_pss_sync_0</source_block_id>
+    <source_block_id>lte_pss_sync_direct_mimo_2tx_0</source_block_id>
     <sink_block_id>qtgui_time_sink_x_0</sink_block_id>
     <source_key>1</source_key>
     <sink_key>1</sink_key>
   </connection>
   <connection>
-    <source_block_id>lte_mimo_sss_sync_0</source_block_id>
-    <sink_block_id>lte_mimo_decode_pbch_0</sink_block_id>
+    <source_block_id>lte_sss_sync_freq_domain_mimo_2tx_0</source_block_id>
+    <sink_block_id>lte_channel_estimator_mimo_2tx_0</sink_block_id>
     <source_key>cell_id</source_key>
     <sink_key>cell_id</sink_key>
   </connection>
   <connection>
-    <source_block_id>lte_mimo_sss_sync_0</source_block_id>
-    <sink_block_id>lte_mimo_estimator_0</sink_block_id>
+    <source_block_id>lte_sss_sync_freq_domain_mimo_2tx_0</source_block_id>
+    <sink_block_id>lte_pbch_decoder_mimo_2tx_0</sink_block_id>
     <source_key>cell_id</source_key>
     <sink_key>cell_id</sink_key>
   </connection>
   <connection>
-    <source_block_id>lte_mimo_sss_sync_0</source_block_id>
-    <sink_block_id>blocks_streams_to_vector_0_0</sink_block_id>
+    <source_block_id>lte_sss_sync_freq_domain_mimo_2tx_0</source_block_id>
+    <sink_block_id>blocks_streams_to_vector_sss_2tx</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>lte_mimo_sss_sync_0</source_block_id>
-    <sink_block_id>blocks_streams_to_vector_0_0</sink_block_id>
+    <source_block_id>lte_sss_sync_freq_domain_mimo_2tx_0</source_block_id>
+    <sink_block_id>blocks_streams_to_vector_sss_2tx</sink_block_id>
     <source_key>1</source_key>
     <sink_key>1</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>rational_resampler_xxx_0_0</source_block_id>
-    <sink_block_id>lte_mimo_pss_sync_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>1</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>rational_resampler_xxx_0_1</source_block_id>
-    <sink_block_id>lte_mimo_pss_sync_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
   </connection>
 </flow_graph>
