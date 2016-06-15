@@ -6,10 +6,10 @@ tags:
   - estimation
   - PBCH
 author:
-  - Johannes Demel <johannes.demel@student.kit.edu>
+  - Johannes Demel <demel@ant.uni-bremen.de>
   - Kristian Maier <uafye@student.kit.edu>
 copyright_owner:
-  - Johannes Demel <johannes.demel@student.kit.edu>
+  - Johannes Demel <demel@ant.uni-bremen.de>
   - Kristian Maier <uafye@student.kit.edu>
 dependencies:
   - gnuradio (>= 3.7.0)
