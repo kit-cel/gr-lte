@@ -126,7 +126,7 @@ namespace gr {
     descrambler_vfvf_impl::handle_msg(pmt::pmt_t msg)
     {
         pmt::print(msg);
-        if(not pmt::is_vector(msg)){
+        if(! pmt::is_vector(msg)){
             throw std::runtime_error("message doesn't have vector type! Can't use it!\n");
         }
         printf("%s received msg", name().c_str());
