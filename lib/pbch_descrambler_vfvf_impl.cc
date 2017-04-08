@@ -141,7 +141,7 @@ namespace gr {
 		const int Nc=1600; //Constant is defined in standard
 		int cinit=cell_id;
 
-		char x2[3*len+Nc];
+		__GR_VLA(char, x2, 3 * len + Nc);
 		for (int i = 0; i<31; i++){
 				char val = cinit%2;
 				cinit = floor(cinit/2);
@@ -149,7 +149,7 @@ namespace gr {
 		}
 
 		char *c=new char[len];
-		char x1[3*len+Nc];
+		__GR_VLA(char, x1, 3 * len + Nc);
 		// initialization for first 35 elements is needed. (Otherwise READ BEFORE WRITE ERROR)
 		for (int i = 0 ; i < 35 ; i++){
 			x1[i]=0;
