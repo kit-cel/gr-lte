@@ -12,6 +12,15 @@ This project aims to provide a modular environment for an LTE downlink receiver.
 The block design aims to be modular and reusable. Where possible GR blocks are used.<br>
 Furthermore message ports are used for configuration on runtime. This is supposed to make the control flow visible to users and thus better understandable.
 
+Publications
+-------------
+This is a list of related publications for further reference.
+
+J. Demel, S. Koslowski, and F. Jondral, *A LTE Receiver Framework Implementation in GNU Radio*, SDR-WInnComm-Europe-2013, June 2013.
+
+Johannes Demel, Sebastian Koslowski, and Friedrich K. Jondral, *A LTE Receiver Framework Using GNU Radio*, Journal of Signal Processing Systems,
+78(3):313–320, 2015.
+
 Capabilities
 -------------
 *gr-lte* provides blocks to synchronize to a LTE downlink signal. It performs OFDM operation to operate in the frequency domain and provides a channel estimator. At this point physical LTE downlink channels can be extracted from the symbols and be processed. PBCH is fully implemented and decodes MIB. PCFICH is available too. Almost all code for PHICH is implemented and there is lots of code to bring PDCCH support. It is not yet possible to just plug it in, though. Eventually all channels shall be supported.
