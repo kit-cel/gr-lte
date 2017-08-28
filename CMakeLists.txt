@@ -86,6 +86,7 @@ set(GRC_BLOCKS_DIR      ${GR_PKG_DATA_DIR}/grc/blocks)
 #find_package(GnuradioRuntime)
 find_package(CppUnit)
 find_package(FFTW3f)
+find_package(Volk)
 
 # To run a more advanced search for GNU Radio and it's components and
 # versions, use the following. Add any components required to the list
