@@ -153,11 +153,7 @@ class qa_channel_estimator_vcvc (gr_unittest.TestCase):
 
         tb2 = gr.top_block ()
         src = blocks.vector_source_c(data, False, subcarriers)
-        dbg = blocks.file_sink(gr.sizeof_gr_complex * 12*N_rb_dl, "/home/johannes/tests/est_frame_data.dat")
-        tb2.connect(src, dbg)
         tb2.run()
-
-
 
     def get_data_stream(self, N_ant, cell_id, style, N_rb_dl, sfn, subcarriers):
         #mib = lte_test.pack_mib(N_rb_dl, 0, 1.0, 511)
@@ -179,7 +175,6 @@ class qa_channel_estimator_vcvc (gr_unittest.TestCase):
         return streamp
 
 
-
-
 if __name__ == '__main__':
     gr_unittest.run(qa_channel_estimator_vcvc)
+

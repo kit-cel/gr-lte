@@ -37,9 +37,6 @@ class qa_bch_viterbi_vfvb (gr_unittest.TestCase):
         self.vit = bch_viterbi_vfvb()
         self.snk = blocks.vector_sink_b(40)
         
-        self.dbgs = blocks.file_sink(120 * gr.sizeof_float, "/home/johannes/tests/viterbi.dat")
-        self.tb.connect(self.src, self.dbgs)
-        
         # connecting blocks
         self.tb.connect(self.src,self.vit, self.snk)
 

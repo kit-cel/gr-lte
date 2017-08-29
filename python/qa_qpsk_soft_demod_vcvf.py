@@ -54,14 +54,12 @@ class qa_qpsk_soft_demod_vcvf (gr_unittest.TestCase):
 
         self.src.set_data(data)
 
-        dbgs = blocks.file_sink(240 * gr.sizeof_gr_complex, "/home/johannes/tests/demodulate.dat")
-        self.tb.connect(self.src, dbgs)
         # set up fg
         self.tb.run ()
         # check data
         res = self.snk.data()
         exp_res = tuple(input_data)#tuple([input_data[i]/math.sqrt(2) for i in range(len(input_data))])
-        print self.assertFloatTuplesAlmostEqual(res, exp_res, 5)
+        self.assertFloatTuplesAlmostEqual(res, exp_res, 5)
 
 
 if __name__ == '__main__':

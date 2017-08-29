@@ -53,16 +53,12 @@ class qa_pbch_descrambler_vfvf (gr_unittest.TestCase):
         p_scrambled = lte_test.nrz_encoding(p_scrambled)
         n_bch = tuple(lte_test.nrz_encoding(bch))
 
-        print len(p_scrambled)
-        print p_scrambled[0:20]
+        #print len(p_scrambled)
+        #print p_scrambled[0:20]
 
         self.src.set_data(p_scrambled)#[0:480])
         self.descr.set_cell_id(cell_id)
 
-        #pn_seq = self.descr.pn_sequence()
-        #print pn_seq[0:20]
-        dbgs = blocks.file_sink(480 * gr.sizeof_float, "/home/johannes/tests/descramble.dat")
-        self.tb.connect(self.src, dbgs)
         # set up fg
         self.tb.run()
         res = self.snk.data()
@@ -86,19 +82,36 @@ class qa_pbch_descrambler_vfvf (gr_unittest.TestCase):
         N_ant = 2
         tl = 1024
         data = []
+        ref_bch = []
         for i in range(tl/4):
             mib = lte_test.pack_mib(50,0,1.0, i*4)
             bch = tuple(lte_test.encode_bch(mib, N_ant))
             p_scrambled = lte_test.pbch_scrambling(bch, cell_id)
             p_scrambled = lte_test.nrz_encoding(p_scrambled)
             data.extend(p_scrambled)
+            bch = tuple(lte_test.nrz_encoding(bch))
+            ref_bch.extend(bch)
 
         self.src.set_data(data)
-        dbgs = blocks.file_sink(480 * gr.sizeof_float, "/home/johannes/tests/descramble.dat")
-        self.tb.connect(self.src, dbgs)
-        # set up fg
-        self.tb.run ()
-        pass
+        self.descr.set_cell_id(cell_id)
+        self.tb.run()
+        
+        res = self.snk.data()
+        print len(res)
+
+        count = 0
+        for i in range(len(res)/len(ref_bch)):
+            part = res[len(ref_bch)*i:(i+1)*len(ref_bch)]
+            try:
+                self.assertEqual(part, ref_bch,3)
+                print str(i) + "\tSUCCESS"
+            except:
+                print str(i)
+                count = count +1
+        print "\nresult"
+        print count
+        print len(res)/len(ref_bch)
+
 
 
 if __name__ == '__main__':

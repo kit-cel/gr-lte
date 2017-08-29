@@ -83,35 +83,15 @@ class qa_pbch_demux_vcvc (gr_unittest.TestCase):
         tags = lte_test.get_tag_list(140 * sim_frames, 140, key, srcid)
 
         self.src1.set_data(stream, tuple(tags))
-        self.dbg = blocks.file_sink(gr.sizeof_gr_complex * 12*N_rb_dl, "/home/johannes/tests/pbch_frame.dat")
-        self.tb.connect(self.src1, self.dbg)
         # set up fg
         self.tb.run ()
         # check data
         res1 = self.snk1.data()
-        #res2 = self.snk2.data()
-        #res3 = self.snk3.data()
 
         print len(res1)
         compare = res1[0:len(pbch[0])]
 
-        #'''
-        #partl = 10
-        #for i in range(len(res1)/partl):
-        #    partres = compare[partl*i:partl*(i+1)]
-        #    partcom = pbch[0][partl*i:partl*(i+1)]
-        #    try:
-        #        self.assertComplexTuplesAlmostEqual(partcom,partres)
-        #        print str(i*partl) + "\tsuccess"
-        #    except:
-        #        #print "\n\n\n\n\n\n"
-        #        print str(i*partl) + "\t" + str(partres)
-        #'''
-
         self.assertComplexTuplesAlmostEqual(compare, tuple(pbch[0][0:len(compare)]))
-
-        #self.assertComplexTuplesAlmostEqual(res2,tuple(np.ones(len(res2), dtype=np.complex)))
-        #self.assertComplexTuplesAlmostEqual(res3,tuple(np.ones(len(res3), dtype=np.complex)))
 
 
 if __name__ == '__main__':

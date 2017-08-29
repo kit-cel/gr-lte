@@ -70,10 +70,6 @@ class qa_subblock_deinterleaver_vfvf (gr_unittest.TestCase):
             nrz = lte_test.nrz_encoding(rated)
             data.extend(nrz)
         
-        srcf = blocks.vector_source_f(data, False, 120)
-        snkf = blocks.file_sink(gr.sizeof_float*120, "/home/johannes/tests/rated.dat")
-        self.tb2.connect(srcf, snkf)
-        
         src1 = blocks.vector_source_f(data, False, 120)
                 
         vts0 = blocks.vector_to_stream(40*gr.sizeof_float, 3)

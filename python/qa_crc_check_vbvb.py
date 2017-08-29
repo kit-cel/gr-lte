@@ -40,11 +40,9 @@ class qa_crc_check_vbvb (gr_unittest.TestCase):
         self.crc = lte.crc_check_vbvb(data_len, final_xor[self.N_ant])
         self.snk0 = blocks.vector_sink_b(data_len)  
         self.snk1 = blocks.vector_sink_b(1)
-        self.dbgs = blocks.file_sink(block_len, "/home/johannes/tests/crc.dat")
         
         self.tb.connect(self.src, (self.crc,0), self.snk0)
         self.tb.connect( (self.crc,1), self.snk1 )
-        self.tb.connect(self.src, self.dbgs)
         
     def tearDown (self):
         self.tb = None
