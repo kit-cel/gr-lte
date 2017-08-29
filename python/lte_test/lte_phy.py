@@ -116,14 +116,14 @@ def map_sss_to_symbol(symbol, N_rb_dl, cell_id, pos):
 
 
 def get_sss(cell_id):
-    nid1 = np.floor(cell_id / 3)  # [0, 1, 2]
+    nid1 = int(np.floor(cell_id / 3))  # [0, 1, 2]
     nid2 = cell_id % 3  # [0, ... , 167]
 
-    q_prime = np.floor(nid1 / 30)
-    q = np.floor(( nid1 + (q_prime * (q_prime + 1) / 2) ) / 30)
+    q_prime = int (np.floor(nid1 / 30))
+    q = int (np.floor(( nid1 + (q_prime * (q_prime + 1) / 2) ) / 30))
     m_prime = nid1 + q * (q + 1) / 2
     m0 = m_prime % 31
-    m1 = (m0 + np.floor(m_prime / 31) + 1) % 31
+    m1 = (m0 + int (np.floor(m_prime / 31)) + 1) % 31
 
     x_s = np.zeros(31)
     x_s[4] = 1
