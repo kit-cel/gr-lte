@@ -22,8 +22,6 @@
 ########################################################################
 include(GrPlatform) #define LIB_SUFFIX
 
-include_directories(${Boost_INCLUDE_DIR})
-link_directories(${Boost_LIBRARY_DIRS})
 list(APPEND lte_sources
     mib_unpack_vbm_impl.cc
     crc_check_vbvb_impl.cc
@@ -61,8 +59,15 @@ list(APPEND lte_sources
     mimo_sss_tagger_impl.cc
     mimo_remove_cp_impl.cc )
 
+list(APPEND lte_libs
+    ${Boost_LIBRARIES}
+    ${GNURADIO_RUNTIME_LIBRARIES}
+    ${VOLK_LIBRARIES}
+    ${FFTW3F_LIBRARIES}
+)
+
 add_library(gnuradio-lte SHARED ${lte_sources})
-target_link_libraries(gnuradio-lte ${Boost_LIBRARIES} ${GNURADIO_RUNTIME_LIBRARIES} ${FFTW3F_LIBRARIES})
+target_link_libraries(gnuradio-lte ${lte_libs})
 set_target_properties(gnuradio-lte PROPERTIES DEFINE_SYMBOL "gnuradio_lte_EXPORTS")
 
 ########################################################################

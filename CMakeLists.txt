@@ -86,6 +86,7 @@ set(GRC_BLOCKS_DIR      ${GR_PKG_DATA_DIR}/grc/blocks)
 #find_package(GnuradioRuntime)
 find_package(CppUnit)
 find_package(FFTW3f)
+find_package(Volk)
 
 # To run a more advanced search for GNU Radio and it's components and
 # versions, use the following. Add any components required to the list
@@ -99,10 +100,13 @@ set(GR_REQUIRED_COMPONENTS RUNTIME FILTER)
 find_package(Gnuradio "3.7.2" REQUIRED)
 
 if(NOT GNURADIO_RUNTIME_FOUND)
-    message(FATAL_ERROR "GnuRadio Runtime required to compile lte")
+    message(FATAL_ERROR "GnuRadio Runtime and Filter required to compile lte")
 endif()
 if(NOT CPPUNIT_FOUND)
     message(FATAL_ERROR "CppUnit required to compile lte")
+endif()
+if(NOT VOLK_FOUND)
+    message(FATAL_ERROR "Volk required to compile lte")
 endif()
 
 ########################################################################
@@ -116,12 +120,16 @@ include_directories(
     ${Boost_INCLUDE_DIRS}
     ${CPPUNIT_INCLUDE_DIRS}
     ${GNURADIO_ALL_INCLUDE_DIRS}
+    ${VOLK_INCLUDE_DIRS}
+    ${FFTW3F_INCLUDE_DIRS}
 )
 
 link_directories(
     ${Boost_LIBRARY_DIRS}
     ${CPPUNIT_LIBRARY_DIRS}
     ${GNURADIO_RUNTIME_LIBRARY_DIRS}
+    ${VOLK_LIBRARY_DIRS}
+    ${FFTW3F_LIBRARY_DIRS}
 )
 
 # Set component parameters
