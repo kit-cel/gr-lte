@@ -87,7 +87,7 @@ namespace gr {
 		int Nd   = csub * rsub - len;
 		
 		// Initialize vector array with zeros for NULL symbols
-		unsigned int y[rsub*csub];
+		__GR_VLA(unsigned int, y, rsub*csub);
 		for (int i=0;i<Nd;i++){
 			y[i]=0;	
 		}
@@ -98,7 +98,9 @@ namespace gr {
 		}
 		
 		// Transform vector array y into matrix with 32 columns (csub) rowwise.
-		unsigned int mat[rsub][csub];
+		unsigned int ** mat = new unsigned int *[rsub];
+		for (int i = 0; i < rsub; i++) mat[i] = new unsigned int[csub];
+
 		for (int r = 0;r<rsub;r++){
 			for (int c=0;c<csub;c++){
 				mat[r][c]=y[csub*r+c];
@@ -106,20 +108,25 @@ namespace gr {
 		}
 			
 		// Perform interleaving on matrix according to standard.
-		unsigned int interl_mat[rsub][csub];
+		unsigned int ** interl_mat = new unsigned int *[rsub];
+		for (int i = 0; i < rsub; i++) interl_mat[i] = new unsigned int[csub];
 		for(int r = 0 ; r < rsub ; r++ ){
 			for (int i=0;i<csub;i++){
 				interl_mat[r][i]=mat[r][d_perm_vec[i]];
 			}	
 		}
+		for (int i = 0; i < rsub; i++) delete[] mat[i];
+		delete[] mat;
 
 		// Read out matrix to vector columnwise.
-		unsigned int v[rsub*csub];
+		__GR_VLA(unsigned int, v, rsub * csub);
 		for (int c=0;c<csub;c++){
 			for (int r=0;r<rsub;r++){
 				v[rsub*c+r]=interl_mat[r][c];
 			}
 		}
+		for (int i = 0; i < rsub; i++) delete[] interl_mat[i];
+		delete[] interl_mat;
 		
 		int idx = 0;
 		std::vector<int> interleaved_pos;

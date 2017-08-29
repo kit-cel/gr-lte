@@ -86,7 +86,7 @@ namespace gr {
         char *out0 = (char *) output_items[0];
 		char *out1 = (char *) output_items[1];
 		
-		char bytes[d_data_len/8];
+		__GR_VLA(char, bytes, d_data_len / 8);
 		for(int items = 0 ; items < noutput_items ; items++){
 
 			for(int i = 0 ; i < d_data_len/8 ; i++){
