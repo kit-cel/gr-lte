@@ -75,7 +75,7 @@ class rs_map_generator_m(gr.sync_block):
 
     def complex_list_to_pmt(self, items):
         if len(items) == 0:
-            return pmt.from_bool(pmt.PMT_F)
+            return pmt.PMT_F
         else:
             pmtl = pmt.list1(pmt.from_complex(items[0]))
             for i in range(len(items) - 1):
@@ -90,7 +90,7 @@ class rs_map_generator_m(gr.sync_block):
 
     def int_list_to_pmt(self, items):
         if len(items) == 0:
-            return pmt.from_bool(pmt.PMT_F)
+            return pmt.PMT_F
         else:
             pmtl = pmt.list1(pmt.from_long(items[0]))
             for i in range(len(items) - 1):
