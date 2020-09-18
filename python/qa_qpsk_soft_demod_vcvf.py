@@ -21,7 +21,7 @@
 
 from gnuradio import gr, gr_unittest, blocks
 import lte_swig as lte
-import lte_test
+from . import lte_test
 
 class qa_qpsk_soft_demod_vcvf (gr_unittest.TestCase):
 

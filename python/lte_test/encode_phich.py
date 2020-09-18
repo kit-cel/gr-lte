@@ -19,7 +19,7 @@
 # 
 
 import math
-from lte_core import *
+from .lte_core import *
 
 def get_n_phich_groups(N_g, N_rb_dl):
     # be careful! only normal cyclic prefix is taken into account.
@@ -69,7 +69,7 @@ def get_N_phich_sf(cp_len):
     elif cp_len == "extended":
         return 2
     else:
-        print "invalid input value"
+        print("invalid input value")
         return 0
         
 def get_phich_scr_length(cp_len):
@@ -139,7 +139,7 @@ def encode_phich(hi, N_rb_dl, N_g, cp_len, ns, cell_id, N_ant, style):
         sum_group = get_phich_group_sum(enc_group, N_ant)
         groups.append(sum_group)
     if N_ant > 1:
-        groups = zip(*groups)
+        groups = list(zip(*groups))
     else:
         groups = [groups]
     res = []
@@ -173,7 +173,7 @@ if __name__ == "__main__":
         for n in range(len(N_rb_dl_lut)):
             n_rb_dl = N_rb_dl_lut[n]
             n_groups = get_n_phich_groups(n_g, n_rb_dl)
-            print '{0:+.3f}\t{1}\t{2}'.format(n_g, n_rb_dl, n_groups)
+            print('{0:+.3f}\t{1}\t{2}'.format(n_g, n_rb_dl, n_groups))
         
     
     n_groups = get_n_phich_groups(N_g, N_rb_dl)
@@ -188,10 +188,10 @@ if __name__ == "__main__":
     #print np.shape(group_sum)
     
     phich = encode_phich(hi, N_rb_dl, N_g, cp_len, ns, cell_id, N_ant, style)
-    print "this is the result"
-    print np.shape(phich)
-    print n_groups
-    print 12 * 7
+    print("this is the result")
+    print(np.shape(phich))
+    print(n_groups)
+    print(12 * 7)
         
     
         

@@ -23,12 +23,12 @@
 
 
 # import lte_test modules
-from mib import *
-from encode_bch import *
-from encode_pbch import *
+from .mib import *
+from .encode_bch import *
+from .encode_pbch import *
 
-from lte_test import *
-from lte_phy import *
+from .lte_test import *
+from .lte_phy import *
 
 
 

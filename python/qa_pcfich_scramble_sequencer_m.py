@@ -20,7 +20,7 @@
 # 
 
 from gnuradio import gr, gr_unittest
-from pcfich_scramble_sequencer_m import pcfich_scramble_sequencer_m
+from .pcfich_scramble_sequencer_m import pcfich_scramble_sequencer_m
 import pmt
 
 

@@ -21,7 +21,7 @@
 
 from gnuradio import gr, gr_unittest, blocks
 import lte_swig as lte
-import lte_test
+from . import lte_test
 
 class qa_crc_check_vbvb (gr_unittest.TestCase):
 
@@ -64,13 +64,13 @@ class qa_crc_check_vbvb (gr_unittest.TestCase):
         self.src.set_data(data)        
         self.tb.run ()
         res = self.snk0.data()
-        print "data bits"
+        print("data bits")
         self.assertTupleEqual(tuple(res), tuple(myinput))        
         check = self.snk1.data()
         crcres = [int(check[i]) for i in range(len(check))]
-        print check
+        print(check)
         self.assertTupleEqual(tuple(crcres), tuple([1]*test_len))
-        print crcres
+        print(crcres)
         # check data
 
 

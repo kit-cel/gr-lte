@@ -21,7 +21,7 @@
 
 from gnuradio import gr, gr_unittest, blocks
 import lte_swig as lte
-import lte_test
+from . import lte_test
 import numpy as np
 
 
@@ -42,7 +42,7 @@ class qa_layer_demapper_vcvc(gr_unittest.TestCase):
     #    self.tb.run ()
     #    # check data
     def test_001_setup_N_ant(self):
-        print "\ntest_001_setup_N_ant"
+        print("\ntest_001_setup_N_ant")
         N_ant = [0, 1, 2, 4]
 
         for n in range(len(N_ant)):
@@ -50,7 +50,7 @@ class qa_layer_demapper_vcvc(gr_unittest.TestCase):
             self.assertEqual(N_ant[n], self.demapper.get_N_ant())
 
     def test_002_setup_decoding_style(self):
-        print "\ntest_002_setup_decoding_style"
+        print("\ntest_002_setup_decoding_style")
         style = {0: "tx_diversity", 1: "spatial_multiplexing", 2: "nonsense"}
 
         for s in range(len(style)):
@@ -59,13 +59,13 @@ class qa_layer_demapper_vcvc(gr_unittest.TestCase):
                 self.assertEqual(style[0], self.demapper.get_decoding_style())
             except:
                 if self.demapper.get_decoding_style() != style[0]:
-                    print style[s]
+                    print(style[s])
                 else:
                     self.assertEqual(style[1], self.demapper.get_decoding_style())
 
 
     def test_003_demapping(self):
-        print "\ntest_003_demapping"
+        print("\ntest_003_demapping")
         N_ant = [1, 2, 4]
         cell_id = 124
         mib = lte_test.pack_mib(50, 0, 1.0, 511)
@@ -96,7 +96,7 @@ class qa_layer_demapper_vcvc(gr_unittest.TestCase):
 
         for i in range(3):
             self.demapper.set_N_ant(N_ant[i])
-            print "N_ant = " + str(self.demapper.get_N_ant()), np.shape(mapped[i])
+            print("N_ant = " + str(self.demapper.get_N_ant()), np.shape(mapped[i]))
             self.src.set_data(mapped[i])
             self.snk.reset()
             self.tb.run()
@@ -104,11 +104,11 @@ class qa_layer_demapper_vcvc(gr_unittest.TestCase):
             try:
                 self.assertComplexTuplesAlmostEqual(res, tuple(exp_res))
             except:
-                print "FAILED N_ant = " + str(self.demapper.get_N_ant())
+                print("FAILED N_ant = " + str(self.demapper.get_N_ant()))
                 self.assertComplexTuplesAlmostEqual(res, tuple(exp_res))
 
     def test_004_pcfich(self):
-        print "\ntest_004_pcfich"
+        print("\ntest_004_pcfich")
         cell_id = 124
         ns = 0
         N_ant = 2

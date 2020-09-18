@@ -24,7 +24,7 @@
 
 #include <lte/api.h>
 #include <gnuradio/sync_block.h>
-#include <gnuradio/analog/sig_source_c.h>
+#include <gnuradio/analog/sig_source.h>
 
 namespace gr {
   namespace lte {

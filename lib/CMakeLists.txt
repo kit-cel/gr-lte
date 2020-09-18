@@ -1,4 +1,4 @@
-# Copyright 2011,2012 Free Software Foundation, Inc.
+# Copyright 2011,2012,2016,2018,2019 Free Software Foundation, Inc.
 #
 # This file is part of GNU Radio
 #
@@ -66,9 +66,25 @@ list(APPEND lte_libs
     ${FFTW3F_LIBRARIES}
 )
 
+set(lte_sources "${lte_sources}" PARENT_SCOPE)
+if(NOT lte_sources)
+    MESSAGE(STATUS "No C++ sources... skipping lib/")
+    return()
+endif(NOT lte_sources)
+
 add_library(gnuradio-lte SHARED ${lte_sources})
-target_link_libraries(gnuradio-lte ${lte_libs})
+target_link_libraries(gnuradio-lte ${lte_libs} gnuradio::gnuradio-runtime gnuradio::gnuradio-filter gnuradio::gnuradio-blocks gnuradio::gnuradio-fft Volk::volk)
+target_include_directories(gnuradio-lte
+    PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
+    PUBLIC $<INSTALL_INTERFACE:include>
+  )
 set_target_properties(gnuradio-lte PROPERTIES DEFINE_SYMBOL "gnuradio_lte_EXPORTS")
+
+if(APPLE)
+    set_target_properties(gnuradio-lte PROPERTIES
+        INSTALL_NAME_DIR "${CMAKE_INSTALL_PREFIX}/lib"
+    )
+endif(APPLE)
 
 ########################################################################
 # Install built library files
@@ -91,6 +107,8 @@ list(APPEND test_lte_sources
     ${CMAKE_CURRENT_SOURCE_DIR}/qa_lte.cc
 #    ${CMAKE_CURRENT_SOURCE_DIR}/qa_correlator.cc
 )
+# Anything we need to link to for the unit tests go here
+#list(APPEND GR_TEST_TARGET_DEPS gnuradio-lte)
 
 add_executable(test-lte ${test_lte_sources})
 

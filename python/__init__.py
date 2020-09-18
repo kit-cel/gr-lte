@@ -23,38 +23,11 @@ This is the GNU Radio LTE module. Place your Python package
 description here (python/__init__.py).
 '''
 
-# ----------------------------------------------------------------
-# Temporary workaround for ticket:181 (swig+python problem)
-import sys
-_RTLD_GLOBAL = 0
-try:
-    from dl import RTLD_GLOBAL as _RTLD_GLOBAL
-except ImportError:
-    try:
-	from DLFCN import RTLD_GLOBAL as _RTLD_GLOBAL
-    except ImportError:
-	pass
-
-if _RTLD_GLOBAL != 0:
-    _dlopenflags = sys.getdlopenflags()
-    sys.setdlopenflags(_dlopenflags|_RTLD_GLOBAL)
-# ----------------------------------------------------------------
-
 
 # import swig generated symbols into the lte namespace
-from lte_swig import *
+try:
+    # this might fail if the module is python-only
+    from .lte_swig import *
+except ImportError:
+    pass
 
-# import any pure python here
-from bch_viterbi_vfvb import bch_viterbi_vfvb
-from utils import *
-from pbch_scramble_sequencer_m import pbch_scramble_sequencer_m
-from rs_map_generator_m import rs_map_generator_m
-
-from pcfich_scramble_sequencer_m import pcfich_scramble_sequencer_m
-#
-
-# ----------------------------------------------------------------
-# Tail of workaround
-if _RTLD_GLOBAL != 0:
-    sys.setdlopenflags(_dlopenflags)      # Restore original flags
-# ----------------------------------------------------------------

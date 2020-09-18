@@ -21,7 +21,7 @@
 
 from gnuradio import gr, gr_unittest, blocks
 import lte_swig as lte
-import lte_test
+from . import lte_test
 
 
 class qa_descrambler_vfvf(gr_unittest.TestCase):
@@ -43,7 +43,7 @@ class qa_descrambler_vfvf(gr_unittest.TestCase):
         self.tb = None
 
     def test_001_t(self):
-        print "test_001_t"
+        print("test_001_t")
         # set up fg
         cell_id = 124
         max_len = 84 * self.cce_len
@@ -83,7 +83,7 @@ class qa_descrambler_vfvf(gr_unittest.TestCase):
             self.assertFloatTuplesAlmostEqual(resp, expp)
 
     def test_002_pcfich(self):
-        print "pcfich test"
+        print("pcfich test")
         cfi = 2
         cell_id = 387
         vlen = 32

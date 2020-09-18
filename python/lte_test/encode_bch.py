@@ -18,8 +18,8 @@
 # Boston, MA 02110-1301, USA.
 # 
 
-from mib import *
-from lte_core import *
+from .mib import *
+from .lte_core import *
 import scipy.io
 import glob
 
@@ -29,14 +29,14 @@ def to_byte(bits):
     byte = 0
     for i in range(8):
         byte += bits[7 - i] * (2 ** i)
-    print hex(byte)
+    print(hex(byte))
     return byte
 
 
 def crc_checksum(mib, N_ant):
     #print "calc crc and append"
     if len(mib) != 24 or (N_ant != 1 and N_ant != 2 and N_ant != 4):
-        print "BCH CRC Error: len(" + str(len(mib)) + ")\tN_ant = " + str(N_ant)
+        print("BCH CRC Error: len(" + str(len(mib)) + ")\tN_ant = " + str(N_ant))
         return [0] * 40
 
     crc16 = [1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]  # CRC16 Polynom for LTE
@@ -87,7 +87,7 @@ def convolutional_encoder(input_data):
 
 def convolutional_encoder_sorted(input_data):
     c_encoded = convolutional_encoder(input_data)
-    c_encoded_sorted = range(120)
+    c_encoded_sorted = list(range(120))
     for i in range(40):
         c_encoded_sorted[i] = c_encoded[i * 3 + 0]
         c_encoded_sorted[i + 40] = c_encoded[i * 3 + 1]
@@ -122,7 +122,7 @@ def assertComplexAlmostEqual(first, second, places=7):
 def assertComplexTuplesAlmostEqual(a, b, places=7):
     if not len(a) == len(b):
         return False
-    for i in xrange(len(a)):
+    for i in range(len(a)):
         eq = assertComplexAlmostEqual(a[i], b[i], places)
         if not eq:
             return eq
@@ -139,7 +139,7 @@ def main():
 
     bch = encode_bch(mib, N_ant)
     folder = '../../tests/data/'
-    import encode_pbch
+    from . import encode_pbch
 
     for f in glob.glob(folder + 'pbch*.mat'):
         s = f.split('.')
@@ -170,7 +170,7 @@ def main():
             eq0 = assertComplexTuplesAlmostEqual(pypbch[0], matpbch[0])
             eq1 = assertComplexTuplesAlmostEqual(pypbch[1], matpbch[1])
             if not eq0 or not eq1:
-                print 'assert', eq0, eq1
+                print('assert', eq0, eq1)
 
 
 if __name__ == "__main__":

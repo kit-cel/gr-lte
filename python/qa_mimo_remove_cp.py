@@ -23,8 +23,8 @@
 from gnuradio import gr, gr_unittest
 from gnuradio import blocks
 import lte_swig as lte
-import lte_test.lte_phy as phy
-import lte_test as t
+from . import lte_test.lte_phy as phy
+from . import lte_test as t
 import pmt
 import numpy as np
 

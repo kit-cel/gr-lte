@@ -20,7 +20,7 @@
 
 
 import math
-from lte_core import *
+from .lte_core import *
 import numpy as np
 
 cfi_codewords = { 1:[0,1,1,0,1,1,0,1,1,0,1,1,0,1,1,0,1,1,0,1,1,0,1,1,0,1,1,0,1,1,0,1], 2:[1,0,1,1,0,1,1,0,1,1,0,1,1,0,1,1,0,1,1,0,1,1,0,1,1,0,1,1,0,1,1,0], 3:[1,1,0,1,1,0,1,1,0,1,1,0,1,1,0,1,1,0,1,1,0,1,1,0,1,1,0,1,1,0,1,1],4:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
@@ -28,7 +28,7 @@ def get_cfi_sequence(cfi):
     # check validity
     # According to ETSI 136211 the CFI sequence is represented by b(0),...,b(31)
     if cfi < 1 or cfi > 4:
-        print "hey stupid! " + str(cfi) + " is an invalid value!"
+        print("hey stupid! " + str(cfi) + " is an invalid value!")
         return cfi_codewords[4]
     return cfi_codewords[cfi]
         
@@ -91,7 +91,7 @@ if __name__ == "__main__":
     for i in range(len(cfi1)):
         corr = corr + cfi2[i]*cfi2[i]
         
-    print corr
+    print(corr)
     
     
     

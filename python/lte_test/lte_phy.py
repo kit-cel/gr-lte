@@ -19,7 +19,7 @@
 #
 
 import numpy as np
-import lte_core
+from . import lte_core
 import math
 import matplotlib.pyplot as plt
 
@@ -61,7 +61,7 @@ def symbol_pilot_value_and_position(N_rb_dl, ns, l, cell_id, Ncp, p):
     N_RB_MAX = 110
     rs_seq = lte_core.rs_generator(ns, l, cell_id, Ncp)
     offset = calc_offset(ns, l, cell_id, p)
-    rs_sym_pos = range(offset, 12 * N_rb_dl, 6)
+    rs_sym_pos = list(range(offset, 12 * N_rb_dl, 6))
     rs_sym_val = rs_seq[N_RB_MAX - N_rb_dl:N_RB_MAX + N_rb_dl]
     return [rs_sym_val, rs_sym_pos]
 

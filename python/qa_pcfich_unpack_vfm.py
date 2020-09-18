@@ -21,7 +21,7 @@
 
 from gnuradio import gr, gr_unittest, blocks
 import lte_swig as lte
-import lte_test
+from . import lte_test
 
 class qa_pcfich_unpack_vfm (gr_unittest.TestCase):
 
@@ -30,7 +30,7 @@ class qa_pcfich_unpack_vfm (gr_unittest.TestCase):
 
         key = "subframe"
         msg_buf_name = "cfi"
-        print "setup test"
+        print("setup test")
 
         data = []
         self.cfi_list = []
@@ -57,7 +57,7 @@ class qa_pcfich_unpack_vfm (gr_unittest.TestCase):
         self.cfi.activate_debug_mode(True)
 
         self.tb.connect(self.src, self.cfi)
-        print "setup finished"
+        print("setup finished")
 
     def tearDown (self):
         self.tb = None
@@ -66,8 +66,8 @@ class qa_pcfich_unpack_vfm (gr_unittest.TestCase):
         # set up fg
         self.tb.run ()
         res = self.cfi.cfi_results()
-        print res
-        print self.cfi_list
+        print(res)
+        print(self.cfi_list)
         self.assertListEqual(self.cfi_list, list(res))
         # check data
 

@@ -20,7 +20,7 @@
 # 
 
 from gnuradio import gr, gr_unittest, blocks
-from rs_map_generator_m import rs_map_generator_m
+from .rs_map_generator_m import rs_map_generator_m
 import pmt
 import time
 
@@ -56,7 +56,7 @@ class qa_rs_map_generator_m (gr_unittest.TestCase):
     def test_001_t (self):
         # set up fg
         #self.tb.run ()
-        print "start"
+        print("start")
         # Don't run this code on a usual ctest.
         # For some reason msg port only blocks will not terminate.
         #self.tb.start()

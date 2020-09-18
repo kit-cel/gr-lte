@@ -1,22 +1,22 @@
-#!/usr/bin/env python
-# 
+#!/usr/bin/env python3
+#
 # Copyright 2013 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
-# 
+#
 # This is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 3, or (at your option)
 # any later version.
-# 
+#
 # This software is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this software; see the file COPYING.  If not, write to
 # the Free Software Foundation, Inc., 51 Franklin Street,
 # Boston, MA 02110-1301, USA.
-# 
+#
 
 import math
 import numpy as np
@@ -44,7 +44,7 @@ def symbol_pilot_value_and_position(N_rb_dl, ns, l, cell_id, Ncp, p):
     N_RB_MAX = 110
     rs_seq = rs_generator(ns, l, cell_id, Ncp)
     offset = calc_offset(ns, l, cell_id, p)
-    rs_sym_pos = range(offset, 12 * N_rb_dl, 6)
+    rs_sym_pos = list(range(offset, 12 * N_rb_dl, 6))
     rs_sym_val = rs_seq[N_RB_MAX - N_rb_dl:N_RB_MAX + N_rb_dl]
     return [rs_sym_pos, rs_sym_val]
 
@@ -100,7 +100,7 @@ def calc_v(ns, l, p):
 
 
 def encode_nrz(data):
-    out_data = range(len(data))
+    out_data = list(range(len(data)))
     for i in range(len(data)):
         out_data[i] = float((-2.0 * data[i]) + 1)
     return out_data
@@ -142,7 +142,7 @@ def main():
     ant = 0
 
     [pilot_pos, pilot_vals] = frame_pilot_value_and_position(N_rb_dl, cell_id, Ncp, ant)
-    print pilot_pos
+    print(pilot_pos)
 
 if __name__ == "__main__":
     main()

@@ -21,7 +21,7 @@
 
 from gnuradio import gr, gr_unittest, blocks
 import lte_swig as lte
-import lte_test
+from . import lte_test
 
 class qa_mib_unpack_vbm (gr_unittest.TestCase):
 
@@ -33,7 +33,7 @@ class qa_mib_unpack_vbm (gr_unittest.TestCase):
         phich_res = 1.0
         sfn =412
         mib = lte_test.pack_mib(N_rb_dl, phich_dur, phich_res, sfn)
-        N_ant = range(1)
+        N_ant = list(range(1))
         N_ant[0] = 2
         self.src1 = blocks.vector_source_b(mib, False, 24)
         self.src2 = blocks.vector_source_b(N_ant,False,1)

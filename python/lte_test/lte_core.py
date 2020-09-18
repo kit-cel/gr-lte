@@ -59,7 +59,7 @@ def rs_generator(ns, l, cell_id, Ncp):
 
 
 def nrz_encoding(data):
-    out_data = range(len(data))
+    out_data = list(range(len(data)))
     for i in range(len(data)):
         out_data[i] = float((-2.0 * data[i]) + 1)
     return out_data
@@ -86,7 +86,7 @@ def layer_mapping(data, N_ant, style):
     #Do layer Mapping according to ETSI 136.211 Sec 6.3.3.3    
     M_symb = len(data)
     if style != "tx_diversity":
-        print style + "\tnot supported!"
+        print(style + "\tnot supported!")
         return data
     output = []
     if N_ant == 1:
@@ -125,13 +125,13 @@ def prepare_for_demapper_block(lay, N_ant, style):
             res.extend(lay[i])
         return res
     else:
-        print "invalid arguments"
+        print("invalid arguments")
         return lay
 
 
 def pre_coding(data, N_ant, style):
     if style != "tx_diversity":
-        print style + "\tnot supported!"
+        print(style + "\tnot supported!")
         return data
     output = []
     if N_ant == 1:
@@ -146,7 +146,7 @@ def pre_coding(data, N_ant, style):
             y[1][2 * n + 1] = complex(1 * x[0][n].real, -1 * x[0][n].imag) / math.sqrt(2)
         output = y
     else:
-        print str(N_ant) + "\tantenna port not supported!"
+        print(str(N_ant) + "\tantenna port not supported!")
         return data
     return output
 
@@ -170,7 +170,7 @@ def interleave(data):
     for i in range(n_row):
         part = y[i * n_col: (i + 1) * (n_col)]
         matrix.append(part)
-    zip_mat = zip(*matrix)
+    zip_mat = list(zip(*matrix))
     intld = interleave_row(zip_mat)
     vec = []
     for i in range(len(intld)):
@@ -206,9 +206,9 @@ def main():
 
 
     dataset = np.ones([30, ])
-    print np.shape(dataset)
-    print np.shape(layer_mapping(dataset, 1, style))
-    print np.shape(pre_coding(layer_mapping(dataset, 1, style), 1, style))
+    print(np.shape(dataset))
+    print(np.shape(layer_mapping(dataset, 1, style)))
+    print(np.shape(pre_coding(layer_mapping(dataset, 1, style), 1, style)))
 
 
     mat = []
@@ -216,7 +216,7 @@ def main():
         mat.append([i] * 3)
     inter = interleave(mat)
 
-    arr = range(80)
+    arr = list(range(80))
     intl = interleave(arr)
     # for i in range(len(arr)):
     #     print "{0}\t{1}".format(intl[i], inter[i])

@@ -22,7 +22,7 @@
 from gnuradio import gr, gr_unittest, blocks
 import lte_swig as lte
 import pmt
-import lte_test
+from . import lte_test
 
 class qa_remove_cp_cvc (gr_unittest.TestCase):
 
@@ -58,14 +58,14 @@ class qa_remove_cp_cvc (gr_unittest.TestCase):
         cpl1 = 144*fftl/2048
         slotl = 7 * fftl + 6*cpl1 + cpl0
 
-        symvals = range(fftl) #[1] * fftl
+        symvals = list(range(fftl)) #[1] * fftl
         data = []
         in_data = [0] * 1500
         items = len(in_data)
         tags = []
         for i in range(slots):
             value = (i * 7) % frame_len
-            print items, "\t", value
+            print(items, "\t", value)
             tags.append(lte_test.generate_tag(key, srcid, value, items))
             for sym in range(7):
                 vec = []
@@ -87,7 +87,7 @@ class qa_remove_cp_cvc (gr_unittest.TestCase):
 
         # check data
         res = self.snk.data()
-        print len(res)
+        print(len(res))
 
         # now really check if results is ok
         min_samps = min(len(res), len(data))
@@ -118,7 +118,7 @@ class qa_remove_cp_cvc (gr_unittest.TestCase):
         my_string = "key = " + pmt.symbol_to_string(tag.key) + "\tsrcid = " + pmt.symbol_to_string(tag.srcid)
         my_string = my_string + "\tvalue = " + str(pmt.to_long(tag.value))
         my_string = my_string + "\toffset = " + str(tag.offset)
-        print my_string
+        print(my_string)
 
 
 if __name__ == '__main__':

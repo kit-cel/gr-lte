@@ -22,7 +22,7 @@
 from gnuradio import gr, gr_unittest, blocks
 import lte_swig as lte
 import numpy as np
-import lte_test
+from . import lte_test
 
 class qa_pbch_demux_vcvc (gr_unittest.TestCase):
 
@@ -88,7 +88,7 @@ class qa_pbch_demux_vcvc (gr_unittest.TestCase):
         # check data
         res1 = self.snk1.data()
 
-        print len(res1)
+        print(len(res1))
         compare = res1[0:len(pbch[0])]
 
         self.assertComplexTuplesAlmostEqual(compare, tuple(pbch[0][0:len(compare)]))

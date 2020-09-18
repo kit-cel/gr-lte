@@ -22,7 +22,7 @@
 from gnuradio import gr, gr_unittest, blocks
 import lte_swig as lte
 import numpy as np
-import lte_test
+from . import lte_test
 import pmt
 
 class qa_pcfich_demux_vcvc (gr_unittest.TestCase):
@@ -83,7 +83,7 @@ class qa_pcfich_demux_vcvc (gr_unittest.TestCase):
 
         res = self.snk0.data()
 
-        print "test 001 check res"
+        print("test 001 check res")
         for i in range(len(res)/len(exp_res[0])):
             part = res[i*16:(i+1)*16]
             self.assertComplexTuplesAlmostEqual(part, exp_res[i])

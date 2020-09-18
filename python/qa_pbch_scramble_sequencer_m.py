@@ -36,7 +36,7 @@ class qa_pbch_scramble_sequencer_m(gr_unittest.TestCase):
         self.tb = None
 
     def test_001_t(self):
-        print "test_001"
+        print("test_001")
         # set up fg
         self.tb.run()
         # check data

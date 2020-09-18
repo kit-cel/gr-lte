@@ -22,7 +22,7 @@ from gnuradio import gr, gr_unittest
 from gnuradio import blocks, filter
 import pmt
 import lte_swig as lte
-import lte_test.lte_phy as t
+from . import lte_test.lte_phy as t
 import numpy as np
 
 
@@ -83,7 +83,7 @@ class qa_mimo_pss_freq_sync(gr_unittest.TestCase):
         # print()
         pos = pmt.to_long(dbg2.get_message(0))
         print(pos)
-        print(pos * 2 - (len(taps) // 2))
+        print((pos * 2 - (len(taps) // 2)))
         #import matplotlib.pyplot as plt
         #plt.plot(np.abs(samps))
         #plt.show()

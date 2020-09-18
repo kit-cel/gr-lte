@@ -18,14 +18,14 @@
 # Boston, MA 02110-1301, USA.
 # 
 
-from mib import *
-from encode_bch import *
+from .mib import *
+from .encode_bch import *
 # from lte_core import *
 
 
 def pbch_scrambling(data, cell_id):
     if len(data) != 120:
-        print "wrong length"
+        print("wrong length")
         return data
 
     output = expand_for_scrambling(data)
@@ -60,8 +60,8 @@ def pre_decoding(data, h, N_ant, style):
     e_x0 = h0* r0 + h1 r1*
     e_x1 = h0* r1 - h1 r0*
     '''
-    print "pre_decoding\t" + style
-    print len(data)
+    print("pre_decoding\t" + style)
+    print(len(data))
     output = [[], []]
     for n in range(len(data) / 2):
         h0 = h[0][2 * n]
@@ -103,17 +103,17 @@ def main():
 
     pbch = encode_pbch(bch, cell_id, N_ant, style)
 
-    print np.shape(scrambled)
-    print np.shape(pre_coded)
-    print np.shape(pbch)
-    print np.shape(pre_coded[0])
-    print np.shape(pbch[0])
+    print(np.shape(scrambled))
+    print(np.shape(pre_coded))
+    print(np.shape(pbch))
+    print(np.shape(pre_coded[0]))
+    print(np.shape(pbch[0]))
 
     for n in range(len(pbch[0])):
         if pbch[0][n] != pre_coded[0][n]:
-            print "ant0 failed!"
+            print("ant0 failed!")
         elif pbch[1][n] != pre_coded[1][n]:
-            print "ant1 failed!"
+            print("ant1 failed!")
 
     rx = [pre_coded[0][n] + pre_coded[1][n] for n in range(len(pre_coded[0]))]
     h = [[complex(1, 0)] * len(pre_coded[0]), [complex(1, 0)] * len(pre_coded[0])]
