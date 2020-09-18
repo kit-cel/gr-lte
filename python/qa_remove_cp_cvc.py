@@ -1,28 +1,28 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# 
+#
 # Copyright 2013 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
-# 
+#
 # This is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 3, or (at your option)
 # any later version.
-# 
+#
 # This software is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this software; see the file COPYING.  If not, write to
 # the Free Software Foundation, Inc., 51 Franklin Street,
 # Boston, MA 02110-1301, USA.
-# 
+#
 
 from gnuradio import gr, gr_unittest, blocks
 import lte_swig as lte
 import pmt
-from . import lte_test
+import lte_test
 
 class qa_remove_cp_cvc (gr_unittest.TestCase):
 
@@ -54,8 +54,8 @@ class qa_remove_cp_cvc (gr_unittest.TestCase):
         srcid = "src"
         frame_len = 70
         slots = 30
-        cpl0 = 160*fftl/2048
-        cpl1 = 144*fftl/2048
+        cpl0 = 160*fftl//2048
+        cpl1 = 144*fftl//2048
         slotl = 7 * fftl + 6*cpl1 + cpl0
 
         symvals = list(range(fftl)) #[1] * fftl
@@ -96,7 +96,7 @@ class qa_remove_cp_cvc (gr_unittest.TestCase):
 
     def get_tag_list(self, data_len, tag_key, N_ofdm_symbols):
         fftl = self.fftl
-        slots = data_len / 7
+        slots = data_len // 7
         cpl0 = 160*fftl/2048
         cpl1 = 144*fftl/2048
         slotl = 7*fftl + 6*cpl1 + cpl0

@@ -1,22 +1,22 @@
 # !/usr/bin/env python
-# 
+#
 # Copyright 2013 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
-# 
+#
 # This is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 3, or (at your option)
 # any later version.
-# 
+#
 # This software is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this software; see the file COPYING.  If not, write to
 # the Free Software Foundation, Inc., 51 Franklin Street,
 # Boston, MA 02110-1301, USA.
-# 
+#
 
 from .mib import *
 from .encode_bch import *
@@ -35,7 +35,7 @@ def pbch_scrambling(data, cell_id):
 
 def expand_for_scrambling(data):
     output = []
-    for i in range(1920 / len(data)):
+    for i in range(1920 // len(data)):
         output.extend(data)
     return output
 
@@ -51,11 +51,11 @@ def pre_decoding(data, h, N_ant, style):
         time0   time1
     ant0  x0    x1
     ant1 -x1*   x0*
-    
+
     RX
     r0 = h0 x0 - x1* h1
     r1 = h0 x1 + h1 x0*
-    
+
     estimate
     e_x0 = h0* r0 + h1 r1*
     e_x1 = h0* r1 - h1 r0*

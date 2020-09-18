@@ -22,7 +22,7 @@
 from gnuradio import gr, gr_unittest, blocks
 #import lte_swig as lte
 import lte_swig as lte
-from . import lte_test
+import lte_test
 
 class qa_pbch_descrambler_vfvf (gr_unittest.TestCase):
 
@@ -65,7 +65,7 @@ class qa_pbch_descrambler_vfvf (gr_unittest.TestCase):
         print((len(res)))
 
         count = 0
-        for i in range(len(res)/len(n_bch)):
+        for i in range(len(res)//len(n_bch)):
             part = res[len(n_bch)*i:(i+1)*len(n_bch)]
             try:
                 self.assertEqual(part, n_bch,3)
@@ -83,7 +83,7 @@ class qa_pbch_descrambler_vfvf (gr_unittest.TestCase):
         tl = 1024
         data = []
         ref_bch = []
-        for i in range(tl/4):
+        for i in range(tl//4):
             mib = lte_test.pack_mib(50,0,1.0, i*4)
             bch = tuple(lte_test.encode_bch(mib, N_ant))
             p_scrambled = lte_test.pbch_scrambling(bch, cell_id)
@@ -100,7 +100,7 @@ class qa_pbch_descrambler_vfvf (gr_unittest.TestCase):
         print((len(res)))
 
         count = 0
-        for i in range(len(res)/len(ref_bch)):
+        for i in range(len(res)//len(ref_bch)):
             part = res[len(ref_bch)*i:(i+1)*len(ref_bch)]
             try:
                 self.assertEqual(part, ref_bch,3)

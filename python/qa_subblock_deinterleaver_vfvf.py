@@ -21,7 +21,7 @@
 
 from gnuradio import gr, gr_unittest, blocks
 import lte_swig as lte
-from . import lte_test
+import lte_test
 import numpy as np
 
 class qa_subblock_deinterleaver_vfvf (gr_unittest.TestCase):

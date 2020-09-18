@@ -22,7 +22,7 @@
 import numpy
 from gnuradio import gr
 import pmt
-from . import utils
+import utils
 
 
 class pcfich_scramble_sequencer_m(gr.sync_block):

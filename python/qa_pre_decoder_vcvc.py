@@ -21,7 +21,7 @@
 
 from gnuradio import gr, gr_unittest, blocks
 import lte_swig as lte
-from . import lte_test
+import lte_test
 
 
 class qa_pre_decoder_vcvc(gr_unittest.TestCase):
@@ -78,7 +78,7 @@ class qa_pre_decoder_vcvc(gr_unittest.TestCase):
         res = self.snk.data()
 
         exp_res = []
-        for i in range(len(stream) / 240):
+        for i in range(len(stream) // 240):
             print(i)
             lay0 = layer_mapped[0][i * 120:(i + 1) * 120]
             lay1 = layer_mapped[1][i * 120:(i + 1) * 120]

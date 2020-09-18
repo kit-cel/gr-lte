@@ -1,28 +1,28 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# 
+#
 # Copyright 2013 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
-# 
+#
 # This is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 3, or (at your option)
 # any later version.
-# 
+#
 # This software is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this software; see the file COPYING.  If not, write to
 # the Free Software Foundation, Inc., 51 Franklin Street,
 # Boston, MA 02110-1301, USA.
-# 
+#
 
 from gnuradio import gr, gr_unittest, blocks
 import lte_swig as lte
 import pmt
-from . import lte_test
+import lte_test
 import numpy as np
 import os
 
@@ -84,7 +84,7 @@ class qa_channel_estimator_vcvc (gr_unittest.TestCase):
 
         print("get and set data")
         stream = self.get_data_stream(N_ant, cell_id, style, N_rb_dl, sfn, subcarriers)
-        data_len = len(stream)/subcarriers
+        data_len = len(stream)//subcarriers
         tag_list = lte_test.get_tag_list(data_len, N_ofdm_symbols, tag_key, srcid)
         self.src.set_data(stream, tag_list)
 
@@ -100,7 +100,7 @@ class qa_channel_estimator_vcvc (gr_unittest.TestCase):
 
         failed = 0
         first_failed = -1
-        for i in range(len(res)/subcarriers):
+        for i in range(len(res)//subcarriers):
             #print i
             vec = res[i*subcarriers:(i+1)*subcarriers]
             try:

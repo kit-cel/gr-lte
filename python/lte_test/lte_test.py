@@ -19,7 +19,6 @@
 #
 
 from gnuradio import gr
-from zeitgeist.datamodel import symbol
 import pmt
 import numpy as np
 import scipy.io
@@ -35,7 +34,7 @@ from . import lte_phy
 # This is a function to help test setup
 def get_tag_list(data_len, value_range, tag_key, srcid):
     tag_list = []
-    for i in range(data_len):
+    for i in range(int(data_len)):
         tag = generate_tag(tag_key, srcid, i % value_range, i)
         tag_list.append(tag)
     return tag_list
@@ -222,12 +221,13 @@ def map_pbch_to_frame_layer(frame, pbch, cell_id, sfn, ant):
     pbch_pos = (n_carriers / 2) - (72 / 2)
     pbch_element = 0
     for i in range(72):
+        print(i+pbch_pos)
         if i % 3 != cell_id_mod3:
-            frame[7][i + pbch_pos] = pbch_part[pbch_element]
-            frame[8][i + pbch_pos] = pbch_part[pbch_element + 48]
+            frame[7][int(i + pbch_pos)] = pbch_part[pbch_element]
+            frame[8][int(i + pbch_pos)] = pbch_part[pbch_element + 48]
             pbch_element = pbch_element + 1
-        frame[9][i + pbch_pos] = pbch_part[i + 2 * 48]
-        frame[10][i + pbch_pos] = pbch_part[i + 2 * 48 + 72]
+        frame[9][int(i + pbch_pos)] = pbch_part[i + 2 * 48]
+        frame[10][int(i + pbch_pos)] = pbch_part[i + 2 * 48 + 72]
 
     return frame
 

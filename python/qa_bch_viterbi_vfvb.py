@@ -20,8 +20,8 @@
 #
 
 from gnuradio import gr, gr_unittest, blocks
-from .bch_viterbi_vfvb import bch_viterbi_vfvb
-from . import lte_test
+from bch_viterbi_vfvb import bch_viterbi_vfvb
+import lte_test
 
 class qa_bch_viterbi_vfvb (gr_unittest.TestCase):
 

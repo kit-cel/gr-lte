@@ -1,22 +1,22 @@
 # !/usr/bin/env python
-# 
+#
 # Copyright 2013 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
-# 
+#
 # This is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 3, or (at your option)
 # any later version.
-# 
+#
 # This software is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this software; see the file COPYING.  If not, write to
 # the Free Software Foundation, Inc., 51 Franklin Street,
 # Boston, MA 02110-1301, USA.
-# 
+#
 
 import math
 import numpy as np
@@ -68,7 +68,7 @@ def nrz_encoding(data):
 def qpsk_modulation(data):
     output = []
     nrz_data = nrz_encoding(data)
-    for i in range(len(nrz_data) / 2):
+    for i in range(len(nrz_data) // 2):
         mod = complex(nrz_data[i * 2 + 0] / math.sqrt(2), nrz_data[i * 2 + 1] / math.sqrt(2))
         output.extend([mod])
     return output
@@ -83,7 +83,7 @@ def bpsk_modulation(data):
 
 
 def layer_mapping(data, N_ant, style):
-    #Do layer Mapping according to ETSI 136.211 Sec 6.3.3.3    
+    #Do layer Mapping according to ETSI 136.211 Sec 6.3.3.3
     M_symb = len(data)
     if style != "tx_diversity":
         print(style + "\tnot supported!")
@@ -92,7 +92,7 @@ def layer_mapping(data, N_ant, style):
     if N_ant == 1:
         output = [data, ]
     elif N_ant == 2:
-        M_layer_symb = M_symb / 2
+        M_layer_symb = M_symb // 2
         x = [[], []]
         for i in range(M_layer_symb):
             x[0].append(data[2 * i + 0])
@@ -101,9 +101,9 @@ def layer_mapping(data, N_ant, style):
     elif N_ant == 4:
         M_layer_symb = 0
         if M_symb % 4 == 0:
-            M_layer_symb = M_symb / 4
+            M_layer_symb = M_symb // 4
         else:
-            M_layer_symb = (M_symb + 2) / 4
+            M_layer_symb = (M_symb + 2) // 4
             data.extend([0] * 2)
 
         x = [[], [], [], []]
@@ -224,21 +224,21 @@ def main():
 
 if __name__ == "__main__":
     main()
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
