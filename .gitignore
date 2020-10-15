@@ -2,6 +2,7 @@ build/
 build-cb/
 *~
 *.pyc
+*.bak
 .idea/
 callgrind*
 python_matlab*

@@ -1,23 +1,23 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# 
+#
 # Copyright 2013 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
-# 
+#
 # This is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 3, or (at your option)
 # any later version.
-# 
+#
 # This software is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this software; see the file COPYING.  If not, write to
 # the Free Software Foundation, Inc., 51 Franklin Street,
 # Boston, MA 02110-1301, USA.
-# 
+#
 
 from gnuradio import gr
 import pmt
@@ -38,7 +38,7 @@ class rs_map_generator_m(gr.sync_block):
                                in_sig=None,
                                out_sig=None)
 
-        print "RS GENERATOR", msg_buf_name_in, "\t", msg_buf_name_out, "\t", ant_port
+        print(( "RS GENERATOR", msg_buf_name_in, "\t", msg_buf_name_out, "\t", ant_port))
         self.N_rb_dl = N_rb_dl
         self.ant_port = ant_port
         self.msg_buf_in = pmt.intern(msg_buf_name_in)
@@ -56,7 +56,7 @@ class rs_map_generator_m(gr.sync_block):
         else:
             self.cell_id = cell_id
 
-        print self.name(), " cell_id = ", self.cell_id, " generating RS map!"
+        print((self.name(), " cell_id = ", self.cell_id, " generating RS map!"))
         #print "generate pilot map: cell_id = " + str(cell_id) + "\tant_port = " + str(self.ant_port)
         Ncp = 1  # Always 1 for our purposes --> thus it's hard coded
         [rs_poss, rs_vals] = self.frame_pilot_value_and_position(self.N_rb_dl, cell_id, Ncp, self.ant_port)
@@ -115,10 +115,10 @@ class rs_map_generator_m(gr.sync_block):
         return [rs_pos_frame, rs_val_frame]
 
     def symbol_pilot_value_and_position(self, N_rb_dl, ns, l, cell_id, Ncp, p):
-        N_RB_MAX = 110        
+        N_RB_MAX = 110
         rs_seq = self.rs_generator(ns, l, cell_id, Ncp)
         offset = self.calc_offset(ns, l, cell_id, p)
-        rs_sym_pos = range(offset, 12 * N_rb_dl, 6)
+        rs_sym_pos = list(range(offset, 12 * N_rb_dl, 6))
         rs_sym_val = rs_seq[N_RB_MAX - N_rb_dl:N_RB_MAX + N_rb_dl]
         return [rs_sym_pos, rs_sym_val]
 

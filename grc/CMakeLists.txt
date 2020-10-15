@@ -16,43 +16,44 @@
 # along with GNU Radio; see the file COPYING.  If not, write to
 # the Free Software Foundation, Inc., 51 Franklin Street,
 # Boston, MA 02110-1301, USA.
+
 install(FILES
-    lte_mib_unpack_vbm.xml
-    lte_crc_check_vbvb.xml
-    lte_bch_crc_check_ant_chooser_bb.xml
-    lte_bch_viterbi_vfvb.xml
-    lte_subblock_deinterleaver_vfvf.xml
-    lte_pbch_descrambler_vfvf.xml
-    lte_repeat_message_source_vf.xml
-    lte_pbch_scramble_sequencer_m.xml
-    lte_qpsk_soft_demod_vcvf.xml
-    lte_layer_demapper_vcvc.xml
-    lte_pre_decoder_vcvc.xml
-    lte_pbch_demux_vcvc.xml
-    lte_channel_estimator_vcvc.xml
-    lte_rs_map_generator_m.xml
-    lte_extract_subcarriers_vcvc.xml
-    lte_remove_cp_cvc.xml
-    lte_sss_calculator_vcm.xml
-    lte_pcfich_unpack_vfm.xml
-    lte_rough_symbol_sync_cc.xml
-    lte_pss_symbol_selector_cvc.xml
-    lte_pss_calculator_vcm.xml
-    lte_pss_tagger_cc.xml
-    lte_sss_symbol_selector_cvc.xml
-    lte_sss_tagger_cc.xml
-    lte_sync_frequency_c.xml
-    lte_descrambler_vfvf.xml
-    lte_pcfich_scramble_sequencer_m.xml
-    lte_pcfich_demux_vcvc.xml
-    lte_mimo_pss_coarse_sync.xml
-    lte_mimo_pss_fine_sync.xml
-    lte_mimo_pss_tagger.xml
-    lte_mimo_pss_coarse_control.xml
-    lte_mimo_pss_freq_sync.xml
-    lte_mimo_sss_symbol_selector.xml
-    lte_mimo_sss_calculator.xml
-    lte_mimo_sss_tagger.xml
-    lte_mimo_remove_cp.xml DESTINATION share/gnuradio/grc/blocks
+    lte_mib_unpack_vbm.block.yml
+    lte_crc_check_vbvb.block.yml
+    lte_bch_crc_check_ant_chooser_bb.block.yml
+    lte_bch_viterbi_vfvb.block.yml
+    lte_subblock_deinterleaver_vfvf.block.yml
+    lte_pbch_descrambler_vfvf.block.yml
+    lte_repeat_message_source_vf.block.yml
+    lte_pbch_scramble_sequencer_m.block.yml
+    lte_qpsk_soft_demod_vcvf.block.yml
+    lte_layer_demapper_vcvc.block.yml
+    lte_pre_decoder_vcvc.block.yml
+    lte_pbch_demux_vcvc.block.yml
+    lte_channel_estimator_vcvc.block.yml
+    lte_rs_map_generator_m.block.yml
+    lte_extract_subcarriers_vcvc.block.yml
+    lte_remove_cp_cvc.block.yml
+    lte_sss_calculator_vcm.block.yml
+    lte_pcfich_unpack_vfm.block.yml
+    lte_rough_symbol_sync_cc.block.yml
+    lte_pss_symbol_selector_cvc.block.yml
+    lte_pss_calculator_vcm.block.yml
+    lte_pss_tagger_cc.block.yml
+    lte_sss_symbol_selector_cvc.block.yml
+    lte_sss_tagger_cc.block.yml
+    lte_sync_frequency_c.block.yml
+    lte_descrambler_vfvf.block.yml
+    lte_pcfich_scramble_sequencer_m.block.yml
+    lte_pcfich_demux_vcvc.block.yml
+    lte_mimo_pss_coarse_sync.block.yml
+    lte_mimo_pss_fine_sync.block.yml
+    lte_mimo_pss_tagger.block.yml
+    lte_mimo_pss_coarse_control.block.yml
+    lte_mimo_pss_freq_sync.block.yml
+    lte_mimo_sss_symbol_selector.block.yml
+    lte_mimo_sss_calculator.block.yml
+    lte_mimo_sss_tagger.block.yml
+    lte_mimo_remove_cp.block.yml DESTINATION share/gnuradio/grc/blocks
    
 )

@@ -83,7 +83,7 @@ class qa_mimo_pss_freq_sync(gr_unittest.TestCase):
         # print()
         pos = pmt.to_long(dbg2.get_message(0))
         print(pos)
-        print(pos * 2 - (len(taps) // 2))
+        print((pos * 2 - (len(taps) // 2)))
         #import matplotlib.pyplot as plt
         #plt.plot(np.abs(samps))
         #plt.show()

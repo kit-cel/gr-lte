@@ -1,23 +1,23 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# 
+#
 # Copyright 2013 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
-# 
+#
 # This is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 3, or (at your option)
 # any later version.
-# 
+#
 # This software is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this software; see the file COPYING.  If not, write to
 # the Free Software Foundation, Inc., 51 Franklin Street,
 # Boston, MA 02110-1301, USA.
-# 
+#
 
 from gnuradio import gr, gr_unittest, blocks
 import lte_swig as lte
@@ -57,7 +57,7 @@ class qa_channel_estimator_vcvc (gr_unittest.TestCase):
         self.tb = None
 
     def test_001_set_pilot_map(self):
-        print "test_001_set_pilot_map BEGIN"
+        print("test_001_set_pilot_map BEGIN")
         N_rb_dl = self.N_rb_dl
         cell_id = 124
         Ncp = 1
@@ -66,10 +66,10 @@ class qa_channel_estimator_vcvc (gr_unittest.TestCase):
         res_carriers = self.estimator.get_pilot_carriers()
         for i in range(len(res_carriers)):
             self.assertEqual(res_carriers[i], tuple(rs_pos_frame[i]) )
-        print "test_001_set_pilot_map END"
+        print("test_001_set_pilot_map END")
 
     def test_002_t (self):
-        print "test_002_t BEGIN"
+        print("test_002_t BEGIN")
         N_rb_dl = self.N_rb_dl
         subcarriers = self.subcarriers
         N_ofdm_symbols = self.N_ofdm_symbols
@@ -82,16 +82,16 @@ class qa_channel_estimator_vcvc (gr_unittest.TestCase):
         sfn = 0
         srcid = "source"
 
-        print "get and set data"
+        print("get and set data")
         stream = self.get_data_stream(N_ant, cell_id, style, N_rb_dl, sfn, subcarriers)
-        data_len = len(stream)/subcarriers
+        data_len = len(stream)//subcarriers
         tag_list = lte_test.get_tag_list(data_len, N_ofdm_symbols, tag_key, srcid)
         self.src.set_data(stream, tag_list)
 
-        print "get and set pilot map"
+        print("get and set pilot map")
         [rs_pos_frame, rs_val_frame] = lte_test.frame_pilot_value_and_position(N_rb_dl, cell_id, Ncp, 0)
         self.estimator.set_pilot_map(rs_pos_frame, rs_val_frame)
-        print "pilot Map set"
+        print("pilot Map set")
         self.tb.run ()
         # check data
         #print pmt.pmt_symbol_to_string(tag_list[0].key)
@@ -100,26 +100,26 @@ class qa_channel_estimator_vcvc (gr_unittest.TestCase):
 
         failed = 0
         first_failed = -1
-        for i in range(len(res)/subcarriers):
+        for i in range(len(res)//subcarriers):
             #print i
             vec = res[i*subcarriers:(i+1)*subcarriers]
             try:
                 self.assertComplexTuplesAlmostEqual(vec, expected, 5)
                 #print "success"
             except:
-                print str(i) +  "\tfail"
-                print vec[0:20]
+                print(str(i) +  "\tfail")
+                print(vec[0:20])
                 first_failed = i
                 #print vec
                 failed = failed +1
-        print "failed vectors: " + str(failed)
+        print("failed vectors: " + str(failed))
 
         if first_failed > -1:
             i = first_failed
             vec = res[i*subcarriers:(i+1)*subcarriers]
             self.assertComplexTuplesAlmostEqual(vec, expected, 5)
 
-        print "test_002_t END\n\n"
+        print("test_002_t END\n\n")
 
     def test_003_data_gen(self):
         N_rb_dl = self.N_rb_dl
@@ -147,7 +147,7 @@ class qa_channel_estimator_vcvc (gr_unittest.TestCase):
             stream = frame[0].flatten().tolist()
             stream = np.add(stream, frame[1].flatten().tolist() )
             data.extend(stream)
-        print len(data)
+        print(len(data))
 
         tags = lte_test.get_tag_list(140 * nf, 140, self.tag_key, srcid)
 

@@ -1,23 +1,23 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# 
+#
 # Copyright 2013 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
-# 
+#
 # This is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 3, or (at your option)
 # any later version.
-# 
+#
 # This software is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this software; see the file COPYING.  If not, write to
 # the Free Software Foundation, Inc., 51 Franklin Street,
 # Boston, MA 02110-1301, USA.
-# 
+#
 
 from gnuradio import gr, gr_unittest, blocks
 import lte_swig as lte
@@ -53,7 +53,7 @@ class qa_pre_decoder_vcvc(gr_unittest.TestCase):
         self.tb = None
 
     def test_001_generated(self):
-        print "\ntest_001_generated"
+        print("\ntest_001_generated")
         cell_id = 124
         N_ant = 2
         style = "tx_diversity"
@@ -78,18 +78,18 @@ class qa_pre_decoder_vcvc(gr_unittest.TestCase):
         res = self.snk.data()
 
         exp_res = []
-        for i in range(len(stream) / 240):
-            print i
+        for i in range(len(stream) // 240):
+            print(i)
             lay0 = layer_mapped[0][i * 120:(i + 1) * 120]
             lay1 = layer_mapped[1][i * 120:(i + 1) * 120]
             comb = [lay0, lay1]
             exp_res.extend(lte_test.prepare_for_demapper_block(comb, N_ant, style))
 
-        print "test 001 final ASSERT!"
-        print self.assertComplexTuplesAlmostEqual(res, exp_res)
+        print("test 001 final ASSERT!")
+        print((self.assertComplexTuplesAlmostEqual(res, exp_res)))
 
     def test_002_pcfich(self):
-        print "test_002_pcfich"
+        print("test_002_pcfich")
 
         # some constants
         cell_id = 124

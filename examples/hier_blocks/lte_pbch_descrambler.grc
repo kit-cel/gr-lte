@@ -473,7 +473,7 @@
     </param>
     <param>
       <key>lengths</key>
-      <value>4, 1</value>
+      <value>(4, 1)</value>
     </param>
     <param>
       <key>maxoutbuf</key>

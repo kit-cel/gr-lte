@@ -1,23 +1,23 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# 
+#
 # Copyright 2013 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
-# 
+#
 # This is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 3, or (at your option)
 # any later version.
-# 
+#
 # This software is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this software; see the file COPYING.  If not, write to
 # the Free Software Foundation, Inc., 51 Franklin Street,
 # Boston, MA 02110-1301, USA.
-# 
+#
 
 from gnuradio import gr, gr_unittest, blocks
 import lte_swig as lte
@@ -54,18 +54,18 @@ class qa_remove_cp_cvc (gr_unittest.TestCase):
         srcid = "src"
         frame_len = 70
         slots = 30
-        cpl0 = 160*fftl/2048
-        cpl1 = 144*fftl/2048
+        cpl0 = 160*fftl//2048
+        cpl1 = 144*fftl//2048
         slotl = 7 * fftl + 6*cpl1 + cpl0
 
-        symvals = range(fftl) #[1] * fftl
+        symvals = list(range(fftl)) #[1] * fftl
         data = []
         in_data = [0] * 1500
         items = len(in_data)
         tags = []
         for i in range(slots):
             value = (i * 7) % frame_len
-            print items, "\t", value
+            print(items, "\t", value)
             tags.append(lte_test.generate_tag(key, srcid, value, items))
             for sym in range(7):
                 vec = []
@@ -87,7 +87,7 @@ class qa_remove_cp_cvc (gr_unittest.TestCase):
 
         # check data
         res = self.snk.data()
-        print len(res)
+        print(len(res))
 
         # now really check if results is ok
         min_samps = min(len(res), len(data))
@@ -96,7 +96,7 @@ class qa_remove_cp_cvc (gr_unittest.TestCase):
 
     def get_tag_list(self, data_len, tag_key, N_ofdm_symbols):
         fftl = self.fftl
-        slots = data_len / 7
+        slots = data_len // 7
         cpl0 = 160*fftl/2048
         cpl1 = 144*fftl/2048
         slotl = 7*fftl + 6*cpl1 + cpl0
@@ -118,7 +118,7 @@ class qa_remove_cp_cvc (gr_unittest.TestCase):
         my_string = "key = " + pmt.symbol_to_string(tag.key) + "\tsrcid = " + pmt.symbol_to_string(tag.srcid)
         my_string = my_string + "\tvalue = " + str(pmt.to_long(tag.value))
         my_string = my_string + "\toffset = " + str(tag.offset)
-        print my_string
+        print(my_string)
 
 
 if __name__ == '__main__':

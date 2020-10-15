@@ -19,7 +19,7 @@
 #
 
 import numpy as np
-import lte_core
+from . import lte_core
 import math
 import matplotlib.pyplot as plt
 
@@ -61,7 +61,7 @@ def symbol_pilot_value_and_position(N_rb_dl, ns, l, cell_id, Ncp, p):
     N_RB_MAX = 110
     rs_seq = lte_core.rs_generator(ns, l, cell_id, Ncp)
     offset = calc_offset(ns, l, cell_id, p)
-    rs_sym_pos = range(offset, 12 * N_rb_dl, 6)
+    rs_sym_pos = list(range(offset, 12 * N_rb_dl, 6))
     rs_sym_val = rs_seq[N_RB_MAX - N_rb_dl:N_RB_MAX + N_rb_dl]
     return [rs_sym_val, rs_sym_pos]
 
@@ -146,20 +146,20 @@ def get_sss(cell_id):
     s0 = np.zeros(31)
     s1 = np.zeros(31)
     for n in range(31):
-        s0[n] = sX[(n + m0) % 31]
-        s1[n] = sX[(n + m1) % 31]
+        s0[n] = sX[int((n + m0) % 31)]
+        s1[n] = sX[int((n + m1) % 31)]
 
     c0 = np.zeros(31)
     c1 = np.zeros(31)
     for n in range(31):
-        c0[n] = cX[(n + nid2  ) % 31]
-        c1[n] = cX[(n + nid2 + 3) % 31]
+        c0[n] = cX[int((n + nid2  ) % 31)]
+        c1[n] = cX[int((n + nid2 + 3) % 31)]
 
     z1m0 = np.zeros(31)
     z1m1 = np.zeros(31)
     for n in range(31):
-        z1m0[n] = zX[(n + (m0 % 8)) % 31]
-        z1m1[n] = zX[(n + (m1 % 8)) % 31]
+        z1m0[n] = zX[int((n + (m0 % 8)) % 31)]
+        z1m1[n] = zX[int((n + (m1 % 8)) % 31)]
 
     sss0 = np.zeros(62)
     sss5 = np.zeros(62)

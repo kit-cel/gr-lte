@@ -24,7 +24,7 @@
 
 #include <lte/api.h>
 #include <gnuradio/sync_block.h>
-#include <gnuradio/analog/sig_source_c.h>
+#include <gnuradio/analog/sig_source.h>
 
 namespace gr {
   namespace lte {
@@ -49,7 +49,7 @@ namespace gr {
        * class. lte::sync_frequency_c::make is the public interface for
        * creating new instances.
        */
-      static sptr make(boost::shared_ptr<gr::analog::sig_source_c> &sig, int fftl, std::string name = "sync_frequency_c");
+      static sptr make(boost::shared_ptr<gr::analog::sig_source<gr_complex>> &sig, int fftl, std::string name = "sync_frequency_c");
     };
 
   } // namespace lte

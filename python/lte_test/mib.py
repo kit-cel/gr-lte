@@ -28,11 +28,11 @@ phich_res_code = {1.0 / 6.0: [0, 0], 1.0 / 2.0: [0, 1], 1.0: [1, 0], 2.0: [1, 1]
 def pack_mib(N_rb_dl, phich_dur, phich_res, sfn):
     #    print "pack_mib"
     sfn = sfn % 1024
-    mib = range(24)
+    mib = list(range(24))
     mib[0:3] = N_rb_dl_code[N_rb_dl]  # sometimes written as N_g
     mib[3] = phich_dur
     mib[4:6] = phich_res_code[phich_res]
-    sfn_code = range(8)
+    sfn_code = list(range(8))
     sfn = int(math.floor(sfn / 4))
 
     for i in range(8):
@@ -51,7 +51,7 @@ def main():
     N_ant = 2
     style = "tx_diversity"
     mib = pack_mib(50, 0, 1.0, 511)
-    print mib
+    print(mib)
 
 
 if __name__ == "__main__":

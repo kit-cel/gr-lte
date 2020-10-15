@@ -30,7 +30,7 @@ namespace gr {
     {
      private:
         // basic attributes
-        boost::shared_ptr<gr::analog::sig_source_c> d_sig;
+        boost::shared_ptr<gr::analog::sig_source<gr_complex>> d_sig;
         int d_fftl;
         int d_cpl;
         int d_cpl0;
@@ -49,7 +49,7 @@ namespace gr {
         gr_complex corr(gr_complex *res, gr_complex *x, gr_complex *y, int len);
 
      public:
-      sync_frequency_c_impl(boost::shared_ptr<gr::analog::sig_source_c> &sig, int fftl, std::string& name);
+      sync_frequency_c_impl(boost::shared_ptr<gr::analog::sig_source<gr_complex>> &sig, int fftl, std::string& name);
       ~sync_frequency_c_impl();
 
       // Where all the action really happens

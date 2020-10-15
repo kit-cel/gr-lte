@@ -1,27 +1,27 @@
 # !/usr/bin/env python
-# 
+#
 # Copyright 2013 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
-# 
+#
 # This is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 3, or (at your option)
 # any later version.
-# 
+#
 # This software is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this software; see the file COPYING.  If not, write to
 # the Free Software Foundation, Inc., 51 Franklin Street,
 # Boston, MA 02110-1301, USA.
-# 
+#
 
 import math
-from encode_pcfich import *
-from encode_phich import *
-from lte_core import *
+from .encode_pcfich import *
+from .encode_phich import *
+from .lte_core import *
 
 dci_format_lut = {0: "Format 0", 1: "Format 1", 2: "Format 1A",
                   3: "Format 1B", 4: "Format 1C", 5: "Format 1D",
@@ -31,25 +31,25 @@ dci_format_lut = {0: "Format 0", 1: "Format 1", 2: "Format 1A",
 
 
 def encode_dci(dci_format):
-    print "hello world"
+    print("hello world")
     for i in range(len(dci_format_lut)):
-        print dci_format_lut[i]
+        print((dci_format_lut[i]))
 
 
 def encode_dci_format0():
     length = 0
-    print "Carrier indicator"  # - 0 or 3 bits
+    print("Carrier indicator")  # - 0 or 3 bits
     length = length + 3
-    print "Flag Format 0/1A diff - 1bit"
+    print("Flag Format 0/1A diff - 1bit")
     length = length + 1
-    print "Flag: Frequency Hopping - 1bit"
+    print("Flag: Frequency Hopping - 1bit")
     N_ul_rb = 50
     rbaha = int(math.ceil(math.log(N_ul_rb * (N_ul_rb + 1) / 2, 2)))
-    print "RB assignment/hopping alloc " + str(rbaha) + "bits"
+    print(("RB assignment/hopping alloc " + str(rbaha) + "bits"))
 
 
 def encode_format1():
-    print "format1"
+    print("format1")
 
 
 def get_pdcch_length_bits(dc_form):
@@ -112,7 +112,7 @@ def get_num_candidates_for_pdcch(L, pdcch_type):
         elif L == 8:
             M = 2
         else:
-            print "invalid value L = " + str(L) + " for type " + pdcch_type
+            print(("invalid value L = " + str(L) + " for type " + pdcch_type))
     elif pdcch_type == "UE-specific":
         if L == 1:
             M = 6
@@ -123,9 +123,9 @@ def get_num_candidates_for_pdcch(L, pdcch_type):
         elif L == 8:
             M = 2
         else:
-            print "invalid value L = " + str(L) + " for type " + pdcch_type
+            print(("invalid value L = " + str(L) + " for type " + pdcch_type))
     else:
-        print "invalid type = " + pdcch_type
+        print(("invalid type = " + pdcch_type))
     return M
 
 
@@ -155,42 +155,42 @@ def get_m_rnti_value():
 
 def get_rba_len(N_rb_dl):
     n_bits = int(math.ceil(math.log(N_rb_dl * (N_rb_dl + 1) / 2, 2)))
-    print "RBA length = " + str(n_bits)
+    print(("RBA length = " + str(n_bits)))
     return n_bits
 
 
 def encode_dci_format1a(N_rb_dl, rap):
     length = 0
-    print "carrier indicator"
+    print("carrier indicator")
     length = length + 3
-    print "flag: format 0/1a diff"
+    print("flag: format 0/1a diff")
     length = length + 1
     if rap == 1:
-        print "flag: loc/dist VRB set 0"
+        print("flag: loc/dist VRB set 0")
         length = length + 1
-        print "RB assignment"
+        print("RB assignment")
         length = length + get_rba_len(N_rb_dl)
-        print "preamble index"
+        print("preamble index")
         length = length + 6
-        print "PRACH Mask Index"
+        print("PRACH Mask Index")
         length = length + 4
-        print "all other bits are set to zero... which bits???"
+        print("all other bits are set to zero... which bits???")
     elif rap == 0:
-        print "flag: loc/dist VRB"
+        print("flag: loc/dist VRB")
         length = length + 1
-        print "RB assignment"
+        print("RB assignment")
         length = length + get_rba_len(N_rb_dl)
-        print "localized = all RBA bits used"
-        print "distributed = first bit for GAP value if(N_rb_dl >= 50)"
-        print "modulation and coding scheme"
+        print("localized = all RBA bits used")
+        print("distributed = first bit for GAP value if(N_rb_dl >= 50)")
+        print("modulation and coding scheme")
         length = length + 5
-        print "HARQ process number"
+        print("HARQ process number")
         length = length + 3  #for FDD, for TDD +4
-        print "new data indicator"
+        print("new data indicator")
         length = length + 1
-        print "redundancy version"
+        print("redundancy version")
         length = length + 2
-        print "TPC command for PUCCH"
+        print("TPC command for PUCCH")
         length = length + 2
     return length
 
@@ -226,7 +226,7 @@ def get_pdcch_scrambling_sequence(length, cell_id, ns):
 
 def reg_group(data):
     res = []
-    for i in range(len(data) / 4):
+    for i in range(len(data) // 4):
         part = data[4 * i:4 * (i + 1)]
         #print "{0}\t{1}\t{2}\t{3}".format(i, 4*i, 4*(i+1), part)
         res.append(part)
@@ -292,7 +292,7 @@ def work():
     pdcchs = get_all_pdcchs(N_CCE)
     enc_pdcch = encode_pdcch(pdcchs, N_rb_dl, N_ant, style, cfi, N_g, ns, cell_id)
     # print enc_pdcch
-    print np.shape(enc_pdcch)
+    print((np.shape(enc_pdcch)))
 
     tot_pdcch = get_multiplexed_pdcch(pdcchs)
     scr_pdcch = scramble_pdcch(tot_pdcch, ns, cell_id)
@@ -300,27 +300,27 @@ def work():
     lay_pdcch = layer_mapping(mod_pdcch, N_ant, style)
     pre_pdcch = pre_coding(lay_pdcch, N_ant, style)
     shi_pdcch = reg_intl_shift_pdcch(pre_pdcch, cell_id, N_ant)
-    mt = reg_group(range(len(tot_pdcch)))
+    mt = reg_group(list(range(len(tot_pdcch))))
     shifted = shift_pdcch(mt, cell_id)
     unshift = unshift_pdcch(shifted, cell_id)
     for i in range(len(unshift)):
-        print "{0}\t{1}\t{2}\t{3}".format(i, mt[i], unshift[i], shifted[i])
+        print(("{0}\t{1}\t{2}\t{3}".format(i, mt[i], unshift[i], shifted[i])))
 
     N_rb_dl_lut
     for c in range(3):
         for i in range(len(N_rb_dl_lut)):
             n_cce = get_n_cce_available(N_ant, N_rb_dl_lut[i], c + 1, N_g)
             n_reg = get_n_reg_available(N_ant, N_rb_dl_lut[i], c + 1, N_g)
-            print "cfi = {0}\t{1}\t{2}".format(c + 1, n_reg, n_cce)
+            print(("cfi = {0}\t{1}\t{2}".format(c + 1, n_reg, n_cce)))
 
 
 if __name__ == "__main__":
     work()
 
-    
-    
 
-    
-        
-        
-        
+
+
+
+
+
+

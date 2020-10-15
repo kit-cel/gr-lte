@@ -1,29 +1,29 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# 
+#
 # Copyright 2013 <+YOU OR YOUR COMPANY+>.
-# 
+#
 # This is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 3, or (at your option)
 # any later version.
-# 
+#
 # This software is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this software; see the file COPYING.  If not, write to
 # the Free Software Foundation, Inc., 51 Franklin Street,
 # Boston, MA 02110-1301, USA.
-# 
+#
 
 from gnuradio import gr, gr_unittest, blocks
 import lte_swig as lte
 import numpy as np
-import lte_test
 import pmt
+import lte_test
 
 class qa_pcfich_demux_vcvc (gr_unittest.TestCase):
     def setUp(self):
@@ -83,8 +83,8 @@ class qa_pcfich_demux_vcvc (gr_unittest.TestCase):
 
         res = self.snk0.data()
 
-        print "test 001 check res"
-        for i in range(len(res)/len(exp_res[0])):
+        print("test 001 check res")
+        for i in range(len(res)//len(exp_res[0])):
             part = res[i*16:(i+1)*16]
             self.assertComplexTuplesAlmostEqual(part, exp_res[i])
 

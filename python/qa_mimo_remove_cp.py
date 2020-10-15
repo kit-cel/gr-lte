@@ -22,11 +22,11 @@
 
 from gnuradio import gr, gr_unittest
 from gnuradio import blocks
+import pmt
+import numpy as np
 import lte_swig as lte
 import lte_test.lte_phy as phy
 import lte_test as t
-import pmt
-import numpy as np
 
 
 class qa_mimo_remove_cp(gr_unittest.TestCase):

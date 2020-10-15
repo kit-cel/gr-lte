@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # Copyright 2013 Communications Engineering Lab (CEL) / Karlsruhe Institute of Technology (KIT)
 #
@@ -19,23 +19,22 @@
 #
 
 from gnuradio import gr
-from zeitgeist.datamodel import symbol
 import pmt
 import numpy as np
 import scipy.io
 import math
-from mib import *
-from encode_bch import *
-from encode_pbch import *
-from encode_pcfich import *
-from encode_phich import *
-from encode_pdcch import *
-import lte_phy
+from .mib import *
+from .encode_bch import *
+from .encode_pbch import *
+from .encode_pcfich import *
+from .encode_phich import *
+from .encode_pdcch import *
+from . import lte_phy
 
 # This is a function to help test setup
 def get_tag_list(data_len, value_range, tag_key, srcid):
     tag_list = []
-    for i in range(data_len):
+    for i in range(int(data_len)):
         tag = generate_tag(tag_key, srcid, i % value_range, i)
         tag_list.append(tag)
     return tag_list
@@ -187,7 +186,7 @@ def symbol_pilot_value_and_position(N_rb_dl, ns, l, cell_id, Ncp, p):
     N_RB_MAX = 110
     rs_seq = rs_generator(ns, l, cell_id, Ncp)
     offset = calc_offset(ns, l, cell_id, p)
-    rs_sym_pos = range(offset, 12 * N_rb_dl, 6)
+    rs_sym_pos = list(range(offset, 12 * N_rb_dl, 6))
     rs_sym_val = rs_seq[N_RB_MAX - N_rb_dl:N_RB_MAX + N_rb_dl]
     return [rs_sym_pos, rs_sym_val]
 
@@ -222,12 +221,13 @@ def map_pbch_to_frame_layer(frame, pbch, cell_id, sfn, ant):
     pbch_pos = (n_carriers / 2) - (72 / 2)
     pbch_element = 0
     for i in range(72):
+        print(i+pbch_pos)
         if i % 3 != cell_id_mod3:
-            frame[7][i + pbch_pos] = pbch_part[pbch_element]
-            frame[8][i + pbch_pos] = pbch_part[pbch_element + 48]
+            frame[7][int(i + pbch_pos)] = pbch_part[pbch_element]
+            frame[8][int(i + pbch_pos)] = pbch_part[pbch_element + 48]
             pbch_element = pbch_element + 1
-        frame[9][i + pbch_pos] = pbch_part[i + 2 * 48]
-        frame[10][i + pbch_pos] = pbch_part[i + 2 * 48 + 72]
+        frame[9][int(i + pbch_pos)] = pbch_part[i + 2 * 48]
+        frame[10][int(i + pbch_pos)] = pbch_part[i + 2 * 48 + 72]
 
     return frame
 
@@ -425,7 +425,7 @@ def transform_symbol_to_time_domain(symbol, fftl, nsym):
 
 
 def transform_layer_to_time_domain(frame_layer, fftl):
-    print "frame_layer", np.shape(frame_layer)
+    print(("frame_layer", np.shape(frame_layer)))
     # frame_layer contains OFDM symbols as arrays within an array
     assert(len(frame_layer) % 7 == 0)
     n_slots = int(len(frame_layer) // 7)
@@ -455,7 +455,7 @@ def generate_ofdm_symbols(frames, N_rb_dl, N_ant, fftl):
         pos = 0
         temp = np.empty(len(frames) * 20 * (7 * fftl + 6 * cpl + cpl0), dtype=np.complex64)
         for n in range(len(frames)):
-            print "start generating frame {0}".format(n)
+            print(("start generating frame {0}".format(n)))
             for o in range(140):
                 symbol = frames[n][p][o]
 
@@ -487,9 +487,9 @@ def main():
     trollframe = lte_phy.generate_phy_frame(cell_id, N_rb_dl, N_ant)
     for ant in [1, 2, 4]:
         frame = lte_phy.generate_phy_frame(cell_id, N_rb_dl, ant)
-        print np.shape(frame)
+        print((np.shape(frame)))
         time_frame = transform_to_time_domain(frame, fftl)
-        print np.shape(time_frame)
+        print((np.shape(time_frame)))
 
     # frames = generate_frames(cell_id, N_rb_dl, N_ant, 20, sfn)
     # ts = generate_ofdm_symbols(frames, N_rb_dl, N_ant, fftl)

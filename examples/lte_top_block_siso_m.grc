@@ -1,0 +1,585 @@
+options:
+  parameters:
+    author: Johannes Demel
+    category: lte
+    cmake_opt: ''
+    comment: ''
+    copyright: ''
+    description: ''
+    gen_cmake: 'On'
+    gen_linking: dynamic
+    generate_options: qt_gui
+    hier_block_src_path: '.:'
+    id: lte_top_block_siso
+    max_nouts: '0'
+    output_language: python
+    placement: (0,0)
+    qt_qss_theme: ''
+    realtime_scheduling: ''
+    run: 'True'
+    run_command: '{python} -u {filename}'
+    run_options: prompt
+    sizing_mode: fixed
+    thread_safe_setters: '1'
+    title: LTE top level flowgraph SISO
+    window_size: 1920, 1080
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [6, 5]
+    rotation: 0
+    state: enabled
+
+blocks:
+- name: N_rb_dl
+  id: variable
+  parameters:
+    comment: ''
+    value: '50'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [320, 84.0]
+    rotation: 0
+    state: enabled
+- name: fc2
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: ''
+    label: Freq
+    min_len: '800'
+    orient: Qt.Horizontal
+    rangeType: float
+    start: '8006'
+    step: 1e6
+    stop: 1900e6
+    value: fc
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1120, 12.0]
+    rotation: 0
+    state: true
+- name: fftlen
+  id: variable
+  parameters:
+    comment: ''
+    value: '2048'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [265, 6]
+    rotation: 0
+    state: enabled
+- name: frame_key
+  id: variable
+  parameters:
+    comment: ''
+    value: '"slot"'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [485, 7]
+    rotation: 0
+    state: enabled
+- name: gain
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: ''
+    label: Gain
+    min_len: '200'
+    orient: Qt.Horizontal
+    rangeType: float
+    start: '0'
+    step: '1'
+    stop: '60'
+    value: '50'
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1272, 12.0]
+    rotation: 0
+    state: true
+- name: interp_val
+  id: variable
+  parameters:
+    comment: ''
+    value: int(samp_rate/1e4)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [792, 12.0]
+    rotation: 0
+    state: enabled
+- name: pbch_descr_key
+  id: variable
+  parameters:
+    comment: ''
+    value: '"descr_part"'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [371, 7]
+    rotation: 0
+    state: enabled
+- name: samp_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: (7*fftlen + 160* fftlen/2048 + 6 * (144 * fftlen/2048)) / 0.0005
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [225, 67]
+    rotation: 0
+    state: enabled
+- name: show_id
+  id: variable
+  parameters:
+    comment: ''
+    value: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [592, 12.0]
+    rotation: 0
+    state: true
+- name: MIB
+  id: lte_mib_unpack_vbm
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1176, 360.0]
+    rotation: 0
+    state: enabled
+- name: blocks_add_xx_0
+  id: blocks_add_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '2'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [656, 144.0]
+    rotation: 0
+    state: disabled
+- name: blocks_deinterleave_0
+  id: blocks_deinterleave
+  parameters:
+    affinity: ''
+    alias: ''
+    blocksize: '1'
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_streams: '2'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [488, 144.0]
+    rotation: 0
+    state: disabled
+- name: blocks_head_0_0
+  id: blocks_head
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_items: int(samp_rate * 2)
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [608, 68.0]
+    rotation: 0
+    state: disabled
+- name: blocks_throttle_0
+  id: blocks_throttle
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    ignoretag: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samples_per_second: samp_rate
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [848, 188.0]
+    rotation: 0
+    state: disabled
+- name: fc
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: LTE
+    short_id: f
+    type: eng_float
+    value: 801e6
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [40, 620.0]
+    rotation: 0
+    state: true
+- name: limesdr_source_0
+  id: limesdr_source
+  parameters:
+    affinity: ''
+    alias: ''
+    allow_tcxo_dac: '0'
+    analog_bandw_ch0: '0'
+    analog_bandw_ch1: 1.5e6
+    calibr_bandw_ch0: 10e6
+    calibr_bandw_ch1: 2.5e6
+    channel_mode: '0'
+    comment: ''
+    dacVal: '180'
+    digital_bandw_ch0: '0'
+    digital_bandw_ch1: samp_rate
+    filename: ''
+    gain_dB_ch0: gain
+    gain_dB_ch1: '1'
+    lna_path_ch0: '3'
+    lna_path_ch1: '2'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    nco_freq_ch0: '0'
+    nco_freq_ch1: '0'
+    oversample: '0'
+    rf_freq: fc2
+    samp_rate: samp_rate
+    serial: 1D424AFB4F4F9A
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [16, 172.0]
+    rotation: 0
+    state: true
+- name: lte_bch_decoder_0
+  id: lte_bch_decoder
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1008, 408.0]
+    rotation: 0
+    state: enabled
+- name: lte_channel_estimator_0
+  id: lte_channel_estimator
+  parameters:
+    N_rb_dl: N_rb_dl
+    affinity: ''
+    alias: ''
+    comment: ''
+    estimator_key: frame_key
+    initial_id: '124'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [464, 468.0]
+    rotation: 0
+    state: enabled
+- name: lte_cp_ffo_sync_0
+  id: lte_cp_ffo_sync
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    fftlen: fftlen
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [120, 372.0]
+    rotation: 180
+    state: enabled
+- name: lte_ofdm_demodulator_0
+  id: lte_ofdm_demodulator
+  parameters:
+    N_rb_dl: N_rb_dl
+    affinity: ''
+    alias: ''
+    comment: ''
+    fftlen: fftlen
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    ofdm_key: frame_key
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [328, 380.0]
+    rotation: 0
+    state: enabled
+- name: lte_pbch_decoder_0
+  id: lte_pbch_decoder
+  parameters:
+    N_rb_dl: N_rb_dl
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [792, 377]
+    rotation: 0
+    state: enabled
+- name: lte_pcfich_decoder_0
+  id: lte_pcfich_decoder
+  parameters:
+    N_rb_dl: N_rb_dl
+    affinity: ''
+    alias: ''
+    comment: ''
+    key: frame_key
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [800, 520.0]
+    rotation: 0
+    state: enabled
+- name: lte_pss_sync_0
+  id: lte_pss_sync
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    fftlen: fftlen
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [304, 284.0]
+    rotation: 180
+    state: enabled
+- name: lte_sss_sync_0
+  id: lte_sss_sync
+  parameters:
+    N_rb_dl: N_rb_dl
+    affinity: ''
+    alias: ''
+    comment: ''
+    fftlen: fftlen
+    group_key: '''N_id_2'''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    offset_key: '''offset_marker'''
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [120, 492.0]
+    rotation: 0
+    state: enabled
+- name: pre_rational_resampler_xxx_0
+  id: rational_resampler_xxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    decim: '1000'
+    fbw: '0'
+    interp: interp_val
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    taps: ''
+    type: ccc
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [640, 180.0]
+    rotation: 0
+    state: enabled
+- name: qtgui_freq_sink_x_0
+  id: qtgui_freq_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    average: '1.0'
+    axislabels: 'True'
+    bw: samp_rate
+    color1: '"blue"'
+    color10: '"dark blue"'
+    color2: '"red"'
+    color3: '"green"'
+    color4: '"black"'
+    color5: '"cyan"'
+    color6: '"magenta"'
+    color7: '"yellow"'
+    color8: '"dark red"'
+    color9: '"dark green"'
+    comment: ''
+    ctrlpanel: 'False'
+    fc: fc
+    fftsize: '1024'
+    freqhalf: 'True'
+    grid: 'False'
+    gui_hint: ''
+    label: Relative Gain
+    label1: ''
+    label10: ''''''
+    label2: ''''''
+    label3: ''''''
+    label4: ''''''
+    label5: ''''''
+    label6: ''''''
+    label7: ''''''
+    label8: ''''''
+    label9: ''''''
+    legend: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    name: '""'
+    nconnections: '1'
+    showports: 'False'
+    tr_chan: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_tag: '""'
+    type: complex
+    units: dB
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    wintype: firdes.WIN_BLACKMAN_hARRIS
+    ymax: '10'
+    ymin: '-140'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [872, 80.0]
+    rotation: 0
+    state: true
+- name: sync_lte_rough_symbol_sync_cc_0
+  id: lte_rough_symbol_sync_cc
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    fftl: fftlen
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [536, 316.0]
+    rotation: 180
+    state: enabled
+
+connections:
+- [MIB, N_ant, lte_pcfich_decoder_0, N_ant]
+- [blocks_add_xx_0, '0', blocks_head_0_0, '0']
+- [blocks_add_xx_0, '0', blocks_throttle_0, '0']
+- [blocks_deinterleave_0, '0', blocks_add_xx_0, '1']
+- [blocks_deinterleave_0, '1', blocks_add_xx_0, '0']
+- [blocks_head_0_0, '0', blocks_throttle_0, '0']
+- [limesdr_source_0, '0', blocks_head_0_0, '0']
+- [limesdr_source_0, '0', pre_rational_resampler_xxx_0, '0']
+- [limesdr_source_0, '0', qtgui_freq_sink_x_0, '0']
+- [lte_bch_decoder_0, '0', MIB, '0']
+- [lte_bch_decoder_0, '1', MIB, '1']
+- [lte_channel_estimator_0, '0', lte_pbch_decoder_0, '1']
+- [lte_channel_estimator_0, '0', lte_pcfich_decoder_0, '1']
+- [lte_channel_estimator_0, '1', lte_pbch_decoder_0, '2']
+- [lte_channel_estimator_0, '1', lte_pcfich_decoder_0, '2']
+- [lte_cp_ffo_sync_0, '0', lte_sss_sync_0, '0']
+- [lte_ofdm_demodulator_0, '0', lte_channel_estimator_0, '0']
+- [lte_ofdm_demodulator_0, '0', lte_pbch_decoder_0, '0']
+- [lte_ofdm_demodulator_0, '0', lte_pcfich_decoder_0, '0']
+- [lte_pbch_decoder_0, '0', lte_bch_decoder_0, '0']
+- [lte_pss_sync_0, '0', lte_cp_ffo_sync_0, '0']
+- [lte_sss_sync_0, '0', lte_ofdm_demodulator_0, '0']
+- [lte_sss_sync_0, cell_id, lte_channel_estimator_0, cell_id]
+- [lte_sss_sync_0, cell_id, lte_pbch_decoder_0, cell_id]
+- [lte_sss_sync_0, cell_id, lte_pcfich_decoder_0, cell_id]
+- [pre_rational_resampler_xxx_0, '0', sync_lte_rough_symbol_sync_cc_0, '0']
+- [sync_lte_rough_symbol_sync_cc_0, '0', lte_pss_sync_0, '0']
+
+metadata:
+  file_format: 1

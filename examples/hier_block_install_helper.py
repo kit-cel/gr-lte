@@ -26,7 +26,7 @@ import subprocess
 def main():
     for file in glob.glob("hier_blocks/*.grc"):
         proc = ["grcc", file]
-        print proc
+        print(proc)
         try:
             subprocess.call(proc)
         except:

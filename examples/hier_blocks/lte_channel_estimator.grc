@@ -381,7 +381,7 @@
     </param>
     <param>
       <key>value</key>
-      <value>slot</value>
+      <value>"slot"</value>
     </param>
   </block>
   <block>

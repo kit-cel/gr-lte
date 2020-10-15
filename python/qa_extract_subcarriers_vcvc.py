@@ -30,7 +30,7 @@ class qa_extract_subcarriers_vcvc(gr_unittest.TestCase):
         self.N_rb_dl = N_rb_dl = 6
         self.fftl = fftl = 512
 
-        intu1 = range(fftl)
+        intu1 = list(range(fftl))
         self.src = blocks.vector_source_c(intu1, False, fftl)
         self.ext = lte.extract_subcarriers_vcvc(N_rb_dl, fftl)
         self.snk = blocks.vector_sink_c(12 * N_rb_dl)
