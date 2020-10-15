@@ -8,7 +8,7 @@ parameters:
 -   id: fftl
     label: FFT length
     dtype: int
-    hide: ${ 'part' if vlen == 1 else 'none' }
+    #hide ${ 'part' if vlen == 1 else 'none' }
 
 inputs:
 -   domain: stream
@@ -21,6 +21,6 @@ outputs:
 
 templates:
     imports: import lte
-    make: lte.sss_symbol_selector_cvc(${fftl}, "$id")
+    make: lte.sss_symbol_selector_cvc(${fftl}, '${id}')
 
 file_format: 1

@@ -1,0 +1,410 @@
+options:
+  parameters:
+    author: Johannes Demel
+    category: lte
+    cmake_opt: ''
+    comment: ''
+    copyright: ''
+    description: hier block combining blocks and parameters to decode PCFICH
+    gen_cmake: 'On'
+    gen_linking: dynamic
+    generate_options: hb
+    hier_block_src_path: '.:'
+    id: lte_pcfich_decoder
+    max_nouts: '0'
+    output_language: python
+    placement: (0,0)
+    qt_qss_theme: ''
+    realtime_scheduling: ''
+    run: 'True'
+    run_command: '{python} -u {filename}'
+    run_options: prompt
+    sizing_mode: fixed
+    thread_safe_setters: ''
+    title: PCFICH Decoder
+    window_size: 1920,1080
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [9, 10]
+    rotation: 0
+    state: enabled
+
+blocks:
+- name: ants
+  id: variable
+  parameters:
+    comment: ''
+    value: '2'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [768, 35]
+    rotation: 0
+    state: enabled
+- name: style
+  id: variable
+  parameters:
+    comment: ''
+    value: '"tx_diversity"'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [593, 35]
+    rotation: 0
+    state: enabled
+- name: tag_key
+  id: variable
+  parameters:
+    comment: ''
+    value: '"subframe"'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [831, 36]
+    rotation: 0
+    state: enabled
+- name: vlen
+  id: variable
+  parameters:
+    comment: ''
+    value: '16'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [703, 36]
+    rotation: 0
+    state: enabled
+- name: N_rb_dl
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    #hide none
+    label: resource blocks
+    short_id: ''
+    type: intx
+    value: '50'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [319, 31]
+    rotation: 0
+    state: enabled
+- name: key
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    #hide none
+    label: Input key
+    short_id: ''
+    type: ''
+    value: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [453, 32]
+    rotation: 0
+    state: enabled
+- name: pad_sink_0
+  id: pad_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    label: CFI
+    num_streams: '1'
+    optional: 'True'
+    type: message
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1423, 260]
+    rotation: 0
+    state: enabled
+- name: pad_source_0
+  id: pad_source
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    label: in0
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_streams: '1'
+    optional: 'False'
+    type: complex
+    vlen: 12 * N_rb_dl
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [15, 164]
+    rotation: 0
+    state: enabled
+- name: pad_source_1
+  id: pad_source
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    label: in1
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_streams: '1'
+    optional: 'False'
+    type: complex
+    vlen: 12 * N_rb_dl
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [15, 198]
+    rotation: 0
+    state: enabled
+- name: pad_source_2
+  id: pad_source
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    label: in2
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_streams: '1'
+    optional: 'False'
+    type: complex
+    vlen: 12 * N_rb_dl
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [15, 232]
+    rotation: 0
+    state: enabled
+- name: pcfich_demux_vcvc_0
+  id: lte_pcfich_demux_vcvc
+  parameters:
+    N_rb_dl: N_rb_dl
+    affinity: ''
+    alias: ''
+    comment: ''
+    key: key
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    out_key: tag_key
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [187, 156]
+    rotation: 0
+    state: enabled
+- name: pcfich_demux_vcvc_1
+  id: lte_pcfich_demux_vcvc
+  parameters:
+    N_rb_dl: N_rb_dl
+    affinity: ''
+    alias: ''
+    comment: ''
+    key: key
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    out_key: tag_key
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [186, 190]
+    rotation: 0
+    state: enabled
+- name: pcfich_demux_vcvc_2
+  id: lte_pcfich_demux_vcvc
+  parameters:
+    N_rb_dl: N_rb_dl
+    affinity: ''
+    alias: ''
+    comment: ''
+    key: key
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    out_key: tag_key
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [187, 224]
+    rotation: 0
+    state: enabled
+- name: pcfich_layer_demapper_vcvc_0
+  id: lte_layer_demapper_vcvc
+  parameters:
+    N_ant: ants
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    style: style
+    vlen: vlen
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [598, 224]
+    rotation: 0
+    state: enabled
+- name: pcfich_lte_descrambler_vfvf_0
+  id: lte_descrambler_vfvf
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    initial_seqs: '[[0] * 32] * 10'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    tag_key: tag_key
+    vlen: 2 * vlen
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [977, 244]
+    rotation: 0
+    state: enabled
+- name: pcfich_pre_decoder_vcvc_0
+  id: lte_pre_decoder_vcvc
+  parameters:
+    N_ant: ants
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    rxant: '1'
+    style: style
+    vlen: vlen
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [398, 176]
+    rotation: 0
+    state: enabled
+- name: pcfich_qpsk_soft_demod_vcvf_0
+  id: lte_qpsk_soft_demod_vcvf
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    vlen: vlen
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [787, 240]
+    rotation: 0
+    state: enabled
+- name: pcfich_scramble_sequencer_m_0
+  id: lte_pcfich_scramble_sequencer_m
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [593, 399]
+    rotation: 0
+    state: enabled
+- name: pcfich_unpack_vfm_0
+  id: lte_pcfich_unpack_vfm
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    key: tag_key
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1216, 260]
+    rotation: 0
+    state: enabled
+- name: z_pad_source_N_ant
+  id: pad_source
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    label: N_ant
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_streams: '1'
+    optional: 'False'
+    type: message
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [25, 343]
+    rotation: 0
+    state: enabled
+- name: z_pad_source_cell_id
+  id: pad_source
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    label: cell_id
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_streams: '1'
+    optional: 'False'
+    type: message
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [23, 396]
+    rotation: 0
+    state: enabled
+
+connections:
+- [pad_source_0, '0', pcfich_demux_vcvc_0, '0']
+- [pad_source_1, '0', pcfich_demux_vcvc_1, '0']
+- [pad_source_2, '0', pcfich_demux_vcvc_2, '0']
+- [pcfich_demux_vcvc_0, '0', pcfich_pre_decoder_vcvc_0, '0']
+- [pcfich_demux_vcvc_1, '0', pcfich_pre_decoder_vcvc_0, '1']
+- [pcfich_demux_vcvc_2, '0', pcfich_pre_decoder_vcvc_0, '2']
+- [pcfich_layer_demapper_vcvc_0, '0', pcfich_qpsk_soft_demod_vcvf_0, '0']
+- [pcfich_lte_descrambler_vfvf_0, '0', pcfich_unpack_vfm_0, '0']
+- [pcfich_pre_decoder_vcvc_0, '0', pcfich_layer_demapper_vcvc_0, '0']
+- [pcfich_qpsk_soft_demod_vcvf_0, '0', pcfich_lte_descrambler_vfvf_0, '0']
+- [pcfich_scramble_sequencer_m_0, descr, pcfich_lte_descrambler_vfvf_0, seqs]
+- [pcfich_unpack_vfm_0, CFI, pad_sink_0, in]
+- [z_pad_source_N_ant, out, pcfich_layer_demapper_vcvc_0, N_ant]
+- [z_pad_source_N_ant, out, pcfich_pre_decoder_vcvc_0, N_ant]
+- [z_pad_source_cell_id, out, pcfich_scramble_sequencer_m_0, cell_id]
+
+metadata:
+  file_format: 1

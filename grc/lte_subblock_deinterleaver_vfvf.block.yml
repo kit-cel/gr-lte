@@ -8,11 +8,11 @@ parameters:
 -   id: num_groups
     label: REGs per group
     dtype: int
-    hide: ${ 'part' if vlen == 1 else 'none' }
+    #hide ${ 'part' if vlen == 1 else 'none' }
 -   id: items_per_group
     label: items per REG
     dtype: int
-    hide: ${ 'part' if vlen == 1 else 'none' }
+    #hide ${ 'part' if vlen == 1 else 'none' }
 
 inputs:
 -   domain: stream
@@ -26,6 +26,6 @@ outputs:
 
 templates:
     imports: import lte
-    make: lte.subblock_deinterleaver_vfvf(${num_groups}, ${items_per_group}, "$id")
+    make: lte.subblock_deinterleaver_vfvf(${num_groups}, ${items_per_group}, '${id}')
 
 file_format: 1

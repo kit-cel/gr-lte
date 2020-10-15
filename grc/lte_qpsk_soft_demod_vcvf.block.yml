@@ -8,7 +8,7 @@ parameters:
 -   id: vlen
     label: vector length
     dtype: int
-    hide: ${ 'part' if vlen == 1 else 'none' }
+    #hide ${ 'part' if vlen == 1 else 'none' }
 
 inputs:
 -   domain: stream
@@ -22,6 +22,6 @@ outputs:
 
 templates:
     imports: import lte
-    make: lte.qpsk_soft_demod_vcvf(${vlen}, "$id")
+    make: lte.qpsk_soft_demod_vcvf(${vlen}, '${id}')
 
 file_format: 1

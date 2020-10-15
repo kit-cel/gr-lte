@@ -8,11 +8,11 @@ parameters:
 -   id: N_rb_dl
     label: resource blocks
     dtype: int
-    hide: ${ 'part' if vlen == 1 else 'none' }
+      ##hide ${ 'part' if vlen == 1 else 'none' }
 -   id: fftl
     label: FFT length
     dtype: int
-    hide: ${ 'part' if vlen == 1 else 'none' }
+      ##hide ${ 'part' if vlen == 1 else 'none' }
 
 inputs:
 -   domain: stream
@@ -26,6 +26,6 @@ outputs:
 
 templates:
     imports: import lte
-    make: lte.extract_subcarriers_vcvc(${N_rb_dl}, ${fftl}, "$id")
+    make: lte.extract_subcarriers_vcvc(${N_rb_dl}, ${fftl}, '${id}')
 
 file_format: 1

@@ -21,6 +21,6 @@ outputs:
 
 templates:
     imports: import lte
-    make: lte.sss_tagger_cc(${fftl}, "$id")
+    make: lte.sss_tagger_cc(${fftl}, '"${id}"')
 
 file_format: 1

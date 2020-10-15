@@ -33,6 +33,6 @@ outputs:
 
 templates:
     imports: import lte
-    make: lte.mib_unpack_vbm("$id")
+    make: lte.mib_unpack_vbm('${id}')
 
 file_format: 1

@@ -24,6 +24,6 @@ outputs:
 
 templates:
     imports: import lte
-    make: lte.pss_calculator_vcm(${fftl}, "$id")
+    make: lte.pss_calculator_vcm(${fftl}, '${id}')
 
 file_format: 1

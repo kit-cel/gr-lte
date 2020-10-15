@@ -11,7 +11,7 @@ parameters:
 -   id: rxant
     label: RX antennas
     dtype: int
-    hide: part
+    #hide part
 -   id: grpdelay
     label: Filter Group Delay
     dtype: int

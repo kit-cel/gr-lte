@@ -9,11 +9,11 @@ parameters:
     label: RX antennas
     dtype: int
     default: '1'
-    hide: ${ 'part' if vlen == 1 else 'none' }
+      ##hide ${ 'part' if vlen == 1 else 'none' }
 -   id: subcarriers
     label: subcarriers
     dtype: int
-    hide: ${ 'part' if vlen == 1 else 'none' }
+      ##hide ${ 'part' if vlen == 1 else 'none' }
 -   id: tag_key
     label: tag key value
     dtype: string
@@ -40,6 +40,6 @@ outputs:
 templates:
     imports: import lte
     make: lte.channel_estimator_vcvc(${rxant}, ${subcarriers}, ${tag_key}, "pilots",
-        ${pilot_carriers}, ${pilot_symbols}, "$id")
+        ${pilot_carriers}, ${pilot_symbols}, '${id}')
 
 file_format: 1

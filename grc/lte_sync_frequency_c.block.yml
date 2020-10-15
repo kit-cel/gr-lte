@@ -18,6 +18,6 @@ inputs:
 
 templates:
     imports: import lte
-    make: lte.sync_frequency_c(self.${sig}, ${fftl}, "$id")
+    make: lte.sync_frequency_c(self.${sig}, ${fftl}, '${id}')
 
 file_format: 1

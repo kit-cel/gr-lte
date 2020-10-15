@@ -21,6 +21,6 @@ outputs:
 
 templates:
     imports: import lte
-    make: lte.pcfich_unpack_vfm(${key}, "CFI", "$id")
+    make: lte.pcfich_unpack_vfm(${key}, "CFI", '${id}')
 
 file_format: 1

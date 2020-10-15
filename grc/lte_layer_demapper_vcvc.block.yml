@@ -11,7 +11,7 @@ parameters:
 -   id: vlen
     label: vector length
     dtype: int
-    hide: ${ 'part' if vlen == 1 else 'none' }
+    #hide ${ 'part' if vlen == 1 else 'none' }
 -   id: style
     label: RX style
     dtype: string
@@ -31,6 +31,6 @@ outputs:
 
 templates:
     imports: import lte
-    make: lte.layer_demapper_vcvc(${N_ant}, ${vlen}, ${style}, "$id")
+    make: lte.layer_demapper_vcvc(${N_ant}, ${vlen}, ${style}, '${id}')
 
 file_format: 1

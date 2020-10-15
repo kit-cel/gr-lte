@@ -9,11 +9,11 @@ parameters:
     label: antenna ports
     dtype: int
     default: '1'
-    hide: part
+    #hide part
 -   id: vlen
     label: vector length
     dtype: int
-    hide: ${ 'part' if vlen == 1 else 'none' }
+    #hide ${ 'part' if vlen == 1 else 'none' }
 -   id: style
     label: RX style
     dtype: string
@@ -21,7 +21,7 @@ parameters:
     label: RX antennas
     dtype: int
     default: '1'
-    hide: ${ 'part' if vlen == 1 else 'none' }
+    #hide ${ 'part' if vlen == 1 else 'none' }
 
 inputs:
 -   domain: stream

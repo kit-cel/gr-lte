@@ -1,14 +1,14 @@
 options:
   parameters:
     author: Johannes Demel
-    category: Custom
+    category: lte
     cmake_opt: ''
     comment: ''
     copyright: ''
     description: ''
     gen_cmake: 'On'
     gen_linking: dynamic
-    generate_options: hb_qt_gui
+    generate_options: qt_gui
     hier_block_src_path: '.:'
     id: lte_top_block_siso
     max_nouts: '0'
@@ -20,7 +20,7 @@ options:
     run_command: '{python} -u {filename}'
     run_options: prompt
     sizing_mode: fixed
-    thread_safe_setters: ''
+    thread_safe_setters: '1'
     title: LTE top level flowgraph SISO
     window_size: 1920, 1080
   states:
@@ -36,14 +36,35 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: '6'
+    value: '50'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [195, 6]
+    coordinate: [320, 84.0]
     rotation: 0
     state: enabled
+- name: fc2
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: ''
+    label: Freq
+    min_len: '800'
+    orient: Qt.Horizontal
+    rangeType: float
+    start: '8006'
+    step: 1e6
+    stop: 1900e6
+    value: fc
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1120, 12.0]
+    rotation: 0
+    state: true
 - name: fftlen
   id: variable
   parameters:
@@ -68,6 +89,27 @@ blocks:
     coordinate: [485, 7]
     rotation: 0
     state: enabled
+- name: gain
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: ''
+    label: Gain
+    min_len: '200'
+    orient: Qt.Horizontal
+    rangeType: float
+    start: '0'
+    step: '1'
+    stop: '60'
+    value: '50'
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1272, 12.0]
+    rotation: 0
+    state: true
 - name: interp_val
   id: variable
   parameters:
@@ -77,9 +119,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1344, 28.0]
+    coordinate: [792, 12.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: pbch_descr_key
   id: variable
   parameters:
@@ -104,6 +146,18 @@ blocks:
     coordinate: [225, 67]
     rotation: 0
     state: enabled
+- name: show_id
+  id: variable
+  parameters:
+    comment: ''
+    value: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [592, 12.0]
+    rotation: 0
+    state: true
 - name: MIB
   id: lte_mib_unpack_vbm
   parameters:
@@ -116,7 +170,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1168, 360.0]
+    coordinate: [1176, 360.0]
     rotation: 0
     state: enabled
 - name: blocks_add_xx_0
@@ -134,7 +188,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [688, 144.0]
+    coordinate: [656, 144.0]
     rotation: 0
     state: disabled
 - name: blocks_deinterleave_0
@@ -153,7 +207,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [448, 112.0]
+    coordinate: [488, 144.0]
     rotation: 0
     state: disabled
 - name: blocks_head_0_0
@@ -171,7 +225,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [608, 36.0]
+    coordinate: [608, 68.0]
     rotation: 0
     state: disabled
 - name: blocks_throttle_0
@@ -190,42 +244,59 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [872, 76.0]
+    coordinate: [848, 188.0]
     rotation: 0
     state: disabled
+- name: fc
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: LTE
+    short_id: f
+    type: eng_float
+    value: 801e6
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [40, 620.0]
+    rotation: 0
+    state: true
 - name: limesdr_source_0
   id: limesdr_source
   parameters:
     affinity: ''
     alias: ''
     allow_tcxo_dac: '0'
-    analog_bandw_ch0: 1.5e6
+    analog_bandw_ch0: '0'
     analog_bandw_ch1: 1.5e6
-    calibr_bandw_ch0: 2.5e6
+    calibr_bandw_ch0: 10e6
     calibr_bandw_ch1: 2.5e6
     channel_mode: '0'
     comment: ''
     dacVal: '180'
-    digital_bandw_ch0: '30720000'
+    digital_bandw_ch0: '0'
     digital_bandw_ch1: samp_rate
     filename: ''
-    gain_dB_ch0: '50'
+    gain_dB_ch0: gain
     gain_dB_ch1: '1'
-    lna_path_ch0: '255'
+    lna_path_ch0: '3'
     lna_path_ch1: '2'
     maxoutbuf: '0'
     minoutbuf: '0'
     nco_freq_ch0: '0'
     nco_freq_ch1: '0'
     oversample: '0'
-    rf_freq: 1815e6
-    samp_rate: '30720000.0'
+    rf_freq: fc2
+    samp_rate: samp_rate
     serial: 1D424AFB4F4F9A
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [288, 188.0]
+    coordinate: [16, 172.0]
     rotation: 0
     state: true
 - name: lte_bch_decoder_0
@@ -240,7 +311,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [960, 409]
+    coordinate: [1008, 408.0]
     rotation: 0
     state: enabled
 - name: lte_channel_estimator_0
@@ -250,7 +321,7 @@ blocks:
     affinity: ''
     alias: ''
     comment: ''
-    estimator_key: '"slot"'
+    estimator_key: frame_key
     initial_id: '124'
     maxoutbuf: '0'
     minoutbuf: '0'
@@ -258,7 +329,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [568, 403]
+    coordinate: [464, 468.0]
     rotation: 0
     state: enabled
 - name: lte_cp_ffo_sync_0
@@ -287,18 +358,18 @@ blocks:
     fftlen: fftlen
     maxoutbuf: '0'
     minoutbuf: '0'
-    ofdm_key: '"slot"'
+    ofdm_key: frame_key
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [352, 347]
+    coordinate: [328, 380.0]
     rotation: 0
     state: enabled
 - name: lte_pbch_decoder_0
   id: lte_pbch_decoder
   parameters:
-    N_rb_dl: '50'
+    N_rb_dl: N_rb_dl
     affinity: ''
     alias: ''
     comment: ''
@@ -318,14 +389,14 @@ blocks:
     affinity: ''
     alias: ''
     comment: ''
-    key: '"slot"'
+    key: frame_key
     maxoutbuf: '0'
     minoutbuf: '0'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [792, 553]
+    coordinate: [800, 520.0]
     rotation: 0
     state: enabled
 - name: lte_pss_sync_0
@@ -341,7 +412,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [328, 283]
+    coordinate: [304, 284.0]
     rotation: 180
     state: enabled
 - name: lte_sss_sync_0
@@ -352,10 +423,10 @@ blocks:
     alias: ''
     comment: ''
     fftlen: fftlen
-    group_key: '"N_id_2"'
+    group_key: '''N_id_2'''
     maxoutbuf: '0'
     minoutbuf: '0'
-    offset_key: '"offset_marker"'
+    offset_key: '''offset_marker'''
   states:
     bus_sink: false
     bus_source: false
@@ -363,28 +434,6 @@ blocks:
     coordinate: [120, 492.0]
     rotation: 0
     state: enabled
-- name: pre_blocks_file_source_0
-  id: blocks_file_source
-  parameters:
-    affinity: ''
-    alias: ''
-    begin_tag: pmt.PMT_NIL
-    comment: ''
-    file: /home/johannes/src/gr-lte/tests/lte_test_data_RX1_NRBDL100.dat
-    length: '0'
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    offset: '0'
-    repeat: 'True'
-    type: complex
-    vlen: '1'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [72, 132.0]
-    rotation: 0
-    state: disabled
 - name: pre_rational_resampler_xxx_0
   id: rational_resampler_xxx
   parameters:
@@ -402,9 +451,89 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1080, 28.0]
+    coordinate: [640, 180.0]
     rotation: 0
-    state: disabled
+    state: enabled
+- name: qtgui_freq_sink_x_0
+  id: qtgui_freq_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    average: '1.0'
+    axislabels: 'True'
+    bw: samp_rate
+    color1: '"blue"'
+    color10: '"dark blue"'
+    color2: '"red"'
+    color3: '"green"'
+    color4: '"black"'
+    color5: '"cyan"'
+    color6: '"magenta"'
+    color7: '"yellow"'
+    color8: '"dark red"'
+    color9: '"dark green"'
+    comment: ''
+    ctrlpanel: 'False'
+    fc: fc
+    fftsize: '1024'
+    freqhalf: 'True'
+    grid: 'False'
+    gui_hint: ''
+    label: Relative Gain
+    label1: ''
+    label10: ''''''
+    label2: ''''''
+    label3: ''''''
+    label4: ''''''
+    label5: ''''''
+    label6: ''''''
+    label7: ''''''
+    label8: ''''''
+    label9: ''''''
+    legend: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    name: '""'
+    nconnections: '1'
+    showports: 'False'
+    tr_chan: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_tag: '""'
+    type: complex
+    units: dB
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    wintype: firdes.WIN_BLACKMAN_hARRIS
+    ymax: '10'
+    ymin: '-140'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [872, 80.0]
+    rotation: 0
+    state: true
 - name: sync_lte_rough_symbol_sync_cc_0
   id: lte_rough_symbol_sync_cc
   parameters:
@@ -419,7 +548,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [488, 283]
+    coordinate: [536, 316.0]
     rotation: 180
     state: enabled
 
@@ -430,10 +559,9 @@ connections:
 - [blocks_deinterleave_0, '0', blocks_add_xx_0, '1']
 - [blocks_deinterleave_0, '1', blocks_add_xx_0, '0']
 - [blocks_head_0_0, '0', blocks_throttle_0, '0']
-- [blocks_head_0_0, '0', sync_lte_rough_symbol_sync_cc_0, '0']
-- [blocks_throttle_0, '0', pre_rational_resampler_xxx_0, '0']
-- [blocks_throttle_0, '0', sync_lte_rough_symbol_sync_cc_0, '0']
-- [limesdr_source_0, '0', sync_lte_rough_symbol_sync_cc_0, '0']
+- [limesdr_source_0, '0', blocks_head_0_0, '0']
+- [limesdr_source_0, '0', pre_rational_resampler_xxx_0, '0']
+- [limesdr_source_0, '0', qtgui_freq_sink_x_0, '0']
 - [lte_bch_decoder_0, '0', MIB, '0']
 - [lte_bch_decoder_0, '1', MIB, '1']
 - [lte_channel_estimator_0, '0', lte_pbch_decoder_0, '1']
@@ -450,8 +578,6 @@ connections:
 - [lte_sss_sync_0, cell_id, lte_channel_estimator_0, cell_id]
 - [lte_sss_sync_0, cell_id, lte_pbch_decoder_0, cell_id]
 - [lte_sss_sync_0, cell_id, lte_pcfich_decoder_0, cell_id]
-- [pre_blocks_file_source_0, '0', blocks_deinterleave_0, '0']
-- [pre_blocks_file_source_0, '0', blocks_head_0_0, '0']
 - [pre_rational_resampler_xxx_0, '0', sync_lte_rough_symbol_sync_cc_0, '0']
 - [sync_lte_rough_symbol_sync_cc_0, '0', lte_pss_sync_0, '0']
 

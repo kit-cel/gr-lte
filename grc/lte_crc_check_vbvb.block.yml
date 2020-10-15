@@ -8,7 +8,7 @@ parameters:
 -   id: data_len
     label: payload length
     dtype: int
-    hide: ${ 'part' if vlen == 1 else 'none' }
+    #hide ${ 'part' if vlen == 1 else 'none' }
 -   id: final_xor
     label: final XOR
     dtype: int
@@ -29,6 +29,6 @@ outputs:
 
 templates:
     imports: import lte
-    make: lte.crc_check_vbvb(${data_len}, ${final_xor}, "$id")
+    make: lte.crc_check_vbvb(${data_len}, ${final_xor}, '${id}')
 
 file_format: 1

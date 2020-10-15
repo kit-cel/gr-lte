@@ -28,6 +28,6 @@ outputs:
 
 templates:
     imports: import lte
-    make: lte.sss_calculator_vcm(${fftl}, ${in_key}, ${out_key}, "$id")
+    make: lte.sss_calculator_vcm(${fftl}, ${in_key}, ${out_key}, '${id}')
 
 file_format: 1

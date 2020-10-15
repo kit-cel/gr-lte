@@ -8,11 +8,11 @@ parameters:
 -   id: fftl
     label: FFT length
     dtype: int
-    hide: ${ 'part' if vlen == 1 else 'none' }
+    #hide ${ 'part' if vlen == 1 else 'none' }
 -   id: rxant
     label: RX antennas
     dtype: int
-    hide: part
+    #hide part
 -   id: key
     label: tag key value
     dtype: string

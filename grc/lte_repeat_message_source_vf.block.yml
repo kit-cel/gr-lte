@@ -8,7 +8,7 @@ parameters:
 -   id: vector_len
     label: vector length
     dtype: int
-    hide: ${ 'part' if vlen == 1 else 'none' }
+    #hide ${ 'part' if vlen == 1 else 'none' }
 
 inputs:
 -   domain: message
@@ -21,6 +21,6 @@ outputs:
 
 templates:
     imports: import lte
-    make: lte.repeat_message_source_vf(${vector_len}, "$id")
+    make: lte.repeat_message_source_vf(${vector_len}, '${id}')
 
 file_format: 1

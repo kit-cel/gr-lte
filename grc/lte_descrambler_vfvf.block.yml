@@ -11,7 +11,7 @@ parameters:
 -   id: vlen
     label: vector length
     dtype: int
-    hide: ${ 'part' if vlen == 1 else 'none' }
+    #hide ${ 'part' if vlen == 1 else 'none' }
 -   id: initial_seqs
     label: Initial sequences
     dtype: raw
@@ -31,7 +31,7 @@ outputs:
 templates:
     imports: import lte
     make: |-
-        lte.descrambler_vfvf(${tag_key}, "seqs", ${vlen}, "$id")
-        self.${id}.set_descr_seqs(${initial_seqs})
+        lte.descrambler_vfvf(${tag_key}, "seqs", ${vlen}, '${id}')
+        self.'${id}'.set_descr_seqs(${initial_seqs})
 
 file_format: 1
